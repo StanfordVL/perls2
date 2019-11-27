@@ -1,0 +1,24 @@
+<robot name="root">
+  <link name="link_thingiverse~screwdriver_handle_3195351_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.42E-01"/>
+      <inertia ixx="2.92E-04" ixy="-7.89E-07" ixz="-1.17E-06" iyy="2.06E-04" iyz="1.23E-04" izz="1.14E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~screwdriver_handle_3195351_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~screwdriver_handle_3195351_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+</robot>

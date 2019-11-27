@@ -1,0 +1,402 @@
+<robot name="root">
+  <link name="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.16E-01"/>
+      <inertia ixx="1.49E-04" ixy="-1.15E-04" ixz="2.94E-06" iyy="5.06E-04" iyz="-1.69E-06" izz="4.42E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~s_bracket_188340_packaged_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~s_bracket_188340_packaged_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.66E-02"/>
+      <inertia ixx="1.15E-05" ixy="-1.17E-05" ixz="8.20E-06" iyy="3.58E-05" iyz="-2.44E-06" izz="4.06E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~s_bracket_188340_packaged_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~s_bracket_188340_packaged_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_0"/>
+    <child link="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_1"/>
+  </joint>
+  <link name="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_2">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.23E-02"/>
+      <inertia ixx="1.75E-05" ixy="6.45E-06" ixz="-8.69E-06" iyy="2.94E-05" iyz="-5.31E-06" izz="2.25E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~s_bracket_188340_packaged_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~s_bracket_188340_packaged_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_2_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_1"/>
+    <child link="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_2"/>
+  </joint>
+  <link name="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_3">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.25E-02"/>
+      <inertia ixx="4.54E-05" ixy="1.23E-05" ixz="5.04E-05" iyy="1.18E-04" iyz="1.04E-05" izz="7.79E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~s_bracket_188340_packaged_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~s_bracket_188340_packaged_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_3_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_2"/>
+    <child link="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_3"/>
+  </joint>
+  <link name="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_4">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.62E-04"/>
+      <inertia ixx="1.09E-06" ixy="2.73E-08" ixz="6.23E-08" iyy="9.75E-07" iyz="3.22E-07" izz="1.35E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~s_bracket_188340_packaged_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~s_bracket_188340_packaged_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_4_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_3"/>
+    <child link="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_4"/>
+  </joint>
+  <link name="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_5">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.91E-02"/>
+      <inertia ixx="8.98E-06" ixy="-1.35E-05" ixz="1.58E-05" iyy="7.08E-05" iyz="-3.28E-06" izz="7.13E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~s_bracket_188340_packaged_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~s_bracket_188340_packaged_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_5_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_4"/>
+    <child link="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_5"/>
+  </joint>
+  <link name="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_6">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.25E-02"/>
+      <inertia ixx="7.81E-06" ixy="-1.71E-05" ixz="-8.01E-06" iyy="8.69E-05" iyz="1.71E-06" izz="9.07E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~s_bracket_188340_packaged_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~s_bracket_188340_packaged_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_6_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_5"/>
+    <child link="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_6"/>
+  </joint>
+  <link name="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_7">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.52E-02"/>
+      <inertia ixx="1.19E-05" ixy="2.24E-06" ixz="4.97E-06" iyy="1.21E-05" iyz="3.90E-06" izz="8.75E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~s_bracket_188340_packaged_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~s_bracket_188340_packaged_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_7_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_6"/>
+    <child link="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_7"/>
+  </joint>
+  <link name="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_8">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.06E-02"/>
+      <inertia ixx="1.20E-05" ixy="2.16E-05" ixz="2.29E-06" iyy="1.44E-04" iyz="4.24E-07" izz="1.42E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~s_bracket_188340_packaged_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~s_bracket_188340_packaged_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_8_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_7"/>
+    <child link="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_8"/>
+  </joint>
+  <link name="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_9">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.56E-02"/>
+      <inertia ixx="2.04E-05" ixy="9.25E-06" ixz="-2.87E-05" iyy="7.51E-05" iyz="-5.91E-06" izz="5.89E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~s_bracket_188340_packaged_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~s_bracket_188340_packaged_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_9_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_8"/>
+    <child link="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_9"/>
+  </joint>
+  <link name="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_10">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.68E-02"/>
+      <inertia ixx="4.05E-06" ixy="6.39E-06" ixz="7.20E-06" iyy="3.65E-05" iyz="1.26E-06" izz="3.69E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~s_bracket_188340_packaged_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~s_bracket_188340_packaged_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_10_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_9"/>
+    <child link="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_10"/>
+  </joint>
+  <link name="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_11">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.91E-02"/>
+      <inertia ixx="1.47E-05" ixy="7.10E-06" ixz="2.04E-05" iyy="4.92E-05" iyz="4.09E-06" izz="3.98E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~s_bracket_188340_packaged_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~s_bracket_188340_packaged_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_11_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_10"/>
+    <child link="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_11"/>
+  </joint>
+  <link name="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_12">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.45E-02"/>
+      <inertia ixx="6.56E-06" ixy="-5.79E-06" ixz="9.89E-06" iyy="2.98E-05" iyz="-2.38E-06" izz="2.63E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~s_bracket_188340_packaged_convex_piece_12.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~s_bracket_188340_packaged_convex_piece_12.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_12_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_11"/>
+    <child link="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_12"/>
+  </joint>
+  <link name="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_13">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.77E-03"/>
+      <inertia ixx="4.60E-06" ixy="-1.89E-06" ixz="-2.34E-06" iyy="8.33E-06" iyz="1.60E-06" izz="5.78E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~s_bracket_188340_packaged_convex_piece_13.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~s_bracket_188340_packaged_convex_piece_13.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_13_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_12"/>
+    <child link="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_13"/>
+  </joint>
+  <link name="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_14">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.65E-03"/>
+      <inertia ixx="3.17E-06" ixy="-6.96E-07" ixz="1.47E-06" iyy="3.60E-06" iyz="-1.24E-06" izz="2.06E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~s_bracket_188340_packaged_convex_piece_14.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~s_bracket_188340_packaged_convex_piece_14.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_14_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_13"/>
+    <child link="link_thingiverse_packaged~s_bracket_188340_packaged_convex_piece_14"/>
+  </joint>
+</robot>

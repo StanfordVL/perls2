@@ -1,0 +1,1482 @@
+<robot name="root">
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.01E-02"/>
+      <inertia ixx="3.22E-05" ixy="-9.82E-06" ixz="-2.80E-05" iyy="5.74E-05" iyz="9.24E-06" izz="3.58E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.30E-03"/>
+      <inertia ixx="7.58E-06" ixy="-6.02E-06" ixz="-1.29E-05" iyy="3.77E-05" iyz="2.54E-06" izz="3.41E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_0"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_1"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_2">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.35E-02"/>
+      <inertia ixx="3.02E-05" ixy="1.80E-05" ixz="-3.00E-05" iyy="7.12E-05" iyz="-1.16E-05" izz="5.69E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_2_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_1"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_2"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_3">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.38E-03"/>
+      <inertia ixx="1.85E-05" ixy="1.38E-05" ixz="-8.31E-06" iyy="2.03E-05" iyz="-7.78E-06" izz="2.81E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_3_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_2"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_3"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_4">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.35E-02"/>
+      <inertia ixx="4.77E-05" ixy="-5.33E-06" ixz="3.51E-05" iyy="7.59E-05" iyz="-6.25E-06" izz="3.35E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_4_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_3"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_4"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_5">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.16E-03"/>
+      <inertia ixx="1.53E-06" ixy="-3.90E-06" ixz="-7.31E-07" iyy="3.13E-05" iyz="5.35E-08" izz="3.22E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_5_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_4"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_5"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_6">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.05E-02"/>
+      <inertia ixx="1.18E-05" ixy="-9.68E-06" ixz="1.91E-05" iyy="6.09E-05" iyz="-3.46E-06" izz="5.70E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_6_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_5"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_6"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_7">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.09E-02"/>
+      <inertia ixx="1.25E-05" ixy="2.14E-05" ixz="5.93E-06" iyy="5.43E-05" iyz="2.56E-06" izz="6.19E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_7_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_6"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_7"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_8">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.39E-02"/>
+      <inertia ixx="5.13E-05" ixy="3.73E-05" ixz="4.66E-06" iyy="3.45E-05" iyz="5.89E-06" izz="7.99E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_8_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_7"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_8"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_9">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.05E-02"/>
+      <inertia ixx="3.58E-05" ixy="1.25E-05" ixz="2.57E-05" iyy="5.61E-05" iyz="1.31E-05" izz="3.37E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_9_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_8"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_9"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_10">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.48E-03"/>
+      <inertia ixx="3.22E-05" ixy="1.49E-05" ixz="1.33E-05" iyy="2.80E-05" iyz="1.54E-05" izz="3.13E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_10_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_9"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_10"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_11">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.44E-03"/>
+      <inertia ixx="2.04E-05" ixy="7.37E-06" ixz="8.81E-06" iyy="1.89E-05" iyz="9.81E-06" izz="1.54E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_11_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_10"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_11"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_12">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.09E-02"/>
+      <inertia ixx="3.89E-05" ixy="2.58E-05" ixz="1.43E-05" iyy="3.52E-05" iyz="1.55E-05" izz="5.59E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_12.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_12.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_12_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_11"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_12"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_13">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.10E-02"/>
+      <inertia ixx="1.77E-05" ixy="9.98E-06" ixz="2.42E-05" iyy="6.13E-05" iyz="5.21E-06" izz="5.03E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_13.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_13.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_13_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_12"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_13"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_14">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.24E-03"/>
+      <inertia ixx="3.88E-05" ixy="5.86E-06" ixz="2.35E-05" iyy="5.23E-05" iyz="8.40E-06" izz="1.98E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_14.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_14.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_14_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_13"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_14"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_15">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.62E-03"/>
+      <inertia ixx="3.39E-05" ixy="2.28E-06" ixz="8.13E-07" iyy="4.86E-06" iyz="1.04E-05" izz="3.11E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_15.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_15.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_15_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_14"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_15"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_16">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.59E-03"/>
+      <inertia ixx="2.02E-05" ixy="-3.23E-06" ixz="1.13E-05" iyy="2.55E-05" iyz="-5.25E-06" izz="9.19E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_16.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_16.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_16_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_15"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_16"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_17">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.03E-03"/>
+      <inertia ixx="4.47E-05" ixy="-3.84E-06" ixz="9.65E-06" iyy="4.03E-05" iyz="-1.46E-05" izz="1.01E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_17.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_17.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_17_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_16"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_17"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_18">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.59E-03"/>
+      <inertia ixx="7.18E-06" ixy="-3.35E-06" ixz="9.83E-06" iyy="2.37E-05" iyz="-1.98E-06" izz="1.81E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_18.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_18.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_18_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_17"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_18"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_19">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.24E-03"/>
+      <inertia ixx="3.72E-05" ixy="1.02E-06" ixz="-3.22E-06" iyy="3.40E-05" iyz="-1.03E-05" izz="4.56E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_19.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_19.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_19_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_18"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_19"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_20">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.02E-03"/>
+      <inertia ixx="2.97E-05" ixy="4.44E-06" ixz="-1.27E-05" iyy="3.26E-05" iyz="-8.78E-06" izz="1.02E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_20.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_20.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_20_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_19"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_20"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_21">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.35E-02"/>
+      <inertia ixx="7.29E-05" ixy="1.17E-05" ixz="-1.15E-05" iyy="4.27E-05" iyz="-3.52E-05" izz="4.30E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_21.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_21.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_21_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_20"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_21"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_22">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.34E-03"/>
+      <inertia ixx="7.16E-06" ixy="1.47E-05" ixz="-2.23E-06" iyy="4.34E-05" iyz="-7.61E-07" izz="4.85E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_22.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_22.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_22_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_21"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_22"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_23">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.04E-03"/>
+      <inertia ixx="2.79E-05" ixy="2.55E-05" ixz="-2.01E-06" iyy="2.71E-05" iyz="-1.98E-06" izz="5.26E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_23.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_23.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_23_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_22"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_23"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_24">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.06E-03"/>
+      <inertia ixx="2.48E-05" ixy="1.59E-05" ixz="-1.32E-05" iyy="2.89E-05" iyz="-1.15E-05" izz="3.32E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_24.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_24.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_24_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_23"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_24"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_25">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.03E-02"/>
+      <inertia ixx="2.68E-05" ixy="1.14E-05" ixz="-2.54E-05" iyy="5.61E-05" iyz="-9.00E-06" izz="3.85E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_25.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_25.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_25_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_24"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_25"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_26">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.72E-03"/>
+      <inertia ixx="5.54E-05" ixy="8.85E-06" ixz="1.30E-07" iyy="4.45E-06" iyz="5.66E-07" izz="5.86E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_26.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_26.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_26_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_25"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_26"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_27">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.72E-02"/>
+      <inertia ixx="6.22E-05" ixy="-3.23E-05" ixz="-1.33E-05" iyy="5.37E-05" iyz="1.56E-05" izz="8.77E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_27.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_27.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_27_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_26"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_27"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_28">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.81E-03"/>
+      <inertia ixx="4.75E-05" ixy="6.91E-06" ixz="5.26E-07" iyy="3.44E-06" iyz="3.52E-06" izz="4.80E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_28.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_28.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_28_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_27"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_28"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_29">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.08E-03"/>
+      <inertia ixx="2.59E-05" ixy="3.32E-06" ixz="1.90E-06" iyy="7.66E-06" iyz="1.11E-05" izz="2.03E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_29.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_29.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_29_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_28"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_29"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_30">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.00E-03"/>
+      <inertia ixx="2.71E-05" ixy="-5.21E-06" ixz="-8.44E-06" iyy="2.36E-05" iyz="1.18E-05" izz="1.21E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_30.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_30.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_30_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_29"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_30"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_31">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.72E-03"/>
+      <inertia ixx="3.34E-05" ixy="3.70E-07" ixz="3.76E-06" iyy="3.40E-05" iyz="3.13E-06" izz="1.74E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_31.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_31.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_31_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_30"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_31"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_32">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.40E-02"/>
+      <inertia ixx="7.67E-05" ixy="4.58E-06" ixz="7.15E-06" iyy="5.68E-05" iyz="3.25E-05" izz="2.53E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_32.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_32.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_32_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_31"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_32"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_33">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.87E-03"/>
+      <inertia ixx="1.50E-05" ixy="-6.66E-06" ixz="4.14E-06" iyy="8.53E-06" iyz="-6.60E-06" izz="1.51E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_33.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_33.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_33_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_32"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_33"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_34">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.38E-03"/>
+      <inertia ixx="3.34E-05" ixy="-1.56E-05" ixz="1.77E-05" iyy="3.78E-05" iyz="-1.58E-05" izz="3.27E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_34.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_34.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_34_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_33"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_34"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_35">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.06E-02"/>
+      <inertia ixx="6.14E-05" ixy="2.38E-06" ixz="3.16E-06" iyy="3.96E-05" iyz="2.87E-05" izz="2.53E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_35.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_35.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_35_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_34"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_35"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_36">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.56E-03"/>
+      <inertia ixx="5.50E-05" ixy="7.94E-07" ixz="4.13E-06" iyy="5.39E-05" iyz="9.70E-06" izz="4.46E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_36.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_36.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_36_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_35"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_36"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_37">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.32E-03"/>
+      <inertia ixx="3.46E-05" ixy="-7.99E-06" ixz="-1.05E-05" iyy="2.72E-05" iyz="1.61E-05" izz="1.86E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_37.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_37.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_37_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_36"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_37"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_38">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.95E-03"/>
+      <inertia ixx="2.97E-05" ixy="-2.22E-06" ixz="-1.22E-05" iyy="3.40E-05" iyz="5.03E-06" izz="7.13E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_38.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_38.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_38_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_37"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_38"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_39">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.44E-03"/>
+      <inertia ixx="1.42E-05" ixy="2.10E-06" ixz="1.40E-06" iyy="4.85E-06" iyz="6.43E-06" izz="1.05E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_39.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_39.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_39_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_38"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_39"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_40">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.43E-03"/>
+      <inertia ixx="1.51E-05" ixy="-2.53E-06" ixz="-1.64E-06" iyy="5.15E-06" iyz="6.78E-06" izz="1.15E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_40.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_40.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_40_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_39"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_40"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_41">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.20E-02"/>
+      <inertia ixx="4.53E-05" ixy="-1.48E-05" ixz="1.72E-05" iyy="3.87E-05" iyz="-2.15E-05" izz="3.76E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_41.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_41.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_41_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_40"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_41"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_42">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.92E-03"/>
+      <inertia ixx="2.11E-05" ixy="-1.09E-05" ixz="6.81E-06" iyy="1.70E-05" iyz="-8.20E-06" izz="2.87E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_42.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_42.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_42_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_41"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_42"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_43">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.43E-03"/>
+      <inertia ixx="1.81E-05" ixy="1.54E-06" ixz="-6.10E-07" iyy="2.91E-06" iyz="-6.10E-06" izz="1.59E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_43.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_43.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_43_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_42"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_43"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_44">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.58E-03"/>
+      <inertia ixx="1.74E-05" ixy="7.46E-06" ixz="-3.11E-06" iyy="6.65E-06" iyz="-6.03E-06" izz="1.87E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_44.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_44.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_44_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_43"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_44"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_45">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.29E-03"/>
+      <inertia ixx="2.78E-05" ixy="8.67E-06" ixz="-3.40E-06" iyy="7.44E-06" iyz="-9.11E-06" izz="2.76E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_45.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_45.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_45_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_44"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_45"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_46">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.64E-03"/>
+      <inertia ixx="3.45E-05" ixy="-3.62E-06" ixz="1.36E-06" iyy="5.15E-06" iyz="-1.07E-05" izz="3.14E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_46.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_46.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_46_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_45"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_46"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_47">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.29E-03"/>
+      <inertia ixx="4.44E-05" ixy="9.59E-06" ixz="-1.04E-05" iyy="2.92E-05" iyz="-2.11E-05" izz="2.58E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_47.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_47.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_47_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_46"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_47"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_48">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.92E-03"/>
+      <inertia ixx="3.17E-05" ixy="2.89E-06" ixz="-1.02E-05" iyy="3.32E-05" iyz="-8.04E-06" izz="6.73E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_48.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_48.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_48_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_47"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_48"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_49">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.82E-03"/>
+      <inertia ixx="5.13E-05" ixy="-4.49E-06" ixz="4.19E-06" iyy="2.59E-05" iyz="-2.47E-05" izz="2.88E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_49.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_49.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_49_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_48"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_49"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_50">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.33E-03"/>
+      <inertia ixx="5.30E-05" ixy="-2.18E-06" ixz="6.38E-06" iyy="4.89E-05" iyz="-1.53E-05" izz="8.04E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_50.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_50.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_50_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_49"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_50"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_51">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.79E-03"/>
+      <inertia ixx="1.20E-06" ixy="-2.37E-06" ixz="-1.74E-06" iyy="2.88E-05" iyz="1.59E-07" izz="2.85E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_51.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_51.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_51_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_50"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_51"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_52">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.62E-03"/>
+      <inertia ixx="4.74E-06" ixy="-1.30E-06" ixz="-7.75E-06" iyy="1.87E-05" iyz="7.42E-07" izz="1.45E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_52.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_52.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_52_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_51"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_52"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_53">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.77E-03"/>
+      <inertia ixx="1.98E-05" ixy="-2.21E-06" ixz="-1.50E-05" iyy="3.15E-05" iyz="2.78E-06" izz="1.34E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_53.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_53.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_53_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_52"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_53"/>
+  </joint>
+  <link name="link_thingiverse~ball_shaped_tub_534637_convex_piece_54">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.92E-03"/>
+      <inertia ixx="2.58E-05" ixy="-1.19E-06" ixz="-8.17E-06" iyy="2.78E-05" iyz="3.48E-06" izz="3.79E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_54.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~ball_shaped_tub_534637_convex_piece_54.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~ball_shaped_tub_534637_convex_piece_54_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~ball_shaped_tub_534637_convex_piece_53"/>
+    <child link="link_thingiverse~ball_shaped_tub_534637_convex_piece_54"/>
+  </joint>
+</robot>

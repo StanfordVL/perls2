@@ -1,0 +1,105 @@
+<robot name="root">
+  <link name="link_thingiverse~part_4398113_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.33E-01"/>
+      <inertia ixx="2.54E-05" ixy="-1.89E-08" ixz="6.41E-09" iyy="2.54E-05" iyz="1.01E-09" izz="2.58E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~part_4398113_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~part_4398113_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_thingiverse~part_4398113_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.05E-03"/>
+      <inertia ixx="1.44E-06" ixy="7.74E-09" ixz="-2.55E-08" iyy="1.38E-06" iyz="-3.84E-07" izz="1.90E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~part_4398113_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~part_4398113_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~part_4398113_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~part_4398113_convex_piece_0"/>
+    <child link="link_thingiverse~part_4398113_convex_piece_1"/>
+  </joint>
+  <link name="link_thingiverse~part_4398113_convex_piece_2">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.60E-03"/>
+      <inertia ixx="1.16E-06" ixy="-3.91E-08" ixz="-3.15E-07" iyy="1.21E-06" iyz="1.68E-07" izz="1.61E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~part_4398113_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~part_4398113_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~part_4398113_convex_piece_2_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~part_4398113_convex_piece_1"/>
+    <child link="link_thingiverse~part_4398113_convex_piece_2"/>
+  </joint>
+  <link name="link_thingiverse~part_4398113_convex_piece_3">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.19E-03"/>
+      <inertia ixx="1.45E-06" ixy="3.08E-08" ixz="2.78E-07" iyy="1.46E-06" iyz="2.24E-07" izz="1.57E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~part_4398113_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~part_4398113_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~part_4398113_convex_piece_3_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~part_4398113_convex_piece_2"/>
+    <child link="link_thingiverse~part_4398113_convex_piece_3"/>
+  </joint>
+</robot>

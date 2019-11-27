@@ -1,0 +1,132 @@
+<robot name="root">
+  <link name="link_thingiverse_packaged~jungle_gym_handle_5372811_packaged_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.69E-01"/>
+      <inertia ixx="2.09E-04" ixy="2.12E-05" ixz="-3.01E-06" iyy="1.64E-03" iyz="-1.72E-05" izz="1.51E-03"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~jungle_gym_handle_5372811_packaged_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~jungle_gym_handle_5372811_packaged_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_thingiverse_packaged~jungle_gym_handle_5372811_packaged_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.35E-02"/>
+      <inertia ixx="1.14E-05" ixy="-9.32E-06" ixz="1.98E-05" iyy="9.88E-05" iyz="-2.29E-06" izz="9.49E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~jungle_gym_handle_5372811_packaged_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~jungle_gym_handle_5372811_packaged_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~jungle_gym_handle_5372811_packaged_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~jungle_gym_handle_5372811_packaged_convex_piece_0"/>
+    <child link="link_thingiverse_packaged~jungle_gym_handle_5372811_packaged_convex_piece_1"/>
+  </joint>
+  <link name="link_thingiverse_packaged~jungle_gym_handle_5372811_packaged_convex_piece_2">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.94E-02"/>
+      <inertia ixx="3.38E-05" ixy="-2.23E-05" ixz="-8.87E-05" iyy="3.49E-04" iyz="6.12E-06" izz="3.26E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~jungle_gym_handle_5372811_packaged_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~jungle_gym_handle_5372811_packaged_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~jungle_gym_handle_5372811_packaged_convex_piece_2_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~jungle_gym_handle_5372811_packaged_convex_piece_1"/>
+    <child link="link_thingiverse_packaged~jungle_gym_handle_5372811_packaged_convex_piece_2"/>
+  </joint>
+  <link name="link_thingiverse_packaged~jungle_gym_handle_5372811_packaged_convex_piece_3">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.12E-01"/>
+      <inertia ixx="3.64E-05" ixy="9.49E-06" ixz="-2.71E-05" iyy="1.48E-04" iyz="-7.40E-06" izz="1.31E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~jungle_gym_handle_5372811_packaged_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~jungle_gym_handle_5372811_packaged_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~jungle_gym_handle_5372811_packaged_convex_piece_3_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~jungle_gym_handle_5372811_packaged_convex_piece_2"/>
+    <child link="link_thingiverse_packaged~jungle_gym_handle_5372811_packaged_convex_piece_3"/>
+  </joint>
+  <link name="link_thingiverse_packaged~jungle_gym_handle_5372811_packaged_convex_piece_4">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.37E-02"/>
+      <inertia ixx="3.26E-05" ixy="2.00E-05" ixz="9.52E-05" iyy="4.27E-04" iyz="4.57E-06" izz="4.03E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~jungle_gym_handle_5372811_packaged_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~jungle_gym_handle_5372811_packaged_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~jungle_gym_handle_5372811_packaged_convex_piece_4_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~jungle_gym_handle_5372811_packaged_convex_piece_3"/>
+    <child link="link_thingiverse_packaged~jungle_gym_handle_5372811_packaged_convex_piece_4"/>
+  </joint>
+</robot>

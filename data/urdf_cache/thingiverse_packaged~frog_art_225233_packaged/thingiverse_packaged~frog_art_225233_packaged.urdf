@@ -1,0 +1,132 @@
+<robot name="root">
+  <link name="link_thingiverse_packaged~frog_art_225233_packaged_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.74E-02"/>
+      <inertia ixx="1.21E-04" ixy="2.30E-05" ixz="-1.73E-05" iyy="4.31E-04" iyz="-1.98E-06" izz="3.14E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~frog_art_225233_packaged_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~frog_art_225233_packaged_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_thingiverse_packaged~frog_art_225233_packaged_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.68E-02"/>
+      <inertia ixx="1.47E-05" ixy="2.14E-06" ixz="2.77E-06" iyy="2.71E-05" iyz="2.42E-06" izz="2.02E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~frog_art_225233_packaged_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~frog_art_225233_packaged_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~frog_art_225233_packaged_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~frog_art_225233_packaged_convex_piece_0"/>
+    <child link="link_thingiverse_packaged~frog_art_225233_packaged_convex_piece_1"/>
+  </joint>
+  <link name="link_thingiverse_packaged~frog_art_225233_packaged_convex_piece_2">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.23E-02"/>
+      <inertia ixx="7.05E-05" ixy="3.00E-05" ixz="9.28E-06" iyy="2.40E-04" iyz="1.18E-06" izz="1.80E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~frog_art_225233_packaged_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~frog_art_225233_packaged_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~frog_art_225233_packaged_convex_piece_2_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~frog_art_225233_packaged_convex_piece_1"/>
+    <child link="link_thingiverse_packaged~frog_art_225233_packaged_convex_piece_2"/>
+  </joint>
+  <link name="link_thingiverse_packaged~frog_art_225233_packaged_convex_piece_3">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.22E-02"/>
+      <inertia ixx="8.30E-05" ixy="3.08E-06" ixz="-7.96E-06" iyy="1.03E-04" iyz="-6.48E-06" izz="2.16E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~frog_art_225233_packaged_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~frog_art_225233_packaged_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~frog_art_225233_packaged_convex_piece_3_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~frog_art_225233_packaged_convex_piece_2"/>
+    <child link="link_thingiverse_packaged~frog_art_225233_packaged_convex_piece_3"/>
+  </joint>
+  <link name="link_thingiverse_packaged~frog_art_225233_packaged_convex_piece_4">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.97E-01"/>
+      <inertia ixx="2.81E-04" ixy="1.96E-05" ixz="2.34E-05" iyy="4.61E-04" iyz="7.23E-06" izz="1.88E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~frog_art_225233_packaged_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~frog_art_225233_packaged_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~frog_art_225233_packaged_convex_piece_4_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~frog_art_225233_packaged_convex_piece_3"/>
+    <child link="link_thingiverse_packaged~frog_art_225233_packaged_convex_piece_4"/>
+  </joint>
+</robot>

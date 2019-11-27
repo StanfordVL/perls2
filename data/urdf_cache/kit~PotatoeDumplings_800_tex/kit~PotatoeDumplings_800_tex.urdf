@@ -1,0 +1,24 @@
+<robot name="root">
+  <link name="link_kit~PotatoeDumplings_800_tex_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.26E+00"/>
+      <inertia ixx="6.93E-03" ixy="-2.85E-05" ixz="-6.67E-05" iyy="4.66E-03" iyz="-3.52E-04" izz="2.78E-03"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="kit~PotatoeDumplings_800_tex_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="kit~PotatoeDumplings_800_tex_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+</robot>

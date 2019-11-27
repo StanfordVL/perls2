@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<robot name="ikea">
+  <link name ="rb0">
+    <visual>
+      <origin xyz='0.214534 0.369400 0.388295' rpy='-3.128109 1.399800 3.141592'/>
+      <geometry>
+        <mesh filename="package://articulated_objects_db/data/objects/ikea/meshes/ikea_base.dae"  scale="1 1 1" />
+      </geometry>
+    </visual>
+  </link>
+  <joint name="j_0_1" type="prismatic">
+    <parent link="rb0"/>
+    <child link="rb1"/>
+    <origin xyz="-0.00470375613192 -0.265483350168 0.148710377102" rpy="0 0 0 "/>
+    <axis xyz="-0.992891801913 0.00939405813491 0.118649152406"/>
+    <limit effort="30" velocity="1.0" lower="-3.1416" upper="3.1416"/>
+  </joint>
+  <joint name="j_0_fixed" type="fixed">
+    <parent link="rb1"/>
+    <child link="rb1_marker"/>
+      <origin xyz="0.0 0.0 0.0" rpy="-1.47825929598 0.0377409359283 1.38154760502"/>
+    <limit effort="30" velocity="1.0" lower="-3.1416" upper="3.1416"/>
+  </joint>
+  <joint name="j_0_2" type="revolute">
+    <parent link="rb0"/>
+    <child link="rb2"/>
+    <origin xyz="0.0528845779085 -0.174184294123 0.421583593326" rpy="0 0 0 "/>
+    <axis xyz="-0.123897007593 -0.982669942962 0.137874271382"/>
+    <limit effort="30" velocity="1.0" lower="-3.1416" upper="3.1416"/>
+  </joint>
+  <joint name="j_1_fixed" type="fixed">
+    <parent link="rb2"/>
+    <child link="rb2_marker"/>
+      <origin xyz="-0.021688130989 0.0338331141182 0.219088075156" rpy="-0.0633759890146 0.765436451842 -2.88516624353"/>
+    <limit effort="30" velocity="1.0" lower="-3.1416" upper="3.1416"/>
+  </joint>
+  <link name ="rb1">
+  </link>
+  <link name ="rb1_marker">
+    <visual>
+      <origin xyz='0.213350 -0.079374 -0.141522' rpy='-0.105485 -1.381347 -3.040520'/>
+      <geometry>
+        <mesh filename="package://articulated_objects_db/data/objects/ikea/meshes/ikea_drawer.dae"  scale="1 1 1" />
+      </geometry>
+    </visual>
+  </link>
+  <link name ="rb2">
+  </link>
+  <link name ="rb2_marker">
+    <visual>
+      <origin xyz='0.213087 0.166798 -0.197643' rpy='-1.232344 -0.729730 -0.427622'/>
+      <geometry>
+        <mesh filename="package://articulated_objects_db/data/objects/ikea/meshes/ikea_door.dae"  scale="1 1 1" />
+      </geometry>
+    </visual>
+  </link>
+</robot>

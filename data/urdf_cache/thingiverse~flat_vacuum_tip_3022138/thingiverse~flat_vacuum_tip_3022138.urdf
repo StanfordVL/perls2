@@ -1,0 +1,3966 @@
+<robot name="root">
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.16E-04"/>
+      <inertia ixx="1.08E-06" ixy="1.16E-07" ixz="-7.31E-07" iyy="1.56E-06" iyz="-1.66E-07" izz="5.42E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.68E-03"/>
+      <inertia ixx="2.12E-05" ixy="5.38E-07" ixz="-6.57E-06" iyy="2.20E-05" iyz="-1.39E-06" izz="3.80E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_0"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_1"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_2">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.00E-04"/>
+      <inertia ixx="1.89E-07" ixy="-2.70E-08" ixz="1.21E-07" iyy="2.58E-07" iyz="-3.83E-08" izz="1.03E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_2_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_1"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_2"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_3">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.00E-04"/>
+      <inertia ixx="3.81E-07" ixy="-6.65E-08" ixz="1.64E-08" iyy="6.72E-08" iyz="-8.30E-08" izz="4.07E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_3_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_2"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_3"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_4">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.84E-05"/>
+      <inertia ixx="3.05E-08" ixy="3.16E-09" ixz="-1.69E-08" iyy="3.87E-08" iyz="-5.39E-09" izz="1.18E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_4_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_3"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_4"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_5">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.43E-04"/>
+      <inertia ixx="1.99E-07" ixy="-9.55E-08" ixz="5.89E-08" iyy="1.42E-07" iyz="-6.40E-08" izz="2.62E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_5_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_4"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_5"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_6">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.99E-04"/>
+      <inertia ixx="1.13E-06" ixy="-3.16E-08" ixz="1.60E-07" iyy="1.00E-06" iyz="-2.60E-07" izz="1.86E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_6_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_5"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_6"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_7">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.54E-04"/>
+      <inertia ixx="5.70E-08" ixy="3.67E-09" ixz="7.95E-08" iyy="1.94E-07" iyz="1.63E-09" izz="1.60E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_7_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_6"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_7"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_8">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.54E-04"/>
+      <inertia ixx="1.73E-08" ixy="1.09E-08" ixz="1.19E-08" iyy="2.03E-07" iyz="6.90E-10" izz="2.17E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_8_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_7"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_8"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_9">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.96E-04"/>
+      <inertia ixx="1.45E-07" ixy="-7.35E-08" ixz="3.26E-09" iyy="5.71E-08" iyz="-5.40E-09" izz="2.02E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_9_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_8"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_9"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_10">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.20E-04"/>
+      <inertia ixx="1.58E-07" ixy="1.85E-07" ixz="-1.35E-07" iyy="5.40E-07" iyz="-5.22E-08" izz="6.17E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_10_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_9"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_10"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_11">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.95E-03"/>
+      <inertia ixx="5.46E-06" ixy="-7.13E-07" ixz="1.14E-06" iyy="4.21E-06" iyz="-2.45E-06" izz="2.00E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_11_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_10"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_11"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_12">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.07E-03"/>
+      <inertia ixx="4.43E-06" ixy="-6.16E-07" ixz="1.93E-06" iyy="4.91E-06" iyz="-1.27E-06" izz="1.42E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_12.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_12.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_12_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_11"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_12"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_13">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.31E-03"/>
+      <inertia ixx="4.83E-06" ixy="8.57E-08" ixz="2.18E-06" iyy="5.79E-06" iyz="2.19E-07" izz="1.07E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_13.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_13.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_13_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_12"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_13"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_14">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.10E-03"/>
+      <inertia ixx="5.17E-06" ixy="3.71E-07" ixz="1.18E-06" iyy="4.98E-06" iyz="1.50E-06" izz="8.48E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_14.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_14.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_14_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_13"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_14"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_15">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.58E-04"/>
+      <inertia ixx="8.37E-07" ixy="1.11E-07" ixz="-1.77E-07" iyy="6.54E-07" iyz="-3.75E-07" izz="2.95E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_15.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_15.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_15_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_14"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_15"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_16">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.64E-04"/>
+      <inertia ixx="4.23E-07" ixy="-3.35E-09" ixz="2.26E-08" iyy="3.62E-07" iyz="-1.23E-07" izz="6.66E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_16.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_16.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_16_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_15"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_16"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_17">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.44E-04"/>
+      <inertia ixx="6.23E-08" ixy="3.13E-08" ixz="-7.80E-09" iyy="4.86E-08" iyz="-7.20E-09" izz="1.07E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_17.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_17.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_17_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_16"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_17"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_18">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.57E-04"/>
+      <inertia ixx="3.00E-07" ixy="-6.07E-09" ixz="6.40E-09" iyy="1.50E-07" iyz="-1.44E-07" izz="1.83E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_18.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_18.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_18_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_17"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_18"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_19">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.32E-04"/>
+      <inertia ixx="1.22E-07" ixy="-4.98E-09" ixz="8.90E-08" iyy="1.80E-07" iyz="-6.09E-09" izz="1.02E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_19.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_19.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_19_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_18"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_19"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_20">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.69E-03"/>
+      <inertia ixx="8.41E-07" ixy="7.26E-08" ixz="-1.97E-07" iyy="5.61E-07" iyz="-2.35E-07" izz="4.84E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_20.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_20.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_20_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_19"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_20"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_21">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.71E-04"/>
+      <inertia ixx="1.54E-07" ixy="4.83E-08" ixz="8.05E-08" iyy="1.70E-07" iyz="5.18E-08" izz="1.86E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_21.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_21.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_21_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_20"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_21"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_22">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.50E-04"/>
+      <inertia ixx="1.88E-07" ixy="-1.43E-08" ixz="8.51E-09" iyy="5.80E-08" iyz="-7.99E-08" izz="1.53E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_22.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_22.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_22_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_21"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_22"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_23">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.61E-04"/>
+      <inertia ixx="1.81E-07" ixy="-2.35E-08" ixz="2.05E-08" iyy="7.71E-08" iyz="-8.64E-08" izz="1.20E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_23.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_23.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_23_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_22"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_23"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_24">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.01E-04"/>
+      <inertia ixx="1.07E-06" ixy="3.79E-08" ixz="-3.68E-08" iyy="5.48E-07" iyz="-5.29E-07" izz="5.76E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_24.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_24.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_24_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_23"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_24"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_25">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.24E-03"/>
+      <inertia ixx="7.69E-07" ixy="4.45E-07" ixz="-6.65E-07" iyy="1.43E-06" iyz="-3.34E-07" izz="1.19E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_25.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_25.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_25_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_24"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_25"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_26">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.16E-03"/>
+      <inertia ixx="1.47E-06" ixy="-4.68E-08" ixz="4.25E-08" iyy="5.02E-07" iyz="-6.69E-07" izz="1.02E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_26.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_26.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_26_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_25"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_26"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_27">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.27E-03"/>
+      <inertia ixx="7.84E-07" ixy="-2.26E-07" ixz="2.84E-07" iyy="6.39E-07" iyz="-3.60E-07" izz="5.29E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_27.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_27.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_27_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_26"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_27"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_28">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.65E-03"/>
+      <inertia ixx="8.31E-07" ixy="-3.44E-07" ixz="-8.22E-07" iyy="1.76E-06" iyz="2.74E-07" izz="1.30E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_28.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_28.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_28_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_27"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_28"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_29">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.73E-04"/>
+      <inertia ixx="9.25E-07" ixy="-3.04E-07" ixz="-2.46E-07" iyy="5.57E-07" iyz="4.35E-07" izz="7.45E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_29.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_29.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_29_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_28"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_29"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_30">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.17E-04"/>
+      <inertia ixx="8.51E-07" ixy="1.17E-08" ixz="1.46E-08" iyy="3.59E-07" iyz="4.01E-07" izz="5.16E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_30.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_30.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_30_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_29"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_30"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_31">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.29E-03"/>
+      <inertia ixx="6.13E-07" ixy="1.20E-07" ixz="2.90E-07" iyy="6.70E-07" iyz="2.11E-07" izz="3.26E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_31.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_31.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_31_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_30"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_31"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_32">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.54E-03"/>
+      <inertia ixx="4.43E-06" ixy="7.53E-07" ixz="-1.00E-06" iyy="3.21E-06" iyz="-2.10E-06" izz="2.00E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_32.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_32.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_32_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_31"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_32"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_33">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.28E-03"/>
+      <inertia ixx="3.70E-06" ixy="4.45E-08" ixz="-5.11E-08" iyy="2.20E-06" iyz="-1.80E-06" izz="1.54E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_33.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_33.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_33_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_32"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_33"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_34">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.19E-03"/>
+      <inertia ixx="2.79E-06" ixy="7.03E-07" ixz="-1.27E-06" iyy="2.91E-06" iyz="-1.16E-06" izz="1.44E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_34.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_34.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_34_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_33"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_34"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_35">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.47E-03"/>
+      <inertia ixx="2.94E-06" ixy="4.96E-07" ixz="-1.88E-06" iyy="4.08E-06" iyz="-6.96E-07" izz="1.56E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_35.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_35.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_35_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_34"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_35"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_36">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.33E-03"/>
+      <inertia ixx="2.74E-06" ixy="-9.43E-08" ixz="-1.73E-06" iyy="3.87E-06" iyz="1.49E-07" izz="1.18E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_36.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_36.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_36_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_35"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_36"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_37">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.13E-03"/>
+      <inertia ixx="4.70E-06" ixy="-6.70E-07" ixz="-2.08E-06" iyy="5.34E-06" iyz="1.32E-06" izz="1.57E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_37.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_37.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_37_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_36"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_37"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_38">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.44E-03"/>
+      <inertia ixx="3.76E-06" ixy="-3.32E-07" ixz="-7.14E-07" iyy="3.29E-06" iyz="1.37E-06" izz="8.46E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_38.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_38.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_38_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_37"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_38"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_39">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.28E-03"/>
+      <inertia ixx="3.30E-06" ixy="6.18E-09" ixz="1.89E-08" iyy="2.71E-06" iyz="1.23E-06" izz="6.12E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_39.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_39.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_39_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_38"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_39"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_40">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.35E-05"/>
+      <inertia ixx="2.12E-07" ixy="-1.62E-08" ixz="-4.62E-08" iyy="2.00E-07" iyz="6.59E-08" izz="3.56E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_40.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_40.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_40_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_39"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_40"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_41">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.85E-04"/>
+      <inertia ixx="1.89E-06" ixy="8.00E-08" ixz="-4.59E-07" iyy="1.83E-06" iyz="-2.44E-07" izz="3.44E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_41.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_41.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_41_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_40"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_41"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_42">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.37E-04"/>
+      <inertia ixx="1.06E-07" ixy="1.69E-08" ixz="3.11E-09" iyy="8.27E-09" iyz="1.90E-08" izz="1.07E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_42.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_42.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_42_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_41"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_42"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_43">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.67E-04"/>
+      <inertia ixx="1.41E-06" ixy="1.20E-10" ixz="-2.06E-07" iyy="1.36E-06" iyz="-3.71E-09" izz="1.28E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_43.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_43.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_43_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_42"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_43"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_44">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.84E-04"/>
+      <inertia ixx="9.52E-07" ixy="1.18E-08" ixz="-3.26E-07" iyy="1.01E-06" iyz="-1.21E-08" izz="1.80E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_44.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_44.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_44_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_43"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_44"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_45">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.89E-03"/>
+      <inertia ixx="1.52E-06" ixy="6.83E-09" ixz="-3.64E-07" iyy="1.32E-06" iyz="1.50E-07" izz="4.78E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_45.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_45.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_45_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_44"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_45"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_46">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.17E-04"/>
+      <inertia ixx="2.90E-07" ixy="-1.94E-08" ixz="-5.57E-08" iyy="2.71E-07" iyz="8.98E-08" izz="4.64E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_46.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_46.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_46_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_45"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_46"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_47">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.42E-04"/>
+      <inertia ixx="4.21E-07" ixy="5.25E-08" ixz="-8.23E-08" iyy="3.22E-07" iyz="-1.89E-07" izz="1.48E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_47.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_47.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_47_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_46"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_47"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_48">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.66E-04"/>
+      <inertia ixx="1.77E-06" ixy="6.50E-08" ixz="-3.60E-07" iyy="1.65E-06" iyz="-2.27E-07" izz="3.25E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_48.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_48.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_48_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_47"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_48"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_49">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.43E-04"/>
+      <inertia ixx="5.51E-07" ixy="2.16E-08" ixz="-4.91E-08" iyy="4.77E-07" iyz="-1.41E-07" izz="8.89E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_49.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_49.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_49_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_48"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_49"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_50">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.90E-04"/>
+      <inertia ixx="1.68E-06" ixy="5.58E-08" ixz="-3.12E-07" iyy="1.55E-06" iyz="-2.08E-07" izz="3.06E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_50.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_50.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_50_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_49"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_50"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_51">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.28E-04"/>
+      <inertia ixx="7.49E-07" ixy="6.81E-08" ixz="-1.30E-07" iyy="6.18E-07" iyz="-2.97E-07" izz="2.06E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_51.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_51.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_51_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_50"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_51"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_52">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.27E-04"/>
+      <inertia ixx="1.01E-06" ixy="1.03E-07" ixz="-1.58E-07" iyy="7.49E-07" iyz="-4.52E-07" izz="3.46E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_52.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_52.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_52_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_51"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_52"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_53">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.69E-04"/>
+      <inertia ixx="1.41E-06" ixy="-1.82E-08" ixz="-5.93E-08" iyy="1.31E-06" iyz="1.53E-07" izz="1.18E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_53.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_53.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_53_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_52"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_53"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_54">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.83E-04"/>
+      <inertia ixx="4.61E-07" ixy="4.84E-08" ixz="-5.48E-08" iyy="2.73E-07" iyz="-2.29E-07" izz="2.16E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_54.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_54.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_54_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_53"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_54"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_55">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.66E-04"/>
+      <inertia ixx="6.35E-07" ixy="-1.26E-08" ixz="-1.87E-07" iyy="6.36E-07" iyz="7.58E-08" izz="1.32E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_55.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_55.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_55_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_54"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_55"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_56">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.25E-04"/>
+      <inertia ixx="2.62E-07" ixy="-8.70E-09" ixz="3.67E-08" iyy="2.08E-07" iyz="-8.11E-08" izz="7.17E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_56.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_56.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_56_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_55"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_56"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_57">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.76E-04"/>
+      <inertia ixx="2.69E-07" ixy="3.96E-10" ixz="5.22E-08" iyy="2.43E-07" iyz="1.14E-08" izz="5.42E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_57.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_57.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_57_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_56"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_57"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_58">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.03E-04"/>
+      <inertia ixx="3.37E-07" ixy="3.20E-08" ixz="-7.40E-08" iyy="2.62E-07" iyz="-1.25E-07" izz="1.29E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_58.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_58.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_58_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_57"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_58"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_59">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.50E-03"/>
+      <inertia ixx="1.23E-06" ixy="-9.42E-10" ixz="2.84E-07" iyy="1.07E-06" iyz="5.95E-08" izz="3.56E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_59.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_59.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_59_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_58"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_59"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_60">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.49E-04"/>
+      <inertia ixx="3.49E-07" ixy="-7.75E-10" ixz="-8.65E-08" iyy="3.21E-07" iyz="3.94E-08" izz="9.06E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_60.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_60.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_60_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_59"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_60"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_61">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.73E-04"/>
+      <inertia ixx="4.50E-07" ixy="8.84E-09" ixz="1.39E-07" iyy="4.08E-07" iyz="4.74E-08" izz="1.69E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_61.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_61.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_61_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_60"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_61"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_62">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.36E-04"/>
+      <inertia ixx="1.31E-07" ixy="1.77E-08" ixz="4.94E-08" iyy="1.19E-07" iyz="4.25E-08" izz="7.40E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_62.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_62.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_62_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_61"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_62"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_63">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.82E-04"/>
+      <inertia ixx="1.48E-07" ixy="-7.62E-09" ixz="-3.89E-08" iyy="1.23E-07" iyz="3.73E-08" izz="6.08E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_63.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_63.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_63_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_62"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_63"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_64">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.08E-03"/>
+      <inertia ixx="1.86E-07" ixy="-3.95E-09" ixz="-3.83E-08" iyy="9.21E-08" iyz="7.96E-09" izz="2.22E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_64.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_64.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_64_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_63"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_64"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_65">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.36E-04"/>
+      <inertia ixx="2.72E-08" ixy="3.43E-09" ixz="-2.36E-08" iyy="4.88E-08" iyz="-3.35E-09" izz="2.74E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_65.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_65.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_65_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_64"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_65"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_66">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.61E-04"/>
+      <inertia ixx="1.32E-07" ixy="9.98E-08" ixz="1.91E-08" iyy="1.10E-07" iyz="2.01E-08" izz="2.34E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_66.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_66.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_66_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_65"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_66"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_67">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.68E-04"/>
+      <inertia ixx="1.85E-07" ixy="7.11E-09" ixz="-5.05E-08" iyy="1.12E-07" iyz="-8.46E-09" izz="1.55E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_67.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_67.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_67_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_66"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_67"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_68">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.93E-04"/>
+      <inertia ixx="2.84E-07" ixy="-4.69E-08" ixz="3.51E-08" iyy="1.07E-07" iyz="-1.30E-07" izz="2.14E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_68.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_68.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_68_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_67"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_68"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_69">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.92E-04"/>
+      <inertia ixx="5.19E-07" ixy="5.30E-08" ixz="4.74E-08" iyy="2.64E-07" iyz="2.46E-07" izz="3.60E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_69.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_69.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_69_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_68"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_69"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_70">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.82E-04"/>
+      <inertia ixx="7.69E-08" ixy="9.00E-09" ixz="-6.02E-10" iyy="2.76E-09" iyz="-3.20E-09" izz="7.93E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_70.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_70.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_70_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_69"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_70"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_71">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.82E-04"/>
+      <inertia ixx="5.03E-07" ixy="2.44E-07" ixz="-1.81E-07" iyy="3.74E-07" iyz="-2.36E-07" izz="5.13E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_71.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_71.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_71_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_70"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_71"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_72">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.35E-04"/>
+      <inertia ixx="7.14E-07" ixy="1.94E-07" ixz="-1.21E-07" iyy="2.85E-07" iyz="-3.16E-07" izz="5.87E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_72.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_72.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_72_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_71"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_72"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_73">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.34E-05"/>
+      <inertia ixx="3.98E-08" ixy="-4.47E-10" ixz="-6.40E-09" iyy="4.07E-08" iyz="2.75E-09" izz="1.27E-09"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_73.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_73.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_73_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_72"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_73"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_74">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.42E-04"/>
+      <inertia ixx="1.09E-07" ixy="-6.98E-09" ixz="5.44E-09" iyy="4.54E-08" iyz="-1.41E-09" izz="1.52E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_74.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_74.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_74_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_73"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_74"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_75">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.77E-04"/>
+      <inertia ixx="1.38E-06" ixy="1.99E-07" ixz="-3.43E-07" iyy="1.15E-06" iyz="-5.94E-07" izz="4.69E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_75.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_75.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_75_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_74"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_75"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_76">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.17E-04"/>
+      <inertia ixx="6.24E-07" ixy="2.96E-08" ixz="-1.07E-07" iyy="5.78E-07" iyz="-1.27E-07" izz="9.02E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_76.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_76.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_76_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_75"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_76"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_77">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.17E-04"/>
+      <inertia ixx="6.39E-07" ixy="5.84E-08" ixz="-2.10E-07" iyy="6.35E-07" iyz="-1.54E-07" izz="1.63E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_77.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_77.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_77_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_76"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_77"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_78">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.14E-04"/>
+      <inertia ixx="1.62E-07" ixy="-1.14E-07" ixz="2.64E-08" iyy="1.49E-07" iyz="-2.49E-08" izz="3.01E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_78.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_78.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_78_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_77"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_78"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_79">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.25E-04"/>
+      <inertia ixx="3.23E-07" ixy="-6.44E-08" ixz="1.04E-07" iyy="2.30E-07" iyz="-1.20E-07" izz="2.68E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_79.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_79.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_79_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_78"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_79"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_80">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.03E-04"/>
+      <inertia ixx="5.10E-07" ixy="2.17E-08" ixz="-6.07E-08" iyy="4.54E-07" iyz="-1.22E-07" izz="7.50E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_80.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_80.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_80_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_79"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_80"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_81">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.10E-04"/>
+      <inertia ixx="5.39E-07" ixy="5.17E-08" ixz="-1.69E-07" iyy="5.23E-07" iyz="-1.44E-07" izz="1.42E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_81.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_81.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_81_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_80"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_81"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_82">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.07E-04"/>
+      <inertia ixx="4.65E-07" ixy="-1.57E-09" ixz="-4.50E-08" iyy="4.41E-07" iyz="1.13E-08" izz="3.47E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_82.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_82.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_82_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_81"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_82"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_83">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.16E-04"/>
+      <inertia ixx="4.85E-07" ixy="-2.12E-09" ixz="-1.54E-07" iyy="5.08E-07" iyz="2.25E-08" izz="8.57E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_83.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_83.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_83_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_82"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_83"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_84">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.59E-05"/>
+      <inertia ixx="3.51E-08" ixy="-2.88E-10" ixz="8.81E-11" iyy="3.93E-09" iyz="-1.09E-08" izz="3.15E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_84.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_84.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_84_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_83"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_84"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_85">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.27E-04"/>
+      <inertia ixx="2.82E-07" ixy="-1.81E-08" ixz="-4.83E-08" iyy="2.57E-07" iyz="9.23E-08" izz="4.77E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_85.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_85.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_85_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_84"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_85"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_86">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.68E-04"/>
+      <inertia ixx="1.74E-07" ixy="-1.14E-08" ixz="3.40E-08" iyy="1.41E-07" iyz="-5.96E-08" izz="5.45E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_86.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_86.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_86_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_85"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_86"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_87">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.52E-04"/>
+      <inertia ixx="2.82E-06" ixy="1.88E-08" ixz="-6.00E-07" iyy="2.78E-06" iyz="-6.65E-08" izz="3.24E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_87.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_87.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_87_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_86"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_87"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_88">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.19E-04"/>
+      <inertia ixx="9.44E-07" ixy="-1.98E-08" ixz="-3.06E-07" iyy="9.87E-07" iyz="8.83E-08" izz="1.78E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_88.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_88.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_88_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_87"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_88"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_89">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.27E-04"/>
+      <inertia ixx="2.12E-07" ixy="1.19E-07" ixz="1.74E-09" iyy="9.61E-08" iyz="2.85E-09" izz="3.08E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_89.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_89.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_89_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_88"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_89"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_90">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.96E-04"/>
+      <inertia ixx="1.44E-07" ixy="2.84E-08" ixz="3.99E-08" iyy="1.05E-07" iyz="6.69E-08" izz="8.07E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_90.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_90.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_90_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_89"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_90"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_91">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.40E-04"/>
+      <inertia ixx="4.07E-08" ixy="-4.71E-08" ixz="-4.83E-09" iyy="1.03E-07" iyz="2.68E-09" izz="1.43E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_91.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_91.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_91_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_90"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_91"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_92">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.63E-04"/>
+      <inertia ixx="2.95E-07" ixy="3.13E-09" ixz="2.72E-10" iyy="2.52E-07" iyz="-8.19E-08" izz="4.53E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_92.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_92.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_92_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_91"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_92"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_93">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.49E-04"/>
+      <inertia ixx="4.01E-07" ixy="-3.09E-09" ixz="1.41E-09" iyy="3.67E-07" iyz="3.99E-08" izz="3.75E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_93.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_93.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_93_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_92"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_93"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_94">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.38E-04"/>
+      <inertia ixx="7.96E-08" ixy="1.15E-08" ixz="-7.65E-09" iyy="2.36E-08" iyz="-3.27E-08" izz="6.54E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_94.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_94.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_94_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_93"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_94"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_95">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.34E-03"/>
+      <inertia ixx="1.63E-06" ixy="4.59E-08" ixz="-4.60E-07" iyy="1.55E-06" iyz="-7.50E-08" izz="4.17E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_95.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_95.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_95_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_94"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_95"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_96">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.46E-04"/>
+      <inertia ixx="8.61E-07" ixy="6.78E-08" ixz="-7.39E-08" iyy="4.85E-07" iyz="-4.27E-07" izz="4.15E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_96.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_96.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_96_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_95"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_96"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_97">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.47E-04"/>
+      <inertia ixx="3.52E-07" ixy="4.46E-10" ixz="3.72E-10" iyy="2.30E-08" iyz="-7.49E-08" izz="3.37E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_97.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_97.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_97_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_96"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_97"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_98">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.08E-04"/>
+      <inertia ixx="2.44E-07" ixy="-5.46E-09" ixz="-9.98E-09" iyy="1.91E-07" iyz="1.02E-07" izz="6.71E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_98.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_98.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_98_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_97"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_98"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_99">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.48E-04"/>
+      <inertia ixx="2.39E-07" ixy="1.33E-08" ixz="-1.38E-08" iyy="1.28E-07" iyz="-1.19E-07" izz="1.21E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_99.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_99.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_99_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_98"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_99"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_100">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.99E-04"/>
+      <inertia ixx="3.05E-07" ixy="-3.51E-09" ixz="-7.10E-09" iyy="2.43E-07" iyz="1.22E-07" izz="8.40E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_100.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_100.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_100_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_99"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_100"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_101">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.06E-04"/>
+      <inertia ixx="2.74E-08" ixy="2.96E-08" ixz="-3.29E-09" iyy="4.48E-08" iyz="-2.35E-09" izz="7.17E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_101.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_101.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_101_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_100"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_101"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_102">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.42E-04"/>
+      <inertia ixx="1.43E-07" ixy="3.19E-09" ixz="-1.75E-08" iyy="4.67E-08" iyz="-3.40E-09" izz="1.37E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_102.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_102.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_102_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_101"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_102"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_103">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.82E-04"/>
+      <inertia ixx="2.43E-07" ixy="-1.07E-07" ixz="4.74E-08" iyy="1.18E-07" iyz="-7.51E-08" izz="3.02E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_103.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_103.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_103_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_102"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_103"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_104">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.03E-04"/>
+      <inertia ixx="5.49E-08" ixy="2.61E-08" ixz="6.45E-09" iyy="2.03E-08" iyz="1.17E-08" izz="6.99E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_104.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_104.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_104_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_103"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_104"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_105">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.02E-04"/>
+      <inertia ixx="7.67E-08" ixy="1.13E-08" ixz="-5.70E-10" iyy="3.79E-09" iyz="-3.58E-09" izz="8.01E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_105.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_105.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_105_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_104"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_105"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_106">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.70E-04"/>
+      <inertia ixx="5.29E-07" ixy="7.89E-09" ixz="-6.74E-09" iyy="2.60E-07" iyz="-2.58E-07" izz="3.02E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_106.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_106.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_106_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_105"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_106"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_107">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.58E-04"/>
+      <inertia ixx="2.79E-07" ixy="-3.03E-08" ixz="-6.59E-09" iyy="2.28E-08" iyz="5.90E-08" izz="2.72E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_107.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_107.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_107_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_106"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_107"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_108">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.29E-04"/>
+      <inertia ixx="6.47E-08" ixy="-9.59E-09" ixz="3.88E-08" iyy="8.30E-08" iyz="-1.47E-08" izz="3.62E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_108.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_108.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_108_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_107"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_108"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_109">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.70E-04"/>
+      <inertia ixx="3.55E-07" ixy="-2.68E-08" ixz="-4.35E-08" iyy="2.26E-07" iyz="1.64E-07" izz="1.61E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_109.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_109.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_109_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_108"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_109"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_110">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.51E-04"/>
+      <inertia ixx="9.10E-08" ixy="1.88E-08" ixz="4.53E-08" iyy="9.30E-08" iyz="2.50E-08" izz="9.09E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_110.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_110.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_110_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_109"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_110"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_111">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.41E-04"/>
+      <inertia ixx="2.60E-07" ixy="1.30E-08" ixz="-6.78E-08" iyy="1.71E-07" iyz="-3.57E-08" izz="1.76E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_111.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_111.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_111_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_110"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_111"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_112">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.06E-04"/>
+      <inertia ixx="3.48E-07" ixy="4.12E-08" ixz="-8.89E-08" iyy="2.59E-07" iyz="-1.25E-07" izz="1.71E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_112.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_112.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_112_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_111"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_112"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_113">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.05E-04"/>
+      <inertia ixx="1.26E-07" ixy="5.46E-09" ixz="-4.50E-08" iyy="1.22E-07" iyz="-1.09E-08" izz="4.64E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_113.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_113.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_113_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_112"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_113"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_114">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.14E-04"/>
+      <inertia ixx="1.34E-08" ixy="-9.82E-09" ixz="1.16E-08" iyy="4.88E-08" iyz="-2.75E-09" izz="5.64E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_114.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_114.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_114_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_113"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_114"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_115">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.83E-04"/>
+      <inertia ixx="9.59E-07" ixy="-3.04E-09" ixz="7.19E-09" iyy="7.97E-07" iyz="3.48E-07" izz="1.74E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_115.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_115.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_115_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_114"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_115"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_116">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.73E-04"/>
+      <inertia ixx="2.51E-08" ixy="1.21E-08" ixz="2.77E-08" iyy="7.50E-08" iyz="5.67E-09" izz="7.54E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_116.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_116.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_116_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_115"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_116"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_117">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.62E-04"/>
+      <inertia ixx="1.94E-07" ixy="-2.59E-08" ixz="-8.82E-10" iyy="1.62E-08" iyz="9.21E-09" izz="2.09E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_117.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_117.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_117_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_116"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_117"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_118">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.68E-04"/>
+      <inertia ixx="1.23E-07" ixy="-5.75E-08" ixz="3.88E-08" iyy="8.53E-08" iyz="-4.73E-08" izz="1.51E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_118.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_118.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_118_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_117"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_118"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_119">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.41E-04"/>
+      <inertia ixx="4.03E-07" ixy="1.91E-07" ixz="-4.61E-08" iyy="1.34E-07" iyz="-8.93E-08" izz="4.89E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_119.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_119.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_119_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_118"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_119"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_120">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.49E-04"/>
+      <inertia ixx="4.53E-07" ixy="1.18E-08" ixz="3.20E-08" iyy="3.57E-07" iyz="1.79E-07" izz="1.08E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_120.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_120.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_120_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_119"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_120"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_121">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.85E-04"/>
+      <inertia ixx="7.44E-08" ixy="-1.05E-07" ixz="-7.05E-08" iyy="2.95E-07" iyz="2.84E-08" izz="3.28E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_121.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_121.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_121_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_120"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_121"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_122">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.90E-04"/>
+      <inertia ixx="2.30E-07" ixy="-1.37E-07" ixz="-3.83E-08" iyy="1.16E-07" iyz="5.67E-08" izz="3.11E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_122.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_122.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_122_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_121"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_122"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_123">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.97E-04"/>
+      <inertia ixx="1.51E-07" ixy="7.11E-08" ixz="4.24E-08" iyy="1.01E-07" iyz="5.06E-08" izz="1.91E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_123.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_123.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_123_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_122"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_123"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_124">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.23E-04"/>
+      <inertia ixx="9.50E-08" ixy="-6.46E-09" ixz="-2.25E-08" iyy="6.09E-08" iyz="2.71E-08" izz="6.69E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_124.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_124.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_124_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_123"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_124"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_125">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.55E-04"/>
+      <inertia ixx="6.70E-08" ixy="3.49E-08" ixz="1.44E-08" iyy="3.81E-08" iyz="2.02E-08" izz="9.00E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_125.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_125.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_125_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_124"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_125"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_126">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.88E-04"/>
+      <inertia ixx="2.48E-07" ixy="1.06E-08" ixz="-4.16E-08" iyy="1.04E-07" iyz="-4.28E-08" izz="2.26E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_126.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_126.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_126_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_125"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_126"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_127">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.97E-04"/>
+      <inertia ixx="3.86E-07" ixy="-2.13E-09" ixz="2.20E-08" iyy="3.38E-07" iyz="2.73E-08" izz="5.51E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_127.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_127.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_127_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_126"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_127"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_128">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.02E-04"/>
+      <inertia ixx="1.12E-07" ixy="8.46E-10" ixz="-5.33E-10" iyy="3.79E-09" iyz="-1.40E-08" izz="1.11E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_128.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_128.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_128_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_127"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_128"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_129">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.42E-04"/>
+      <inertia ixx="2.99E-07" ixy="-4.08E-08" ixz="-6.59E-09" iyy="3.65E-08" iyz="2.88E-08" izz="3.27E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_129.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_129.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_129_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_128"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_129"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_130">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.15E-04"/>
+      <inertia ixx="1.45E-07" ixy="-4.74E-08" ixz="2.83E-08" iyy="6.10E-08" iyz="-5.86E-08" izz="1.42E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_130.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_130.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_130_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_129"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_130"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_131">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.25E-04"/>
+      <inertia ixx="1.59E-07" ixy="3.57E-08" ixz="3.72E-08" iyy="9.50E-08" iyz="7.66E-08" izz="1.10E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_131.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_131.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_131_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_130"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_131"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_132">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.02E-04"/>
+      <inertia ixx="4.65E-07" ixy="4.59E-08" ixz="-1.44E-07" iyy="4.45E-07" iyz="-1.28E-07" izz="1.27E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_132.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_132.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_132_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_131"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_132"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_133">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.05E-04"/>
+      <inertia ixx="1.58E-07" ixy="1.34E-08" ixz="9.21E-09" iyy="2.77E-08" iyz="3.51E-08" izz="1.40E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_133.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_133.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_133_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_132"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_133"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_134">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.49E-04"/>
+      <inertia ixx="2.06E-07" ixy="4.00E-08" ixz="1.52E-08" iyy="4.69E-08" iyz="6.63E-08" izz="2.03E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_134.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_134.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_134_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_133"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_134"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_135">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.02E-04"/>
+      <inertia ixx="1.25E-07" ixy="-1.73E-08" ixz="-2.05E-08" iyy="7.29E-08" iyz="5.98E-08" izz="6.80E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_135.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_135.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_135_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_134"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_135"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_136">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.18E-04"/>
+      <inertia ixx="5.63E-07" ixy="2.33E-08" ixz="-1.62E-07" iyy="5.46E-07" iyz="-5.85E-08" izz="1.28E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_136.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_136.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_136_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_135"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_136"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_137">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.05E-04"/>
+      <inertia ixx="4.47E-07" ixy="4.24E-08" ixz="-6.12E-08" iyy="3.17E-07" iyz="-2.06E-07" izz="1.63E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_137.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_137.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_137_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_136"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_137"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_138">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.09E-04"/>
+      <inertia ixx="3.89E-08" ixy="2.31E-08" ixz="2.27E-08" iyy="7.62E-08" iyz="9.07E-09" izz="9.98E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_138.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_138.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_138_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_137"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_138"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_139">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.54E-04"/>
+      <inertia ixx="1.06E-07" ixy="5.35E-08" ixz="3.70E-08" iyy="8.13E-08" iyz="4.29E-08" izz="1.34E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_139.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_139.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_139_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_138"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_139"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_140">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.87E-04"/>
+      <inertia ixx="7.47E-07" ixy="-2.15E-08" ixz="-2.38E-07" iyy="7.70E-07" iyz="9.05E-08" izz="1.50E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_140.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_140.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_140_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_139"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_140"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_141">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.91E-04"/>
+      <inertia ixx="7.10E-07" ixy="1.07E-07" ixz="-1.86E-07" iyy="5.76E-07" iyz="-3.03E-07" izz="2.74E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_141.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_141.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_141_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_140"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_141"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_142">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.65E-04"/>
+      <inertia ixx="1.66E-06" ixy="3.67E-08" ixz="-5.96E-07" iyy="1.79E-06" iyz="-6.76E-08" izz="3.31E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_142.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_142.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_142_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_141"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_142"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_143">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.50E-04"/>
+      <inertia ixx="2.96E-07" ixy="5.21E-09" ixz="-4.60E-09" iyy="1.84E-07" iyz="-1.41E-07" izz="1.14E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_143.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_143.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_143_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_142"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_143"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_144">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.90E-04"/>
+      <inertia ixx="3.43E-07" ixy="3.14E-08" ixz="-8.63E-08" iyy="2.88E-07" iyz="-1.09E-07" izz="1.18E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_144.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_144.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_144_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_143"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_144"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_145">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.17E-04"/>
+      <inertia ixx="9.81E-08" ixy="7.59E-10" ixz="2.41E-10" iyy="1.72E-08" iyz="3.65E-08" izz="8.22E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_145.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_145.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_145_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_144"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_145"/>
+  </joint>
+  <link name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_146">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.71E-04"/>
+      <inertia ixx="1.08E-07" ixy="1.37E-08" ixz="8.05E-09" iyy="3.58E-08" iyz="4.66E-08" izz="8.91E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_146.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~flat_vacuum_tip_3022138_convex_piece_146.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_146_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_145"/>
+    <child link="link_thingiverse~flat_vacuum_tip_3022138_convex_piece_146"/>
+  </joint>
+</robot>

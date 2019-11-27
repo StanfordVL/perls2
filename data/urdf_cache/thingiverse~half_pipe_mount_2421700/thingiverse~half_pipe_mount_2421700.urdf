@@ -1,0 +1,159 @@
+<robot name="root">
+  <link name="link_thingiverse~half_pipe_mount_2421700_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.98E-02"/>
+      <inertia ixx="1.96E-05" ixy="-2.00E-08" ixz="-2.48E-06" iyy="1.84E-05" iyz="1.49E-07" izz="2.03E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~half_pipe_mount_2421700_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~half_pipe_mount_2421700_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_thingiverse~half_pipe_mount_2421700_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.96E-02"/>
+      <inertia ixx="1.95E-05" ixy="2.14E-08" ixz="2.46E-06" iyy="1.84E-05" iyz="1.46E-07" izz="1.98E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~half_pipe_mount_2421700_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~half_pipe_mount_2421700_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~half_pipe_mount_2421700_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~half_pipe_mount_2421700_convex_piece_0"/>
+    <child link="link_thingiverse~half_pipe_mount_2421700_convex_piece_1"/>
+  </joint>
+  <link name="link_thingiverse~half_pipe_mount_2421700_convex_piece_2">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.66E-03"/>
+      <inertia ixx="1.11E-06" ixy="3.34E-09" ixz="5.14E-07" iyy="1.41E-06" iyz="-9.96E-10" izz="1.65E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~half_pipe_mount_2421700_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~half_pipe_mount_2421700_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~half_pipe_mount_2421700_convex_piece_2_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~half_pipe_mount_2421700_convex_piece_1"/>
+    <child link="link_thingiverse~half_pipe_mount_2421700_convex_piece_2"/>
+  </joint>
+  <link name="link_thingiverse~half_pipe_mount_2421700_convex_piece_3">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.19E-03"/>
+      <inertia ixx="1.08E-06" ixy="1.37E-09" ixz="1.58E-07" iyy="7.67E-07" iyz="4.86E-09" izz="4.31E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~half_pipe_mount_2421700_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~half_pipe_mount_2421700_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~half_pipe_mount_2421700_convex_piece_3_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~half_pipe_mount_2421700_convex_piece_2"/>
+    <child link="link_thingiverse~half_pipe_mount_2421700_convex_piece_3"/>
+  </joint>
+  <link name="link_thingiverse~half_pipe_mount_2421700_convex_piece_4">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.94E-03"/>
+      <inertia ixx="5.57E-07" ixy="5.82E-09" ixz="-2.51E-07" iyy="8.54E-07" iyz="6.66E-10" izz="1.17E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~half_pipe_mount_2421700_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~half_pipe_mount_2421700_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~half_pipe_mount_2421700_convex_piece_4_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~half_pipe_mount_2421700_convex_piece_3"/>
+    <child link="link_thingiverse~half_pipe_mount_2421700_convex_piece_4"/>
+  </joint>
+  <link name="link_thingiverse~half_pipe_mount_2421700_convex_piece_5">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.86E-03"/>
+      <inertia ixx="1.63E-06" ixy="1.10E-09" ixz="-4.19E-07" iyy="1.32E-06" iyz="2.76E-09" izz="8.87E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~half_pipe_mount_2421700_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~half_pipe_mount_2421700_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~half_pipe_mount_2421700_convex_piece_5_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~half_pipe_mount_2421700_convex_piece_4"/>
+    <child link="link_thingiverse~half_pipe_mount_2421700_convex_piece_5"/>
+  </joint>
+</robot>

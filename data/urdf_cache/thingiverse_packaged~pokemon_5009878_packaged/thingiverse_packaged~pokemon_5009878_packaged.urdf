@@ -1,0 +1,456 @@
+<robot name="root">
+  <link name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.26E-02"/>
+      <inertia ixx="1.17E-05" ixy="-9.80E-06" ixz="2.08E-06" iyy="5.58E-05" iyz="-1.40E-06" izz="5.29E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.94E-02"/>
+      <inertia ixx="6.17E-05" ixy="-5.48E-05" ixz="-1.56E-06" iyy="1.64E-04" iyz="-5.19E-06" izz="1.54E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_0"/>
+    <child link="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_1"/>
+  </joint>
+  <link name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_2">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.52E-02"/>
+      <inertia ixx="3.37E-05" ixy="3.14E-06" ixz="1.68E-05" iyy="4.79E-05" iyz="6.81E-06" izz="1.73E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_2_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_1"/>
+    <child link="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_2"/>
+  </joint>
+  <link name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_3">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.15E-01"/>
+      <inertia ixx="4.68E-05" ixy="1.52E-05" ixz="7.50E-06" iyy="5.39E-05" iyz="1.23E-05" izz="5.77E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_3_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_2"/>
+    <child link="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_3"/>
+  </joint>
+  <link name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_4">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.55E-02"/>
+      <inertia ixx="4.20E-05" ixy="2.31E-05" ixz="-1.74E-05" iyy="7.74E-05" iyz="-1.22E-05" izz="7.14E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_4_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_3"/>
+    <child link="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_4"/>
+  </joint>
+  <link name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_5">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.02E-02"/>
+      <inertia ixx="1.11E-05" ixy="-9.05E-07" ixz="1.84E-06" iyy="9.18E-06" iyz="-3.84E-06" izz="3.91E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_5_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_4"/>
+    <child link="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_5"/>
+  </joint>
+  <link name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_6">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.65E-02"/>
+      <inertia ixx="7.54E-06" ixy="2.79E-06" ixz="-4.07E-06" iyy="8.99E-06" iyz="-2.91E-06" izz="7.66E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_6_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_5"/>
+    <child link="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_6"/>
+  </joint>
+  <link name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_7">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.38E-03"/>
+      <inertia ixx="7.62E-06" ixy="-2.15E-06" ixz="-2.73E-06" iyy="7.35E-06" iyz="2.85E-06" izz="4.60E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_7_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_6"/>
+    <child link="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_7"/>
+  </joint>
+  <link name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_8">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.48E-02"/>
+      <inertia ixx="1.08E-05" ixy="9.56E-06" ixz="1.24E-05" iyy="4.49E-05" iyz="3.59E-06" izz="3.98E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_8_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_7"/>
+    <child link="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_8"/>
+  </joint>
+  <link name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_9">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.28E-02"/>
+      <inertia ixx="2.02E-06" ixy="1.88E-06" ixz="-3.53E-08" iyy="1.36E-05" iyz="8.34E-08" izz="1.23E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_9_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_8"/>
+    <child link="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_9"/>
+  </joint>
+  <link name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_10">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.81E-02"/>
+      <inertia ixx="1.19E-05" ixy="-3.90E-06" ixz="1.85E-06" iyy="2.20E-05" iyz="-1.38E-06" izz="1.70E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_10_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_9"/>
+    <child link="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_10"/>
+  </joint>
+  <link name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_11">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.01E-02"/>
+      <inertia ixx="1.21E-05" ixy="-3.45E-06" ixz="3.44E-06" iyy="9.34E-06" iyz="-5.49E-06" izz="7.84E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_11_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_10"/>
+    <child link="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_11"/>
+  </joint>
+  <link name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_12">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.34E-03"/>
+      <inertia ixx="6.93E-07" ixy="-1.58E-07" ixz="-4.76E-07" iyy="1.01E-06" iyz="2.02E-07" izz="4.64E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_12.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_12.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_12_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_11"/>
+    <child link="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_12"/>
+  </joint>
+  <link name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_13">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.08E-03"/>
+      <inertia ixx="1.66E-06" ixy="-6.89E-07" ixz="7.31E-07" iyy="1.65E-06" iyz="-7.68E-07" izz="1.46E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_13.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_13.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_13_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_12"/>
+    <child link="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_13"/>
+  </joint>
+  <link name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_14">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.06E-03"/>
+      <inertia ixx="1.17E-06" ixy="3.23E-08" ixz="8.11E-08" iyy="1.06E-06" iyz="3.93E-07" izz="1.94E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_14.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_14.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_14_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_13"/>
+    <child link="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_14"/>
+  </joint>
+  <link name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_15">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.85E-04"/>
+      <inertia ixx="6.25E-07" ixy="9.04E-09" ixz="4.03E-08" iyy="5.98E-07" iyz="1.34E-07" izz="3.81E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_15.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_15.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_15_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_14"/>
+    <child link="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_15"/>
+  </joint>
+  <link name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_16">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.17E-03"/>
+      <inertia ixx="1.28E-06" ixy="5.40E-08" ixz="1.34E-07" iyy="1.20E-06" iyz="3.76E-07" izz="2.01E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_16.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~pokemon_5009878_packaged_convex_piece_16.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_16_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_15"/>
+    <child link="link_thingiverse_packaged~pokemon_5009878_packaged_convex_piece_16"/>
+  </joint>
+</robot>

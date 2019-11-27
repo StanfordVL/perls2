@@ -1,0 +1,24 @@
+<robot name="root">
+  <link name="link_thingiverse~diamond_hole_capsule_2939876_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.19E-01"/>
+      <inertia ixx="1.77E-04" ixy="3.01E-08" ixz="-2.67E-05" iyy="1.85E-04" iyz="-4.56E-07" izz="9.05E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~diamond_hole_capsule_2939876_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~diamond_hole_capsule_2939876_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+</robot>

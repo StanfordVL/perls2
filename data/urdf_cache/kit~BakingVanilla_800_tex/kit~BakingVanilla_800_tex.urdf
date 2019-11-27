@@ -1,0 +1,51 @@
+<robot name="root">
+  <link name="link_kit~BakingVanilla_800_tex_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.73E-01"/>
+      <inertia ixx="1.96E-04" ixy="1.12E-06" ixz="-6.13E-06" iyy="1.96E-04" iyz="-8.43E-06" izz="1.11E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="kit~BakingVanilla_800_tex_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="kit~BakingVanilla_800_tex_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_kit~BakingVanilla_800_tex_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.23E-01"/>
+      <inertia ixx="1.38E-04" ixy="3.22E-07" ixz="-3.39E-06" iyy="1.38E-04" iyz="-4.90E-06" izz="4.72E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="kit~BakingVanilla_800_tex_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="kit~BakingVanilla_800_tex_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_kit~BakingVanilla_800_tex_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_kit~BakingVanilla_800_tex_convex_piece_0"/>
+    <child link="link_kit~BakingVanilla_800_tex_convex_piece_1"/>
+  </joint>
+</robot>

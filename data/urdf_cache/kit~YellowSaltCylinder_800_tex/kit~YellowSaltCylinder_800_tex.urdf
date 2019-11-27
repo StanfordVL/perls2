@@ -1,0 +1,24 @@
+<robot name="root">
+  <link name="link_kit~YellowSaltCylinder_800_tex_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.68E+00"/>
+      <inertia ixx="7.47E-03" ixy="1.15E-05" ixz="1.02E-04" iyy="7.49E-03" iyz="9.81E-05" izz="1.99E-03"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="kit~YellowSaltCylinder_800_tex_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="kit~YellowSaltCylinder_800_tex_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+</robot>

@@ -1,0 +1,1077 @@
+<robot name="root">
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.31E-03"/>
+      <inertia ixx="1.50E-05" ixy="1.45E-06" ixz="-3.32E-06" iyy="1.36E-05" iyz="-5.47E-06" izz="3.36E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.91E-03"/>
+      <inertia ixx="2.21E-05" ixy="1.23E-08" ixz="-5.27E-06" iyy="2.26E-05" iyz="-1.08E-07" izz="2.63E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_0"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_1"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_2">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.62E-03"/>
+      <inertia ixx="1.42E-05" ixy="1.59E-06" ixz="3.30E-06" iyy="1.26E-05" iyz="5.43E-06" izz="3.63E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_2_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_1"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_2"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_3">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.64E-03"/>
+      <inertia ixx="1.63E-05" ixy="-1.61E-06" ixz="-3.83E-06" iyy="1.51E-05" iyz="5.79E-06" izz="3.63E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_3_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_2"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_3"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_4">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.08E-03"/>
+      <inertia ixx="1.48E-05" ixy="-9.68E-07" ixz="-2.38E-06" iyy="1.34E-05" iyz="5.10E-06" izz="2.70E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_4_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_3"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_4"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_5">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.32E-02"/>
+      <inertia ixx="6.13E-05" ixy="4.29E-08" ixz="-1.08E-05" iyy="6.18E-05" iyz="-3.60E-07" izz="5.17E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_5_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_4"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_5"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_6">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.78E-04"/>
+      <inertia ixx="4.39E-06" ixy="-9.63E-08" ixz="2.35E-07" iyy="3.79E-06" iyz="-1.54E-06" izz="6.68E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_6_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_5"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_6"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_7">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.93E-03"/>
+      <inertia ixx="1.41E-05" ixy="9.29E-07" ixz="-2.20E-06" iyy="1.26E-05" iyz="-4.98E-06" izz="2.65E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_7_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_6"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_7"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_8">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.28E-02"/>
+      <inertia ixx="1.47E-05" ixy="6.87E-08" ixz="-4.76E-06" iyy="1.49E-05" iyz="-2.87E-07" izz="5.05E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_8_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_7"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_8"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_9">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.99E-03"/>
+      <inertia ixx="5.77E-06" ixy="9.99E-07" ixz="-1.69E-06" iyy="4.98E-06" iyz="-2.50E-06" izz="2.17E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_9_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_8"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_9"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_10">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.24E-03"/>
+      <inertia ixx="2.56E-05" ixy="7.28E-07" ixz="4.87E-06" iyy="2.56E-05" iyz="3.64E-06" izz="2.37E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_10_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_9"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_10"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_11">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.71E-03"/>
+      <inertia ixx="1.08E-05" ixy="1.11E-06" ixz="2.28E-06" iyy="9.43E-06" iyz="4.17E-06" izz="2.69E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_11_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_10"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_11"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_12">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.44E-03"/>
+      <inertia ixx="1.24E-05" ixy="-6.75E-07" ixz="2.30E-06" iyy="1.19E-05" iyz="-3.33E-06" izz="1.59E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_12.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_12.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_12_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_11"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_12"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_13">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.06E-03"/>
+      <inertia ixx="1.20E-05" ixy="-1.33E-06" ixz="2.83E-06" iyy="1.08E-05" iyz="-4.53E-06" izz="3.03E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_13.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_13.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_13_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_12"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_13"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_14">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.43E-03"/>
+      <inertia ixx="8.64E-06" ixy="2.28E-06" ixz="2.36E-06" iyy="6.17E-06" iyz="4.09E-06" izz="5.38E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_14.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_14.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_14_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_13"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_14"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_15">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.24E-03"/>
+      <inertia ixx="7.74E-06" ixy="1.76E-08" ixz="2.89E-06" iyy="8.09E-06" iyz="6.48E-08" izz="2.58E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_15.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_15.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_15_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_14"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_15"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_16">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.57E-03"/>
+      <inertia ixx="3.70E-06" ixy="-2.23E-06" ixz="1.06E-07" iyy="2.26E-06" iyz="-1.65E-07" izz="4.75E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_16.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_16.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_16_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_15"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_16"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_17">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.64E-03"/>
+      <inertia ixx="1.07E-06" ixy="8.26E-09" ixz="-2.56E-07" iyy="1.45E-06" iyz="-5.07E-09" izz="2.40E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_17.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_17.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_17_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_16"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_17"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_18">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.48E-03"/>
+      <inertia ixx="9.72E-06" ixy="1.96E-06" ixz="-2.75E-06" iyy="7.80E-06" iyz="-4.50E-06" izz="4.55E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_18.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_18.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_18_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_17"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_18"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_19">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.65E-03"/>
+      <inertia ixx="6.58E-06" ixy="2.77E-08" ixz="-2.56E-06" iyy="6.97E-06" iyz="-7.54E-08" izz="2.41E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_19.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_19.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_19_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_18"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_19"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_20">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.50E-04"/>
+      <inertia ixx="3.38E-06" ixy="6.97E-08" ixz="1.67E-07" iyy="2.90E-06" iyz="1.20E-06" izz="5.24E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_20.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_20.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_20_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_19"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_20"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_21">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.43E-03"/>
+      <inertia ixx="3.80E-06" ixy="2.07E-06" ixz="9.65E-08" iyy="1.95E-06" iyz="1.60E-07" izz="4.59E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_21.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_21.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_21_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_20"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_21"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_22">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.00E-03"/>
+      <inertia ixx="1.59E-06" ixy="-1.28E-07" ixz="-1.52E-07" iyy="9.82E-07" iyz="7.77E-07" izz="7.03E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_22.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_22.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_22_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_21"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_22"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_23">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.00E-03"/>
+      <inertia ixx="8.77E-06" ixy="-2.03E-06" ixz="-2.93E-06" iyy="7.61E-06" iyz="3.90E-06" izz="4.27E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_23.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_23.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_23_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_22"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_23"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_24">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.56E-03"/>
+      <inertia ixx="1.07E-06" ixy="-5.71E-08" ixz="-9.90E-09" iyy="1.39E-07" iyz="2.10E-07" izz="1.11E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_24.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_24.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_24_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_23"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_24"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_25">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.72E-03"/>
+      <inertia ixx="4.13E-06" ixy="8.83E-07" ixz="-8.86E-07" iyy="2.66E-06" iyz="-2.04E-06" izz="2.51E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_25.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_25.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_25_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_24"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_25"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_26">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.25E-02"/>
+      <inertia ixx="4.96E-05" ixy="1.83E-08" ixz="8.65E-06" iyy="4.96E-05" iyz="2.56E-07" izz="4.43E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_26.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_26.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_26_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_25"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_26"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_27">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.25E-02"/>
+      <inertia ixx="1.57E-05" ixy="1.86E-07" ixz="4.82E-06" iyy="1.60E-05" iyz="5.74E-07" izz="4.37E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_27.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_27.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_27_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_26"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_27"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_28">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.63E-03"/>
+      <inertia ixx="5.66E-06" ixy="-1.85E-06" ixz="2.00E-06" iyy="4.64E-06" iyz="-2.65E-06" izz="3.88E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_28.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_28.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_28_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_27"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_28"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_29">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.74E-04"/>
+      <inertia ixx="9.05E-07" ixy="-1.24E-07" ixz="1.49E-07" iyy="5.80E-07" iyz="-4.43E-07" izz="4.17E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_29.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_29.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_29_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_28"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_29"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_30">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.72E-03"/>
+      <inertia ixx="3.28E-06" ixy="1.92E-06" ixz="-5.13E-07" iyy="1.94E-06" iyz="-7.16E-07" izz="4.12E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_30.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_30.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_30_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_29"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_30"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_31">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.59E-03"/>
+      <inertia ixx="1.09E-06" ixy="7.92E-09" ixz="5.42E-11" iyy="1.36E-07" iyz="-2.14E-07" izz="1.13E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_31.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_31.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_31_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_30"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_31"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_32">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.95E-03"/>
+      <inertia ixx="3.32E-06" ixy="-2.11E-06" ixz="-6.36E-07" iyy="2.36E-06" iyz="7.94E-07" izz="4.38E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_32.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_32.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_32_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_31"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_32"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_33">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.54E-03"/>
+      <inertia ixx="1.39E-05" ixy="-1.61E-06" ixz="3.49E-06" iyy="1.27E-05" iyz="-5.17E-06" izz="3.52E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_33.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_33.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_33_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_32"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_33"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_34">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.62E-03"/>
+      <inertia ixx="5.94E-06" ixy="-1.45E-06" ixz="-2.19E-06" iyy="5.38E-06" iyz="2.67E-06" izz="2.98E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_34.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_34.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_34_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_33"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_34"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_35">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.67E-04"/>
+      <inertia ixx="1.17E-06" ixy="-1.59E-07" ixz="-2.09E-07" iyy="8.04E-07" iyz="5.61E-07" izz="4.96E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_35.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_35.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_35_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_34"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_35"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_36">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.31E-02"/>
+      <inertia ixx="2.70E-06" ixy="2.62E-08" ixz="8.38E-07" iyy="2.88E-06" iyz="2.12E-08" izz="4.86E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_36.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_36.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_36_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_35"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_36"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_37">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.44E-03"/>
+      <inertia ixx="5.84E-06" ixy="1.05E-06" ixz="1.20E-06" iyy="3.99E-06" iyz="2.85E-06" izz="3.05E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_37.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_37.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_37_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_36"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_37"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_38">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.23E-03"/>
+      <inertia ixx="2.10E-06" ixy="-1.34E-07" ixz="1.79E-07" iyy="1.40E-06" iyz="-1.00E-06" izz="8.04E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_38.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_38.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_38_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_37"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_38"/>
+  </joint>
+  <link name="link_thingiverse~mini_shelves_3894090_convex_piece_39">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.37E-03"/>
+      <inertia ixx="3.80E-06" ixy="-1.09E-06" ixz="1.33E-06" iyy="3.10E-06" iyz="-1.83E-06" izz="2.33E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_39.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~mini_shelves_3894090_convex_piece_39.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~mini_shelves_3894090_convex_piece_39_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~mini_shelves_3894090_convex_piece_38"/>
+    <child link="link_thingiverse~mini_shelves_3894090_convex_piece_39"/>
+  </joint>
+</robot>

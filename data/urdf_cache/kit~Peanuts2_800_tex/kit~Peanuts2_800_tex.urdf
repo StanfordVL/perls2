@@ -1,0 +1,24 @@
+<robot name="root">
+  <link name="link_kit~Peanuts2_800_tex_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.10E-01"/>
+      <inertia ixx="2.53E-04" ixy="-1.11E-07" ixz="-4.04E-07" iyy="2.52E-04" iyz="-1.25E-07" izz="2.02E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="kit~Peanuts2_800_tex_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="kit~Peanuts2_800_tex_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+</robot>

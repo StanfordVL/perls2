@@ -1,0 +1,51 @@
+<robot name="root">
+  <link name="link_other_packaged~computer_mouse_packaged_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.80E-01"/>
+      <inertia ixx="1.35E-04" ixy="-1.43E-05" ixz="-3.82E-06" iyy="4.16E-04" iyz="1.74E-07" izz="3.45E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="other_packaged~computer_mouse_packaged_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="other_packaged~computer_mouse_packaged_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_other_packaged~computer_mouse_packaged_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.54E-01"/>
+      <inertia ixx="3.22E-04" ixy="-9.58E-05" ixz="-2.76E-06" iyy="1.15E-03" iyz="1.72E-06" izz="9.46E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="other_packaged~computer_mouse_packaged_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="other_packaged~computer_mouse_packaged_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_other_packaged~computer_mouse_packaged_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_other_packaged~computer_mouse_packaged_convex_piece_0"/>
+    <child link="link_other_packaged~computer_mouse_packaged_convex_piece_1"/>
+  </joint>
+</robot>

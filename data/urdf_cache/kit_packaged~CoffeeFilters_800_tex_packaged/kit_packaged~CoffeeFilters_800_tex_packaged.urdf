@@ -1,0 +1,51 @@
+<robot name="root">
+  <link name="link_kit_packaged~CoffeeFilters_800_tex_packaged_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.42E-01"/>
+      <inertia ixx="2.08E-04" ixy="-2.79E-05" ixz="-1.55E-05" iyy="5.98E-04" iyz="9.82E-06" izz="4.37E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="kit_packaged~CoffeeFilters_800_tex_packaged_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="kit_packaged~CoffeeFilters_800_tex_packaged_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_kit_packaged~CoffeeFilters_800_tex_packaged_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.63E-01"/>
+      <inertia ixx="9.21E-05" ixy="-4.28E-06" ixz="-8.68E-06" iyy="2.41E-04" iyz="1.58E-06" izz="1.78E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="kit_packaged~CoffeeFilters_800_tex_packaged_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="kit_packaged~CoffeeFilters_800_tex_packaged_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_kit_packaged~CoffeeFilters_800_tex_packaged_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_kit_packaged~CoffeeFilters_800_tex_packaged_convex_piece_0"/>
+    <child link="link_kit_packaged~CoffeeFilters_800_tex_packaged_convex_piece_1"/>
+  </joint>
+</robot>

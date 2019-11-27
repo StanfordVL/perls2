@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<robot name="root">
+  <link name="ikea">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.40E-04"/>
+      <inertia ixx="7.88E-06" ixy="-1.49E-08" ixz="-1.14E-05" iyy="3.06E-05" iyz="6.27E-09" izz="3.25E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="ikea.obj" scale="1.0000E-03 1.0000E-03 1.0000E-03"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="ikea.obj" scale="1.0000E-03 1.0000E-03 1.0000E-03"/>
+      </geometry>
+    </collision>
+  </link>
+</robot>

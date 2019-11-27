@@ -1,0 +1,348 @@
+<robot name="root">
+  <link name="link_thingiverse~robot_cube_3525550_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.98E-01"/>
+      <inertia ixx="2.72E-04" ixy="-9.36E-07" ixz="-1.44E-05" iyy="3.25E-04" iyz="-4.25E-06" izz="2.23E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~robot_cube_3525550_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~robot_cube_3525550_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_thingiverse~robot_cube_3525550_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.13E-01"/>
+      <inertia ixx="1.75E-04" ixy="2.74E-05" ixz="-6.15E-05" iyy="1.86E-04" iyz="-5.56E-05" izz="1.00E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~robot_cube_3525550_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~robot_cube_3525550_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~robot_cube_3525550_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~robot_cube_3525550_convex_piece_0"/>
+    <child link="link_thingiverse~robot_cube_3525550_convex_piece_1"/>
+  </joint>
+  <link name="link_thingiverse~robot_cube_3525550_convex_piece_2">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.85E-02"/>
+      <inertia ixx="1.06E-04" ixy="-2.31E-05" ixz="-3.76E-05" iyy="1.04E-04" iyz="4.16E-05" izz="6.22E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~robot_cube_3525550_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~robot_cube_3525550_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~robot_cube_3525550_convex_piece_2_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~robot_cube_3525550_convex_piece_1"/>
+    <child link="link_thingiverse~robot_cube_3525550_convex_piece_2"/>
+  </joint>
+  <link name="link_thingiverse~robot_cube_3525550_convex_piece_3">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.63E-02"/>
+      <inertia ixx="9.46E-05" ixy="4.21E-05" ixz="-1.61E-05" iyy="5.65E-05" iyz="-2.64E-05" izz="1.07E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~robot_cube_3525550_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~robot_cube_3525550_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~robot_cube_3525550_convex_piece_3_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~robot_cube_3525550_convex_piece_2"/>
+    <child link="link_thingiverse~robot_cube_3525550_convex_piece_3"/>
+  </joint>
+  <link name="link_thingiverse~robot_cube_3525550_convex_piece_4">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.57E-03"/>
+      <inertia ixx="1.18E-05" ixy="3.77E-06" ixz="3.09E-06" iyy="6.98E-06" iyz="5.68E-06" izz="9.26E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~robot_cube_3525550_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~robot_cube_3525550_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~robot_cube_3525550_convex_piece_4_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~robot_cube_3525550_convex_piece_3"/>
+    <child link="link_thingiverse~robot_cube_3525550_convex_piece_4"/>
+  </joint>
+  <link name="link_thingiverse~robot_cube_3525550_convex_piece_5">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.15E-02"/>
+      <inertia ixx="9.44E-05" ixy="7.07E-06" ixz="3.65E-05" iyy="1.17E-04" iyz="1.89E-05" izz="5.31E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~robot_cube_3525550_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~robot_cube_3525550_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~robot_cube_3525550_convex_piece_5_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~robot_cube_3525550_convex_piece_4"/>
+    <child link="link_thingiverse~robot_cube_3525550_convex_piece_5"/>
+  </joint>
+  <link name="link_thingiverse~robot_cube_3525550_convex_piece_6">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.52E-02"/>
+      <inertia ixx="6.44E-05" ixy="-1.23E-05" ixz="-2.13E-06" iyy="8.25E-06" iyz="7.72E-06" izz="6.57E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~robot_cube_3525550_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~robot_cube_3525550_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~robot_cube_3525550_convex_piece_6_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~robot_cube_3525550_convex_piece_5"/>
+    <child link="link_thingiverse~robot_cube_3525550_convex_piece_6"/>
+  </joint>
+  <link name="link_thingiverse~robot_cube_3525550_convex_piece_7">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.89E-02"/>
+      <inertia ixx="4.95E-05" ixy="2.30E-05" ixz="-1.36E-05" iyy="4.66E-05" iyz="-1.58E-05" izz="7.97E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~robot_cube_3525550_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~robot_cube_3525550_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~robot_cube_3525550_convex_piece_7_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~robot_cube_3525550_convex_piece_6"/>
+    <child link="link_thingiverse~robot_cube_3525550_convex_piece_7"/>
+  </joint>
+  <link name="link_thingiverse~robot_cube_3525550_convex_piece_8">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.22E-02"/>
+      <inertia ixx="1.31E-04" ixy="-9.37E-06" ixz="9.08E-06" iyy="6.80E-05" iyz="-5.05E-05" izz="7.02E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~robot_cube_3525550_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~robot_cube_3525550_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~robot_cube_3525550_convex_piece_8_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~robot_cube_3525550_convex_piece_7"/>
+    <child link="link_thingiverse~robot_cube_3525550_convex_piece_8"/>
+  </joint>
+  <link name="link_thingiverse~robot_cube_3525550_convex_piece_9">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.14E-02"/>
+      <inertia ixx="3.39E-05" ixy="2.72E-05" ixz="5.41E-06" iyy="4.82E-05" iyz="3.77E-06" izz="7.72E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~robot_cube_3525550_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~robot_cube_3525550_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~robot_cube_3525550_convex_piece_9_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~robot_cube_3525550_convex_piece_8"/>
+    <child link="link_thingiverse~robot_cube_3525550_convex_piece_9"/>
+  </joint>
+  <link name="link_thingiverse~robot_cube_3525550_convex_piece_10">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.39E-02"/>
+      <inertia ixx="2.13E-05" ixy="-3.32E-07" ixz="-3.38E-08" iyy="8.87E-07" iyz="1.87E-06" izz="2.07E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~robot_cube_3525550_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~robot_cube_3525550_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~robot_cube_3525550_convex_piece_10_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~robot_cube_3525550_convex_piece_9"/>
+    <child link="link_thingiverse~robot_cube_3525550_convex_piece_10"/>
+  </joint>
+  <link name="link_thingiverse~robot_cube_3525550_convex_piece_11">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.18E-03"/>
+      <inertia ixx="1.50E-05" ixy="-3.01E-06" ixz="1.05E-05" iyy="2.26E-05" iyz="-3.89E-06" izz="9.95E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~robot_cube_3525550_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~robot_cube_3525550_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~robot_cube_3525550_convex_piece_11_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~robot_cube_3525550_convex_piece_10"/>
+    <child link="link_thingiverse~robot_cube_3525550_convex_piece_11"/>
+  </joint>
+  <link name="link_thingiverse~robot_cube_3525550_convex_piece_12">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.66E-02"/>
+      <inertia ixx="3.11E-05" ixy="-1.17E-05" ixz="1.20E-05" iyy="2.52E-05" iyz="-1.31E-05" izz="2.68E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~robot_cube_3525550_convex_piece_12.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~robot_cube_3525550_convex_piece_12.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~robot_cube_3525550_convex_piece_12_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~robot_cube_3525550_convex_piece_11"/>
+    <child link="link_thingiverse~robot_cube_3525550_convex_piece_12"/>
+  </joint>
+</robot>

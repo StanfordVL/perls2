@@ -1,0 +1,294 @@
+<robot name="root">
+  <link name="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.50E-01"/>
+      <inertia ixx="3.49E-05" ixy="-1.22E-05" ixz="5.72E-05" iyy="7.25E-04" iyz="-1.10E-06" izz="7.18E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.25E-01"/>
+      <inertia ixx="7.35E-05" ixy="1.80E-04" ixz="4.85E-05" iyy="1.16E-03" iyz="1.07E-05" izz="1.17E-03"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_0"/>
+    <child link="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_1"/>
+  </joint>
+  <link name="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_2">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.15E-01"/>
+      <inertia ixx="2.59E-05" ixy="7.94E-05" ixz="6.68E-05" iyy="9.17E-04" iyz="5.93E-06" izz="9.19E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_2_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_1"/>
+    <child link="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_2"/>
+  </joint>
+  <link name="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_3">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.45E-02"/>
+      <inertia ixx="9.92E-06" ixy="1.54E-05" ixz="7.60E-06" iyy="1.13E-04" iyz="1.12E-06" izz="1.14E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_3_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_2"/>
+    <child link="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_3"/>
+  </joint>
+  <link name="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_4">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.82E-02"/>
+      <inertia ixx="6.45E-06" ixy="2.53E-05" ixz="1.64E-05" iyy="1.93E-04" iyz="2.22E-06" izz="1.94E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_4_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_3"/>
+    <child link="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_4"/>
+  </joint>
+  <link name="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_5">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.50E-02"/>
+      <inertia ixx="1.99E-05" ixy="-1.88E-05" ixz="3.88E-05" iyy="1.55E-04" iyz="-7.83E-06" izz="1.44E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_5_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_4"/>
+    <child link="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_5"/>
+  </joint>
+  <link name="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_6">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.60E-02"/>
+      <inertia ixx="7.55E-06" ixy="-3.12E-05" ixz="-5.71E-06" iyy="2.34E-04" iyz="8.22E-07" izz="2.36E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_6_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_5"/>
+    <child link="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_6"/>
+  </joint>
+  <link name="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_7">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.80E-02"/>
+      <inertia ixx="3.46E-06" ixy="5.30E-06" ixz="9.65E-08" iyy="1.56E-05" iyz="-1.28E-07" izz="1.69E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_7_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_6"/>
+    <child link="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_7"/>
+  </joint>
+  <link name="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_8">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.58E-02"/>
+      <inertia ixx="5.18E-06" ixy="-6.40E-06" ixz="-1.34E-06" iyy="2.06E-05" iyz="5.38E-07" izz="2.15E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_8_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_7"/>
+    <child link="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_8"/>
+  </joint>
+  <link name="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_9">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.86E-03"/>
+      <inertia ixx="4.34E-07" ixy="-1.43E-06" ixz="4.94E-07" iyy="7.63E-06" iyz="-9.55E-08" izz="7.75E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_9_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_8"/>
+    <child link="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_9"/>
+  </joint>
+  <link name="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_10">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.73E-03"/>
+      <inertia ixx="7.58E-07" ixy="-8.63E-07" ixz="1.34E-07" iyy="2.73E-06" iyz="-3.14E-08" izz="3.20E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_10_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_9"/>
+    <child link="link_thingiverse_packaged~long_pipe_with_flange_1841766_packaged_convex_piece_10"/>
+  </joint>
+</robot>

@@ -1,0 +1,9 @@
+name: ikea
+base_marker: "/BlackEdge01With4Makers"
+link_name_prefix: "rb"
+link_ids: {2: "0", 4: "1", 1: "2" }
+joints:
+- {rb1_id: 2, rb2_id: 4, type: PRISMATIC}
+- {rb1_id: 2, rb2_id: 1, type: REVOLUTE}
+meshes: {"rb0": "ikea/meshes/ikea_base.dae", "rb1": "ikea/meshes/ikea_drawer.dae", "rb2": "ikea/meshes/ikea_door.dae"}
+mesh_poses: {"rb0": "<origin xyz='0.022180 0.552208 0.418122' rpy='0.022296 -1.404355 -0.002711'/>", "rb1": "<origin xyz='-0.050028 0.105969 -0.165504' rpy='3.076699 -1.528233 3.141591'/>", "rb2": "<origin xyz='0.312712 0.176150 -0.208321' rpy='-0.988543 -0.912821 -0.669597'/>"}

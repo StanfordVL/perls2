@@ -1,0 +1,483 @@
+<robot name="root">
+  <link name="link_thingiverse~drainage_cap_3485281_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.20E-02"/>
+      <inertia ixx="6.76E-05" ixy="9.29E-08" ixz="2.63E-07" iyy="2.87E-05" iyz="2.65E-05" izz="4.05E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_thingiverse~drainage_cap_3485281_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.49E-02"/>
+      <inertia ixx="7.05E-05" ixy="-1.50E-07" ixz="1.12E-08" iyy="2.75E-05" iyz="-2.54E-05" izz="4.47E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~drainage_cap_3485281_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~drainage_cap_3485281_convex_piece_0"/>
+    <child link="link_thingiverse~drainage_cap_3485281_convex_piece_1"/>
+  </joint>
+  <link name="link_thingiverse~drainage_cap_3485281_convex_piece_2">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.47E-02"/>
+      <inertia ixx="4.82E-05" ixy="-1.01E-05" ixz="-1.43E-05" iyy="3.91E-05" iyz="2.12E-05" izz="2.34E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~drainage_cap_3485281_convex_piece_2_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~drainage_cap_3485281_convex_piece_1"/>
+    <child link="link_thingiverse~drainage_cap_3485281_convex_piece_2"/>
+  </joint>
+  <link name="link_thingiverse~drainage_cap_3485281_convex_piece_3">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.74E-02"/>
+      <inertia ixx="5.06E-05" ixy="-1.91E-05" ixz="-7.31E-06" iyy="1.72E-05" iyz="1.60E-05" izz="5.24E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~drainage_cap_3485281_convex_piece_3_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~drainage_cap_3485281_convex_piece_2"/>
+    <child link="link_thingiverse~drainage_cap_3485281_convex_piece_3"/>
+  </joint>
+  <link name="link_thingiverse~drainage_cap_3485281_convex_piece_4">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.01E-02"/>
+      <inertia ixx="6.05E-05" ixy="-2.36E-05" ixz="8.07E-06" iyy="2.07E-05" iyz="-1.70E-05" izz="6.37E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~drainage_cap_3485281_convex_piece_4_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~drainage_cap_3485281_convex_piece_3"/>
+    <child link="link_thingiverse~drainage_cap_3485281_convex_piece_4"/>
+  </joint>
+  <link name="link_thingiverse~drainage_cap_3485281_convex_piece_5">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.58E-02"/>
+      <inertia ixx="4.81E-05" ixy="-1.02E-05" ixz="1.47E-05" iyy="3.98E-05" iyz="-2.11E-05" izz="2.33E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~drainage_cap_3485281_convex_piece_5_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~drainage_cap_3485281_convex_piece_4"/>
+    <child link="link_thingiverse~drainage_cap_3485281_convex_piece_5"/>
+  </joint>
+  <link name="link_thingiverse~drainage_cap_3485281_convex_piece_6">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.67E-02"/>
+      <inertia ixx="5.66E-05" ixy="-3.36E-06" ixz="1.21E-05" iyy="5.44E-05" iyz="-7.46E-06" izz="1.44E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~drainage_cap_3485281_convex_piece_6_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~drainage_cap_3485281_convex_piece_5"/>
+    <child link="link_thingiverse~drainage_cap_3485281_convex_piece_6"/>
+  </joint>
+  <link name="link_thingiverse~drainage_cap_3485281_convex_piece_7">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.69E-02"/>
+      <inertia ixx="6.35E-05" ixy="-1.39E-05" ixz="6.28E-06" iyy="2.02E-05" iyz="-2.04E-05" izz="5.30E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~drainage_cap_3485281_convex_piece_7_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~drainage_cap_3485281_convex_piece_6"/>
+    <child link="link_thingiverse~drainage_cap_3485281_convex_piece_7"/>
+  </joint>
+  <link name="link_thingiverse~drainage_cap_3485281_convex_piece_8">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.29E-02"/>
+      <inertia ixx="5.90E-05" ixy="-2.64E-06" ixz="-1.10E-05" iyy="5.58E-05" iyz="7.69E-06" izz="1.21E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~drainage_cap_3485281_convex_piece_8_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~drainage_cap_3485281_convex_piece_7"/>
+    <child link="link_thingiverse~drainage_cap_3485281_convex_piece_8"/>
+  </joint>
+  <link name="link_thingiverse~drainage_cap_3485281_convex_piece_9">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.87E-02"/>
+      <inertia ixx="4.46E-05" ixy="-1.02E-05" ixz="-5.49E-06" iyy="1.59E-05" iyz="1.65E-05" izz="3.60E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~drainage_cap_3485281_convex_piece_9_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~drainage_cap_3485281_convex_piece_8"/>
+    <child link="link_thingiverse~drainage_cap_3485281_convex_piece_9"/>
+  </joint>
+  <link name="link_thingiverse~drainage_cap_3485281_convex_piece_10">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.32E-02"/>
+      <inertia ixx="4.33E-05" ixy="-1.08E-06" ixz="-9.54E-06" iyy="4.51E-05" iyz="4.65E-06" izz="4.01E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~drainage_cap_3485281_convex_piece_10_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~drainage_cap_3485281_convex_piece_9"/>
+    <child link="link_thingiverse~drainage_cap_3485281_convex_piece_10"/>
+  </joint>
+  <link name="link_thingiverse~drainage_cap_3485281_convex_piece_11">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.81E-03"/>
+      <inertia ixx="3.38E-05" ixy="1.64E-06" ixz="-5.92E-06" iyy="3.24E-05" iyz="-8.80E-06" izz="4.45E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~drainage_cap_3485281_convex_piece_11_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~drainage_cap_3485281_convex_piece_10"/>
+    <child link="link_thingiverse~drainage_cap_3485281_convex_piece_11"/>
+  </joint>
+  <link name="link_thingiverse~drainage_cap_3485281_convex_piece_12">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.46E-02"/>
+      <inertia ixx="5.04E-05" ixy="3.82E-06" ixz="-4.66E-06" iyy="2.91E-05" iyz="-2.37E-05" izz="2.38E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_12.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_12.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~drainage_cap_3485281_convex_piece_12_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~drainage_cap_3485281_convex_piece_11"/>
+    <child link="link_thingiverse~drainage_cap_3485281_convex_piece_12"/>
+  </joint>
+  <link name="link_thingiverse~drainage_cap_3485281_convex_piece_13">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.39E-02"/>
+      <inertia ixx="5.32E-05" ixy="5.04E-06" ixz="-1.69E-06" iyy="7.06E-06" iyz="-1.36E-05" izz="4.78E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_13.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_13.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~drainage_cap_3485281_convex_piece_13_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~drainage_cap_3485281_convex_piece_12"/>
+    <child link="link_thingiverse~drainage_cap_3485281_convex_piece_13"/>
+  </joint>
+  <link name="link_thingiverse~drainage_cap_3485281_convex_piece_14">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.71E-03"/>
+      <inertia ixx="3.17E-05" ixy="-1.22E-06" ixz="8.17E-06" iyy="3.35E-05" iyz="-4.51E-06" izz="3.68E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_14.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_14.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~drainage_cap_3485281_convex_piece_14_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~drainage_cap_3485281_convex_piece_13"/>
+    <child link="link_thingiverse~drainage_cap_3485281_convex_piece_14"/>
+  </joint>
+  <link name="link_thingiverse~drainage_cap_3485281_convex_piece_15">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.07E-02"/>
+      <inertia ixx="3.65E-05" ixy="1.81E-06" ixz="7.55E-06" iyy="3.59E-05" iyz="8.39E-06" izz="4.77E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_15.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_15.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~drainage_cap_3485281_convex_piece_15_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~drainage_cap_3485281_convex_piece_14"/>
+    <child link="link_thingiverse~drainage_cap_3485281_convex_piece_15"/>
+  </joint>
+  <link name="link_thingiverse~drainage_cap_3485281_convex_piece_16">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.05E-02"/>
+      <inertia ixx="3.64E-05" ixy="2.63E-06" ixz="3.71E-06" iyy="2.40E-05" iyz="1.71E-05" izz="1.45E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_16.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_16.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~drainage_cap_3485281_convex_piece_16_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~drainage_cap_3485281_convex_piece_15"/>
+    <child link="link_thingiverse~drainage_cap_3485281_convex_piece_16"/>
+  </joint>
+  <link name="link_thingiverse~drainage_cap_3485281_convex_piece_17">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.84E-02"/>
+      <inertia ixx="6.82E-05" ixy="5.95E-06" ixz="2.94E-06" iyy="1.45E-05" iyz="2.34E-05" izz="5.63E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_17.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~drainage_cap_3485281_convex_piece_17.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~drainage_cap_3485281_convex_piece_17_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~drainage_cap_3485281_convex_piece_16"/>
+    <child link="link_thingiverse~drainage_cap_3485281_convex_piece_17"/>
+  </joint>
+</robot>

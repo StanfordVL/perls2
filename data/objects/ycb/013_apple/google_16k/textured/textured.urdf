@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<robot name="textured">
+
+  <link name="base_link">
+    <contact>
+      <lateral_friction value="1.0"/>
+      <rolling_friction value="0.01"/>
+      <spinning_friction value="0.01"/>
+      <inertia_scaling value="1.0"/>
+    </contact>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.00127829 -0.00391345 00.363897"/>
+       <mass value="1.0"/>
+       <inertia ixx="16.69019775" ixy="0.00182859" ixz="0.09642722" iyy="16.92969116" iyz="-0.08831093" izz="16.22205200 "/>
+    </inertial>
+
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="data/objects/ycb/013_apple/google_16k/textured.obj" scale="1 1 1"/>
+      </geometry>
+    </visual>
+
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="data/objects/ycb/013_apple/google_16k/textured.obj" scale="1 1 1"/>
+      </geometry>
+    </collision>
+
+  </link>
+</robot>

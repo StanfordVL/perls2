@@ -1,0 +1,1428 @@
+<robot name="root">
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.39E-02"/>
+      <inertia ixx="7.14E-05" ixy="-1.16E-04" ixz="8.64E-05" iyy="3.33E-04" iyz="-3.27E-05" izz="3.53E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.10E-03"/>
+      <inertia ixx="2.17E-06" ixy="-4.74E-06" ixz="-1.44E-06" iyy="1.28E-05" iyz="5.46E-07" izz="1.45E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_0"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_1"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_2">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.10E-03"/>
+      <inertia ixx="1.75E-06" ixy="-3.75E-06" ixz="1.16E-06" iyy="9.88E-06" iyz="-4.53E-07" izz="1.12E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_2_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_1"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_2"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_3">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.92E-03"/>
+      <inertia ixx="2.80E-06" ixy="4.84E-07" ixz="-1.98E-06" iyy="4.31E-06" iyz="-6.19E-07" izz="1.86E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_3_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_2"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_3"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_4">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.01E-03"/>
+      <inertia ixx="1.24E-06" ixy="-1.84E-06" ixz="1.51E-06" iyy="5.28E-06" iyz="-5.85E-07" izz="5.55E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_4_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_3"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_4"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_5">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.49E-02"/>
+      <inertia ixx="7.56E-05" ixy="-6.73E-05" ixz="8.56E-05" iyy="2.20E-04" iyz="-3.30E-05" izz="2.05E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_5_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_4"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_5"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_6">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.07E-03"/>
+      <inertia ixx="5.72E-07" ixy="-7.88E-07" ixz="-4.41E-07" iyy="2.11E-06" iyz="1.78E-07" izz="2.44E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_6_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_5"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_6"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_7">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.37E-03"/>
+      <inertia ixx="2.98E-07" ixy="-3.99E-07" ixz="2.99E-07" iyy="1.17E-06" iyz="-1.14E-07" izz="1.22E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_7_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_6"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_7"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_8">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.50E-02"/>
+      <inertia ixx="8.09E-06" ixy="-4.59E-06" ixz="-7.81E-06" iyy="1.78E-05" iyz="3.16E-06" izz="1.52E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_8_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_7"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_8"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_9">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.57E-02"/>
+      <inertia ixx="4.51E-05" ixy="-1.56E-05" ixz="-3.76E-05" iyy="8.02E-05" iyz="1.44E-05" izz="5.15E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_9_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_8"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_9"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_10">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.46E-02"/>
+      <inertia ixx="2.19E-05" ixy="-6.54E-06" ixz="9.57E-06" iyy="2.53E-05" iyz="-9.34E-06" izz="1.60E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_10_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_9"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_10"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_11">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.27E-02"/>
+      <inertia ixx="7.67E-06" ixy="-6.55E-07" ixz="6.65E-06" iyy="1.41E-05" iyz="-7.01E-07" izz="6.86E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_11_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_10"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_11"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_12">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.24E-03"/>
+      <inertia ixx="3.68E-06" ixy="-3.56E-07" ixz="-5.59E-07" iyy="2.91E-06" iyz="1.55E-06" izz="1.17E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_12.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_12.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_12_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_11"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_12"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_13">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.11E-03"/>
+      <inertia ixx="3.49E-06" ixy="4.96E-07" ixz="1.68E-06" iyy="4.23E-06" iyz="9.79E-07" izz="1.45E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_13.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_13.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_13_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_12"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_13"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_14">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.63E-02"/>
+      <inertia ixx="5.96E-05" ixy="-1.61E-05" ixz="4.94E-05" iyy="1.00E-04" iyz="-1.71E-05" izz="5.39E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_14.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_14.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_14_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_13"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_14"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_15">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.10E-02"/>
+      <inertia ixx="2.96E-05" ixy="-1.05E-05" ixz="2.75E-05" iyy="5.57E-05" iyz="-9.52E-06" izz="3.49E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_15.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_15.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_15_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_14"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_15"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_16">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.65E-03"/>
+      <inertia ixx="2.74E-06" ixy="1.74E-07" ixz="1.20E-06" iyy="3.27E-06" iyz="3.95E-07" izz="6.56E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_16.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_16.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_16_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_15"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_16"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_17">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.06E-02"/>
+      <inertia ixx="2.59E-05" ixy="-1.38E-05" ixz="2.79E-05" iyy="6.06E-05" iyz="-9.56E-06" izz="4.71E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_17.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_17.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_17_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_16"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_17"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_18">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.76E-03"/>
+      <inertia ixx="1.11E-06" ixy="-1.36E-06" ixz="-1.49E-07" iyy="1.93E-06" iyz="1.20E-07" izz="2.99E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_18.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_18.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_18_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_17"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_18"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_19">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.34E-03"/>
+      <inertia ixx="4.12E-06" ixy="-2.19E-06" ixz="3.59E-06" iyy="9.25E-06" iyz="-1.31E-06" izz="7.89E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_19.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_19.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_19_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_18"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_19"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_20">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.06E-03"/>
+      <inertia ixx="3.70E-06" ixy="-3.97E-06" ixz="4.52E-06" iyy="1.39E-05" iyz="-1.50E-06" izz="1.41E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_20.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_20.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_20_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_19"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_20"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_21">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.35E-03"/>
+      <inertia ixx="5.63E-06" ixy="-2.89E-07" ixz="1.91E-06" iyy="6.13E-06" iyz="-8.21E-07" izz="9.24E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_21.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_21.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_21_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_20"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_21"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_22">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.00E-03"/>
+      <inertia ixx="5.12E-07" ixy="-9.99E-07" ixz="-4.43E-07" iyy="5.92E-06" iyz="6.70E-08" izz="6.32E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_22.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_22.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_22_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_21"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_22"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_23">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.39E-03"/>
+      <inertia ixx="1.67E-05" ixy="-2.76E-06" ixz="6.55E-06" iyy="1.77E-05" iyz="-5.71E-06" izz="5.71E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_23.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_23.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_23_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_22"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_23"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_24">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.20E-03"/>
+      <inertia ixx="8.89E-06" ixy="-1.88E-06" ixz="3.84E-06" iyy="9.58E-06" iyz="-3.38E-06" izz="3.93E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_24.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_24.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_24_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_23"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_24"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_25">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.93E-03"/>
+      <inertia ixx="6.99E-06" ixy="-1.85E-06" ixz="2.52E-06" iyy="6.57E-06" iyz="-3.15E-06" izz="3.97E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_25.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_25.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_25_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_24"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_25"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_26">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.76E-03"/>
+      <inertia ixx="1.32E-07" ixy="1.96E-07" ixz="1.38E-07" iyy="8.60E-07" iyz="4.70E-08" izz="9.28E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_26.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_26.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_26_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_25"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_26"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_27">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.72E-03"/>
+      <inertia ixx="6.26E-06" ixy="-4.38E-06" ixz="7.27E-06" iyy="1.74E-05" iyz="-2.44E-06" izz="1.53E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_27.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_27.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_27_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_26"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_27"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_28">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.28E-03"/>
+      <inertia ixx="1.42E-06" ixy="-5.56E-07" ixz="3.51E-07" iyy="9.61E-07" iyz="-6.48E-07" izz="1.39E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_28.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_28.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_28_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_27"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_28"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_29">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.97E-03"/>
+      <inertia ixx="1.58E-06" ixy="-2.10E-06" ixz="1.70E-06" iyy="6.97E-06" iyz="-5.59E-07" izz="7.60E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_29.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_29.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_29_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_28"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_29"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_30">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.75E-03"/>
+      <inertia ixx="2.82E-07" ixy="2.18E-09" ixz="-5.29E-08" iyy="1.69E-07" iyz="3.57E-08" izz="3.19E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_30.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_30.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_30_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_29"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_30"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_31">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.21E-03"/>
+      <inertia ixx="3.21E-07" ixy="2.86E-08" ixz="2.72E-08" iyy="3.06E-07" iyz="-5.33E-08" izz="5.45E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_31.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_31.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_31_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_30"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_31"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_32">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.13E-04"/>
+      <inertia ixx="5.89E-08" ixy="-2.29E-08" ixz="6.24E-08" iyy="1.35E-07" iyz="-1.45E-08" izz="1.05E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_32.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_32.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_32_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_31"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_32"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_33">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.92E-04"/>
+      <inertia ixx="1.17E-06" ixy="-4.88E-08" ixz="8.42E-07" iyy="1.79E-06" iyz="-5.93E-08" izz="6.29E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_33.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_33.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_33_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_32"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_33"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_34">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.15E-03"/>
+      <inertia ixx="5.21E-06" ixy="-1.17E-06" ixz="3.48E-06" iyy="7.30E-06" iyz="-1.59E-06" izz="3.26E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_34.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_34.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_34_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_33"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_34"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_35">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.65E-03"/>
+      <inertia ixx="1.01E-05" ixy="-2.38E-07" ixz="4.04E-06" iyy="1.18E-05" iyz="-6.90E-07" izz="1.95E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_35.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_35.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_35_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_34"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_35"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_36">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.78E-03"/>
+      <inertia ixx="8.52E-07" ixy="1.26E-07" ixz="-1.60E-07" iyy="9.46E-07" iyz="-3.96E-07" izz="9.50E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_36.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_36.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_36_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_35"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_36"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_37">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.88E-03"/>
+      <inertia ixx="7.89E-06" ixy="1.81E-07" ixz="4.77E-06" iyy="1.09E-05" iyz="3.48E-07" izz="3.03E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_37.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_37.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_37_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_36"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_37"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_38">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.43E-03"/>
+      <inertia ixx="2.34E-05" ixy="-2.81E-07" ixz="6.37E-06" iyy="2.49E-05" iyz="-1.47E-06" izz="2.34E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_38.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_38.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_38_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_37"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_38"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_39">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.60E-03"/>
+      <inertia ixx="4.66E-07" ixy="-4.39E-08" ixz="-1.22E-08" iyy="2.08E-07" iyz="2.05E-07" izz="3.94E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_39.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_39.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_39_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_38"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_39"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_40">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.61E-03"/>
+      <inertia ixx="1.64E-07" ixy="2.77E-08" ixz="1.39E-07" iyy="2.90E-07" iyz="2.33E-08" izz="1.80E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_40.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_40.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_40_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_39"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_40"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_41">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.10E-03"/>
+      <inertia ixx="3.44E-06" ixy="-1.89E-07" ixz="3.50E-06" iyy="7.11E-06" iyz="-1.50E-07" izz="3.72E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_41.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_41.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_41_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_40"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_41"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_42">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.27E-02"/>
+      <inertia ixx="2.63E-05" ixy="-1.13E-05" ixz="2.35E-05" iyy="4.87E-05" iyz="-1.01E-05" izz="3.32E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_42.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_42.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_42_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_41"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_42"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_43">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.61E-03"/>
+      <inertia ixx="4.42E-06" ixy="-9.94E-08" ixz="9.28E-07" iyy="4.50E-06" iyz="-5.63E-07" izz="3.70E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_43.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_43.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_43_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_42"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_43"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_44">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.48E-04"/>
+      <inertia ixx="1.88E-06" ixy="-2.40E-07" ixz="5.09E-07" iyy="1.73E-06" iyz="-7.10E-07" izz="5.14E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_44.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_44.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_44_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_43"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_44"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_45">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.86E-03"/>
+      <inertia ixx="2.43E-06" ixy="3.52E-07" ixz="1.77E-06" iyy="3.75E-06" iyz="4.82E-07" izz="1.56E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_45.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_45.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_45_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_44"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_45"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_46">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.00E-03"/>
+      <inertia ixx="6.78E-06" ixy="1.05E-07" ixz="1.37E-06" iyy="6.85E-06" iyz="-9.59E-08" izz="7.40E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_46.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_46.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_46_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_45"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_46"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_47">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.26E-03"/>
+      <inertia ixx="2.09E-07" ixy="1.69E-08" ixz="5.33E-09" iyy="4.95E-08" iyz="3.50E-08" izz="2.39E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_47.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_47.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_47_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_46"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_47"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_48">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.79E-03"/>
+      <inertia ixx="2.26E-06" ixy="-3.04E-06" ixz="7.39E-07" iyy="5.78E-06" iyz="-4.89E-07" izz="7.75E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_48.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_48.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_48_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_47"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_48"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_49">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.54E-03"/>
+      <inertia ixx="2.39E-06" ixy="-2.62E-06" ixz="-2.36E-06" iyy="8.39E-06" iyz="9.00E-07" izz="9.13E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_49.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_49.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_49_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_48"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_49"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_50">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.72E-03"/>
+      <inertia ixx="3.93E-07" ixy="2.04E-07" ixz="3.10E-07" iyy="6.83E-07" iyz="1.75E-07" izz="5.60E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_50.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_50.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_50_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_49"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_50"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_51">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.08E-03"/>
+      <inertia ixx="7.72E-07" ixy="5.38E-08" ixz="4.35E-09" iyy="6.58E-07" iyz="6.57E-08" izz="2.14E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_51.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_51.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_51_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_50"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_51"/>
+  </joint>
+  <link name="link_thingiverse~glock_base_4493080_convex_piece_52">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.73E-03"/>
+      <inertia ixx="8.01E-08" ixy="-2.87E-07" ixz="2.47E-07" iyy="2.35E-06" iyz="-3.04E-08" izz="2.37E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_52.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~glock_base_4493080_convex_piece_52.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~glock_base_4493080_convex_piece_52_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~glock_base_4493080_convex_piece_51"/>
+    <child link="link_thingiverse~glock_base_4493080_convex_piece_52"/>
+  </joint>
+</robot>

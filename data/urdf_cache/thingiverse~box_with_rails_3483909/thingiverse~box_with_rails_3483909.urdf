@@ -1,0 +1,321 @@
+<robot name="root">
+  <link name="link_thingiverse~box_with_rails_3483909_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.30E-02"/>
+      <inertia ixx="6.73E-05" ixy="-1.23E-05" ixz="-5.29E-06" iyy="1.99E-05" iyz="2.06E-05" izz="5.38E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~box_with_rails_3483909_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~box_with_rails_3483909_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_thingiverse~box_with_rails_3483909_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.81E-02"/>
+      <inertia ixx="2.38E-04" ixy="-6.59E-06" ixz="1.96E-05" iyy="1.76E-04" iyz="-6.28E-05" izz="1.01E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~box_with_rails_3483909_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~box_with_rails_3483909_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~box_with_rails_3483909_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~box_with_rails_3483909_convex_piece_0"/>
+    <child link="link_thingiverse~box_with_rails_3483909_convex_piece_1"/>
+  </joint>
+  <link name="link_thingiverse~box_with_rails_3483909_convex_piece_2">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.54E-02"/>
+      <inertia ixx="9.13E-05" ixy="-9.31E-06" ixz="1.90E-05" iyy="5.89E-05" iyz="-2.39E-05" izz="4.90E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~box_with_rails_3483909_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~box_with_rails_3483909_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~box_with_rails_3483909_convex_piece_2_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~box_with_rails_3483909_convex_piece_1"/>
+    <child link="link_thingiverse~box_with_rails_3483909_convex_piece_2"/>
+  </joint>
+  <link name="link_thingiverse~box_with_rails_3483909_convex_piece_3">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.65E-02"/>
+      <inertia ixx="1.14E-04" ixy="-5.35E-06" ixz="-5.80E-06" iyy="6.70E-05" iyz="5.54E-05" izz="5.99E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~box_with_rails_3483909_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~box_with_rails_3483909_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~box_with_rails_3483909_convex_piece_3_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~box_with_rails_3483909_convex_piece_2"/>
+    <child link="link_thingiverse~box_with_rails_3483909_convex_piece_3"/>
+  </joint>
+  <link name="link_thingiverse~box_with_rails_3483909_convex_piece_4">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.05E-02"/>
+      <inertia ixx="1.69E-04" ixy="3.21E-05" ixz="1.08E-05" iyy="4.45E-05" iyz="4.75E-05" izz="1.54E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~box_with_rails_3483909_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~box_with_rails_3483909_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~box_with_rails_3483909_convex_piece_4_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~box_with_rails_3483909_convex_piece_3"/>
+    <child link="link_thingiverse~box_with_rails_3483909_convex_piece_4"/>
+  </joint>
+  <link name="link_thingiverse~box_with_rails_3483909_convex_piece_5">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.31E-02"/>
+      <inertia ixx="5.34E-05" ixy="7.23E-06" ixz="8.47E-06" iyy="3.52E-05" iyz="2.60E-05" izz="2.73E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~box_with_rails_3483909_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~box_with_rails_3483909_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~box_with_rails_3483909_convex_piece_5_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~box_with_rails_3483909_convex_piece_4"/>
+    <child link="link_thingiverse~box_with_rails_3483909_convex_piece_5"/>
+  </joint>
+  <link name="link_thingiverse~box_with_rails_3483909_convex_piece_6">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.33E-02"/>
+      <inertia ixx="5.90E-05" ixy="1.26E-05" ixz="-1.14E-05" iyy="3.54E-05" iyz="-8.96E-06" izz="5.15E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~box_with_rails_3483909_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~box_with_rails_3483909_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~box_with_rails_3483909_convex_piece_6_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~box_with_rails_3483909_convex_piece_5"/>
+    <child link="link_thingiverse~box_with_rails_3483909_convex_piece_6"/>
+  </joint>
+  <link name="link_thingiverse~box_with_rails_3483909_convex_piece_7">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.42E-02"/>
+      <inertia ixx="1.32E-04" ixy="-5.69E-06" ixz="1.07E-06" iyy="2.05E-05" iyz="-2.65E-05" izz="1.26E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~box_with_rails_3483909_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~box_with_rails_3483909_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~box_with_rails_3483909_convex_piece_7_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~box_with_rails_3483909_convex_piece_6"/>
+    <child link="link_thingiverse~box_with_rails_3483909_convex_piece_7"/>
+  </joint>
+  <link name="link_thingiverse~box_with_rails_3483909_convex_piece_8">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.55E-02"/>
+      <inertia ixx="6.86E-05" ixy="1.32E-05" ixz="-5.69E-06" iyy="1.71E-05" iyz="-2.46E-05" izz="6.28E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~box_with_rails_3483909_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~box_with_rails_3483909_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~box_with_rails_3483909_convex_piece_8_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~box_with_rails_3483909_convex_piece_7"/>
+    <child link="link_thingiverse~box_with_rails_3483909_convex_piece_8"/>
+  </joint>
+  <link name="link_thingiverse~box_with_rails_3483909_convex_piece_9">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.12E-02"/>
+      <inertia ixx="1.68E-04" ixy="1.71E-05" ixz="-3.07E-05" iyy="1.23E-04" iyz="-5.54E-05" izz="7.88E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~box_with_rails_3483909_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~box_with_rails_3483909_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~box_with_rails_3483909_convex_piece_9_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~box_with_rails_3483909_convex_piece_8"/>
+    <child link="link_thingiverse~box_with_rails_3483909_convex_piece_9"/>
+  </joint>
+  <link name="link_thingiverse~box_with_rails_3483909_convex_piece_10">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.07E-03"/>
+      <inertia ixx="2.19E-05" ixy="6.25E-06" ixz="4.58E-06" iyy="1.09E-05" iyz="9.81E-06" izz="1.69E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~box_with_rails_3483909_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~box_with_rails_3483909_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~box_with_rails_3483909_convex_piece_10_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~box_with_rails_3483909_convex_piece_9"/>
+    <child link="link_thingiverse~box_with_rails_3483909_convex_piece_10"/>
+  </joint>
+  <link name="link_thingiverse~box_with_rails_3483909_convex_piece_11">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.01E-02"/>
+      <inertia ixx="8.33E-05" ixy="-2.92E-06" ixz="-1.47E-06" iyy="2.20E-05" iyz="3.26E-05" izz="6.95E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~box_with_rails_3483909_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~box_with_rails_3483909_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~box_with_rails_3483909_convex_piece_11_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~box_with_rails_3483909_convex_piece_10"/>
+    <child link="link_thingiverse~box_with_rails_3483909_convex_piece_11"/>
+  </joint>
+</robot>

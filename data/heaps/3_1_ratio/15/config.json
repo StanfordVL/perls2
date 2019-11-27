@@ -1,0 +1,23 @@
+{
+  "datapoints_per_file": 100, 
+  "fields": {
+    "heap_ids": {
+      "dtype": "uint32"
+    }, 
+    "obj_coms": {
+      "dtype": "float32", 
+      "height": 45
+    }, 
+    "obj_ids": {
+      "dtype": "uint32", 
+      "height": 15
+    }, 
+    "obj_poses": {
+      "dtype": "float32", 
+      "height": 105
+    }, 
+    "target_ids": {
+      "dtype": "uint32"
+    }
+  }
+}

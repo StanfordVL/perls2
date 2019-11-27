@@ -1,0 +1,132 @@
+<robot name="root">
+  <link name="link_thingiverse~three_hole_spinner_5361537_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.49E-01"/>
+      <inertia ixx="8.78E-04" ixy="-1.03E-07" ixz="2.86E-07" iyy="8.05E-04" iyz="1.87E-04" izz="1.05E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~three_hole_spinner_5361537_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~three_hole_spinner_5361537_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_thingiverse~three_hole_spinner_5361537_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.70E-01"/>
+      <inertia ixx="9.99E-04" ixy="-9.93E-07" ixz="2.41E-06" iyy="9.09E-04" iyz="-2.24E-04" izz="1.26E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~three_hole_spinner_5361537_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~three_hole_spinner_5361537_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~three_hole_spinner_5361537_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~three_hole_spinner_5361537_convex_piece_0"/>
+    <child link="link_thingiverse~three_hole_spinner_5361537_convex_piece_1"/>
+  </joint>
+  <link name="link_thingiverse~three_hole_spinner_5361537_convex_piece_2">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.44E-01"/>
+      <inertia ixx="8.88E-04" ixy="-1.82E-07" ixz="5.75E-07" iyy="8.21E-04" iyz="1.87E-04" izz="1.00E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~three_hole_spinner_5361537_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~three_hole_spinner_5361537_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~three_hole_spinner_5361537_convex_piece_2_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~three_hole_spinner_5361537_convex_piece_1"/>
+    <child link="link_thingiverse~three_hole_spinner_5361537_convex_piece_2"/>
+  </joint>
+  <link name="link_thingiverse~three_hole_spinner_5361537_convex_piece_3">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.87E-02"/>
+      <inertia ixx="5.32E-04" ixy="-4.17E-07" ixz="1.97E-06" iyy="5.10E-04" iyz="-9.70E-05" izz="3.01E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~three_hole_spinner_5361537_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~three_hole_spinner_5361537_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~three_hole_spinner_5361537_convex_piece_3_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~three_hole_spinner_5361537_convex_piece_2"/>
+    <child link="link_thingiverse~three_hole_spinner_5361537_convex_piece_3"/>
+  </joint>
+  <link name="link_thingiverse~three_hole_spinner_5361537_convex_piece_4">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.87E-01"/>
+      <inertia ixx="3.55E-04" ixy="-5.16E-07" ixz="7.22E-07" iyy="2.83E-04" iyz="-1.16E-04" izz="9.79E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~three_hole_spinner_5361537_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~three_hole_spinner_5361537_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~three_hole_spinner_5361537_convex_piece_4_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~three_hole_spinner_5361537_convex_piece_3"/>
+    <child link="link_thingiverse~three_hole_spinner_5361537_convex_piece_4"/>
+  </joint>
+</robot>

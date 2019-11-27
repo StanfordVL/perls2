@@ -1,0 +1,1212 @@
+<robot name="root">
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.66E-03"/>
+      <inertia ixx="1.67E-05" ixy="6.97E-06" ixz="1.56E-05" iyy="3.30E-05" iyz="5.46E-06" izz="2.39E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.32E-03"/>
+      <inertia ixx="1.77E-05" ixy="1.12E-05" ixz="-5.50E-06" iyy="1.38E-05" iyz="-6.60E-06" izz="2.36E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_0"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_1"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_2">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.25E-02"/>
+      <inertia ixx="4.28E-05" ixy="7.75E-06" ixz="-4.50E-06" iyy="1.47E-05" iyz="-1.68E-05" izz="3.35E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_2_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_1"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_2"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_3">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.85E-02"/>
+      <inertia ixx="2.32E-05" ixy="1.28E-05" ixz="-2.33E-05" iyy="5.89E-05" iyz="-7.55E-06" izz="4.80E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_3_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_2"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_3"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_4">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.29E-02"/>
+      <inertia ixx="3.97E-05" ixy="3.72E-06" ixz="-1.12E-05" iyy="3.97E-05" iyz="-1.08E-05" izz="9.83E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_4_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_3"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_4"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_5">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.17E-02"/>
+      <inertia ixx="5.91E-05" ixy="-8.55E-06" ixz="-1.49E-05" iyy="4.94E-05" iyz="1.85E-05" izz="2.52E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_5_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_4"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_5"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_6">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.86E-03"/>
+      <inertia ixx="2.30E-05" ixy="-6.18E-06" ixz="-9.86E-07" iyy="3.15E-06" iyz="3.46E-06" izz="2.46E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_6_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_5"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_6"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_7">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.63E-02"/>
+      <inertia ixx="2.82E-05" ixy="-1.24E-05" ixz="-2.43E-05" iyy="5.29E-05" iyz="9.36E-06" izz="4.00E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_7_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_6"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_7"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_8">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.19E-02"/>
+      <inertia ixx="4.14E-05" ixy="-7.10E-06" ixz="3.63E-06" iyy="1.22E-05" iyz="-1.51E-05" izz="3.36E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_8_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_7"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_8"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_9">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.81E-03"/>
+      <inertia ixx="2.23E-05" ixy="-1.37E-05" ixz="5.57E-06" iyy="1.51E-05" iyz="-7.37E-06" izz="2.93E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_9_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_8"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_9"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_10">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.14E-02"/>
+      <inertia ixx="2.88E-05" ixy="-7.44E-06" ixz="1.69E-05" iyy="3.66E-05" iyz="-9.87E-06" izz="1.96E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_10_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_9"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_10"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_11">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.16E-02"/>
+      <inertia ixx="4.05E-05" ixy="-3.39E-06" ixz="6.23E-06" iyy="3.17E-05" iyz="-1.51E-05" izz="1.24E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_11_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_10"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_11"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_12">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.27E-03"/>
+      <inertia ixx="3.05E-05" ixy="6.45E-06" ixz="-6.34E-06" iyy="1.90E-05" iyz="-1.47E-05" izz="1.94E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_12.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_12.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_12_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_11"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_12"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_13">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.75E-02"/>
+      <inertia ixx="5.10E-05" ixy="1.86E-05" ixz="-3.10E-06" iyy="1.39E-05" iyz="-8.04E-06" izz="5.75E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_13.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_13.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_13_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_12"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_13"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_14">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.50E-03"/>
+      <inertia ixx="3.48E-05" ixy="-1.53E-06" ixz="-7.61E-06" iyy="3.61E-05" iyz="6.22E-06" izz="3.95E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_14.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_14.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_14_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_13"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_14"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_15">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.70E-03"/>
+      <inertia ixx="2.06E-05" ixy="-3.03E-06" ixz="-9.02E-07" iyy="2.46E-06" iyz="5.51E-06" izz="1.97E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_15.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_15.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_15_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_14"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_15"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_16">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.37E-02"/>
+      <inertia ixx="1.90E-05" ixy="1.25E-05" ixz="1.71E-05" iyy="4.16E-05" iyz="7.89E-06" izz="3.68E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_16.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_16.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_16_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_15"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_16"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_17">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.55E-03"/>
+      <inertia ixx="2.29E-05" ixy="5.41E-06" ixz="2.06E-06" iyy="4.56E-06" iyz="7.29E-06" izz="2.18E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_17.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_17.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_17_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_16"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_17"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_18">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.97E-03"/>
+      <inertia ixx="2.54E-05" ixy="1.24E-05" ixz="7.90E-06" iyy="1.72E-05" iyz="1.09E-05" izz="2.68E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_18.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_18.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_18_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_17"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_18"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_19">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.63E-03"/>
+      <inertia ixx="1.32E-05" ixy="1.45E-05" ixz="3.65E-06" iyy="2.09E-05" iyz="2.78E-06" izz="3.12E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_19.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_19.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_19_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_18"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_19"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_20">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.46E-03"/>
+      <inertia ixx="2.25E-06" ixy="3.95E-06" ixz="3.65E-06" iyy="2.28E-05" iyz="6.83E-07" izz="2.27E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_20.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_20.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_20_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_19"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_20"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_21">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.21E-02"/>
+      <inertia ixx="3.54E-05" ixy="1.07E-05" ixz="5.37E-06" iyy="1.29E-05" iyz="1.31E-05" izz="3.37E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_21.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_21.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_21_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_20"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_21"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_22">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.25E-03"/>
+      <inertia ixx="1.73E-05" ixy="5.77E-06" ixz="1.85E-07" iyy="2.73E-06" iyz="5.31E-07" izz="1.98E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_22.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_22.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_22_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_21"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_22"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_23">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.27E-02"/>
+      <inertia ixx="3.56E-05" ixy="5.41E-06" ixz="1.14E-05" iyy="3.46E-05" iyz="1.26E-05" izz="1.30E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_23.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_23.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_23_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_22"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_23"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_24">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.33E-03"/>
+      <inertia ixx="1.11E-05" ixy="1.69E-07" ixz="3.55E-06" iyy="1.26E-05" iyz="5.15E-07" izz="1.61E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_24.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_24.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_24_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_23"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_24"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_25">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.83E-03"/>
+      <inertia ixx="1.12E-05" ixy="-1.03E-05" ixz="-2.47E-06" iyy="1.19E-05" iyz="2.32E-06" izz="2.14E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_25.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_25.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_25_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_24"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_25"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_26">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.98E-03"/>
+      <inertia ixx="2.77E-06" ixy="-5.21E-06" ixz="-3.13E-06" iyy="2.07E-05" iyz="7.97E-07" izz="2.20E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_26.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_26.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_26_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_25"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_26"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_27">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.12E-03"/>
+      <inertia ixx="5.38E-06" ixy="-7.68E-06" ixz="6.00E-06" iyy="2.60E-05" iyz="-2.01E-06" izz="2.77E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_27.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_27.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_27_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_26"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_27"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_28">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.24E-03"/>
+      <inertia ixx="8.88E-06" ixy="-4.94E-06" ixz="8.89E-06" iyy="1.96E-05" iyz="-3.51E-06" izz="1.62E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_28.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_28.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_28_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_27"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_28"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_29">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.91E-03"/>
+      <inertia ixx="2.01E-05" ixy="-9.47E-07" ixz="2.85E-06" iyy="1.81E-05" iyz="-5.64E-06" izz="3.21E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_29.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_29.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_29_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_28"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_29"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_30">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.12E-02"/>
+      <inertia ixx="2.87E-05" ixy="-5.17E-06" ixz="1.59E-05" iyy="3.62E-05" iyz="-7.96E-06" izz="1.53E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_30.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_30.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_30_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_29"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_30"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_31">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.86E-03"/>
+      <inertia ixx="8.55E-06" ixy="-6.74E-06" ixz="8.56E-06" iyy="2.11E-05" iyz="-3.80E-06" izz="1.99E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_31.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_31.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_31_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_30"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_31"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_32">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.46E-03"/>
+      <inertia ixx="5.85E-06" ixy="-1.06E-05" ixz="1.50E-06" iyy="2.84E-05" iyz="-6.24E-07" izz="3.29E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_32.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_32.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_32_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_31"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_32"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_33">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.39E-02"/>
+      <inertia ixx="3.48E-05" ixy="-1.99E-05" ixz="4.31E-06" iyy="1.78E-05" iyz="-6.70E-06" izz="4.55E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_33.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_33.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_33_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_32"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_33"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_34">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.95E-03"/>
+      <inertia ixx="2.35E-05" ixy="-3.44E-06" ixz="8.30E-07" iyy="3.02E-06" iyz="-4.89E-06" izz="2.20E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_34.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_34.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_34_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_33"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_34"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_35">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.44E-03"/>
+      <inertia ixx="2.59E-05" ixy="1.91E-06" ixz="-6.02E-06" iyy="2.53E-05" iyz="-7.04E-06" izz="4.80E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_35.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_35.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_35_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_34"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_35"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_36">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.94E-03"/>
+      <inertia ixx="1.69E-05" ixy="5.12E-06" ixz="-1.32E-05" iyy="2.77E-05" iyz="-5.32E-06" izz="1.59E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_36.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_36.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_36_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_35"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_36"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_37">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.06E-02"/>
+      <inertia ixx="5.86E-06" ixy="9.41E-06" ixz="-5.67E-06" iyy="3.48E-05" iyz="-1.73E-06" izz="3.57E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_37.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_37.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_37_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_36"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_37"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_38">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.57E-03"/>
+      <inertia ixx="9.97E-06" ixy="1.05E-05" ixz="-2.81E-06" iyy="1.50E-05" iyz="-2.34E-06" izz="2.20E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_38.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_38.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_38_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_37"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_38"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_39">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.05E-03"/>
+      <inertia ixx="1.03E-05" ixy="-7.91E-06" ixz="-1.12E-05" iyy="2.84E-05" iyz="4.26E-06" izz="2.55E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_39.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_39.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_39_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_38"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_39"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_40">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.34E-03"/>
+      <inertia ixx="1.81E-05" ixy="-4.42E-06" ixz="-1.19E-05" iyy="2.50E-05" iyz="5.70E-06" izz="1.18E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_40.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_40.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_40_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_39"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_40"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_41">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.42E-03"/>
+      <inertia ixx="1.11E-05" ixy="-7.09E-06" ixz="-5.43E-06" iyy="1.21E-05" iyz="5.06E-06" izz="1.43E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_41.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_41.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_41_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_40"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_41"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_42">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.56E-03"/>
+      <inertia ixx="1.94E-05" ixy="-9.77E-06" ixz="-4.73E-06" iyy="1.02E-05" iyz="7.31E-06" izz="2.21E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_42.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_42.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_42_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_41"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_42"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_43">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.04E-03"/>
+      <inertia ixx="1.72E-05" ixy="7.48E-07" ixz="3.53E-06" iyy="1.73E-05" iyz="3.35E-06" izz="1.66E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_43.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_43.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_43_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_42"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_43"/>
+  </joint>
+  <link name="link_thingiverse~oval_vase_2720233_convex_piece_44">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.70E-03"/>
+      <inertia ixx="2.57E-05" ixy="4.65E-06" ixz="1.25E-05" iyy="2.96E-05" iyz="8.08E-06" izz="1.11E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_44.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~oval_vase_2720233_convex_piece_44.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~oval_vase_2720233_convex_piece_44_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~oval_vase_2720233_convex_piece_43"/>
+    <child link="link_thingiverse~oval_vase_2720233_convex_piece_44"/>
+  </joint>
+</robot>

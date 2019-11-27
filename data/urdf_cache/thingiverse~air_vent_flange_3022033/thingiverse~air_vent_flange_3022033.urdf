@@ -1,0 +1,1401 @@
+<robot name="root">
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.76E-03"/>
+      <inertia ixx="4.42E-06" ixy="8.83E-07" ixz="7.89E-07" iyy="2.63E-06" iyz="1.97E-06" izz="2.54E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.33E-03"/>
+      <inertia ixx="4.14E-06" ixy="8.81E-07" ixz="-8.63E-07" iyy="2.58E-06" iyz="-1.92E-06" izz="2.38E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_0"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_1"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_2">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.28E-03"/>
+      <inertia ixx="4.25E-06" ixy="-6.77E-07" ixz="6.86E-07" iyy="2.53E-06" iyz="-1.99E-06" izz="2.21E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_2_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_1"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_2"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_3">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.06E-03"/>
+      <inertia ixx="4.55E-06" ixy="-9.31E-07" ixz="-7.87E-07" iyy="2.61E-06" iyz="1.96E-06" izz="2.72E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_3_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_2"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_3"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_4">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.11E-04"/>
+      <inertia ixx="4.16E-07" ixy="-1.06E-09" ixz="-3.77E-08" iyy="3.84E-07" iyz="1.32E-08" izz="4.20E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_4_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_3"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_4"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_5">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.46E-03"/>
+      <inertia ixx="8.49E-07" ixy="9.58E-08" ixz="2.44E-07" iyy="8.29E-07" iyz="2.77E-07" izz="2.39E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_5_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_4"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_5"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_6">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.12E-03"/>
+      <inertia ixx="4.92E-07" ixy="-3.94E-07" ixz="-3.66E-07" iyy="8.63E-07" iyz="2.33E-07" izz="8.92E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_6_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_5"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_6"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_7">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.26E-03"/>
+      <inertia ixx="5.33E-07" ixy="-1.65E-07" ixz="-5.75E-07" iyy="1.21E-06" iyz="1.34E-07" izz="7.79E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_7_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_6"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_7"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_8">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.63E-04"/>
+      <inertia ixx="4.01E-07" ixy="1.21E-07" ixz="-4.45E-07" iyy="9.38E-07" iyz="-9.80E-08" izz="6.02E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_8_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_7"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_8"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_9">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.24E-03"/>
+      <inertia ixx="4.99E-07" ixy="3.96E-07" ixz="-4.12E-07" iyy="9.73E-07" iyz="-2.36E-07" izz="9.46E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_9_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_8"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_9"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_10">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.44E-03"/>
+      <inertia ixx="8.03E-07" ixy="1.97E-07" ixz="1.58E-07" iyy="5.73E-07" iyz="2.74E-07" izz="4.63E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_10_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_9"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_10"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_11">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.64E-04"/>
+      <inertia ixx="8.53E-07" ixy="5.51E-08" ixz="2.28E-07" iyy="8.62E-07" iyz="1.91E-07" izz="1.27E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_11_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_10"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_11"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_12">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.03E-04"/>
+      <inertia ixx="6.20E-07" ixy="1.16E-07" ixz="-1.68E-07" iyy="5.01E-07" iyz="-2.74E-07" izz="2.66E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_12.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_12.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_12_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_11"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_12"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_13">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.83E-04"/>
+      <inertia ixx="9.26E-07" ixy="6.74E-08" ixz="-2.78E-07" iyy="9.54E-07" iyz="-2.08E-07" izz="1.58E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_13.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_13.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_13_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_12"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_13"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_14">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.07E-03"/>
+      <inertia ixx="1.08E-06" ixy="-7.99E-08" ixz="2.70E-07" iyy="1.05E-06" iyz="-2.88E-07" izz="1.87E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_14.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_14.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_14_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_13"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_14"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_15">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.23E-04"/>
+      <inertia ixx="3.45E-07" ixy="-1.10E-07" ixz="2.61E-08" iyy="2.00E-07" iyz="-5.12E-08" izz="2.66E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_15.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_15.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_15_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_14"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_15"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_16">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.84E-04"/>
+      <inertia ixx="9.38E-07" ixy="-6.66E-08" ixz="-2.69E-07" iyy="9.54E-07" iyz="2.16E-07" izz="1.56E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_16.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_16.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_16_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_15"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_16"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_17">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.04E-04"/>
+      <inertia ixx="3.83E-07" ixy="-5.67E-08" ixz="-9.62E-08" iyy="3.20E-07" iyz="1.64E-07" izz="1.32E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_17.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_17.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_17_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_16"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_17"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_18">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.71E-04"/>
+      <inertia ixx="1.50E-07" ixy="2.66E-08" ixz="-1.83E-09" iyy="6.70E-08" iyz="-6.25E-09" izz="9.86E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_18.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_18.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_18_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_17"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_18"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_19">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.20E-04"/>
+      <inertia ixx="2.72E-07" ixy="-1.59E-08" ixz="-1.13E-08" iyy="1.25E-07" iyz="9.72E-08" izz="1.52E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_19.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_19.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_19_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_18"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_19"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_20">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.53E-04"/>
+      <inertia ixx="2.09E-07" ixy="-4.29E-08" ixz="6.76E-08" iyy="1.83E-07" iyz="-9.34E-08" izz="9.43E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_20.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_20.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_20_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_19"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_20"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_21">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.93E-04"/>
+      <inertia ixx="3.30E-07" ixy="-2.84E-08" ixz="1.36E-07" iyy="3.77E-07" iyz="-6.33E-08" izz="8.55E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_21.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_21.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_21_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_20"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_21"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_22">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.23E-03"/>
+      <inertia ixx="5.16E-07" ixy="-5.74E-07" ixz="-6.97E-08" iyy="7.19E-07" iyz="5.72E-08" izz="1.19E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_22.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_22.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_22_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_21"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_22"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_23">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.88E-04"/>
+      <inertia ixx="3.99E-07" ixy="-3.84E-07" ixz="2.05E-07" iyy="5.98E-07" iyz="-1.59E-07" izz="8.08E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_23.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_23.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_23_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_22"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_23"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_24">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.49E-04"/>
+      <inertia ixx="3.06E-07" ixy="-1.91E-07" ixz="2.57E-07" iyy="5.51E-07" iyz="-1.44E-07" izz="4.63E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_24.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_24.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_24_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_23"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_24"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_25">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.92E-04"/>
+      <inertia ixx="4.55E-07" ixy="-9.92E-08" ixz="4.77E-07" iyy="9.84E-07" iyz="-8.71E-08" izz="5.86E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_25.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_25.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_25_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_24"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_25"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_26">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.09E-04"/>
+      <inertia ixx="3.62E-07" ixy="1.20E-07" ixz="3.77E-07" iyy="7.85E-07" iyz="1.02E-07" izz="4.96E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_26.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_26.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_26_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_25"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_26"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_27">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.75E-04"/>
+      <inertia ixx="2.93E-07" ixy="2.04E-07" ixz="2.53E-07" iyy="5.61E-07" iyz="1.40E-07" izz="4.96E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_27.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_27.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_27_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_26"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_27"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_28">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.09E-03"/>
+      <inertia ixx="4.04E-07" ixy="4.92E-07" ixz="-8.09E-08" iyy="6.84E-07" iyz="-6.04E-08" izz="1.04E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_28.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_28.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_28_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_27"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_28"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_29">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.38E-04"/>
+      <inertia ixx="3.33E-07" ixy="3.52E-07" ixz="1.70E-07" iyy="5.60E-07" iyz="1.25E-07" izz="7.56E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_29.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_29.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_29_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_28"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_29"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_30">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.56E-04"/>
+      <inertia ixx="2.07E-07" ixy="-3.08E-09" ixz="3.19E-08" iyy="1.93E-07" iyz="-1.78E-08" izz="2.51E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_30.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_30.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_30_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_29"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_30"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_31">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.97E-04"/>
+      <inertia ixx="1.47E-07" ixy="1.04E-08" ixz="-3.32E-10" iyy="3.94E-08" iyz="-1.96E-09" izz="1.10E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_31.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_31.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_31_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_30"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_31"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_32">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.85E-04"/>
+      <inertia ixx="4.78E-07" ixy="-9.61E-08" ixz="-1.17E-07" iyy="3.52E-07" iyz="2.28E-07" izz="2.54E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_32.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_32.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_32_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_31"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_32"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_33">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.74E-04"/>
+      <inertia ixx="3.75E-07" ixy="-3.98E-08" ixz="-1.53E-07" iyy="4.19E-07" iyz="8.70E-08" izz="1.06E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_33.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_33.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_33_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_32"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_33"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_34">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.44E-03"/>
+      <inertia ixx="5.11E-07" ixy="-2.14E-07" ixz="-4.64E-08" iyy="1.81E-07" iyz="9.77E-08" izz="5.78E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_34.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_34.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_34_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_33"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_34"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_35">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.53E-04"/>
+      <inertia ixx="3.18E-07" ixy="-1.29E-07" ixz="8.94E-08" iyy="1.94E-07" iyz="-1.42E-07" izz="2.96E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_35.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_35.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_35_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_34"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_35"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_36">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.84E-04"/>
+      <inertia ixx="5.01E-07" ixy="6.29E-08" ixz="-1.85E-07" iyy="5.23E-07" iyz="-1.49E-07" izz="1.52E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_36.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_36.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_36_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_35"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_36"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_37">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.54E-04"/>
+      <inertia ixx="2.09E-07" ixy="6.72E-08" ixz="-7.26E-08" iyy="1.64E-07" iyz="-1.02E-07" izz="1.48E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_37.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_37.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_37_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_36"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_37"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_38">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.47E-04"/>
+      <inertia ixx="2.22E-07" ixy="1.15E-07" ixz="-3.27E-08" iyy="9.74E-08" iyz="-5.50E-08" izz="2.69E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_38.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_38.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_38_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_37"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_38"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_39">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.79E-04"/>
+      <inertia ixx="3.74E-07" ixy="1.61E-07" ixz="1.03E-07" iyy="2.30E-07" iyz="1.56E-07" izz="3.65E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_39.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_39.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_39_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_38"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_39"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_40">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.55E-04"/>
+      <inertia ixx="3.36E-07" ixy="-9.78E-11" ixz="-5.38E-08" iyy="3.09E-07" iyz="6.70E-10" izz="4.59E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_40.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_40.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_40_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_39"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_40"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_41">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.67E-04"/>
+      <inertia ixx="9.48E-08" ixy="4.18E-09" ixz="5.05E-09" iyy="5.88E-08" iyz="4.47E-08" izz="3.74E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_41.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_41.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_41_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_40"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_41"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_42">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.03E-04"/>
+      <inertia ixx="1.71E-07" ixy="-2.86E-08" ixz="1.96E-09" iyy="8.33E-08" iyz="-6.69E-09" izz="1.05E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_42.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_42.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_42_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_41"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_42"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_43">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.92E-04"/>
+      <inertia ixx="1.21E-07" ixy="4.74E-09" ixz="-6.39E-09" iyy="8.03E-08" iyz="-5.58E-08" izz="4.21E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_43.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_43.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_43_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_42"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_43"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_44">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.80E-04"/>
+      <inertia ixx="1.67E-07" ixy="1.01E-08" ixz="-1.32E-08" iyy="1.09E-07" iyz="-7.79E-08" izz="6.25E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_44.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_44.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_44_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_43"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_44"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_45">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.80E-04"/>
+      <inertia ixx="2.47E-07" ixy="-5.17E-09" ixz="2.44E-08" iyy="2.32E-07" iyz="-4.60E-08" izz="2.13E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_45.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_45.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_45_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_44"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_45"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_46">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.54E-04"/>
+      <inertia ixx="2.20E-07" ixy="-1.82E-08" ixz="1.62E-08" iyy="1.10E-07" iyz="-9.90E-08" izz="1.17E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_46.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_46.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_46_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_45"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_46"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_47">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.46E-04"/>
+      <inertia ixx="3.20E-07" ixy="3.47E-08" ixz="1.22E-08" iyy="1.13E-07" iyz="7.35E-08" izz="2.21E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_47.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_47.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_47_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_46"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_47"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_48">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.73E-05"/>
+      <inertia ixx="4.89E-08" ixy="3.67E-09" ixz="6.69E-09" iyy="3.88E-08" iyz="2.05E-08" izz="1.26E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_48.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_48.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_48_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_47"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_48"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_49">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.32E-04"/>
+      <inertia ixx="3.09E-07" ixy="-1.31E-08" ixz="1.66E-08" iyy="1.98E-07" iyz="-1.38E-07" izz="1.15E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_49.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_49.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_49_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_48"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_49"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_50">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.63E-04"/>
+      <inertia ixx="3.32E-07" ixy="3.40E-10" ixz="-1.97E-08" iyy="3.09E-07" iyz="-3.79E-09" izz="2.68E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_50.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_50.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_50_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_49"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_50"/>
+  </joint>
+  <link name="link_thingiverse~air_vent_flange_3022033_convex_piece_51">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.63E-04"/>
+      <inertia ixx="3.47E-07" ixy="2.11E-09" ixz="2.09E-08" iyy="3.21E-07" iyz="2.97E-08" izz="3.00E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_51.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~air_vent_flange_3022033_convex_piece_51.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~air_vent_flange_3022033_convex_piece_51_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~air_vent_flange_3022033_convex_piece_50"/>
+    <child link="link_thingiverse~air_vent_flange_3022033_convex_piece_51"/>
+  </joint>
+</robot>

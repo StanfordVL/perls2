@@ -1,0 +1,240 @@
+<robot name="root">
+  <link name="link_thingiverse~circular_pencil_holder_407637_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.16E-01"/>
+      <inertia ixx="3.22E-04" ixy="-1.07E-04" ixz="-2.14E-05" iyy="7.14E-04" iyz="4.46E-06" izz="5.36E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~circular_pencil_holder_407637_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~circular_pencil_holder_407637_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_thingiverse~circular_pencil_holder_407637_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.47E-01"/>
+      <inertia ixx="1.85E-04" ixy="-8.93E-06" ixz="3.40E-05" iyy="1.63E-04" iyz="-1.16E-05" izz="5.85E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~circular_pencil_holder_407637_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~circular_pencil_holder_407637_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~circular_pencil_holder_407637_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~circular_pencil_holder_407637_convex_piece_0"/>
+    <child link="link_thingiverse~circular_pencil_holder_407637_convex_piece_1"/>
+  </joint>
+  <link name="link_thingiverse~circular_pencil_holder_407637_convex_piece_2">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.01E-01"/>
+      <inertia ixx="2.97E-04" ixy="-4.43E-05" ixz="-1.42E-04" iyy="3.85E-04" iyz="4.30E-05" izz="2.07E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~circular_pencil_holder_407637_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~circular_pencil_holder_407637_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~circular_pencil_holder_407637_convex_piece_2_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~circular_pencil_holder_407637_convex_piece_1"/>
+    <child link="link_thingiverse~circular_pencil_holder_407637_convex_piece_2"/>
+  </joint>
+  <link name="link_thingiverse~circular_pencil_holder_407637_convex_piece_3">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.63E-02"/>
+      <inertia ixx="3.42E-05" ixy="-2.94E-05" ixz="-1.72E-05" iyy="1.14E-04" iyz="4.71E-06" izz="1.38E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~circular_pencil_holder_407637_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~circular_pencil_holder_407637_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~circular_pencil_holder_407637_convex_piece_3_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~circular_pencil_holder_407637_convex_piece_2"/>
+    <child link="link_thingiverse~circular_pencil_holder_407637_convex_piece_3"/>
+  </joint>
+  <link name="link_thingiverse~circular_pencil_holder_407637_convex_piece_4">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.43E-01"/>
+      <inertia ixx="3.31E-04" ixy="-8.99E-05" ixz="1.67E-04" iyy="4.93E-04" iyz="-7.76E-05" izz="3.05E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~circular_pencil_holder_407637_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~circular_pencil_holder_407637_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~circular_pencil_holder_407637_convex_piece_4_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~circular_pencil_holder_407637_convex_piece_3"/>
+    <child link="link_thingiverse~circular_pencil_holder_407637_convex_piece_4"/>
+  </joint>
+  <link name="link_thingiverse~circular_pencil_holder_407637_convex_piece_5">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.01E-02"/>
+      <inertia ixx="5.41E-05" ixy="3.47E-06" ixz="-8.68E-06" iyy="5.02E-05" iyz="-1.59E-05" izz="1.02E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~circular_pencil_holder_407637_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~circular_pencil_holder_407637_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~circular_pencil_holder_407637_convex_piece_5_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~circular_pencil_holder_407637_convex_piece_4"/>
+    <child link="link_thingiverse~circular_pencil_holder_407637_convex_piece_5"/>
+  </joint>
+  <link name="link_thingiverse~circular_pencil_holder_407637_convex_piece_6">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.76E-02"/>
+      <inertia ixx="1.54E-04" ixy="-1.11E-05" ixz="-2.97E-05" iyy="1.39E-04" iyz="2.87E-05" izz="4.12E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~circular_pencil_holder_407637_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~circular_pencil_holder_407637_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~circular_pencil_holder_407637_convex_piece_6_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~circular_pencil_holder_407637_convex_piece_5"/>
+    <child link="link_thingiverse~circular_pencil_holder_407637_convex_piece_6"/>
+  </joint>
+  <link name="link_thingiverse~circular_pencil_holder_407637_convex_piece_7">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.07E-02"/>
+      <inertia ixx="1.30E-05" ixy="1.94E-06" ixz="2.35E-06" iyy="8.34E-06" iyz="6.00E-06" izz="6.54E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~circular_pencil_holder_407637_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~circular_pencil_holder_407637_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~circular_pencil_holder_407637_convex_piece_7_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~circular_pencil_holder_407637_convex_piece_6"/>
+    <child link="link_thingiverse~circular_pencil_holder_407637_convex_piece_7"/>
+  </joint>
+  <link name="link_thingiverse~circular_pencil_holder_407637_convex_piece_8">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.40E-02"/>
+      <inertia ixx="2.16E-05" ixy="1.13E-05" ixz="1.21E-05" iyy="2.99E-05" iyz="8.86E-06" izz="2.57E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~circular_pencil_holder_407637_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~circular_pencil_holder_407637_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~circular_pencil_holder_407637_convex_piece_8_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~circular_pencil_holder_407637_convex_piece_7"/>
+    <child link="link_thingiverse~circular_pencil_holder_407637_convex_piece_8"/>
+  </joint>
+</robot>

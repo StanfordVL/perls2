@@ -1,0 +1,78 @@
+<robot name="root">
+  <link name="link_thingiverse_packaged~sugar_bowl_lid_340807_packaged_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.42E-01"/>
+      <inertia ixx="3.09E-04" ixy="1.50E-05" ixz="-2.25E-05" iyy="6.80E-04" iyz="1.03E-06" izz="4.39E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~sugar_bowl_lid_340807_packaged_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~sugar_bowl_lid_340807_packaged_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_thingiverse_packaged~sugar_bowl_lid_340807_packaged_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.27E-02"/>
+      <inertia ixx="5.13E-05" ixy="3.74E-06" ixz="3.82E-07" iyy="4.85E-06" iyz="4.77E-06" izz="5.11E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~sugar_bowl_lid_340807_packaged_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~sugar_bowl_lid_340807_packaged_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~sugar_bowl_lid_340807_packaged_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~sugar_bowl_lid_340807_packaged_convex_piece_0"/>
+    <child link="link_thingiverse_packaged~sugar_bowl_lid_340807_packaged_convex_piece_1"/>
+  </joint>
+  <link name="link_thingiverse_packaged~sugar_bowl_lid_340807_packaged_convex_piece_2">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.77E-01"/>
+      <inertia ixx="1.14E-04" ixy="6.01E-07" ixz="1.75E-07" iyy="2.28E-04" iyz="7.79E-07" izz="1.38E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~sugar_bowl_lid_340807_packaged_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~sugar_bowl_lid_340807_packaged_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~sugar_bowl_lid_340807_packaged_convex_piece_2_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~sugar_bowl_lid_340807_packaged_convex_piece_1"/>
+    <child link="link_thingiverse_packaged~sugar_bowl_lid_340807_packaged_convex_piece_2"/>
+  </joint>
+</robot>

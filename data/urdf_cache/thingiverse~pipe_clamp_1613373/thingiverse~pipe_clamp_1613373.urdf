@@ -1,0 +1,321 @@
+<robot name="root">
+  <link name="link_thingiverse~pipe_clamp_1613373_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.59E-02"/>
+      <inertia ixx="2.93E-05" ixy="7.45E-06" ixz="-2.31E-06" iyy="5.78E-06" iyz="-8.07E-06" izz="2.91E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~pipe_clamp_1613373_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~pipe_clamp_1613373_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_thingiverse~pipe_clamp_1613373_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.78E-02"/>
+      <inertia ixx="4.01E-05" ixy="8.96E-07" ixz="-5.34E-07" iyy="3.75E-05" iyz="-1.84E-06" izz="4.57E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~pipe_clamp_1613373_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~pipe_clamp_1613373_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~pipe_clamp_1613373_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~pipe_clamp_1613373_convex_piece_0"/>
+    <child link="link_thingiverse~pipe_clamp_1613373_convex_piece_1"/>
+  </joint>
+  <link name="link_thingiverse~pipe_clamp_1613373_convex_piece_2">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.06E-02"/>
+      <inertia ixx="1.29E-05" ixy="1.79E-07" ixz="-6.10E-07" iyy="1.21E-05" iyz="-3.53E-06" izz="1.67E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~pipe_clamp_1613373_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~pipe_clamp_1613373_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~pipe_clamp_1613373_convex_piece_2_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~pipe_clamp_1613373_convex_piece_1"/>
+    <child link="link_thingiverse~pipe_clamp_1613373_convex_piece_2"/>
+  </joint>
+  <link name="link_thingiverse~pipe_clamp_1613373_convex_piece_3">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.03E-02"/>
+      <inertia ixx="1.18E-05" ixy="2.07E-08" ixz="9.30E-07" iyy="1.18E-05" iyz="1.59E-06" izz="7.94E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~pipe_clamp_1613373_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~pipe_clamp_1613373_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~pipe_clamp_1613373_convex_piece_3_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~pipe_clamp_1613373_convex_piece_2"/>
+    <child link="link_thingiverse~pipe_clamp_1613373_convex_piece_3"/>
+  </joint>
+  <link name="link_thingiverse~pipe_clamp_1613373_convex_piece_4">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.65E-02"/>
+      <inertia ixx="2.94E-05" ixy="5.21E-06" ixz="3.82E-06" iyy="1.37E-05" iyz="1.32E-05" izz="2.01E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~pipe_clamp_1613373_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~pipe_clamp_1613373_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~pipe_clamp_1613373_convex_piece_4_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~pipe_clamp_1613373_convex_piece_3"/>
+    <child link="link_thingiverse~pipe_clamp_1613373_convex_piece_4"/>
+  </joint>
+  <link name="link_thingiverse~pipe_clamp_1613373_convex_piece_5">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.26E-02"/>
+      <inertia ixx="2.60E-05" ixy="1.20E-06" ixz="2.75E-06" iyy="2.35E-05" iyz="8.14E-06" izz="4.43E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~pipe_clamp_1613373_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~pipe_clamp_1613373_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~pipe_clamp_1613373_convex_piece_5_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~pipe_clamp_1613373_convex_piece_4"/>
+    <child link="link_thingiverse~pipe_clamp_1613373_convex_piece_5"/>
+  </joint>
+  <link name="link_thingiverse~pipe_clamp_1613373_convex_piece_6">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.53E-02"/>
+      <inertia ixx="2.91E-05" ixy="4.24E-07" ixz="-1.06E-06" iyy="2.78E-05" iyz="-5.24E-06" izz="2.77E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~pipe_clamp_1613373_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~pipe_clamp_1613373_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~pipe_clamp_1613373_convex_piece_6_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~pipe_clamp_1613373_convex_piece_5"/>
+    <child link="link_thingiverse~pipe_clamp_1613373_convex_piece_6"/>
+  </joint>
+  <link name="link_thingiverse~pipe_clamp_1613373_convex_piece_7">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.22E-02"/>
+      <inertia ixx="1.57E-05" ixy="2.53E-06" ixz="-2.41E-06" iyy="9.05E-06" iyz="-7.39E-06" izz="9.26E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~pipe_clamp_1613373_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~pipe_clamp_1613373_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~pipe_clamp_1613373_convex_piece_7_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~pipe_clamp_1613373_convex_piece_6"/>
+    <child link="link_thingiverse~pipe_clamp_1613373_convex_piece_7"/>
+  </joint>
+  <link name="link_thingiverse~pipe_clamp_1613373_convex_piece_8">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.36E-02"/>
+      <inertia ixx="1.46E-05" ixy="4.31E-06" ixz="-8.33E-08" iyy="2.44E-06" iyz="-2.68E-07" izz="1.59E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~pipe_clamp_1613373_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~pipe_clamp_1613373_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~pipe_clamp_1613373_convex_piece_8_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~pipe_clamp_1613373_convex_piece_7"/>
+    <child link="link_thingiverse~pipe_clamp_1613373_convex_piece_8"/>
+  </joint>
+  <link name="link_thingiverse~pipe_clamp_1613373_convex_piece_9">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.45E-02"/>
+      <inertia ixx="8.78E-06" ixy="1.08E-06" ixz="-1.01E-06" iyy="5.66E-06" iyz="-3.60E-06" izz="4.94E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~pipe_clamp_1613373_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~pipe_clamp_1613373_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~pipe_clamp_1613373_convex_piece_9_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~pipe_clamp_1613373_convex_piece_8"/>
+    <child link="link_thingiverse~pipe_clamp_1613373_convex_piece_9"/>
+  </joint>
+  <link name="link_thingiverse~pipe_clamp_1613373_convex_piece_10">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.18E-02"/>
+      <inertia ixx="7.99E-06" ixy="2.49E-06" ixz="-1.53E-07" iyy="1.63E-06" iyz="-3.92E-07" izz="8.99E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~pipe_clamp_1613373_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~pipe_clamp_1613373_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~pipe_clamp_1613373_convex_piece_10_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~pipe_clamp_1613373_convex_piece_9"/>
+    <child link="link_thingiverse~pipe_clamp_1613373_convex_piece_10"/>
+  </joint>
+  <link name="link_thingiverse~pipe_clamp_1613373_convex_piece_11">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.40E-02"/>
+      <inertia ixx="6.13E-06" ixy="5.11E-07" ixz="5.47E-07" iyy="4.60E-06" iyz="2.21E-06" izz="2.94E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~pipe_clamp_1613373_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~pipe_clamp_1613373_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~pipe_clamp_1613373_convex_piece_11_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~pipe_clamp_1613373_convex_piece_10"/>
+    <child link="link_thingiverse~pipe_clamp_1613373_convex_piece_11"/>
+  </joint>
+</robot>

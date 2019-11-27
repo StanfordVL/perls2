@@ -1,0 +1,51 @@
+<robot name="root">
+  <link name="link_kit_packaged~CokePlasticSmallGrasp_800_tex_packaged_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.64E-01"/>
+      <inertia ixx="9.38E-04" ixy="-2.78E-06" ixz="-6.38E-04" iyy="1.51E-03" iyz="2.38E-06" izz="7.89E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="kit_packaged~CokePlasticSmallGrasp_800_tex_packaged_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="kit_packaged~CokePlasticSmallGrasp_800_tex_packaged_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_kit_packaged~CokePlasticSmallGrasp_800_tex_packaged_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.80E-01"/>
+      <inertia ixx="5.45E-04" ixy="-1.58E-05" ixz="-3.36E-04" iyy="8.32E-04" iyz="1.73E-05" izz="4.68E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="kit_packaged~CokePlasticSmallGrasp_800_tex_packaged_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="kit_packaged~CokePlasticSmallGrasp_800_tex_packaged_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_kit_packaged~CokePlasticSmallGrasp_800_tex_packaged_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_kit_packaged~CokePlasticSmallGrasp_800_tex_packaged_convex_piece_0"/>
+    <child link="link_kit_packaged~CokePlasticSmallGrasp_800_tex_packaged_convex_piece_1"/>
+  </joint>
+</robot>

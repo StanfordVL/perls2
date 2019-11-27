@@ -1,0 +1,726 @@
+<robot name="root">
+  <link name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.30E-02"/>
+      <inertia ixx="4.13E-05" ixy="-2.19E-05" ixz="2.08E-06" iyy="1.66E-04" iyz="2.99E-06" izz="1.33E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.43E-02"/>
+      <inertia ixx="3.76E-05" ixy="2.78E-06" ixz="9.60E-06" iyy="5.09E-05" iyz="1.03E-05" izz="1.95E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_0"/>
+    <child link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_1"/>
+  </joint>
+  <link name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_2">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.30E-02"/>
+      <inertia ixx="9.68E-06" ixy="3.69E-06" ixz="1.03E-05" iyy="2.31E-05" iyz="2.61E-06" izz="1.62E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_2_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_1"/>
+    <child link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_2"/>
+  </joint>
+  <link name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_3">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.67E-02"/>
+      <inertia ixx="2.07E-05" ixy="-9.42E-07" ixz="-4.03E-06" iyy="2.71E-05" iyz="4.64E-06" izz="1.00E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_3_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_2"/>
+    <child link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_3"/>
+  </joint>
+  <link name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_4">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.18E-02"/>
+      <inertia ixx="5.15E-06" ixy="2.88E-06" ixz="-6.53E-06" iyy="2.03E-05" iyz="-1.10E-06" izz="1.68E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_4_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_3"/>
+    <child link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_4"/>
+  </joint>
+  <link name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_5">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.43E-02"/>
+      <inertia ixx="1.40E-05" ixy="7.41E-06" ixz="-9.10E-06" iyy="6.14E-05" iyz="-3.72E-07" izz="4.99E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_5_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_4"/>
+    <child link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_5"/>
+  </joint>
+  <link name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_6">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.78E-03"/>
+      <inertia ixx="2.47E-06" ixy="2.31E-06" ixz="3.82E-06" iyy="1.43E-05" iyz="7.54E-07" izz="1.29E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_6_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_5"/>
+    <child link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_6"/>
+  </joint>
+  <link name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_7">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.18E-03"/>
+      <inertia ixx="1.88E-06" ixy="6.90E-07" ixz="1.07E-06" iyy="2.27E-06" iyz="8.36E-07" izz="1.47E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_7_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_6"/>
+    <child link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_7"/>
+  </joint>
+  <link name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_8">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.76E-02"/>
+      <inertia ixx="1.15E-05" ixy="-5.28E-06" ixz="-6.94E-06" iyy="1.95E-05" iyz="5.15E-06" izz="1.58E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_8_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_7"/>
+    <child link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_8"/>
+  </joint>
+  <link name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_9">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.27E-03"/>
+      <inertia ixx="2.12E-06" ixy="8.48E-07" ixz="-1.64E-06" iyy="3.52E-06" iyz="-8.15E-07" izz="2.25E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_9_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_8"/>
+    <child link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_9"/>
+  </joint>
+  <link name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_10">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.47E-03"/>
+      <inertia ixx="4.04E-06" ixy="4.10E-07" ixz="-2.48E-06" iyy="5.58E-06" iyz="-6.40E-07" izz="1.87E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_10_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_9"/>
+    <child link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_10"/>
+  </joint>
+  <link name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_11">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.46E-03"/>
+      <inertia ixx="1.05E-05" ixy="-4.64E-07" ixz="2.60E-06" iyy="1.18E-05" iyz="-1.77E-06" izz="2.19E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_11_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_10"/>
+    <child link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_11"/>
+  </joint>
+  <link name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_12">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.18E-03"/>
+      <inertia ixx="4.22E-06" ixy="-2.67E-06" ixz="5.66E-06" iyy="1.98E-05" iyz="-8.50E-07" izz="1.70E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_12.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_12.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_12_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_11"/>
+    <child link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_12"/>
+  </joint>
+  <link name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_13">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.28E-02"/>
+      <inertia ixx="3.23E-05" ixy="1.36E-07" ixz="-1.81E-06" iyy="4.03E-05" iyz="-3.64E-06" izz="8.83E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_13.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_13.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_13_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_12"/>
+    <child link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_13"/>
+  </joint>
+  <link name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_14">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.61E-04"/>
+      <inertia ixx="5.94E-07" ixy="-1.34E-07" ixz="-7.56E-07" iyy="1.60E-06" iyz="1.04E-07" izz="1.05E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_14.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_14.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_14_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_13"/>
+    <child link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_14"/>
+  </joint>
+  <link name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_15">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.62E-03"/>
+      <inertia ixx="9.65E-07" ixy="-4.84E-07" ixz="-2.00E-06" iyy="5.94E-06" iyz="1.92E-07" izz="5.13E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_15.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_15.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_15_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_14"/>
+    <child link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_15"/>
+  </joint>
+  <link name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_16">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.19E-03"/>
+      <inertia ixx="4.61E-07" ixy="-3.57E-07" ixz="3.27E-08" iyy="3.97E-07" iyz="-3.65E-08" izz="7.51E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_16.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_16.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_16_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_15"/>
+    <child link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_16"/>
+  </joint>
+  <link name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_17">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.55E-03"/>
+      <inertia ixx="4.63E-06" ixy="-8.49E-07" ixz="1.48E-06" iyy="5.15E-06" iyz="-1.83E-06" izz="2.56E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_17.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_17.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_17_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_16"/>
+    <child link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_17"/>
+  </joint>
+  <link name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_18">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.32E-03"/>
+      <inertia ixx="3.26E-06" ixy="-2.18E-06" ixz="3.09E-06" iyy="8.56E-06" iyz="-1.06E-06" izz="6.91E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_18.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_18.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_18_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_17"/>
+    <child link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_18"/>
+  </joint>
+  <link name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_19">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.24E-03"/>
+      <inertia ixx="1.63E-06" ixy="-1.24E-07" ixz="1.48E-06" iyy="2.99E-06" iyz="-1.36E-07" izz="1.40E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_19.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_19.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_19_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_18"/>
+    <child link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_19"/>
+  </joint>
+  <link name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_20">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.41E-03"/>
+      <inertia ixx="5.51E-06" ixy="-1.74E-06" ixz="6.22E-06" iyy="1.42E-05" iyz="-1.19E-06" izz="9.44E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_20.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_20.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_20_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_19"/>
+    <child link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_20"/>
+  </joint>
+  <link name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_21">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.15E-02"/>
+      <inertia ixx="1.60E-05" ixy="1.29E-06" ixz="-4.60E-06" iyy="2.35E-05" iyz="-3.45E-06" izz="9.78E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_21.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_21.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_21_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_20"/>
+    <child link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_21"/>
+  </joint>
+  <link name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_22">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.44E-03"/>
+      <inertia ixx="2.05E-06" ixy="9.20E-07" ixz="-3.29E-06" iyy="8.56E-06" iyz="-4.44E-07" izz="6.80E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_22.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_22.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_22_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_21"/>
+    <child link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_22"/>
+  </joint>
+  <link name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_23">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.15E-02"/>
+      <inertia ixx="1.43E-05" ixy="-1.57E-06" ixz="-5.75E-06" iyy="1.84E-05" iyz="3.55E-06" izz="6.38E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_23.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_23.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_23_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_22"/>
+    <child link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_23"/>
+  </joint>
+  <link name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_24">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.41E-03"/>
+      <inertia ixx="8.54E-06" ixy="1.66E-06" ixz="6.65E-06" iyy="1.42E-05" iyz="1.97E-06" izz="6.77E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_24.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_24.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_24_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_23"/>
+    <child link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_24"/>
+  </joint>
+  <link name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_25">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.49E-03"/>
+      <inertia ixx="1.74E-06" ixy="-1.66E-06" ixz="-2.48E-06" iyy="9.27E-06" iyz="5.40E-07" izz="8.35E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_25.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_25.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_25_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_24"/>
+    <child link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_25"/>
+  </joint>
+  <link name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_26">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.78E-02"/>
+      <inertia ixx="6.77E-06" ixy="4.39E-07" ixz="7.15E-07" iyy="1.20E-05" iyz="2.58E-06" izz="1.00E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_26.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_26.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_26_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_25"/>
+    <child link="link_thingiverse_packaged~box_with_two_big_holes_2543843_packaged_convex_piece_26"/>
+  </joint>
+</robot>

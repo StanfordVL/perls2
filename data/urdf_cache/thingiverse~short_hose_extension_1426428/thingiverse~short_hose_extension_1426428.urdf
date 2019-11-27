@@ -1,0 +1,429 @@
+<robot name="root">
+  <link name="link_thingiverse~short_hose_extension_1426428_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.94E-04"/>
+      <inertia ixx="4.28E-08" ixy="-2.66E-10" ixz="1.47E-08" iyy="4.92E-08" iyz="-7.52E-10" izz="6.81E-09"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~short_hose_extension_1426428_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~short_hose_extension_1426428_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_thingiverse~short_hose_extension_1426428_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.12E-03"/>
+      <inertia ixx="1.02E-06" ixy="-4.53E-09" ixz="-9.74E-07" iyy="2.01E-06" iyz="3.63E-09" izz="1.24E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~short_hose_extension_1426428_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~short_hose_extension_1426428_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~short_hose_extension_1426428_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~short_hose_extension_1426428_convex_piece_0"/>
+    <child link="link_thingiverse~short_hose_extension_1426428_convex_piece_1"/>
+  </joint>
+  <link name="link_thingiverse~short_hose_extension_1426428_convex_piece_2">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.10E-03"/>
+      <inertia ixx="3.90E-07" ixy="5.90E-07" ixz="-3.00E-07" iyy="1.95E-06" iyz="-1.32E-07" izz="2.04E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~short_hose_extension_1426428_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~short_hose_extension_1426428_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~short_hose_extension_1426428_convex_piece_2_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~short_hose_extension_1426428_convex_piece_1"/>
+    <child link="link_thingiverse~short_hose_extension_1426428_convex_piece_2"/>
+  </joint>
+  <link name="link_thingiverse~short_hose_extension_1426428_convex_piece_3">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.89E-03"/>
+      <inertia ixx="3.39E-07" ixy="1.12E-07" ixz="8.22E-08" iyy="2.65E-07" iyz="1.22E-07" izz="3.33E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~short_hose_extension_1426428_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~short_hose_extension_1426428_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~short_hose_extension_1426428_convex_piece_3_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~short_hose_extension_1426428_convex_piece_2"/>
+    <child link="link_thingiverse~short_hose_extension_1426428_convex_piece_3"/>
+  </joint>
+  <link name="link_thingiverse~short_hose_extension_1426428_convex_piece_4">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.14E-03"/>
+      <inertia ixx="3.72E-07" ixy="-1.19E-07" ixz="8.96E-08" iyy="2.90E-07" iyz="-1.31E-07" izz="3.62E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~short_hose_extension_1426428_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~short_hose_extension_1426428_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~short_hose_extension_1426428_convex_piece_4_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~short_hose_extension_1426428_convex_piece_3"/>
+    <child link="link_thingiverse~short_hose_extension_1426428_convex_piece_4"/>
+  </joint>
+  <link name="link_thingiverse~short_hose_extension_1426428_convex_piece_5">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.58E-03"/>
+      <inertia ixx="5.60E-07" ixy="1.56E-07" ixz="-2.14E-07" iyy="5.85E-07" iyz="-1.79E-07" izz="3.96E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~short_hose_extension_1426428_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~short_hose_extension_1426428_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~short_hose_extension_1426428_convex_piece_5_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~short_hose_extension_1426428_convex_piece_4"/>
+    <child link="link_thingiverse~short_hose_extension_1426428_convex_piece_5"/>
+  </joint>
+  <link name="link_thingiverse~short_hose_extension_1426428_convex_piece_6">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.19E-03"/>
+      <inertia ixx="1.51E-06" ixy="-5.21E-07" ixz="-7.55E-07" iyy="1.76E-06" iyz="5.68E-07" izz="1.22E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~short_hose_extension_1426428_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~short_hose_extension_1426428_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~short_hose_extension_1426428_convex_piece_6_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~short_hose_extension_1426428_convex_piece_5"/>
+    <child link="link_thingiverse~short_hose_extension_1426428_convex_piece_6"/>
+  </joint>
+  <link name="link_thingiverse~short_hose_extension_1426428_convex_piece_7">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.21E-03"/>
+      <inertia ixx="1.80E-06" ixy="5.64E-07" ixz="-9.14E-07" iyy="2.14E-06" iyz="-6.08E-07" izz="1.39E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~short_hose_extension_1426428_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~short_hose_extension_1426428_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~short_hose_extension_1426428_convex_piece_7_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~short_hose_extension_1426428_convex_piece_6"/>
+    <child link="link_thingiverse~short_hose_extension_1426428_convex_piece_7"/>
+  </joint>
+  <link name="link_thingiverse~short_hose_extension_1426428_convex_piece_8">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.00E-03"/>
+      <inertia ixx="1.55E-07" ixy="-3.32E-07" ixz="-2.19E-08" iyy="1.40E-06" iyz="1.94E-08" izz="1.50E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~short_hose_extension_1426428_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~short_hose_extension_1426428_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~short_hose_extension_1426428_convex_piece_8_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~short_hose_extension_1426428_convex_piece_7"/>
+    <child link="link_thingiverse~short_hose_extension_1426428_convex_piece_8"/>
+  </joint>
+  <link name="link_thingiverse~short_hose_extension_1426428_convex_piece_9">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.10E-03"/>
+      <inertia ixx="2.12E-07" ixy="-2.19E-07" ixz="-2.03E-07" iyy="5.55E-07" iyz="1.01E-07" izz="5.68E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~short_hose_extension_1426428_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~short_hose_extension_1426428_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~short_hose_extension_1426428_convex_piece_9_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~short_hose_extension_1426428_convex_piece_8"/>
+    <child link="link_thingiverse~short_hose_extension_1426428_convex_piece_9"/>
+  </joint>
+  <link name="link_thingiverse~short_hose_extension_1426428_convex_piece_10">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.37E-03"/>
+      <inertia ixx="3.03E-07" ixy="-1.57E-08" ixz="-1.18E-07" iyy="3.60E-07" iyz="3.69E-08" izz="7.66E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~short_hose_extension_1426428_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~short_hose_extension_1426428_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~short_hose_extension_1426428_convex_piece_10_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~short_hose_extension_1426428_convex_piece_9"/>
+    <child link="link_thingiverse~short_hose_extension_1426428_convex_piece_10"/>
+  </joint>
+  <link name="link_thingiverse~short_hose_extension_1426428_convex_piece_11">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.26E-03"/>
+      <inertia ixx="3.26E-07" ixy="-1.31E-07" ixz="-1.12E-07" iyy="2.91E-07" iyz="1.25E-07" izz="3.17E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~short_hose_extension_1426428_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~short_hose_extension_1426428_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~short_hose_extension_1426428_convex_piece_11_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~short_hose_extension_1426428_convex_piece_10"/>
+    <child link="link_thingiverse~short_hose_extension_1426428_convex_piece_11"/>
+  </joint>
+  <link name="link_thingiverse~short_hose_extension_1426428_convex_piece_12">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.97E-03"/>
+      <inertia ixx="3.05E-07" ixy="-3.09E-07" ixz="-7.14E-08" iyy="4.36E-07" iyz="6.70E-08" izz="6.95E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~short_hose_extension_1426428_convex_piece_12.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~short_hose_extension_1426428_convex_piece_12.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~short_hose_extension_1426428_convex_piece_12_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~short_hose_extension_1426428_convex_piece_11"/>
+    <child link="link_thingiverse~short_hose_extension_1426428_convex_piece_12"/>
+  </joint>
+  <link name="link_thingiverse~short_hose_extension_1426428_convex_piece_13">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.07E-03"/>
+      <inertia ixx="4.61E-07" ixy="-4.08E-07" ixz="3.49E-07" iyy="1.37E-06" iyz="-1.36E-07" izz="1.43E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~short_hose_extension_1426428_convex_piece_13.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~short_hose_extension_1426428_convex_piece_13.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~short_hose_extension_1426428_convex_piece_13_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~short_hose_extension_1426428_convex_piece_12"/>
+    <child link="link_thingiverse~short_hose_extension_1426428_convex_piece_13"/>
+  </joint>
+  <link name="link_thingiverse~short_hose_extension_1426428_convex_piece_14">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.71E-03"/>
+      <inertia ixx="2.83E-07" ixy="2.76E-07" ixz="-7.33E-08" iyy="3.82E-07" iyz="-6.94E-08" izz="6.19E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~short_hose_extension_1426428_convex_piece_14.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~short_hose_extension_1426428_convex_piece_14.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~short_hose_extension_1426428_convex_piece_14_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~short_hose_extension_1426428_convex_piece_13"/>
+    <child link="link_thingiverse~short_hose_extension_1426428_convex_piece_14"/>
+  </joint>
+  <link name="link_thingiverse~short_hose_extension_1426428_convex_piece_15">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.03E-03"/>
+      <inertia ixx="4.94E-07" ixy="4.77E-07" ixz="3.08E-07" iyy="1.33E-06" iyz="1.42E-07" izz="1.48E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~short_hose_extension_1426428_convex_piece_15.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~short_hose_extension_1426428_convex_piece_15.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~short_hose_extension_1426428_convex_piece_15_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~short_hose_extension_1426428_convex_piece_14"/>
+    <child link="link_thingiverse~short_hose_extension_1426428_convex_piece_15"/>
+  </joint>
+</robot>

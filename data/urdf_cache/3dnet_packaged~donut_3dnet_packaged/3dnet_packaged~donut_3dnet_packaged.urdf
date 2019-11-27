@@ -1,0 +1,51 @@
+<robot name="root">
+  <link name="link_3dnet_packaged~donut_3dnet_packaged_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.98E-01"/>
+      <inertia ixx="2.78E-04" ixy="3.55E-06" ixz="-1.00E-06" iyy="4.46E-04" iyz="-6.34E-07" izz="2.81E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="3dnet_packaged~donut_3dnet_packaged_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="3dnet_packaged~donut_3dnet_packaged_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_3dnet_packaged~donut_3dnet_packaged_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.98E-01"/>
+      <inertia ixx="6.24E-04" ixy="1.11E-05" ixz="1.26E-05" iyy="1.22E-03" iyz="3.36E-07" izz="7.40E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="3dnet_packaged~donut_3dnet_packaged_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="3dnet_packaged~donut_3dnet_packaged_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_3dnet_packaged~donut_3dnet_packaged_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_3dnet_packaged~donut_3dnet_packaged_convex_piece_0"/>
+    <child link="link_3dnet_packaged~donut_3dnet_packaged_convex_piece_1"/>
+  </joint>
+</robot>

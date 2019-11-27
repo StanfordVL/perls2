@@ -1,0 +1,348 @@
+<robot name="root">
+  <link name="link_thingiverse~door_handle_extender_2635527_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.58E-02"/>
+      <inertia ixx="4.69E-06" ixy="1.12E-06" ixz="-6.73E-06" iyy="2.31E-05" iyz="-3.90E-07" izz="2.08E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~door_handle_extender_2635527_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~door_handle_extender_2635527_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_thingiverse~door_handle_extender_2635527_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.94E-02"/>
+      <inertia ixx="5.53E-06" ixy="3.92E-07" ixz="-5.09E-06" iyy="1.65E-05" iyz="-1.99E-07" izz="1.53E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~door_handle_extender_2635527_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~door_handle_extender_2635527_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~door_handle_extender_2635527_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~door_handle_extender_2635527_convex_piece_0"/>
+    <child link="link_thingiverse~door_handle_extender_2635527_convex_piece_1"/>
+  </joint>
+  <link name="link_thingiverse~door_handle_extender_2635527_convex_piece_2">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.82E-02"/>
+      <inertia ixx="5.56E-06" ixy="6.24E-06" ixz="-3.34E-06" iyy="1.73E-04" iyz="-1.01E-07" izz="1.72E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~door_handle_extender_2635527_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~door_handle_extender_2635527_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~door_handle_extender_2635527_convex_piece_2_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~door_handle_extender_2635527_convex_piece_1"/>
+    <child link="link_thingiverse~door_handle_extender_2635527_convex_piece_2"/>
+  </joint>
+  <link name="link_thingiverse~door_handle_extender_2635527_convex_piece_3">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.18E-03"/>
+      <inertia ixx="9.14E-06" ixy="2.84E-06" ixz="-2.32E-05" iyy="7.28E-05" iyz="-1.03E-06" izz="6.48E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~door_handle_extender_2635527_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~door_handle_extender_2635527_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~door_handle_extender_2635527_convex_piece_3_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~door_handle_extender_2635527_convex_piece_2"/>
+    <child link="link_thingiverse~door_handle_extender_2635527_convex_piece_3"/>
+  </joint>
+  <link name="link_thingiverse~door_handle_extender_2635527_convex_piece_4">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.83E-03"/>
+      <inertia ixx="5.47E-06" ixy="1.05E-06" ixz="-1.03E-05" iyy="2.57E-05" iyz="-5.30E-07" izz="2.08E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~door_handle_extender_2635527_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~door_handle_extender_2635527_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~door_handle_extender_2635527_convex_piece_4_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~door_handle_extender_2635527_convex_piece_3"/>
+    <child link="link_thingiverse~door_handle_extender_2635527_convex_piece_4"/>
+  </joint>
+  <link name="link_thingiverse~door_handle_extender_2635527_convex_piece_5">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.34E-03"/>
+      <inertia ixx="4.82E-06" ixy="2.04E-06" ixz="1.38E-05" iyy="4.81E-05" iyz="6.51E-07" izz="4.40E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~door_handle_extender_2635527_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~door_handle_extender_2635527_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~door_handle_extender_2635527_convex_piece_5_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~door_handle_extender_2635527_convex_piece_4"/>
+    <child link="link_thingiverse~door_handle_extender_2635527_convex_piece_5"/>
+  </joint>
+  <link name="link_thingiverse~door_handle_extender_2635527_convex_piece_6">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.55E-03"/>
+      <inertia ixx="1.50E-06" ixy="2.04E-06" ixz="7.05E-06" iyy="4.50E-05" iyz="3.27E-07" izz="4.40E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~door_handle_extender_2635527_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~door_handle_extender_2635527_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~door_handle_extender_2635527_convex_piece_6_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~door_handle_extender_2635527_convex_piece_5"/>
+    <child link="link_thingiverse~door_handle_extender_2635527_convex_piece_6"/>
+  </joint>
+  <link name="link_thingiverse~door_handle_extender_2635527_convex_piece_7">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.27E-03"/>
+      <inertia ixx="4.95E-07" ixy="2.62E-06" ixz="2.32E-08" iyy="5.69E-05" iyz="3.21E-09" izz="5.71E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~door_handle_extender_2635527_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~door_handle_extender_2635527_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~door_handle_extender_2635527_convex_piece_7_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~door_handle_extender_2635527_convex_piece_6"/>
+    <child link="link_thingiverse~door_handle_extender_2635527_convex_piece_7"/>
+  </joint>
+  <link name="link_thingiverse~door_handle_extender_2635527_convex_piece_8">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.32E-03"/>
+      <inertia ixx="1.63E-06" ixy="2.03E-06" ixz="-7.45E-06" iyy="4.51E-05" iyz="-3.48E-07" izz="4.40E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~door_handle_extender_2635527_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~door_handle_extender_2635527_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~door_handle_extender_2635527_convex_piece_8_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~door_handle_extender_2635527_convex_piece_7"/>
+    <child link="link_thingiverse~door_handle_extender_2635527_convex_piece_8"/>
+  </joint>
+  <link name="link_thingiverse~door_handle_extender_2635527_convex_piece_9">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.01E-03"/>
+      <inertia ixx="3.71E-06" ixy="9.52E-07" ixz="8.18E-06" iyy="2.29E-05" iyz="4.02E-07" izz="1.97E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~door_handle_extender_2635527_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~door_handle_extender_2635527_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~door_handle_extender_2635527_convex_piece_9_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~door_handle_extender_2635527_convex_piece_8"/>
+    <child link="link_thingiverse~door_handle_extender_2635527_convex_piece_9"/>
+  </joint>
+  <link name="link_thingiverse~door_handle_extender_2635527_convex_piece_10">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.13E-03"/>
+      <inertia ixx="1.50E-06" ixy="5.89E-07" ixz="3.79E-06" iyy="1.33E-05" iyz="1.90E-07" izz="1.23E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~door_handle_extender_2635527_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~door_handle_extender_2635527_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~door_handle_extender_2635527_convex_piece_10_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~door_handle_extender_2635527_convex_piece_9"/>
+    <child link="link_thingiverse~door_handle_extender_2635527_convex_piece_10"/>
+  </joint>
+  <link name="link_thingiverse~door_handle_extender_2635527_convex_piece_11">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.47E-03"/>
+      <inertia ixx="5.56E-07" ixy="5.90E-07" ixz="-4.83E-07" iyy="1.28E-05" iyz="-1.91E-08" izz="1.30E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~door_handle_extender_2635527_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~door_handle_extender_2635527_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~door_handle_extender_2635527_convex_piece_11_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~door_handle_extender_2635527_convex_piece_10"/>
+    <child link="link_thingiverse~door_handle_extender_2635527_convex_piece_11"/>
+  </joint>
+  <link name="link_thingiverse~door_handle_extender_2635527_convex_piece_12">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.75E-03"/>
+      <inertia ixx="3.39E-06" ixy="7.15E-07" ixz="-6.94E-06" iyy="1.97E-05" iyz="-3.03E-07" izz="1.72E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~door_handle_extender_2635527_convex_piece_12.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~door_handle_extender_2635527_convex_piece_12.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~door_handle_extender_2635527_convex_piece_12_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~door_handle_extender_2635527_convex_piece_11"/>
+    <child link="link_thingiverse~door_handle_extender_2635527_convex_piece_12"/>
+  </joint>
+</robot>

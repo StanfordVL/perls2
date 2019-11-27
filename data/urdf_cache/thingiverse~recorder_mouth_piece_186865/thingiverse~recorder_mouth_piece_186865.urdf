@@ -1,0 +1,105 @@
+<robot name="root">
+  <link name="link_thingiverse~recorder_mouth_piece_186865_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.31E-02"/>
+      <inertia ixx="6.15E-05" ixy="-3.14E-07" ixz="3.73E-05" iyy="8.41E-05" iyz="-5.29E-07" izz="2.44E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~recorder_mouth_piece_186865_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~recorder_mouth_piece_186865_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_thingiverse~recorder_mouth_piece_186865_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.70E-02"/>
+      <inertia ixx="7.83E-06" ixy="-2.14E-08" ixz="1.65E-06" iyy="8.41E-06" iyz="1.84E-08" izz="2.91E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~recorder_mouth_piece_186865_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~recorder_mouth_piece_186865_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~recorder_mouth_piece_186865_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~recorder_mouth_piece_186865_convex_piece_0"/>
+    <child link="link_thingiverse~recorder_mouth_piece_186865_convex_piece_1"/>
+  </joint>
+  <link name="link_thingiverse~recorder_mouth_piece_186865_convex_piece_2">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.99E-02"/>
+      <inertia ixx="5.63E-06" ixy="-1.28E-07" ixz="3.39E-06" iyy="8.43E-06" iyz="-1.77E-07" izz="4.59E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~recorder_mouth_piece_186865_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~recorder_mouth_piece_186865_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~recorder_mouth_piece_186865_convex_piece_2_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~recorder_mouth_piece_186865_convex_piece_1"/>
+    <child link="link_thingiverse~recorder_mouth_piece_186865_convex_piece_2"/>
+  </joint>
+  <link name="link_thingiverse~recorder_mouth_piece_186865_convex_piece_3">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.69E-02"/>
+      <inertia ixx="3.39E-05" ixy="-3.50E-07" ixz="1.49E-05" iyy="4.14E-05" iyz="-6.94E-07" izz="1.28E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~recorder_mouth_piece_186865_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~recorder_mouth_piece_186865_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~recorder_mouth_piece_186865_convex_piece_3_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~recorder_mouth_piece_186865_convex_piece_2"/>
+    <child link="link_thingiverse~recorder_mouth_piece_186865_convex_piece_3"/>
+  </joint>
+</robot>

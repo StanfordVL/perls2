@@ -1,0 +1,537 @@
+<robot name="root">
+  <link name="link_thingiverse~business_card_holder_452048_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.91E-02"/>
+      <inertia ixx="2.47E-04" ixy="7.13E-05" ixz="5.51E-05" iyy="1.31E-04" iyz="1.11E-04" izz="2.24E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_thingiverse~business_card_holder_452048_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.28E-02"/>
+      <inertia ixx="1.60E-04" ixy="2.20E-05" ixz="1.57E-05" iyy="5.75E-05" iyz="7.27E-05" izz="1.13E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~business_card_holder_452048_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~business_card_holder_452048_convex_piece_0"/>
+    <child link="link_thingiverse~business_card_holder_452048_convex_piece_1"/>
+  </joint>
+  <link name="link_thingiverse~business_card_holder_452048_convex_piece_2">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.69E-02"/>
+      <inertia ixx="1.01E-04" ixy="1.86E-06" ixz="1.80E-06" iyy="4.61E-05" iyz="4.97E-05" izz="5.62E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~business_card_holder_452048_convex_piece_2_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~business_card_holder_452048_convex_piece_1"/>
+    <child link="link_thingiverse~business_card_holder_452048_convex_piece_2"/>
+  </joint>
+  <link name="link_thingiverse~business_card_holder_452048_convex_piece_3">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.94E-02"/>
+      <inertia ixx="2.46E-04" ixy="-8.83E-05" ixz="-2.21E-05" iyy="6.75E-05" iyz="6.47E-05" izz="2.74E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~business_card_holder_452048_convex_piece_3_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~business_card_holder_452048_convex_piece_2"/>
+    <child link="link_thingiverse~business_card_holder_452048_convex_piece_3"/>
+  </joint>
+  <link name="link_thingiverse~business_card_holder_452048_convex_piece_4">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.30E-03"/>
+      <inertia ixx="1.16E-07" ixy="-2.93E-07" ixz="1.79E-07" iyy="1.60E-06" iyz="-4.00E-08" izz="1.62E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~business_card_holder_452048_convex_piece_4_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~business_card_holder_452048_convex_piece_3"/>
+    <child link="link_thingiverse~business_card_holder_452048_convex_piece_4"/>
+  </joint>
+  <link name="link_thingiverse~business_card_holder_452048_convex_piece_5">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.54E-02"/>
+      <inertia ixx="1.69E-04" ixy="-2.82E-05" ixz="-1.47E-05" iyy="4.21E-05" iyz="6.63E-05" izz="1.40E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~business_card_holder_452048_convex_piece_5_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~business_card_holder_452048_convex_piece_4"/>
+    <child link="link_thingiverse~business_card_holder_452048_convex_piece_5"/>
+  </joint>
+  <link name="link_thingiverse~business_card_holder_452048_convex_piece_6">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.17E-02"/>
+      <inertia ixx="1.21E-04" ixy="-3.00E-06" ixz="-2.03E-06" iyy="3.63E-05" iyz="5.46E-05" izz="8.58E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~business_card_holder_452048_convex_piece_6_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~business_card_holder_452048_convex_piece_5"/>
+    <child link="link_thingiverse~business_card_holder_452048_convex_piece_6"/>
+  </joint>
+  <link name="link_thingiverse~business_card_holder_452048_convex_piece_7">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.55E-02"/>
+      <inertia ixx="1.13E-04" ixy="-2.51E-05" ixz="-4.75E-06" iyy="1.21E-05" iyz="2.07E-05" izz="1.14E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~business_card_holder_452048_convex_piece_7_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~business_card_holder_452048_convex_piece_6"/>
+    <child link="link_thingiverse~business_card_holder_452048_convex_piece_7"/>
+  </joint>
+  <link name="link_thingiverse~business_card_holder_452048_convex_piece_8">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.09E-02"/>
+      <inertia ixx="1.09E-04" ixy="-4.49E-06" ixz="-3.58E-07" iyy="3.42E-06" iyz="1.21E-05" izz="1.07E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~business_card_holder_452048_convex_piece_8_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~business_card_holder_452048_convex_piece_7"/>
+    <child link="link_thingiverse~business_card_holder_452048_convex_piece_8"/>
+  </joint>
+  <link name="link_thingiverse~business_card_holder_452048_convex_piece_9">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.60E-02"/>
+      <inertia ixx="1.17E-04" ixy="2.26E-05" ixz="8.63E-06" iyy="2.13E-05" iyz="3.74E-05" izz="1.07E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~business_card_holder_452048_convex_piece_9_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~business_card_holder_452048_convex_piece_8"/>
+    <child link="link_thingiverse~business_card_holder_452048_convex_piece_9"/>
+  </joint>
+  <link name="link_thingiverse~business_card_holder_452048_convex_piece_10">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.16E-02"/>
+      <inertia ixx="1.13E-04" ixy="2.42E-06" ixz="6.65E-07" iyy="1.03E-05" iyz="3.11E-05" izz="1.04E-04"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~business_card_holder_452048_convex_piece_10_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~business_card_holder_452048_convex_piece_9"/>
+    <child link="link_thingiverse~business_card_holder_452048_convex_piece_10"/>
+  </joint>
+  <link name="link_thingiverse~business_card_holder_452048_convex_piece_11">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.81E-03"/>
+      <inertia ixx="6.07E-06" ixy="3.14E-08" ixz="-2.23E-07" iyy="4.33E-06" iyz="5.12E-08" izz="1.84E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~business_card_holder_452048_convex_piece_11_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~business_card_holder_452048_convex_piece_10"/>
+    <child link="link_thingiverse~business_card_holder_452048_convex_piece_11"/>
+  </joint>
+  <link name="link_thingiverse~business_card_holder_452048_convex_piece_12">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.02E-02"/>
+      <inertia ixx="1.67E-05" ixy="1.96E-06" ixz="6.47E-06" iyy="1.49E-05" iyz="3.86E-06" izz="1.11E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_12.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_12.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~business_card_holder_452048_convex_piece_12_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~business_card_holder_452048_convex_piece_11"/>
+    <child link="link_thingiverse~business_card_holder_452048_convex_piece_12"/>
+  </joint>
+  <link name="link_thingiverse~business_card_holder_452048_convex_piece_13">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.43E-02"/>
+      <inertia ixx="8.29E-06" ixy="-2.84E-06" ixz="-2.94E-06" iyy="6.41E-06" iyz="2.97E-06" izz="8.55E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_13.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_13.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~business_card_holder_452048_convex_piece_13_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~business_card_holder_452048_convex_piece_12"/>
+    <child link="link_thingiverse~business_card_holder_452048_convex_piece_13"/>
+  </joint>
+  <link name="link_thingiverse~business_card_holder_452048_convex_piece_14">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.35E-02"/>
+      <inertia ixx="6.26E-06" ixy="-1.35E-07" ixz="-3.34E-07" iyy="3.84E-06" iyz="2.33E-06" izz="3.24E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_14.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_14.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~business_card_holder_452048_convex_piece_14_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~business_card_holder_452048_convex_piece_13"/>
+    <child link="link_thingiverse~business_card_holder_452048_convex_piece_14"/>
+  </joint>
+  <link name="link_thingiverse~business_card_holder_452048_convex_piece_15">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.24E-03"/>
+      <inertia ixx="5.57E-06" ixy="-1.89E-07" ixz="9.89E-07" iyy="4.23E-06" iyz="-4.07E-08" izz="1.94E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_15.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_15.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~business_card_holder_452048_convex_piece_15_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~business_card_holder_452048_convex_piece_14"/>
+    <child link="link_thingiverse~business_card_holder_452048_convex_piece_15"/>
+  </joint>
+  <link name="link_thingiverse~business_card_holder_452048_convex_piece_16">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.04E-02"/>
+      <inertia ixx="5.20E-07" ixy="1.55E-08" ixz="3.09E-07" iyy="1.46E-06" iyz="5.40E-10" izz="1.19E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_16.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_16.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~business_card_holder_452048_convex_piece_16_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~business_card_holder_452048_convex_piece_15"/>
+    <child link="link_thingiverse~business_card_holder_452048_convex_piece_16"/>
+  </joint>
+  <link name="link_thingiverse~business_card_holder_452048_convex_piece_17">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.32E-03"/>
+      <inertia ixx="3.99E-06" ixy="-2.47E-06" ixz="3.85E-07" iyy="2.16E-06" iyz="-5.14E-07" izz="5.65E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_17.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_17.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~business_card_holder_452048_convex_piece_17_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~business_card_holder_452048_convex_piece_16"/>
+    <child link="link_thingiverse~business_card_holder_452048_convex_piece_17"/>
+  </joint>
+  <link name="link_thingiverse~business_card_holder_452048_convex_piece_18">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.79E-03"/>
+      <inertia ixx="3.28E-06" ixy="1.98E-06" ixz="2.99E-07" iyy="1.71E-06" iyz="4.14E-07" izz="4.56E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_18.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_18.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~business_card_holder_452048_convex_piece_18_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~business_card_holder_452048_convex_piece_17"/>
+    <child link="link_thingiverse~business_card_holder_452048_convex_piece_18"/>
+  </joint>
+  <link name="link_thingiverse~business_card_holder_452048_convex_piece_19">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.14E-03"/>
+      <inertia ixx="3.37E-06" ixy="2.12E-07" ixz="-8.27E-09" iyy="2.40E-07" iyz="-2.45E-09" izz="3.50E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_19.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~business_card_holder_452048_convex_piece_19.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~business_card_holder_452048_convex_piece_19_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~business_card_holder_452048_convex_piece_18"/>
+    <child link="link_thingiverse~business_card_holder_452048_convex_piece_19"/>
+  </joint>
+</robot>

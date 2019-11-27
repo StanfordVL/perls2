@@ -1,0 +1,240 @@
+<robot name="root">
+  <link name="link_thingiverse~five_side_nozzle_2974523_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.13E-03"/>
+      <inertia ixx="8.03E-06" ixy="9.46E-09" ixz="-2.85E-06" iyy="8.77E-06" iyz="-2.88E-08" izz="1.62E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~five_side_nozzle_2974523_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~five_side_nozzle_2974523_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_thingiverse~five_side_nozzle_2974523_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.83E-02"/>
+      <inertia ixx="1.25E-05" ixy="3.95E-06" ixz="2.30E-06" iyy="1.41E-05" iyz="2.12E-06" izz="1.08E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~five_side_nozzle_2974523_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~five_side_nozzle_2974523_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~five_side_nozzle_2974523_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~five_side_nozzle_2974523_convex_piece_0"/>
+    <child link="link_thingiverse~five_side_nozzle_2974523_convex_piece_1"/>
+  </joint>
+  <link name="link_thingiverse~five_side_nozzle_2974523_convex_piece_2">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.82E-02"/>
+      <inertia ixx="1.27E-05" ixy="-4.09E-06" ixz="2.25E-06" iyy="1.39E-05" iyz="-2.14E-06" izz="1.10E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~five_side_nozzle_2974523_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~five_side_nozzle_2974523_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~five_side_nozzle_2974523_convex_piece_2_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~five_side_nozzle_2974523_convex_piece_1"/>
+    <child link="link_thingiverse~five_side_nozzle_2974523_convex_piece_2"/>
+  </joint>
+  <link name="link_thingiverse~five_side_nozzle_2974523_convex_piece_3">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.22E-02"/>
+      <inertia ixx="1.38E-05" ixy="-3.13E-06" ixz="-1.59E-06" iyy="9.28E-06" iyz="2.50E-06" izz="9.98E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~five_side_nozzle_2974523_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~five_side_nozzle_2974523_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~five_side_nozzle_2974523_convex_piece_3_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~five_side_nozzle_2974523_convex_piece_2"/>
+    <child link="link_thingiverse~five_side_nozzle_2974523_convex_piece_3"/>
+  </joint>
+  <link name="link_thingiverse~five_side_nozzle_2974523_convex_piece_4">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.26E-02"/>
+      <inertia ixx="1.18E-05" ixy="-2.12E-07" ixz="1.23E-06" iyy="1.14E-05" iyz="-2.81E-06" izz="1.56E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~five_side_nozzle_2974523_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~five_side_nozzle_2974523_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~five_side_nozzle_2974523_convex_piece_4_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~five_side_nozzle_2974523_convex_piece_3"/>
+    <child link="link_thingiverse~five_side_nozzle_2974523_convex_piece_4"/>
+  </joint>
+  <link name="link_thingiverse~five_side_nozzle_2974523_convex_piece_5">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.20E-02"/>
+      <inertia ixx="1.12E-05" ixy="1.97E-07" ixz="1.14E-06" iyy="1.09E-05" iyz="2.66E-06" izz="1.45E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~five_side_nozzle_2974523_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~five_side_nozzle_2974523_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~five_side_nozzle_2974523_convex_piece_5_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~five_side_nozzle_2974523_convex_piece_4"/>
+    <child link="link_thingiverse~five_side_nozzle_2974523_convex_piece_5"/>
+  </joint>
+  <link name="link_thingiverse~five_side_nozzle_2974523_convex_piece_6">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.16E-02"/>
+      <inertia ixx="1.35E-05" ixy="3.21E-06" ixz="-1.57E-06" iyy="9.06E-06" iyz="-2.47E-06" izz="9.97E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~five_side_nozzle_2974523_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~five_side_nozzle_2974523_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~five_side_nozzle_2974523_convex_piece_6_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~five_side_nozzle_2974523_convex_piece_5"/>
+    <child link="link_thingiverse~five_side_nozzle_2974523_convex_piece_6"/>
+  </joint>
+  <link name="link_thingiverse~five_side_nozzle_2974523_convex_piece_7">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.17E-03"/>
+      <inertia ixx="2.03E-06" ixy="4.57E-09" ixz="-9.32E-07" iyy="2.60E-06" iyz="-1.14E-08" izz="6.62E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~five_side_nozzle_2974523_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~five_side_nozzle_2974523_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~five_side_nozzle_2974523_convex_piece_7_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~five_side_nozzle_2974523_convex_piece_6"/>
+    <child link="link_thingiverse~five_side_nozzle_2974523_convex_piece_7"/>
+  </joint>
+  <link name="link_thingiverse~five_side_nozzle_2974523_convex_piece_8">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.28E-02"/>
+      <inertia ixx="3.67E-06" ixy="4.17E-08" ixz="-8.13E-07" iyy="8.93E-06" iyz="-9.08E-09" izz="5.86E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~five_side_nozzle_2974523_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~five_side_nozzle_2974523_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~five_side_nozzle_2974523_convex_piece_8_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~five_side_nozzle_2974523_convex_piece_7"/>
+    <child link="link_thingiverse~five_side_nozzle_2974523_convex_piece_8"/>
+  </joint>
+</robot>

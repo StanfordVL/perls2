@@ -1,0 +1,1293 @@
+<robot name="root">
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.94E-02"/>
+      <inertia ixx="2.57E-05" ixy="-1.64E-05" ixz="-6.59E-06" iyy="3.81E-05" iyz="8.28E-06" izz="3.71E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.97E-03"/>
+      <inertia ixx="1.16E-05" ixy="-1.63E-06" ixz="-3.90E-06" iyy="1.48E-05" iyz="1.70E-06" izz="4.61E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_0"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_1"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_2">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.53E-03"/>
+      <inertia ixx="1.36E-06" ixy="2.37E-07" ixz="-1.95E-08" iyy="1.33E-07" iyz="-7.21E-08" izz="1.34E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_2_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_1"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_2"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_3">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.73E-03"/>
+      <inertia ixx="3.33E-06" ixy="4.50E-07" ixz="2.08E-06" iyy="5.24E-06" iyz="8.92E-07" izz="2.62E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_3_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_2"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_3"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_4">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.40E-03"/>
+      <inertia ixx="1.47E-06" ixy="-2.44E-06" ixz="6.55E-07" iyy="1.30E-05" iyz="4.85E-08" izz="1.26E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_4_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_3"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_4"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_5">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.30E-04"/>
+      <inertia ixx="4.88E-07" ixy="-2.64E-07" ixz="-2.23E-07" iyy="4.85E-07" iyz="2.34E-07" izz="5.36E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_5_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_4"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_5"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_6">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.47E-03"/>
+      <inertia ixx="1.15E-06" ixy="-6.20E-08" ixz="-8.31E-08" iyy="4.92E-07" iyz="5.35E-07" izz="7.91E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_6_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_5"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_6"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_7">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.41E-04"/>
+      <inertia ixx="4.32E-07" ixy="-3.11E-07" ixz="-9.76E-08" iyy="3.99E-07" iyz="1.32E-07" izz="6.40E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_7_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_6"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_7"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_8">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.19E-04"/>
+      <inertia ixx="3.91E-08" ixy="-1.01E-07" ixz="2.59E-08" iyy="4.10E-07" iyz="-8.47E-09" izz="4.32E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_8_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_7"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_8"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_9">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.47E-03"/>
+      <inertia ixx="1.58E-06" ixy="-1.14E-06" ixz="1.80E-07" iyy="9.39E-07" iyz="-2.30E-07" izz="2.41E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_9_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_8"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_9"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_10">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.65E-03"/>
+      <inertia ixx="2.98E-06" ixy="-7.65E-07" ixz="1.63E-07" iyy="4.69E-07" iyz="-5.79E-07" izz="3.08E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_10_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_9"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_10"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_11">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.19E-03"/>
+      <inertia ixx="2.77E-06" ixy="-1.33E-06" ixz="-3.45E-07" iyy="1.01E-06" iyz="6.51E-07" izz="3.27E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_11_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_10"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_11"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_12">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.27E-03"/>
+      <inertia ixx="1.58E-07" ixy="-8.20E-08" ixz="8.64E-09" iyy="3.66E-07" iyz="4.68E-08" izz="4.64E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_12.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_12.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_12_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_11"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_12"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_13">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.89E-03"/>
+      <inertia ixx="9.24E-07" ixy="-3.86E-07" ixz="6.41E-07" iyy="1.39E-06" iyz="-3.78E-07" izz="9.23E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_13.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_13.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_13_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_12"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_13"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_14">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.91E-03"/>
+      <inertia ixx="2.34E-07" ixy="-2.85E-07" ixz="-5.14E-08" iyy="2.05E-06" iyz="3.11E-08" izz="1.92E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_14.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_14.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_14_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_13"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_14"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_15">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.79E-03"/>
+      <inertia ixx="1.38E-06" ixy="-1.70E-07" ixz="2.45E-07" iyy="1.23E-06" iyz="-5.33E-07" izz="5.28E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_15.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_15.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_15_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_14"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_15"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_16">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.39E-03"/>
+      <inertia ixx="9.05E-07" ixy="-4.11E-07" ixz="2.33E-07" iyy="6.95E-07" iyz="-4.07E-07" izz="1.00E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_16.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_16.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_16_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_15"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_16"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_17">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.85E-04"/>
+      <inertia ixx="2.61E-07" ixy="-3.53E-07" ixz="-2.23E-08" iyy="5.17E-07" iyz="1.90E-08" izz="7.56E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_17.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_17.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_17_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_16"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_17"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_18">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.30E-03"/>
+      <inertia ixx="9.83E-07" ixy="3.90E-07" ixz="-3.32E-07" iyy="7.59E-07" iyz="-4.76E-07" izz="8.79E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_18.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_18.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_18_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_17"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_18"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_19">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.20E-03"/>
+      <inertia ixx="5.60E-07" ixy="4.03E-07" ixz="-5.04E-08" iyy="3.83E-07" iyz="-3.38E-08" izz="8.66E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_19.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_19.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_19_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_18"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_19"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_20">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.04E-04"/>
+      <inertia ixx="4.80E-07" ixy="-2.19E-07" ixz="1.00E-07" iyy="2.75E-07" iyz="-1.93E-07" izz="5.47E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_20.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_20.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_20_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_19"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_20"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_21">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.46E-04"/>
+      <inertia ixx="3.98E-07" ixy="-1.04E-07" ixz="-1.57E-07" iyy="3.69E-07" iyz="1.83E-07" izz="2.23E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_21.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_21.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_21_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_20"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_21"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_22">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.16E-04"/>
+      <inertia ixx="4.04E-07" ixy="1.25E-07" ixz="-5.88E-08" iyy="1.44E-07" iyz="-1.59E-07" izz="3.79E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_22.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_22.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_22_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_21"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_22"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_23">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.23E-04"/>
+      <inertia ixx="2.06E-07" ixy="8.83E-08" ixz="1.44E-09" iyy="4.68E-08" iyz="8.91E-09" izz="2.43E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_23.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_23.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_23_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_22"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_23"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_24">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.41E-04"/>
+      <inertia ixx="1.12E-06" ixy="-1.78E-07" ixz="-2.56E-08" iyy="7.10E-08" iyz="1.62E-07" izz="1.13E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_24.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_24.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_24_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_23"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_24"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_25">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.41E-03"/>
+      <inertia ixx="1.90E-06" ixy="-3.59E-07" ixz="-1.83E-07" iyy="4.94E-07" iyz="7.37E-07" izz="1.61E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_25.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_25.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_25_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_24"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_25"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_26">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.46E-04"/>
+      <inertia ixx="1.10E-08" ixy="-2.40E-08" ixz="1.09E-08" iyy="1.20E-07" iyz="-2.80E-09" izz="1.20E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_26.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_26.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_26_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_25"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_26"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_27">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.82E-03"/>
+      <inertia ixx="5.03E-07" ixy="-1.08E-09" ixz="-1.85E-08" iyy="5.42E-07" iyz="6.00E-08" izz="7.30E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_27.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_27.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_27_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_26"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_27"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_28">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.48E-03"/>
+      <inertia ixx="2.95E-07" ixy="-3.70E-07" ixz="1.42E-07" iyy="6.80E-07" iyz="-9.12E-08" izz="8.70E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_28.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_28.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_28_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_27"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_28"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_29">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.87E-03"/>
+      <inertia ixx="4.53E-07" ixy="-1.63E-08" ixz="5.07E-08" iyy="5.99E-07" iyz="-5.39E-08" izz="1.76E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_29.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_29.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_29_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_28"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_29"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_30">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.75E-04"/>
+      <inertia ixx="3.51E-07" ixy="-4.83E-09" ixz="-2.04E-08" iyy="3.71E-07" iyz="-3.57E-08" izz="3.31E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_30.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_30.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_30_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_29"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_30"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_31">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.72E-04"/>
+      <inertia ixx="1.67E-07" ixy="-8.77E-08" ixz="-1.98E-07" iyy="4.24E-07" iyz="6.13E-08" izz="3.12E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_31.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_31.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_31_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_30"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_31"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_32">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.80E-04"/>
+      <inertia ixx="3.06E-07" ixy="2.35E-08" ixz="-9.06E-08" iyy="3.15E-07" iyz="-7.19E-08" izz="5.16E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_32.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_32.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_32_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_31"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_32"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_33">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.48E-04"/>
+      <inertia ixx="4.73E-07" ixy="1.02E-07" ixz="-1.68E-07" iyy="4.37E-07" iyz="-2.06E-07" izz="2.16E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_33.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_33.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_33_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_32"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_33"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_34">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.85E-04"/>
+      <inertia ixx="4.15E-07" ixy="-5.86E-08" ixz="-5.37E-08" iyy="2.97E-07" iyz="1.85E-07" izz="1.91E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_34.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_34.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_34_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_33"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_34"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_35">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.06E-04"/>
+      <inertia ixx="3.87E-07" ixy="-2.21E-07" ixz="-2.87E-07" iyy="6.02E-07" iyz="1.81E-07" izz="4.98E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_35.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_35.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_35_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_34"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_35"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_36">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.19E-03"/>
+      <inertia ixx="4.71E-07" ixy="-2.39E-07" ixz="2.41E-07" iyy="1.63E-06" iyz="-1.40E-07" izz="1.52E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_36.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_36.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_36_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_35"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_36"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_37">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.92E-04"/>
+      <inertia ixx="3.01E-08" ixy="-8.11E-08" ixz="6.91E-08" iyy="4.89E-07" iyz="-9.97E-09" izz="4.94E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_37.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_37.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_37_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_36"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_37"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_38">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.20E-03"/>
+      <inertia ixx="2.55E-07" ixy="-3.73E-07" ixz="-3.09E-07" iyy="1.28E-06" iyz="9.83E-08" izz="1.28E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_38.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_38.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_38_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_37"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_38"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_39">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.81E-04"/>
+      <inertia ixx="2.65E-07" ixy="-4.44E-07" ixz="-5.21E-08" iyy="9.12E-07" iyz="2.61E-08" izz="1.10E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_39.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_39.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_39_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_38"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_39"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_40">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.08E-03"/>
+      <inertia ixx="2.24E-07" ixy="-1.93E-07" ixz="1.91E-07" iyy="4.79E-07" iyz="-1.00E-07" izz="4.79E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_40.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_40.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_40_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_39"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_40"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_41">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.75E-03"/>
+      <inertia ixx="1.12E-06" ixy="-3.27E-07" ixz="-9.23E-07" iyy="2.11E-06" iyz="3.10E-07" izz="1.24E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_41.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_41.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_41_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_40"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_41"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_42">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.28E-04"/>
+      <inertia ixx="4.34E-08" ixy="1.08E-07" ixz="2.73E-08" iyy="3.70E-07" iyz="8.25E-09" izz="4.01E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_42.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_42.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_42_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_41"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_42"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_43">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="8.24E-04"/>
+      <inertia ixx="2.09E-07" ixy="2.81E-07" ixz="-4.41E-08" iyy="4.49E-07" iyz="-2.52E-08" izz="6.22E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_43.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_43.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_43_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_42"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_43"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_44">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.08E-03"/>
+      <inertia ixx="6.49E-07" ixy="1.20E-07" ixz="2.57E-07" iyy="8.31E-07" iyz="2.13E-07" izz="3.94E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_44.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_44.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_44_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_43"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_44"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_45">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.94E-03"/>
+      <inertia ixx="7.23E-07" ixy="1.78E-07" ixz="1.45E-07" iyy="5.28E-07" iyz="3.42E-07" izz="5.27E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_45.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_45.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_45_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_44"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_45"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_46">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.51E-04"/>
+      <inertia ixx="2.83E-07" ixy="-5.59E-08" ixz="-6.22E-08" iyy="2.20E-07" iyz="1.30E-07" izz="1.56E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_46.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_46.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_46_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_45"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_46"/>
+  </joint>
+  <link name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_47">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.82E-04"/>
+      <inertia ixx="1.18E-07" ixy="-1.76E-08" ixz="-3.22E-08" iyy="1.06E-07" iyz="4.63E-08" izz="4.23E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_47.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_47.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_47_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_46"/>
+    <child link="link_thingiverse_packaged~lightsaber_bottom_1550462_packaged_convex_piece_47"/>
+  </joint>
+</robot>

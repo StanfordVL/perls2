@@ -1,0 +1,456 @@
+<robot name="root">
+  <link name="link_thingiverse~space_capsule_1961435_convex_piece_0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.24E-03"/>
+      <inertia ixx="3.78E-06" ixy="-1.57E-07" ixz="5.12E-07" iyy="3.35E-06" iyz="-9.21E-07" izz="1.48E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_0.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_thingiverse~space_capsule_1961435_convex_piece_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.73E-03"/>
+      <inertia ixx="2.02E-06" ixy="6.29E-08" ixz="8.96E-09" iyy="1.95E-06" iyz="7.32E-07" izz="8.06E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_1.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~space_capsule_1961435_convex_piece_1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~space_capsule_1961435_convex_piece_0"/>
+    <child link="link_thingiverse~space_capsule_1961435_convex_piece_1"/>
+  </joint>
+  <link name="link_thingiverse~space_capsule_1961435_convex_piece_2">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.14E-03"/>
+      <inertia ixx="6.29E-07" ixy="4.45E-07" ixz="4.87E-08" iyy="4.46E-07" iyz="5.46E-08" izz="9.38E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_2.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~space_capsule_1961435_convex_piece_2_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~space_capsule_1961435_convex_piece_1"/>
+    <child link="link_thingiverse~space_capsule_1961435_convex_piece_2"/>
+  </joint>
+  <link name="link_thingiverse~space_capsule_1961435_convex_piece_3">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.63E-03"/>
+      <inertia ixx="1.76E-06" ixy="9.82E-08" ixz="-3.07E-07" iyy="1.76E-06" iyz="-4.50E-07" izz="5.15E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_3.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~space_capsule_1961435_convex_piece_3_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~space_capsule_1961435_convex_piece_2"/>
+    <child link="link_thingiverse~space_capsule_1961435_convex_piece_3"/>
+  </joint>
+  <link name="link_thingiverse~space_capsule_1961435_convex_piece_4">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.44E-04"/>
+      <inertia ixx="1.96E-07" ixy="1.10E-07" ixz="-1.04E-07" iyy="2.16E-07" iyz="-9.24E-08" izz="2.30E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_4.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~space_capsule_1961435_convex_piece_4_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~space_capsule_1961435_convex_piece_3"/>
+    <child link="link_thingiverse~space_capsule_1961435_convex_piece_4"/>
+  </joint>
+  <link name="link_thingiverse~space_capsule_1961435_convex_piece_5">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.56E-02"/>
+      <inertia ixx="4.93E-06" ixy="-6.34E-07" ixz="-6.79E-06" iyy="1.72E-05" iyz="1.90E-07" izz="1.35E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_5.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~space_capsule_1961435_convex_piece_5_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~space_capsule_1961435_convex_piece_4"/>
+    <child link="link_thingiverse~space_capsule_1961435_convex_piece_5"/>
+  </joint>
+  <link name="link_thingiverse~space_capsule_1961435_convex_piece_6">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.01E-03"/>
+      <inertia ixx="4.46E-06" ixy="-1.72E-06" ixz="-3.36E-06" iyy="6.83E-06" iyz="1.67E-06" izz="4.47E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_6.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~space_capsule_1961435_convex_piece_6_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~space_capsule_1961435_convex_piece_5"/>
+    <child link="link_thingiverse~space_capsule_1961435_convex_piece_6"/>
+  </joint>
+  <link name="link_thingiverse~space_capsule_1961435_convex_piece_7">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="2.49E-03"/>
+      <inertia ixx="2.31E-06" ixy="-1.77E-06" ixz="-1.08E-06" iyy="2.57E-06" iyz="9.80E-07" izz="3.60E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_7.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~space_capsule_1961435_convex_piece_7_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~space_capsule_1961435_convex_piece_6"/>
+    <child link="link_thingiverse~space_capsule_1961435_convex_piece_7"/>
+  </joint>
+  <link name="link_thingiverse~space_capsule_1961435_convex_piece_8">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1.60E-03"/>
+      <inertia ixx="8.89E-07" ixy="1.87E-07" ixz="-6.47E-07" iyy="1.33E-06" iyz="-2.07E-07" izz="6.62E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_8.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~space_capsule_1961435_convex_piece_8_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~space_capsule_1961435_convex_piece_7"/>
+    <child link="link_thingiverse~space_capsule_1961435_convex_piece_8"/>
+  </joint>
+  <link name="link_thingiverse~space_capsule_1961435_convex_piece_9">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.98E-03"/>
+      <inertia ixx="4.95E-06" ixy="2.35E-06" ixz="-4.22E-06" iyy="8.99E-06" iyz="-1.57E-06" izz="6.95E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_9.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~space_capsule_1961435_convex_piece_9_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~space_capsule_1961435_convex_piece_8"/>
+    <child link="link_thingiverse~space_capsule_1961435_convex_piece_9"/>
+  </joint>
+  <link name="link_thingiverse~space_capsule_1961435_convex_piece_10">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="5.04E-03"/>
+      <inertia ixx="4.65E-06" ixy="-4.04E-06" ixz="3.12E-07" iyy="4.04E-06" iyz="-3.31E-07" izz="8.17E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_10.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~space_capsule_1961435_convex_piece_10_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~space_capsule_1961435_convex_piece_9"/>
+    <child link="link_thingiverse~space_capsule_1961435_convex_piece_10"/>
+  </joint>
+  <link name="link_thingiverse~space_capsule_1961435_convex_piece_11">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.82E-03"/>
+      <inertia ixx="6.73E-06" ixy="-3.13E-06" ixz="4.45E-06" iyy="9.18E-06" iyz="-2.73E-06" izz="7.29E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_11.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~space_capsule_1961435_convex_piece_11_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~space_capsule_1961435_convex_piece_10"/>
+    <child link="link_thingiverse~space_capsule_1961435_convex_piece_11"/>
+  </joint>
+  <link name="link_thingiverse~space_capsule_1961435_convex_piece_12">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.85E-03"/>
+      <inertia ixx="3.40E-06" ixy="6.10E-07" ixz="3.00E-06" iyy="6.11E-06" iyz="5.94E-07" izz="3.18E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_12.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_12.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~space_capsule_1961435_convex_piece_12_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~space_capsule_1961435_convex_piece_11"/>
+    <child link="link_thingiverse~space_capsule_1961435_convex_piece_12"/>
+  </joint>
+  <link name="link_thingiverse~space_capsule_1961435_convex_piece_13">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.50E-03"/>
+      <inertia ixx="4.76E-06" ixy="4.35E-06" ixz="1.49E-06" iyy="6.54E-06" iyz="1.05E-06" izz="9.07E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_13.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_13.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~space_capsule_1961435_convex_piece_13_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~space_capsule_1961435_convex_piece_12"/>
+    <child link="link_thingiverse~space_capsule_1961435_convex_piece_13"/>
+  </joint>
+  <link name="link_thingiverse~space_capsule_1961435_convex_piece_14">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="7.08E-03"/>
+      <inertia ixx="1.26E-06" ixy="-2.27E-06" ixz="-4.50E-07" iyy="5.72E-06" iyz="1.89E-07" izz="6.73E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_14.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_14.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~space_capsule_1961435_convex_piece_14_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~space_capsule_1961435_convex_piece_13"/>
+    <child link="link_thingiverse~space_capsule_1961435_convex_piece_14"/>
+  </joint>
+  <link name="link_thingiverse~space_capsule_1961435_convex_piece_15">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="9.10E-03"/>
+      <inertia ixx="3.19E-06" ixy="-2.23E-06" ixz="4.67E-06" iyy="1.31E-05" iyz="-8.91E-07" izz="1.13E-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_15.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_15.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~space_capsule_1961435_convex_piece_15_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~space_capsule_1961435_convex_piece_14"/>
+    <child link="link_thingiverse~space_capsule_1961435_convex_piece_15"/>
+  </joint>
+  <link name="link_thingiverse~space_capsule_1961435_convex_piece_16">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="6.84E-03"/>
+      <inertia ixx="2.28E-06" ixy="-8.77E-07" ixz="1.77E-06" iyy="3.91E-06" iyz="-6.34E-07" izz="2.68E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_16.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+      <material name="">
+        <color rgba="7.50E-01 7.50E-01 7.50E-01 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="thingiverse~space_capsule_1961435_convex_piece_16.obj" scale="1.0000E+00 1.0000E+00 1.0000E+00"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="link_thingiverse~space_capsule_1961435_convex_piece_16_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="link_thingiverse~space_capsule_1961435_convex_piece_15"/>
+    <child link="link_thingiverse~space_capsule_1961435_convex_piece_16"/>
+  </joint>
+</robot>
