@@ -35,7 +35,7 @@ The intrinsic and extrinsic parameters under this key all contain `lower` and `u
     lower: 
       [0.3, 0., 1.5] 
     upper: 
-      [0.5, 0., 2.0]'
+      [0.5, 0., 2.0]`
       
   means that for the eye position extrinsic property (where the camera is located) the x position is bounded from [0.3, 0.5], y position is [0.0, 0.0] and z position is [1.5, 2.0]
   
