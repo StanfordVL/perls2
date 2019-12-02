@@ -14,6 +14,16 @@ The run file shows how an environment can be combined with a policy to run an ex
 The Bullet Environment is initialized to use the visualizer by default, but this can be changed in the construction of the SimpleReachEnv. 
 
 ## Environment file: 
+The environment file contains code specific to managing the environment and describing the task. The main functions worth taking a look at are: 
+* `reset` : reset the environment after completion of the episode, randomization of object placements and sensor parameters happens here. 
+* `step`: execute an action and step the environment forwards. 
+* `rewardFunction`: calculate the reward to be given to the agent based on the state of the environment. 
+
+Some helper functions also exist to help organize your code: 
+* `_exec_action` : how the environment should interpret and execute the action. In this example, the action is a delta between the current end effector position of the robot and some desired position. This is executed by setting the robots new position to its current position + this delta. 
+* `get_observation`: the observation the environment should provide. Our dummy policy only uses the delta end effector position from the goal, but you can also get the current end_effector pose, and a rendered image at the step. 
+
+* `_check_termination`: returns whether or not the episode has completed, either by execeeding the maximum number of steps or if the goal has been acheived.
 
 ## Config file: 
 The configuration file contains the parameters that describes the robot, the sensors used and the objects it will interact with. The configuration file is broken up into a few components
