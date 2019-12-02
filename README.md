@@ -3,7 +3,6 @@ PErception and Robotic Learning System v2
 
 PERLS provides robot software infrastructure for projects within SVL. PERLS allows for a unified framework that enables robotics research on both simualted and real robots. PERLS2 is a redesign with the goal of offering only essential functionality for robotics research. Please refer to the PERLS Design Document for more information. 
 
-PERLS is developed in a project-driven manner: tools and utilities developed in individual projects are standardized and reviewed before being merged into this repository.
 TODO: Design Doc Link
 TODO: API Link
 TODO: Examples Links
@@ -12,18 +11,10 @@ TODO: Examples Links
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Prerequisites
-
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
-
 ### Installing
 PERLS2 only supports python3 for the core libraries (python 2.7 is used for interfacing to robots that use ROS.)
 PERLS2 only supports ubuntu 16.04 and later.
-# On Ubuntu 16.04
+### On Ubuntu 16.04
 
 1. Clone and install PERLs repo
     1. Clone repo: 
@@ -53,7 +44,17 @@ PERLS2 only supports ubuntu 16.04 and later.
 **TODO**
 ## Running the tests
 
-Explain how to run the automated tests for this system
+Individual tests for components such as interfaces should be tested after any changes are made. 
+For example, to run the tester script for the BulletSawyerInterface: 
+
+Source the environment
+`source perls2env/bin/activate`
+
+Move to the tester script directory
+`cd perls2/tester/bullet_tester`
+
+Run the tester
+`python bullet_sawyer_tester`
 
 ### Break down into end to end tests
 
@@ -71,29 +72,6 @@ Explain what these tests test and why
 Give an example
 ```
 
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
 ## License
 
