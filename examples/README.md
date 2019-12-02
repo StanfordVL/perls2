@@ -1,7 +1,9 @@
 # perls2 Examples
 PErception and Robotic Learning System v2
 
-The following examples are provided to introduce the perls2 framework and highlight its capabilities. Examples in simulation may be demonstrated using the run_<\example\>.py. Examples for real robots require a little more instruction. Please consult the ReadME.MD in the corresponding folder. 
+The following examples are provided to introduce the perls2 framework and highlight its capabilities. Examples in simulation may be demonstrated using the run_<\example\>.py. Examples for real robots require a little more instruction. 
+
+*Please consult the ReadME.MD in the corresponding folder. *
 
 
 ## Available Examples
