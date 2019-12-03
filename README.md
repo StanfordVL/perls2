@@ -37,10 +37,12 @@ PERLS2 only supports ubuntu 16.04 and later.
     5. Install perls2 
         
         `pip install -e .`
+## Run PERL demos
+Check out the  demos in the examples folder. Intructions for each demo may be found in the README in each folder.
+### Example: Run simple reach demo
+`cd perls2/examples/simple_reach`
 
-6. Run PERL demos
-        `cd perls2/examples/simple_reach`
-        `python run_simple_reach.py`
+`python run_simple_reach.py`
 
 
 **TODO**
