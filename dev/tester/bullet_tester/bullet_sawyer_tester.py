@@ -21,15 +21,67 @@ from perls2.utils.yaml_config import YamlConfig
 import os
 import numpy as np
 import time
+ctrl_steps_per_action = 1
 
 
+def step_till_close_enough_fn(
+        attribute, 
+        exec_fn,
+        goal, 
+        max_steps, 
+        rtol=1,
+        atol=1):
+    """
+    Step the simulation until attribute reaches goal while executing a fn
 
-def step_sim(physics_id):
-    ctrl_steps_per_action = 200
+    Args: 
+        attribute (string): string of the robot to monitor
+        exec_fn (string): string of the function of the robot to execute at each
+            step
+        goal (array): goal for the attribute to reach. 
+        max_steps (int): max steps before returning an error
+        rtol (float): relative tolerance for attribute to reach goal
+        atol (float): absolute tolerance for attribute to reach goal
 
-    for exec_steps in range(ctrl_steps_per_action):
-        pybullet.stepSimulation(physics_id)
+    Returns: 
+        -1 if failed or
+        num steps (int) if complete.
+    """
 
+
+    global physics_id
+    global bullet_sawyer
+    global ctrl_steps_per_action
+
+    global tuning_file # For logging
+    steps = 0
+    # while the attribute has not reached the bounds for the goal
+    # and the max steps have not been exceeded, execute action
+    # and step sim forward.    
+    while(
+        (not np.allclose( 
+            getattr(bullet_sawyer,attribute), goal, rtol, atol) 
+        and (steps < max_steps))):
+        
+        joint_torques = getattr(bullet_sawyer,exec_fn)(goal)
+
+        for step in range(0, ctrl_steps_per_action):
+            bullet_sawyer.set_torques(joint_torques)
+            pybullet.stepSimulation(physics_id)
+        steps+=1
+        
+        # Log the state
+        print(getattr(bullet_sawyer, attribute))
+        tuning_data.append(getattr(bullet_sawyer, attribute))
+        tuning_torques.append(joint_torques)
+    if (np.allclose( 
+            getattr(bullet_sawyer,attribute),
+            goal, 
+            rtol, 
+            atol)):
+        return steps
+    else:
+        return -1 
 def step_till_close_enough(
         attribute, 
         goal, 
@@ -46,16 +98,18 @@ def step_till_close_enough(
             goal, 
             rtol, 
             atol) and 
-        (steps <= max_steps))):
+        (steps < max_steps))):
         
         pybullet.stepSimulation(physics_id)
         steps+=1
-    print(np.allclose( 
+    if (np.allclose( 
             getattr(bullet_sawyer,attribute),
             goal, 
             rtol, 
-            atol))
-    return steps 
+            atol)):
+        return steps
+    else:
+        return -1 
 
 def step_till_close_enough_index(
         attribute, 
@@ -89,7 +143,9 @@ def step_till_close_enough_index(
 # TODO: Change this to its own file in the tester folder
 # Create a pybullet simulation in isolation
 physics_id = pybullet.connect(pybullet.GUI)
-config = YamlConfig('./tester_config.yaml')
+dir_path = os.path.dirname(os.path.realpath(__file__))
+yaml_dir = os.path.join(dir_path, 'tester_config.yaml')
+config = YamlConfig(yaml_dir)
 data_dir = config['data_dir']
 
 # Load URDFs 
@@ -97,9 +153,8 @@ import pybullet_data
 pybullet.setAdditionalSearchPath(pybullet_data.getDataPath())
 
 # Load ground plane
-os.chdir('..')
+
 plane_path = os.path.join(data_dir, config['ground']['path'])
-plane_path = '../' + plane_path
 plane_id = pybullet.loadURDF(
     fileName=plane_path, 
     basePosition=config['ground']['pose'][0], 
@@ -211,11 +266,12 @@ while ((np.allclose(
         (steps < 200)):
         pybullet.stepSimulation(physics_id)
         steps+=1
-
-if (np.allclose(
+reached_goal = np.allclose(
             bullet_sawyer.q,init_joint_positions, 
             rtol=1e-02, 
-            atol=1e-02) == False):
+            atol=1e-02) 
+if (reached_goal== False):
+    print(bullet_sawyer.q)
     raise ValueError("BulletSawyerInterface.q setter failed")
 # TODO  test random joint positions
 # TODO test invalid joint angles 
@@ -276,23 +332,71 @@ if (not(np.allclose(
                 1.57, 
                 rtol=1e-02, 
                 atol=1e-02))):
-    print("bulet sawyer_base : " + str(bullet_sawyer.q[0]))
+    print("bullet sawyer_base : " + str(bullet_sawyer.q[0]))
     raise ValueError("set joint position control failed")
 
-bullet_sawyer.close_gripper()
-input('did gripper close?')
-step_sim(physics_id)
-bullet_sawyer.open_gripper()
-step_sim(physics_id)
-input('did gripper open?')
-bullet_sawyer.close_gripper()
-step_sim(physics_id)
-input('did gripper close?')
-bullet_sawyer.open_gripper()
-step_sim(physics_id)
-input('did gripper open?')
+# bullet_sawyer.close_gripper()
+# input('did gripper close?')
+# step_sim(physics_id)
+# bullet_sawyer.open_gripper()
+# step_sim(physics_id)
+# input('did gripper open?')
+# bullet_sawyer.close_gripper()
+# step_sim(physics_id)
+# input('did gripper close?')
+# bullet_sawyer.open_gripper()
+# step_sim(physics_id)
+# input('did gripper open?')
 
+##### Controllers Test ##############
+bullet_sawyer.set_joints_to_neutral_positions()
+#target_joint_positions = np.asarray(
+#    [0, 3.14, 0, 3.14, 0, 3.14, 0, 3.14, 0, 3.14, 0, 3.14, 0, 3.14 ]) 
 
+#target_joint_positions = [0] * 14
+target_joint_positions = [1.57,-1.18,0.00,2.18,0.00,0.57,3.31, 0, 0, 0, 0, 0, 0, 0]
+#bullet_sawyer.set_joints_uncompensated(
+#    target_joint_positions)
+tuning_data = []
+tuning_torques = []
+import matplotlib.pyplot as plt
 
+if (step_till_close_enough_fn(
+        attribute='q',
+        exec_fn='get_uncompensated_torques',
+        goal=target_joint_positions,
+        max_steps=5000,
+        rtol=1e-02,
+        atol=1e-02) == -1):
+    
+    # reset joint angles to 2pi 
+    joint_zero_data = []
+    for step_data in tuning_data:
+        wrapto2pi = np.unwrap(step_data)
+        joint_zero_data.append(wrapto2pi[0] - target_joint_positions[0])  
 
+    torque_zero_data = [torque_step[0] for torque_step in tuning_torques]
+    joint_one_data = [step_data[1]-target_joint_positions[1]  for step_data in tuning_data]
+    
+    plt.subplot(121)
+    plt.ylim((-0.1 + np.min(joint_zero_data), 0.1 + np.max(joint_zero_data)))
+    plt.plot(
+        range(5000),
+        joint_zero_data)
+    plt.subplot(122)
+    plt.ylim((-0.1 + np.min(torque_zero_data), 0.1 + np.max(torque_zero_data)))
+    plt.plot(
+        range(5000),
+        torque_zero_data)
+    plt.show()
+
+    
+    #step_error_all = np.asarray(tuning_file.readlines())
+    #print()
+
+    # plt.plot(
+    #     range(0,np.shape(step_error_all)[0]), 
+    #     step_error_all[:,0]
+    #     )
+    #raise ValueError("set joints set_joints_uncompensated failed")
 print("############ All tests complete. ###########")

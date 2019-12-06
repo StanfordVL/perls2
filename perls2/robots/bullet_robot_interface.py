@@ -46,6 +46,14 @@ class BulletRobotInterface(RobotInterface):
         self._default_position_gain = 0.1
         self._default_velocity_gain = 2.5
 
+        # Pybullet uses velocity motors by default. Setting max force to 0
+        # allows for torque control
+        maxForce = 0
+        mode = pybullet.VELOCITY_CONTROL
+        for joint_index in range(0, self._num_joints):
+            pybullet.setJointMotorControl2(self._arm_id, joint_index,
+                controlMode=mode, force=maxForce)
+        print("robot set to torque mode")
     def create(config, physics_id, arm_id):
         """Factory for creating robot interfaces based on type
 
@@ -174,6 +182,14 @@ class BulletRobotInterface(RobotInterface):
                 }
 
         return limit
+    def get_joint_limits(self): 
+        """ Get list of all joint limits
+        
+        Args: Non
+        Returns: list of joint limit dictionaries
+        """
+        joint_limits = [self.get_joint_limit(joint_index) for joint_index in range(self._num_joints)]
+        return joint_limits
 
     def set_gripper_to_value(self, value):
         """Close the gripper of the robot
@@ -520,11 +536,6 @@ class BulletRobotInterface(RobotInterface):
             qd: list
                 list of desired joint position
         """
-        # for joint_index in range(self._num_joints)
-        #     q[joint_index], _, _, _, = pybullet.getLinkState(
-        #         self._arm_id, 
-        #         joint_index, 
-        #         physicsClientId=self._physics_id)
 
         pybullet.setJointMotorControlArray(
             bodyUniqueId=self._arm_id, 
@@ -533,6 +544,45 @@ class BulletRobotInterface(RobotInterface):
             targetPositions=qd)
         return q
 
+
+    def get_uncompensated_torques(self, qd, kp=500, kv=40): 
+        """ Joint space control law with no compensation
+
+            Torques = -(kp(q-qd)-kv*q_dot))
+            Args: 
+                qd (list): desired joint positions as a column vector. 
+        """
+        print("set_joints_uncompensated called")
+        q = np.asarray(self.q)
+
+        dq = np.asarray(self.dq)
+        joint_errors = q-qd
+        for joint_index in range(0, self._num_joints): 
+            if(np.abs(joint_errors[joint_index]) < 0.01):
+                joint_errors[joint_index] = 0
+
+        joint_torques = (-kp*(q-qd) - kv*dq)
+
+        for joint in range(len(joint_torques)): 
+            max_torque=700 #self.get_joint_limit(joint)['effort']
+            joint_torques[joint] = np.clip(
+                joint_torques[joint], -max_torque, max_torque)
+
+        print(joint_torques[0])
+
+        return joint_torques
+
+    def set_torques(self, joint_torques):
+        """Set torques to the motor. Useful for keeping torques constant through
+        multiple simulation steps.
+        
+        Args: joint_torques (list): list of joint torques with dimensions (num_joints,)
+        """
+        pybullet.setJointMotorControlArray(
+            bodyUniqueId=self._arm_id, 
+            jointIndices=range(0,self._num_joints),
+            controlMode=pybullet.TORQUE_CONTROL, 
+            forces=joint_torques)
 
 
     def set_joint_position_control(
