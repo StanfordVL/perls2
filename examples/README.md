@@ -8,4 +8,6 @@ The following examples are provided to introduce the perls2 framework and highli
 
 ## Available Examples
 ### Reach task with joint position: simple_reach
-	A sample reach task using an analytical policy. Observations consist of the delta ee position from the goal object. Actions are interpreted as delta from the current end-effector position. Camera parameters and object parameters are randomized on reset. 
+	A sample reach task using an analytical policy.Observations consist of the delta ee position from the goal 
+	object. Actions are interpreted as delta from the current end-effector position. Camera parameters and 
+	object parameters are randomized on reset. 

@@ -23,11 +23,11 @@ class RobotInterface(object):
             control_type (str): Type of controller for robot to use
                 e.g. IK, OSC, Joint Velocity
 
-        :TODO: 
+        :TODO:
             * controller type not currently supported
         """
         self.controlType = controlType
-    
+
     @abc.abstractmethod
     def create(config):
         """Factory for creating robot interfaces based on config type
@@ -67,7 +67,6 @@ class RobotInterface(object):
         quaternion of the end-effector.
         """
         raise NotImplementedError
-
 
     @property
     @abc.abstractmethod
