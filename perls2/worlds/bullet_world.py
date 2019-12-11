@@ -23,14 +23,14 @@ class BulletWorld(World):
     BulletCamera and BulletObjectInterfaces based on the config file.
 
     Attributes:
-        arena (BulletArena): Manages the sim by loading models (in both sim/real
-            envs) and for simulations, randomizing objects and sensors params.
+        arena (BulletArena): Manages the sim by loading models, and for
+        simulations, randomizing objects and sensors params.
 
         robot_interface (BulletRobotInterface): Communicates with robots and
             executes robot commands.
 
         sensor_interface (BulletSensorInterface): Retrieves sensor info and
-            executes changes to params (e.g. intrinsics/extrinsics )
+            executes changes to params (e.g. intrinsics/extrinsics)
 
         object_interface (BulletObjectInterface): retrieves object info and
             executes changes to params
@@ -70,10 +70,13 @@ class BulletWorld(World):
         """Initialize.
 
         Args:
-            config (dict): YAML config dict containing specifications for world.
+            config (dict): YAML config dict containing specifications.
+
             use_visualizer (bool): Whether or not to use visualizer.
-                ..note::Pybullet only allows for one simulation to be connected
-                to GUI. It is up to the user to manage this.
+
+                ..note::Pybullet only allows for one simulation to be
+                connected to GUI. It is up to the user to manage this.
+
             name (str): Name of the world. (for multiple worlds)
 
         Returns:
@@ -251,8 +254,8 @@ class BulletWorld(World):
         Args:
             linear_velocity_threshold (float)
             angular_velocity_threshold (float)
-            check_after_steps (int): min number of steps to wait before checking
-                object state
+            check_after_steps (int): min number of steps to wait before
+                checking object state
             min_stable_step (int): min number of steps for object to be stable
                 before exiting
             max_steps (int): max number of steps to wait for stable object
@@ -277,10 +280,11 @@ class BulletWorld(World):
             if num_steps < check_after_steps:
                 continue
 
-            if (np.linalg.norm(self.object_interface.get_linear_velocity())
-                    <= linear_velocity_threshold):
+            if (np.linalg.norm(self.object_interface.get_linear_velocity()) <=
+                    linear_velocity_threshold):
                 num_stable_steps += 1
 
-            if (num_stable_steps >= min_stable_steps or num_steps >= max_steps):
+            if ((num_stable_steps >= min_stable_steps) or
+                    (num_steps >= max_steps)):
                 print("object stable")
                 break
