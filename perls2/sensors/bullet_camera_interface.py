@@ -19,9 +19,10 @@ DEPTH_WIDTH = 512
 # DEPTH_HEIGHT = 428
 # DEPTH_WIDTH = 482
 
+
 class BulletCameraInterface(SimCameraInterface):
     def __init__(self,
-                 physics_id=None, 
+                 physics_id=None,
                  image_height=500,
                  image_width=500,
                  near=0.02,
@@ -32,12 +33,12 @@ class BulletCameraInterface(SimCameraInterface):
                  cameraUpVector=[1., 0., 1.],
                  name='bullet_camera'):
         """Initialize
-        
+
         If there are extrinsics of the form RGB_intrisics.npy,
         robot_RGB_rotation.npy, robot_RGB_translation.npy in some
         directory, use that as an argument which takes higher priority than
         the view_matrix and projection_matrix.
-        
+
         Args:
             image_height: The height of the image.
             image_width: The width of the image.
@@ -65,8 +66,6 @@ class BulletCameraInterface(SimCameraInterface):
             nearVal=NEAR_PLANE,
             farVal=FAR_PLANE)
 
-
-
     def set_projection_matrix(self, projection_matrix):
         self._projection_matrix = projection_matrix
 
@@ -85,10 +84,9 @@ class BulletCameraInterface(SimCameraInterface):
     def frames(self):
         """Render the world at the current time step.
             Args: None
-            Returns: 
-                dict with rgb, depth and segmask image. 
+            Returns:
+                dict with rgb, depth and segmask image.
         """
-
         _, _, rgba, depth, segmask = pybullet.getCameraImage(
             height=self._image_height,
             width=self._image_width,
@@ -127,18 +125,18 @@ class BulletCameraInterface(SimCameraInterface):
                 }
 
     def place(self, new_camera_pos):
-        """ Places camera in new position 
+        """ Places camera in new position
 
-        Modifies cameraEyePosition property and adjusts view and 
+        Modifies cameraEyePosition property and adjusts view and
         projection matrices
 
-        Args: 
-            new_camera_pos (3f): x y z coordinates of new camera position. 
+        Args:
+            new_camera_pos (3f): x y z coordinates of new camera position.
         Returns: None
         """
         self.cameraEyePosition = new_camera_pos
 
-        self._view_matrix = pybullet.computeViewMatrix( 
+        self._view_matrix = pybullet.computeViewMatrix(
                 cameraEyePosition=self.cameraEyePosition,
                 cameraTargetPosition=self.cameraTargetPosition,
                 cameraUpVector=self.cameraUpVector)
@@ -148,9 +146,6 @@ class BulletCameraInterface(SimCameraInterface):
                 aspect=float(self.image_width) / float(self.image_height),
                 nearVal=NEAR_PLANE,
                 farVal=FAR_PLANE)
-        #print("Random place: cameraEyePosition  " + str(self.cameraEyePosition))
-
-
 
     def set_calibration(self, K, rotation, translation):
         """Set the camera calibration data.
@@ -167,9 +162,7 @@ class BulletCameraInterface(SimCameraInterface):
         Returns
         -------
 
-
         """
-
         # Set projection matrix and view matrix.
         self._projection_matrix = intrinsic_to_projection_matrix(
                 self._K, self._image_height, self._image_width,
@@ -186,7 +179,8 @@ class BulletCameraInterface(SimCameraInterface):
         point :
             3D point to project onto the camera image plane.
         is_world_frame :
-            True if the 3D point is defined in the world frame, (Default value = False)
+            True if the 3D point is defined in the world frame,
+            (Default value = False)
 
         Returns
         -------
@@ -216,7 +210,8 @@ class BulletCameraInterface(SimCameraInterface):
         depth :
             Depth value at the given pixel location.
         is_world_frame :
-            True if the 3D point is defined in the world frame, (Default value = True)
+            True if the 3D point is defined in the world frame,
+            (Default value = True)
 
         Returns
         -------
@@ -234,7 +229,6 @@ class BulletCameraInterface(SimCameraInterface):
 
         return point
 
-    
     def extrinsic_to_view_matrix(rotation, translation, distance):
         """Convert the camera extrinsics to the view matrix.
 
@@ -270,7 +264,7 @@ class BulletCameraInterface(SimCameraInterface):
                     cameraTargetPosition=focus,
                     cameraUpVector=up_vector)
 
-        return view_matrix 
+        return view_matrix
 
     @property
     def image_height(self):
