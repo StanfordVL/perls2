@@ -10,27 +10,33 @@ import redis
 import time
 import struct
 
+
 def convert_encoded_frame_to_np(encoded_frame, dim):
     """Convert rgb, depth or ir bytes array to numpy
     """
-    h, w = struct.unpack('>II',encoded_frame[:8])
+    h, w = struct.unpack('>II', encoded_frame[:8])
 
-    frame_np = np.frombuffer(encoded_frame, dtype=np.uint8, offset=8).reshape(h,w,dim)
+    frame_np = np.frombuffer(
+        encoded_frame, dtype=np.uint8, offset=8).reshape(h, w, dim)
+
     return frame_np
+
 
 def convert_encoded_timestamp_to_np(encoded_frame, dim):
     """Convert rgb, depth or ir bytes array to numpy
     """
-    h, w, timestamp = struct.unpack('>IIf',encoded_frame[:8])
+    h, w, timestamp = struct.unpack('>IIf', encoded_frame[:8])
 
-    frame_np = np.frombuffer(encoded_frame, dtype=np.uint8, offset=8).reshape(h,w,dim)
+    frame_np = np.frombuffer(
+        encoded_frame, dtype=np.uint8, offset=8).reshape(h, w, dim)
 
     return (frame_np, timestamp)
+
 
 def bstr_to_float(bytestring):
     """Convert bytestring array to 1d array
     """
-    return np.fromstring(bytestring, dtype=np.float, sep = ' ')[0]
+    return np.fromstring(bytestring, dtype=np.float, sep=' ')[0]
 
 
 class KinectCameraInterface(CameraInterface):
@@ -44,12 +50,11 @@ class KinectCameraInterface(CameraInterface):
         _ir : numpy array
             ir image
         _KINECT_DEPTH_TOPIC: str
-            rostopic for depth stream   
+            rostopic for depth stream
         _KINECT_COLOR_TOPIC: str
             rostopic for color stream
         _KINECT_IR_TOPIC: str
             rostopic for ir stream
-
 
     Notes:
         Images None initialy, need to call capture_images before accessing
@@ -74,7 +79,7 @@ class KinectCameraInterface(CameraInterface):
     RGB_DIM = 3
     IR_DIM = 1
 
-    def __init__(self, res_mode ="hd"):
+    def __init__(self, res_mode="hd"):
         """ Set the redis parameters for the ROS interface
         Note: Stream is initialized as disabled
         """
@@ -86,13 +91,11 @@ class KinectCameraInterface(CameraInterface):
 
         # Notify ROS Interface that camera interface is connected
         self.redisClient.set('camera::interface_connected', 'True')
-        #Set stream as disabled at initialization. 
+        # Set stream as disabled at initialization.
         self.redisClient.set('camera::stream_enabled', 'False')
 
         self._prev_rgb_timestamp = 0
         self._prev_rgb = []
-
-
 
     def start(self):
         """Starts the sensor stream.
@@ -100,7 +103,7 @@ class KinectCameraInterface(CameraInterface):
         self.redisClient.set('camera::stream_enabled', 'True')
 
     def stop(self):
-        """Stop the sensor stream. 
+        """Stop the sensor stream.
         """
         self.redisClient.set('camera::stream_enabled', 'False')
 
@@ -126,8 +129,7 @@ class KinectCameraInterface(CameraInterface):
     @prev_rgb.setter
     def prev_rgb(self, new_rgb):
         self._prev_rgb = new_rgb
-    
-    
+
     def frames(self):
         """Get frames from redis db.
 
@@ -135,45 +137,46 @@ class KinectCameraInterface(CameraInterface):
             None
         Returns:
             tuple of RGB, depth and IR frames as numpy arrays
-        
+
         Images are retrieved from redis as encoded bytes array.
-        They are converted to numpy arrays and returned.   
-    
+        They are converted to numpy arrays and returned.
+
         """
 
         encoded_rgb = self.redisClient.get('camera::rgb_frame')
-        
+
         rgb_timestamp = self.redisClient.get('camera:rgb_timestamp')
 
-        rgb_np = convert_encoded_frame_to_np(encoded_rgb, KinectCameraInterface.RGB_DIM)
+        rgb_np = convert_encoded_frame_to_np(
+            encoded_rgb, KinectCameraInterface.RGB_DIM)
 
-        
         print(rgb_timestamp)
         encoded_depth = self.redisClient.get('camera::depth_frame')
-        depth_np = convert_encoded_frame_to_np(encoded_depth, KinectCameraInterface.DEPTH_DIM)
+        depth_np = convert_encoded_frame_to_np(
+            encoded_depth, KinectCameraInterface.DEPTH_DIM)
 
         encoded_ir = self.redisClient.get('camera::ir_frame')
-        ir_np = convert_encoded_frame_to_np(encoded_ir, KinectCameraInterface.IR_DIM)
+        ir_np = convert_encoded_frame_to_np(
+            encoded_ir, KinectCameraInterface.IR_DIM)
 
-        image_dict = {'image': rgb_np, 
+        image_dict = {'image': rgb_np,
                       'image_stamp': rgb_timestamp,
                       'depth': depth_np,
                       'ir': ir_np}
 
         return image_dict
 
-
-
     def disconnect(self):
         """ Set redis key to disconnect interface"""
         self.redisClient.set('camera::interface_connected', 'False')
+
 
 if __name__ == '__main__':
     import time
     import pickle
     import numpy as np
     camera = KinectCameraInterface()
-    
+
     print("connected to interface")
 
     # Connect the environment and enable the stream
@@ -184,39 +187,36 @@ if __name__ == '__main__':
     camera.prev_rgb_timestamp = camera.redisClient.get('camera::rgb_timestamp')
     camera.prev_rgb = camera.redisClient.get('camera::rgb_frame')
     timing_data = []
-    #print(camera.prev_rgb)
-    print("rgb_frame")
-    #print(camera.redisClient.get('camera:rgb_frame'))
+
     input("Press Enter to continue...")
     for sample in range(5000):
         # save rgb timestamp to compare
-        #camera.prev_rgb_timestamp = camera.redisClient.get('camera::rgb_timestamp')
-        start = time.time()  
+        start = time.time()
 
-        while(camera.prev_rgb_timestamp == camera.redisClient.get('camera::rgb_timestamp')):
-        #while(camera.prev_rgb == camera.redisClient.get('camera:rgb_frame')):
+        while(
+            camera.prev_rgb_timestamp == camera.redisClient.get(
+                    'camera::rgb_timestamp')):
             pass
 
             while ((time.time() - start) < 0.001):
-                pass 
+                pass
                 # wait to make it 100Hz
-                #camera.display()
-        
-        camera.prev_rgb_timestamp = camera.redisClient.get('camera::rgb_timestamp')  
+                # camera.display()
+
+        camera.prev_rgb_timestamp = camera.redisClient.get(
+                'camera::rgb_timestamp')
         end = time.time()
 
         timestamp_update_ms = (end - start) * 1000
 
         image_available_ms = end*1000 - bstr_to_float(camera.prev_rgb_timestamp)
 
-        # print("New image time from control loop (ms): " + str(timestamp_update_ms))
-        # print ("End (ms): " + str(end*1000))
-        # print("timestamp (ms?): " + str(camera.prev_rgb_timestamp))
-        # print("Image timestamp from sent image: " + 
-        #      str(end*1000 - bstr_to_float(camera.prev_rgb_timestamp)))
-
-        timing_data.append([image_available_ms, timestamp_update_ms, end*1000, start*1000, camera.prev_rgb_timestamp])       
-        
+        timing_data.append(
+            [image_available_ms,
+             timestamp_update_ms,
+             end*1000,
+             start*1000,
+             camera.prev_rgb_timestamp])
 
     camera.redisClient.set('camera::stream_enabled', 'False')
     camera.redisClient.set('camera::interface_connected', 'False')
