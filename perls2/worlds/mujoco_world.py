@@ -12,6 +12,6 @@ class MujocoWorld(World):
     """
 
     def __init__(self,
-                 config=None, 
+                 config=None,
                  use_visualizer=False):
         pass
