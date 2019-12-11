@@ -22,7 +22,6 @@ class RealWorld(World):
                  name='DefaultEnv'):
         """ Initialize.
 
-
         Parameters
         ----------
         config: dict
@@ -70,37 +69,13 @@ class RealWorld(World):
     def step(self):
         """Take a step.
 
-        Args:
-            action: The action to take.
-        Returns:
-            -observation: based on user-defined functions
-            -reward: from user-defined reward function
-            -done: whether the task was completed or max steps reached
-            -info: info about the episode including success
+        Args: None
+        Returns: None
 
-        Takes a step forward similar to openAI.gym's implementation.
+        Takes a step forward, since this happens naturally in reality, we don't
+        do anything.
         """
-        # TODO: What is the order of this
-
-        # Prepare for next step by executing action
         pass
-        # self._exec_action(action)
-        # self.num_steps = self.num_steps+1
-
-        # # Check if max num steps reached or goal completed
-        # termination = self._check_termination()
-        # # if terminated reset step count
-        # if termination:
-        #     self.num_steps = 0
-
-        # #print("Goal position " + str(goal_position))
-
-        # # Collect reward, observation and info
-        # reward = self.rewardFunction()
-        # observation = self.get_observation()
-        # info = self.info()
-
-        # return observation, reward, termination, info
 
     def visualize(self, observation, action):
         """Visualize the action - that is,

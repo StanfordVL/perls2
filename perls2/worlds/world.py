@@ -23,9 +23,9 @@ class World():
         config (dict): Config files contain parameters to create an arena,
             robot interface, sensor interface and object interface. They also
             contain specs for learning, simulation and experiment setup.
-        arena (Arena): Manages the sim by loading models (in both sim/real envs)
+        arena (Arena): Manages the sim by loading models for real and sim
             and for simulations, randomizing objects and sensors parameters
-        robot_interface (RobotInterface):  Communicates with robots and executes
+        robot_interface (RobotInterface): Communicates with robots and executes
             robot commands.
         sensor_interface (SensorInterface): Retrieves sensor info and executes
             changes to params
@@ -39,7 +39,7 @@ class World():
             Not typically user-defined but may be modified.
 
         reset:
-            Reset env to initial setting and return observation.
+            Reset env to initial state and return observation.
             Some aspects such as randomization are user-defined
         render:
         close:
