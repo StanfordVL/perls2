@@ -3,7 +3,7 @@
 
 import abc  # For abstract class definitions
 import six  # For abstract class definitions
-import pybullet 
+import pybullet
 import numpy as np
 import os
 import time
@@ -16,7 +16,6 @@ from perls2.sensors.bullet_camera_interface import BulletCameraInterface
 from perls2.objects.bullet_object_interface import BulletObjectInterface
 
 
-
 class BulletWorld(World):
     """Class for PyBullet worlds.
 
@@ -24,40 +23,39 @@ class BulletWorld(World):
     BulletCamera and BulletObjectInterfaces based on the config file.
 
     Attributes:
-        arena (BulletArena): Manages the sim by loading models (in both sim/real 
-            envs) and for simulations, randomizing objects and sensors params. 
-        
-        robot_interface (BulletRobotInterface): Communicates with robots and 
-            executes robot commands. 
-        
-        sensor_interface (BulletSensorInterface): Retrieves sensor info and 
+        arena (BulletArena): Manages the sim by loading models (in both sim/real
+            envs) and for simulations, randomizing objects and sensors params.
+
+        robot_interface (BulletRobotInterface): Communicates with robots and
+            executes robot commands.
+
+        sensor_interface (BulletSensorInterface): Retrieves sensor info and
             executes changes to params (e.g. intrinsics/extrinsics )
-        
-        object_interface (BulletObjectInterface): retrieves object info and 
-            executes changes to params 
-        
-        physics_id (int): Unique id identifying physics client for Pybullet. 
-            Used to connect other interfaces when working with multiple 
-            simulations. 
-        
+
+        object_interface (BulletObjectInterface): retrieves object info and
+            executes changes to params
+
+        physics_id (int): Unique id identifying physics client for Pybullet.
+            Used to connect other interfaces when working with multiple
+            simulations.
+
         time_step: float
-            Float defining timestep to increment Pybullet simulation during 
+            Float defining timestep to increment Pybullet simulation during
             pybullet.stepSimulation() calls. Set in config file
-        
+
         MAX_STEPS: int
-            Constant for maximum number of steps before terminating epsiode. 
+            Constant for maximum number of steps before terminating epsiode.
             Set in config file
         name: str
             A name to describe the world (e.g. training or testing)
 
-
     Methods:
         (These are similar to openAI.gym)
-        step: 
-            Step env forward and return observation, reward, termination, info. 
-            Not typically user-defined but may be modified.     
+        step:
+            Step env forward and return observation, reward, termination, info.
+            Not typically user-defined but may be modified.
         reset:
-            Reset env to initial setting and return observation at initial state.
+            Reset env to initial setting and return observation.
             Some aspects such as randomization are user-defined
         render:
         close:
@@ -66,78 +64,77 @@ class BulletWorld(World):
     """
 
     def __init__(self,
-                 config, 
+                 config,
                  use_visualizer=False,
-                 name=None ):
+                 name=None):
         """Initialize.
 
         Args:
-            config (dict): YAML config dict containing specifications for world. 
-            use_visualizer (bool): Whether or not to use visualizer. 
-                ..note::Pybullet only allows for one simulation to be connected 
-                to GUI. It is up to the user to manage this. 
+            config (dict): YAML config dict containing specifications for world.
+            use_visualizer (bool): Whether or not to use visualizer.
+                ..note::Pybullet only allows for one simulation to be connected
+                to GUI. It is up to the user to manage this.
             name (str): Name of the world. (for multiple worlds)
-        
-        Returns: 
+
+        Returns:
             None
-        
-        Example: 
+
+        Example:
             BulletWorld('cfg/my_config.yaml', True, 'MyBulletWorld')
-        
+
         ..note::
-            *The world_factory is the recommended way for creating an appropriate
-            instance of world according to the config parameters.*
+            *The world_factory is the recommended way for creating an
+            appropriate instance of world according to the config parameters.*
         ..note::
             Upon initialization the world automatically creates instances of
-            BulletRobotInterface, BulletSensorInterface and BulletObjectInterface
-            according to the config dictionary.
+            BulletRobotInterface, BulletSensorInterface and
+            BulletObjectInterface according to the config dictionary.
 
         """
-        
+
         # Get configuration parameters
         self.config = config
-        
+
         # Connect to appropriate pybullet channel based on use_visualizer flag
         self.use_visualizer = use_visualizer
         if self.use_visualizer:
 
             self._physics_id = pybullet.connect(pybullet.GUI)
         else:
-            self._physics_id = pybullet.connect(pybullet.DIRECT) 
-        
-        print("New PhysicsID: " + str(self._physics_id))
+            self._physics_id = pybullet.connect(pybullet.DIRECT)
 
+        print("New PhysicsID: " + str(self._physics_id))
 
         # Create an arena to load robot and objects
         self.arena = BulletArena(self.config, self._physics_id)
-       
+
         self.robot_interface = BulletRobotInterface.create(
-            config=self.config, 
-            physics_id=self._physics_id, 
+            config=self.config,
+            physics_id=self._physics_id,
             arm_id=self.arena.arm_id)
 
         self.sensor_interface = BulletCameraInterface(
-            physics_id=self._physics_id, 
+            physics_id=self._physics_id,
             image_height=self.config['sensor']['camera']['image']['height'],
             image_width=self.config['sensor']['camera']['image']['width']
             )
-        
+
         self.object_interface = BulletObjectInterface(
             physics_id=self._physics_id,
             obj_id=self.arena.obj_id)
 
-        # TODO: set time step, gravity, num steps
-        self._time_step = self.config['sim_params']['time_step'] # TODO: remove magic number
+        self._time_step = self.config['sim_params']['time_step']
 
-        pybullet.setGravity(0,0,-10, physicsClientId=self._physics_id)
+        pybullet.setGravity(0, 0, -10, physicsClientId=self._physics_id)
         pybullet.setTimeStep(self._time_step, physicsClientId=self._physics_id)
 
         self.print_this_step = False
 
-        self.name=name
-        #To ensure smoothness of simulation and collisions, execute
-        # a number of simulation steps per action received by policy      
-        self.ctrl_steps_per_action = self.config['sim_params']['steps_per_action']
+        self.name = name
+        # To ensure smoothness of simulation and collisions, execute
+        # a number of simulation steps per action received by policy
+        self.ctrl_steps_per_action = (
+            self.config['sim_params']['steps_per_action'])
 
         self.is_sim = True
 
@@ -146,8 +143,8 @@ class BulletWorld(World):
 
         Returns:
             None
-        
-        TODO: Should this return something? an error? This needs to be 
+
+        TODO: Should this return something? an error? This needs to be
         defined by derived class. But all derived reset functions share
         these steps.
         """
@@ -166,14 +163,9 @@ class BulletWorld(World):
         """
         # TODO: add real time option
 
-        # Prepare for next step by executing action 
-
-        #t0 = time.time()
-
+        # Prepare for next step by executing action
         for exec_steps in range(self.ctrl_steps_per_action):
             pybullet.stepSimulation(self._physics_id)
-
-
 
     def get_observation(self):
         """Get observation of current env state
@@ -204,18 +196,15 @@ class BulletWorld(World):
         """
         pass
 
-
-
     @property
     def info(self):
         return {
                 }
-    
+
     def rewardFunction(self):
         """ User defined-Reward for agent given env state
         """
         raise NotImplementedError
-
 
     def check_stable(self,
                      linear_velocity_threshold,
@@ -256,8 +245,8 @@ class BulletWorld(World):
                            max_steps=30000):
         """Wait until the objects are stable.
 
-        Blocking code that checks if object linear and angular velocity are 
-        within respectives thresholds of 0. 
+        Blocking code that checks if object linear and angular velocity are
+        within respectives thresholds of 0.
 
         Args:
             linear_velocity_threshold (float)
@@ -267,32 +256,30 @@ class BulletWorld(World):
             min_stable_step (int): min number of steps for object to be stable
                 before exiting
             max_steps (int): max number of steps to wait for stable object
-        
+
         Returns:
             None
-        
+
         :TODO:
             * add check for angular velocity threshold
         """
         assert self.is_sim, 'This function is only used in simulation.'
 
-        #logger.debug('Waiting for objects to be stable...')
+        # logger.debug('Waiting for objects to be stable...')
 
-        print("waiting for stable")
         num_steps = 0
         num_stable_steps = 0
 
         while(1):
             pybullet.stepSimulation(self._physics_id)
             num_steps += 1
-           
+
             if num_steps < check_after_steps:
                 continue
-            
-            if (np.linalg.norm(self.object_interface.get_linear_velocity()) 
+
+            if (np.linalg.norm(self.object_interface.get_linear_velocity())
                     <= linear_velocity_threshold):
                 num_stable_steps += 1
-                #print("num_stable_steps:    " +str(num_stable_steps))
 
             if (num_stable_steps >= min_stable_steps or num_steps >= max_steps):
                 print("object stable")
