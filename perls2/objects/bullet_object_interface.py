@@ -10,13 +10,14 @@ import numpy as np
 
 from perls2.objects.object_interface import ObjectInterface
 
+
 class BulletObjectInterface(ObjectInterface):
     """Abstract interface to be implemented for each real and simulated
     robot.
     """
 
     def __init__(self,
-                 physics_id, 
+                 physics_id,
                  obj_id):
         """
         Initialize variables
@@ -35,14 +36,14 @@ class BulletObjectInterface(ObjectInterface):
         """Get xyz position of object in world frame.
         """
 
-
         is_connected, method = pybullet.getConnectionInfo(self._physics_id)
         # if (is_connected):
         #     print("Physics  " + str(self._physics_id) + " connected")
         # else:
         #     print("not connected")
 
-        obj_position,obj_orn, = pybullet.getBasePositionAndOrientation(self._obj_id, self._physics_id)
+        obj_position, obj_orn = pybullet.getBasePositionAndOrientation(
+            self._obj_id, self._physics_id)
         return np.asarray(obj_position)
 
     def set_obj_id(self, obj_id):
@@ -56,19 +57,19 @@ class BulletObjectInterface(ObjectInterface):
         self.physics_id = physics_id
 
     def place(self, new_object_pos):
-        """ Given an upper and lower bound, 
+        """ Given an upper and lower bound,
             set the location of the object to a new position
-        
+
             NOTE: this should only be done on an env reset as it
             disregards the physics
         """
         # Get the current orietation so it is maintained during reset
-        self.obj_pos, self.obj_orn = pybullet.getBasePositionAndOrientation(self._obj_id, self._physics_id)
+        self.obj_pos, self.obj_orn = pybullet.getBasePositionAndOrientation(
+            self._obj_id, self._physics_id)
 
         self.obj_pos = new_object_pos
-        pybullet.resetBasePositionAndOrientation(self._obj_id, self.obj_pos, self.obj_orn, self._physics_id)
-
-
+        pybullet.resetBasePositionAndOrientation(
+            self._obj_id, self.obj_pos, self.obj_orn, self._physics_id)
 
     def get_linear_velocity(self):
         """Get the lienar velocity of the body.
@@ -80,7 +81,7 @@ class BulletObjectInterface(ObjectInterface):
 
         Returns
         -------
-        
+
             A 3-dimensional float32 numpy array.
 
         """
