@@ -13,6 +13,7 @@ import redis
 import time
 import struct
 
+
 def convert_frame_to_encoded_bytes(frame):
     """Convert rgb, depth or ir frame to bytes array with encoded dim
     """
@@ -21,9 +22,10 @@ def convert_frame_to_encoded_bytes(frame):
     # Encode the shape of the picture into the bytes array
     frame_np = np.array(frame).astype('uint8')
     frame_bytes = frame_np.tobytes()
-    frame_shape = struct.pack('>II',height, width)
+    frame_shape = struct.pack('>II', height, width)
     encoded_frame = frame_shape + frame_bytes
     return encoded_frame
+
 
 def convert_frame_to_bytes_timestamp(frame, timestamp):
     """Convert rgb, depth or ir frame to bytes array with encoded dim
@@ -33,8 +35,8 @@ def convert_frame_to_bytes_timestamp(frame, timestamp):
     # Encode the shape of the picture into the bytes array
     frame_np = np.array(frame).astype('uint8')
     frame_bytes = frame_np.tobytes()
-    timestamp 
-    frame_shape = struct.pack('>IIf',height, width, timestamp)
+    timestamp
+    frame_shape = struct.pack('>IIf', height, width, timestamp)
     encoded_frame = frame_shape + frame_bytes
     return encoded_frame
 
@@ -50,7 +52,7 @@ class KinectROSInterface(CameraInterface):
         _ir : numpy array
             ir image
         _KINECT_DEPTH_TOPIC: str
-            rostopic for depth stream   
+            rostopic for depth stream
         _KINECT_COLOR_TOPIC: str
             rostopic for color stream
         _KINECT_IR_TOPIC: str
@@ -76,7 +78,7 @@ class KinectROSInterface(CameraInterface):
     HD_IMG_SIZE = (1080, 1920)
     QHD_IMG_SIZE = (540, 960)
 
-    def __init__(self, res_mode ="hd"):
+    def __init__(self, res_mode="hd"):
         """ Constructor """
         self._depth = None
         self._ir = None
@@ -88,18 +90,17 @@ class KinectROSInterface(CameraInterface):
         self._KINECT_IR_TOPIC = "/kinect2/sd/image_ir_rect"
         self._KINECT_COLOR_TOPIC = "/kinect2/%s/image_color_rect" % res_mode
 
-
         # Get flat list of topics
         topics = [t for l in rospy.get_published_topics() for t in l]
         if self._KINECT_DEPTH_TOPIC not in topics:
             raise ValueError("Topic %s not found" %
-                                    self._KINECT_DEPTH_TOPIC)
+                             self._KINECT_DEPTH_TOPIC)
         if self._KINECT_COLOR_TOPIC not in topics:
             raise ValueError("Topic %s not found" %
-                                    self._KINECT_COLOR_TOPIC)
+                             self._KINECT_COLOR_TOPIC)
         if self._KINECT_IR_TOPIC not in topics:
             raise ValueError("Topic %s not found" %
-                                    self._KINECT_IR_TOPIC)
+                             self._KINECT_IR_TOPIC)
         self._depth_receiver = rospy.Subscriber(
             self._KINECT_DEPTH_TOPIC,
             Image,
@@ -123,7 +124,6 @@ class KinectROSInterface(CameraInterface):
     @property
     def rgb_frame(self):
         return self._rgb
-
 
     @property
     def depth_frame(self):
@@ -151,16 +151,16 @@ class KinectROSInterface(CameraInterface):
 
         # Just for testing out the redis part. TODO switch this out
         rgb_encoded = self.redisClient.get('camera::rgb_frame')
-        h, w = struct.unpack('>II',rgb_encoded[:8])
-        image_np = np.frombuffer(rgb_encoded, dtype=np.uint8, offset=8).reshape(h,w,3)
-        #depth_frame = self.redisClient.get('camera:depth_frame')
-        #ir_frame = self.redisClient.get('camera::ir_frame')
+        h, w = struct.unpack('>II', rgb_encoded[:8])
+        image_np = np.frombuffer(
+            rgb_encoded, dtype=np.uint8, offset=8).reshape(h, w, 3)
+        # depth_frame = self.redisClient.get('camera:depth_frame')
+        # ir_frame = self.redisClient.get('camera::ir_frame')
 
         cv2.imshow('rgb', image_np)
-        #cv2.imshow('d', depth_frame)
+        # cv2.imshow('d', depth_frame)
         cv2.waitKey(waitkey)
         cv2.destroyAllWindows()
-
 
     def capture_frames(self):
         """ Capture the newest frame """
@@ -173,15 +173,14 @@ class KinectROSInterface(CameraInterface):
         # encoded_rgb = rgb_shape + rgb_bytes
         encoded_rgb = convert_frame_to_encoded_bytes(self.rgb_frame)
         encoded_depth = convert_frame_to_encoded_bytes(self.depth_frame)
-        encoded_ir   = convert_frame_to_encoded_bytes(self.ir_frame)
+        encoded_ir = convert_frame_to_encoded_bytes(self.ir_frame)
         # set the key in redis
         self.redisClient.set('camera::rgb_frame', encoded_rgb)
-        self.redisClient.set('camera::rgb_timestamp', str(self._rgb_timestamp_ms))
+        self.redisClient.set(
+            'camera::rgb_timestamp', str(self._rgb_timestamp_ms))
         self.redisClient.set('camera::depth_frame', encoded_depth)
-        self.redisClient.set('camera::ir_frame', encoded_ir )
-        
-        #self.redisClient.set('camera::depth_frame', self.depth_frame.tobytes())
-        #self.redisClient.set('camera::ir_frame', self.ir_frame.tobytes())
+        self.redisClient.set('camera::ir_frame', encoded_ir)
+
         return (self.rgb_frame, self.depth_frame, self.ir_frame)
 
     def capture_rgb(self):
@@ -189,7 +188,8 @@ class KinectROSInterface(CameraInterface):
         self.wait_to_receive_rgb()
         encoded_rgb = convert_frame_to_encoded_bytes(self.rgb_frame)
         self.redisClient.set('camera::rgb_frame', encoded_rgb)
-        self.redisClient.set('camera::rgb_timestamp', str(self._rgb_timestamp_ms))
+        self.redisClient.set(
+            'camera::rgb_timestamp', str(self._rgb_timestamp_ms))
 
     def wait_to_receive(self):
         """ Wait to receive the newest frame """
@@ -210,12 +210,11 @@ class KinectROSInterface(CameraInterface):
     def _depth_callback(self, depth):
         self._depth = CvBridge().imgmsg_to_cv2(depth, '16UC1')
 
-
     def _rgb_callback(self, rgb):
         self._rgb = CvBridge().imgmsg_to_cv2(rgb, 'bgr8')
-        self._rgb_timestamp_ms = np.asarray((rgb.header.stamp.secs * 1000) + 
-                                  (rgb.header.stamp.nsecs / 1000000))
-        
+        self._rgb_timestamp_ms = np.asarray((rgb.header.stamp.secs * 1000) +
+                                            (rgb.header.stamp.nsecs / 1000000))
+
     def _ir_callback(self, ir):
         self._ir = CvBridge().imgmsg_to_cv2(ir, '16UC1')
 
@@ -254,12 +253,13 @@ class KinectROSInterface(CameraInterface):
             cv2.destroyWindow('kinect_grasp')
             sub.unregister()
 
+
 if __name__ == '__main__':
     import time
     rospy.init_node('kinect_show')
-    
+
     camera = KinectROSInterface()
-    
+
     print("waiting for environment")
     while(camera.redisClient.get('camera::interface_connected') != b'True'):
         pass
@@ -270,8 +270,6 @@ if __name__ == '__main__':
             start = time.time()
             camera.capture_rgb()
             while ((time.time() - start) < 0.033):
-                pass 
-                # wait to make it 100Hz
-                #camera.display()
-        
+                pass
+
     print("exiting.")

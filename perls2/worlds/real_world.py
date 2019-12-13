@@ -12,7 +12,7 @@ from perls2.sensors.kinect_camera_interface import KinectCameraInterface
 
 class RealWorld(World):
     """
-    ypically, an env will have one robot with one camera as well as
+    Typically, an env will have one robot with one camera as well as
     logic to have the robot execute a particular task.
     """
 
