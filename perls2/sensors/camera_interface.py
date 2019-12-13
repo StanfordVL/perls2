@@ -1,19 +1,19 @@
 """Abstract class for Camera Interface
 """
 
-import abc # For abstract class definitions
-import six # For abstract class definitions
+import abc  # For abstract class definitions
+import six  # For abstract class definitions
 import numpy as np
 
 from perls2.sensors.sensor_interface import SensorInterface
 
-@six.add_metaclass(abc.ABCMeta)
 
+@six.add_metaclass(abc.ABCMeta)
 class CameraInterface(SensorInterface):
     """Abstract interface to be implemented for a sensor
     """
 
-    def __init__(self, 
+    def __init__(self,
                  image_height,
                  image_width,
                  intrinsics,
@@ -22,10 +22,10 @@ class CameraInterface(SensorInterface):
                  name='camera'):
         """
         Initialize variables
-        
+
           Args:
-            image_height: int
-            image_width: int
+            image_height (int): height in pixels
+            image_width (int): width in pixels
             intrinsics: a 3x3 camera matrix coefficient
             K: The intrinsics matrix.
             extrinsics: a pose object, or a tuple of translation and rotation.
@@ -99,9 +99,9 @@ class CameraInterface(SensorInterface):
 
         Args:
             path: The data directory of the calibration results.
-        """  
+        """
         raise NotImplementedError
-     
+
     def callback_view(self, callback):
         """
         Create an OpenCV window with the passed in callback
@@ -111,7 +111,7 @@ class CameraInterface(SensorInterface):
             the button value (OpenCV - 1 is left click), and x and y
         """
         raise NotImplementedError
-   
+
     def get_pose_with_click(self, prompt=None, w_rotation=False):
         """ get pose with opencvy gui click
         """
@@ -133,7 +133,7 @@ class CameraInterface(SensorInterface):
             A numpy array [N, 2] of 2D points
         """
         raise NotImplementedError
-    
+
     def reproject(self, points, depth=None, to_world=False):
         """Reproject a set of points from 2d image frame to 3d frame.
 
@@ -213,7 +213,6 @@ class CameraInterface(SensorInterface):
         projection_matrix = list(projection_matrix.transpose().flatten())
 
         return projection_matrix
-
 
     @property
     def pose(self):

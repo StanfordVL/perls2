@@ -49,7 +49,6 @@ class BulletWorld(World):
         name: str
             A name to describe the world (e.g. training or testing)
 
-
     Methods:
         (These are similar to openAI.gym)
         step:
@@ -269,7 +268,8 @@ class BulletWorld(World):
         """
         assert self.is_sim, 'This function is only used in simulation.'
 
-        print("waiting for stable")
+        # logger.debug('Waiting for objects to be stable...')
+
         num_steps = 0
         num_stable_steps = 0
 
