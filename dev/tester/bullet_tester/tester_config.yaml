@@ -1,12 +1,12 @@
 
 # Cfg file for Env
-world: 
+world:
   type: 'Bullet'
   robot: 'sawyer'
 data_dir: '../../../data'
 # Simulation parameters
 sim_params:
-  time_step: 0.001 #0.004166  # 1./240.
+  time_step: 0.004166  # 1./240.
   steps_per_action: 20 # policy to sim update ratio
   MAX_STEPS: 500
 
@@ -25,9 +25,9 @@ robot:
       [0, 0, 0]
     is_static:
       True
-  base: 
+  base:
     path:
-      'robot/rethink/sawyer_description/urdf/sawyer_base.urdf'    
+      'robot/rethink/sawyer_description/urdf/sawyer_base.urdf'
     pose:
       [0, 0, .01]
     orn:
@@ -70,16 +70,16 @@ robot:
 
   # Step size of a gripper trajectory.
   end_effector_step: 0.02
-      
+
 goal_position:
-  lower: 
+  lower:
     [0.3, -0.2, 0.0]  # CHANGED
-  upper: 
+  upper:
     [0.5, 0.5, 0.2]   # CHANGED
 
 sensor:
   camera:
-    name: 
+    name:
         'camera'
     image:
       height: 224
@@ -90,42 +90,42 @@ sensor:
         target_position:
           [0.6, 0., 0]
         up_vector:
-          [1., 0., 1.] 
-    intrinsics: 
+          [1., 0., 1.]
+    intrinsics:
         image_height: 1080
         image_width: 1920
         fov: 60
         near_plane: 0.02
         far_plane: 100
-    # Parameters for randomization  
+    # Parameters for randomization
     random:
       randomize: False
       extrinsics:
         eye_position:
           lower:
-            [0.6, 0., 1.75] 
+            [0.6, 0., 1.75]
           upper:
-            [0.6, 0., 1.75] 
+            [0.6, 0., 1.75]
         target_position:
           lower:
             [0.6, 0., 0]
-          upper: 
+          upper:
             [0.6, 0., 0]
       intrinsics:
         fov:
           lower: 50
           upper: 80
-        near_plane: 
+        near_plane:
           lower: 0.01
           upper: 0.05
-        far_plane: 
+        far_plane:
           lower: 10
           upper: 150
 
 object:
   count:
     1
-  path: 
+  path:
     'objects/ycb/013_apple/google_16k/textured.urdf'
   pose: [[1.5, 0, 0], [0,0,0]]
   is_static: True
@@ -163,15 +163,15 @@ env:
     low:
       [-2.0, -2.0, -2.0]
     high:
-      [2.0, 2.0, 2.0] 
+      [2.0, 2.0, 2.0]
   action_space:
     low: [-0.2, -0.2, -0.2]
-    high: [0.2, 0.2, 0.2] 
+    high: [0.2, 0.2, 0.2]
 
 learning_parms:
   hyperparameters:
   learning_rate:
-  
+
 
 vision_params:
   segmentation:
