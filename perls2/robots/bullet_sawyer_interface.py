@@ -9,21 +9,22 @@ import numpy as np
 
 from perls2.robots.bullet_robot_interface import BulletRobotInterface
 
+
 class BulletSawyerInterface(BulletRobotInterface):
     """ Class for Sawyer Robot Interface in Pybullet. This class provides the
-    functionsfor information about the state of the robot as well as sending 
-    commands. 
+    functionsfor information about the state of the robot as well as sending
+    commands.
 
-    
+
     """
 
     def __init__(self,
-                 physics_id, 
+                 physics_id,
                  arm_id,
-                 config=None, 
+                 config=None,
                  controlType=None):
-        """ 
-        Initialize variables 
+        """
+        Initialize variables
 
         Parameters
         ----------
@@ -38,7 +39,7 @@ class BulletSawyerInterface(BulletRobotInterface):
         self.limb_neutral_positions = [0,-1.18,0.00,2.18,0.00,0.57,3.3161, 0, 0, 0, 0, 0, 0, 0]
         self._name = "Rethink Bullet Sawyer"
         print("BulletSawyerInterface created")
-        
+
 
 
     def start(self):
@@ -59,14 +60,14 @@ class BulletSawyerInterface(BulletRobotInterface):
             self._num_joints = pybullet.getNumJoints(self._arm_id)
 
             joint_indices = [i for i in range(0,self._num_joints)]
-            # pybullet.setJointMotorControlArray(bodyUniqueId=self._arm_id, 
+            # pybullet.setJointMotorControlArray(bodyUniqueId=self._arm_id,
             #                                jointIndices= joint_indices,
-            #                                controlMode=pybullet.PD_CONTROL, 
+            #                                controlMode=pybullet.PD_CONTROL,
             #                                targetPositions=self.limb_neutral_positions)
             #print(str(self._arm_id))
 
             for i in range(len(joint_indices)):
-                #print ("Writing joint   " + str(i) + "to pos " + str(self.limb_neutral_positions[i])) 
+                #print ("Writing joint   " + str(i) + "to pos " + str(self.limb_neutral_positions[i]))
                 pybullet.resetJointState(bodyUniqueId=self._arm_id,
                     jointIndex=i,
                     targetValue=self.limb_neutral_positions[i])
@@ -86,41 +87,41 @@ class BulletSawyerInterface(BulletRobotInterface):
     def version(self):
         """dict of current versions of robot SDK, gripper, and robot
         """
-        return { 
+        return {
                 'robot' : '5.0.4',
                 'gripper': 'rethink_ee',
                 'robotSDK': '5.0.4'
                 }
-    
+
     @property
     def q(self):
         """
-        Get the joint configuration of the robot arm. 
-        Args: 
+        Get the joint configuration of the robot arm.
+        Args:
             None
         Returns:
-            list of joint positions in radians ordered by 
-            from small to large. 
+            list of joint positions in radians ordered by
+            from small to large.
         """
         return super().q
 
     @q.setter
     def q(self, qd):
         """
-        Get the joint configuration of the robot arm. 
-        Args: 
+        Get the joint configuration of the robot arm.
+        Args:
             qd: list
                 list of desired joint position
         """
         pybullet.setJointMotorControlArray(
-            bodyIndex=self._arm_id, 
+            bodyIndex=self._arm_id,
             jointIndices=range(0,self._num_joints),
-            controlMode=pybullet.POSITION_CONTROL, 
+            controlMode=pybullet.POSITION_CONTROL,
             targetPositions=qd,
             forces=[250]*self._num_joints,
             positionGains=[0.1]*self._num_joints,
             velocityGains=[1.2]*self._num_joints)
-        
-    
+
+
 
 
