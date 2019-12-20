@@ -10,6 +10,16 @@ import abc
 
 from perls2.robots.robot_interface import RobotInterface
 
+
+def nested_tuple_to_list(tuple_input):
+    for elem in tuple_input:
+        if (isinstance(tuple_input, tuple)):
+            return list(map(nested_tuple_to_list(elem)))
+        else:
+            return elem
+
+
+
 class BulletRobotInterface(RobotInterface):
     """ Abstract interface to be implemented for each Pybullet simulated robot
 
@@ -35,12 +45,13 @@ class BulletRobotInterface(RobotInterface):
         self.config = config
         self._ee_index = 7 # Default
         self._num_joints = pybullet.getNumJoints(self._arm_id)
+        self._motor_joint_indices = self.get_motor_joint_indices()
 
         # set the default values
-        self._speed = self.config['robot']['limb_max_velocity_ratio']
+        #self._speed = self.config['robot']['limb_max_velocity_ratio']
         #self._timeout = self.config['robot']['limb_timeout']
-        self._position_threshold = self.config['robot']['limb_position_threshold']
-        self._velocity_threshold = self.config['robot']['limb_velocity_threshold']
+        #self._position_threshold = self.config['robot']['limb_position_threshold']
+        #self._velocity_threshold = self.config['robot']['limb_velocity_threshold']
 
         self._default_force = 100
         self._default_position_gain = 0.1
@@ -48,12 +59,13 @@ class BulletRobotInterface(RobotInterface):
 
         # Pybullet uses velocity motors by default. Setting max force to 0
         # allows for torque control
-        maxForce = 0
+        maxForce = 0.05
         mode = pybullet.VELOCITY_CONTROL
         for joint_index in range(0, self._num_joints):
             pybullet.setJointMotorControl2(self._arm_id, joint_index,
                 controlMode=mode, force=maxForce)
         print("robot set to torque mode")
+
     def create(config, physics_id, arm_id):
         """Factory for creating robot interfaces based on type
 
@@ -72,6 +84,10 @@ class BulletRobotInterface(RobotInterface):
         if (config['world']['robot'] == 'sawyer'):
             from perls2.robots.bullet_sawyer_interface import BulletSawyerInterface
             return BulletSawyerInterface(
+                    physics_id=physics_id, arm_id=arm_id, config=config)
+        if (config['world']['robot'] == 'panda'):
+            from perls2.robots.bullet_panda_interface import BulletPandaInterface
+            return BulletPandaInterface(
                     physics_id=physics_id, arm_id=arm_id, config=config)
         else:
             raise ValueError(
@@ -784,6 +800,7 @@ class BulletRobotInterface(RobotInterface):
             kwargs['velocityGain'] = velocity_gain
 
         pybullet.setJointMotorControl2(**kwargs)
+
     @property
     def dq(self):
         """
@@ -813,3 +830,136 @@ class BulletRobotInterface(RobotInterface):
         jointIndices=range(0,self._num_joints),
         controlMode=pybullet.VELOCITY_CONTROL,
         targetVelocities=dq_d)
+
+    ########### OPERATIONAL SPACE PROPERTIES ##################
+    @property
+    def state_dict(self):
+        """ Return a dictionary with the current robot state
+        """
+        state_dict = {
+
+            'jacobian': self.jacobian
+        }
+        return state_dict
+
+    def get_motor_joint_indices(self):
+        """ Go through urdf and get joint indices of "free" joints.
+        """
+        motor_joint_indices = []
+
+        for joint_index in range(self.num_joints):
+
+            info = pybullet.getJointInfo(
+                bodyUniqueId=self._arm_id,
+                jointIndex=joint_index,
+                physicsClientId=self._physics_id)
+
+            if (info[2] != pybullet.JOINT_FIXED):
+                motor_joint_indices.append(joint_index)
+
+        return motor_joint_indices
+
+    @property
+    def num_free_joints(self):
+        return len(self._motor_joint_indices)
+
+    @property
+    def motor_joint_positions(self):
+        """ Joint positions for each "free" joint.
+
+        NOTE: not trimmed to real dof as pybullet requires # joint positions
+        = # free joints for inverse dynamics.
+        """
+        joint_positions = []
+
+        for joint_index in range(self.num_free_joints):
+
+            joint_pos, _, _, _ = pybullet.getJointState(
+                    bodyUniqueId=self._arm_id,
+                    jointIndex=joint_index,
+                    physicsClientId=self._physics_id)
+
+            joint_positions.append(joint_pos)
+
+        return joint_positions
+    @property
+    def motor_joint_velocities(self):
+        """ Joint positions for each "free" joint.
+
+        NOTE: not trimmed to real dof as pybullet requires # joint positions
+        = # free joints for inverse dynamics.
+        """
+
+
+        joint_velocities = []
+
+        for joint_index in range(self.num_free_joints):
+
+            _, joint_vel, _, _ = pybullet.getJointState(
+                    bodyUniqueId=self._arm_id,
+                    jointIndex=joint_index,
+                    physicsClientId=self._physics_id)
+
+            joint_velocities.append(joint_vel)
+
+        return joint_velocities
+
+    @property
+    def num_joints(self):
+        """ Return number of joints in urdf.
+        Note: This is total number of joints, not number of free joints
+        """
+        return 7#pybullet.getNumJoints(self._arm_id)
+
+    @property
+    def dof(self):
+        """ Number of degrees of freedom of robot.
+        Note: this may not be the same as number of "free" joints according to
+        pybullet. Pybullet counts prismatic joints in gripper.
+        """
+        return 7
+
+    @property
+    def jacobian(self):
+        """ Return jacobian J(q,dq) for the current robot configuration, where
+        xdot = J*qdot
+
+        NOTE: this is trimmed to make a dof x dof matrix. (not including
+        grippers).
+        """
+
+        linear_jacobian, angular_jacobian = pybullet.calculateJacobian(
+            bodyUniqueId=self._arm_id,
+            linkIndex=6,
+            localPosition=[9.3713e-08,    0.28673,  -0.237291],
+            objPositions=self.motor_joint_positions[:7],
+            objVelocities=self.motor_joint_velocities[:7],
+            objAccelerations=[0]*7,
+            physicsClientId=self._physics_id
+            )
+        linear_jacobian = np.reshape(
+            linear_jacobian, (3, self.num_free_joints))
+
+        angular_jacobian = np.reshape(
+            angular_jacobian, (3, self.num_free_joints))
+
+        jacobian = np.vstack(
+            (linear_jacobian[:,:self.dof],angular_jacobian[:,:self.dof]))
+
+        return jacobian
+
+    @property
+    def mass_matrix(self):
+
+        mass_matrix = pybullet.calculateMassMatrix(
+            bodyUniqueId=self._arm_id,
+            objPositions=self.motor_joint_positions,
+            physicsClientId=self._physics_id)
+
+        mass_matrix = np.reshape(mass_matrix,
+            (self.num_free_joints, self.num_free_joints))
+
+        mass_matrix = mass_matrix[:self.dof,:self.dof]
+        return mass_matrix
+
+

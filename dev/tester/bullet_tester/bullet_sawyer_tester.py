@@ -142,7 +142,7 @@ def step_till_close_enough_index(
 ####################SETUP################################
 # TODO: Change this to its own file in the tester folder
 # Create a pybullet simulation in isolation
-physics_id = pybullet.connect(pybullet.GUI)
+physics_id = pybullet.connect(pybullet.DIRECT)
 dir_path = os.path.dirname(os.path.realpath(__file__))
 yaml_dir = os.path.join(dir_path, 'tester_config.yaml')
 config = YamlConfig(yaml_dir)
@@ -252,7 +252,7 @@ bullet_sawyer.set_joints_to_neutral_positions()
 if (bullet_sawyer.q != bullet_sawyer.limb_neutral_positions):
     # reset to wrong neutral position / failed
     raise ValueError("BulletSawyerInterface.set_joints_neutral_positions failed")
-
+pybullet.stepSimulation()
 # q setter tester
 bullet_sawyer.q = init_joint_positions
 
@@ -335,10 +335,14 @@ if (not(np.allclose(
     print("bullet sawyer_base : " + str(bullet_sawyer.q[0]))
     raise ValueError("set joint position control failed")
 
-# bullet_sawyer.close_gripper()
-# input('did gripper close?')
-# step_sim(physics_id)
-# bullet_sawyer.open_gripper()
+bullet_sawyer.close_gripper()
+input('did gripper close?')
+for step in range(500):
+    pybullet.stepSimulation()
+
+bullet_sawyer.open_gripper()
+for step in range(500):
+    pybullet.stepSimulation()
 # step_sim(physics_id)
 # input('did gripper open?')
 # bullet_sawyer.close_gripper()

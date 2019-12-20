@@ -29,9 +29,13 @@ class BulletPandaInterface(BulletRobotInterface):
 
         super().__init__(physics_id, arm_id, config, controlType)
         # TODO: update with actual functions
-        self._ee_index = 7
+        self._ee_index = self.get_link_id_from_name('link7')
 
         # Neutral positions
         self.limb_neutral_positions =  [1.5708, -0.785398, 0, -2.18166, 0, 1.39626, 0]
         self._name = "Franka Panda"
 
+    def version(self):
+        """dict of current versions of robot SDK, gripper, and robot
+        """
+        raise NotImplementedError

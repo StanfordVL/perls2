@@ -7,11 +7,11 @@ from perls2.arenas.arena import Arena
 
 class BulletArena(Arena):
     """The class definition for arenas
-    Arenas contain interfaces for robots, sensors and objects. 
+    Arenas contain interfaces for robots, sensors and objects.
     """
 
     def __init__(self,
-                config, 
+                config,
                 physics_id):
         """ Initialization function.
 
@@ -25,6 +25,8 @@ class BulletArena(Arena):
         self.data_dir = os.path.abspath(self.config['data_dir'])
         print(self.data_dir)
         self.physics_id = physics_id
+
+        self.robot_type = self.config['world']['robot']
 
 
         # initialize view matrix
@@ -46,14 +48,14 @@ class BulletArena(Arena):
         self._randomize_on = self.config['sensor']['camera']['random']['randomize']
 
 
-        # Load URDFs to set up simulation environment. 
+        # Load URDFs to set up simulation environment.
         print("Bullet Arena Created")
 
         self.plane_id = self.load_ground()
 
-        obj_path = os.path.join(self.data_dir, self.config['object']['path'])       
-        self.obj_id = pybullet.loadURDF(obj_path, 
-                            basePosition=self.config['object']['default_position'], 
+        obj_path = os.path.join(self.data_dir, self.config['object']['path'])
+        self.obj_id = pybullet.loadURDF(obj_path,
+                            basePosition=self.config['object']['default_position'],
                             baseOrientation=pybullet.getQuaternionFromEuler(self.config['object']['pose'][1]),
                             globalScaling=1.0,
                             useFixedBase=self.config['object']['is_static'],
@@ -62,8 +64,8 @@ class BulletArena(Arena):
 
         (self.arm_id, self.base_id) = self.load_robot()
 
-        # self.table_id = pybullet.loadURDF(fileName=self.config['table']['path'], 
-        #                     basePosition=self.config['table']['pose'][0], 
+        # self.table_id = pybullet.loadURDF(fileName=self.config['table']['path'],
+        #                     basePosition=self.config['table']['pose'][0],
         #                     baseOrientation=pybullet.getQuaternionFromEuler(
         #                                             self.config['table']['pose'][1]),
         #                     globalScaling=1.0,
@@ -71,8 +73,8 @@ class BulletArena(Arena):
         #                     flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
         #                     physicsClientId=self.physics_id )
 
-        self.bin_id = pybullet.loadURDF(fileName=self.config['bin']['path'], 
-                    basePosition=self.config['bin']['pose'][0], 
+        self.bin_id = pybullet.loadURDF(fileName=self.config['bin']['path'],
+                    basePosition=self.config['bin']['pose'][0],
                     baseOrientation=pybullet.getQuaternionFromEuler(
                                             self.config['bin']['pose'][1]),
                     globalScaling=1.0,
@@ -87,8 +89,8 @@ class BulletArena(Arena):
         """ Load the robot and return arm_id, base_id
         """
         print("Loading robot")
-        arm_id = pybullet.loadURDF(fileName=self.config['robot']['arm']['path'], 
-                                    basePosition=self.config['robot']['arm']['pose'], 
+        arm_id = pybullet.loadURDF(fileName=self.config['robot']['arm']['path'],
+                                    basePosition=selfconfig['robot']['arm']['pose'],
                                     baseOrientation=pybullet.getQuaternionFromEuler(
                                                             self.config['robot']['arm']['orn']),
                                     globalScaling=1.0,
@@ -96,15 +98,18 @@ class BulletArena(Arena):
                                     flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
                                     physicsClientId=self.physics_id )
         print("arm_id :" + str(arm_id))
-        # Load Arm 
-        base_id = pybullet.loadURDF(fileName=self.config['robot']['base']['path'], 
-                                    basePosition=self.config['robot']['base']['pose'], 
-                                    baseOrientation=pybullet.getQuaternionFromEuler(
-                                                            self.config['robot']['base']['orn']),
-                                    globalScaling=1.0,
-                                    useFixedBase=self.config['robot']['base']['is_static'],
-                                    flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
-                                    physicsClientId=self.physics_id )
+        # Load Arm
+        if (self.config['base'] != 'None'):
+            base_id = pybullet.loadURDF(fileName=self.config['robot']['base']['path'],
+                                        basePosition=self.config['robot']['base']['pose'],
+                                        baseOrientation=pybullet.getQuaternionFromEuler(
+                                                                self.config['robot']['base']['orn']),
+                                        globalScaling=1.0,
+                                        useFixedBase=self.config['robot']['base']['is_static'],
+                                        flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
+                                        physicsClientId=self.physics_id)
+        else:
+            base_id = -1
 
         return (arm_id, base_id)
 
@@ -115,12 +120,12 @@ class BulletArena(Arena):
         #pybullet.setAdditionalSearchPath(pybullet_data.getDataPath())
 
         plane_path = os.path.join(self.data_dir, self.config['ground']['path'])
-        plane_id = pybullet.loadURDF(fileName=plane_path, 
-                            basePosition=self.config['ground']['pose'][0], 
+        plane_id = pybullet.loadURDF(fileName=plane_path,
+                            basePosition=self.config['ground']['pose'][0],
                             baseOrientation=pybullet.getQuaternionFromEuler(self.config['ground']['pose'][1]),
                             globalScaling=1.0,
                             useFixedBase=self.config['ground']['is_static'],
-                            flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT, 
+                            flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
                             physicsClientId=self.physics_id )
 
         # Load object
@@ -135,7 +140,7 @@ class BulletArena(Arena):
         s = s/np.linalg.norm(s)
         u_prime = np.cross(s, L)
         R = np.array([[s[0], s[1], s[2]],
-                      [u_prime[0], u_prime[1], u_prime[2]], 
+                      [u_prime[0], u_prime[1], u_prime[2]],
                       [L[0], L[1], L[2]]])
 
 
@@ -180,8 +185,8 @@ class BulletArena(Arena):
 
 
 
-    
 
 
 
-  
+
+
