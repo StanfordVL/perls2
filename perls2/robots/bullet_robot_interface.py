@@ -838,7 +838,8 @@ class BulletRobotInterface(RobotInterface):
         """
         state_dict = {
 
-            'jacobian': self.jacobian
+            'jacobian': self.jacobian,
+            'mass_matrix':self.mass_matrix
         }
         return state_dict
 
@@ -909,7 +910,7 @@ class BulletRobotInterface(RobotInterface):
         """ Return number of joints in urdf.
         Note: This is total number of joints, not number of free joints
         """
-        return 7#pybullet.getNumJoints(self._arm_id)
+        return pybullet.getNumJoints(self._arm_id)
 
     @property
     def dof(self):
