@@ -9,11 +9,12 @@ import six  # For abstract class definitions
 import sys, copy
 import redis
 import numpy as np
-
+import logging
 import pybullet as pb
 import time
-import redis 
+import redis
 from perls2.robots.real_robot_interface import RealRobotInterface
+
 
 def bstr_to_ndarray(array_bstr):
     """Convert bytestring array to 1d array
@@ -26,31 +27,30 @@ class RealSawyerInterface(RealRobotInterface):
     """Abstract interface to be implemented for each real and simulated
     robot.
     """
-    
 
-    def __init__(self, 
+
+    def __init__(self,
                  config,
-                 physics_id = None, 
-                 arm_id = None, 
-                 use_safenet=True, 
-                 use_moveit=True, 
+                 physics_id = None,
+                 arm_id = None,
+                 use_safenet=True,
+                 use_moveit=True,
                  node_name='sawyer_interface'):
         """
         Initialize variables and wrappers
         """
         super().__init__(config)
-        print("Real Sawyer Interface created")
+        logging.debug("Real Sawyer Interface created")
         # Check if redis connection already exists, if not
         # setup a new one.
 
-
         self.redisClient = redis.Redis()
-        
+
         # Sets environment connected flag for control interface
         self.redisClient.set('robot::env_connected', 'True')
         self.neutral_joint_angles = self.config['robot']['neutral_joint_angles']
-        self.RESET_TIMEOUT = 10       # Wait 3 seconds for reset to complete. 
-    
+        self.RESET_TIMEOUT = 10       # Wait 3 seconds for reset to complete.
+
     def disconnect(self):
         self.redisClient.set('robot::env_connected', 'False')
 
@@ -58,9 +58,9 @@ class RealSawyerInterface(RealRobotInterface):
         """ Reset arm to neutral configuration. Blocking call
         waits on redis flag to be cleared by the Control Interface
 
-        TODO: This doesn't actually work, it just waits for the timeout. 
+        TODO: This doesn't actually work, it just waits for the timeout.
         """
-        print("reset")
+        logging.debug("Resetting robot")
         self.redisClient.set('robot::cmd_type', 'reset_to_neutral')
         start = time.time()
         while (self.redisClient.get('robot::reset_complete') != b'True' and
@@ -68,10 +68,9 @@ class RealSawyerInterface(RealRobotInterface):
             time.sleep(0.1)
 
         if (self.redisClient.get('robot::reset_complete') == b'True'):
-            print ("reset successful")
-        else: 
-            print ("reset successful")
-
+            logging.debug("reset successful")
+        else:
+            logging.debug("reset failed")
 
     @property
     def version(self):
@@ -101,8 +100,6 @@ class RealSawyerInterface(RealRobotInterface):
 
     @ee_position.setter
     def ee_position(self, position):
-        # just for testing
-        print("set ee position " + str(position))
         self.redisClient.set('robot::desired_ee_position', str(position))
 
     @property
@@ -122,7 +119,7 @@ class RealSawyerInterface(RealRobotInterface):
         y, z, qx, qy, qz, qw]
         """
         return bstr_to_ndarray(self.redisClient.get('robot::ee_pose'))
-    
+
     @ee_pose.setter
     def ee_pose(self, pose):
         """
@@ -133,10 +130,6 @@ class RealSawyerInterface(RealRobotInterface):
         self.redisClient.set('robot::cmd_type', 'ee_pose')
         self.redisClient.set('robot::desired_ee_pose', str(pose))
 
-
-
-
-    
     @property
     def ee_v(self):
         """
@@ -146,8 +139,6 @@ class RealSawyerInterface(RealRobotInterface):
         vz]
         """
         return bstr_to_ndarray(self.redisClient.get('robot::ee_v'))
-
-
 
     @property
     def ee_omega(self):
@@ -191,16 +182,6 @@ class RealSawyerInterface(RealRobotInterface):
         mz]
         """
         return list(self.ee_force + self.ee_torque)
-
-    # @property
-    # def q_names(self):
-    #     """
-    #     Get the joint names of the robot arm.
-    #     :return: a list of joint names ordered by indices from small to
-    #     large.
-    #     Typically the order goes from base to end effector.
-    #     """
-    #     return self._joint_names
 
     @property
     def q(self):
@@ -246,150 +227,3 @@ class RealSawyerInterface(RealRobotInterface):
         Typically the order goes from base to end effector.
         """
         return bstr_to_ndarray(self.redisClient.get('robot::tau'))
-
-    # @property
-    # def J(self, q=None):
-    #     """
-    #     Estimate and return the kinematic Jacobian at q or at the
-    #     current configuration.
-    #     :return: Jacobian matrix (2D numpy array)
-    #     """
-    #     return jacobianMat
-
-    # @property
-    # def info(self):
-    #     """
-    #     Collect and return information about parameters of the robot
-    #     :return: names and information
-    #     """
-    #     assembly_names = self._params.get_robot_assemblies()
-    #     camera_info = self._params.get_camera_details()
-
-    #     return assembly_names, camera_info
-
-    # def configure(self, configs):
-    #     """
-    #     Configure the parameters of the robot
-    #     :param configs: configuration
-    #     :return: None
-    #     """
-    #     return NotImplemented
-
-    # def get_link_name(self, uid, lid):
-    #     """
-    #     Get the name string of given link
-    #     :param uid: integer body unique id
-    #     :param lid: integer link id of body
-    #     :return: name string of link on body
-    #     """
-    #     return NotImplemented
-
-    # def get_link_state(self, lid):
-    #     """
-    #     Get the state of given link on given body
-    #     :param uid: integer body unique id
-    #     :param lid: integer link id on body
-    #     :return: a tuple of
-    #     link world position (list of floats [x, y, z]),
-    #     link world orientation (list of floats [qx, qy, qz, qw]),
-    #     local position offset of CoM frame,
-    #     local orientation offset of CoM frame,
-    #     world position of asset file link frame,
-    #     world orientation of asset file link frame,
-    #     link world linear velocity,
-    #     link world angular velocity.
-    #     """
-    #     return NotImplemented
-
-    # def get_joint_info(self, jid):
-    #     """
-    #     Get the information of body joint
-    #     :param uid: integer unique body id
-    #     :param jid: integer joint id on body
-    #     :return: a tuple of
-    #     joint index,
-    #     joint name string in asset file,
-    #     joint type string ('fixed', 'revolute',
-    #     'prismatic', 'spherical', 'planar', 'gear',
-    #     'point2point'),
-    #     the first position index in the positional
-    #     state variables for this body,
-    #     the first velocity index in the velocity
-    #     state variables for this body,
-    #     joint damping value,
-    #     joint friction coefficient,
-    #     joint lower limit,
-    #     joint upper limit,
-    #     maximum force joint can sustain,
-    #     maximum velocity joint can sustain,
-    #     name string of associated link.
-    #     """
-    #     return NotImplemented
-
-    # @property
-    # def gripper_force(self):
-    #     """
-    #     Returns the force sensed by the gripper when clossing in Newtons.
-    #     :return: float current force value in N
-    #     """
-    #     if self._has_gripper:
-    #         return self._gripper.get_force()
-
-    # # TODO: Cannot find signal 'holding_force_n' in this IO Device.
-    # @gripper_force.setter
-    # def gripper_force(self, force):
-    #     """
-    #     Set the holding force on the gripper for successful grasp
-    #     :param force:
-    #     :return:
-    #     """
-    #     if self._has_gripper:
-    #         if not self._gripper.set_holding_force(force):
-    #             rospy.logerr('Unable to set holding force for the gripper.')
-
-    # def close_gripper(self):
-    #     """
-    #     Close the gripper of the robot
-    #     :return: None
-    #     """
-    #     if self._has_gripper:
-    #         self._gripper.close()
-
-    # def open_gripper(self):
-    #     """
-    #     Open the gripper of the robot
-    #     :return: None
-    #     """
-    #     if self._has_gripper:
-    #         self._gripper.open()
-
-    # def set_gripper_opening(self, openning):
-    #     """
-    #     Set the gripper grasping opening state
-    #     :param openning: a float between 0 (closed) and 1 (open).
-    #     :return: None
-    #     """
-    #     if self._has_gripper:
-    #         scaled_pos = openning * self._gripper.MAX_POSITION
-    #         self._gripper.set_position(scaled_pos)
-
-    # def pause(self):
-    #     """
-    #     Pause the action and disable all motors.
-    #     Call <start> to resume.
-    #     :return: None
-    #     """
-    #     if self._has_gripper:
-    #         self._gripper.stop()
-    #     self._robot_enable.disable()
-
-    # def start(self):
-    #     """
-    #     Start the robot
-    #     :return: None
-    #     """
-    #     self._robot_enable.enable()
-    #     if self._has_gripper:
-    #         self._gripper.start()
-    #         if not self._gripper.is_calibrated():
-    #             self._gripper.calibrate()
