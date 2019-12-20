@@ -2,6 +2,7 @@
 """
 import numpy as np
 import yaml
+import logging
 
 
 class Arena:
@@ -23,7 +24,7 @@ class Arena:
             None
         """
         self.config = config
-        print("Arena Created")
+        logging.info("Arena Created")
         self.randomize_after_reset = True
 
         # Load camera parameters

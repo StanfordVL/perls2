@@ -4,6 +4,7 @@ import pybullet
 import os
 import numpy as np
 from perls2.arenas.arena import Arena
+import logging
 
 
 class BulletArena(Arena):
@@ -24,7 +25,6 @@ class BulletArena(Arena):
         """
         super().__init__(config)
         self.data_dir = os.path.abspath(self.config['data_dir'])
-        print(self.data_dir)
         self.physics_id = physics_id
 
         # initialize view matrix
@@ -47,7 +47,7 @@ class BulletArena(Arena):
             self.config['sensor']['camera']['random']['randomize'])
 
         # Load URDFs to set up simulation environment.
-        print("Bullet Arena Created")
+        logging.info("Bullet Arena Created")
 
         self.plane_id = self.load_ground()
 
@@ -91,7 +91,7 @@ class BulletArena(Arena):
     def load_robot(self):
         """ Load the robot and return arm_id, base_id
         """
-        print("Loading robot")
+
         arm_id = pybullet.loadURDF(
             fileName=self.config['robot']['arm']['path'],
             basePosition=self.config['robot']['arm']['pose'],
@@ -101,7 +101,7 @@ class BulletArena(Arena):
             useFixedBase=self.config['robot']['arm']['is_static'],
             flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
             physicsClientId=self.physics_id)
-        print("arm_id :" + str(arm_id))
+        logging.info("Loaded robot" + " arm_id :" + str(arm_id))
 
         # Load Arm
         base_id = pybullet.loadURDF(
@@ -152,7 +152,6 @@ class BulletArena(Arena):
     def view_matrix(self):
         if (self._randomize_on):
             return self.random_view_matrix()
-            print(self.random_view_matrix)
         else:
             return self._view_matrix
 
@@ -186,5 +185,5 @@ class BulletArena(Arena):
                 aspect=float(self.image_width) / float(self.image_height),
                 nearVal=rand_near_plane,
                 farVal=rand_far_plane)
-        print(random_projection_matrix)
+
         return random_projection_matrix
