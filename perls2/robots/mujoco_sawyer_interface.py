@@ -7,10 +7,9 @@ Author: Roberto Martin-Martin
 import abc  # For abstract class definitions
 import six  # For abstract class definitions
 
-
-@six.add_metaclass(abc.ABCMeta)
-
 from perls2.robots.mujoco_robot_interface import MujocoRobotInterface
+
+
 class MujocoSawyerInterface(MujocoRobotInterface):
     """Abstract interface to be implemented for each real and simulated
     robot.
