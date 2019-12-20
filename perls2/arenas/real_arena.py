@@ -53,7 +53,9 @@ class RealArena(Arena):
             useFixedBase=self.config['robot']['arm']['is_static'],
             flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
             physicsClientId=self.physics_id)
+
         logging.debug("Loaded robot" + " arm_id :" + str(arm_id))
+
         # Load Arm
         base_id = pybullet.loadURDF(
             fileName=self.config['robot']['base']['path'],

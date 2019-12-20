@@ -37,10 +37,6 @@ class BulletObjectInterface(ObjectInterface):
         """
 
         is_connected, method = pybullet.getConnectionInfo(self._physics_id)
-        # if (is_connected):
-        #     print("Physics  " + str(self._physics_id) + " connected")
-        # else:
-        #     print("not connected")
 
         obj_position, obj_orn = pybullet.getBasePositionAndOrientation(
             self._obj_id, self._physics_id)
