@@ -59,7 +59,7 @@ class BulletRobotInterface(RobotInterface):
 
         Returns:
             None
-        ..notes:
+        Notes:
             Only Rethink Sawyer Robots are currently supported
         """
         if (config['world']['robot'] == 'sawyer'):
@@ -109,21 +109,25 @@ class BulletRobotInterface(RobotInterface):
 
     def get_link_id_from_name(self, link_name):
         """Get link id from name
+
+        Args:
+            link_name (str): name of link in urdf file
+        Returns:
+            link_id (int): index of the link in urdf file.
+             OR -1 if not found.
         """
-        print(self._link_id_dict)
-        print(link_name)
         if link_name in self._link_id_dict:
             return self._link_id_dict.get(link_name)
         else:
-            return -1  # TODO Make this an error
+            return -1
 
     def get_link_dict(self):
         """Create a dictionary between link id and link name
+        Dictionary keys are link_name : link_id
 
-           Dictionary keys are link_name : link_id
+        Notes: Each link is connnected by a joint to its parent, so
+            num links = num joints
         """
-        # Each link is connnected by a joint to its parent, so
-        # num links = num joints
 
         num_links = pybullet.getNumJoints(
             self._arm_id, physicsClientId=self._physics_id)
@@ -155,7 +159,6 @@ class BulletRobotInterface(RobotInterface):
             A dictionary of lower, upper, effort and velocity.
 
         """
-        print("joint ind" + str(joint_ind))
         (_, _, _, _, _, _, _, _, lower, upper, max_force, max_vel, _,
          _, _, _, _) = pybullet.getJointInfo(
             bodyUniqueId=self._arm_id,
