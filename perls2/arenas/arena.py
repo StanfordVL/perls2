@@ -24,7 +24,7 @@ class Arena:
             None
         """
         self.config = config
-        logging.info("Arena Created")
+        logging.info("Arena created")
         self.randomize_after_reset = True
 
         # Load camera parameters
