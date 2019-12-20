@@ -70,15 +70,21 @@ print(bullet_panda.mass_matrix)
 f = open("bullet_jacobian.txt", "w")
 for row in bullet_panda.jacobian:
     for elem in row:
-        f.write(str(elem))
+        elem_to_write = elem
+        if np.abs(elem) < .0001:
+            elem_to_write = 0
+
+        f.write(str(elem_to_write))
         f.write(",  ")
     f.write("\n")
 
 f = open("bullet_mass_matrix.txt", "w")
 for row in bullet_panda.mass_matrix:
     for elem in row:
-        f.write(str(elem))
+        elem_to_write = elem
+        if np.abs(elem) < .0001:
+            elem_to_write = 0
+
+        f.write(str(elem_to_write))
         f.write(",  ")
     f.write("\n")
-
-
