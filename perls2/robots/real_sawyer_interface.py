@@ -6,7 +6,8 @@ Author: Roberto Martin-Martin
 
 import abc  # For abstract class definitions
 import six  # For abstract class definitions
-import sys, copy
+import sys
+import copy
 import redis
 import numpy as np
 import logging
@@ -19,8 +20,7 @@ from perls2.robots.real_robot_interface import RealRobotInterface
 def bstr_to_ndarray(array_bstr):
     """Convert bytestring array to 1d array
     """
-    return np.fromstring(array_bstr[1:-1], dtype=np.float, sep = ',')
-
+    return np.fromstring(array_bstr[1:-1], dtype=np.float, sep=',')
 
 
 class RealSawyerInterface(RealRobotInterface):
@@ -28,11 +28,10 @@ class RealSawyerInterface(RealRobotInterface):
     robot.
     """
 
-
     def __init__(self,
                  config,
-                 physics_id = None,
-                 arm_id = None,
+                 physics_id=None,
+                 arm_id=None,
                  use_safenet=True,
                  use_moveit=True,
                  node_name='sawyer_interface'):
@@ -64,7 +63,7 @@ class RealSawyerInterface(RealRobotInterface):
         self.redisClient.set('robot::cmd_type', 'reset_to_neutral')
         start = time.time()
         while (self.redisClient.get('robot::reset_complete') != b'True' and
-              (time.time() - start < self.RESET_TIMEOUT)):
+               (time.time() - start < self.RESET_TIMEOUT)):
             time.sleep(0.1)
 
         if (self.redisClient.get('robot::reset_complete') == b'True'):
@@ -195,7 +194,7 @@ class RealSawyerInterface(RealRobotInterface):
 
     @q.setter
     def q(self, qd):
-        self.redisClient.set('robot::cmd_type','joint_position')
+        self.redisClient.set('robot::cmd_type', 'joint_position')
         self.redisClient.set('robot::qd', str(qd))
 
     @property
