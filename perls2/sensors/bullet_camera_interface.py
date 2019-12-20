@@ -10,8 +10,6 @@ FOV = 60
 NEAR_PLANE = 0.02
 FAR_PLANE = 100
 
-# TODO(kuanfang): If the Kinect use registration, then the shape of the rgb
-# image matches that of the depth image.
 IMAGE_HEIGHT = 1080
 IMAGE_WIDTH = 1920
 DEPTH_HEIGHT = 424
