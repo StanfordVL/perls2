@@ -5,6 +5,7 @@ import yaml
 from perls2.arenas.arena import Arena
 import pybullet
 import os
+import logging
 
 
 class RealArena(Arena):
@@ -39,12 +40,10 @@ class RealArena(Arena):
         self.data_dir = self.config['data_dir']
         self.physics_id = physics_id
         self.arm_id, self.base_id = self.load_robot()
-        self.plane_id = self.load_ground()
 
     def load_robot(self):
         """ Load the robot and return arm_id, base_id
         """
-        print("Loading robot")
         arm_id = pybullet.loadURDF(
             fileName=self.config['robot']['arm']['path'],
             basePosition=self.config['robot']['arm']['pose'],
@@ -54,7 +53,7 @@ class RealArena(Arena):
             useFixedBase=self.config['robot']['arm']['is_static'],
             flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
             physicsClientId=self.physics_id)
-        print("arm_id :" + str(arm_id))
+        logging.debug("Loaded robot" + " arm_id :" + str(arm_id))
         # Load Arm
         base_id = pybullet.loadURDF(
             fileName=self.config['robot']['base']['path'],
@@ -67,26 +66,6 @@ class RealArena(Arena):
             physicsClientId=self.physics_id)
 
         return (arm_id, base_id)
-
-    def load_ground(self):
-        """ Load ground and return ground_id
-        """
-        import pybullet_data
-        pybullet.setAdditionalSearchPath(pybullet_data.getDataPath())
-
-        plane_path = os.path.join(self.data_dir, self.config['ground']['path'])
-        plane_id = pybullet.loadURDF(
-            fileName=plane_path,
-            basePosition=self.config['ground']['pose'][0],
-            baseOrientation=pybullet.getQuaternionFromEuler(
-                self.config['ground']['pose'][1]),
-            globalScaling=1.0,
-            useFixedBase=self.config['ground']['is_static'],
-            flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
-            physicsClientId=self.physics_id)
-
-        # Load object
-        return plane_id
 
     @property
     # TODO: should this be a part of the real arena?
