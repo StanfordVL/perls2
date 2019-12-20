@@ -20,6 +20,7 @@ class ObjectInterface():
         ----------
 
         """
+
     def get_position(self):
         """ get position in world coordinates of object
         """
