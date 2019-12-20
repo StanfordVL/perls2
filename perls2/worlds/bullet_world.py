@@ -204,11 +204,6 @@ class BulletWorld(World):
         return {
                 }
 
-    def rewardFunction(self):
-        """ User defined-Reward for agent given env state
-        """
-        raise NotImplementedError
-
     def check_stable(self,
                      linear_velocity_threshold,
                      angular_velocity_threshold):
