@@ -64,6 +64,7 @@ bullet_panda = BulletPandaInterface(
 bullet_panda.set_joints_to_neutral_positions()
 print(bullet_panda.motor_joint_positions)
 pybullet.stepSimulation()
+input("take picture")
 print(bullet_panda.jacobian)
 print(bullet_panda.mass_matrix)
 
