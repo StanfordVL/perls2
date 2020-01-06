@@ -22,9 +22,9 @@ class SwitchSimRealEnv(Env):
     """
 
     def __init__(self,
-                cfg_path=None,
-                use_visualizer=False,
-                name=None):
+                 cfg_path=None,
+                 use_visualizer=False,
+                 name=None):
         """Initialize.
 
         Args:
@@ -32,13 +32,13 @@ class SwitchSimRealEnv(Env):
             use_visualizer (bool): whether or not to use the visualizer
             name (str): name identifying the environment
         """
-        super().__init__(cfg_path,use_visualizer,name)
-        self.goal_position = [0,0,0]
+        super().__init__(cfg_path, use_visualizer, name)
+        self.goal_position = [0, 0, 0]
 
         # The is_sim attribute of world is used to designate code for running in
-        # simulation only. In simulation, we get our goal position from the object
-        # interface. We want the goal position to be a little higher than the
-        # object, so we update the goal position.
+        # simulation only. In simulation, we get our goal position from the
+        # object interface. We want the goal position to be a little higher than
+        # the object, so we update the goal position.
         if self.world.is_sim:
             self.raise_goal_position()
 
@@ -68,10 +68,12 @@ class SwitchSimRealEnv(Env):
             if self.config['object']['random']['randomize']:
                 self.object_interface.place(self.arena.randomize_obj_pos())
             else:
-                self.object_interface.place(self.config['object']['default_position'])
+                self.object_interface.place(
+                    self.config['object']['default_position'])
 
             self.sensor_interface.set_view_matrix(self.arena.view_matrix)
-            self.sensor_interface.set_projection_matrix(self.arena.projection_matrix)
+            self.sensor_interface.set_projection_matrix(
+                self.arena.projection_matrix)
             self.world._wait_until_stable()
         else:
             self.goal_position = self.arena.goal_position
@@ -105,7 +107,7 @@ class SwitchSimRealEnv(Env):
         current_ee_pose = self.robot_interface.ee_pose
         camera_img = self.sensor_interface.frames()
         delta = (self.goal_position - current_ee_pose[0:3])
-        observation = (delta, current_ee_pose, camera_img.get('image') )
+        observation = (delta, current_ee_pose, camera_img.get('image'))
         return observation
 
     def raise_goal_position(self):
@@ -116,9 +118,8 @@ class SwitchSimRealEnv(Env):
         """
         goal_height_offset = 0.2
         object_pos = self.object_interface.get_position()
-        #print("object pos " + str(object_pos))
         object_pos[2] += goal_height_offset
-        self.goal_position =  object_pos
+        self.goal_position = object_pos
 
     def _exec_action(self, action):
         """Applies the given action to the simulation.
@@ -130,10 +131,7 @@ class SwitchSimRealEnv(Env):
                 [-100, -1, 0.20], [100, 100, 10])
 
         else:
-            next_position =  self.robot_interface.ee_pose[0:3] + action
-
-            print('Currente ee pose: ' + str(self.robot_interface.ee_pose[0:3]))
-            print('dist_to_goal      ' + str(self._get_dist_to_goal()))
+            next_position = self.robot_interface.ee_pose[0:3] + action
 
             lower_bound = self.config['goal_position']['lower']
             upper_bound = self.config['goal_position']['upper']
@@ -141,11 +139,8 @@ class SwitchSimRealEnv(Env):
             next_position = np.clip(
                 next_position, lower_bound, upper_bound)
 
-            print('Next position: ' + str(next_position))
-
         self.robot_interface.ee_pose = (list(next_position) +
-            [0, 0.952846, 0, 0.303454])
-
+                                        [0, 0.952846, 0, 0.303454])
 
     def _check_termination(self):
         """ Query state of environment to check termination condition
@@ -160,12 +155,10 @@ class SwitchSimRealEnv(Env):
         # radius for convergence
         convergence_radius = 0.1
 
-        abs_dist= self._get_dist_to_goal()
+        abs_dist = self._get_dist_to_goal()
         if (abs_dist < convergence_radius):
-            print("done - success!")
             return True
         if (self.num_steps > self.MAX_STEPS):
-            print("done - max steps reached")
             return True
         else:
             return False
@@ -178,11 +171,8 @@ class SwitchSimRealEnv(Env):
             return abs_dist
         else:
             current_ee_pos = np.asarray(self.robot_interface.ee_pose[0:3])
-        #print('goal     ' + str(self.goal_position))
-        #print('current_ee_pos       ' + str(current_ee_pos))
 
             abs_dist = np.linalg.norm(self.goal_position - current_ee_pos)
-        #print('dist ' + str(abs_dist))
 
             return abs_dist
 
@@ -205,7 +195,7 @@ class SwitchSimRealEnv(Env):
 
     def info(self):
         return {
-                #'name': type(self).__name__,
+                # 'name': type(self).__name__,
 
                 }
 
@@ -213,5 +203,3 @@ class SwitchSimRealEnv(Env):
         dist_to_goal = self._get_dist_to_goal()
         reward = 1 - math.tanh(dist_to_goal)
         return reward
-
-
