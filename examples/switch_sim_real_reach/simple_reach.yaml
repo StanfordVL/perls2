@@ -1,4 +1,4 @@
-# Cfg for Example: switching between sim and real reach task
+# Cfg file for SimpleReachEnv
 world:
   type: 'Bullet'
   robot: 'sawyer'
@@ -74,7 +74,7 @@ goal_position:
   lower:
     [0.3, -0.2, 0.0]  # CHANGED
   upper:
-    [0.5, 0.5, 0.2]   # CHANGED
+    [0.5, 0.5, 0.1]   # CHANGED
 
 sensor:
   camera:
