@@ -40,8 +40,6 @@ class BulletSawyerInterface(BulletRobotInterface):
         self._name = "Rethink Bullet Sawyer"
         print("BulletSawyerInterface created")
 
-
-
     def start(self):
         """Start the robot
         """
