@@ -27,8 +27,8 @@ class Env(gym.Env):
         config (dict): A dict containing parameters to create an arena, robot
             interface, sensor interface and object interface. They also contain
             specs for learning, simulation and experiment setup.
-        arena (Arena): Manages the sim by loading models in both sim/real envs
-            For simulations, randomizing objects and sensors parameters.
+        arena (Arena): Manages the sim by loading models (in both sim/real envs)
+            and for simulations, randomizing objects and sensors parameters.
         robot_interface (RobotInterface): Communicates with robots and executes
             robot commands.
         sensor_interface (SensorInterface): Retrieves sensor info and executes
@@ -38,11 +38,11 @@ class Env(gym.Env):
 
     Public methods (similar to openAI gym):
 
-        step: Step env forward and return observation, reward, termination,
-            info.Not typically user-defined but may be modified.
+        step: Step env forward and return observation, reward, termination, info.
+            Not typically user-defined but may be modified.
 
-        reset: Reset env to initial setting and return observation at initial
-            state. Some aspects such as randomization are user-defined
+        reset: Reset env to initial setting and return observation at initial state.
+            Some aspects such as randomization are user-defined
         render:
         close:
         seed:
@@ -66,8 +66,9 @@ class Env(gym.Env):
 
         # Get config dictionary.
         self.config = YamlConfig(cfg_path)
-
-        self.world = God.make_world(self.config, use_visualizer, name)
+        self.world = God.make_world(self.config,
+                                   use_visualizer,
+                                   name)
 
         # Environment access the following attributes of the world directly.
         self.arena = self.world.arena
