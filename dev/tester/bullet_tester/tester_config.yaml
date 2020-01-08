@@ -7,7 +7,7 @@ data_dir: '../../../data'
 # Simulation parameters
 sim_params:
   time_step: 0.004166  # 1./240.
-  steps_per_action: 20 # policy to sim update ratio
+  steps_per_action: 100 # policy to sim update ratio
   MAX_STEPS: 500
 
 # Robots are specified by types and urdf locations

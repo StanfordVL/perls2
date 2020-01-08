@@ -90,7 +90,7 @@ class BulletArena(Arena):
         """
         print("Loading robot")
         arm_id = pybullet.loadURDF(fileName=self.config['robot']['arm']['path'],
-                                    basePosition=selfconfig['robot']['arm']['pose'],
+                                    basePosition=self.config['robot']['arm']['pose'],
                                     baseOrientation=pybullet.getQuaternionFromEuler(
                                                             self.config['robot']['arm']['orn']),
                                     globalScaling=1.0,
@@ -99,7 +99,7 @@ class BulletArena(Arena):
                                     physicsClientId=self.physics_id )
         print("arm_id :" + str(arm_id))
         # Load Arm
-        if (self.config['base'] != 'None'):
+        if (self.config['robot']['base'] != 'None'):
             base_id = pybullet.loadURDF(fileName=self.config['robot']['base']['path'],
                                         basePosition=self.config['robot']['base']['pose'],
                                         baseOrientation=pybullet.getQuaternionFromEuler(

@@ -22,7 +22,7 @@ class BulletSawyerInterface(BulletRobotInterface):
                  physics_id,
                  arm_id,
                  config=None,
-                 controlType=None):
+                 controlType='EEImp'):
         """
         Initialize variables
 

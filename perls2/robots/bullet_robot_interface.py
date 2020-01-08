@@ -13,15 +13,12 @@ from perls2.robots.controller import OperationalSpaceController
 import scipy
 
 
-
 def nested_tuple_to_list(tuple_input):
     for elem in tuple_input:
         if (isinstance(tuple_input, tuple)):
             return list(map(nested_tuple_to_list(elem)))
         else:
             return elem
-
-
 
 class BulletRobotInterface(RobotInterface):
     """ Abstract interface to be implemented for each Pybullet simulated robot
@@ -31,7 +28,7 @@ class BulletRobotInterface(RobotInterface):
                  physics_id,
                  arm_id,
                  config=None,
-                 controlType=None):
+                 controlType='EEImp'):
         """
         Initialize variables
 
@@ -41,7 +38,7 @@ class BulletRobotInterface(RobotInterface):
             Pose of robot base in world frame
             x y z qx qy qz qw
         """
-        super().__init__(controlType)
+
         self._physics_id = physics_id
         self._arm_id = arm_id
         self._link_id_dict = self.get_link_dict()
@@ -65,12 +62,8 @@ class BulletRobotInterface(RobotInterface):
         self._joint_max_velocities = self.get_joint_max_velocities()
         self._joint_max_forces = self.get_joint_max_forces()
         self._dof = self.get_dof()
-        self.controlType = controlType
 
-        if self.controlType == 'osc':
-            self.set_to_torque_mode()
-            print("robot set to torque mode")
-            self.controller = OperationalSpaceController()
+        super().__init__(controlType)
 
 
 
@@ -112,6 +105,10 @@ class BulletRobotInterface(RobotInterface):
             *This may need to do other things
         """
         self.set_joints_to_neutral_positions()
+
+    def move_ee_delta(self, delta):
+        self.controller.set_goal(delta)
+        self.action_set = True
 
     @property
     def ee_index(self):
@@ -301,7 +298,6 @@ class BulletRobotInterface(RobotInterface):
         # Clip value. The fingers somtimes stuck in the max/min # positions.
         self.set_gripper_to_value(0.99)
 
-
     # Properties
 
     @property
@@ -324,7 +320,6 @@ class BulletRobotInterface(RobotInterface):
     def name(self):
         return self._name
 
-    @property
     @abc.abstractmethod
     def version(self):
         """dict of current versions of robot SDK, gripper, and robot
@@ -597,33 +592,6 @@ class BulletRobotInterface(RobotInterface):
         return q
 
 
-    def get_uncompensated_torques(self, qd, kp=500, kv=40):
-        """ Joint space control law with no compensation
-
-            Torques = -(kp(q-qd)-kv*q_dot))
-            Args:
-                qd (list): desired joint positions as a column vector.
-        """
-        print("set_joints_uncompensated called")
-        q = np.asarray(self.q)
-
-        dq = np.asarray(self.dq)
-        joint_errors = q-qd
-        for joint_index in range(0, self._num_joints):
-            if(np.abs(joint_errors[joint_index]) < 0.01):
-                joint_errors[joint_index] = 0
-
-        joint_torques = (-kp*(q-qd) - kv*dq)
-
-        for joint in range(len(joint_torques)):
-            max_torque=700 #self.get_joint_limit(joint)['effort']
-            joint_torques[joint] = np.clip(
-                joint_torques[joint], -max_torque, max_torque)
-
-        print(joint_torques[0])
-
-        return joint_torques
-
     def set_to_torque_mode(self):
         """ Set the torques to the
         """
@@ -635,20 +603,6 @@ class BulletRobotInterface(RobotInterface):
         for i in range(self._dof):
             pybullet.setJointMotorControl2(
                 self._arm_id, i, mode, force=maxForce)
-
-    def set_torques(self, joint_torques):
-        """Set torques to the motor. Useful for keeping torques constant through
-        multiple simulation steps.
-
-        Args: joint_torques (list): list of joint torques with dimensions (num_joints,)
-        """
-        pybullet.setJointMotorControlArray(
-            bodyUniqueId=self._arm_id,
-            jointIndices=range(0,self._num_joints),
-            controlMode=pybullet.TORQUE_CONTROL,
-            forces=joint_torques)
-
-
 
 
     def set_joint_position_control(
