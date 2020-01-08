@@ -11,7 +11,7 @@ import abc  # For abstract class definitions
 import six  # For abstract class definitions
 import gym
 import gym.spaces as spaces
-import numpy as npcd
+import numpy as np
 
 # Use YamlConfig for config files
 from perls2.utils.yaml_config import YamlConfig
