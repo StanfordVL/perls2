@@ -24,7 +24,7 @@ def get_action(observation):
 
   """
   # Get components from observations
-  step = 0.05
+  step = 0.1
   delta = observation
   action = step * delta/np.linalg.norm(delta)
   return action
@@ -41,7 +41,7 @@ action_list = []
 for ep_num in range(10):
   print('episode ' +  str(ep_num-1) + ' complete...pausing...')
   # Wait for real robots to show episode is complete
-  if not env.world.is_sim:
+  if env.world.is_sim is False:
     time.sleep(3)
 
   step = 0
@@ -63,7 +63,7 @@ for ep_num in range(10):
           # enforce policy frequency by waiting
           while ((time.time() - start) < 0.05):
             pass
-      step +=1
+      step += 1
       done = termination
 # In the real robot we have to use a ROS interface. Disconnect the interface
 # after completing the experiment.

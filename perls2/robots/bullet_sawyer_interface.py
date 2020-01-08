@@ -58,11 +58,6 @@ class BulletSawyerInterface(BulletRobotInterface):
             self._num_joints = pybullet.getNumJoints(self._arm_id)
 
             joint_indices = [i for i in range(0,self._num_joints)]
-            # pybullet.setJointMotorControlArray(bodyUniqueId=self._arm_id,
-            #                                jointIndices= joint_indices,
-            #                                controlMode=pybullet.PD_CONTROL,
-            #                                targetPositions=self.limb_neutral_positions)
-            #print(str(self._arm_id))
 
             for i in range(len(joint_indices)):
                 #print ("Writing joint   " + str(i) + "to pos " + str(self.limb_neutral_positions[i]))

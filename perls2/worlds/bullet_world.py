@@ -173,6 +173,7 @@ class BulletWorld(World):
         for exec_steps in range(self.ctrl_steps_per_action):
             pybullet.stepSimulation(self._physics_id)
             self.robot_interface.step()
+        self.robot_interface.action_set = False
 
 
     def get_observation(self):

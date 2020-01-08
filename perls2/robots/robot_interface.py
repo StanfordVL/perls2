@@ -44,7 +44,7 @@ class RobotInterface(object):
         self.update()
         if self.controlType == 'EEImp':
             self.controller = EEImpController(self.model,
-                kp=100, damping=0.75,
+                kp=200, damping=1,
                 interpolator_pos =None,
                 interpolator_ori=None,
                 control_freq=self.config['sim_params']['steps_per_action'])
@@ -67,8 +67,9 @@ class RobotInterface(object):
         """
         self.update()
         if self.action_set:
-            torques = self.controller.run_controller()
+            torques = self.controller.run_controller() + self.N_q
             self.set_torques(torques)
+
 
     def move_ee_delta(self, delta):
         self.controller.set_goal(delta)

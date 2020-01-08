@@ -8,7 +8,6 @@ import pybullet
 import numpy as np
 from perls2.utils.yaml_config import YamlConfig
 
-
 from examples.simple_reach.simple_reach_env import SimpleReachEnv
 
 import gym.spaces as spaces
