@@ -33,7 +33,7 @@ def get_action(observation):
     return action
 
 
-env = SimpleReachEnv('../../cfg/reach_task.yaml', True, None)
+env = SimpleReachEnv('simple_reach.yaml', True, None)
 
 # Lists for saving demonstrations
 training_list = []
