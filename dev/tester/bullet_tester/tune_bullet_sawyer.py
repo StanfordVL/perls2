@@ -7,6 +7,7 @@ import os
 import numpy as np
 import time
 from scipy.spatial.transform import Rotation as R
+import sai2python as sai2
 #################### SETUP ################################
 # TODO: Change this to its own file in the tester folder
 # Create a pybullet simulation in isolation
@@ -15,6 +16,8 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 yaml_dir = os.path.join(dir_path, 'tester_config.yaml')
 config = YamlConfig(yaml_dir)
 data_dir = config['data_dir']
+
+# Set up SAI2 for mass matrix
 
 # Load URDFs
 import pybullet_data
@@ -63,11 +66,11 @@ pybullet.setJointMotorControlArray(arm_id,
 pybullet.setGravity(0,0,-10, physicsClientId=physics_id)
 pybullet.setTimeStep(time_step, physicsClientId=physics_id)
 
-# # Create Bullet Sawyer Interface
-# bullet_sawyer = BulletSawyerInterface(
-#     physics_id=physics_id,
-#     arm_id=arm_id,
-#     config=config, controlType='osc')
+# Create Bullet Sawyer Interface
+bullet_sawyer = BulletSawyerInterface(
+    physics_id=physics_id,
+    arm_id=arm_id,
+    config=config, controlType='osc')
 # max_steps=5000
 # def step_till_close_enough_fn(
 #         attribute,
@@ -128,19 +131,54 @@ pybullet.setTimeStep(time_step, physicsClientId=physics_id)
 #     else:
 #         return -1
 # ##### Controllers Test ##############
-# bullet_sawyer.set_joints_to_neutral_positions()
+bullet_sawyer.set_joints_to_neutral_positions()
+#urdf_name = "/vision2/u/rohunk/perls2/data/robot/rethink/sawyer_description/urdf/sawyer_arm.urdf"
+urdf_name = '/vision2/u/rohunk/sai2_python/resources/sawyer/sawyer.urdf'
+model = sai2.sai2python(urdf_name, 'sawyer')
+q_pos = bullet_sawyer.motor_joint_positions
+mass_matrix = np.zeros(49)
+
+# Calculate and save mass matrix from sai2
+model.mass_matrix(np.asarray(q_pos[:7]), mass_matrix)
+sai2MassMatrixFile = open('sai2_sawyer_mass_matrix.txt', 'w')
+sai2_massMatrix = mass_matrix.reshape(7,7)
+for row in sai2_massMatrix:
+    for elem in row:
+        elem_to_write = elem
+        if np.abs(elem) < .0001:
+            elem_to_write = 0
+
+        sai2MassMatrixFile.write(str(elem_to_write))
+        sai2MassMatrixFile.write(",  ")
+    sai2MassMatrixFile.write("\n")
+sai2MassMatrixFile.close()
+
+#Calculate and save mass matrix from pybullet
+pbMassMatrixFile = open('pb_sawyer_mass_matrix.txt', 'w')
+for row in bullet_sawyer.mass_matrix:
+    for elem in row:
+        elem_to_write = elem
+        if np.abs(elem) < .0001:
+            elem_to_write = 0
+
+        pbMassMatrixFile.write(str(elem_to_write))
+        pbMassMatrixFile.write(",  ")
+    pbMassMatrixFile.write("\n")
+pbMassMatrixFile.close()
+
+
 # print(np.shape(bullet_sawyer.jacobian))
 # print("reset")
 # print(bullet_sawyer._dof)
 # # #target_joint_positions = [0] * 14
 
-# #bullet_sawyer.set_joints_uncompensated(
-# #    target_joint_positions)
-# tuning_data = []
-# tuning_torques = []
-# # Add a disturbance to current position
-# xd_pos = (np.array(bullet_sawyer.ee_pose[:3]) +
-#     np.array([0.1, 0.0, 0.00]))
+#bullet_sawyer.set_joints_uncompensated(
+#    target_joint_positions)
+tuning_data = []
+tuning_torques = []
+# Add a disturbance to current position
+xd_pos = (np.array(bullet_sawyer.ee_pose[:3]) +
+    np.array([0.1, 0.0, 0.00]))
 
 # # To add a disturbance to orientation, convert to
 # # axis angle representation.

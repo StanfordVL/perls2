@@ -24,16 +24,18 @@ class OperationalSpaceController(Controller):
     """
 
     def __init__(self,
-        kpx=[20, 20, 20, 1.50, 1.50, 1.50],
-        kvx=[7, 7, 7, 0.20, 0.20, 0.20]):
+        kpx=[10, 10, 10, 1.50, 1.50, 1.50],
+        kvx=[3, 3, 3, 0.20, 0.20, 0.20],
+        damping=0.75):
         """ Initialize controller with default gains
 
         Args:
             kpx (list): gains for position error in op space (dof x 1)
             kvx (list): gains for velocity in op space (dof x 1)
         """
-        self.kpx = kpx
-        self.kvx = kvx
+        self.kpx = np.ones(6)*100
+        self.kvx = np.ones(6)* 2* np.sqrt(self.kpx)*damping
+        print(self.kvx)
 
     def get_states(self, state):
         self.lambda_x = state.get('lambda')[0]
@@ -93,7 +95,7 @@ class OperationalSpaceController(Controller):
         decoupled_torques = (
             np.dot(self.lambda_r, des_torques))
 
-        #decoupled_wrench = np.hstack((decoupled_forces, decoupled_torques))
+        # decoupled_wrench = np.hstack((decoupled_forces, decoupled_torques))
         decoupled_wrench = np.dot(self.lambda_mat, des_wrench)
 
         osc_torques = np.dot(np.transpose(self.jacobian), decoupled_wrench)
@@ -113,11 +115,11 @@ class OperationalSpaceController(Controller):
         orn_error, error, kpkv_forces, mass_kpkv_forces, osc_torques = self.compute_torques(state, xd, kpx, kvx)
         compensated_torques = osc_torques + self.N_q
 
-        joint_kp = 10
-        joint_kv = np.sqrt(joint_kp)*2
-        pose_torques = np.dot(self.mass_matrix,np.asarray((posture-self.joint_position) - joint_kv*self.joint_velocity))
-        nullspace_torques = np.dot(self.nullspace_matrix.transpose(), pose_torques)
-        torques += nullspace_torques
+        # joint_kp = 10
+        # joint_kv = np.sqrt(joint_kp)*2
+        # pose_torques = np.dot(self.mass_matrix,np.asarray((posture-self.joint_position) - joint_kv*self.joint_velocity))
+        # nullspace_torques = np.dot(self.nullspace_matrix.transpose(), pose_torques)
+        # torques += nullspace_torques
 
         return orn_error, error, kpkv_forces, mass_kpkv_forces, osc_torques, compensated_torques
 

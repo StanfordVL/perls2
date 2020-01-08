@@ -16,8 +16,12 @@ robot:
   type:
     'panda'
   arm:
+    # path:
+    #  'robot/franka_panda/panda_arm_controller.urdf'
     path:
-      'robot/franka_panda/panda_arm_simulation.urdf'
+     '/afs/cs.stanford.edu/u/rohunk/catkin_ws/src/franka_ros/franka_description/robots/panda_arm.urdf'
+    # path:
+    #   '/vision2/u/rohunk/OpSpaceLearning/resources/franka/panda_arm_hand.urdf'
     pose:
       [0, 0, 0]
     orn:

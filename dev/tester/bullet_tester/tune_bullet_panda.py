@@ -15,7 +15,7 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 yaml_dir = os.path.join(dir_path, 'panda_tester_config.yaml')
 config = YamlConfig(yaml_dir)
 data_dir = config['data_dir']
-dof = 7
+
 
 # Load URDFs
 import pybullet_data
@@ -44,7 +44,7 @@ arm_id = pybullet.loadURDF(
     flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
     physicsClientId=physics_id)
 
-
+dof = pybullet.getNumJoints(arm_id)
 # Set simulation parameters
 time_step = config['sim_params']['time_step']
 pybullet.setJointMotorControlArray(arm_id,
@@ -63,7 +63,8 @@ bullet_panda = BulletPandaInterface(
 ##### Controllers Test ##############
 bullet_panda.set_joints_to_neutral_positions()
 print(bullet_panda.motor_joint_positions)
-pybullet.stepSimulation()
+for i in range(10):
+    pybullet.stepSimulation()
 input("take picture")
 print(bullet_panda.jacobian)
 print(bullet_panda.mass_matrix)
