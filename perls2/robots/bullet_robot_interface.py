@@ -33,16 +33,18 @@ class BulletRobotInterface(RobotInterface):
         self._arm_id = arm_id
         self._link_id_dict = self.get_link_dict()
         self.config = config
+        robot_name = self.config['world']['robot']
+        self.robot_cfg = self.config[robot_name]
         self._ee_index = 7  # Default
         self._num_joints = pybullet.getNumJoints(self._arm_id)
 
         # set the default values
-        self._speed = self.config['robot']['limb_max_velocity_ratio']
-        # self._timeout = self.config['robot']['limb_timeout']
+        self._speed = self.robot_cfg['limb_max_velocity_ratio']
+        # self._timeout = self.robot_cfg['limb_timeout']
         self._position_threshold = (
-            self.config['robot']['limb_position_threshold'])
+            self.robot_cfg['limb_position_threshold'])
         self._velocity_threshold = (
-            self.config['robot']['limb_velocity_threshold'])
+            self.robot_cfg['limb_velocity_threshold'])
         self._default_force = 100
         self._default_position_gain = 0.1
         self._default_velocity_gain = 2.5
@@ -181,10 +183,10 @@ class BulletRobotInterface(RobotInterface):
 
         # Get the joint limits for the right and left joint from config file
         l_finger_joint_limits = self.get_joint_limit(
-            self.get_link_id_from_name(self.config['robot']['l_finger_name']))
+            self.get_link_id_from_name(self.robot_cfg['l_finger_name']))
 
         r_finger_joint_limits = self.get_joint_limit(
-            self.get_link_id_from_name(self.config['robot']['r_finger_name']))
+            self.get_link_id_from_name(self.robot_cfg['r_finger_name']))
 
         # Get the range based on these joint limits
         l_finger_joint_range = (
@@ -206,9 +208,9 @@ class BulletRobotInterface(RobotInterface):
 
         # Set the joint angles all at once.
         l_finger_index = self.get_link_id_from_name(
-            self.config['robot']['l_finger_name'])
+            self.robot_cfg['l_finger_name'])
         r_finger_index = self.get_link_id_from_name(
-            self.config['robot']['r_finger_name'])
+            self.robot_cfg['r_finger_name'])
 
         gripper_q = self.q
         gripper_q[l_finger_index] = l_finger_position

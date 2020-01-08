@@ -25,6 +25,7 @@ class BulletArena(Arena):
         """
         super().__init__(config)
         self.data_dir = os.path.abspath(self.config['data_dir'])
+        print(self.data_dir)
         self.physics_id = physics_id
 
         # initialize view matrix
@@ -64,16 +65,6 @@ class BulletArena(Arena):
 
         (self.arm_id, self.base_id) = self.load_robot()
 
-        # self.table_id = pybullet.loadURDF(
-        # fileName=self.config['table']['path'],
-        # basePosition=self.config['table']['pose'][0],
-        # baseOrientation=pybullet.getQuaternionFromEuler(
-        #                         self.config['table']['pose'][1]),
-        # globalScaling=1.0,
-        # useFixedBase=True,
-        # flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
-        # physicsClientId=self.physics_id )
-
         self.bin_id = pybullet.loadURDF(
             fileName=self.config['bin']['path'],
             basePosition=self.config['bin']['pose'][0],
@@ -93,24 +84,24 @@ class BulletArena(Arena):
         """
 
         arm_id = pybullet.loadURDF(
-            fileName=self.config['robot']['arm']['path'],
-            basePosition=self.config['robot']['arm']['pose'],
+            fileName=self.robot_cfg['arm']['path'],
+            basePosition=self.robot_cfg['arm']['pose'],
             baseOrientation=pybullet.getQuaternionFromEuler(
-                                    self.config['robot']['arm']['orn']),
+                                    self.robot_cfg['arm']['orn']),
             globalScaling=1.0,
-            useFixedBase=self.config['robot']['arm']['is_static'],
+            useFixedBase=self.robot_cfg['arm']['is_static'],
             flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
             physicsClientId=self.physics_id)
         logging.info("Loaded robot" + " arm_id :" + str(arm_id))
 
         # Load Arm
         base_id = pybullet.loadURDF(
-            fileName=self.config['robot']['base']['path'],
-            basePosition=self.config['robot']['base']['pose'],
+            fileName=self.robot_cfg['base']['path'],
+            basePosition=self.robot_cfg['base']['pose'],
             baseOrientation=pybullet.getQuaternionFromEuler(
-                                    self.config['robot']['base']['orn']),
+                                    self.robot_cfg['base']['orn']),
             globalScaling=1.0,
-            useFixedBase=self.config['robot']['base']['is_static'],
+            useFixedBase=self.robot_cfg['base']['is_static'],
             flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
             physicsClientId=self.physics_id)
 
