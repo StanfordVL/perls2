@@ -122,9 +122,15 @@ class BulletWorld(World):
             image_width=self.config['sensor']['camera']['image']['width']
             )
 
-        self.object_interface = BulletObjectInterface(
-            physics_id=self._physics_id,
-            obj_id=self.arena.obj_id)
+        # Create a dictionary of object interfaces
+        self.object_interfaces_dict = {}
+
+        # Create object interfaces for each of the objects found in the arena
+        # dictionary
+        for obj_idx, obj_name in enumerate(self.arena.object_dict):
+            self.object_interfaces_dict[obj_name] = BulletObjectInterface(
+                physics_id=self._physics_id,
+                obj_id=self.arena.object_dict[obj_name])
 
         self._time_step = self.config['sim_params']['time_step']
 
@@ -268,18 +274,19 @@ class BulletWorld(World):
         num_steps = 0
         num_stable_steps = 0
 
-        while(1):
-            pybullet.stepSimulation(self._physics_id)
-            num_steps += 1
+        for obj_idx, obj_key in enumerate(self.object_interfaces_dict):
+            while(1):
+                pybullet.stepSimulation(self._physics_id)
+                num_steps += 1
 
-            if num_steps < check_after_steps:
-                continue
+                if num_steps < check_after_steps:
+                    continue
 
-            if (np.linalg.norm(self.object_interface.get_linear_velocity()) <=
-                    linear_velocity_threshold):
-                num_stable_steps += 1
+                if (np.linalg.norm(self.object_interfaces_dict[obj_key].get_linear_velocity()) <=
+                        linear_velocity_threshold):
+                    num_stable_steps += 1
 
-            if ((num_stable_steps >= min_stable_steps) or
-                    (num_steps >= max_steps)):
-                print("object stable")
-                break
+                if ((num_stable_steps >= min_stable_steps) or
+                        (num_steps >= max_steps)):
+                    print("object stable")
+                    break

@@ -9,7 +9,7 @@ import logging
 
 class BulletArena(Arena):
     """The class definition for arenas
-    Arenas contain interfaces for robots, sensors and objects.
+    Arenas contain interfaces for robots, sensors and
     """
 
     def __init__(self,
@@ -52,9 +52,21 @@ class BulletArena(Arena):
 
         self.plane_id = self.load_ground()
 
+
+        # Load the objects from the config file and
+        # save their names and bullet body id (not object id
+        # from config file)
         self.object_dict = {}
-        self.load_object(0)
-        self.load_object(1)
+        for obj_idx, obj_key in enumerate(
+                self.config['object']['object_dict']):
+            pb_obj_id = self.load_object(obj_idx)
+            obj_name = self.config['object']['object_dict'][obj_key]['name']
+
+            # key value for object_dict is obj_name: pb_obj_id
+            # example - '013_apple': 3
+            # This makes it easier to reference.
+            self.object_dict[obj_name] = pb_obj_id
+        print(self.object_dict)
 
         (self.arm_id, self.base_id) = self.load_robot()
 
@@ -124,7 +136,7 @@ class BulletArena(Arena):
         obj_key = 'object_' + str(object_id)
         object_dict = self.config['object']['object_dict'][obj_key]
         obj_path = os.path.join(self.data_dir, object_dict['path'])
-        self.obj_id = pybullet.loadURDF(
+        obj_id = pybullet.loadURDF(
                     obj_path,
                     basePosition=object_dict['default_position'],
                     baseOrientation=pybullet.getQuaternionFromEuler(
@@ -133,6 +145,8 @@ class BulletArena(Arena):
                     useFixedBase=object_dict['is_static'],
                     flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
                     physicsClientId=self.physics_id)
+
+        return obj_id
 
     def view_matrix_to_extrinsic(self):
         L = (np.asarray(self.camera_target_pos) -
