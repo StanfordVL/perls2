@@ -1,0 +1,190 @@
+# Cfg file for SimpleReachEnv
+world:
+  type: 'Bullet'
+  robot: 'sawyer'
+data_dir: '../../../data'
+# Simulation parameters
+sim_params:
+  time_step: 0.004166  # 1./240.
+  steps_per_action: 20 # policy to sim update ratio
+  MAX_STEPS: 100
+
+
+!include ../../../cfg/sawyer.yaml
+
+# Robots are specified by types and urdf locations
+# also may include intial setup like poses and orientations
+robot:
+  type:
+    'sawyer'
+  arm:
+    # TODO: make these paths more flexible
+    path:
+      'robot/rethink/sawyer_description/urdf/sawyer_arm.urdf'
+    pose:
+      [0, 0, 0]
+    orn:
+      [0, 0, 0]
+    is_static:
+      True
+  base:
+    path:
+      'robot/rethink/sawyer_description/urdf/sawyer_base.urdf'
+    pose:
+      [0, 0, .01]
+    orn:
+      [0, 0, 0]
+    is_static:
+      True
+  neutral_joint_angles:
+    [0,-1.18,0.00,2.18,0.00,0.57,3.3161]
+  limb_joint_names: [
+  'right_j0',
+  'right_j1',
+  'right_j2',
+  'right_j3',
+  'right_j4',
+  'right_j5',
+  'right_j6',
+  ]
+  # Height of the limb (installed on the base) from the ground, for computing IK.
+  limb_height: 0.9
+  # Link name of the end effector, for computing IK.
+  end_effector_name: 'right_hand'
+  # Joint name of the left finger of the gripper.
+  l_finger_name: 'r_gripper_l_finger'
+  # Joint name of the right finger of the gripper.
+  r_finger_name: 'r_gripper_r_finger'
+  # Link name of the left finger tip of the gripper.
+  l_finger_tip_name: 'r_gripper_l_finger_tip'
+  # Link name of the right finger tip of the gripper.
+  r_finger_tip_name: 'r_gripper_r_finger_tip'
+
+  # Default maximum joint velocity ratio, chosen from (0, 1].
+  # Set it to 1.0 for data collection, 0.3 for demo.
+  limb_max_velocity_ratio: 0.01
+
+  # Threshold (in rads) for each joint for position control.
+  limb_position_threshold: 0.008726640
+
+  # Threshold (in rads) for each joint for position control.
+  limb_velocity_threshold: 0.75
+
+  # Step size of a gripper trajectory.
+  end_effector_step: 0.02
+
+goal_position:
+  lower:
+    [0.3, -0.2, 0.0]  # CHANGED
+  upper:
+    [0.5, 0.5, 0.2]   # CHANGED
+
+sensor:
+  camera:
+    name:
+        'camera'
+    image:
+      height: 224
+      width: 224
+    extrinsics:
+        eye_position:
+          [0.6, 0.0, 1.0]
+        target_position:
+          [0.6, 0., 0]
+        up_vector:
+          [1., 0., 1.]
+    intrinsics:
+        image_height: 1080
+        image_width: 1920
+        fov: 60
+        near_plane: 0.02
+        far_plane: 100
+    # Parameters for randomization
+    random:
+      randomize: False
+      extrinsics:
+        eye_position:
+          lower:
+            [0.6, 0., 1.75]
+          upper:
+            [0.6, 0., 1.75]
+        target_position:
+          lower:
+            [0.6, 0., 0]
+          upper:
+            [0.6, 0., 0]
+      intrinsics:
+        fov:
+          lower: 50
+          upper: 80
+        near_plane:
+          lower: 0.01
+          upper: 0.05
+        far_plane:
+          lower: 10
+          upper: 150
+
+object:
+  object_dict:
+    # To add objects via arenas, list them directly using
+    # key object_%i,
+    object_0:
+      name: '013_apple'
+      path:
+        'objects/ycb/013_apple/google_16k/textured.urdf'
+      pose: [[1.5, 0, 0], [0,0,0]]
+      is_static: True
+      default_position: [0.7, 0.1, 0.03] #z  = 0.1
+    object_1:
+      path:
+        'objects/ycb/006_mustard_bottle/google_16k/textured.urdf'
+      pose: [[0, 0, 0], [0, 0, 0]]
+      is_static: False
+      default_position: [0.2, 0.1, 0.03]
+
+  random:
+    randomize: True
+    position:
+      lower:
+        [0.3, -0.2, 0.1]
+      upper:
+        [0.7, 0.2, 0.1]
+
+ground:
+  path: 'urdf_cache/plane/plane.urdf'
+  pose: [[0, 0, -0.9], [0, 0, 0]]
+  is_static: True
+
+# path: 'tables/table_svl/table.urdf'
+table:
+  path: 'tables/table_svl/table_grasp.urdf'
+  pose: [[0.6, 0, 0], [0, 0, 0]]
+  height:
+    range: [0.8, 0.8]
+
+bin:
+  path: 'urdf_cache/beveled_bin/beveled_bin.urdf'
+  pose: [[0.6, 0, 0], [0, 0, 0]]
+
+ikea:
+  path: 'ikea/config/ikea.urdf'
+  pose: [[0.75, 0.3, 0.5], [1.57079, 0, -0.157079]]
+
+# Perception and Learning
+env:
+  observation_space:
+    low:
+      [-2.0, -2.0, -2.0]
+    high:
+      [2.0, 2.0, 2.0]
+  action_space:
+    low: [-0.2, -0.2, -0.2]
+    high: [0.2, 0.2, 0.2]
+
+learning_parms:
+  hyperparameters:
+  learning_rate:
+
+
+vision_params:
+  segmentation:

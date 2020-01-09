@@ -52,16 +52,9 @@ class BulletArena(Arena):
 
         self.plane_id = self.load_ground()
 
-        obj_path = os.path.join(self.data_dir, self.config['object']['path'])
-        self.obj_id = pybullet.loadURDF(
-                    obj_path,
-                    basePosition=self.config['object']['default_position'],
-                    baseOrientation=pybullet.getQuaternionFromEuler(
-                            self.config['object']['pose'][1]),
-                    globalScaling=1.0,
-                    useFixedBase=self.config['object']['is_static'],
-                    flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
-                    physicsClientId=self.physics_id)
+        self.object_dict = {}
+        self.load_object(0)
+        self.load_object(1)
 
         (self.arm_id, self.base_id) = self.load_robot()
 
@@ -126,6 +119,20 @@ class BulletArena(Arena):
 
         # Load object
         return plane_id
+
+    def load_object(self, object_id=0):
+        obj_key = 'object_' + str(object_id)
+        object_dict = self.config['object']['object_dict'][obj_key]
+        obj_path = os.path.join(self.data_dir, object_dict['path'])
+        self.obj_id = pybullet.loadURDF(
+                    obj_path,
+                    basePosition=object_dict['default_position'],
+                    baseOrientation=pybullet.getQuaternionFromEuler(
+                            object_dict['pose'][1]),
+                    globalScaling=1.0,
+                    useFixedBase=object_dict['is_static'],
+                    flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
+                    physicsClientId=self.physics_id)
 
     def view_matrix_to_extrinsic(self):
         L = (np.asarray(self.camera_target_pos) -
