@@ -47,6 +47,10 @@ class BulletObjectInterface(ObjectInterface):
         """
         self._obj_id = obj_id
 
+    @property
+    def obj_id(self):
+        return self._obj_id
+
     def set_physics_id(self, physics_id):
         """ set physics id for pybullet sim
         """
