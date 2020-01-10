@@ -145,7 +145,7 @@ class Env(gym.Env):
 
         observation = self.get_observation()
 
-        info = self.info()
+        info = self.info
 
         return observation, reward, termination, info
 
