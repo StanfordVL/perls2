@@ -71,6 +71,10 @@ class BulletObjectInterface(ObjectInterface):
         pybullet.resetBasePositionAndOrientation(
             self._obj_id, self.obj_pos, self.obj_orn, self._physics_id)
 
+    def place_pose(self, pose):
+        pybullet.resetBasePositionAndOrientation(
+            self._obj_id, pose.position, pose.quaternion, self._physics_id)
+
     def get_linear_velocity(self):
         """Get the lienar velocity of the body.
 

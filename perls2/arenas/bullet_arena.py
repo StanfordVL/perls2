@@ -66,30 +66,22 @@ class BulletArena(Arena):
             # example - '013_apple': 3
             # This makes it easier to reference.
             self.object_dict[obj_name] = pb_obj_id
-        print(self.object_dict)
 
         (self.arm_id, self.base_id) = self.load_robot()
 
-        self.bin_id = pybullet.loadURDF(
-            fileName=self.config['bin']['path'],
-            basePosition=self.config['bin']['pose'][0],
-            baseOrientation=pybullet.getQuaternionFromEuler(
-                                    self.config['bin']['pose'][1]),
-            globalScaling=1.0,
-            useFixedBase=True,
-            flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
-            physicsClientId=self.physics_id)
+        for obj_key in self.config['scene_objects']:
+            if obj_key in self.config:
+                self.load_urdf(obj_key)
 
-        # Set constraints
-        # Constrain base to floor
-        # self.cid = pybullet.setConstraint()
 
     def load_robot(self):
         """ Load the robot and return arm_id, base_id
         """
+        arm_file = os.path.join(self.data_dir, self.robot_cfg['arm']['path'])
+        base_file = os.path.join(self.data_dir, self.robot_cfg['base']['path'])
 
         arm_id = pybullet.loadURDF(
-            fileName=self.robot_cfg['arm']['path'],
+            fileName=arm_file,
             basePosition=self.robot_cfg['arm']['pose'],
             baseOrientation=pybullet.getQuaternionFromEuler(
                                     self.robot_cfg['arm']['orn']),
@@ -101,7 +93,7 @@ class BulletArena(Arena):
 
         # Load Arm
         base_id = pybullet.loadURDF(
-            fileName=self.robot_cfg['base']['path'],
+            fileName=base_file,
             basePosition=self.robot_cfg['base']['pose'],
             baseOrientation=pybullet.getQuaternionFromEuler(
                                     self.robot_cfg['base']['orn']),
@@ -111,6 +103,22 @@ class BulletArena(Arena):
             physicsClientId=self.physics_id)
 
         return (arm_id, base_id)
+
+    def load_urdf(self, key):
+        """General function to load urdf based on key"""
+        path = os.path.join(self.data_dir, self.config[key]['path'])
+
+        uid = pybullet.loadURDF(
+            fileName=path,
+            basePosition=self.config[key]['pose'][0],
+            baseOrientation=pybullet.getQuaternionFromEuler(
+                self.config[key]['pose'][1]),
+            globalScaling=1.0,
+            useFixedBase=self.config[key]['is_static'],
+            flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
+            physicsClientId=self.physics_id)
+        return uid
+
 
     def load_ground(self):
         """ Load ground and return ground_id
