@@ -42,6 +42,15 @@ class BulletObjectInterface(ObjectInterface):
             self._obj_id, self._physics_id)
         return np.asarray(obj_position)
 
+    @property
+    def position(self):
+        is_connected, method = pybullet.getConnectionInfo(self._physics_id)
+
+        obj_position, obj_orn = pybullet.getBasePositionAndOrientation(
+            self._obj_id, self._physics_id)
+        return np.asarray(obj_position)
+
+
     def set_obj_id(self, obj_id):
         """ Set object id for getting information about object
         """
