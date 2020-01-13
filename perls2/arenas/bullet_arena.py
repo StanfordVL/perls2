@@ -51,7 +51,21 @@ class BulletArena(Arena):
         logging.info("Bullet Arena Created")
 
         self.plane_id = self.load_ground()
+        (self.arm_id, self.base_id) = self.load_robot()
 
+        reset_angles = self.robot_cfg['neutral_joint_angles']
+        for i in range(len(reset_angles)):
+            # Force reset (breaks physics)
+            pybullet.resetJointState(
+                bodyUniqueId=self.arm_id,
+                jointIndex=i,
+                targetValue=reset_angles[i])
+
+        for obj_key in self.config['scene_objects']:
+            if obj_key in self.config:
+                self.load_urdf(obj_key)
+                for step in range(10):
+                    pybullet.stepSimulation(self.physics_id)
 
         # Load the objects from the config file and
         # save their names and bullet body id (not object id
@@ -61,17 +75,19 @@ class BulletArena(Arena):
                 self.config['object']['object_dict']):
             pb_obj_id = self.load_object(obj_idx)
             obj_name = self.config['object']['object_dict'][obj_key]['name']
+            logging.debug(obj_name + " loaded")
 
             # key value for object_dict is obj_name: pb_obj_id
             # example - '013_apple': 3
             # This makes it easier to reference.
             self.object_dict[obj_name] = pb_obj_id
+            for step in range(50):
+                #logging.debug("stepping for stability")
+                pybullet.stepSimulation(self.physics_id)
 
-        (self.arm_id, self.base_id) = self.load_robot()
+        input("what's happening")
 
-        for obj_key in self.config['scene_objects']:
-            if obj_key in self.config:
-                self.load_urdf(obj_key)
+
 
 
     def load_robot(self):
@@ -101,6 +117,9 @@ class BulletArena(Arena):
             useFixedBase=self.robot_cfg['base']['is_static'],
             flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
             physicsClientId=self.physics_id)
+
+
+        # Reset to neutral position, while nothing is around.
 
         return (arm_id, base_id)
 

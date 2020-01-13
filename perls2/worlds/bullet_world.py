@@ -107,6 +107,10 @@ class BulletWorld(World):
             self._physics_id = pybullet.connect(pybullet.DIRECT)
 
         print("New PhysicsID: " + str(self._physics_id))
+        self._time_step = self.config['sim_params']['time_step']
+
+        pybullet.setGravity(0, 0, -10, physicsClientId=self._physics_id)
+        pybullet.setTimeStep(self._time_step, physicsClientId=self._physics_id)
 
         # Create an arena to load robot and objects
         self.arena = BulletArena(self.config, self._physics_id)
@@ -132,10 +136,8 @@ class BulletWorld(World):
                 physics_id=self._physics_id,
                 obj_id=self.arena.object_dict[obj_name])
 
-        self._time_step = self.config['sim_params']['time_step']
 
-        pybullet.setGravity(0, 0, -10, physicsClientId=self._physics_id)
-        pybullet.setTimeStep(self._time_step, physicsClientId=self._physics_id)
+
 
         self.print_this_step = False
 
@@ -175,6 +177,7 @@ class BulletWorld(World):
         # Prepare for next step by executing action
         for exec_steps in range(self.ctrl_steps_per_action):
             pybullet.stepSimulation(self._physics_id)
+            input("enter to step")
 
     def get_observation(self):
         """Get observation of current env state
@@ -274,19 +277,22 @@ class BulletWorld(World):
         num_steps = 0
         num_stable_steps = 0
 
+        while(1):
+            pybullet.stepSimulation(self._physics_id)
+            num_steps += 1
+            all_stable = True
+
+            if num_steps < check_after_steps:
+                continue
+
         for obj_idx, obj_key in enumerate(self.object_interfaces_dict):
-            while(1):
-                pybullet.stepSimulation(self._physics_id)
-                num_steps += 1
+            if (np.linalg.norm(self.object_interfaces_dict[obj_key].get_linear_velocity()) >=
+                    linear_velocity_threshold):
+                all_stable = False
 
-                if num_steps < check_after_steps:
-                    continue
+            if all_stable:
+                num_stable_steps +=1
 
-                if (np.linalg.norm(self.object_interfaces_dict[obj_key].get_linear_velocity()) <=
-                        linear_velocity_threshold):
-                    num_stable_steps += 1
-
-                if ((num_stable_steps >= min_stable_steps) or
-                        (num_steps >= max_steps)):
-                    print("object stable")
-                    break
+            if ((num_stable_steps >= min_stable_steps) or
+                    (num_steps >= max_steps)):
+                break
