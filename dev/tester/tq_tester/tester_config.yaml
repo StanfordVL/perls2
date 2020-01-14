@@ -1,14 +1,16 @@
-!include sawyer.yaml
-# Cfg file for Env
+# Cfg file for SimpleReachEnv
 world:
   type: 'Bullet'
   robot: 'sawyer'
-data_dir: 'data'
+data_dir: '../../../data'
 # Simulation parameters
 sim_params:
-  time_step: 0.001 #0.004166  # 1./240.
+  time_step: 0.004166  # 1./240.
   steps_per_action: 20 # policy to sim update ratio
-  MAX_STEPS: 500
+  MAX_STEPS: 100
+
+
+!include ../../../cfg/sawyer.yaml
 
 # Robots are specified by types and urdf locations
 # also may include intial setup like poses and orientations
@@ -16,6 +18,7 @@ robot:
   type:
     'sawyer'
   arm:
+    # TODO: make these paths more flexible
     path:
       'robot/rethink/sawyer_description/urdf/sawyer_arm.urdf'
     pose:
@@ -122,14 +125,25 @@ sensor:
           upper: 150
 
 object:
-  count:
-    1
-  path:
-    'objects/ycb/013_apple/google_16k/textured.urdf'
-  pose: [[1.5, 0, 0], [0,0,0]]
-  is_static: True
-  default_position: [0.7, 0.1, 0.03] #z  = 0.1
+  object_dict:
+    # To add objects via arenas, list them directly using
+    # key object_%i,
+    object_0:
+      name: '013_apple'
+      path:
+        'objects/ycb/013_apple/google_16k/textured.urdf'
+      pose: [[1.5, 0, 0], [0,0,0]]
+      is_static: True
+      default_position: [0.7, 0.1, 0.03] #z  = 0.1
+    object_1:
+      path:
+        'objects/ycb/006_mustard_bottle/google_16k/textured.urdf'
+      pose: [[0, 0, 0], [0, 0, 0]]
+      is_static: False
+      default_position: [0.2, 0.1, 0.03]
+
   random:
+    randomize: True
     position:
       lower:
         [0.3, -0.2, 0.1]

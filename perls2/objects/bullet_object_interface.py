@@ -42,10 +42,23 @@ class BulletObjectInterface(ObjectInterface):
             self._obj_id, self._physics_id)
         return np.asarray(obj_position)
 
+    @property
+    def position(self):
+        is_connected, method = pybullet.getConnectionInfo(self._physics_id)
+
+        obj_position, obj_orn = pybullet.getBasePositionAndOrientation(
+            self._obj_id, self._physics_id)
+        return np.asarray(obj_position)
+
+
     def set_obj_id(self, obj_id):
         """ Set object id for getting information about object
         """
         self._obj_id = obj_id
+
+    @property
+    def obj_id(self):
+        return self._obj_id
 
     def set_physics_id(self, physics_id):
         """ set physics id for pybullet sim
@@ -66,6 +79,10 @@ class BulletObjectInterface(ObjectInterface):
         self.obj_pos = new_object_pos
         pybullet.resetBasePositionAndOrientation(
             self._obj_id, self.obj_pos, self.obj_orn, self._physics_id)
+
+    def place_pose(self, pose):
+        pybullet.resetBasePositionAndOrientation(
+            self._obj_id, pose.position, pose.quaternion, self._physics_id)
 
     def get_linear_velocity(self):
         """Get the lienar velocity of the body.
