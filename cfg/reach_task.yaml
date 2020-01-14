@@ -1,7 +1,8 @@
-# Cfg for Example: switching between sim and real reach task
+# Cfg file for Env
 world:
   type: 'Bullet'
   robot: 'sawyer'
+# Directory for data relative to run file!
 data_dir: '../../data'
 # Simulation parameters
 sim_params:
@@ -9,9 +10,9 @@ sim_params:
   steps_per_action: 20 # policy to sim update ratio
   MAX_STEPS: 500
 
-# Robots are specified by types and urdf locations
-# also may include intial setup like poses and orientations
-!include ../../cfg/sawyer.yaml
+# Robots (add using !include)
+!include sawyer.yaml
+
 goal_position:
   lower:
     [0.3, -0.2, 0.0]  # CHANGED
