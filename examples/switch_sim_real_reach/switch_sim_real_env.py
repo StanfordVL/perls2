@@ -3,7 +3,7 @@ import math
 import pybullet
 import numpy as np
 from perls2.utils.yaml_config import YamlConfig
-
+import logging
 from perls2.envs.env import Env
 
 import gym.spaces as spaces
@@ -82,13 +82,14 @@ class SwitchSimRealEnv(Env):
 
         return observation
 
-    def step(self):
+    def step(self, action):
         """ Step the environment forward.
 
         This only implements the parent class and is only included
         to show that it explicitly remains the same.
         """
-        return super().step()
+        logging.debug("step num" + str(self.num_steps))
+        return super().step(action)
 
     def get_observation(self):
         """Get observation of current env state
@@ -107,7 +108,7 @@ class SwitchSimRealEnv(Env):
         current_ee_pose = self.robot_interface.ee_pose
         camera_img = self.sensor_interface.frames()
         delta = (self.goal_position - current_ee_pose[0:3])
-        observation = (delta, current_ee_pose, camera_img.get('image'))
+        observation = (delta, current_ee_pose, camera_img.get('depth'))
         return observation
 
     def raise_goal_position(self):
@@ -124,23 +125,24 @@ class SwitchSimRealEnv(Env):
     def _exec_action(self, action):
         """Applies the given action to the simulation.
         """
+        pass
 
-        if self.world.is_sim:
-            next_position = np.clip(
-                list(action + self.robot_interface.ee_position),
-                [-100, -1, 0.20], [100, 100, 10])
+        # if self.world.is_sim:
+        #     next_position = np.clip(
+        #         list(action + self.robot_interface.ee_position),
+        #         [-100, -1, 0.20], [100, 100, 10])
 
-        else:
-            next_position = self.robot_interface.ee_pose[0:3] + action
+        # else:
+        #     next_position = self.robot_interface.ee_pose[0:3] + action
 
-            lower_bound = self.config['goal_position']['lower']
-            upper_bound = self.config['goal_position']['upper']
+        #     lower_bound = self.config['goal_position']['lower']
+        #     upper_bound = self.config['goal_position']['upper']
 
-            next_position = np.clip(
-                next_position, lower_bound, upper_bound)
+        #     next_position = np.clip(
+        #         next_position, lower_bound, upper_bound)
 
-        self.robot_interface.ee_pose = (list(next_position) +
-                                        [0, 0.952846, 0, 0.303454])
+        # self.robot_interface.ee_pose = (list(next_position) +
+        #                                 [0, 0.952846, 0, 0.303454])
 
     def _check_termination(self):
         """ Query state of environment to check termination condition
