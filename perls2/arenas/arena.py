@@ -49,12 +49,6 @@ class Arena:
             self.config['sensor']['camera']['random']['extrinsics'])
         self._random_obj_cfg = self.config['object']['random']
 
-        # Get the robot config dict by using the name of the robot
-        # as a key. The robot config yaml should be included at
-        # project config file level.
-        robot_name = self.config['world']['robot']
-        self.robot_cfg = self.config[robot_name]
-
     def random_vec_bounded(self, lower_bound, upper_bound):
         """Create a xf random position within bounds
             Args:

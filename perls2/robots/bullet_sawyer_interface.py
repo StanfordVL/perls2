@@ -40,7 +40,7 @@ class BulletSawyerInterface(BulletRobotInterface):
         self.limb_neutral_positions = [0, -1.18, 0.00, 2.18, 0.00, 0.57, 3.3161,
                                        0, 0, 0, 0, 0, 0, 0]
         self._name = "Rethink Bullet Sawyer"
-        logging.debug("BulletSawyerInterface created")
+        logging.logdebug("BulletSawyerInterface created")
 
     def start(self):
         """Start the robot

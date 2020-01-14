@@ -45,12 +45,12 @@ class RealArena(Arena):
         """ Load the robot and return arm_id, base_id
         """
         arm_id = pybullet.loadURDF(
-            fileName=self.robot_cfg['arm']['path'],
-            basePosition=self.robot_cfg['arm']['pose'],
+            fileName=self.config['robot']['arm']['path'],
+            basePosition=self.config['robot']['arm']['pose'],
             baseOrientation=pybullet.getQuaternionFromEuler(
-                self.robot_cfg['arm']['orn']),
+                self.config['robot']['arm']['orn']),
             globalScaling=1.0,
-            useFixedBase=self.robot_cfg['arm']['is_static'],
+            useFixedBase=self.config['robot']['arm']['is_static'],
             flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
             physicsClientId=self.physics_id)
 
@@ -58,12 +58,12 @@ class RealArena(Arena):
 
         # Load Arm
         base_id = pybullet.loadURDF(
-            fileName=self.robot_cfg['base']['path'],
-            basePosition=self.robot_cfg['base']['pose'],
+            fileName=self.config['robot']['base']['path'],
+            basePosition=self.config['robot']['base']['pose'],
             baseOrientation=pybullet.getQuaternionFromEuler(
-                self.robot_cfg['base']['orn']),
+                self.config['robot']['base']['orn']),
             globalScaling=1.0,
-            useFixedBase=self.robot_cfg['base']['is_static'],
+            useFixedBase=self.config['robot']['base']['is_static'],
             flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
             physicsClientId=self.physics_id)
 
