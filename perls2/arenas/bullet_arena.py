@@ -9,7 +9,7 @@ import logging
 
 class BulletArena(Arena):
     """The class definition for arenas
-    Arenas contain interfaces for robots, sensors and
+    Arenas contain interfaces for robots, sensors and objects.
     """
 
     def __init__(self,
@@ -25,7 +25,6 @@ class BulletArena(Arena):
         """
         super().__init__(config)
         self.data_dir = os.path.abspath(self.config['data_dir'])
-        print(self.data_dir)
         self.physics_id = physics_id
 
         # initialize view matrix
@@ -51,93 +50,71 @@ class BulletArena(Arena):
         logging.info("Bullet Arena Created")
 
         self.plane_id = self.load_ground()
+
+        obj_path = os.path.join(self.data_dir, self.config['object']['path'])
+        self.obj_id = pybullet.loadURDF(
+                    obj_path,
+                    basePosition=self.config['object']['default_position'],
+                    baseOrientation=pybullet.getQuaternionFromEuler(
+                            self.config['object']['pose'][1]),
+                    globalScaling=1.0,
+                    useFixedBase=self.config['object']['is_static'],
+                    flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
+                    physicsClientId=self.physics_id)
+
         (self.arm_id, self.base_id) = self.load_robot()
 
-        reset_angles = self.robot_cfg['neutral_joint_angles']
-        for i in range(len(reset_angles)):
-            # Force reset (breaks physics)
-            pybullet.resetJointState(
-                bodyUniqueId=self.arm_id,
-                jointIndex=i,
-                targetValue=reset_angles[i])
+        # self.table_id = pybullet.loadURDF(
+        # fileName=self.config['table']['path'],
+        # basePosition=self.config['table']['pose'][0],
+        # baseOrientation=pybullet.getQuaternionFromEuler(
+        #                         self.config['table']['pose'][1]),
+        # globalScaling=1.0,
+        # useFixedBase=True,
+        # flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
+        # physicsClientId=self.physics_id )
 
-        for obj_key in self.config['scene_objects']:
-            if obj_key in self.config:
-                self.load_urdf(obj_key)
-                for step in range(10):
-                    pybullet.stepSimulation(self.physics_id)
+        self.bin_id = pybullet.loadURDF(
+            fileName=self.config['bin']['path'],
+            basePosition=self.config['bin']['pose'][0],
+            baseOrientation=pybullet.getQuaternionFromEuler(
+                                    self.config['bin']['pose'][1]),
+            globalScaling=1.0,
+            useFixedBase=True,
+            flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
+            physicsClientId=self.physics_id)
 
-        # Load the objects from the config file and
-        # save their names and bullet body id (not object id
-        # from config file)
-        self.object_dict = {}
-        for obj_idx, obj_key in enumerate(
-                self.config['object']['object_dict']):
-            pb_obj_id = self.load_object(obj_idx)
-            obj_name = self.config['object']['object_dict'][obj_key]['name']
-            logging.debug(obj_name + " loaded")
-
-            # key value for object_dict is obj_name: pb_obj_id
-            # example - '013_apple': 3
-            # This makes it easier to reference.
-            self.object_dict[obj_name] = pb_obj_id
-            for step in range(50):
-                #logging.debug("stepping for stability")
-                pybullet.stepSimulation(self.physics_id)
-
-        input("what's happening")
-
-
-
+        # Set constraints
+        # Constrain base to floor
+        # self.cid = pybullet.setConstraint()
 
     def load_robot(self):
         """ Load the robot and return arm_id, base_id
         """
-        arm_file = os.path.join(self.data_dir, self.robot_cfg['arm']['path'])
-        base_file = os.path.join(self.data_dir, self.robot_cfg['base']['path'])
 
         arm_id = pybullet.loadURDF(
-            fileName=arm_file,
-            basePosition=self.robot_cfg['arm']['pose'],
+            fileName=self.config['robot']['arm']['path'],
+            basePosition=self.config['robot']['arm']['pose'],
             baseOrientation=pybullet.getQuaternionFromEuler(
-                                    self.robot_cfg['arm']['orn']),
+                                    self.config['robot']['arm']['orn']),
             globalScaling=1.0,
-            useFixedBase=self.robot_cfg['arm']['is_static'],
+            useFixedBase=self.config['robot']['arm']['is_static'],
             flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
             physicsClientId=self.physics_id)
         logging.info("Loaded robot" + " arm_id :" + str(arm_id))
 
         # Load Arm
         base_id = pybullet.loadURDF(
-            fileName=base_file,
-            basePosition=self.robot_cfg['base']['pose'],
+            fileName=self.config['robot']['base']['path'],
+            basePosition=self.config['robot']['base']['pose'],
             baseOrientation=pybullet.getQuaternionFromEuler(
-                                    self.robot_cfg['base']['orn']),
+                                    self.config['robot']['base']['orn']),
             globalScaling=1.0,
-            useFixedBase=self.robot_cfg['base']['is_static'],
+            useFixedBase=self.config['robot']['base']['is_static'],
             flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
             physicsClientId=self.physics_id)
-
-
-        # Reset to neutral position, while nothing is around.
 
         return (arm_id, base_id)
-
-    def load_urdf(self, key):
-        """General function to load urdf based on key"""
-        path = os.path.join(self.data_dir, self.config[key]['path'])
-
-        uid = pybullet.loadURDF(
-            fileName=path,
-            basePosition=self.config[key]['pose'][0],
-            baseOrientation=pybullet.getQuaternionFromEuler(
-                self.config[key]['pose'][1]),
-            globalScaling=1.0,
-            useFixedBase=self.config[key]['is_static'],
-            flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
-            physicsClientId=self.physics_id)
-        return uid
-
 
     def load_ground(self):
         """ Load ground and return ground_id
@@ -158,22 +135,6 @@ class BulletArena(Arena):
 
         # Load object
         return plane_id
-
-    def load_object(self, object_id=0):
-        obj_key = 'object_' + str(object_id)
-        object_dict = self.config['object']['object_dict'][obj_key]
-        obj_path = os.path.join(self.data_dir, object_dict['path'])
-        obj_id = pybullet.loadURDF(
-                    obj_path,
-                    basePosition=object_dict['default_position'],
-                    baseOrientation=pybullet.getQuaternionFromEuler(
-                            object_dict['pose'][1]),
-                    globalScaling=1.0,
-                    useFixedBase=object_dict['is_static'],
-                    flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
-                    physicsClientId=self.physics_id)
-
-        return obj_id
 
     def view_matrix_to_extrinsic(self):
         L = (np.asarray(self.camera_target_pos) -
