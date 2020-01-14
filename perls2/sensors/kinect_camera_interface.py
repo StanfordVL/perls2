@@ -96,6 +96,7 @@ class KinectCameraInterface(CameraInterface):
 
         self._prev_rgb_timestamp = 0
         self._prev_rgb = []
+        self.start()
 
     def start(self):
         """Starts the sensor stream.
@@ -150,7 +151,7 @@ class KinectCameraInterface(CameraInterface):
         rgb_np = convert_encoded_frame_to_np(
             encoded_rgb, KinectCameraInterface.RGB_DIM)
 
-        print(rgb_timestamp)
+        #print(rgb_timestamp)
         encoded_depth = self.redisClient.get('camera::depth_frame')
         depth_np = convert_encoded_frame_to_np(
             encoded_depth, KinectCameraInterface.DEPTH_DIM)

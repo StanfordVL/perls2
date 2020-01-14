@@ -27,7 +27,7 @@ class RealRobotInterface(RobotInterface):
         """Factory for creating robot interfaces based on config type
         """
         if (config['robot']['type'] == 'sawyer'):
-            from perlsv2.interfaces.robots.real_sawyer_interface import RealSawyerInterface
+            from perls2.robots.real_sawyer_interface import RealSawyerInterface
             return RealSawyerInterface(
                 config=config, physics_id=physics_id, arm_id=arm_id)
         else:
