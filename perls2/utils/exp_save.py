@@ -3,6 +3,7 @@
 import datetime
 import cv2
 import os
+import logging
 
 
 def save_image(frame,  ep_num, step, folder_path='output', invert=False):
@@ -24,7 +25,7 @@ def save_image(frame,  ep_num, step, folder_path='output', invert=False):
     None
 
     """
-
+    #logging.debug('saving image')
     # directory strings common to all images
     currentDT = datetime.datetime.now()
     date_ep_string = (str(currentDT.year) + str(currentDT.month) +

@@ -1,13 +1,13 @@
 # Cfg file for SimpleReachEnv
 world:
-  type: 'Bullet'
+  type: 'Real'
   robot: 'sawyer'
 data_dir: '../../data'
 # Simulation parameters
 sim_params:
   time_step: 0.001 #0.004166  # 1./240.
   steps_per_action: 20 # policy to sim update ratio
-  MAX_STEPS: 500
+  MAX_STEPS: 10
 
 # Robots are specified by types and urdf locations
 # also may include intial setup like poses and orientations
@@ -130,7 +130,7 @@ object:
   is_static: True
   default_position: [0.7, 0.1, 0.03] #z  = 0.1
   random:
-    randomize: True
+    randomize: False
     position:
       lower:
         [0.3, -0.2, 0.1]
