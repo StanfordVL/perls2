@@ -2,10 +2,12 @@
 """
 from __future__ import division
 
-from simple_reach_env import SimpleReachEnv
+from switch_sim_real_env import SwitchSimRealEnv
+import perls2.utils.exp_save as saver
 import numpy as np
 import gym
-
+import logging
+logging.basicConfig(level=logging.DEBUG)
 import os
 import sys
 
@@ -33,14 +35,14 @@ def get_action(observation):
     return action
 
 
-env = SwitchSimEnv('./simple_reach.yaml', True, None)
+env = SwitchSimRealEnv('./simple_reach.yaml', True, None)
 
 # Lists for saving demonstrations
 training_list = []
 image_list = []
 pose_list = []
 action_list = []
-
+step = 0
 for ep_num in range(10):
     # Wait for real robots to show episode is complete
     if not env.world.is_sim:
@@ -48,12 +50,13 @@ for ep_num in range(10):
 
     step = 0
     observation = env.reset()
-
+    logging.debug("ep num " + str(ep_num))
     done = False
     while done is False:
         action = get_action(observation[0])
         start = time.time()
         observation, reward, termination, info = env.step(action)
+
         step_record = (action, observation, reward,  termination)
 
         # Add observations-actions to demonstration lists.
@@ -64,8 +67,10 @@ for ep_num in range(10):
         # enforce policy frequency by waiting
         while ((time.time() - start) < 0.05):
             pass
-    step += 1
-    done = termination
+        step += 1
+        #saver.save_image(observation[2],  ep_num, step, folder_path='output', invert=False)
+        logging.debug("step taken" + str(step))
+        done = termination
 # In the real robot we have to use a ROS interface. Disconnect the interface
 # after completing the experiment.
 if (env.world.is_sim is False):

@@ -1,6 +1,6 @@
 """ Sensor Interface for Kinect Camera
 """
-from perlsv2.interfaces.sensors.camera_interface import CameraInterface
+#from perls2.sensors.camera_interface import CameraInterface
 
 import numpy as np
 import rospy
@@ -8,7 +8,8 @@ import cv2
 from cv_bridge import CvBridge
 from sensor_msgs.msg import Image
 from abc import ABCMeta, abstractmethod
-
+import logging
+logging.basicConfig(level=logging.DEBUG)
 import redis
 import time
 import struct
@@ -19,6 +20,10 @@ def convert_frame_to_encoded_bytes(frame):
     """
     height = np.shape(frame)[0]
     width = np.shape(frame)[1]
+    # logging.debug('height: ' +str(height))
+    #logging.debug('width: ' + str(width))
+    rospy.logdebug('height: ' +str(height))
+    rospy.logdebug('width: ' + str(width))
     # Encode the shape of the picture into the bytes array
     frame_np = np.array(frame).astype('uint8')
     frame_bytes = frame_np.tobytes()
@@ -41,7 +46,7 @@ def convert_frame_to_bytes_timestamp(frame, timestamp):
     return encoded_frame
 
 
-class KinectROSInterface(CameraInterface):
+class KinectROSInterface():
     """ Kinect camera class that gets images via ROS.
 
     Attributes:
@@ -186,6 +191,7 @@ class KinectROSInterface(CameraInterface):
     def capture_rgb(self):
         """ Capture the newest rgb frame """
         self.wait_to_receive_rgb()
+        rospy.logdebug("capture_rgb: rgb received")
         encoded_rgb = convert_frame_to_encoded_bytes(self.rgb_frame)
         self.redisClient.set('camera::rgb_frame', encoded_rgb)
         self.redisClient.set(
@@ -256,20 +262,22 @@ class KinectROSInterface(CameraInterface):
 
 if __name__ == '__main__':
     import time
-    rospy.init_node('kinect_show')
+    rospy.init_node('kinect_show', log_level=rospy.DEBUG)
 
     camera = KinectROSInterface()
 
-    print("waiting for environment")
+    rospy.loginfo("waiting for camera interface")
     while(camera.redisClient.get('camera::interface_connected') != b'True'):
         pass
 
-    print("env connected")
+    rospy.loginfo("interface connected")
     while (camera.redisClient.get('camera::interface_connected') == b'True'):
         if (camera.redisClient.get('camera::stream_enabled') == b'True'):
             start = time.time()
-            camera.capture_rgb()
+            camera.capture_frames()
             while ((time.time() - start) < 0.033):
                 pass
+    if (camera.redisClient.get('camera::interface_connected') == b'False'):
+        rospy.loginfo('Camera interface disconnected')
 
-    print("exiting.")
+    rospy.loginfo("exiting.")
