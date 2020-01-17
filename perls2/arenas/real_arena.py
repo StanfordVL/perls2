@@ -39,13 +39,27 @@ class RealArena(Arena):
         self.config = config
         self.data_dir = self.config['data_dir']
         self.physics_id = physics_id
+        robot_name = self.config['world']['robot']
+        self.robot_cfg = self.config[robot_name]
+        print(self.robot_cfg['arm']['path'])
+
         self.arm_id, self.base_id = self.load_robot()
+        # Get the robot config dict by using the name of the robot
+        # as a key. The robot config yaml should be included at
+        # project config file level.
+
 
     def load_robot(self):
         """ Load the robot and return arm_id, base_id
         """
+        arm_file = os.path.join(
+            self.data_dir, self.robot_cfg['arm']['path'])
+
+        base_file = os.path.join(
+            self.data_dir, self.robot_cfg['base']['path'])
+
         arm_id = pybullet.loadURDF(
-            fileName=self.robot_cfg['arm']['path'],
+            fileName=arm_file,
             basePosition=self.robot_cfg['arm']['pose'],
             baseOrientation=pybullet.getQuaternionFromEuler(
                 self.robot_cfg['arm']['orn']),
@@ -58,7 +72,7 @@ class RealArena(Arena):
 
         # Load Arm
         base_id = pybullet.loadURDF(
-            fileName=self.robot_cfg['base']['path'],
+            fileName=base_file,
             basePosition=self.robot_cfg['base']['pose'],
             baseOrientation=pybullet.getQuaternionFromEuler(
                 self.robot_cfg['base']['orn']),

@@ -22,8 +22,8 @@ def convert_frame_to_encoded_bytes(frame):
     width = np.shape(frame)[1]
     # logging.debug('height: ' +str(height))
     #logging.debug('width: ' + str(width))
-    rospy.logdebug('height: ' +str(height))
-    rospy.logdebug('width: ' + str(width))
+    #rospy.logdebug('height: ' +str(height))
+    #rospy.logdebug('width: ' + str(width))
     # Encode the shape of the picture into the bytes array
     frame_np = np.array(frame).astype('uint8')
     frame_bytes = frame_np.tobytes()
@@ -126,6 +126,8 @@ class KinectROSInterface():
         self.redisClient = redis.Redis()
         self.redisClient.set('env_connected', 'False')
 
+        self.invert = True
+
     @property
     def rgb_frame(self):
         return self._rgb
@@ -155,14 +157,16 @@ class KinectROSInterface():
         """ Show the frames via OpenCV. Blocks til key pressed. """
 
         # Just for testing out the redis part. TODO switch this out
+
         rgb_encoded = self.redisClient.get('camera::rgb_frame')
         h, w = struct.unpack('>II', rgb_encoded[:8])
         image_np = np.frombuffer(
             rgb_encoded, dtype=np.uint8, offset=8).reshape(h, w, 3)
         # depth_frame = self.redisClient.get('camera:depth_frame')
         # ir_frame = self.redisClient.get('camera::ir_frame')
+        rgb_frame = cv2.cvtColor(image_np, cv2.COLOR_RGB2BGR)
 
-        cv2.imshow('rgb', image_np)
+        cv2.imshow('rgb', rgb_frame)
         # cv2.imshow('d', depth_frame)
         cv2.waitKey(waitkey)
         cv2.destroyAllWindows()
@@ -170,13 +174,17 @@ class KinectROSInterface():
     def capture_frames(self):
         """ Capture the newest frame """
         self.wait_to_receive()
-
+        rospy.logdebug('frame received')
         # Encode the shape of the picture into the bytes array
         # rgb = np.array(self.rgb_frame).astype('uint8')
         # rgb_bytes = rgb.tobytes()
         # rgb_shape = struct.pack('>II',self._image_height, self._image_width)
         # encoded_rgb = rgb_shape + rgb_bytes
-        encoded_rgb = convert_frame_to_encoded_bytes(self.rgb_frame)
+        if self.invert:
+            rgb_frame = cv2.cvtColor(self.rgb_frame, cv2.COLOR_RGB2BGR)
+        else:
+            rgb_frame = self.rgb_frame
+        encoded_rgb = convert_frame_to_encoded_bytes(rgb_frame)
         encoded_depth = convert_frame_to_encoded_bytes(self.depth_frame)
         encoded_ir = convert_frame_to_encoded_bytes(self.ir_frame)
         # set the key in redis
@@ -262,6 +270,18 @@ class KinectROSInterface():
 
 if __name__ == '__main__':
     import time
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--display", help='display the rgb frame. For DEBUG only!')
+    args = parser.parse_args()
+
+    display_image = False
+    if args.display:
+        display_image = True
+
+
+
     rospy.init_node('kinect_show', log_level=rospy.DEBUG)
 
     camera = KinectROSInterface()
@@ -271,10 +291,16 @@ if __name__ == '__main__':
         pass
 
     rospy.loginfo("interface connected")
+    if  camera.redisClient.get('camera::invert') == 'True':
+            camera.invert = True
+    else:
+        camera.invert = False
     while (camera.redisClient.get('camera::interface_connected') == b'True'):
         if (camera.redisClient.get('camera::stream_enabled') == b'True'):
             start = time.time()
             camera.capture_frames()
+            if display_image:
+                camera.display()
             while ((time.time() - start) < 0.033):
                 pass
     if (camera.redisClient.get('camera::interface_connected') == b'False'):
