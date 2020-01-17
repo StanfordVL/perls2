@@ -1747,8 +1747,9 @@ if __name__ == "__main__":
 
 
     rospy.loginfo('Running control loop')
+
     while(ctrlInterface.env_connected == b'True'):
-        rospy.loginfo('Env connected')
+        rospy.logdebug('Environment connected')
         start = time.time()
         ctrlInterface.process_cmd()
         ctrlInterface.update()

@@ -85,11 +85,6 @@ class BulletArena(Arena):
                 #logging.debug("stepping for stability")
                 pybullet.stepSimulation(self.physics_id)
 
-        input("what's happening")
-
-
-
-
     def load_robot(self):
         """ Load the robot and return arm_id, base_id
         """
