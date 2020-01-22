@@ -38,6 +38,12 @@ class RealArena(Arena):
         """
         self.config = config
         self.data_dir = self.config['data_dir']
+        # Get the robot config dict by using the name of the robot
+        # as a key. The robot config yaml should be included at
+        # project config file level.
+        robot_name = self.config['world']['robot']
+        self.robot_cfg = self.config[robot_name]
+
         self.physics_id = physics_id
         self.arm_id, self.base_id = self.load_robot()
 
