@@ -176,7 +176,9 @@ class KinectROSInterface():
         # rgb_bytes = rgb.tobytes()
         # rgb_shape = struct.pack('>II',self._image_height, self._image_width)
         # encoded_rgb = rgb_shape + rgb_bytes
-        encoded_rgb = convert_frame_to_encoded_bytes(self.rgb_frame)
+
+        rgb_frame = cv2.cvtColor(encoded_rgb, cv2.COLOR_RGB2BGR)
+        encoded_rgb = convert_frame_to_encoded_bytes(rgb_frame)
         encoded_depth = convert_frame_to_encoded_bytes(self.depth_frame)
         encoded_ir = convert_frame_to_encoded_bytes(self.ir_frame)
         # set the key in redis

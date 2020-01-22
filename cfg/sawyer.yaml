@@ -1,8 +1,10 @@
 # Cfg file for sawyer arm
+data_dir: 
+  'data'
 sawyer:
   arm:
     path:
-      'robot/rethink/sawyer_description/urdf/sawyer_arm.urdf'
+      '/home/robot/perls2/data/robot/rethink/sawyer_description/urdf/sawyer_arm.urdf'
     pose:
       [0, 0, 0]
     orn:
@@ -11,7 +13,7 @@ sawyer:
       True
   base:
     path:
-      'robot/rethink/sawyer_description/urdf/sawyer_base.urdf'
+      '/home/robot/perls2/data/robot/rethink/sawyer_description/urdf/sawyer_base.urdf'
     pose:
       [0, 0, .01]
     orn:
