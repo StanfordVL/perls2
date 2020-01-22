@@ -160,7 +160,7 @@ class KinectCameraInterface(CameraInterface):
         ir_np = convert_encoded_frame_to_np(
             encoded_ir, KinectCameraInterface.IR_DIM)
 
-        image_dict = {'image': rgb_np,
+        image_dict = {'rgb': rgb_np,
                       'image_stamp': rgb_timestamp,
                       'depth': depth_np,
                       'ir': ir_np}
