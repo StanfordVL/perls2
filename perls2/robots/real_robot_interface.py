@@ -22,6 +22,11 @@ class RealRobotInterface(RobotInterface):
                  controlType=None):
 
         self.config = config
+        # Get the robot config dict by using the name of the robot
+        # as a key. The robot config yaml should be included at
+        # project config file level.
+        robot_name = self.config['world']['robot']
+        self.robot_cfg = self.config[robot_name]
 
     def create(config, physics_id, arm_id):
         """Factory for creating robot interfaces based on config type
