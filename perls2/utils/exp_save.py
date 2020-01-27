@@ -6,7 +6,7 @@ import os
 import logging
 
 
-def save_image(frame,  ep_num, step, folder_path='output', invert=False):
+def save_image(frame,  ep_num, step, folder_path='output', invert=False, gray=False):
     """ Record frame to image to be converted to video
 
     Args:
@@ -36,6 +36,9 @@ def save_image(frame,  ep_num, step, folder_path='output', invert=False):
     if invert:
         frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
 
+    if gray:
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
     # frame directory
     frame_dir = folder_path + date_ep_string
 
@@ -47,6 +50,7 @@ def save_image(frame,  ep_num, step, folder_path='output', invert=False):
 
     # Save the image to file
     cv2.imwrite(frame_filepath, frame)
+    return frame_dir
 
 
 def convert_jpgs_to_vid(folder_path, ep_num):
@@ -62,13 +66,14 @@ def convert_jpgs_to_vid(folder_path, ep_num):
     # Construct date and time string for naming
     # TODO: make this read the files/folderpath
     currentDT = datetime.datetime.now()
-    date_ep_string = (str(currentDT.year) + str(currentDT.month) +
-                      str(currentDT.day) + '_Episode_' + str(ep_num))
+    # date_ep_string = (str(currentDT.year) + str(currentDT.month) +
+    #                   str(currentDT.day) + '_Episode_' + str(ep_num))
 
-    # Convert frame images to movie
-    frame_dir = (folder_path + str(currentDT.year) + str(currentDT.month) +
-                 str(currentDT.day) + '_Episode_' + str(ep_num))
-    os.chdir(frame_dir)
+    # # Convert frame images to movie
+    # frame_dir = (folder_path + str(currentDT.year) + str(currentDT.month) +
+    #              str(currentDT.day) + '_Episode_' + str(ep_num))
+    if os.getcwd() != folder_path:
+        os.chdir(folder_path)
 
     # Save mp4
     frame_output = (str(currentDT.year) + str(currentDT.month) +
@@ -84,3 +89,4 @@ def convert_jpgs_to_vid(folder_path, ep_num):
                   + " -filter_complex \"[0:v] fps=12,scale=480:-1,split [a][b];[a] palettegen [p];[b][p] paletteuse\" "
                   + frame_gif_output)
     os.system(cmd_string)
+
