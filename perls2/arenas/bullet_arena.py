@@ -5,13 +5,12 @@ import os
 import numpy as np
 from perls2.arenas.arena import Arena
 import logging
-
+logging.basicConfig(level=logging.DEBUG)
 
 class BulletArena(Arena):
     """The class definition for arenas
     Arenas contain interfaces for robots, sensors and
     """
-
     def __init__(self,
                  config,
                  physics_id):
@@ -24,10 +23,7 @@ class BulletArena(Arena):
 
         """
         super().__init__(config)
-        #self.data_dir = os.path.abspath(self.config['data_dir'])
-        logging.info(self.config)
         self.data_dir = self.config['data_dir']
-        print(self.data_dir)
         
         self.physics_id = physics_id
 
@@ -137,13 +133,12 @@ class BulletArena(Arena):
             physicsClientId=self.physics_id)
         return uid
 
-
     def load_ground(self):
         """ Load ground and return ground_id
         """
         # import pybullet_data
         # pybullet.setAdditionalSearchPath(pybullet_data.getDataPath())
-
+        logging.info(self.data_dir)
         plane_path = os.path.join(self.data_dir, self.config['ground']['path'])
         plane_id = pybullet.loadURDF(
             fileName=plane_path,
@@ -162,6 +157,7 @@ class BulletArena(Arena):
         obj_key = 'object_' + str(object_id)
         object_dict = self.config['object']['object_dict'][obj_key]
         obj_path = os.path.join(self.data_dir, object_dict['path'])
+        print(obj_path)
         obj_id = pybullet.loadURDF(
                     obj_path,
                     basePosition=object_dict['default_position'],
