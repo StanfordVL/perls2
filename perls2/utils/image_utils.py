@@ -259,6 +259,7 @@ def threshold_gradients(data, threshold):
     gradients[:, :, 0] = gx
     gradients[:, :, 1] = gy
     gradient_magnitudes = np.linalg.norm(gradients, axis=2)
+    #print("gradient mag" + str(gradient_magnitudes))
     ind = np.where(gradient_magnitudes > threshold)
     data[ind[0], ind[1]] = 0.0
     return data
@@ -337,11 +338,13 @@ def apply_gaussian_noise(data,
     else:
         return new_images
 
-def remove_large_outliers(depth_crop,percentile=95):
-    
-    thresh = np.percentile(depth_crop,95)
+def remove_large_outliers(depth, percentile=95):
+    depth_crop = np.copy(depth)
+    depth_crop.setflags(write=True)
+    thresh = np.percentile(depth_crop,percentile)
     invalid = depth_crop > thresh
     indeces = np.transpose(np.nonzero(invalid))
+
     for index in indeces:
         x,y = index
         add = 1
@@ -352,8 +355,49 @@ def remove_large_outliers(depth_crop,percentile=95):
                 x+=add
             depth_crop[tuple(index)] = depth_crop[(x,y)]
         except:
+            print("failed")
             pass
+
+    depth_crop[depth_crop == 0] = np.mean(depth_crop)
+
     return depth_crop
+
+def average_zero_pixels(depth_frame):
+    depth = np.copy(depth_frame)
+    invalid = depth == 0
+    indeces = np.transpose(np.nonzero(invalid))
+    for index in indeces:
+            x,y = index
+            add = 1
+            try:
+                if x > depth.shape[0]/2:
+                    add = -1
+                while invalid[x,y]:
+                    x+=add
+                depth[tuple(index)] = depth[(x,y)]
+                #print("success")
+            except:
+                #print("failed")
+                pass
+    return depth
+def average_below_threshold(depth_frame,threshold):
+    depth = np.copy(depth_frame)
+    invalid = depth <  threshold
+    indeces = np.transpose(np.nonzero(invalid))
+    for index in indeces:
+            x,y = index
+            add = 1
+            try:
+                if x > depth.shape[0]/2:
+                    add = -1
+                while invalid[x,y]:
+                    x+=add
+                depth[tuple(index)] = depth[(x,y)]
+                #print("success")
+            except:
+                #print("failed")
+                pass
+    return depth
 
 def intrinsic_to_projection_matrix(K, height, width, near, far,
                                    upside_down=True):
