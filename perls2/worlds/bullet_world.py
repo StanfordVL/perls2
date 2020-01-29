@@ -177,7 +177,6 @@ class BulletWorld(World):
         # Prepare for next step by executing action
         for exec_steps in range(self.ctrl_steps_per_action):
             pybullet.stepSimulation(self._physics_id)
-            input("enter to step")
 
     def get_observation(self):
         """Get observation of current env state
