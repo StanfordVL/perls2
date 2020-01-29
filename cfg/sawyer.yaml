@@ -1,6 +1,4 @@
 # Cfg file for sawyer arm
-data_dir: 
-  'data'
 sawyer:
   arm:
     path:
