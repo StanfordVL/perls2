@@ -24,8 +24,11 @@ class BulletArena(Arena):
 
         """
         super().__init__(config)
-        self.data_dir = os.path.abspath(self.config['data_dir'])
+        #self.data_dir = os.path.abspath(self.config['data_dir'])
+        logging.info(self.config)
+        self.data_dir = self.config['data_dir']
         print(self.data_dir)
+        
         self.physics_id = physics_id
 
         # initialize view matrix
@@ -85,11 +88,7 @@ class BulletArena(Arena):
                 #logging.debug("stepping for stability")
                 pybullet.stepSimulation(self.physics_id)
 
-        input("what's happening")
-
-
-
-
+  
     def load_robot(self):
         """ Load the robot and return arm_id, base_id
         """

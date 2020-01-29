@@ -117,7 +117,7 @@ class BulletCameraInterface(SimCameraInterface):
         depth = z_e
 
         return {
-                'image': image,
+                'rgb': image,
                 'depth': depth,
                 'segmask': segmask,
                 }
