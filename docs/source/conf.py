@@ -79,7 +79,10 @@ exclude_patterns = []
 pygments_style = None
 
 # Mock imports for libraries
-autodoc_mock_imports = ["gym", "rospy", "numpy", "cv2", "yaml_config", "os", "six", "pybullet", "tf"]
+autodoc_mock_imports = [
+                        "gym", "rospy", "numpy",
+                        "cv2", "yaml_config", "os",
+                        "six", "pybullet", "tf"]
 
 
 # -- Options for HTML output -------------------------------------------------

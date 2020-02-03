@@ -3,9 +3,10 @@
 
 from perls2.arenas.arena import Arena
 
+
 class MujocoArena(Arena):
     """The class definition for arenas
-    Arenas contain interfaces for robots, sensors and objects. 
+    Arenas contain interfaces for robots, sensors and objects.
     """
-    def __init__(self): 
-    	raise NotImplementedError
+    def __init__(self):
+        raise NotImplementedError

@@ -2,8 +2,9 @@
 """
 import numpy as np
 
+
 def intrinsic_to_projection_matrix(K, height, width, near, far,
-                                       upside_down=True):
+                                   upside_down=True):
         """Convert the camera intrinsics to the projection matrix.
 
         Takes a Hartley-Zisserman intrinsic matrix and returns a Bullet/OpenGL

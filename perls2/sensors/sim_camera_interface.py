@@ -1,19 +1,19 @@
 """Abstract class for Simulated Camera Interface
 """
 
-import abc # For abstract class definitions
-import six # For abstract class definitions
-
+import abc  # For abstract class definitions
+import six  # For abstract class definitions
 
 import numpy as np
 from perls2.sensors.camera_interface import CameraInterface
 
+
 class SimCameraInterface(CameraInterface):
     """Abstract interface to be implemented for a simulated camera interface
-    
+
     """
 
-    def __init__(self, 
+    def __init__(self,
                  image_height,
                  image_width,
                  intrinsics,
@@ -22,7 +22,7 @@ class SimCameraInterface(CameraInterface):
                  name='camera'):
         """
         Initialize variables
-        
+
           Args:
             image_height: int
             image_width: int
@@ -31,7 +31,7 @@ class SimCameraInterface(CameraInterface):
             extrinsics: a pose object, or a tuple of translation and rotation.
             distortion (optional): a 4, 5, or 8 element opencv distortion
         """
-        super().__init__( 
+        super().__init__(
                  image_height,
                  image_width,
                  intrinsics,
@@ -86,9 +86,9 @@ class SimCameraInterface(CameraInterface):
 
         Args:
             path: The data directory of the calibration results.
-        """  
+        """
         raise NotImplementedError
-    
+
     def set_calibration(self, K, rotation, translation):
         """Set the camera calibration data.
 
@@ -98,7 +98,7 @@ class SimCameraInterface(CameraInterface):
             translation: The translation vector.
         """
         raise NotImplementedError
-    
+
     def callback_view(self, callback):
         """
         Create an OpenCV window with the passed in callback
@@ -108,7 +108,7 @@ class SimCameraInterface(CameraInterface):
             the button value (OpenCV - 1 is left click), and x and y
         """
         raise NotImplementedError
-   
+
     def get_pose_with_click(self, prompt=None, w_rotation=False):
         """ get pose with opencvy gui click
         """
@@ -130,7 +130,7 @@ class SimCameraInterface(CameraInterface):
             A numpy array [N, 2] of 2D points
         """
         raise NotImplementedError
-    
+
     def reproject(self, points, depth=None, to_world=False):
         """Reproject a set of points from 2d image frame to 3d frame.
 
@@ -148,7 +148,6 @@ class SimCameraInterface(CameraInterface):
             A numpy array [N, 2] of 2D points
         """
         raise NotImplementedError
-
 
     @property
     def pose(self):

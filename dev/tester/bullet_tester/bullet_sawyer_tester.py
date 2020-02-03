@@ -21,8 +21,12 @@ from perls2.utils.yaml_config import YamlConfig
 import os
 import numpy as np
 import time
+<<<<<<< HEAD
 ctrl_steps_per_action = 1
 
+=======
+import pybullet_data
+>>>>>>> cfg_dir
 
 def step_till_close_enough_fn(
         attribute,
@@ -68,7 +72,6 @@ def step_till_close_enough_fn(
         bullet_sawyer.set_torques(joint_torques)
         pybullet.stepSimulation(physics_id)
         steps+=1
-
         # Log the state
         print(getattr(bullet_sawyer, attribute))
         for joint in range(9):
@@ -82,6 +85,7 @@ def step_till_close_enough_fn(
         return steps
     else:
         return -1
+
 def step_till_close_enough(
         attribute,
         goal,
@@ -139,6 +143,7 @@ def step_till_close_enough_index(
                 rtol,
                 atol)))
     return steps
+
 ####################SETUP################################
 # TODO: Change this to its own file in the tester folder
 # Create a pybullet simulation in isolation
@@ -164,6 +169,7 @@ plane_id = pybullet.loadURDF(
     flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
     physicsClientId=physics_id )
 
+
 # Load arm
 arm_id = pybullet.loadURDF(
     fileName=config['robot']['arm']['path'],
@@ -187,19 +193,18 @@ base_id = pybullet.loadURDF(
     physicsClientId=physics_id)
 
 # Set simulation parameters
-time_step = config['sim_params']['time_step'] # TODO: remove magic number
+time_step = config['sim_params']['time_step']  # TODO: remove magic number
 
-pybullet.setGravity(0,0,-10, physicsClientId=physics_id)
+pybullet.setGravity(0, 0, -10, physicsClientId=physics_id)
 pybullet.setTimeStep(time_step, physicsClientId=physics_id)
 
-### Begin testing code ###
+# ## Begin testing code ###
 
 # Create Bullet Sawyer Interface
 bullet_sawyer = BulletSawyerInterface(
     physics_id=physics_id,
     arm_id=arm_id,
     config=config)
-
 
 # Check initialization
 # Check physics id
@@ -228,8 +233,8 @@ for joint_index in range(bullet_sawyer._num_joints):
 init_joint_positions = [0.0] * bullet_sawyer._num_joints
 
 if (joint_positions != init_joint_positions):
-    print ("joint positions  " + str(joint_positions))
-    print ("desired: " + str(init_joint_positions))
+    print("joint positions  " + str(joint_positions))
+    print("desired: " + str(init_joint_positions))
     raise ValueError('BulletArena loaded robot incorrectly')
 """
 Check joint positions at initialization.
@@ -242,10 +247,12 @@ if (bullet_sawyer.q is None):
     raise ValueError('BulletSawyerInterface.q returns None')
 elif (len(bullet_sawyer.q) != bullet_sawyer._num_joints):
     # q is wrong length
-    raise ValueError('BulletSawyerInterface.q returns wrong size list')
+    raise ValueError(
+        'BulletSawyerInterface.q returns wrong size list')
 if (bullet_sawyer.q != init_joint_positions):
     # q is incorrect value
-    raise ValueError('BulletSawyerInterface.q returns incorrect joint positions')
+    raise ValueError(
+        'BulletSawyerInterface.q returns incorrect joint positions')
 
 # Test reset to neutral
 bullet_sawyer.set_joints_to_neutral_positions()
@@ -253,6 +260,7 @@ if (bullet_sawyer.q != bullet_sawyer.limb_neutral_positions):
     # reset to wrong neutral position / failed
     raise ValueError("BulletSawyerInterface.set_joints_neutral_positions failed")
 pybullet.stepSimulation()
+
 # q setter tester
 bullet_sawyer.q = init_joint_positions
 
@@ -351,7 +359,5 @@ for step in range(500):
 # bullet_sawyer.open_gripper()
 # step_sim(physics_id)
 # input('did gripper open?')
-
-
 
 print("############ All tests complete. ###########")
