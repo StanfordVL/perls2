@@ -11,7 +11,9 @@ panda:
       True
   base: 'None'
   neutral_joint_angles:
+    # TODO Change these to actual values
     [0,-1.18,0.00,2.18,0.00,0.57,3.3161]
+
   limb_joint_names: [
   'link0',
   'link1',
@@ -21,6 +23,7 @@ panda:
   'link5',
   'link6',
   ]
+  # TODO: Change these to actual values. with gripper.
   # Height of the limb (installed on the base) from the ground, for computing IK.
   limb_height: 0.9
   # Link name of the end effector, for computing IK.
