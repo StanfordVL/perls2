@@ -43,6 +43,7 @@ class Arena:
         self.far_plane = camera_intrinsics_cfg['far_plane']
         self.fov = camera_intrinsics_cfg['fov']
 
+
         self._rand_camera_intrin_cfg = (
             self.config['sensor']['camera']['random']['intrinsics'])
         self._rand_camera_extrin_cfg = (

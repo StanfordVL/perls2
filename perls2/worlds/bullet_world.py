@@ -134,10 +134,9 @@ class BulletWorld(World):
         for obj_idx, obj_name in enumerate(self.arena.object_dict):
             self.object_interfaces_dict[obj_name] = BulletObjectInterface(
                 physics_id=self._physics_id,
-                obj_id=self.arena.object_dict[obj_name])
-
-
-
+                obj_id=self.arena.object_dict[obj_name],
+                name=obj_name)
+        # TODO: give world a method get_object_interface(str name)
 
         self.print_this_step = False
 
@@ -177,7 +176,6 @@ class BulletWorld(World):
         # Prepare for next step by executing action
         for exec_steps in range(self.ctrl_steps_per_action):
             pybullet.stepSimulation(self._physics_id)
-            input("enter to step")
 
     def get_observation(self):
         """Get observation of current env state
