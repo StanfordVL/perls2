@@ -53,7 +53,7 @@ class RealWorld(World):
                                                  config=self.config,
                                                  physics_id=self._physics_id,
                                                  arm_id=self.arena.arm_id)
-        self.sensor_interface = KinectCameraInterface()
+        self.sensor_interface = KinectCameraInterface(self.config)
 
         self.is_sim = False
 
