@@ -22,11 +22,16 @@ class RealRobotInterface(RobotInterface):
                  controlType=None):
 
         self.config = config
+        # Get the robot config dict by using the name of the robot
+        # as a key. The robot config yaml should be included at
+        # project config file level.
+        robot_name = self.config['world']['robot']
+        self.robot_cfg = self.config[robot_name]
 
     def create(config, physics_id, arm_id):
         """Factory for creating robot interfaces based on config type
         """
-        if (config['robot']['type'] == 'sawyer'):
+        if (config['world']['robot'] == 'sawyer'):
             from perls2.robots.real_sawyer_interface import RealSawyerInterface
             return RealSawyerInterface(
                 config=config, physics_id=physics_id, arm_id=arm_id)

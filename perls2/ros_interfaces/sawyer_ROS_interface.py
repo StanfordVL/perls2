@@ -246,7 +246,7 @@ class SawyerCtrlInterface(object):
         # Set desired pose to initial
         curr_ee_pose = self.ee_pose
         self.neutral_joint_position = [0,-1.18,0.00,2.18,0.00,0.57,3.3161]
-
+        #self.neutral_joint_position = [0,-1.18,0.00,1.9,0.00,0.57,3.3161]
         self.prev_cmd = np.asarray(self.neutral_joint_position)
         self.current_cmd = self.prev_cmd
 
@@ -1747,8 +1747,8 @@ if __name__ == "__main__":
 
 
     rospy.loginfo('Running control loop')
+
     while(ctrlInterface.env_connected == b'True'):
-        rospy.loginfo('Env connected')
         start = time.time()
         ctrlInterface.process_cmd()
         ctrlInterface.update()
