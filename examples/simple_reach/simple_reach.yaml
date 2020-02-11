@@ -17,7 +17,8 @@ goal_position:
     [0.3, -0.2, 0.0]  # CHANGED
   upper:
     [0.5, 0.5, 0.2]   # CHANGED
-
+scene_objects:
+  ['table', 'bin']
 sensor:
   camera:
     name:
@@ -64,40 +65,47 @@ sensor:
           upper: 150
 
 object:
-  count:
-    1
-  path:
-    'objects/ycb/013_apple/google_16k/textured.urdf'
-  pose: [[1.5, 0, 0], [0,0,0]]
-  is_static: True
-  default_position: [0.7, 0.1, 0.03] #z  = 0.1
+  object_dict:
+    object_0:
+      name:
+        '013_apple'
+      count:
+        1
+      path:
+        'objects/ycb/013_apple/google_16k/textured.urdf'
+      pose: [[1.5, 0, 0], [0,0,0]]
+      is_static: True
+      default_position: [0.7, 0.1, 0.03] #z  = 0.1
   random:
     randomize: True
     position:
       lower:
-        [0.3, -0.2, 0.1]
+        [0.3, -0.15, 0.1]
       upper:
-        [0.7, 0.2, 0.1]
+        [0.7, 0.15, 0.1]
 
 ground:
-  path: 'urdf_cache/plane/plane.urdf'
+  path: 'scene_setup/plane/plane.urdf'
   pose: [[0, 0, -0.9], [0, 0, 0]]
   is_static: True
 
-# path: 'tables/table_svl/table.urdf'
+# path: 'scene_setup/table_svl/table.urdf'
 table:
-  path: 'tables/table_svl/table_grasp.urdf'
-  pose: [[0.6, 0, 0], [0, 0, 0]]
+  path: 'scene_setup/table_svl/table_grasp.urdf'
+  pose: [[0.6, 0, 0.], [0, 0, 0]]
   height:
     range: [0.8, 0.8]
+  is_static: True
 
 bin:
-  path: 'urdf_cache/beveled_bin/beveled_bin.urdf'
-  pose: [[0.6, 0, 0], [0, 0, 0]]
+  path: 'scene_setup/beveled_bin/beveled_bin.urdf'
+  pose: [[0.6, 0, 0.05], [0, 0, 0]]
+  is_static: True
 
 ikea:
   path: 'ikea/config/ikea.urdf'
   pose: [[0.75, 0.3, 0.5], [1.57079, 0, -0.157079]]
+  is_static: True
 
 # Perception and Learning
 env:
