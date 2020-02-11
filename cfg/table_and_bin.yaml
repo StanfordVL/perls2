@@ -1,18 +1,18 @@
 ground:
-  path: 'urdf_cache/plane/plane.urdf'
+  path: 'scene_objects/plane/plane.urdf'
   pose: [[0, 0, -0.9], [0, 0, 0]]
   is_static: True
 
 # path: 'tables/table_svl/table.urdf'
 table:
-  path: 'tables/table_svl/table_grasp.urdf'
+  path: 'scene_objects/table_svl/table_grasp.urdf'
   pose: [[0.6, 0, -0.05], [0, 0, 0.0]]
   height:
     range: [0.8, 0.8]
   is_static: True
 
 bin:
-  path: 'urdf_cache/beveled_bin/beveled_bin.urdf'
+  path: 'scene_objects/beveled_bin/beveled_bin.urdf'
   pose: [[0.6, 0, 0], [0, 0, 0]]
   is_static: True
 
