@@ -283,13 +283,13 @@ class BulletWorld(World):
             if num_steps < check_after_steps:
                 continue
 
-        for obj_idx, obj_key in enumerate(self.object_interfaces_dict):
-            if (np.linalg.norm(self.object_interfaces_dict[obj_key].get_linear_velocity()) >=
-                    linear_velocity_threshold):
-                all_stable = False
+            for obj_idx, obj_key in enumerate(self.object_interfaces_dict):
+                if (np.linalg.norm(self.object_interfaces_dict[obj_key].get_linear_velocity()) >=
+                        linear_velocity_threshold):
+                    all_stable = False
 
-            if all_stable:
-                num_stable_steps +=1
+                if all_stable:
+                    num_stable_steps +=1
 
             if ((num_stable_steps >= min_stable_steps) or
                     (num_steps >= max_steps)):
