@@ -66,7 +66,7 @@ for ep_num in range(10):
         while ((time.time() - start) < 0.05):
             pass
             step += 1
-            done = termination
+        done = termination
 
 # In the real robot we have to use a ROS interface. Disconnect the interface
 # after completing the experiment.

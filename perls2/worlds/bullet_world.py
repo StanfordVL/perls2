@@ -127,12 +127,12 @@ class BulletWorld(World):
             )
 
         # Create a dictionary of object interfaces
-        self.object_interfaces_dict = {}
+        self.objects = {}
 
         # Create object interfaces for each of the objects found in the arena
         # dictionary
         for obj_idx, obj_name in enumerate(self.arena.object_dict):
-            self.object_interfaces_dict[obj_name] = BulletObjectInterface(
+            self.objects[obj_name] = BulletObjectInterface(
                 physics_id=self._physics_id,
                 obj_id=self.arena.object_dict[obj_name],
                 name=obj_name)
@@ -283,13 +283,13 @@ class BulletWorld(World):
             if num_steps < check_after_steps:
                 continue
 
-        for obj_idx, obj_key in enumerate(self.object_interfaces_dict):
-            if (np.linalg.norm(self.object_interfaces_dict[obj_key].get_linear_velocity()) >=
-                    linear_velocity_threshold):
-                all_stable = False
+            for obj_idx, obj_key in enumerate(self.objects):
+                if (np.linalg.norm(self.objects[obj_key].get_linear_velocity()) >=
+                        linear_velocity_threshold):
+                    all_stable = False
 
-            if all_stable:
-                num_stable_steps +=1
+                if all_stable:
+                    num_stable_steps +=1
 
             if ((num_stable_steps >= min_stable_steps) or
                     (num_steps >= max_steps)):
