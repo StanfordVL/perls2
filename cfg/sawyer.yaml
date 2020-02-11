@@ -2,7 +2,7 @@
 sawyer:
   arm:
     path:
-      '/home/robot/perls2/data/robot/rethink/sawyer_description/urdf/sawyer_arm.urdf'
+      'robot/rethink/sawyer_description/urdf/sawyer_arm.urdf'
     pose:
       [0, 0, 0]
     orn:
@@ -11,7 +11,7 @@ sawyer:
       True
   base:
     path:
-      '/home/robot/perls2/data/robot/rethink/sawyer_description/urdf/sawyer_base.urdf'
+      'robot/rethink/sawyer_description/urdf/sawyer_base.urdf'
     pose:
       [0, 0, .01]
     orn:
