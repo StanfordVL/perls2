@@ -19,7 +19,8 @@ class BulletObjectInterface(ObjectInterface):
     def __init__(self,
                  config,
                  physics_id,
-                 obj_id):
+                 obj_id,
+                 name='object'):
         """
         Initialize variables
 
@@ -34,6 +35,8 @@ class BulletObjectInterface(ObjectInterface):
         self._physics_id = physics_id
         self._obj_id = obj_id
         self.default_position = self.config['default_position']
+        self.name = name
+
 
     def get_position(self):
         """Get xyz position of object in world frame.

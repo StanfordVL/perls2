@@ -21,12 +21,8 @@ from perls2.utils.yaml_config import YamlConfig
 import os
 import numpy as np
 import time
-<<<<<<< HEAD
 ctrl_steps_per_action = 1
-
-=======
 import pybullet_data
->>>>>>> cfg_dir
 
 def step_till_close_enough_fn(
         attribute,

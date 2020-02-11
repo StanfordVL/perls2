@@ -12,6 +12,8 @@ sim_params:
 # Robots are specified by types and urdf locations
 # also may include intial setup like poses and orientations
 !include ../../../../cfg/sawyer.yaml
+scene_objects:
+  ['table', 'bin']
 
 goal_position:
   lower:
@@ -90,7 +92,7 @@ object:
         [0.3, -0.2, 0.1]
       upper:
         [0.7, 0.2, 0.1]
-!include ../../../../cfg/table_bin.yaml
+!include ../../../../cfg/table_and_bin.yaml
 
 # Perception and Learning
 env:

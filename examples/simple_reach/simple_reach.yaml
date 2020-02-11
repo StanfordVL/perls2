@@ -78,6 +78,7 @@ object:
       pose: [[1.5, 0, 0], [0,0,0]]
       is_static: True
       default_position: [0.7, 0.1, 0.1] #z  = 0.1
+
   random:
     randomize: False
     position:
@@ -85,6 +86,7 @@ object:
         [0.3, -0.2, 0.1]
       upper:
         [0.7, 0.2, 0.1]
+
 
 # Perception and Learning
 env:

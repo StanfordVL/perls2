@@ -44,7 +44,7 @@ class SimpleReachEnv(Env):
         # the actual position of the object.
 
         if (self.world.is_sim):
-            self.target_object = self.object_interfaces_dict['006_mustard_bottle']
+            self.target_object = self.objects['006_mustard_bottle']
             self.update_goal_position()
 
         self._initial_ee_orn = []
@@ -70,10 +70,10 @@ class SimpleReachEnv(Env):
         self._initial_ee_orn = self.robot_interface.ee_orientation
         if (self.world.is_sim):
             if self.config['object']['random']['randomize']:
-                for obj_idx, obj_interface in enumerate(self.object_interfaces_dict.items()):
+                for obj_idx, obj_interface in enumerate(self.objects.items()):
                     obj_interface[1].place(self.arena.randomize_obj_pos())
             else:
-                for obj_idx, obj_interface in enumerate(self.object_interfaces_dict.items()):
+                for obj_idx, obj_interface in enumerate(self.objects.items()):
                     obj_key = 'object_' + str(obj_idx)
                     obj_interface[1].place(self.config['object']['default_position'])
 

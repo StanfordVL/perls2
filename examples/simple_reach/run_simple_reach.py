@@ -9,6 +9,7 @@ import gym
 import os
 import sys
 import logging
+logging.basicConfig(level=logging.DEBUG)
 import time
 
 

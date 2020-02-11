@@ -79,7 +79,7 @@ class KinectCameraInterface(CameraInterface):
     RGB_DIM = 3
     IR_DIM = 1
 
-    def __init__(self, res_mode="hd"):
+    def __init__(self, config, res_mode="hd"):
         """ Set the redis parameters for the ROS interface
         Note: Stream is initialized as disabled
         """
@@ -88,11 +88,16 @@ class KinectCameraInterface(CameraInterface):
 
         # Set the res mode
         self.redisClient.set('camera::res_mode', res_mode)
+        self.config = config
+        if 'invert' in self.config['sensor'].keys():
+            self.redisClient.set(
+                'camera::invert', str(self.config['sensor']['invert']))
 
         # Notify ROS Interface that camera interface is connected
         self.redisClient.set('camera::interface_connected', 'True')
         # Set stream as disabled at initialization.
         self.redisClient.set('camera::stream_enabled', 'False')
+
 
         self._prev_rgb_timestamp = 0
         self._prev_rgb = []
@@ -160,7 +165,7 @@ class KinectCameraInterface(CameraInterface):
         ir_np = convert_encoded_frame_to_np(
             encoded_ir, KinectCameraInterface.IR_DIM)
 
-        image_dict = {'image': rgb_np,
+        image_dict = {'rgb': rgb_np,
                       'image_stamp': rgb_timestamp,
                       'depth': depth_np,
                       'ir': ir_np}

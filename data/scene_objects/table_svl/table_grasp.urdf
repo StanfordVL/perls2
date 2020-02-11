@@ -1,0 +1,65 @@
+<?xml version="1.0" ?>
+<robot name="table.urdf">
+  <material name="white">
+    <color rgba="0.9 0.9 0.9 1.0"/>
+  </material>
+
+  <material name="transparent">
+    <color rgba="0.9 0.9 0.9 0.2"/>
+  </material>
+
+  <link name="base_link">
+    <contact>
+      <lateral_friction value="1.0"/>
+    </contact>
+    <inertial>
+      <origin rpy="0 0 1.5708" xyz="0 0 0"/>
+       <mass value=".0"/>
+       <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.70 1.22 0.05"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.70 1.22 0.05"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="large_surface">
+    <contact>
+      <lateral_friction value="1.0"/>
+    </contact>
+    <inertial>
+      <origin rpy="0 0 1.5708" xyz="0 0 0"/>
+       <mass value=".0"/>
+       <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="3.0 3.5 0.05"/>
+      </geometry>
+      <material name="transparent"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.70 1.22 0.05"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="fixed_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+    <parent link="base_link"/>
+    <child link="large_surface"/>
+  </joint>
+
+</robot>
