@@ -9,6 +9,7 @@ import numpy as np
 import abc
 
 from perls2.robots.robot_interface import RobotInterface
+import logging
 
 
 class BulletRobotInterface(RobotInterface):
@@ -337,6 +338,7 @@ class BulletRobotInterface(RobotInterface):
     def ee_pose(self, des_ee_pose):
         """Set the end effector position in xyz coordinates
         """
+
         position = des_ee_pose[0:3]
 
         ikSolver = 0
@@ -371,6 +373,9 @@ class BulletRobotInterface(RobotInterface):
                 bodyUniqueId=self._arm_id,
                 jointIndex=i,
                 physicsClientId=self._physics_id)
+
+    def goto_ee_pose(self, des_ee_pose):
+        self.ee_pose = des_ee_pose
 
     def set_ee_pose_position_control(
             self,
