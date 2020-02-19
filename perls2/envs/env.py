@@ -192,7 +192,7 @@ class Env(gym.Env):
                 'name': type(self).__name__,
                 }
 
-    @abc.abstractmethod
+    # @abc.abstractmethod
     def rewardFunction(self):
         """ Compute and return user-defined reward for agent given env state.
         """
