@@ -52,6 +52,16 @@ class BulletObjectInterface(ObjectInterface):
             self._obj_id, self._physics_id)
         return np.asarray(obj_position)
 
+    @property
+    def pose(self):
+        obj_position, obj_orn = pybullet.getBasePositionAndOrientation(
+            self._obj_id, self._physics_id)
+        return list(obj_position + obj_orn)
+
+
+    @property
+    def physics_id(self):
+        return self._physics_id
 
     def set_obj_id(self, obj_id):
         """ Set object id for getting information about object
@@ -85,8 +95,8 @@ class BulletObjectInterface(ObjectInterface):
     def place_pose(self, pose):
         pybullet.resetBasePositionAndOrientation(
             self._obj_id, pose.position, pose.quaternion, self._physics_id)
-
-    def get_linear_velocity(self):
+    @property
+    def linear_velocity(self):
         """Get the lienar velocity of the body.
 
         Parameters
@@ -103,3 +113,41 @@ class BulletObjectInterface(ObjectInterface):
         linear_velocity, _ = pybullet.getBaseVelocity(
                 bodyUniqueId=self._obj_id, physicsClientId=self._physics_id)
         return np.array(linear_velocity, dtype=np.float32)
+
+    @linear_velocity.setter
+    def linear_velocity(self, des_linear_vel):
+        """ Set linear velocity of object. Breaks physics
+        """
+        pybullet.resetBaseVelocity(objectUniqueId=self.obj_id,
+            linearVelocity=des_linear_vel,
+            angularVelocity=self.angular_velocity,
+            physicsClientId=self.physics_id)
+
+    @property
+    def angular_velocity(self):
+        """Get the lienar velocity of the body.
+
+        Parameters
+        ----------
+        body_uid :
+            The body Unique ID.
+
+        Returns
+        -------
+
+            A 3-dimensional float32 numpy array.
+
+        """
+        _, angular_velocity = pybullet.getBaseVelocity(
+                bodyUniqueId=self._obj_id, physicsClientId=self._physics_id)
+        return np.array(angular_velocity, dtype=np.float32)
+
+    @angular_velocity.setter
+    def angular_velocity(self, des_angular_vel):
+        """ Set linear velocity of object. Breaks physics
+        """
+        pybullet.resetBaseVelocity(objectUniqueId=self.obj_id,
+            linearVelocity=self.linear_velocity,
+            angularVelocity=des_angular_vel,
+            physicsClientId=self.physics_id)
+
