@@ -148,6 +148,27 @@ class BulletWorld(World):
 
         self.is_sim = True
 
+
+    @property
+    def physics_id(self):
+        return self._physics_id
+
+
+    def add_object(self, path, name, pose, scale):
+        # Get the pybullet id from arena
+        obj_id = self.arena.load_object_path(path, name, pose, scale, is_static=False)
+        self.arena.object_dict[name] = obj_id
+        # Create the BulletObject Interface
+        object_interface = BulletObjectInterface(
+                physics_id=self._physics_id,
+                obj_id=obj_id,
+                name=name)
+        # Add to Objects dictionary
+        self.objects[name] = object_interface
+
+        return object_interface
+
+
     def reset(self):
         """Reset the world.
 
