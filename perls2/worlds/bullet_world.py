@@ -101,12 +101,11 @@ class BulletWorld(World):
         # Connect to appropriate pybullet channel based on use_visualizer flag
         self.use_visualizer = use_visualizer
         if self.use_visualizer:
-
             self._physics_id = pybullet.connect(pybullet.GUI)
         else:
             self._physics_id = pybullet.connect(pybullet.DIRECT)
 
-        print("New PhysicsID: " + str(self._physics_id))
+        logging.info("New PhysicsID: " + str(self._physics_id))
         self._time_step = self.config['sim_params']['time_step']
 
         pybullet.setGravity(0, 0, -10, physicsClientId=self._physics_id)
@@ -154,7 +153,26 @@ class BulletWorld(World):
         return self._physics_id
 
 
-    def add_object(self, path, name, pose, scale):
+    def add_object(self, path, name, pose, scale, is_static=False):
+        """ Add object to world explicitly.
+
+        Args:
+            path (str): filepath name to object urdf
+            name (str): name of object used for dictionary key
+            pose (list): (7,) pose of the object as [x, y, z, qx, qy, qz, w]
+                orientation as quaternion.
+            scale (double): scale of object.
+            is_static (bool): whether object should remain fixed or not.
+
+        Returns:
+            object_interface (ObjectInterface): object interface added to world.
+
+        Examples:
+            objI = self.world.add_object('objects/ycb/013_apple/google_16k/textured.urdf',
+                                  '013_apple',
+                                   [0, 0, 0, 0, 0, 0, 1],
+                                   1.0,)
+        """
         # Get the pybullet id from arena
         obj_id = self.arena.load_object_path(path, name, pose, scale, is_static=False)
         self.arena.object_dict[name] = obj_id
@@ -167,6 +185,22 @@ class BulletWorld(World):
         self.objects[name] = object_interface
 
         return object_interface
+
+    def remove_object(self, name):
+        """ Remove object from world.
+        Args:
+            name (str): name of the object as stored in objects dictionary.
+
+        Returns:
+            -
+
+        Notes: Removes object from arena as well as objects dictionary.
+        """
+        try:
+            objectI = self.objects.pop(name)
+        except:
+            logging.ERROR('key not found')
+        self.arena._remove_object(self.objectI.obj_id, self.objectI.physics_id)
 
 
     def reset(self):

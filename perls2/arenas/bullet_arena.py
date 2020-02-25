@@ -5,7 +5,7 @@ import os
 import numpy as np
 from perls2.arenas.arena import Arena
 import logging
-
+logging.basicConfig(level=logging.DEBUG)
 
 class BulletArena(Arena):
     """The class definition for arenas
@@ -25,8 +25,9 @@ class BulletArena(Arena):
         """
         super().__init__(config)
         self.data_dir = os.path.abspath(self.config['data_dir'])
-        print(self.data_dir)
         self.physics_id = physics_id
+        self._bodies_pbid_dict = {}
+        self._objects_dict = {}
 
         # initialize view matrix
         self._view_matrix = pybullet.computeViewMatrix(
@@ -52,38 +53,46 @@ class BulletArena(Arena):
 
         self.plane_id = self.load_ground()
         (self.arm_id, self.base_id) = self.load_robot()
-
+        logging.debug("Robot loaded")
         reset_angles = self.robot_cfg['neutral_joint_angles']
-        for i in range(len(reset_angles)):
+
+        for i, angle in enumerate(reset_angles):# enumerate(reset_angles):
             # Force reset (breaks physics)
             pybullet.resetJointState(
                 bodyUniqueId=self.arm_id,
                 jointIndex=i,
-                targetValue=reset_angles[i])
+                targetValue=angle)
+
+        self.scene_objects_dict = {}
 
         for obj_key in self.config['scene_objects']:
             if obj_key in self.config:
-                self.load_urdf(obj_key)
+                self.scene_objects_dict[obj_key] = self.load_urdf(obj_key)
+                logging.debug(obj_key + " loaded")
+
                 for step in range(10):
                     pybullet.stepSimulation(self.physics_id)
 
-        # Load the objects from the config file and
-        # save their names and bullet body id (not object id
-        # from config file)
         self.object_dict = {}
-        for obj_idx, obj_key in enumerate(
-                self.config['object']['object_dict']):
-            pb_obj_id = self.load_object(obj_idx)
-            obj_name = self.config['object']['object_dict'][obj_key]['name']
-            logging.debug(obj_name + " loaded")
+        if ('object' in self.config.keys()):
+            # Load the objects from the config file and
+            # save their names and bullet body id (not object id
+            # from config file)
+            if ('object_dict' in self.config['object'].keys()):
 
-            # key value for object_dict is obj_name: pb_obj_id
-            # example - '013_apple': 3
-            # This makes it easier to reference.
-            self.object_dict[obj_name] = pb_obj_id
-            for step in range(50):
-                #logging.debug("stepping for stability")
-                pybullet.stepSimulation(self.physics_id)
+                for obj_idx, obj_key in enumerate(
+                        self.config['object']['object_dict']):
+                    pb_obj_id = self.load_object(obj_idx)
+                    obj_name = self.config['object']['object_dict'][obj_key]['name']
+                    logging.debug(obj_name + " loaded")
+
+                    # key value for object_dict is obj_name: pb_obj_id
+                    # example - '013_apple': 3
+                    # This makes it easier to reference.
+                    self.object_dict[obj_name] = pb_obj_id
+                    for step in range(50):
+                        #logging.debug("stepping for stability")
+                        pybullet.stepSimulation(self.physics_id)
 
     def load_robot(self):
         """ Load the robot and return arm_id, base_id
@@ -112,9 +121,6 @@ class BulletArena(Arena):
             useFixedBase=self.robot_cfg['base']['is_static'],
             flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
             physicsClientId=self.physics_id)
-
-
-        # Reset to neutral position, while nothing is around.
 
         return (arm_id, base_id)
 
@@ -169,6 +175,33 @@ class BulletArena(Arena):
                     physicsClientId=self.physics_id)
 
         return obj_id
+
+    def load_object_path(self, path, name, pose, scale, is_static):
+        obj_path = os.path.join(self.data_dir,path)
+        obj_id = pybullet.loadURDF(
+                    obj_path,
+                    basePosition=pose[0],
+                    baseOrientation=pybullet.getQuaternionFromEuler(
+                            pose[1]),
+                    globalScaling=scale,
+                    useFixedBase=is_static,
+                    flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
+                    physicsClientId=self.physics_id)
+        return obj_id
+
+    def _remove_object(self, object_id=0, phys_id=None):
+        """ Remove object from simulation.
+        Args:
+            object_id (int): pybullet id from load urdf
+        """
+        logging.debug("Num bodies" + str(pybullet.getNumBodies(self.physics_id)))
+        logging.debug(str(pybullet.getBodyInfo(object_id, physicsClientId=self.physics_id)))
+        logging.debug(self.object_dict)
+
+        if phys_id is None:
+            pybullet.removeBody(bodyUniqueId=object_id, physicsClientId=self.physics_id)
+        else:
+            pybullet.removeBody(bodyUniqueId=object_id, physicsClientId=phys_id)
 
     def view_matrix_to_extrinsic(self):
         L = (np.asarray(self.camera_target_pos) -
