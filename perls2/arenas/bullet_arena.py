@@ -176,7 +176,7 @@ class BulletArena(Arena):
 
         return obj_id
 
-    def load_object_path(self, path, name, pose, scale, is_static):
+    def _load_object_path(self, path, name, pose, scale, is_static):
         obj_path = os.path.join(self.data_dir,path)
         obj_id = pybullet.loadURDF(
                     obj_path,
@@ -191,6 +191,7 @@ class BulletArena(Arena):
 
     def _remove_object(self, object_id=0, phys_id=None):
         """ Remove object from simulation.
+        Internal use only. Use world.remove_object instead.
         Args:
             object_id (int): pybullet id from load urdf
         """

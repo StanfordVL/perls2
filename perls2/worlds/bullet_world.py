@@ -173,9 +173,11 @@ class BulletWorld(World):
                                    [0, 0, 0, 0, 0, 0, 1],
                                    1.0,)
         """
+
         # Get the pybullet id from arena
-        obj_id = self.arena.load_object_path(path, name, pose, scale, is_static=False)
+        obj_id = self.arena._load_object_path(path, name, pose, scale, is_static=False)
         self.arena.object_dict[name] = obj_id
+
         # Create the BulletObject Interface
         object_interface = BulletObjectInterface(
                 physics_id=self._physics_id,
