@@ -245,17 +245,19 @@ class SawyerCtrlInterface(object):
 
         # Set desired pose to initial
         curr_ee_pose = self.ee_pose
-        self.neutral_joint_position = [0,-1.18,0.00,2.18,0.00,0.57,3.3161]
+        self._neutral_joint_position = [0,-1.18,0.00,2.18,0.00,0.57,3.3161]
         #self.neutral_joint_position = [0,-1.18,0.00,1.9,0.00,0.57,3.3161]
-        self.prev_cmd = np.asarray(self.neutral_joint_position)
+        self.prev_cmd = np.asarray(self._neutral_joint_position)
         self.current_cmd = self.prev_cmd
-
-        self.reset_to_neutral()
 
         # Set initial values for redis db
         self.redisClient.set('robot::cmd_type', 'joint_position')
-        self.redisClient.set('robot::qd', str(self.neutral_joint_position))
+        self.redisClient.set('robot::qd', str(self._neutral_joint_position))
+        self.redisClient.set('robot::neutral_joint_position', str(self._neutral_joint_position))
 
+        self.reset_to_neutral()
+
+        
 
        #self.redisClient.set('robot::desired_ee_pose', str(curr_ee_pose))
         self.redisClient.set('robot::env_connected', 'False')
@@ -1704,6 +1706,12 @@ class SawyerCtrlInterface(object):
         return self.redisClient.get('robot::cmd_type')
 
     @property
+    def neutral_joint_position(self):
+        print(self.redisClient.get('robot::neutral_joint_position'))
+        return bstr_to_ndarray(self.redisClient.get('robot::neutral_joint_position'))
+    
+
+    @property
     def desired_ee_pose(self):
         return bstr_to_ndarray(self.redisClient.get('robot::desired_ee_pose'))
 
@@ -1753,7 +1761,7 @@ if __name__ == "__main__":
         ctrlInterface.process_cmd()
         ctrlInterface.update()
 
-        while ((time.time() - start) < 0.1):
+        while ((time.time() - start) < 0.01):
             pass
 
 

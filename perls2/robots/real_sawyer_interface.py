@@ -49,7 +49,7 @@ class RealSawyerInterface(RealRobotInterface):
         # Sets environment connected flag for control interface
         self.redisClient.set('robot::env_connected', 'True')
         self.neutral_joint_angles = self.robot_cfg['neutral_joint_angles']
-        self.RESET_TIMEOUT = 10       # Wait 3 seconds for reset to complete.
+        self.RESET_TIMEOUT = 10      # Wait 3 seconds for reset to complete.
 
     def disconnect(self):
         self.redisClient.set('robot::env_connected', 'False')
@@ -61,6 +61,7 @@ class RealSawyerInterface(RealRobotInterface):
         TODO: This doesn't actually work, it just waits for the timeout.
         """
         logging.debug("Resetting robot")
+        self.redisClient.set('robot::neutral_joint_position', str(self.neutral_joint_angles))
         self.redisClient.set('robot::cmd_type', 'reset_to_neutral')
         start = time.time()
         while (self.redisClient.get('robot::reset_complete') != b'True' and
