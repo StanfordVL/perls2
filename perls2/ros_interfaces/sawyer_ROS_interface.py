@@ -109,7 +109,6 @@ class SawyerCtrlInterface(object):
             ee_position
             ee_orientation
 
-
         """
         # Connect to redis client
         # use default port 6379 at local host.
@@ -257,8 +256,6 @@ class SawyerCtrlInterface(object):
 
         self.reset_to_neutral()
 
-        
-
        #self.redisClient.set('robot::desired_ee_pose', str(curr_ee_pose))
         self.redisClient.set('robot::env_connected', 'False')
         # self.redisClient.set('run_controller', 'False')
@@ -272,10 +269,6 @@ class SawyerCtrlInterface(object):
         self.redisClient.set('robot::desired_ee_pose', str(self.ee_pose))
 
         rospy.logdebug('Control Interface initialized')
-
-
-        ##
-
 
     def reset_to_neutral(self):
         """Blocking call for resetting the arm to neutral position
@@ -1734,10 +1727,6 @@ class SawyerCtrlInterface(object):
         else:
             rospy.logwarn('Unknown command')
 
-
-
-
-
 ### MAIN ###
 if __name__ == "__main__":
     # Create ros node
@@ -1752,7 +1741,6 @@ if __name__ == "__main__":
         pass
 
     #if (ctrlInterface.redisClient.get('env_connected') == b'True'):
-
 
     rospy.loginfo('Running control loop')
     while(ctrlInterface.env_connected == b'True'):
