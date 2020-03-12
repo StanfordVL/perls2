@@ -1,4 +1,4 @@
-# Cfg for Example: switching between sim and real reach task
+# Teleop Environment Config
 world:
   type: 'Bullet'
   robot: 'panda'
@@ -11,16 +11,10 @@ sim_params:
 
 # Robots are specified by types and urdf locations
 # also may include intial setup like poses and orientations
-!include ../../cfg/sawyer.yaml
-!include ../../cfg/panda.yaml
-!include ../../cfg/table_and_bin.yaml
-goal_position:
-  lower:
-    [0.3, -0.2, 0.0]  # CHANGED
-  upper:
-    [0.5, 0.5, 0.2]   # CHANGED
-scene_objects:
-  ['table', 'bin']
+!include /vision2/u/rohunk/perls2/cfg/sawyer.yaml
+!include /vision2/u/rohunk/perls2/cfg/panda.yaml
+!include /vision2/u/rohunk/perls2/cfg/table_and_bin.yaml
+
 sensor:
   camera:
     name:
@@ -65,43 +59,3 @@ sensor:
         far_plane:
           lower: 10
           upper: 150
-
-object:
-  object_dict:
-    object_0:
-      name:
-        '013_apple'
-      count:
-        1
-      path:
-        'objects/ycb/013_apple/google_16k/textured.urdf'
-      pose: [[1.5, 0, 0], [0,0,0]]
-      is_static: True
-      default_position: [0.7, 0.1, 0.03] #z  = 0.1
-  random:
-    randomize: True
-    position:
-      lower:
-        [0.3, -0.2, 0.1]
-      upper:
-        [0.7, 0.2, 0.1]
-
-
-# Perception and Learning
-env:
-  observation_space:
-    low:
-      [-2.0, -2.0, -2.0]
-    high:
-      [2.0, 2.0, 2.0]
-  action_space:
-    low: [-0.2, -0.2, -0.2]
-    high: [0.2, 0.2, 0.2]
-
-learning_parms:
-  hyperparameters:
-  learning_rate:
-
-
-vision_params:
-  segmentation:

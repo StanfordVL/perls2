@@ -8,6 +8,7 @@ import numpy as np
 import os
 import time
 import timeit
+import logging
 
 from perls2.worlds.world import World
 from perls2.arenas.bullet_arena import BulletArena
@@ -341,7 +342,7 @@ class BulletWorld(World):
                 continue
 
             for obj_idx, obj_key in enumerate(self.objects):
-                if (np.linalg.norm(self.objects[obj_key].get_linear_velocity()) >=
+                if (np.linalg.norm(self.objects[obj_key].linear_velocity) >=
                         linear_velocity_threshold):
                     all_stable = False
 

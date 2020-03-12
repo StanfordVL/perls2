@@ -69,6 +69,10 @@ class BulletRobotInterface(RobotInterface):
             from perls2.robots.bullet_sawyer_interface import BulletSawyerInterface
             return BulletSawyerInterface(
                     physics_id=physics_id, arm_id=arm_id, config=config)
+        if (config['world']['robot'] == 'panda'):
+            from perls2.robots.bullet_panda_interface import BulletPandaInterface
+            return BulletPandaInterface(
+                physics_id=physics_id, arm_id=arm_id, config=config)
         else:
             raise ValueError(
                 "invalid robot interface type. Specify in [world][robot]")
@@ -85,6 +89,37 @@ class BulletRobotInterface(RobotInterface):
         """
         self.set_joints_to_neutral_positions()
 
+    def set_joints_to_neutral_positions(self):
+        """Set joints on robot to neutral
+
+        Breaks physics by forcibly setting the joint state. To be used only at
+        reset of episode.
+        """
+        if self._arm_id is None:
+            raise ValueError("no arm id")
+        else:
+
+            self._num_joints = 7 #pybullet.getNumJoints(self._arm_id)
+
+            joint_indices = [i for i in range(0, self._num_joints)]
+
+            for i in range(self._num_joints):
+                # Force reset (breaks physics)
+                pybullet.resetJointState(
+                    bodyUniqueId=self._arm_id,
+                    jointIndex=i,
+                    targetValue=self.limb_neutral_positions[i])
+
+                # Set position control to maintain position
+                pybullet.setJointMotorControl2(
+                    bodyIndex=self._arm_id,
+                    jointIndex=i,
+                    controlMode=pybullet.POSITION_CONTROL,
+                    targetPosition=self.limb_neutral_positions[i],
+                    targetVelocity=0,
+                    force=100,
+                    positionGain=0.1,
+                    velocityGain=1.2)
     @property
     def ee_index(self):
         return self._ee_index
@@ -355,7 +390,7 @@ class BulletRobotInterface(RobotInterface):
             physicsClientId=self._physics_id)
 
         jointPoses = list(jointPoses)
-        jointPoses.extend([0, 0, 0, 0, 0])
+        #jointPoses.extend([0, 0, 0, 0, 0])
 
         for i in range(len(jointPoses)):
             pybullet.setJointMotorControl2(

@@ -98,7 +98,6 @@ class BulletArena(Arena):
         """ Load the robot and return arm_id, base_id
         """
         arm_file = os.path.join(self.data_dir, self.robot_cfg['arm']['path'])
-        base_file = os.path.join(self.data_dir, self.robot_cfg['base']['path'])
 
         arm_id = pybullet.loadURDF(
             fileName=arm_file,
@@ -112,16 +111,19 @@ class BulletArena(Arena):
         logging.info("Loaded robot" + " arm_id :" + str(arm_id))
 
         # Load Arm
-        base_id = pybullet.loadURDF(
-            fileName=base_file,
-            basePosition=self.robot_cfg['base']['pose'],
-            baseOrientation=pybullet.getQuaternionFromEuler(
-                                    self.robot_cfg['base']['orn']),
-            globalScaling=1.0,
-            useFixedBase=self.robot_cfg['base']['is_static'],
-            flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
-            physicsClientId=self.physics_id)
-
+        if (self.robot_cfg['base'] != 'None'):
+            base_file = os.path.join(self.data_dir, self.robot_cfg['base']['path'])
+            base_id = pybullet.loadURDF(
+                fileName=base_file,
+                basePosition=self.robot_cfg['base']['pose'],
+                baseOrientation=pybullet.getQuaternionFromEuler(
+                                        self.robot_cfg['base']['orn']),
+                globalScaling=1.0,
+                useFixedBase=self.robot_cfg['base']['is_static'],
+                flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
+                physicsClientId=self.physics_id)
+        else:
+            base_id = 0
         return (arm_id, base_id)
 
     def load_urdf(self, key):

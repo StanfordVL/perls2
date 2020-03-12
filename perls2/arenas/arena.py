@@ -55,6 +55,7 @@ class Arena:
         # project config file level.
         robot_name = self.config['world']['robot']
         self.robot_cfg = self.config[robot_name]
+        print(self.robot_cfg)
 
     def random_vec_bounded(self, lower_bound, upper_bound):
         """Create a xf random position within bounds
