@@ -36,6 +36,7 @@ class BulletPandaInterface(BulletRobotInterface):
         self._default_force = 100
         self._default_position_gain = 0.1
         self._default_velocity_gain = 2.5
+        #self.num_joints = 9
 
     def version(self):
         """dict of current versions of robot SDK, gripper, and robot

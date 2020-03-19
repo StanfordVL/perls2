@@ -47,7 +47,7 @@ class RealArena(Arena):
         self.physics_id = physics_id
         robot_name = self.config['world']['robot']
         self.robot_cfg = self.config[robot_name]
-        print(self.robot_cfg['arm']['path'])
+        #print(self.robot_cfg['arm']['path'])
 
         self.arm_id, self.base_id = self.load_robot()
         # Get the robot config dict by using the name of the robot

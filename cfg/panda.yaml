@@ -29,9 +29,9 @@ panda:
   # Link name of the end effector, for computing IK.
   end_effector_name: 'right_hand'
   # Joint name of the left finger of the gripper.
-  l_finger_name: 'r_gripper_l_finger'
+  l_finger_name: 'panda_leftfinger'
   # Joint name of the right finger of the gripper.
-  r_finger_name: 'r_gripper_r_finger'
+  r_finger_name: 'panda_rightfinger'
   # Link name of the left finger tip of the gripper.
   l_finger_tip_name: 'r_gripper_l_finger_tip'
   # Link name of the right finger tip of the gripper.
