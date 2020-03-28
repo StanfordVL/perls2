@@ -113,7 +113,8 @@ class BulletWorld(World):
         pybullet.setTimeStep(self._time_step, physicsClientId=self._physics_id)
 
         # Create an arena to load robot and objects
-        self.arena = BulletArena(self.config, self._physics_id)
+        
+self.arena = BulletArena(self.config, self._physics_id)
 
         self.robot_interface = BulletRobotInterface.create(
             config=self.config,
@@ -203,7 +204,7 @@ class BulletWorld(World):
             objectI = self.objects.pop(name)
         except:
             logging.ERROR('key not found')
-        self.arena._remove_object(objectI.obj_id, objectI.physics_id)
+        self.arena._remove_object(self.objectI.obj_id, self.objectI.physics_id)
 
 
     def reset(self):
