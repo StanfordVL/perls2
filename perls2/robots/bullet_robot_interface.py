@@ -89,6 +89,11 @@ class BulletRobotInterface(RobotInterface):
         """
         self.set_joints_to_neutral_positions()
 
+    @property
+    def num_joints(self):
+        num_joints =  pybullet.getNumJoints(self._arm_id, physicsClientId=self._physics_id)
+        return num_joints
+
     def set_joints_to_neutral_positions(self):
         """Set joints on robot to neutral
 
@@ -99,7 +104,7 @@ class BulletRobotInterface(RobotInterface):
             raise ValueError("no arm id")
         else:
 
-            self._num_joints = 7 #pybullet.getNumJoints(self._arm_id)
+            self._num_joints = 7 #
 
             joint_indices = [i for i in range(0, self._num_joints)]
 
@@ -239,24 +244,31 @@ class BulletRobotInterface(RobotInterface):
             value * l_finger_joint_range)
 
         r_finger_position = (
-            r_finger_joint_limits.get('lower') +
+            r_finger_joint_limits.get('upper') -
             value * r_finger_joint_range)
 
-        # Set the joint angles all at once.
+        # Set the joint angles all at once
         l_finger_index = self.get_link_id_from_name(
             self.robot_cfg['l_finger_name'])
         r_finger_index = self.get_link_id_from_name(
             self.robot_cfg['r_finger_name'])
 
         gripper_q = self.q
+        print("lfinger index "+ str(l_finger_index))
+        print("rfinger_index " + str(r_finger_index))
+
         gripper_q[l_finger_index] = l_finger_position
         gripper_q[r_finger_index] = r_finger_position
+        
+        gripper_des_q = [gripper_q[l_finger_index], 
+                          gripper_q[r_finger_index]]
+        gripper_indices = [l_finger_index, r_finger_index]
 
         pybullet.setJointMotorControlArray(
             bodyUniqueId=self._arm_id,
-            jointIndices=range(0, self._num_joints),
+            jointIndices=gripper_indices,
             controlMode=pybullet.POSITION_CONTROL,
-            targetPositions=gripper_q)
+            targetPositions=gripper_des_q)
 
     def open_gripper(self):
         """Open the gripper of the robot
@@ -537,7 +549,7 @@ class BulletRobotInterface(RobotInterface):
             from small to large.
         """
         q = []
-        for joint_index in range(self._num_joints):
+        for joint_index in range(self.num_joints):
             q_i, _, _, _, = pybullet.getJointState(
                 self._arm_id,
                 joint_index,
@@ -562,7 +574,7 @@ class BulletRobotInterface(RobotInterface):
 
         pybullet.setJointMotorControlArray(
             bodyUniqueId=self._arm_id,
-            jointIndices=range(0, self._num_joints),
+            jointIndices=range(0, 7),
             controlMode=pybullet.POSITION_CONTROL,
             targetPositions=qd)
         return q
@@ -746,7 +758,7 @@ class BulletRobotInterface(RobotInterface):
         Typically the order goes from base to end effector.
         """
         dq = []
-        for joint_index in range(self._num_joints):
+        for joint_index in range(self.num_joints):
             _, dq_i, _, _, = pybullet.getJointState(
                 self._arm_id, joint_index,
                 physicsClientId=self._physics_id)
@@ -763,6 +775,6 @@ class BulletRobotInterface(RobotInterface):
         """
         pybullet.setJointMotorControlArray(
             bodyUniqueId=self._arm_id,
-            jointIndices=range(0, self._num_joints),
+            jointIndices=range(0, 7),
             controlMode=pybullet.VELOCITY_CONTROL,
             targetVelocities=dq_d)
