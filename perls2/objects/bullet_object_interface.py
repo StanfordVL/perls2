@@ -12,8 +12,7 @@ from perls2.objects.object_interface import ObjectInterface
 
 
 class BulletObjectInterface(ObjectInterface):
-    """Abstract interface to be implemented for each real and simulated
-    robot.
+    """Abstract interface to be implemented for each real and simulated object
     """
 
     def __init__(self,
@@ -23,11 +22,14 @@ class BulletObjectInterface(ObjectInterface):
         """
         Initialize variables
 
-        Parameters
-        ----------
-            pose: list of seven floats (optional)
-                Pose of robot base in world frame
-                x y z qx qy qz qw
+        Args:
+            physics_id (int): physicsClientId from Pybullet
+            obj_id (int): bodyId from Bullet loadURDF
+            name (str): identifer for the object, best to keep unique. 
+        # TODO: support multiple copies of the same object 
+
+        Returns: 
+            None 
         """
         super().__init__()
         self._physics_id = physics_id
@@ -36,43 +38,66 @@ class BulletObjectInterface(ObjectInterface):
 
     def get_position(self):
         """Get xyz position of object in world frame.
+
+        Returns numpy array. 
         """
-
-        is_connected, method = pybullet.getConnectionInfo(self._physics_id)
-
         obj_position, obj_orn = pybullet.getBasePositionAndOrientation(
             self._obj_id, self._physics_id)
         return np.asarray(obj_position)
 
     @property
     def position(self):
-        is_connected, method = pybullet.getConnectionInfo(self._physics_id)
+        """Get position of object in world frame.
 
+        Returns numpy array
+        """
         obj_position, _ = pybullet.getBasePositionAndOrientation(
             self._obj_id, self._physics_id)
         return np.asarray(obj_position)
 
     @position.setter
     def position(self, des_position):
+        """ Set position of object in world frame.
+        Args: 
+            des_position (list 3f): xyz position in world coordinates
+        Returns: 
+            None
+        Note: does not check for collisions
+        """
         _, obj_orn = pybullet.getBasePositionAndOrientation(
             self._obj_id, self._physics_id)
         pybullet.resetBasePositionAndOrientation(
             self._obj_id, des_position, obj_orn, self._physics_id)
+    
     @property
     def pose(self):
+        """Set pose of object in world frame.
+        Args: 
+            des_position (list 7f): [x,y,z,qx,qy,qz,w] pose in world coordinates
+        Returns: 
+            None
+        Note: does not check for collisions
+        """        
         obj_position, obj_orn = pybullet.getBasePositionAndOrientation(
             self._obj_id, self._physics_id)
         return list(obj_position + obj_orn)
 
     @pose.setter
-    def pose(self, pose):
+    def pose(self, des_pose):
+        """Set pose of object in world frame.
+        Args: 
+            pose (list 7f): [x,y,z,qx,qy,qz,w] pose in world coordinates
+        Returns: 
+            None
+        Note: does not check for collisions
+        """       
         pybullet.resetBasePositionAndOrientation(
-            self._obj_id, pose[0], pose[1], self._physics_id)
+            self._obj_id, des_pose[0], des_pose[1], self._physics_id)
 
     @property
     def physics_id(self):
         return self._physics_id
-
+# TODO: REmove this fn below
     def set_obj_id(self, obj_id):
         """ Set object id for getting information about object
         """
@@ -82,6 +107,7 @@ class BulletObjectInterface(ObjectInterface):
     def obj_id(self):
         return self._obj_id
 
+# TODO make this an attribute
     def set_physics_id(self, physics_id):
         """ set physics id for pybullet sim
         """
@@ -101,7 +127,6 @@ class BulletObjectInterface(ObjectInterface):
         self.obj_pos = new_object_pos
         pybullet.resetBasePositionAndOrientation(
             self._obj_id, self.obj_pos, self.obj_orn, self._physics_id)
-
 
     @property
     def linear_velocity(self):
@@ -133,15 +158,9 @@ class BulletObjectInterface(ObjectInterface):
 
     @property
     def angular_velocity(self):
-        """Get the lienar velocity of the body.
+        """Get the angular velocity of the body.
 
-        Parameters
-        ----------
-        body_uid :
-            The body Unique ID.
-
-        Returns
-        -------
+        Return:
 
             A 3-dimensional float32 numpy array.
 
