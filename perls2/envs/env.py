@@ -91,6 +91,7 @@ class Env(gym.Env):
             high=np.array(self.config['env']['action_space']['high']),
             dtype=np.float32)
 
+        # Real worlds use pybullet for IK
         if (self.config['world']['type'] == 'Bullet' or
                 self.config['world']['type'] == 'Real'):
             self._physics_id = self.world._physics_id
