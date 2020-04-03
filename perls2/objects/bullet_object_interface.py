@@ -173,6 +173,9 @@ class BulletObjectInterface(ObjectInterface):
     @angular_velocity.setter
     def angular_velocity(self, des_angular_vel):
         """ Set linear velocity of object. Breaks physics
+
+        Args: 
+            des_angular_vel (list 3f): Desired angular velocity as wx, wy, wz
         """
         pybullet.resetBaseVelocity(objectUniqueId=self.obj_id,
             linearVelocity=self.linear_velocity,
