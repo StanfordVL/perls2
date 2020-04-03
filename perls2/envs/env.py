@@ -100,6 +100,10 @@ class Env(gym.Env):
         self.episode_num = 0
         self.num_steps = 0
 
+    def __del__(self):
+        logging.info("Env deleted perls2")
+
+        
     @abc.abstractmethod
     def reset(self):
         """Reset the environment.

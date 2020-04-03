@@ -11,8 +11,8 @@ panda:
       True
   base: 'None'
   neutral_joint_angles:
-    # TODO Change these to actual values
     [0., -0.3135, 0., -2.515, 0., 2.226, 0.87]
+
   limb_joint_names: [
   'panda_link0',
   'panda_link1',

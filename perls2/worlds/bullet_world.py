@@ -109,7 +109,7 @@ class BulletWorld(World):
         logging.info("New PhysicsID: " + str(self._physics_id))
         self._time_step = self.config['sim_params']['time_step']
 
-        pybullet.setGravity(0, 0, -10, physicsClientId=self._physics_id)
+        pybullet.setGravity(0, 0, -9.8, physicsClientId=self._physics_id)
         pybullet.setTimeStep(self._time_step, physicsClientId=self._physics_id)
 
         # Create an arena to load robot and objects
@@ -123,7 +123,10 @@ class BulletWorld(World):
         self.sensor_interface = BulletCameraInterface(
             physics_id=self._physics_id,
             image_height=self.config['sensor']['camera']['image']['height'],
-            image_width=self.config['sensor']['camera']['image']['width']
+            image_width=self.config['sensor']['camera']['image']['width'], 
+            cameraEyePosition=self.config['sensor']['camera']['extrinsics']['eye_position'],
+            cameraTargetPosition=self.config['sensor']['camera']['extrinsics']['target_position'],
+            cameraUpVector=self.config['sensor']['camera']['extrinsics']['up_vector']
             )
 
         # Create a dictionary of object interfaces
@@ -201,10 +204,10 @@ class BulletWorld(World):
         """
         try:
             objectI = self.objects.pop(name)
+            self.arena._remove_object(objectI.obj_id, objectI.physics_id)
         except:
             logging.ERROR('key not found')
         self.arena._remove_object(objectI.obj_id, objectI.physics_id)
-
 
     def reset(self):
         """Reset the world.

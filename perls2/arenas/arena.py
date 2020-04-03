@@ -7,7 +7,8 @@ import logging
 
 class Arena:
     """The class definition for arenas
-    Arenas contain interfaces for robots, sensors and objects.
+    Arenas are static structures that other interfaces can reference for 
+    params set in config files, including randomized parameters. 
     """
 
     def __init__(self,
@@ -103,10 +104,10 @@ class Arena:
         return self.random_vec_bounded(lower_bound, upper_bound)
 
     def randomize_obj_pos(self):
-        """Randomize camera placement in sim
+        """Randomize object position in sim
             Args: None
             Returns:
-                -camera_eye_pos (3f) randomized position
+                - (3f) randomized position
         """
 
         return self.randomize_param(self._random_obj_cfg['position'])

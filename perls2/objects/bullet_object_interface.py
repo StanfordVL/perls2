@@ -48,10 +48,16 @@ class BulletObjectInterface(ObjectInterface):
     def position(self):
         is_connected, method = pybullet.getConnectionInfo(self._physics_id)
 
-        obj_position, obj_orn = pybullet.getBasePositionAndOrientation(
+        obj_position, _ = pybullet.getBasePositionAndOrientation(
             self._obj_id, self._physics_id)
         return np.asarray(obj_position)
 
+    @position.setter
+    def position(self, des_position):
+        _, obj_orn = pybullet.getBasePositionAndOrientation(
+            self._obj_id, self._physics_id)
+        pybullet.resetBasePositionAndOrientation(
+            self._obj_id, des_position, obj_orn, self._physics_id)
     @property
     def pose(self):
         obj_position, obj_orn = pybullet.getBasePositionAndOrientation(

@@ -5,7 +5,7 @@ ground:
 
 # path: 'tables/table_svl/table.urdf'
 table:
-  path: 'scene_objects/table_svl/table_grasp.urdf'
+  path: 'scene_objects/table_svl/table.urdf' #'scene_objects/table_svl/table_grasp.urdf'
   pose: [[0.6, 0, -0.05], [0, 0, 0.0]]
   height:
     range: [0.8, 0.8]
