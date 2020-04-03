@@ -1,5 +1,4 @@
-"""
-Abstract class defining the interface to the objects.
+"""Class defining the interface to the objects in PyBullet
 """
 
 import abc  # For abstract class definitions
@@ -12,7 +11,20 @@ from perls2.objects.object_interface import ObjectInterface
 
 
 class BulletObjectInterface(ObjectInterface):
-    """Abstract interface to be implemented for each real and simulated object
+    """Interface to objects in Pybullet. 
+
+    Attributes: 
+        physics_id (int): physicsClientId from Pybullet
+        obj_id (int): bodyId from Bullet loadURDF
+        name (str): identifer for the object, best to keep unique.        
+        position (ndarray 3f): xyz position in world space
+        pose (ndarray 7f): x,y,z,qx,qy,qz,w pose of the object in world frame.
+        linear_velocity (ndarray 3f): linear vel. of object in world frame. 
+            xdot, ydot, zdot
+        angular_velocity (ndarray 3f): ang. vel. of object in world frame. 
+            wx, wy, wz.
+
+
     """
 
     def __init__(self,
