@@ -12,7 +12,7 @@ import six  # For abstract class definitions
 import gym
 import gym.spaces as spaces
 import numpy as np
-
+import logging
 # Use YamlConfig for config files
 from perls2.utils.yaml_config import YamlConfig
 # Use world factory to create world based on config
