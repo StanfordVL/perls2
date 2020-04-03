@@ -97,22 +97,23 @@ class BulletObjectInterface(ObjectInterface):
     @property
     def physics_id(self):
         return self._physics_id
-# TODO: REmove this fn below
-    def set_obj_id(self, obj_id):
-        """ Set object id for getting information about object
+ 
+    @physics_id.setter  
+    def physics_id(self, physics_id):
+        """ set physics id for pybullet sim
         """
-        self._obj_id = obj_id
-
+        self._physics_id = physics_id
+    
     @property
     def obj_id(self):
         return self._obj_id
 
-# TODO make this an attribute
-    def set_physics_id(self, physics_id):
-        """ set physics id for pybullet sim
+    @obj_id.setter
+    def obj_id(self, new_id):
+        """ setter for obj_id
         """
-        self.physics_id = physics_id
-
+        self._obj_id = new_id
+    
     def place(self, new_object_pos):
         """ Given an upper and lower bound,
             set the location of the object to a new position
