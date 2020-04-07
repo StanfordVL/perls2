@@ -144,10 +144,10 @@ class BulletWorld(World):
         self.print_this_step = False
 
         self.name = name
-        # To ensure smoothness of simulation and collisions, execute
+
+        #To ensure smoothness of simulation and collisions, execute
         # a number of simulation steps per action received by policy
-        self.ctrl_steps_per_action = (
-            self.config['sim_params']['steps_per_action'])
+        self.ctrl_steps_per_action = self.config['sim_params']['steps_per_action']
 
         self.is_sim = True
 
@@ -235,8 +235,12 @@ class BulletWorld(World):
         # TODO: add real time option
 
         # Prepare for next step by executing action
+
         for exec_steps in range(self.ctrl_steps_per_action):
             pybullet.stepSimulation(self._physics_id)
+            self.robot_interface.step()
+        self.robot_interface.action_set = False
+
 
     def get_observation(self):
         """Get observation of current env state
@@ -271,6 +275,11 @@ class BulletWorld(World):
     def info(self):
         return {
                 }
+
+    def rewardFunction(self):
+        """ User defined-Reward for agent given env state
+        """
+        raise NotImplementedError
 
     def check_stable(self,
                      linear_velocity_threshold,
@@ -354,4 +363,5 @@ class BulletWorld(World):
 
             if ((num_stable_steps >= min_stable_steps) or
                     (num_steps >= max_steps)):
+
                 break

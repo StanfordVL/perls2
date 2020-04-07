@@ -6,27 +6,72 @@ Author: Roberto Martin-Martin
 
 import abc  # For abstract class definitions
 import six  # For abstract class definitions
-
+from tq_control.controllers.ee_imp import EEImpController
+from tq_control.robot_model.manual_model import ManualModel
+#from tq_control.interpolator.reflexxes_interpolator import ReflexxesInterpolator
+import numpy as np
+import logging
+logging.basicConfig(level=logging.DEBUG)
 
 @six.add_metaclass(abc.ABCMeta)
 class RobotInterface(object):
     """Abstract interface to be implemented for each real and simulated
     robot.
+
+    Attributes:
+        control_type (str): Type of controller for robot to use
+            e.g. IK, OSC, Joint Velocity
+        model (ManualModel): a model of the robot state as defined by tq_control.
+        controller (Controller): tq_control object that takes robot states and compute torques.
+
     """
 
     def __init__(self,
-                 controlType=None):
+                 controlType='EEImp'):
         """
         Initialize variables
 
         Args:
             control_type (str): Type of controller for robot to use
                 e.g. IK, OSC, Joint Velocity
+            model (ManualModel): a model of the robot state as defined by tq_control.
+            controller (Controller): tq_control object that takes robot states and compute torques.
 
         :TODO:
             * controller type not currently supported
         """
         self.controlType = controlType
+        self.model = ManualModel()
+
+        self.action_set = False
+
+    def update(self):
+        self.model.update_states(ee_pos=np.asarray(self.ee_position),
+                                 ee_ori=np.asarray(self.ee_orientation),
+                                 ee_pos_vel=np.asarray(self.ee_v),
+                                 ee_ori_vel=np.asarray(self.ee_w),
+                                 joint_pos=np.asarray(self.motor_joint_positions),
+                                 joint_vel=np.asarray(self.motor_joint_velocities))
+
+        self.model.update_model(J_pos=self.linear_jacobian,
+                                J_ori=self.angular_jacobian,
+                                mass_matrix=self.mass_matrix)
+
+    def step(self):
+        """Update the robot state and model, set torques from controller
+        """
+        self.update()
+        if self.action_set:
+            logging.debug("action i set")
+            torques = self.controller.run_controller() + self.N_q
+            self.set_torques(torques)
+        else:
+            logging.ERROR("ACTION NOT SET")
+
+    def move_ee_delta(self, delta):
+        logging.debug("delta " + str(delta))
+        self.controller.set_goal(delta)
+        self.action_set = True
 
     @abc.abstractmethod
     def create(config):

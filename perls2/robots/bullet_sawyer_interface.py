@@ -11,6 +11,7 @@ from perls2.robots.bullet_robot_interface import BulletRobotInterface
 import logging
 
 
+
 class BulletSawyerInterface(BulletRobotInterface):
     """ Class for Sawyer Robot Interface in Pybullet. This class provides the
     functionsfor information about the state of the robot as well as sending
@@ -23,7 +24,7 @@ class BulletSawyerInterface(BulletRobotInterface):
                  physics_id,
                  arm_id,
                  config=None,
-                 controlType=None):
+                 controlType='EEImp'):
         """
         Initialize variables
 
@@ -50,7 +51,6 @@ class BulletSawyerInterface(BulletRobotInterface):
     @property
     def ee_index(self):
         return self.get_link_id_from_name("right_hand")
-
 
     @property
     def version(self):

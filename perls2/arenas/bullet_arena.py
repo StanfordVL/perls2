@@ -8,14 +8,13 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 
 class BulletArena(Arena):
-    """The class definition for Areanas using pybullet. 
+    """The class definition for Arenas using pybullet. 
     Arenas 
     """
 
     def __init__(self,
                  config,
                  physics_id):
-
         """ Initialization function.
 
             Gets parameters from configuration file for managing experimental
@@ -32,6 +31,7 @@ class BulletArena(Arena):
         self.physics_id = physics_id
         self._bodies_pbid_dict = {}
         self._objects_dict = {}
+        self.robot_type = self.config['world']['robot']
 
         # initialize view matrix
         self._view_matrix = pybullet.computeViewMatrix(
@@ -54,8 +54,8 @@ class BulletArena(Arena):
 
         # Load URDFs to set up simulation environment.
         logging.info("Bullet Arena Created")
-
         self.plane_id = self.load_ground()
+
         (self.arm_id, self.base_id) = self.load_robot()
         logging.debug("Robot loaded")
         reset_angles = self.robot_cfg['neutral_joint_angles']
@@ -127,6 +127,7 @@ class BulletArena(Arena):
                 physicsClientId=self.physics_id)
         else:
             base_id = -1
+
         return (arm_id, base_id)
 
     def load_urdf(self, key):
@@ -266,3 +267,4 @@ class BulletArena(Arena):
                 farVal=rand_far_plane)
 
         return random_projection_matrix
+

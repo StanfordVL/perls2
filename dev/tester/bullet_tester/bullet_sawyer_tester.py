@@ -21,16 +21,75 @@ from perls2.utils.yaml_config import YamlConfig
 import os
 import numpy as np
 import time
+<<<<<<< HEAD
 import pybullet_data
+=======
+ctrl_steps_per_action = 1
+
+>>>>>>> tq_control
+
+def step_till_close_enough_fn(
+        attribute,
+        exec_fn,
+        goal,
+        max_steps,
+        rtol=1,
+        atol=1):
+    """
+    Step the simulation until attribute reaches goal while executing a fn
+
+    Args:
+        attribute (string): string of the robot to monitor
+        exec_fn (string): string of the function of the robot to execute at each
+            step
+        goal (array): goal for the attribute to reach.
+        max_steps (int): max steps before returning an error
+        rtol (float): relative tolerance for attribute to reach goal
+        atol (float): absolute tolerance for attribute to reach goal
+
+    Returns:
+        -1 if failed or
+        num steps (int) if complete.
+    """
 
 
-def step_sim(physics_id):
-    ctrl_steps_per_action = 200
+    global physics_id
+    global bullet_sawyer
+    global ctrl_steps_per_action
 
-    for exec_steps in range(ctrl_steps_per_action):
+    global tuning_file # For logging
+    steps = 0
+    # while the attribute has not reached the bounds for the goal
+    # and the max steps have not been exceeded, execute action
+    # and step sim forward.
+    while(
+        (not np.allclose(
+            getattr(bullet_sawyer,attribute), goal, rtol, atol)
+        and (steps < max_steps))):
+
+        joint_torques = getattr(bullet_sawyer,exec_fn)(goal)
+
+        bullet_sawyer.set_torques(joint_torques)
         pybullet.stepSimulation(physics_id)
+        steps+=1
 
+<<<<<<< HEAD
 
+=======
+        # Log the state
+        print(getattr(bullet_sawyer, attribute))
+        for joint in range(9):
+            tuning_data[joint].append(getattr(bullet_sawyer, attribute)[joint])
+        tuning_torques.append(joint_torques)
+    if (np.allclose(
+            getattr(bullet_sawyer,attribute),
+            goal,
+            rtol,
+            atol)):
+        return steps
+    else:
+        return -1
+>>>>>>> tq_control
 def step_till_close_enough(
         attribute,
         goal,
@@ -43,6 +102,7 @@ def step_till_close_enough(
     steps = 0
     while(
         (not np.allclose(
+<<<<<<< HEAD
             getattr(bullet_sawyer, attribute),
             goal,
             rtol,
@@ -58,6 +118,24 @@ def step_till_close_enough(
             atol))
     return steps
 
+=======
+            getattr(bullet_sawyer,attribute),
+            goal,
+            rtol,
+            atol) and
+        (steps < max_steps))):
+
+        pybullet.stepSimulation(physics_id)
+        steps+=1
+    if (np.allclose(
+            getattr(bullet_sawyer,attribute),
+            goal,
+            rtol,
+            atol)):
+        return steps
+    else:
+        return -1
+>>>>>>> tq_control
 
 def step_till_close_enough_index(
         attribute,
@@ -76,17 +154,26 @@ def step_till_close_enough_index(
             goal,
             rtol,
             atol) and
+<<<<<<< HEAD
          (steps <= max_steps))):
 
         pybullet.stepSimulation(physics_id)
         steps += 1
     print("result " + attribute + " " + str(
+=======
+        (steps <= max_steps))):
+
+        pybullet.stepSimulation(physics_id)
+        steps+=1
+    print("result " + attribute + " "  + str(
+>>>>>>> tq_control
             np.allclose(
                 getattr(bullet_sawyer, attribute)[index],
                 goal,
                 rtol,
                 atol)))
     return steps
+<<<<<<< HEAD
 
 
 # ###################SETUP################################
@@ -99,21 +186,41 @@ data_dir = config['data_dir']
 
 # Load URDFs
 
+=======
+####################SETUP################################
+# TODO: Change this to its own file in the tester folder
+# Create a pybullet simulation in isolation
+physics_id = pybullet.connect(pybullet.DIRECT)
+dir_path = os.path.dirname(os.path.realpath(__file__))
+yaml_dir = os.path.join(dir_path, 'tester_config.yaml')
+config = YamlConfig(yaml_dir)
+data_dir = config['data_dir']
+
+# Load URDFs
+import pybullet_data
+>>>>>>> tq_control
 pybullet.setAdditionalSearchPath(pybullet_data.getDataPath())
 
 # Load ground plane
-os.chdir('..')
+
 plane_path = os.path.join(data_dir, config['ground']['path'])
-plane_path = '../' + plane_path
 plane_id = pybullet.loadURDF(
     fileName=plane_path,
     basePosition=config['ground']['pose'][0],
+<<<<<<< HEAD
     baseOrientation=pybullet.getQuaternionFromEuler(
             config['ground']['pose'][1]),
     globalScaling=1.0,
     useFixedBase=config['ground']['is_static'],
     flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
     physicsClientId=physics_id)
+=======
+    baseOrientation=pybullet.getQuaternionFromEuler(config['ground']['pose'][1]),
+    globalScaling=1.0,
+    useFixedBase=config['ground']['is_static'],
+    flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
+    physicsClientId=physics_id )
+>>>>>>> tq_control
 
 # Load arm
 arm_id = pybullet.loadURDF(
@@ -203,9 +310,14 @@ if (bullet_sawyer.q != init_joint_positions):
 bullet_sawyer.set_joints_to_neutral_positions()
 if (bullet_sawyer.q != bullet_sawyer.limb_neutral_positions):
     # reset to wrong neutral position / failed
+<<<<<<< HEAD
     raise ValueError(
         "BulletSawyerInterface.set_joints_neutral_positions failed")
 
+=======
+    raise ValueError("BulletSawyerInterface.set_joints_neutral_positions failed")
+pybullet.stepSimulation()
+>>>>>>> tq_control
 # q setter tester
 bullet_sawyer.q = init_joint_positions
 
@@ -215,6 +327,7 @@ while ((np.allclose(
             bullet_sawyer.q,
             init_joint_positions,
             rtol=1e-02,
+<<<<<<< HEAD
             atol=1e-02) is False) and
         (steps < 200)):
         pybullet.stepSimulation(physics_id)
@@ -224,6 +337,18 @@ if (np.allclose(
             bullet_sawyer.q, init_joint_positions,
             rtol=1e-02,
             atol=1e-02) is False):
+=======
+            atol=1e-02) == False) and
+        (steps < 200)):
+        pybullet.stepSimulation(physics_id)
+        steps+=1
+reached_goal = np.allclose(
+            bullet_sawyer.q,init_joint_positions,
+            rtol=1e-02,
+            atol=1e-02)
+if (reached_goal== False):
+    print(bullet_sawyer.q)
+>>>>>>> tq_control
     raise ValueError("BulletSawyerInterface.q setter failed")
 # TODO  test random joint positions
 # TODO test invalid joint angles
@@ -284,11 +409,12 @@ if (not(np.allclose(
                 1.57,
                 rtol=1e-02,
                 atol=1e-02))):
-    print("bulet sawyer_base : " + str(bullet_sawyer.q[0]))
+    print("bullet sawyer_base : " + str(bullet_sawyer.q[0]))
     raise ValueError("set joint position control failed")
 
 bullet_sawyer.close_gripper()
 input('did gripper close?')
+<<<<<<< HEAD
 step_sim(physics_id)
 bullet_sawyer.open_gripper()
 step_sim(physics_id)
@@ -299,4 +425,23 @@ input('did gripper close?')
 bullet_sawyer.open_gripper()
 step_sim(physics_id)
 input('did gripper open?')
+=======
+for step in range(500):
+    pybullet.stepSimulation()
+
+bullet_sawyer.open_gripper()
+for step in range(500):
+    pybullet.stepSimulation()
+# step_sim(physics_id)
+# input('did gripper open?')
+# bullet_sawyer.close_gripper()
+# step_sim(physics_id)
+# input('did gripper close?')
+# bullet_sawyer.open_gripper()
+# step_sim(physics_id)
+# input('did gripper open?')
+
+
+
+>>>>>>> tq_control
 print("############ All tests complete. ###########")
