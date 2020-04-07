@@ -30,7 +30,7 @@ def get_action(observation):
   return action
 
 
-env = SimpleReachEnvTq('./tester_config.yaml', True, None)
+env = SimpleReachEnvTq('dev/tester/tq_tester/tester_config.yaml', True, None)
 
 # Lists for saving demonstrations
 training_list = []
