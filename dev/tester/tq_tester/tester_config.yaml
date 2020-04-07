@@ -1,7 +1,7 @@
 # Cfg file for SimpleReachEnv
 world:
   type: 'Bullet'
-  robot: 'sawyer'
+  robot: 'panda'
 data_dir: 'data'
 # Simulation parameters
 sim_params:
@@ -10,6 +10,7 @@ sim_params:
   MAX_STEPS: 100
 
 !include ../../../cfg/sawyer.yaml
+!include ../../../cfg/panda.yaml
 !include ../../../cfg/table_and_bin.yaml
 scene_objects:
   ['table', 'bin']
