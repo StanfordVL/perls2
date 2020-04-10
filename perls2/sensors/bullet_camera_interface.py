@@ -74,6 +74,15 @@ class BulletCameraInterface(SimCameraInterface):
         """Starts the camera stream."""
         self.frames()
 
+
+    def stop(self):
+        """Stops the sensor stream.
+
+        Returns:
+            True if succeed, False if fail.
+        """
+        pass 
+        
     def set_physics_id(self, physics_id):
         """ Set unique physics client id
         """
