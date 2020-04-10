@@ -78,7 +78,7 @@ class BulletArena(Arena):
                     pybullet.stepSimulation(self.physics_id)
 
         self.object_dict = {}
-        if ('object' in self.config.keys()):
+        if (isinstance(self.config['object'], dict)):
             # Load the objects from the config file and
             # save their names and pybullet body id 
             # (not object id from config file)
