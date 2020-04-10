@@ -75,6 +75,8 @@ class Env(gym.Env):
         self.robot_interface = self.world.robot_interface
         self.sensor_interface = self.world.sensor_interface
 
+        self.has_objects = isinstance(self.config['object'], dict)
+
         # Currently only sim worlds support object interfaces
         if self.world.is_sim:
             self.objects = self.world.objects
@@ -104,7 +106,6 @@ class Env(gym.Env):
         logging.info("Env deleted perls2")
 
         
-    @abc.abstractmethod
     def reset(self):
         """Reset the environment.
 
@@ -116,14 +117,13 @@ class Env(gym.Env):
         self.world.reset()
         self.robot_interface.reset()
         self.sensor_interface.reset()
-        if (self.world.is_sim):
+        if (self.world.is_sim and self.has_objects):
             self.object_interface.reset()
 
         observation = self.get_observation()
 
         return observation
 
-    @abc.abstractmethod
     def step(self, action):
         """Take a step.
 
@@ -202,3 +202,6 @@ class Env(gym.Env):
         """ Compute and return user-defined reward for agent given env state.
         """
         raise NotImplementedError
+
+    def _check_termination(self):
+        return self.num_steps >= self.MAX_STEPS            
