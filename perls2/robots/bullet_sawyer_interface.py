@@ -24,7 +24,7 @@ class BulletSawyerInterface(BulletRobotInterface):
                  physics_id,
                  arm_id,
                  config=None,
-                 controlType='EEImp'):
+                 controlType='JointVelocity'):
         """
         Initialize variables
 
