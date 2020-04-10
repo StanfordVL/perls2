@@ -174,7 +174,7 @@ class SimpleReachEnv(Env):
             logging.debug(
                 'Next position: ' + str(next_position))
 
-        self.robot_interface.ee_pose = (list(next_position) +
+        self.robot_interface.set_ee_pose(list(next_position) + 
                                         [0, 0.952846, 0, 0.303454])
 
     def _check_termination(self):
