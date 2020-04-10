@@ -118,7 +118,8 @@ class BulletWorld(World):
         self.robot_interface = BulletRobotInterface.create(
             config=self.config,
             physics_id=self._physics_id,
-            arm_id=self.arena.arm_id)
+            arm_id=self.arena.arm_id, 
+            controlType=self.config['controller']['selected_type'])
 
         self.sensor_interface = BulletCameraInterface(
             physics_id=self._physics_id,
