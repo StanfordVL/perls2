@@ -1,17 +1,19 @@
 """Class defining the interface to the Pybullet simulation robots.
 """
-
 import pybullet
 import numpy as np
 import abc
 
 from perls2.robots.robot_interface import RobotInterface
 from tq_control.controllers.ee_imp import EEImpController
+from tq_control.controllers.joint_vel import JointVelController
+from tq_control.controllers.joint_imp import JointImpController
 from tq_control.robot_model.manual_model import ManualModel
 import logging
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 from perls2.robots.controller import OperationalSpaceController
 import scipy
+from scipy.spatial.transform import Rotation as R
 
 
 def nested_tuple_to_list(tuple_input):
@@ -28,7 +30,7 @@ class BulletRobotInterface(RobotInterface):
                  physics_id,
                  arm_id,
                  config=None,
-                 controlType='EEImp'):
+                 controlType='JointVelocity'):
         """
         Initialize variables
 
@@ -36,7 +38,9 @@ class BulletRobotInterface(RobotInterface):
             -physics_id (int): Bullet physicsClientId
             -arm_id (int): bodyID for the robot arm from pybullet.loadURDF
             -config (dict): configuration file for the robot.
-            -control_type: Controller type (currently not implemented.)
+            -control_type (str): sting identifying the type of controller choose from:
+                -'EEimp' : end_effector impedance control.
+                -'JointVelocity': Joint Velocity Control
         """       
         # super().__init__(controlType)
         self._physics_id = physics_id
@@ -56,26 +60,35 @@ class BulletRobotInterface(RobotInterface):
         self._velocity_threshold = (
             self.robot_cfg['limb_velocity_threshold'])
 
-        self._default_force = 100
-        self._default_position_gain = 0.1
-        self._default_velocity_gain = 2.5
-
         # URDF properties
         self.joint_limits = self.get_joint_limits()
         self._joint_max_velocities = self.get_joint_max_velocities()
         self._joint_max_forces = self.get_joint_max_forces()
         self._dof = self.get_dof()
-        
+
+        # available (tuned) controller types for this interface
+        self.available_controllers = ['EEImpedance', 'JointVelocity', 'JointImpedance']
         super().__init__(controlType)
         self.update()
-        if self.controlType == 'EEImp':
+        if self.controlType == 'EEImpedance':
             self.controller = EEImpController(self.model,
                 kp=200, damping=0.5,
                 interpolator_pos =None,
                 interpolator_ori=None,
-                control_freq=self.config['sim_params']['steps_per_action'])
+                control_freq=self.config['sim_params']['control_freq'])
 
-    def create(config, physics_id, arm_id):
+        if self.controlType == 'JointVelocity':
+            self.controller = JointVelController(
+                robot_model=self.model, 
+                kv=self.config['controller']['JointVelocity']['kv'])
+        
+        if self.controlType == 'JointImpedance':
+            self.controller = JointImpController(
+                robot_model= self.model,
+                kp=self.config['controller']['JointImpedance']['kp'],
+                damping=self.config['controller']['JointImpedance']['damping'])
+
+    def create(config, physics_id, arm_id, controlType):
         """Factory for creating robot interfaces based on type
 
         Creates a Bullet Sawyer or Panda Interface.
@@ -93,12 +106,12 @@ class BulletRobotInterface(RobotInterface):
         if (config['world']['robot'] == 'sawyer'):
             from perls2.robots.bullet_sawyer_interface import BulletSawyerInterface
             return BulletSawyerInterface(
-                    physics_id=physics_id, arm_id=arm_id, config=config)
+                    physics_id=physics_id, arm_id=arm_id, config=config, controlType=controlType)
         if (config['world']['robot'] == 'panda'):
             from perls2.robots.bullet_panda_interface import BulletPandaInterface
             return BulletPandaInterface(
-                physics_id=physics_id, arm_id=arm_id, config=config)
-        else:
+                physics_id=physics_id, arm_id=arm_id, config=config, controlType=controlType)
+         else:
             raise ValueError(
                 "invalid robot interface type. Specify in [world][robot]")
 
@@ -113,6 +126,38 @@ class BulletRobotInterface(RobotInterface):
             *This may need to do other things
         """
         self.set_joints_to_neutral_positions()
+
+    def change_controller(self, new_type):
+        """Change to a different controller type.
+        Args: 
+            new_type (str): keyword for desired control type. 
+                Choose from: 
+                    -'EEImpedance'
+                    -'JointVelocity'
+                    'JointImpedance'
+        """ 
+
+        if (new_type) not in ['EEImpedance', 'JointVelocity', 'JointImpedance']:
+            raise ValueError("Invalid control type. Choose from 'EEImpedance', 'JointVelocity', 'JointImpedance'")
+
+        if new_type == 'EEImpedance':
+            self.controller = EEImpController(self.model,
+                kp=200, damping=0.5,
+                interpolator_pos =None,
+                interpolator_ori=None,
+                control_freq=self.config['sim_params']['control_freq'])
+
+        if self.controlType == 'JointVelocity':
+            self.controller = JointVelController(
+                robot_model=self.model, 
+                kv=self.config['controller']['JointVelocity']['kv'])
+        
+        if self.controlType == 'JointImpedance':
+            self.controller = JointImpController(
+                robot_model= self.model,
+                kp=self.config['controller']['JointImpedance']['kp'],
+                damping=self.config['controller']['JointImpedance']['damping'])
+
 
     @property
     def num_joints(self):
@@ -279,6 +324,7 @@ class BulletRobotInterface(RobotInterface):
                 }
 
         return limit
+        
     def get_joint_limits(self):
         """ Get list of all joint limits
 
@@ -374,6 +420,37 @@ class BulletRobotInterface(RobotInterface):
         """dict of current versions of robot SDK, gripper, and robot
         """
         raise NotImplementedError
+
+    def inverse_kinematics(self, position, orientation):
+        """Calculate inverse kinematics to get joint angles for a pose.
+
+        Use pybullet's internal IK solver.
+        To be used with a joint-space controller. 
+
+        Args: 
+            position (list 3f): [x, y, z] of desired ee position
+            orientation (list 4f): [qx, qy, qz, w] for desired ee orientation as quaternion.
+
+        returns:
+            jointPoses (list 7f): joint positions that solve IK in radians.
+        """        
+ 
+        ikSolver = 0
+        orientation = self.ee_orientation
+
+        jointPoses = pybullet.calculateInverseKinematics(
+            self._arm_id,
+            self._ee_index,
+            position,
+            orientation,
+            solver=ikSolver,
+            maxNumIterations=100,
+            residualThreshold=.01,
+            physicsClientId=self._physics_id)
+
+        jointPoses = list(jointPoses)
+        return jointPoses
+
 
     @property
     def ee_position(self):
@@ -1257,7 +1334,7 @@ class BulletRobotInterface(RobotInterface):
         joint_states = [j for j, i in zip(joint_states, joint_infos) if i[2] != pybullet.JOINT_FIXED]
 
         joint_accelerations = [state[2] for state in joint_states]
-
+        print("dims " + str(np.shape(joint_accelerations)))
         return joint_accelerations
     @property
     def gravity_vector(self):
@@ -1300,6 +1377,7 @@ class BulletRobotInterface(RobotInterface):
         # For some reason you have to keep disabling the velocity motors
         # before every torque command.
         self.set_to_torque_mode()
+
         pybullet.setJointMotorControlArray(
             bodyUniqueId=self._arm_id,
             jointIndices=range(0,7),
