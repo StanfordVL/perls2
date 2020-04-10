@@ -27,7 +27,7 @@ class RobotInterface(object):
     """
 
     def __init__(self,
-                 controlType='EEImp'):
+                 controlType='None'):
         """
         Initialize variables
 
@@ -42,7 +42,6 @@ class RobotInterface(object):
         """
         self.controlType = controlType
         self.model = ManualModel()
-
         self.action_set = False
 
     def update(self):
@@ -50,8 +49,9 @@ class RobotInterface(object):
                                  ee_ori=np.asarray(self.ee_orientation),
                                  ee_pos_vel=np.asarray(self.ee_v),
                                  ee_ori_vel=np.asarray(self.ee_w),
-                                 joint_pos=np.asarray(self.motor_joint_positions),
-                                 joint_vel=np.asarray(self.motor_joint_velocities))
+                                 joint_pos=np.asarray(self.motor_joint_positions[:7]),
+                                 joint_vel=np.asarray(self.motor_joint_velocities[:7])
+                                )
 
         self.model.update_model(J_pos=self.linear_jacobian,
                                 J_ori=self.angular_jacobian,
@@ -61,8 +61,8 @@ class RobotInterface(object):
         """Update the robot state and model, set torques from controller
         """
         self.update()
-        if self.action_set:
-            logging.debug("action i set")
+        if self.action_set:               
+            logging.debug("action is set")
             torques = self.controller.run_controller() + self.N_q
             self.set_torques(torques)
         else:
@@ -71,6 +71,15 @@ class RobotInterface(object):
     def move_ee_delta(self, delta):
         logging.debug("delta " + str(delta))
         self.controller.set_goal(delta)
+        self.action_set = True
+
+    def set_dq(self, dq_des):
+        logging.debug("desired dq " + str(dq_des))
+        self.controller.set_goal(dq_des)
+        self.action_set = True
+
+    def set_ee_pose(self, pose):
+        self.controller.set_goal(pose)
         self.action_set = True
 
     @abc.abstractmethod
