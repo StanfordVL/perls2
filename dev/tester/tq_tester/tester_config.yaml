@@ -6,7 +6,7 @@ data_dir: 'data'
 # Simulation parameters
 sim_params:
   time_step: 0.004166  # 1./240.
-  steps_per_action: 20 # policy to sim update ratio
+  steps_per_action: 5 # policy to sim update ratio
   MAX_STEPS: 100
 
 !include ../../../cfg/sawyer.yaml
