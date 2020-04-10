@@ -120,6 +120,8 @@ class BulletWorld(World):
             physics_id=self._physics_id,
             arm_id=self.arena.arm_id, 
             controlType=self.config['controller']['selected_type'])
+        
+        self.control_freq = self.config['sim_params']['control_freq']
 
         self.sensor_interface = BulletCameraInterface(
             physics_id=self._physics_id,
@@ -238,8 +240,10 @@ class BulletWorld(World):
         # Prepare for next step by executing action
 
         for exec_steps in range(self.ctrl_steps_per_action):
-            pybullet.stepSimulation(self._physics_id)
-            self.robot_interface.step()
+            for step in range(self.control_freq):
+                pybullet.stepSimulation(self._physics_id)
+                self.robot_interface.step()
+            #pybullet.stepSimulation(self._physics_id)
         self.robot_interface.action_set = False
 
 
