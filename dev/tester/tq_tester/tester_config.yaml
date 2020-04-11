@@ -1,12 +1,13 @@
 # Cfg file for SimpleReachEnv
 world:
   type: 'Bullet'
-  robot: 'panda'
+  robot: 'sawyer'
 data_dir: 'data'
 # Simulation parameters
 sim_params:
   time_step: 0.004166  # 1./240.
-  steps_per_action: 5 # policy to sim update ratio
+  steps_per_action: 1 # policy to sim update ratio
+  control_freq: 5
   MAX_STEPS: 100
 
 !include ../../../cfg/sawyer.yaml
@@ -64,6 +65,18 @@ sensor:
         far_plane:
           lower: 10
           upper: 150
+
+controller:
+  selected_type: 'EEImpedance' # Choose between 'EEImpedance', 'JointVelocity'
+  EEImpedance:
+    kp: 200 # P Gain for Impedance Control
+    damping: 0.5 # Damping factor [0,1] 
+  JointVelocity: 
+    kp: 0.5
+  JointImpedance: 
+    kp: 50
+    damping: 1
+  interpolator: 'linear'
 
 object:
   object_dict:
