@@ -11,6 +11,7 @@ from tq_control.robot_model.manual_model import ManualModel
 #from tq_control.interpolator.reflexxes_interpolator import ReflexxesInterpolator
 import numpy as np
 import logging
+from scipy.spatial.transform import Rotation as R
 logging.basicConfig(level=logging.DEBUG)
 
 @six.add_metaclass(abc.ABCMeta)
@@ -27,7 +28,7 @@ class RobotInterface(object):
     """
 
     def __init__(self,
-                 controlType='None'):
+                 controlType):
         """
         Initialize variables
 
@@ -45,8 +46,9 @@ class RobotInterface(object):
         self.action_set = False
 
     def update(self):
+        orn = R.from_quat(self.ee_orientation)
         self.model.update_states(ee_pos=np.asarray(self.ee_position),
-                                 ee_ori=np.asarray(self.ee_orientation),
+                                 ee_ori= np.asarray(self.ee_orientation),
                                  ee_pos_vel=np.asarray(self.ee_v),
                                  ee_ori_vel=np.asarray(self.ee_w),
                                  joint_pos=np.asarray(self.motor_joint_positions[:7]),
@@ -62,7 +64,6 @@ class RobotInterface(object):
         """
         self.update()
         if self.action_set:               
-            logging.debug("action is set")
             torques = self.controller.run_controller() + self.N_q
             self.set_torques(torques)
         else:
