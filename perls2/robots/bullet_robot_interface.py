@@ -67,8 +67,8 @@ class BulletRobotInterface(RobotInterface):
         self._dof = self.get_dof()
 
         # available (tuned) controller types for this interface
-        self.available_controllers = ['EEImpedance', 'JointVelocity', 'JointImpedance']
-        super().__init__(controlType)
+        self.available_controllers = ['EEImpedance', 'JointVelocity', 'JointImpedance', 'Native']
+        # super().__init__(controlType)
         self.update()
         if self.controlType == 'EEImpedance':
             self.controller = EEImpController(self.model,
@@ -87,6 +87,12 @@ class BulletRobotInterface(RobotInterface):
                 robot_model= self.model,
                 kp=self.config['controller']['JointImpedance']['kp'],
                 damping=self.config['controller']['JointImpedance']['damping'])
+
+        if self.controlType == 'Native':
+            self.controller = PBController(
+                arm_id=self.arm_id, 
+                physics_id=self.physics_id, 
+                robot_model = self.model)
 
     def create(config, physics_id, arm_id, controlType):
         """Factory for creating robot interfaces based on type
