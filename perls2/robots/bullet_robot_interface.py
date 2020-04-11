@@ -6,6 +6,7 @@ import abc
 
 from perls2.robots.robot_interface import RobotInterface
 from tq_control.controllers.ee_imp import EEImpController
+from tq_control.controllers.pb_controller import PBController
 from tq_control.controllers.joint_vel import JointVelController
 from tq_control.controllers.joint_imp import JointImpController
 from tq_control.robot_model.manual_model import ManualModel
