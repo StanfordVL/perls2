@@ -10,6 +10,7 @@ from tq_control.controllers.pb_controller import PBController
 from tq_control.controllers.joint_vel import JointVelController
 from tq_control.controllers.joint_imp import JointImpController
 from tq_control.robot_model.manual_model import ManualModel
+from tq_control.robot_model.pb_model import PBModel
 import logging
 logging.basicConfig(level=logging.INFO)
 from perls2.robots.controller import OperationalSpaceController
@@ -70,6 +71,12 @@ class BulletRobotInterface(RobotInterface):
         # available (tuned) controller types for this interface
         self.available_controllers = ['EEImpedance', 'JointVelocity', 'JointImpedance', 'Native']
         # super().__init__(controlType)
+
+        if self.config['controller']['selected_type'] = 'Native':
+            self.model = PBModel(self.arm_id, self.physics_id)
+        else:
+            self.model = ManualModel()
+
         self.update()
         if self.controlType == 'EEImpedance':
             self.controller = EEImpController(self.model,
