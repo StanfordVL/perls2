@@ -42,7 +42,6 @@ class RobotInterface(object):
             * controller type not currently supported
         """
         self.controlType = controlType
-        self.model = ManualModel()
         self.action_set = False
 
     def update(self):
@@ -71,7 +70,7 @@ class RobotInterface(object):
 
     def move_ee_delta(self, delta):
         logging.debug("delta " + str(delta))
-        self.controller.set_goal(delta)
+        self.controller.set_goal(delta=delta, fn="ee_delta")
         self.action_set = True
 
     def set_dq(self, dq_des):

@@ -70,14 +70,14 @@ class BulletRobotInterface(RobotInterface):
 
         # available (tuned) controller types for this interface
         self.available_controllers = ['EEImpedance', 'JointVelocity', 'JointImpedance', 'Native']
-        # super().__init__(controlType)
-
-        if self.config['controller']['selected_type'] = 'Native':
+        super().__init__(controlType)
+        if self.config['controller']['selected_type'] == 'Native':
             self.model = PBModel(self.arm_id, self.physics_id)
         else:
             self.model = ManualModel()
 
         self.update()
+
         if self.controlType == 'EEImpedance':
             self.controller = EEImpController(self.model,
                 kp=200, damping=0.5,
@@ -125,7 +125,7 @@ class BulletRobotInterface(RobotInterface):
             from perls2.robots.bullet_panda_interface import BulletPandaInterface
             return BulletPandaInterface(
                 physics_id=physics_id, arm_id=arm_id, config=config, controlType=controlType)
-         else:
+        else:
             raise ValueError(
                 "invalid robot interface type. Specify in [world][robot]")
 
@@ -140,6 +140,19 @@ class BulletRobotInterface(RobotInterface):
             *This may need to do other things
         """
         self.set_joints_to_neutral_positions()
+    
+    def step(self):
+        """Update the robot state and model, set torques from controller
+        """
+        self.update()
+        if self.controlType == 'Native':
+            self.controller.run_controller()
+        else:
+            if self.action_set:               
+                torques = self.controller.run_controller() + self.N_q
+                self.set_torques(torques)
+            else:
+                logging.ERROR("ACTION NOT SET")
 
     def change_controller(self, new_type):
         """Change to a different controller type.
@@ -172,6 +185,9 @@ class BulletRobotInterface(RobotInterface):
                 kp=self.config['controller']['JointImpedance']['kp'],
                 damping=self.config['controller']['JointImpedance']['damping'])
 
+    def set_ee_position(self, position): 
+        self.controller.set_goal(position, fn='ee_position')
+        self.action_set = True
 
     @property
     def num_joints(self):
