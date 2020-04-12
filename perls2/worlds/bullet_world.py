@@ -238,14 +238,17 @@ class BulletWorld(World):
         # TODO: add real time option
 
         # Prepare for next step by executing action
-
+        jv_list = []
         for exec_steps in range(self.ctrl_steps_per_action):
             for step in range(self.control_freq):
                 self.robot_interface.step()
                 pybullet.stepSimulation(self._physics_id)
-
+                jv_list.append[self.robot_interface.dq]
             #pybullet.stepSimulation(self._physics_id)
         self.robot_interface.action_set = False
+        import matplotlib.pyplot as plt
+        plt.plot(jv_list)
+        plt.show()
 
 
     def get_observation(self):

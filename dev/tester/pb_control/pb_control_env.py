@@ -25,7 +25,15 @@ class PBControlEnv(Env):
     def rewardFunction(self):
         return None
 
-
 if __name__ == '__main__':
     env = PBControlEnv('dev/tester/pb_control/pb_control.yaml', True, 'PB Control Env')
-    env.step([0,0,0,0, 0, 0])
+    for step in range(5):
+        initial_position = env.robot_interface.ee_position
+        
+        env.step([0, 0, 0.1, 0, 0, 0])
+        final_position = env.robot_interface.ee_position
+        
+        delta = np.subtract(final_position, initial_position)
+
+        print("*** " + str(delta) + " ***")
+

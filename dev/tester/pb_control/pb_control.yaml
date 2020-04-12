@@ -67,7 +67,7 @@ sensor:
           upper: 150
 
 controller:
-  selected_type: 'EEImpedance' # Choose between 'EEImpedance', 'JointVelocity'
+  selected_type: 'Native' # Choose between 'EEImpedance', 'JointVelocity'
   EEImpedance:
     kp: 50 # P Gain for Impedance Control
     damping: 1 # Damping factor [0,1] 
