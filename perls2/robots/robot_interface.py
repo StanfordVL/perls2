@@ -70,7 +70,7 @@ class RobotInterface(object):
 
     def move_ee_delta(self, delta):
         logging.debug("delta " + str(delta))
-        self.controller.set_goal(delta=delta, fn="ee_delta")
+        self.controller.set_goal(goal=delta, fn="ee_delta", delta=delta)
         self.action_set = True
 
     def set_dq(self, dq_des):

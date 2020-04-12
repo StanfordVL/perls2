@@ -3,7 +3,7 @@ import numpy as np
 
 import logging
 
-EE_POSITIONS_LIST = [[0., 0, 0.1,], [0, 0.1, 0], [0.1, 0.0, 0.0]]
+EE_POSITIONS_LIST = [[0., 0, 0.05,], [0., 0.05, 0,], [0.05, 0, 0.0]]
 
 
 def get_action_for_controller(ctrl_type, step_num):
@@ -42,12 +42,15 @@ selected_control_name = control_types[control_selected]
 env.robot_interface.change_controller(selected_control_name)
 
 env.reset()
-initial_ee_pos = env.robot_interface.ee_position
 
-for step, action in enumerate(EE_POSITIONS_LIST):
-    env.step(action + [0, 0, 0])
-    delta = np.asarray(env.robot_interface.ee_position) -  np.asarray(initial_ee_pos)
-    print("desired_delta: " + str(action))
-    print("final delta: " + str(delta)) 
-    input("press enter")   
-    
+# EE Impedance Test (delta)
+if selected_control_name == "EEImpedance": 
+    for step, action in enumerate(EE_POSITIONS_LIST):
+        initial_ee_pose = env.robot_interface.ee_pose
+        action = action + [0, 0, 0]
+        env.step(action)
+        delta = np.asarray(env.robot_interface.ee_pose) -  np.asarray(initial_ee_pose)
+        print("desired_delta: " + str(action))
+        print("final delta: " + str(delta)) 
+        input("press enter to step to next action.")   
+        

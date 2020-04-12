@@ -241,8 +241,9 @@ class BulletWorld(World):
 
         for exec_steps in range(self.ctrl_steps_per_action):
             for step in range(self.control_freq):
-                pybullet.stepSimulation(self._physics_id)
                 self.robot_interface.step()
+                pybullet.stepSimulation(self._physics_id)
+
             #pybullet.stepSimulation(self._physics_id)
         self.robot_interface.action_set = False
 
