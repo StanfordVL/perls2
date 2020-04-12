@@ -16,7 +16,6 @@ class BulletSawyerInterface(BulletRobotInterface):
     functionsfor information about the state of the robot as well as sending
     commands.
 
-
     """
 
     def __init__(self,
@@ -41,6 +40,9 @@ class BulletSawyerInterface(BulletRobotInterface):
                                        0, 0, 0, 0, 0, 0, 0]
         self._name = "Rethink Bullet Sawyer"
         logging.debug("BulletSawyerInterface created")
+        self._default_force = 100
+        self._default_position_gain = 0.1
+        self._default_velocity_gain = 2.5
 
     def start(self):
         """Start the robot

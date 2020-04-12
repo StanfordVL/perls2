@@ -5,9 +5,9 @@ world:
 data_dir: 'data'
 # Simulation parameters
 sim_params:
-  time_step: 0.002 #0.004166  # 1./240.
-  control_freq: 20
-  steps_per_action: 5 # policy to sim update ratio
+  time_step: 0.004166 #0.002 #0.004166  # 1./240.
+  control_freq: 20 #5 #20
+  steps_per_action: 5 #1 #5 # policy to sim update ratio
 
   MAX_STEPS: 100000
 
@@ -70,8 +70,8 @@ sensor:
 controller:
   selected_type: 'EEImpedance' # Choose between 'EEImpedance', 'JointVelocity'
   EEImpedance:
-    kp: 50 #200 # P Gain for Impedance Control
-    damping: 1 #0.5 # Damping factor [0,1] 
+    kp: 50 #200 #75 #200 # P Gain for Impedance Control
+    damping: 1 #0.5 #1 #0.5 # Damping factor [0,1] 
   JointVelocity: 
     kp: 0.5
   JointImpedance: 

@@ -1403,7 +1403,7 @@ class BulletRobotInterface(RobotInterface):
             joint_torques[:7],
             -self._joint_max_forces[:7],
             self._joint_max_forces[:7])
-        logging.debug(clipped_torques)
+
         # For some reason you have to keep disabling the velocity motors
         # before every torque command.
         self.set_to_torque_mode()
