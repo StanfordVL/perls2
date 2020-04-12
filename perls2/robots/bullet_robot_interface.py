@@ -78,24 +78,7 @@ class BulletRobotInterface(RobotInterface):
 
         self.update()
 
-        if self.controlType == 'EEImpedance':
-            self.controller = EEImpController(self.model,
-                kp=self.config['controller']['EEImpedance']['kp'], 
-                damping=self.config['controller']['EEImpedance']['damping'],
-                interpolator_pos =None,
-                interpolator_ori=None,
-                control_freq=self.config['sim_params']['control_freq'])
-
-        if self.controlType == 'JointVelocity':
-            self.controller = JointVelController(
-                robot_model=self.model, 
-                kv=self.config['controller']['JointVelocity']['kv'])
-        
-        if self.controlType == 'JointImpedance':
-            self.controller = JointImpController(
-                robot_model= self.model,
-                kp=self.config['controller']['JointImpedance']['kp'],
-                damping=self.config['controller']['JointImpedance']['damping'])
+        self.controller = self.make_controller(controlType)
 
         if self.controlType == 'Native':
             self.controller = PBController(
@@ -158,6 +141,12 @@ class BulletRobotInterface(RobotInterface):
                 interpolator_pos =None,
                 interpolator_ori=None,
                 control_freq=self.config['sim_params']['control_freq'])
+        elif control_type == "JointVelocity":
+            return JointVelController(
+                robot_model=self.model, 
+                kv=self.config['controller']['JointVelocity']['kv'])
+        else: 
+            return ValueError("Invalid control type")
 
 
     def reset(self):
@@ -197,11 +186,9 @@ class BulletRobotInterface(RobotInterface):
 
         if next_type == "EEImpedance":
             print("got ee_impedance")
-            self.controller == self.make_controller(next_type)
+            self.controller = self.make_controller(next_type)
         elif next_type == "JointVelocity":
-            self.controller = JointVelController(
-                robot_model=self.model, 
-                kv=self.config['controller']['JointVelocity']['kv'])
+            self.controller = self.make_controller(next_type)
         
         elif next_type == "JointImpedance":
             self.controller = JointImpController(

@@ -54,7 +54,7 @@ control_message = """Select Control Type:
 #selected_control_name = control_types[control_selected]
 
 ## REMOVE ME: 
-selected_control_name = "EEImpedance"
+selected_control_name = "JointVelocity"
 env.robot_interface.change_controller(selected_control_name)
 
 env.reset()
