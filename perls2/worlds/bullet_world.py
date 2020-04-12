@@ -257,13 +257,15 @@ class BulletWorld(World):
             plt.ylabel("joint velocity (dq)")
             plt.show()
             self.joint_num+=1
-        elif self.robot_interface.control_type == "EEImpedance":
+        elif self.robot_interface.controlType == "EEImpedance":
             ee_list = []
+            initial_ee_position = self.robot_interface.ee_pose[self.dim_num]
             for exec_steps in range(self.ctrl_steps_per_action):
                 for step in range(self.control_freq):
                     self.robot_interface.step()
                     pybullet.stepSimulation(self._physics_id)
-                    ee_list.append([self.robot_interface.motor_joint_velocities[self.dim_num]])
+                    delta = self.robot_interface.ee_pose[self.dim_num] - initial_ee_position
+                    ee_list.append(delta)
                 #pybullet.stepSimulation(self._physics_id)
             self.robot_interface.action_set = False
             import matplotlib.pyplot as plt

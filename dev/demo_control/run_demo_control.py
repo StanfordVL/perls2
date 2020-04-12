@@ -3,12 +3,12 @@ import numpy as np
 
 import logging
 
-EE_POSITIONS_LIST = [[0.1, 0.0,    0.0, 0.0,    0.0,    0.0],
-                     [0.0,  0.1,   0.0, 0.0,    0.0,    0.0], 
-                     [0.0,  0.0,   0.1, 0.0,    0.0,    0.0],
-                     [0.0,  0.0,   0.0, 0.1,    0.0,    0.0],
-                     [0.0,  0.0,   0.0, 0.0,    0.1,    0.0],
-                     [0.0,  0.0,   0.0, 0.0,    0.0,    0.1]]
+EE_POSITIONS_LIST = [[0.1, 0.0,    0.0, 0.0,    0.0,    0.0]]
+                     # [0.0,  0.1,   0.0, 0.0,    0.0,    0.0], 
+                     # [0.0,  0.0,   0.1, 0.0,    0.0,    0.0],
+                     # [0.0,  0.0,   0.0, 0.1,    0.0,    0.0],
+                     # [0.0,  0.0,   0.0, 0.0,    0.1,    0.0],
+                     # [0.0,  0.0,   0.0, 0.0,    0.0,    0.1]]
 
 JOINT_VELOCITY_LIST =[[0.1, 0.0,    0.0, 0.0,    0.0,    0.0, 0.0],
 [0.0, -0.1,    0.0, 0.0,    0.0,    0.0, 0.0],
@@ -54,7 +54,7 @@ control_message = """Select Control Type:
 #selected_control_name = control_types[control_selected]
 
 ## REMOVE ME: 
-selected_control_name = "JointVelocity"
+selected_control_name = "EEImpedance"
 env.robot_interface.change_controller(selected_control_name)
 
 env.reset()
