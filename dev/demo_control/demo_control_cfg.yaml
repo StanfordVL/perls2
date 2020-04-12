@@ -73,7 +73,7 @@ controller:
     kp: 50 #200 #75 #200 # P Gain for Impedance Control
     damping: 1 #0.5 #1 #0.5 # Damping factor [0,1] 
   JointVelocity: 
-    kp: 0.5
+    kv: 2 #0.5
   JointImpedance: 
     kp: 50
     damping: 1

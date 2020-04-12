@@ -80,7 +80,8 @@ class BulletRobotInterface(RobotInterface):
 
         if self.controlType == 'EEImpedance':
             self.controller = EEImpController(self.model,
-                kp=200, damping=0.5,
+                kp=self.config['controller']['EEImpedance']['kp'], 
+                damping=self.config['controller']['EEImpedance']['damping'],
                 interpolator_pos =None,
                 interpolator_ori=None,
                 control_freq=self.config['sim_params']['control_freq'])

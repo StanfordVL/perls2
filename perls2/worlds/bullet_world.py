@@ -243,7 +243,7 @@ class BulletWorld(World):
             for step in range(self.control_freq):
                 self.robot_interface.step()
                 pybullet.stepSimulation(self._physics_id)
-                jv_list.append[self.robot_interface.dq]
+                jv_list.append([self.robot_interface.motor_joint_velocities[0]])
             #pybullet.stepSimulation(self._physics_id)
         self.robot_interface.action_set = False
         import matplotlib.pyplot as plt
