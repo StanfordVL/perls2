@@ -78,7 +78,7 @@ class RobotInterface(object):
         self.controller.set_goal(dq_des)
         self.action_set = True
 
-    def set_ee_pose(self, pose):
+    def set_joint_delta(self, pose):
         self.controller.set_goal(pose)
         self.action_set = True
 

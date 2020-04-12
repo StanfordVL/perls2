@@ -157,6 +157,7 @@ class BulletWorld(World):
         # TODO REMOVE DEBUGs    
         self.joint_num = 0
         self.dim_num = 0
+
     @property
     def physics_id(self):
         return self._physics_id
@@ -272,6 +273,26 @@ class BulletWorld(World):
             plt.plot(ee_list)
             plt.show()
             self.dim_num+=1
+        elif self.robot_interface.controlType == "JointImpedance": 
+            q_list = []
+            initial_q_pos = self.robot_interface.motor_joint_positions[self.joint_num]
+            for exec_steps in range(self.ctrl_steps_per_action):
+                for step in range(self.control_freq):
+                    self.robot_interface.step()
+                    pybullet.stepSimulation(self._physics_id)
+                    delta = self.robot_interface.motor_joint_positions[self.joint_num] - initial_q_pos
+                    q_list.append(delta)
+
+            self.robot_interface.action_set = False
+            import matplotlib.pyplot as plt
+            plt.plot(q_list)
+            plt.title("Joint Num " + str(self.joint_num))
+            plt.xlabel("num pb.stepSim steps")
+            plt.ylabel("joint velocity (dq)")
+            plt.show()
+            self.joint_num += 1
+
+
 
 
     def get_observation(self):

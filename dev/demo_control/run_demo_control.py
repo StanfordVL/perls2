@@ -16,7 +16,15 @@ JOINT_VELOCITY_LIST =[[0.1, 0.0,    0.0, 0.0,    0.0,    0.0, 0.0],
 [0.0, 0.0,    0.0, -0.1,    0.0,    0.0, 0.0],
 [0.0, 0.0,    0.0, 0.0,    0.1,    0.0, 0.0],
 [0.0, 0.0,    0.0, 0.0,    0.0,    -0.1, 0.0],
-[0.0, 0.0,    0.0, 0.0,    0.0,    0.0, 0.05]]                     
+[0.0, 0.0,    0.0, 0.0,    0.0,    0.0, 0.05]]      
+
+JOINT_IMP_LIST = [[0.1, 0.0,    0.0, 0.0,    0.0,    0.0, 0.0],
+[0.0, -0.1,    0.0, 0.0,    0.0,    0.0, 0.0],
+[0.0, 0.0,    0.1, 0.0,    0.0,    0.0, 0.0],
+[0.0, 0.0,    0.0, -0.1,    0.0,    0.0, 0.0],
+[0.0, 0.0,    0.0, 0.0,    0.1,    0.0, 0.0],
+[0.0, 0.0,    0.0, 0.0,    0.0,    -0.1, 0.0],
+[0.0, 0.0,    0.0, 0.0,    0.0,    0.0, 0.05]]                 
 
 def get_action_for_controller(ctrl_type, step_num):
     """ Get appropriate action based on controller type
@@ -31,9 +39,12 @@ env = DemoControlEnv('dev/demo_control/demo_control_cfg.yaml', True, 'Demo Contr
 print("Perls2 Demo Control Environment Created.")
 
 control_types = {"1" : "EEImpedance", 
-                 "2" : "JointVelocity"}
+                 "2" : "JointVelocity",
+                 "3" : "JointImpedance"}
 command_dict = {"EEImpedance": EE_POSITIONS_LIST,
-                  "JointVelocity": JOINT_VELOCITY_LIST}
+                  "JointVelocity": JOINT_VELOCITY_LIST,
+                  "JointImpedance": JOINT_IMP_LIST}
+
 control_message = """Select Control Type: 
 \t [1] : EE Impedance 
 \t [2] : Joint Velocity
@@ -54,7 +65,7 @@ control_message = """Select Control Type:
 #selected_control_name = control_types[control_selected]
 
 ## REMOVE ME: 
-selected_control_name = "JointVelocity"
+selected_control_name = "JointImpedance"
 env.robot_interface.change_controller(selected_control_name)
 
 env.reset()

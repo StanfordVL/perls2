@@ -145,6 +145,13 @@ class BulletRobotInterface(RobotInterface):
             return JointVelController(
                 robot_model=self.model, 
                 kv=self.config['controller']['JointVelocity']['kv'])
+        elif control_type == "JointImpedance":
+            return JointImpController(
+                robot_model= self.model, 
+                kp=self.config['config']['kp'], 
+                damping=self.config['config']['damping']
+                )
+
         else: 
             return ValueError("Invalid control type")
 

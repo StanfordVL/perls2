@@ -75,8 +75,8 @@ controller:
   JointVelocity: 
     kv: .5 #0.5
   JointImpedance: 
-    kp: 50
-    damping: 1
+    kp: 100
+    damping: 1.0
   interpolator: 'linear'
 
 object: 
