@@ -130,6 +130,36 @@ class BulletRobotInterface(RobotInterface):
             raise ValueError(
                 "invalid robot interface type. Specify in [world][robot]")
 
+    def make_controller(self, control_type, **kwargs):
+        """Returns a new controller type based on specs. 
+
+        Wrapper for Controller constructor in tq_control
+
+        Args: 
+            control_type (str) : name of the control type. 
+            kwargs:  dependent on type of controller to modify those 
+                found in the config file.
+
+        EEImpedance kwargs: (not supported yet.)
+            'input_max' : (float) max value for input delta. Does not apply for
+                set_pose commands.
+            'input_min' : (float) min value for input delta. Does not apply for 
+                set pose commands
+            'output_max' : (float) max value for scaled action delta.
+            'output_min' : (float) min value for scaled action delta. 
+            'kp' : (float) gain for position / orientation error
+            'damping' : (float) [0,1] damping coefficient for error
+        """
+
+        if control_type == "EEImpedance":
+            return EEImpController(self.model,
+                kp=self.config['controller']['EEImpedance']['kp'], 
+                damping=self.config['controller']['EEImpedance']['damping'],
+                interpolator_pos =None,
+                interpolator_ori=None,
+                control_freq=self.config['sim_params']['control_freq'])
+
+
     def reset(self):
         """Reset the robot and move to rest pose.
 
@@ -167,13 +197,7 @@ class BulletRobotInterface(RobotInterface):
 
         if next_type == "EEImpedance":
             print("got ee_impedance")
-            self.controller = EEImpController(self.model,
-                kp=self.config['controller']['EEImpedance']['kp'], 
-                damping=self.config['controller']['EEImpedance']['damping'],
-                interpolator_pos =None,
-                interpolator_ori=None,
-                control_freq=self.config['sim_params']['control_freq'])
-
+            self.controller == self.make_controller(next_type)
         elif next_type == "JointVelocity":
             self.controller = JointVelController(
                 robot_model=self.model, 
