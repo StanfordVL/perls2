@@ -155,36 +155,41 @@ class BulletRobotInterface(RobotInterface):
             else:
                 logging.ERROR("ACTION NOT SET")
 
-    def change_controller(self, new_type):
+    def change_controller(self, next_type):
         """Change to a different controller type.
         Args: 
-            new_type (str): keyword for desired control type. 
+            next_type (str): keyword for desired control type. 
                 Choose from: 
                     -'EEImpedance'
                     -'JointVelocity'
                     'JointImpedance'
         """ 
 
-        if (new_type) not in ['EEImpedance', 'JointVelocity', 'JointImpedance']:
-            raise ValueError("Invalid control type. Choose from 'EEImpedance', 'JointVelocity', 'JointImpedance'")
-
-        if new_type == 'EEImpedance':
+        if next_type == "EEImpedance":
+            print("got ee_impedance")
             self.controller = EEImpController(self.model,
-                kp=200, damping=0.5,
+                kp=self.config['controller']['EEImpedance']['kp'], 
+                damping=self.config['controller']['EEImpedance']['damping'],
                 interpolator_pos =None,
                 interpolator_ori=None,
                 control_freq=self.config['sim_params']['control_freq'])
 
-        if self.controlType == 'JointVelocity':
+        elif next_type == "JointVelocity":
             self.controller = JointVelController(
                 robot_model=self.model, 
                 kv=self.config['controller']['JointVelocity']['kv'])
         
-        if self.controlType == 'JointImpedance':
+        elif next_type == "JointImpedance":
             self.controller = JointImpController(
                 robot_model= self.model,
                 kp=self.config['controller']['JointImpedance']['kp'],
                 damping=self.config['controller']['JointImpedance']['damping'])
+        else:
+            raise ValueError("Invalid control type " + str(next_type)  +
+                "\nChoose from EEImpedance, JointVelocity, JointImpedance")
+        self.controlType = next_type
+        return self.controlType
+
 
     def set_ee_position(self, position): 
         self.controller.set_goal(position, fn='ee_position')

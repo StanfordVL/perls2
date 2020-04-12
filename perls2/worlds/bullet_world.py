@@ -153,8 +153,10 @@ class BulletWorld(World):
         self.ctrl_steps_per_action = self.config['sim_params']['steps_per_action']
 
         self.is_sim = True
-
-
+        
+        # TODO REMOVE DEBUGs    
+        self.joint_num = 0
+        self.dim_num = 0
     @property
     def physics_id(self):
         return self._physics_id
@@ -238,17 +240,36 @@ class BulletWorld(World):
         # TODO: add real time option
 
         # Prepare for next step by executing action
-        jv_list = []
-        for exec_steps in range(self.ctrl_steps_per_action):
-            for step in range(self.control_freq):
-                self.robot_interface.step()
-                pybullet.stepSimulation(self._physics_id)
-                jv_list.append([self.robot_interface.motor_joint_velocities[0]])
-            #pybullet.stepSimulation(self._physics_id)
-        self.robot_interface.action_set = False
-        import matplotlib.pyplot as plt
-        plt.plot(jv_list)
-        plt.show()
+        if self.robot_interface.controlType == "JointVelocity":
+            jv_list = []
+
+            for exec_steps in range(self.ctrl_steps_per_action):
+                for step in range(self.control_freq):
+                    self.robot_interface.step()
+                    pybullet.stepSimulation(self._physics_id)
+                    jv_list.append([self.robot_interface.motor_joint_velocities[self.joint_num]])
+                #pybullet.stepSimulation(self._physics_id)
+            self.robot_interface.action_set = False
+            import matplotlib.pyplot as plt
+            plt.plot(jv_list)
+            plt.title("Joint Num " + str(self.joint_num))
+            plt.xlabel("num pb.stepSim steps")
+            plt.ylabel("joint velocity (dq)")
+            plt.show()
+            self.joint_num+=1
+        elif self.robot_interface.control_type == "EEImpedance":
+            ee_list = []
+            for exec_steps in range(self.ctrl_steps_per_action):
+                for step in range(self.control_freq):
+                    self.robot_interface.step()
+                    pybullet.stepSimulation(self._physics_id)
+                    ee_list.append([self.robot_interface.motor_joint_velocities[self.dim_num]])
+                #pybullet.stepSimulation(self._physics_id)
+            self.robot_interface.action_set = False
+            import matplotlib.pyplot as plt
+            plt.plot(ee_list)
+            plt.show()
+            self.dim_num+=1
 
 
     def get_observation(self):

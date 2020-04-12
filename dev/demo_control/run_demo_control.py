@@ -3,14 +3,21 @@ import numpy as np
 
 import logging
 
-EE_POSITIONS_LIST = [[0.1, 0.0,    0.0, 0.0,    0.0,    0.0]] 
-                     # [0.0,  0.1,   0.0, 0.0,    0.0,    0.0], 
-                     # [0.0,  0.0,   0.1, 0.0,    0.0,    0.0],
-                     # [0.0,  0.0,   0.0, 0.1,    0.0,    0.0],
-                     # [0.0,  0.0,   0.0, 0.0,    0.1,    0.0],
-                     # [0.0,  0.0,   0.0, 0.0,    0.0,    0.1]]
+EE_POSITIONS_LIST = [[0.1, 0.0,    0.0, 0.0,    0.0,    0.0],
+                     [0.0,  0.1,   0.0, 0.0,    0.0,    0.0], 
+                     [0.0,  0.0,   0.1, 0.0,    0.0,    0.0],
+                     [0.0,  0.0,   0.0, 0.1,    0.0,    0.0],
+                     [0.0,  0.0,   0.0, 0.0,    0.1,    0.0],
+                     [0.0,  0.0,   0.0, 0.0,    0.0,    0.1]]
 
-JOINT_VELOCITY_LIST = [[0.1, 0.0,    0.0, 0.0,    0.0,    0.0]]
+JOINT_VELOCITY_LIST =[[0.1, 0.0,    0.0, 0.0,    0.0,    0.0, 0.0],
+[0.0, -0.1,    0.0, 0.0,    0.0,    0.0, 0.0],
+[0.0, 0.0,    0.1, 0.0,    0.0,    0.0, 0.0],
+[0.0, 0.0,    0.0, -0.1,    0.0,    0.0, 0.0],
+[0.0, 0.0,    0.0, 0.0,    0.1,    0.0, 0.0],
+[0.0, 0.0,    0.0, 0.0,    0.0,    -0.1, 0.0],
+[0.0, 0.0,    0.0, 0.0,    0.0,    0.0, 0.05]]                     
+
 def get_action_for_controller(ctrl_type, step_num):
     """ Get appropriate action based on controller type
     """
@@ -57,12 +64,6 @@ delta_list = []
 
 for step, action in enumerate(command_dict[selected_control_name]):
     env.step(action)
-    delta = np.asarray(env.robot_interface.dq[step]) -  np.asarray(initial_ee_pose[step])
-    delta_list.append(delta)
-    print("desired_delta: " + str(action))
-    print("final delta: " + str(delta)) 
     input("press enter to step to next action.")   
 
 import matplotlib.pyplot as plt 
-plt.plot(delta_list)
-plt.show()
