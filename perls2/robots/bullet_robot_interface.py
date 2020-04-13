@@ -55,7 +55,6 @@ class BulletRobotInterface(RobotInterface):
         self._ee_index = 7  # Default
         self._num_joints = pybullet.getNumJoints(self._arm_id)
         self._motor_joint_indices = self.get_motor_joint_indices()
-        print("MOTOR JOINT IND " + str(self._motor_joint_indices))
 
         # set the default values
         self._speed = self.robot_cfg['limb_max_velocity_ratio']
@@ -199,7 +198,6 @@ class BulletRobotInterface(RobotInterface):
         """ 
 
         if next_type == "EEImpedance":
-            print("got ee_impedance")
             self.controller = self.make_controller(next_type)
         elif next_type == "JointVelocity":
             self.controller = self.make_controller(next_type)
@@ -210,7 +208,6 @@ class BulletRobotInterface(RobotInterface):
                 kp=self.config['controller']['JointImpedance']['kp'],
                 damping=self.config['controller']['JointImpedance']['damping'])
         elif next_type == "JointTorque":
-            print("changing to joint torque")
             self.controller = self.make_controller(next_type)
         else:
             raise ValueError("Invalid control type " + str(next_type)  +
@@ -272,25 +269,16 @@ class BulletRobotInterface(RobotInterface):
         """Set joints on robot to neutral
         """
         if self._arm_id is None:
-            print("arm id not set")
+            raise ValueError("Pybullet arm id not set")
         else:
             self._num_joints = pybullet.getNumJoints(self._arm_id)
 
             joint_indices = [i for i in range(0,7)]
-            # pybullet.setJointMotorControlArray(bodyUniqueId=self._arm_id,
-            #                                jointIndices= joint_indices,
-            #                                controlMode=pybullet.PD_CONTROL,
-            #                                targetPositions=self.limb_neutral_positions)
-            #print(str(self._arm_id))
 
             for i in range(len(joint_indices)):
-                #print ("Writing joint   " + str(i) + "to pos " + str(self.limb_neutral_positions[i]))
                 pybullet.resetJointState(bodyUniqueId=self._arm_id,
                     jointIndex=i,
                     targetValue=self.limb_neutral_positions[i])
-                #actual_joint_pos = self.get_joint_position((self._arm_id, i))
-                #print("Actual joint positions:       ")
-                #print(actual_joint_pos)
 
                 pybullet.setJointMotorControl2(bodyIndex=self._arm_id,
                             jointIndex=i,
@@ -1119,7 +1107,6 @@ class BulletRobotInterface(RobotInterface):
             bodyUniqueId=self._arm_id,
             objPositions=self.motor_joint_positions,
             physicsClientId=self._physics_id)
-        print(self.motor_joint_positions)
         mass_matrix = np.reshape(mass_matrix,
             (self.num_free_joints, self.num_free_joints))
 
@@ -1134,7 +1121,6 @@ class BulletRobotInterface(RobotInterface):
         joint_infos = [pybullet.getJointInfo(self._arm_id, i) for i in range(pybullet.getNumJoints(self._arm_id))]
         for info in joint_infos:
             if info[2] != pybullet.JOINT_FIXED:
-                print(info[1])
                 dof+=1
         return dof
 
