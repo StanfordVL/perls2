@@ -12,7 +12,7 @@ from tq_control.robot_model.manual_model import ManualModel
 import numpy as np
 import logging
 from scipy.spatial.transform import Rotation as R
-logging.basicConfig(level=logging.DEBUG)
+#logging.basicConfig(level=logging.DEBUG)
 
 @six.add_metaclass(abc.ABCMeta)
 class RobotInterface(object):
@@ -52,7 +52,7 @@ class RobotInterface(object):
                                  ee_ori_vel=np.asarray(self.ee_w),
                                  joint_pos=np.asarray(self.motor_joint_positions[:7]),
                                  joint_vel=np.asarray(self.motor_joint_velocities[:7]),
-                                 joint_tau=np.asarray(self.motor_joint_accelerations[:7])
+                                 joint_tau=np.asarray(self.last_torques_cmd[:7])
                                  )
                                 
 
@@ -76,7 +76,6 @@ class RobotInterface(object):
         self.action_set = True
 
     def set_dq(self, dq_des):
-        logging.debug("desired dq " + str(dq_des))
         self.controller.set_goal(dq_des)
         self.action_set = True
 

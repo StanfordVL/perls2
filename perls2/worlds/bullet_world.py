@@ -301,7 +301,6 @@ class BulletWorld(World):
                     pybullet.stepSimulation(self._physics_id)
                     delta = self.robot_interface.last_torques_cmd[self.joint_num] #- initial_q_pos
                     q_list.append(delta)
-                    print("tau: " + str(self.robot_interface.last_torques_cmd[self.joint_num]))
 
             self.robot_interface.action_set = False
             import matplotlib.pyplot as plt

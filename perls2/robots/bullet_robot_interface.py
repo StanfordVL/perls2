@@ -68,8 +68,9 @@ class BulletRobotInterface(RobotInterface):
         self.joint_limits = self.get_joint_limits()
         self._joint_max_velocities = self.get_joint_max_velocities()
         self._joint_max_forces = self.get_joint_max_forces()
-        self._dof = self.get_dof()
+        self._dof = self.get_dof()        
 
+        self.last_torques_cmd = [0]*7
         # available (tuned) controller types for this interface
         self.available_controllers = ['EEImpedance', 'JointVelocity', 'JointImpedance', 'Native']
         super().__init__(controlType)
@@ -79,7 +80,7 @@ class BulletRobotInterface(RobotInterface):
             self.model = ManualModel()
 
         self.update()
-        self.last_torques_cmd = [0]*7
+
         self.controller = self.make_controller(controlType)
 
         if self.controlType == 'Native':
@@ -1399,7 +1400,6 @@ class BulletRobotInterface(RobotInterface):
         #joint_states = [j for j, i in zip(joint_states, joint_infos) if i[2] != pybullet.JOINT_FIXED]
 
         joint_accelerations = [state[3] for state in joint_states]
-        logging.debug("torque " + str(self.last_torques))
         return joint_accelerations
 
     @property

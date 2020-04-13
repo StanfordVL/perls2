@@ -2,7 +2,7 @@ from demo_control_env import DemoControlEnv
 import numpy as np
 
 import logging
-
+logging.basicConfig(level=logging.INFO)
 EE_POSITIONS_LIST = [[0.1, 0.0,    0.0, 0.0,    0.0,    0.0]]
                      # [0.0,  0.1,   0.0, 0.0,    0.0,    0.0], 
                      # [0.0,  0.0,   0.1, 0.0,    0.0,    0.0],
