@@ -29,7 +29,8 @@ class DemoControlEnv(Env):
             self.robot_interface.set_dq(action)
         elif self.robot_interface.controlType == 'JointImpedance':
             self.robot_interface.set_joint_delta(action)
-
+        elif self.robot_interface.controlType == 'JointTorque':
+            self.robot_interface.set_joint_torque(action)
         self.robot_interface.action_set = True
 
     def rewardFunction(self):

@@ -51,8 +51,10 @@ class RobotInterface(object):
                                  ee_pos_vel=np.asarray(self.ee_v),
                                  ee_ori_vel=np.asarray(self.ee_w),
                                  joint_pos=np.asarray(self.motor_joint_positions[:7]),
-                                 joint_vel=np.asarray(self.motor_joint_velocities[:7])
-                                )
+                                 joint_vel=np.asarray(self.motor_joint_velocities[:7]),
+                                 joint_tau=np.asarray(self.motor_joint_accelerations[:7])
+                                 )
+                                
 
         self.model.update_model(J_pos=self.linear_jacobian,
                                 J_ori=self.angular_jacobian,
@@ -82,6 +84,8 @@ class RobotInterface(object):
         self.controller.set_goal(pose)
         self.action_set = True
 
+    def set_joint_torque(self, torque):
+        self.controller.set_goal(torque)
     @abc.abstractmethod
     def create(config):
         """Factory for creating robot interfaces based on config type

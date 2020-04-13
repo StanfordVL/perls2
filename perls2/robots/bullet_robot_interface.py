@@ -9,6 +9,7 @@ from tq_control.controllers.ee_imp import EEImpController
 from tq_control.controllers.pb_controller import PBController
 from tq_control.controllers.joint_vel import JointVelController
 from tq_control.controllers.joint_imp import JointImpController
+from tq_control.controllers.joint_torque import JointTorqueController
 from tq_control.robot_model.manual_model import ManualModel
 from tq_control.robot_model.pb_model import PBModel
 import logging
@@ -54,6 +55,7 @@ class BulletRobotInterface(RobotInterface):
         self._ee_index = 7  # Default
         self._num_joints = pybullet.getNumJoints(self._arm_id)
         self._motor_joint_indices = self.get_motor_joint_indices()
+        print("MOTOR JOINT IND " + str(self._motor_joint_indices))
 
         # set the default values
         self._speed = self.robot_cfg['limb_max_velocity_ratio']
@@ -77,7 +79,7 @@ class BulletRobotInterface(RobotInterface):
             self.model = ManualModel()
 
         self.update()
-
+        self.last_torques_cmd = [0]*7
         self.controller = self.make_controller(controlType)
 
         if self.controlType == 'Native':
@@ -85,6 +87,7 @@ class BulletRobotInterface(RobotInterface):
                 arm_id=self.arm_id, 
                 physics_id=self.physics_id, 
                 robot_model = self.model)
+
 
     def create(config, physics_id, arm_id, controlType):
         """Factory for creating robot interfaces based on type
@@ -151,6 +154,9 @@ class BulletRobotInterface(RobotInterface):
                 kp=self.config['config']['kp'], 
                 damping=self.config['config']['damping']
                 )
+        elif control_type == "JointTorque":
+            return JointTorqueController(
+                robot_model=self.model)
 
         else: 
             return ValueError("Invalid control type")
@@ -202,6 +208,9 @@ class BulletRobotInterface(RobotInterface):
                 robot_model= self.model,
                 kp=self.config['controller']['JointImpedance']['kp'],
                 damping=self.config['controller']['JointImpedance']['damping'])
+        elif next_type == "JointTorque":
+            print("changing to joint torque")
+            self.controller = self.make_controller(next_type)
         else:
             raise ValueError("Invalid control type " + str(next_type)  +
                 "\nChoose from EEImpedance, JointVelocity, JointImpedance")
@@ -1380,16 +1389,19 @@ class BulletRobotInterface(RobotInterface):
 
         Note: fixed joints have 0 degrees of freedoms.
         """
-        joint_states = pybullet.getJointStates(
-        self._arm_id, range(pybullet.getNumJoints(self._arm_id)))
+        joint_states = []
+        for joint_num in range(self.num_joints):
+            joint_states.append(pybullet.getJointState(self._arm_id, joint_num))
         # Joint info specifies type of joint ("fixed" or not)
         joint_infos = [pybullet.getJointInfo(self._arm_id, i) for i in range(pybullet.getNumJoints(self._arm_id))]
         # Only get joint states of free joints
-        joint_states = [j for j, i in zip(joint_states, joint_infos) if i[2] != pybullet.JOINT_FIXED]
+        
+        #joint_states = [j for j, i in zip(joint_states, joint_infos) if i[2] != pybullet.JOINT_FIXED]
 
-        joint_accelerations = [state[2] for state in joint_states]
-        print("dims " + str(np.shape(joint_accelerations)))
+        joint_accelerations = [state[3] for state in joint_states]
+        logging.debug("torque " + str(self.last_torques))
         return joint_accelerations
+
     @property
     def gravity_vector(self):
         """Compute the gravity vector at the current joint state.
@@ -1428,6 +1440,7 @@ class BulletRobotInterface(RobotInterface):
             -self._joint_max_forces[:7],
             self._joint_max_forces[:7])
 
+        #clipped_torques = joint_torques * self._joint_max_forces[:7]
         # For some reason you have to keep disabling the velocity motors
         # before every torque command.
         self.set_to_torque_mode()
@@ -1437,6 +1450,7 @@ class BulletRobotInterface(RobotInterface):
             jointIndices=range(0,7),
             controlMode=pybullet.TORQUE_CONTROL,
             forces=clipped_torques)
+        self.last_torques_cmd = clipped_torques
         return clipped_torques
 
     @property
