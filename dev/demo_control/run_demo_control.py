@@ -86,6 +86,5 @@ delta_list = []
 
 for step, action in enumerate(command_dict[selected_control_name]):
     env.step(action)
-    input("press enter to step to next action.")   
-
  
+print("Demo complete.")

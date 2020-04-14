@@ -138,9 +138,14 @@ class BulletRobotInterface(RobotInterface):
         """
 
         if control_type == "EEImpedance":
+            controller_dict = self.config['controller']['EEImpedance']
             return EEImpController(self.model,
-                kp=self.config['controller']['EEImpedance']['kp'], 
-                damping=self.config['controller']['EEImpedance']['damping'],
+                kp=controller_dict['kp'], 
+                damping=controller_dict['damping'],
+                input_max=controller_dict['input_max'], 
+                input_min=controller_dict['input_min'],
+                output_max=controller_dict['output_max'], 
+                output_min=controller_dict['output_min'], 
                 interpolator_pos =None,
                 interpolator_ori=None,
                 control_freq=self.config['sim_params']['control_freq'])

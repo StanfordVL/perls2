@@ -6,7 +6,7 @@ data_dir: 'data'
 # Simulation parameters
 sim_params:
   time_step: 0.004166 #0.002 #0.004166  # 1./240.
-  control_freq: 4000 #4000 #5 #20
+  control_freq: 1000 #4000 #5 #20
   steps_per_action: 1 #6 #1 #5 # policy to sim update ratio
 
   MAX_STEPS: 100000
@@ -72,12 +72,28 @@ controller:
   EEImpedance:
     kp: 50 #200 #75 #200 # P Gain for Impedance Control
     damping: 1 #0.5 #1 #0.5 # Damping factor [0,1] 
+    input_max: 1.0
+    input_min: -1.0
+    output_max: 1.0
+    output_min: -1.0
   JointVelocity: 
     kv: .5 #0.5
+    input_max: 1.0
+    input_min: -1.0
+    output_max: 1.0
+    output_min: -1.0
   JointImpedance: 
     kp: 100
     damping: 1.0
-  interpolator: 'linear'
+    input_max: 1.0
+    input_min: -1.0
+    output_max: 1.0
+    output_min: -1.0
+  JointTorque: 
+    input_max: 1.0
+    input_min: -1.0
+    output_max: 1.0
+    output_min: -1.0
 
 object: 
   'None'
