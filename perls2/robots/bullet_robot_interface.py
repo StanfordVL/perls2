@@ -136,9 +136,8 @@ class BulletRobotInterface(RobotInterface):
             'kp' : (float) gain for position / orientation error
             'damping' : (float) [0,1] damping coefficient for error
         """
-
+        controller_dict = self.config['controller'][control_type]
         if control_type == "EEImpedance":
-            controller_dict = self.config['controller']['EEImpedance']
             return EEImpController(self.model,
                 kp=controller_dict['kp'], 
                 damping=controller_dict['damping'],
@@ -152,16 +151,29 @@ class BulletRobotInterface(RobotInterface):
         elif control_type == "JointVelocity":
             return JointVelController(
                 robot_model=self.model, 
-                kv=self.config['controller']['JointVelocity']['kv'])
+                kv=self.config['controller']['JointVelocity']['kv'],
+                input_max=controller_dict['input_max'], 
+                input_min=controller_dict['input_min'],
+                output_max=controller_dict['output_max'], 
+                output_min=controller_dict['output_min'])
         elif control_type == "JointImpedance":
+
             return JointImpController(
                 robot_model= self.model, 
-                kp=self.config['config']['kp'], 
-                damping=self.config['config']['damping']
+                kp=controller_dict['kp'], 
+                damping=controller_dict['damping'],
+                input_max=controller_dict['input_max'], 
+                input_min=controller_dict['input_min'],
+                output_max=controller_dict['output_max'], 
+                output_min=controller_dict['output_min'], 
                 )
         elif control_type == "JointTorque":
             return JointTorqueController(
-                robot_model=self.model)
+                robot_model=self.model,
+                input_max=controller_dict['input_max'], 
+                input_min=controller_dict['input_min'],
+                output_max=controller_dict['output_max'], 
+                output_min=controller_dict['output_min'], )
 
         else: 
             return ValueError("Invalid control type")
