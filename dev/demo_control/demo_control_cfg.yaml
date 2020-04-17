@@ -1,7 +1,7 @@
-# Cfg file for SimpleReachEnv
+# Cfg file for  Demo control environment 
 world:
-  type: 'Bullet'
-  robot: 'sawyer'
+  type: 'Real' #'Bullet'
+  robot: 'sawyer' #'panda'
 data_dir: 'data'
 # Simulation parameters
 sim_params:
@@ -70,18 +70,18 @@ sensor:
 controller:
   selected_type: 'EEImpedance' # Choose between 'EEImpedance', 'JointVelocity'
   EEImpedance:
-    kp: 50 #200 #75 #200 # P Gain for Impedance Control
-    damping: 1 #0.5 #1 #0.5 # Damping factor [0,1] 
+    kp: 70 #50 #200 #75 #200 # P Gain for Impedance Control
+    damping: .8 #1 #0.5 #1 #0.5 # Damping factor [0,1] 
     input_max: 1.0
     input_min: -1.0
     output_max: 1.0
     output_min: -1.0
   JointVelocity: 
-    kv: .5 #0.5
+    kv: 8.0 #0.5
     input_max: 1.0
     input_min: -1.0
-    output_max: 1.0
-    output_min: -1.0
+    output_max: 1.0 #1.0
+    output_min: -1.0 #-1.0
   JointImpedance: 
     kp: 100
     damping: 1.0

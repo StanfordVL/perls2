@@ -16,7 +16,7 @@ import pybullet as pb
 import time
 import redis
 from perls2.robots.real_robot_interface import RealRobotInterface
-
+from scipy.spatial.transform import Rotation as R
 
 def bstr_to_ndarray(array_bstr):
     """Convert bytestring array to 1d array
@@ -35,21 +35,26 @@ class RealSawyerInterface(RealRobotInterface):
                  arm_id=None,
                  use_safenet=True,
                  use_moveit=True,
-                 node_name='sawyer_interface'):
+                 controlType='EEImpedance',
+                 node_name='sawyer_interface', 
+                 pb_interface=None):
         """
         Initialize variables and wrappers
         """
-        super().__init__(config)
+        self.redisClient = redis.Redis()
+        super().__init__(config, controlType, pb_interface)
         logging.debug("Real Sawyer Interface created")
         # Check if redis connection already exists, if not
         # setup a new one.
 
-        self.redisClient = redis.Redis()
 
         # Sets environment connected flag for control interface
         self.redisClient.set('robot::env_connected', 'True')
         self.neutral_joint_angles = self.robot_cfg['neutral_joint_angles']
         self.RESET_TIMEOUT = 10       # Wait 3 seconds for reset to complete.
+
+    def connect(self):
+        self.redisClient.set('robot::env_connected', 'True')
 
     def disconnect(self):
         self.redisClient.set('robot::env_connected', 'False')
@@ -208,6 +213,7 @@ class RealSawyerInterface(RealRobotInterface):
         """
         return bstr_to_ndarray(self.redisClient.get('robot::dq'))
 
+
     @property
     def ddq(self):
         """
@@ -227,3 +233,30 @@ class RealSawyerInterface(RealRobotInterface):
         Typically the order goes from base to end effector.
         """
         return bstr_to_ndarray(self.redisClient.get('robot::tau'))
+
+    def set_torques(self, torques):
+        torques = np.clip(
+            torques[:7],
+            -self.pb_interface._joint_max_forces[:7],
+            self.pb_interface._joint_max_forces[:7])
+
+        self.redisClient.set('robot::tau_desired', str(list(torques)))
+        self.redisClient.set('robot::cmd_type', 'torque')
+
+    @property
+    def linear_jacobian (self):
+        return self.pb_interface.linear_jacobian
+
+
+    @property
+    def angular_jacobian(self):
+        return self.pb_interface.angular_jacobian
+
+
+    @property
+    def mass_matrix(self):
+        return self.pb_interface.mass_matrix
+
+    @property
+    def N_q(self):
+        return self.pb_interface.N_q

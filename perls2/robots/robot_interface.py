@@ -7,6 +7,12 @@ Author: Roberto Martin-Martin
 import abc  # For abstract class definitions
 import six  # For abstract class definitions
 from tq_control.controllers.ee_imp import EEImpController
+from tq_control.controllers.ee_imp import EEImpController
+from tq_control.controllers.pb_controller import PBController
+from tq_control.controllers.joint_vel import JointVelController
+from tq_control.controllers.joint_imp import JointImpController
+from tq_control.controllers.joint_torque import JointTorqueController
+
 from tq_control.robot_model.manual_model import ManualModel
 #from tq_control.interpolator.reflexxes_interpolator import ReflexxesInterpolator
 import numpy as np
@@ -43,32 +49,117 @@ class RobotInterface(object):
         """
         self.controlType = controlType
         self.action_set = False
+        self.model = ManualModel()
+        self.update()
+
 
     def update(self):
-        orn = R.from_quat(self.ee_orientation)
-        self.model.update_states(ee_pos=np.asarray(self.ee_position),
-                                 ee_ori= np.asarray(self.ee_orientation),
-                                 ee_pos_vel=np.asarray(self.ee_v),
-                                 ee_ori_vel=np.asarray(self.ee_w),
-                                 joint_pos=np.asarray(self.motor_joint_positions[:7]),
-                                 joint_vel=np.asarray(self.motor_joint_velocities[:7]),
-                                 joint_tau=np.asarray(self.last_torques_cmd[:7])
-                                 )
-                                
+        raise NotImplementedError
 
-        self.model.update_model(J_pos=self.linear_jacobian,
-                                J_ori=self.angular_jacobian,
-                                mass_matrix=self.mass_matrix)
+    def make_controller(self, control_type, **kwargs):
+        """Returns a new controller type based on specs. 
+
+        Wrapper for Controller constructor in tq_control
+
+        Args: 
+            control_type (str) : name of the control type. 
+            kwargs:  dependent on type of controller to modify those 
+                found in the config file.
+
+        EEImpedance kwargs: (not supported yet.)
+            'input_max' : (float) max value for input delta. Does not apply for
+                set_pose commands.
+            'input_min' : (float) min value for input delta. Does not apply for 
+                set pose commands
+            'output_max' : (float) max value for scaled action delta.
+            'output_min' : (float) min value for scaled action delta. 
+            'kp' : (float) gain for position / orientation error
+            'damping' : (float) [0,1] damping coefficient for error
+        """
+        if control_type == "Internal":
+            return "Internal"
+        controller_dict = self.config['controller'][control_type]
+        if control_type == "EEImpedance":
+            return EEImpController(self.model,
+                kp=controller_dict['kp'], 
+                damping=controller_dict['damping'],
+                input_max=controller_dict['input_max'], 
+                input_min=controller_dict['input_min'],
+                output_max=controller_dict['output_max'], 
+                output_min=controller_dict['output_min'], 
+                interpolator_pos =None,
+                interpolator_ori=None,
+                control_freq=self.config['sim_params']['control_freq'])
+        elif control_type == "JointVelocity":
+            return JointVelController(
+                robot_model=self.model, 
+                kv=self.config['controller']['JointVelocity']['kv'],
+                input_max=controller_dict['input_max'], 
+                input_min=controller_dict['input_min'],
+                output_max=controller_dict['output_max'], 
+                output_min=controller_dict['output_min'])
+        elif control_type == "JointImpedance":
+            return JointImpController(
+                robot_model= self.model, 
+                kp=controller_dict['kp'], 
+                damping=controller_dict['damping'],
+                input_max=controller_dict['input_max'], 
+                input_min=controller_dict['input_min'],
+                output_max=controller_dict['output_max'], 
+                output_min=controller_dict['output_min'], 
+                )
+        elif control_type == "JointTorque":
+            return JointTorqueController(
+                robot_model=self.model,
+                input_max=controller_dict['input_max'], 
+                input_min=controller_dict['input_min'],
+                output_max=controller_dict['output_max'], 
+                output_min=controller_dict['output_min'], )
+        else: 
+            return ValueError("Invalid control type")
+
+
+    def change_controller(self, next_type):
+        """Change to a different controller type.
+        Args: 
+            next_type (str): keyword for desired control type. 
+                Choose from: 
+                    -'EEImpedance'
+                    -'JointVelocity'
+                    'JointImpedance'
+        """ 
+
+        if next_type == "EEImpedance":
+            self.controller = self.make_controller(next_type)
+        elif next_type == "JointVelocity":
+            self.controller = self.make_controller(next_type)
+        elif next_type =="Internal":
+            self.controller = self.make_controller(next_type)
+        elif next_type == "JointImpedance":
+            self.controller = JointImpController(
+                robot_model= self.model,
+                kp=self.config['controller']['JointImpedance']['kp'],
+                damping=self.config['controller']['JointImpedance']['damping'])
+        elif next_type == "JointTorque":
+            self.controller = self.make_controller(next_type)
+        else:
+            raise ValueError("Invalid control type " + str(next_type)  +
+                "\nChoose from EEImpedance, JointVelocity, JointImpedance")
+        self.controlType = next_type
+        return self.controlType
 
     def step(self):
         """Update the robot state and model, set torques from controller
         """
         self.update()
-        if self.action_set:               
-            torques = self.controller.run_controller() + self.N_q
-            self.set_torques(torques)
+        if self.controller == "Internal":
+            return
         else:
-            logging.ERROR("ACTION NOT SET")
+            if self.action_set:               
+                torques = self.controller.run_controller() + self.N_q
+                self.set_torques(torques)
+            else:
+                print("ACTION NOT SET")
 
     def move_ee_delta(self, delta):
         logging.debug("delta " + str(delta))
@@ -85,6 +176,7 @@ class RobotInterface(object):
 
     def set_joint_torque(self, torque):
         self.controller.set_goal(torque)
+
     @abc.abstractmethod
     def create(config):
         """Factory for creating robot interfaces based on config type

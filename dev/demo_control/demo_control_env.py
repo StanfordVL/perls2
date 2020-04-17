@@ -16,9 +16,7 @@ class DemoControlEnv(Env):
     """
 
     def get_observation(self):
-        robot_state = {'q': self.robot_interface.motor_joint_positions,
-                      'dq': self.robot_interface.motor_joint_velocities}
-        return robot_state
+        return None
     
     def _exec_action(self, action):
         """Applies the given action to the simulation.

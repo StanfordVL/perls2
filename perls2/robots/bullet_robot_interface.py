@@ -53,7 +53,7 @@ class BulletRobotInterface(RobotInterface):
         robot_name = self.config['world']['robot']
         self.robot_cfg = self.config[robot_name]
         self._ee_index = 7  # Default
-        self._num_joints = pybullet.getNumJoints(self._arm_id)
+        self._num_joints = pybullet.getNumJoints(self._arm_id, self._physics_id)
         self._motor_joint_indices = self.get_motor_joint_indices()
 
         # set the default values
@@ -116,68 +116,6 @@ class BulletRobotInterface(RobotInterface):
             raise ValueError(
                 "invalid robot interface type. Specify in [world][robot]")
 
-    def make_controller(self, control_type, **kwargs):
-        """Returns a new controller type based on specs. 
-
-        Wrapper for Controller constructor in tq_control
-
-        Args: 
-            control_type (str) : name of the control type. 
-            kwargs:  dependent on type of controller to modify those 
-                found in the config file.
-
-        EEImpedance kwargs: (not supported yet.)
-            'input_max' : (float) max value for input delta. Does not apply for
-                set_pose commands.
-            'input_min' : (float) min value for input delta. Does not apply for 
-                set pose commands
-            'output_max' : (float) max value for scaled action delta.
-            'output_min' : (float) min value for scaled action delta. 
-            'kp' : (float) gain for position / orientation error
-            'damping' : (float) [0,1] damping coefficient for error
-        """
-        controller_dict = self.config['controller'][control_type]
-        if control_type == "EEImpedance":
-            return EEImpController(self.model,
-                kp=controller_dict['kp'], 
-                damping=controller_dict['damping'],
-                input_max=controller_dict['input_max'], 
-                input_min=controller_dict['input_min'],
-                output_max=controller_dict['output_max'], 
-                output_min=controller_dict['output_min'], 
-                interpolator_pos =None,
-                interpolator_ori=None,
-                control_freq=self.config['sim_params']['control_freq'])
-        elif control_type == "JointVelocity":
-            return JointVelController(
-                robot_model=self.model, 
-                kv=self.config['controller']['JointVelocity']['kv'],
-                input_max=controller_dict['input_max'], 
-                input_min=controller_dict['input_min'],
-                output_max=controller_dict['output_max'], 
-                output_min=controller_dict['output_min'])
-        elif control_type == "JointImpedance":
-
-            return JointImpController(
-                robot_model= self.model, 
-                kp=controller_dict['kp'], 
-                damping=controller_dict['damping'],
-                input_max=controller_dict['input_max'], 
-                input_min=controller_dict['input_min'],
-                output_max=controller_dict['output_max'], 
-                output_min=controller_dict['output_min'], 
-                )
-        elif control_type == "JointTorque":
-            return JointTorqueController(
-                robot_model=self.model,
-                input_max=controller_dict['input_max'], 
-                input_min=controller_dict['input_min'],
-                output_max=controller_dict['output_max'], 
-                output_min=controller_dict['output_min'], )
-
-        else: 
-            return ValueError("Invalid control type")
-
 
     def reset(self):
         """Reset the robot and move to rest pose.
@@ -191,47 +129,21 @@ class BulletRobotInterface(RobotInterface):
         """
         self.set_joints_to_neutral_positions()
     
-    def step(self):
-        """Update the robot state and model, set torques from controller
-        """
-        self.update()
-        if self.controlType == 'Native':
-            self.controller.run_controller()
-        else:
-            if self.action_set:               
-                torques = self.controller.run_controller() + self.N_q
-                self.set_torques(torques)
-            else:
-                logging.ERROR("ACTION NOT SET")
 
-    def change_controller(self, next_type):
-        """Change to a different controller type.
-        Args: 
-            next_type (str): keyword for desired control type. 
-                Choose from: 
-                    -'EEImpedance'
-                    -'JointVelocity'
-                    'JointImpedance'
-        """ 
+    def update(self):
+        orn = R.from_quat(self.ee_orientation)
+        self.model.update_states(ee_pos=np.asarray(self.ee_position),
+                                 ee_ori= np.asarray(self.ee_orientation),
+                                 ee_pos_vel=np.asarray(self.ee_v),
+                                 ee_ori_vel=np.asarray(self.ee_w),
+                                 joint_pos=np.asarray(self.motor_joint_positions[:7]),
+                                 joint_vel=np.asarray(self.motor_joint_velocities[:7]),
+                                 joint_tau=np.asarray(self.last_torques_cmd[:7])
+                                 )
 
-        if next_type == "EEImpedance":
-            self.controller = self.make_controller(next_type)
-        elif next_type == "JointVelocity":
-            self.controller = self.make_controller(next_type)
-        
-        elif next_type == "JointImpedance":
-            self.controller = JointImpController(
-                robot_model= self.model,
-                kp=self.config['controller']['JointImpedance']['kp'],
-                damping=self.config['controller']['JointImpedance']['damping'])
-        elif next_type == "JointTorque":
-            self.controller = self.make_controller(next_type)
-        else:
-            raise ValueError("Invalid control type " + str(next_type)  +
-                "\nChoose from EEImpedance, JointVelocity, JointImpedance")
-        self.controlType = next_type
-        return self.controlType
-
+        self.model.update_model(J_pos=self.linear_jacobian,
+                                J_ori=self.angular_jacobian,
+                                mass_matrix=self.mass_matrix)
 
     def set_ee_position(self, position): 
         self.controller.set_goal(position, fn='ee_position')
@@ -282,29 +194,19 @@ class BulletRobotInterface(RobotInterface):
     def ee_index(self):
         return self._ee_index
 
-    def set_joints_to_neutral_positions(self):
-        """Set joints on robot to neutral
+    def set_joints_pos_vel(self, joint_pos, joint_vel=[0]*7):
+        """Manualy reset joints to positions and velocities. 
+
+        Note: breaks physics only to be used for IK, Mass Matrix and Jacobians 
         """
-        if self._arm_id is None:
-            raise ValueError("Pybullet arm id not set")
-        else:
-            self._num_joints = pybullet.getNumJoints(self._arm_id)
-
-            joint_indices = [i for i in range(0,7)]
-
-            for i in range(len(joint_indices)):
-                pybullet.resetJointState(bodyUniqueId=self._arm_id,
-                    jointIndex=i,
-                    targetValue=self.limb_neutral_positions[i])
-
-                pybullet.setJointMotorControl2(bodyIndex=self._arm_id,
-                            jointIndex=i,
-                            controlMode=pybullet.POSITION_CONTROL,
-                            targetPosition=self.limb_neutral_positions[i],
-                            targetVelocity=0,
-                            force=250,
-                            positionGain=0.1,
-                            velocityGain=1.2)
+        for i in range(6):
+            # Force reset (breaks physics)
+            pybullet.resetJointState(
+                bodyUniqueId=self._arm_id,
+                jointIndex=i,
+                targetValue=joint_pos[i],
+                targetVelocity=joint_vel[i], 
+                physicsClientId=self.physics_id)
 
     def get_link_name(self, link_uid):
         """Get the name of the link. (joint)
@@ -401,6 +303,7 @@ class BulletRobotInterface(RobotInterface):
         Returns: list of joint limit dictionaries
         """
         joint_limits = [self.get_joint_limit(joint_index) for joint_index in range(self._num_joints)]
+
         return joint_limits
 
     def set_gripper_to_value(self, value):
@@ -1001,14 +904,16 @@ class BulletRobotInterface(RobotInterface):
             bodyUniqueId=self._arm_id,
             jointIndices=range(0,self._num_joints),
             controlMode=pybullet.VELOCITY_CONTROL,
-            targetVelocities=dq_d)
+            targetVelocities=dq_d,
+            physicsClientId=self.physics_id)
 
     ########### OPERATIONAL SPACE PROPERTIES ##################
     @property
     def ee_v(self):
         link_state = pybullet.getLinkState(self._arm_id,
             self._ee_index,
-            computeLinkVelocity=1
+            computeLinkVelocity=1, 
+            physicsClientId=self.physics_id
             )
         return link_state[6]
 
@@ -1016,7 +921,8 @@ class BulletRobotInterface(RobotInterface):
     def ee_w(self):
         link_state = pybullet.getLinkState(self._arm_id,
             self._ee_index,
-            computeLinkVelocity=1
+            computeLinkVelocity=1,
+            physicsClientId=self.physics_id
             )
         return link_state[7]
 
@@ -1313,7 +1219,7 @@ class BulletRobotInterface(RobotInterface):
     def linear_jacobian(self):
         """The linear jacobian x_dot = J_t*q_dot
         """
-        motor_pos, motor_vel, motor_accel = self.getMotorJointStates()
+        motor_pos = self.motor_joint_positions
         linear, _ = pybullet.calculateJacobian(
             bodyUniqueId=self._arm_id,
             linkIndex=self._ee_index,
@@ -1329,7 +1235,8 @@ class BulletRobotInterface(RobotInterface):
     def angular_jacobian(self):
         """ The angular jacobian rdot= J_r*qdot
         """
-        motor_pos, motor_vel, motor_accel = self.getMotorJointStates()
+        #motor_pos, motor_vel, motor_accel = self.getMotorJointStates()
+        motor_pos = self.motor_joint_positions
         _, angular = pybullet.calculateJacobian(
             bodyUniqueId=self._arm_id,
             linkIndex=self._ee_index,
@@ -1343,10 +1250,11 @@ class BulletRobotInterface(RobotInterface):
 
     def getMotorJointStates(self):
       joint_states = pybullet.getJointStates(
-        self._arm_id, range(pybullet.getNumJoints(self._arm_id)))
+        self._arm_id, range(pybullet.getNumJoints(self._arm_id)), 
+        physicsClientId=self.physics_id)
 
-      joint_infos = [pybullet.getJointInfo(self._arm_id, i) for i in range(pybullet.getNumJoints(self._arm_id))]
-      joint_states = [j for j, i in zip(joint_states, joint_infos) if i[3] > -1]
+      joint_infos = [pybullet.getJointInfo(self._arm_id, i, physicsClientId=self.physics_id) for i in range(pybullet.getNumJoints(self._arm_id, physicsClientId=self.physics_id))]
+      joint_states = [j for j, i in zip(joint_states, joint_infos) if i[2] != pybullet.JOINT_FIXED]
       joint_positions = [state[0] for state in joint_states]
       joint_velocities = [state[1] for state in joint_states]
       joint_torques = [state[3] for state in joint_states]
@@ -1360,9 +1268,12 @@ class BulletRobotInterface(RobotInterface):
         Note: fixed joints have 0 degrees of freedoms.
         """
         joint_states = pybullet.getJointStates(
-        self._arm_id, range(pybullet.getNumJoints(self._arm_id)))
+        self._arm_id, range(pybullet.getNumJoints(self._arm_id,
+                                                  physicsClientId=self.physics_id)),
+        physicsClientId=self.physics_id)
         # Joint info specifies type of joint ("fixed" or not)
-        joint_infos = [pybullet.getJointInfo(self._arm_id, i) for i in range(pybullet.getNumJoints(self._arm_id))]
+        joint_infos = [pybullet.getJointInfo(self._arm_id, i,  physicsClientId=self.physics_id) for i in range(pybullet.getNumJoints(self._arm_id, 
+                                                                                                                                     physicsClientId=self.physics_id))]
         # Only get joint states of free joints
         joint_states = [j for j, i in zip(joint_states, joint_infos) if i[2] != pybullet.JOINT_FIXED]
 
@@ -1377,9 +1288,11 @@ class BulletRobotInterface(RobotInterface):
         Note: fixed joints have 0 degrees of freedoms.
         """
         joint_states = pybullet.getJointStates(
-        self._arm_id, range(pybullet.getNumJoints(self._arm_id)))
+        self._arm_id, range(pybullet.getNumJoints(self._arm_id,
+                                                  physicsClientId=self.physics_id)),
+        physicsClientId=self.physics_id)
         # Joint info specifies type of joint ("fixed" or not)
-        joint_infos = [pybullet.getJointInfo(self._arm_id, i) for i in range(pybullet.getNumJoints(self._arm_id))]
+        joint_infos = [pybullet.getJointInfo(self._arm_id, i,  physicsClientId=self.physics_id) for i in range(pybullet.getNumJoints(self._arm_id,physicsClientId=self.physics_id))]
         # Only get joint states of free joints
         joint_states = [j for j, i in zip(joint_states, joint_infos) if i[2] != pybullet.JOINT_FIXED]
 

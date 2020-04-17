@@ -59,13 +59,16 @@ class BulletArena(Arena):
         (self.arm_id, self.base_id) = self.load_robot()
         logging.debug("Robot loaded")
         reset_angles = self.robot_cfg['neutral_joint_angles']
+        print(len(reset_angles))
 
         for i, angle in enumerate(reset_angles):
             # Force reset (breaks physics)
+
             pybullet.resetJointState(
                 bodyUniqueId=self.arm_id,
                 jointIndex=i,
-                targetValue=angle)
+                targetValue=angle, 
+                physicsClientId=self.physics_id)
 
         self.scene_objects_dict = {}
         # Load scene objects (e.g. table, bins)
@@ -112,6 +115,7 @@ class BulletArena(Arena):
             flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
             physicsClientId=self.physics_id)
         logging.info("Loaded robot" + " arm_id :" + str(arm_id))
+        print(pybullet.getNumJoints(arm_id, self.physics_id))
 
         # Load Arm
         if (self.robot_cfg['base'] != 'None'):

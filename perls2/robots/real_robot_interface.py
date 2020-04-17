@@ -7,10 +7,10 @@ Author: Roberto Martin-Martin
 import abc   # For abstract class definitions
 import six   # For abstract class definitions
 import redis  # For communicating with RobotCtrlInterfaces
-
+from scipy.spatial.transform import Rotation as R
 from perls2.robots.robot_interface import RobotInterface
-
-
+import numpy as np
+import logging
 class RealRobotInterface(RobotInterface):
     """Abstract interface to be implemented for each real and simulated
     robot.
@@ -18,18 +18,54 @@ class RealRobotInterface(RobotInterface):
 
     def __init__(self,
                  config,
-                 pose=None,
-                 controlType=None):
+                 controlType=None,
+                 pb_interface=None):
 
+        self.pb_interface= pb_interface
+
+        super().__init__(controlType)
         self.config = config
         self.robot_cfg  = self.config[self.config['world']['robot']]
 
-    def create(config, physics_id, arm_id):
+
+    def create(config, physics_id, arm_id, controlType, pb_interface=None):
         """Factory for creating robot interfaces based on config type
         """
         if (config['world']['robot'] == 'sawyer'):
             from perls2.robots.real_sawyer_interface import RealSawyerInterface
             return RealSawyerInterface(
-                config=config, physics_id=physics_id, arm_id=arm_id)
+                config=config, physics_id=physics_id, arm_id=arm_id, controlType=controlType, pb_interface=pb_interface)
         else:
             raise ValueError("invalid robot interface type. choose 'sawyer'")
+    
+    def step(self):
+        """Update the robot state and model, set torques from controller
+        """
+        self.update()
+        if self.action_set:               
+            torques = self.controller.run_controller() 
+            self.set_torques(torques)
+        else:
+            print(" real robot ACTION NOT SET")
+
+    def update(self):
+        orn = R.from_quat(self.ee_orientation)
+        self.model.update_states(ee_pos=np.asarray(self.ee_position),
+                                 ee_ori= np.asarray(self.ee_orientation),
+                                 ee_pos_vel=np.asarray(self.ee_v),
+                                 ee_ori_vel=np.asarray(self.ee_omega),
+                                 joint_pos=np.asarray(self.q[:7]),
+                                 joint_vel=np.asarray(self.dq[:7]),
+                                 joint_tau=np.asarray(self.tau)
+                                 )
+
+        self.model.update_model(J_pos=self.linear_jacobian,
+                                J_ori=self.angular_jacobian,
+                                mass_matrix=self.mass_matrix)
+    
+    def move_ee_delta(self, delta):
+        logging.debug("delta real " + str(delta))
+        self.controller.set_goal(goal=delta, fn="ee_delta", delta=delta)
+        self.action_set = True
+
+    

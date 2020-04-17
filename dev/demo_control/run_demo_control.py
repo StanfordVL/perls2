@@ -1,22 +1,22 @@
 from demo_control_env import DemoControlEnv
 import numpy as np
-
+import time 
 import logging
 logging.basicConfig(level=logging.INFO)
 mpl_logger = logging.getLogger('matplotlib')
 mpl_logger.setLevel(logging.WARNING) 
 EE_POSITIONS_LIST = [[0.1, 0.0,    0.0, 0.0,    0.0,    0.0],
-                     [0.0,  0.1,   0.0, 0.0,    0.0,    0.0], 
-                     [0.0,  0.0,   0.1, 0.0,    0.0,    0.0]]
+                      [0.0,  -0.1,   0.0, 0.0,    0.0,    0.0], 
+                      [0.0,  0.0,   0.1, 0.0,    0.0,    0.0]]
 
 
-JOINT_VELOCITY_LIST =[[0.1, 0.0,    0.0, 0.0,    0.0,    0.0, 0.0],
-[0.0, -0.1,    0.0, 0.0,    0.0,    0.0, 0.0],
-[0.0, 0.0,    0.1, 0.0,    0.0,    0.0, 0.0],
-[0.0, 0.0,    0.0, -0.1,    0.0,    0.0, 0.0],
-[0.0, 0.0,    0.0, 0.0,    0.1,    0.0, 0.0],
-[0.0, 0.0,    0.0, 0.0,    0.0,    -0.1, 0.0],
-[0.0, 0.0,    0.0, 0.0,    0.0,    0.0, 0.05]]      
+JOINT_VELOCITY_LIST =[[0.1, 0.0,    0.0, 0.0,    0.0,    0.0, 0.0]] #,
+# [0.0, -0.1,    0.0, 0.0,    0.0,    0.0, 0.0],
+# [0.0, 0.0,    0.1, 0.0,    0.0,    0.0, 0.0],
+# [0.0, 0.0,    0.0, -0.1,    0.0,    0.0, 0.0],
+# [0.0, 0.0,    0.0, 0.0,    0.1,    0.0, 0.0],
+# [0.0, 0.0,    0.0, 0.0,    0.0,    -0.1, 0.0],
+# [0.0, 0.0,    0.0, 0.0,    0.0,    0.0, 0.05]]      
 
 JOINT_IMP_LIST = [[0.1, 0.0,    0.0, 0.0,    0.0,    0.0, 0.0],
 [0.0, -0.1,    0.0, 0.0,    0.0,    0.0, 0.0],
@@ -85,6 +85,15 @@ delta_list = []
 # EE Impedance Test (delta)
 
 for step, action in enumerate(command_dict[selected_control_name]):
+    start = time.time()
     env.step(action)
+    import matplotlib.pyplot as plt
+    plt.show()
+    # while (time.time() - start) < 5:
+    #     pass
+
+env.reset()
+env.robot_interface.disconnect()
+
  
 print("Demo complete.")
