@@ -1,12 +1,12 @@
 # Cfg file for  Demo control environment 
 world:
-  type: 'Real' #'Bullet'
+  type: 'Bullet' #'Bullet'
   robot: 'sawyer' #'panda'
 data_dir: 'data'
 # Simulation parameters
 sim_params:
   time_step: 0.004166 #0.002 #0.004166  # 1./240.
-  control_freq: 1000 #4000 #5 #20
+  control_freq: 200 #4000 #5 #20
   steps_per_action: 1 #6 #1 #5 # policy to sim update ratio
 
   MAX_STEPS: 100000

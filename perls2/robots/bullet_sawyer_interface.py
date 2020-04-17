@@ -91,3 +91,6 @@ class BulletSawyerInterface(BulletRobotInterface):
             forces=[250]*self._num_joints,
             positionGains=[0.1]*self._num_joints,
             velocityGains=[1.2]*self._num_joints)
+
+    def disconnect(self):
+        pass
