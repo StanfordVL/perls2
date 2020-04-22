@@ -265,8 +265,8 @@ class BulletWorld(World):
                 for step in range(self.control_freq):
                     self.robot_interface.step()
                     pybullet.stepSimulation(self._physics_id)
-                    delta = self.robot_interface.ee_pose[self.dim_num] - initial_ee_position
-                    ee_list.append(delta)
+                    # delta = self.robot_interface.ee_pose[self.dim_num] - initial_ee_position
+                    # ee_list.append(delta)
                 #pybullet.stepSimulation(self._physics_id)
             self.robot_interface.action_set = False
             # import matplotlib.pyplot as plt
@@ -275,7 +275,7 @@ class BulletWorld(World):
             # plt.xlabel("num pb.stepSim steps")
             # plt.ylabel("delta [m]")
             # plt.show()
-            self.dim_num+=1
+            # self.dim_num+=1
         elif self.robot_interface.controlType == "JointImpedance": 
             q_list = []
             initial_q_pos = self.robot_interface.motor_joint_positions[self.joint_num]

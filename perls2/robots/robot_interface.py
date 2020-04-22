@@ -8,7 +8,7 @@ import abc  # For abstract class definitions
 import six  # For abstract class definitions
 from tq_control.controllers.ee_imp import EEImpController
 from tq_control.controllers.ee_imp import EEImpController
-from tq_control.controllers.pb_controller import PBController
+import time
 from tq_control.controllers.joint_vel import JointVelController
 from tq_control.controllers.joint_imp import JointImpController
 from tq_control.controllers.joint_torque import JointTorqueController
@@ -19,6 +19,7 @@ import numpy as np
 import logging
 from scipy.spatial.transform import Rotation as R
 #logging.basicConfig(level=logging.DEBUG)
+tqtxt = open('dev/timing/numba_torque_calc.txt', 'w')
 
 @six.add_metaclass(abc.ABCMeta)
 class RobotInterface(object):
@@ -156,13 +157,14 @@ class RobotInterface(object):
             return
         else:
             if self.action_set:               
+                start = time.process_time()
                 torques = self.controller.run_controller() + self.N_q
+                tqtxt.write(str(time.process_time()-start) + '\n')
                 self.set_torques(torques)
             else:
                 print("ACTION NOT SET")
 
     def move_ee_delta(self, delta):
-        logging.debug("delta " + str(delta))
         self.controller.set_goal(goal=delta, fn="ee_delta", delta=delta)
         self.action_set = True
 

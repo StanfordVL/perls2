@@ -36,8 +36,7 @@ class BulletSawyerInterface(BulletRobotInterface):
         self._ee_index = self.get_link_id_from_name('right_hand')
 
         # Neutral positions and configuration specifics
-        self.limb_neutral_positions = [0, -1.18, 0.00, 2.18, 0.00, 0.57, 3.3161,
-                                       0, 0, 0, 0, 0, 0, 0]
+        self.limb_neutral_positions = self.config['sawyer']['neutral_joint_angles']
         self._name = "Rethink Bullet Sawyer"
         logging.debug("BulletSawyerInterface created")
         self._default_force = 100

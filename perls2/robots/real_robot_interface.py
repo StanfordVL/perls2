@@ -64,7 +64,7 @@ class RealRobotInterface(RobotInterface):
                                 mass_matrix=self.mass_matrix)
     
     def move_ee_delta(self, delta):
-        logging.debug("delta real " + str(delta))
+
         self.controller.set_goal(goal=delta, fn="ee_delta", delta=delta)
         self.action_set = True
 

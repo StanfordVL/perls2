@@ -104,7 +104,7 @@ class BulletArena(Arena):
         """ Load the robot and return arm_id, base_id
         """
         arm_file = os.path.join(self.data_dir, self.robot_cfg['arm']['path'])
-
+        print(" ARM FILE: " + str(arm_file))
         arm_id = pybullet.loadURDF(
             fileName=arm_file,
             basePosition=self.robot_cfg['arm']['pose'],

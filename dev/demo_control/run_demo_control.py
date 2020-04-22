@@ -2,12 +2,28 @@ from demo_control_env import DemoControlEnv
 import numpy as np
 import time 
 import logging
+
 logging.basicConfig(level=logging.INFO)
 mpl_logger = logging.getLogger('matplotlib')
 mpl_logger.setLevel(logging.WARNING) 
-EE_POSITIONS_LIST = [[0.1, 0.0,    0.0, 0.0,    0.0,    0.0],
-                      [0.0,  -0.1,   0.0, 0.0,    0.0,    0.0], 
-                      [0.0,  0.0,   0.1, 0.0,    0.0,    0.0]]
+
+def make_ee_positions_list(steps):
+  """ Randomly generate a series of ee positions to take
+
+  Magnitude is always 0.1 in either xyz direction.
+  """
+  ee_list = []
+  for step in range(steps):
+    delta = np.zeros(6)
+    dim = np.random.randint(0, 3)
+    sign = np.random.choice([-1, 1])
+    delta[dim] = sign*0.1
+    ee_list.append(delta)
+  return ee_list
+
+
+EE_POSITIONS_LIST = make_ee_positions_list(steps=100)
+
 
 
 JOINT_VELOCITY_LIST =[[0.1, 0.0,    0.0, 0.0,    0.0,    0.0, 0.0]] #,
@@ -87,8 +103,6 @@ delta_list = []
 for step, action in enumerate(command_dict[selected_control_name]):
     start = time.time()
     env.step(action)
-    import matplotlib.pyplot as plt
-    plt.show()
     # while (time.time() - start) < 5:
     #     pass
 

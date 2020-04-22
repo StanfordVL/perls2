@@ -6,12 +6,12 @@ import abc
 
 from perls2.robots.robot_interface import RobotInterface
 from tq_control.controllers.ee_imp import EEImpController
-from tq_control.controllers.pb_controller import PBController
+
 from tq_control.controllers.joint_vel import JointVelController
 from tq_control.controllers.joint_imp import JointImpController
 from tq_control.controllers.joint_torque import JointTorqueController
 from tq_control.robot_model.manual_model import ManualModel
-from tq_control.robot_model.pb_model import PBModel
+
 import logging
 logging.basicConfig(level=logging.INFO)
 from perls2.robots.controller import OperationalSpaceController
@@ -73,20 +73,11 @@ class BulletRobotInterface(RobotInterface):
         # available (tuned) controller types for this interface
         self.available_controllers = ['EEImpedance', 'JointVelocity', 'JointImpedance', 'Native']
         super().__init__(controlType)
-        if self.config['controller']['selected_type'] == 'Native':
-            self.model = PBModel(self.arm_id, self.physics_id)
-        else:
-            self.model = ManualModel()
+        self.model = ManualModel()
 
         self.update()
 
         self.controller = self.make_controller(controlType)
-
-        if self.controlType == 'Native':
-            self.controller = PBController(
-                arm_id=self.arm_id, 
-                physics_id=self.physics_id, 
-                robot_model = self.model)
 
 
     def create(config, physics_id, arm_id, controlType):
@@ -132,13 +123,13 @@ class BulletRobotInterface(RobotInterface):
 
     def update(self):
         orn = R.from_quat(self.ee_orientation)
-        self.model.update_states(ee_pos=np.asarray(self.ee_position),
-                                 ee_ori= np.asarray(self.ee_orientation),
-                                 ee_pos_vel=np.asarray(self.ee_v),
-                                 ee_ori_vel=np.asarray(self.ee_w),
-                                 joint_pos=np.asarray(self.motor_joint_positions[:7]),
-                                 joint_vel=np.asarray(self.motor_joint_velocities[:7]),
-                                 joint_tau=np.asarray(self.last_torques_cmd[:7])
+        self.model.update_states(np.asarray(self.ee_position),
+                                 np.asarray(self.ee_orientation),
+                                 np.asarray(self.ee_v),
+                                 np.asarray(self.ee_w),
+                                 np.asarray(self.motor_joint_positions[:7]),
+                                 np.asarray(self.motor_joint_velocities[:7]),
+                                 np.asarray(self.last_torques_cmd[:7]),
                                  )
 
         self.model.update_model(J_pos=self.linear_jacobian,
@@ -199,7 +190,7 @@ class BulletRobotInterface(RobotInterface):
 
         Note: breaks physics only to be used for IK, Mass Matrix and Jacobians 
         """
-        for i in range(6):
+        for i in range(7):
             # Force reset (breaks physics)
             pybullet.resetJointState(
                 bodyUniqueId=self._arm_id,
