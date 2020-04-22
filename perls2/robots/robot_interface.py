@@ -19,7 +19,7 @@ import numpy as np
 import logging
 from scipy.spatial.transform import Rotation as R
 #logging.basicConfig(level=logging.DEBUG)
-tqtxt = open('dev/timing/numba_torque_calc.txt', 'w')
+
 
 @six.add_metaclass(abc.ABCMeta)
 class RobotInterface(object):
@@ -157,9 +157,7 @@ class RobotInterface(object):
             return
         else:
             if self.action_set:               
-                start = time.process_time()
                 torques = self.controller.run_controller() + self.N_q
-                tqtxt.write(str(time.process_time()-start) + '\n')
                 self.set_torques(torques)
             else:
                 print("ACTION NOT SET")
