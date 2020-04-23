@@ -93,9 +93,6 @@ print("Control type " + control_types[control_selected] + " selected.")
 
 selected_control_name = control_types[control_selected]
 
-## REMOVE ME: 
-# selected_control_name = "JointImpedance"
-#import pdb; pdb.set_trace()
 env.robot_interface.change_controller(selected_control_name)
 
 env.reset()
