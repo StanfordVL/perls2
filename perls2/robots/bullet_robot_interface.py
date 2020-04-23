@@ -14,7 +14,6 @@ from tq_control.robot_model.manual_model import ManualModel
 
 import logging
 logging.basicConfig(level=logging.INFO)
-from perls2.robots.controller import OperationalSpaceController
 import scipy
 from scipy.spatial.transform import Rotation as R
 import rbdl
