@@ -13,12 +13,14 @@ def make_ee_positions_list(steps):
   Magnitude is always 0.1 in either xyz direction.
   """
   ee_list = []
-  for step in range(steps):
+  dim = 0
+  for step in range(6):
     delta = np.zeros(6)
-    dim = np.random.randint(0, 3)
+    #dim = np.random.randint(0, 6)
     sign = np.random.choice([-1, 1])
     delta[dim] = sign*0.1
     ee_list.append(delta)
+    dim+=1
   return ee_list
 
 
