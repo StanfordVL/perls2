@@ -174,8 +174,11 @@ class SimpleReachEnv(Env):
             logging.debug(
                 'Next position: ' + str(next_position))
 
-        self.robot_interface.set_ee_pose(list(next_position) + 
-                                        [0, 0.952846, 0, 0.303454])
+        # self.robot_interface.set_ee_pose(list(next_position) + 
+        #                                 [0, 0.952846, 0, 0.303454])
+        delta = np.hstack((action, [0, 0, 0]))
+        hold_ori = [0, 0.952846, 0, 0.303454]
+        self.robot_interface.move_ee_delta(delta=delta)
 
     def _check_termination(self):
         """ Query state of environment to check termination condition

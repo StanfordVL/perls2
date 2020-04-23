@@ -14,6 +14,7 @@ from tq_control.controllers.joint_imp import JointImpController
 from tq_control.controllers.joint_torque import JointTorqueController
 
 from tq_control.robot_model.manual_model import ManualModel
+from tq_control.utils import transform_utils as T
 #from tq_control.interpolator.reflexxes_interpolator import ReflexxesInterpolator
 import numpy as np
 import logging
@@ -84,38 +85,22 @@ class RobotInterface(object):
             return EEImpController(self.model,
                 kp=controller_dict['kp'], 
                 damping=controller_dict['damping'],
-                input_max=controller_dict['input_max'], 
-                input_min=controller_dict['input_min'],
-                output_max=controller_dict['output_max'], 
-                output_min=controller_dict['output_min'], 
                 interpolator_pos =None,
                 interpolator_ori=None,
                 control_freq=self.config['sim_params']['control_freq'])
         elif control_type == "JointVelocity":
             return JointVelController(
                 robot_model=self.model, 
-                kv=self.config['controller']['JointVelocity']['kv'],
-                input_max=controller_dict['input_max'], 
-                input_min=controller_dict['input_min'],
-                output_max=controller_dict['output_max'], 
-                output_min=controller_dict['output_min'])
+                kv=self.config['controller']['JointVelocity']['kv'])
         elif control_type == "JointImpedance":
             return JointImpController(
                 robot_model= self.model, 
                 kp=controller_dict['kp'], 
-                damping=controller_dict['damping'],
-                input_max=controller_dict['input_max'], 
-                input_min=controller_dict['input_min'],
-                output_max=controller_dict['output_max'], 
-                output_min=controller_dict['output_min'], 
+                damping=controller_dict['damping']
                 )
         elif control_type == "JointTorque":
             return JointTorqueController(
-                robot_model=self.model,
-                input_max=controller_dict['input_max'], 
-                input_min=controller_dict['input_min'],
-                output_max=controller_dict['output_max'], 
-                output_min=controller_dict['output_min'], )
+                robot_model=self.model )
         else: 
             return ValueError("Invalid control type")
 
@@ -162,8 +147,26 @@ class RobotInterface(object):
             else:
                 print("ACTION NOT SET")
 
-    def move_ee_delta(self, delta):
-        self.controller.set_goal(goal=delta, fn="ee_delta", delta=delta)
+    def move_ee_delta(self, delta, fix_pos=None, fix_ori=None):
+        """ Use controller to move end effector by some delta.
+
+        Args: 
+            delta (6f): delta position (dx, dy, dz) concatenated with delta orientation.
+                Orientation change is specified as an Euler angle body XYZ rotation about the
+                end effector link. 
+            fix_pos (3f): end effector position to maintain while changing orientation. 
+                [x, y, z]. If not None, the delta for position is ignored. 
+            fix_ori (4f): end effector orientation to maintain while changing orientation
+                as a quaternion [qx, qy, qz, w]. If not None, any delta for orientation is ignored. 
+        
+        Note: to fix position or orientation, it is better to specify using the kwargs than
+            to use a 0 for the corresponding delta. This prevents any error from accumulating in 
+            that dimension. 
+
+        """
+        if fix_ori is not None:
+            fix_ori= T.quat2mat(fix_ori)
+        self.controller.set_goal(delta=delta, set_pos=fix_pos, set_ori=fix_ori)
         self.action_set = True
 
     def set_dq(self, dq_des):
