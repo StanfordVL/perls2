@@ -51,7 +51,7 @@ class RobotInterface(object):
         self.controlType = controlType
         self.action_set = False
         self.model = ManualModel()
-        self.update()
+    
 
 
     def update(self):

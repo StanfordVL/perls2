@@ -17,7 +17,7 @@ logging.basicConfig(level=logging.INFO)
 from perls2.robots.controller import OperationalSpaceController
 import scipy
 from scipy.spatial.transform import Rotation as R
-
+import rbdl
 
 def nested_tuple_to_list(tuple_input):
     for elem in tuple_input:
@@ -74,7 +74,6 @@ class BulletRobotInterface(RobotInterface):
         self.available_controllers = ['EEImpedance', 'JointVelocity', 'JointImpedance', 'Native']
         super().__init__(controlType)
         self.model = ManualModel()
-
         self.update()
 
         self.controller = self.make_controller(controlType)
@@ -1167,10 +1166,11 @@ class BulletRobotInterface(RobotInterface):
         """ compute the system inertia given its joint positions. Uses
         pybullet Composite Rigid Body Algorithm.
         """
-        mass_matrix = pybullet.calculateMassMatrix(
-            bodyUniqueId=self._arm_id,
-            objPositions=self.q,
-            physicsClientId=self._physics_id)
+        free_dof = len(self.motor_joint_positions)
+        mass_matrix = np.zeros((9, 9),  dtype=np.double)
+        rbdl.CompositeRigidBodyAlgorithm(self.rbdl_model, 
+            np.asarray(self.motor_joint_positions),
+            mass_matrix)
         mass_matrix = np.array(mass_matrix)[:7, :7]
         return mass_matrix
 
