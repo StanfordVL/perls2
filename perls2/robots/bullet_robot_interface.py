@@ -674,21 +674,6 @@ class BulletRobotInterface(RobotInterface):
             dq.append(dq_i)
         return dq
 
-    @dq.setter
-    def dq(self, dq_d):
-        """
-        Set the  desired joint velocities of the robot arm.
-        :return: a list of joint velocities in radian/s ordered by
-        indices from small to large.
-        Typically the order goes from base to end effector.
-        """
-        pybullet.setJointMotorControlArray(
-            bodyUniqueId=self._arm_id,
-            jointIndices=range(0,self._num_joints),
-            controlMode=pybullet.VELOCITY_CONTROL,
-            targetVelocities=dq_d,
-            physicsClientId=self.physics_id)
-
     ########### OPERATIONAL SPACE PROPERTIES ##################
     @property
     def ee_v(self):
