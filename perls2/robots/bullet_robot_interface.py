@@ -610,53 +610,6 @@ class BulletRobotInterface(RobotInterface):
 
         pybullet.setJointMotorControlArray(**kwargs)
 
-    def set_joint_velocity_control(
-            self,
-            joint_ind,
-            target_velocity,
-            max_force=None,
-            position_gain=None,
-            velocity_gain=None):
-        """Velocity control of a joint.
-
-        Parameters
-        ----------
-        joint_uid :
-            The tuple of the body unique ID and the joint index.
-        target_velocity :
-            The joint velocity.
-        max_joint_force :
-            The maximal force of the joint.
-        position_gain :
-            The position gain. (Default value = None)
-        velocity_gain :
-            The velocity gain. (Default value = None)
-        max_force :
-             (Default value = None)
-
-        Returns
-        -------
-
-        """
-
-        kwargs = dict()
-        kwargs['physicsClientId'] = self.physics_id
-        kwargs['bodyUniqueId'] = self.arm_id
-        kwargs['jointIndex'] = joint_ind
-        kwargs['controlMode'] = pybullet.VELOCITY_CONTROL
-        kwargs['targetVelocity'] = target_velocity
-
-        if max_force is not None:
-            kwargs['force'] = max_force
-
-        if position_gain is not None:
-            kwargs['positionGain'] = position_gain
-
-        if velocity_gain is not None:
-            kwargs['velocityGain'] = velocity_gain
-
-        pybullet.setJointMotorControl2(**kwargs)
-
     @property
     def dq(self):
         """

@@ -29,18 +29,17 @@ class BulletPandaInterface(BulletRobotInterface):
 
         self.rbdl_model = rbdl.loadModel(b'data/robot/franka_panda/panda.urdf')
         super().__init__(physics_id, arm_id, config, controlType)
-        #print(self.mass_matrix)
+
         self._ee_index = self.get_link_id_from_name('panda_link7')
 
         # Neutral positions
         self.limb_neutral_positions =  self.robot_cfg['neutral_joint_angles']
-       #  0, 0, 0, 0, 0, 0, 0]
+
         self._name = "Franka Panda"
         self._default_force = 100
         self._default_position_gain = 0.1
         self._default_velocity_gain = 2.5
         #self.num_joints = 9
-
 
     def version(self):
         """dict of current versions of robot SDK, gripper, and robot
