@@ -2,7 +2,8 @@
 panda:
   arm:
     path:
-      'robot/franka_description/robots/panda_arm_hand.urdf'
+      #'robot/franka_description/robots/panda_arm_hand.urdf'
+      'robot/franka_panda/panda.urdf'
     pose:
       [0, 0, 0]
     orn:
@@ -11,8 +12,8 @@ panda:
       True
   base: 'None'
   neutral_joint_angles:
-    [0., 0., 0., 0., 0., 0., 0.]
-    #[0., -0.3135, 0., -2.515, 0., 2.226, 0.87]
+   [0., -0.3135, 0., -2.515, 0., 2.226, 0.87]
+   
 
   limb_joint_names: [
   'panda_link0',

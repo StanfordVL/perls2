@@ -860,7 +860,6 @@ class BulletRobotInterface(RobotInterface):
         """ compute the system inertia given its joint positions. Uses
         rbdl Composite Rigid Body Algorithm.
         """
-        free_dof = len(self.motor_joint_positions)
         mass_matrix = np.zeros((9, 9),  dtype=np.double)
         rbdl.CompositeRigidBodyAlgorithm(self.rbdl_model, 
             np.asarray(self.motor_joint_positions),

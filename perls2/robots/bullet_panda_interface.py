@@ -4,7 +4,7 @@ Class defining the interface to the Panda Robot in Bullet
 
 import pybullet
 import numpy as np
-
+import rbdl 
 from perls2.robots.bullet_robot_interface import BulletRobotInterface
 
 
@@ -27,7 +27,12 @@ class BulletPandaInterface(BulletRobotInterface):
                  config=None,
                  controlType='EEImp'):
 
+        self.rbdl_model = rbdl.loadModel(b'/home/rohunk-local/bullet3/examples/pybullet/gym/pybullet_data/franka_panda/panda.urdf')
+        input("look at the arm")
+        #self.rbdl_model = rbdl.loadModel(b'/home/rohunk-local/bullet3/examples/pybullet/gym/pybullet_data/franka_panda/panda.urdf')
+        #self.rbdl_model = rbdl.loadModel(b'/home/rohunk-local/perls2/perls2/data/robot/franka_panda/panda.urdf')
         super().__init__(physics_id, arm_id, config, controlType)
+        #print(self.mass_matrix)
         self._ee_index = self.get_link_id_from_name('panda_link7')
 
         # Neutral positions
@@ -44,3 +49,6 @@ class BulletPandaInterface(BulletRobotInterface):
         """dict of current versions of robot SDK, gripper, and robot
         """
         raise NotImplementedError
+
+    def disconnect(self):
+        pass
