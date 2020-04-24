@@ -21,6 +21,12 @@ import logging
 from scipy.spatial.transform import Rotation as R
 #logging.basicConfig(level=logging.DEBUG)
 
+VALID_CONTROL_COMMANDS = {
+    "move_ee_delta" : "EEImpedance", 
+    "set_joint_velocity": "Joint Velocity", 
+    "set_joint_delta": "JointImpedance", 
+    "set_joint_positions": "JointImpedance"
+}
 
 @six.add_metaclass(abc.ABCMeta)
 class RobotInterface(object):
@@ -52,8 +58,6 @@ class RobotInterface(object):
         self.controlType = controlType
         self.action_set = False
         self.model = ManualModel()
-    
-
 
     def update(self):
         raise NotImplementedError
@@ -112,7 +116,8 @@ class RobotInterface(object):
                 Choose from: 
                     -'EEImpedance'
                     -'JointVelocity'
-                    'JointImpedance'
+                    -'JointImpedance'
+                    -'JointTorque'
         """ 
 
         if next_type == "EEImpedance":
@@ -130,7 +135,7 @@ class RobotInterface(object):
             self.controller = self.make_controller(next_type)
         else:
             raise ValueError("Invalid control type " + str(next_type)  +
-                "\nChoose from EEImpedance, JointVelocity, JointImpedance")
+                "\nChoose from EEImpedance, JointVelocity, JointImpedance, JointTorque")
         self.controlType = next_type
         return self.controlType
 
@@ -147,6 +152,15 @@ class RobotInterface(object):
             else:
                 print("ACTION NOT SET")
 
+    def set_controller_goal(self, **kwargs):
+        self.controller.set_goal(**kwargs)
+        self.action_set = True
+
+
+    def check_controller(self, fn_control_type):
+        if self.controller != fn_control_type:
+            raise ValueError('Invalid Control Type. Change to ' + fn_control_type)
+
     def move_ee_delta(self, delta, fix_pos=None, fix_ori=None):
         """ Use controller to move end effector by some delta.
 
@@ -159,26 +173,46 @@ class RobotInterface(object):
             fix_ori (4f): end effector orientation to maintain while changing orientation
                 as a quaternion [qx, qy, qz, w]. If not None, any delta for orientation is ignored. 
         
+        Note: only for use with EE impedance controller
         Note: to fix position or orientation, it is better to specify using the kwargs than
             to use a 0 for the corresponding delta. This prevents any error from accumulating in 
             that dimension. 
 
         """
+        self.check_controller("EEImpedance")
         if fix_ori is not None:
+            if len(fix_ori) != 4:
+                raise ValueError('fix_ori incorrect dimensions, should be quaternion length 4')
             fix_ori= T.quat2mat(fix_ori)
-        self.controller.set_goal(delta=delta, set_pos=fix_pos, set_ori=fix_ori)
-        self.action_set = True
+        if fix_pos is not None:
+            if len(fix_pos) != 3:
+                raise ValueError('fix_pos incorrect dimensions, should be length 3')
 
-    def set_dq(self, dq_des):
-        self.controller.set_goal(dq_des)
-        self.action_set = True
+        kwargs = {'delta': delta, 'set_pos': fix_pos, 'set_ori':fix_ori}
+        self.set_controller_goal(**kwargs)
 
-    def set_joint_delta(self, pose):
-        self.controller.set_goal(pose)
-        self.action_set = True
+
+    def set_joint_velocity(self, dq_des):
+        """ Use controller to set joint velocity of the robot.
+        Args:
+            dq_des(ndarray): 7f desired joint velocities from for each joint
+                Joint 0 is the base
+        """        
+
+        self.check_controller("JointVelocity")
+        self.set_controller_goal({'dq_des': dq_des})
+
+    def set_joint_delta(self, delta):
+        self.check_controller("JointImpedance")
+        self.set_controller_goal({'delta': delta})
+
+    def set_joint_positions(self, pose):    
+        self.check_controller("JointImpedance")
+        self.set_controller_goal({'delta':None,'pose':pose})
 
     def set_joint_torque(self, torque):
-        self.controller.set_goal(torque)
+        self.check_controller("JointTorque")
+        self.set_controller_goal({'torque':torques})
 
     @abc.abstractmethod
     def create(config):
