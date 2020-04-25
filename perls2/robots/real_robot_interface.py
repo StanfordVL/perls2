@@ -21,11 +21,13 @@ class RealRobotInterface(RobotInterface):
                  controlType=None,
                  pb_interface=None):
 
-        self.pb_interface= pb_interface
-
         super().__init__(controlType)
+        self.pb_interface= pb_interface
         self.config = config
         self.robot_cfg  = self.config[self.config['world']['robot']]
+
+        self.update()
+        self.controller = self.make_controller(controlType)
 
 
     def create(config, physics_id, arm_id, controlType, pb_interface=None):
@@ -62,10 +64,4 @@ class RealRobotInterface(RobotInterface):
         self.model.update_model(J_pos=self.linear_jacobian,
                                 J_ori=self.angular_jacobian,
                                 mass_matrix=self.mass_matrix)
-    
-    def move_ee_delta(self, delta):
-
-        self.controller.set_goal(goal=delta, fn="ee_delta", delta=delta)
-        self.action_set = True
-
     
