@@ -15,11 +15,10 @@ from tq_control.controllers.joint_torque import JointTorqueController
 
 from tq_control.robot_model.manual_model import ManualModel
 from tq_control.utils import transform_utils as T
-#from tq_control.interpolator.reflexxes_interpolator import ReflexxesInterpolator
 import numpy as np
 import logging
 from scipy.spatial.transform import Rotation as R
-#logging.basicConfig(level=logging.DEBUG)
+
 
 AVAILABLE_CONTROLLERS = ["EEImpedance", 
                          "Internal",
