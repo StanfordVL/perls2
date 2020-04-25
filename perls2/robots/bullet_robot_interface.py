@@ -143,8 +143,60 @@ class BulletRobotInterface(RobotInterface):
 
         num_joints =  pybullet.getNumJoints(self._arm_id, physicsClientId=self._physics_id)
         return num_joints
+    
+    def set_joints_pos_vel(self, joint_pos, joint_vel=[0]*7):
+        """Manualy reset joints to positions and velocities. 
+            Args: 
+                joint_pos (list 7f): list of desired joint positions
+                joint_vel (list 7f): list of desired joint velocities
+            Returns:
+                None
 
-    def set_joints_to_neutral_positions(self):
+        Note: breaks physics only to be used for IK, Mass Matrix and Jacobians 
+        """
+        if len(joint_pos) != 7:
+            raise ValueError("joint_pos incorrect dimensions")
+        if len(joint_pos) != len(joint_vel):
+            raise ValueError("Joint positions and velocities should be same length")
+        for i in range(len(joint_pos)):
+            # Force reset (breaks physics)
+            pybullet.resetJointState(
+                bodyUniqueId=self._arm_id,
+                jointIndex=i,
+                targetValue=joint_pos[i],
+                targetVelocity=joint_vel[i], 
+                physicsClientId=self.physics_id)
+
+
+    def inverse_kinematics(self, position, orientation):
+        """Calculate inverse kinematics to get joint angles for a pose.
+
+        Use pybullet's internal IK solver.
+        To be used with a joint-space controller. 
+
+        Args: 
+            position (list 3f): [x, y, z] of desired ee position
+            orientation (list 4f): [qx, qy, qz, w] for desired ee orientation as quaternion.
+
+        returns:
+            jointPoses (list 7f): joint positions that solve IK in radians.
+        """        
+ 
+        ikSolver = 0
+        orientation = self.ee_orientation
+
+        jointPoses = pybullet.calculateInverseKinematics(
+            self._arm_id,
+            self._ee_index,
+            position,
+            orientation,
+            solver=ikSolver,
+            maxNumIterations=100,
+            residualThreshold=.01,
+            physicsClientId=self._physics_id)
+
+        jointPoses = list(jointPoses)
+        return jointPoses    def set_joints_to_neutral_positions(self):
         """Set joints on robot to neutral positions as specified by the config file.
 
         Note: Breaks physics by forcibly setting the joint state. To be used only at
