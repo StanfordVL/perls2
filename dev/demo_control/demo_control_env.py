@@ -24,7 +24,7 @@ class DemoControlEnv(Env):
         if self.robot_interface.controlType == 'EEImpedance':
             self.robot_interface.move_ee_delta(action)
         elif self.robot_interface.controlType == 'JointVelocity':
-            self.robot_interface.set_dq(action)
+            self.robot_interface.set_joint_velocity(action)
         elif self.robot_interface.controlType == 'JointImpedance':
             self.robot_interface.set_joint_delta(action)
         elif self.robot_interface.controlType == 'JointTorque':
