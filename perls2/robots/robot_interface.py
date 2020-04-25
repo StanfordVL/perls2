@@ -21,12 +21,11 @@ import logging
 from scipy.spatial.transform import Rotation as R
 #logging.basicConfig(level=logging.DEBUG)
 
-VALID_CONTROL_COMMANDS = {
-    "move_ee_delta" : "EEImpedance", 
-    "set_joint_velocity": "Joint Velocity", 
-    "set_joint_delta": "JointImpedance", 
-    "set_joint_positions": "JointImpedance"
-}
+AVAILABLE_CONTROLLERS = ["EEImpedance", 
+                         "Internal",
+                         "JointVelocity",
+                         "JointImpedance", 
+                         "JointTorque"]
 
 @six.add_metaclass(abc.ABCMeta)
 class RobotInterface(object):
@@ -120,25 +119,15 @@ class RobotInterface(object):
                     -'JointImpedance'
                     -'JointTorque'
         """ 
-
-        if next_type == "EEImpedance":
+        if next_type in AVAILABLE_CONTROLLERS:
             self.controller = self.make_controller(next_type)
-        elif next_type == "JointVelocity":
-            self.controller = self.make_controller(next_type)
-        elif next_type =="Internal":
-            self.controller = self.make_controller(next_type)
-        elif next_type == "JointImpedance":
-            self.controller = JointImpController(
-                robot_model= self.model,
-                kp=self.config['controller']['JointImpedance']['kp'],
-                damping=self.config['controller']['JointImpedance']['damping'])
-        elif next_type == "JointTorque":
-            self.controller = self.make_controller(next_type)
+            self.controlType = next_type
+            return self.controlType
         else:
-            raise ValueError("Invalid control type " + str(next_type)  +
+            raise ValueError("Invalid control type " + 
                 "\nChoose from EEImpedance, JointVelocity, JointImpedance, JointTorque")
-        self.controlType = next_type
-        return self.controlType
+
+
 
     def step(self):
         """Update the robot state and model, set torques from controller
