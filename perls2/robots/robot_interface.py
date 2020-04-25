@@ -184,8 +184,10 @@ class RobotInterface(object):
     def set_joint_velocity(self, dq_des):
         """ Use controller to set joint velocity of the robot.
         Args:
-            dq_des(ndarray): 7f desired joint velocities from for each joint
+            dq_des(ndarray): 7f desired joint velocities (rad/s) for each joint.
                 Joint 0 is the base
+        Returns: None.
+        Notes: Only for use with JointVelocity controller.
         """        
 
         self.check_controller("JointVelocity")
