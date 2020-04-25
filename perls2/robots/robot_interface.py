@@ -195,7 +195,14 @@ class RobotInterface(object):
         self.set_controller_goal(**kwargs)
 
     def set_joint_delta(self, delta):
-
+        """ Use controller to set new joint position with a delta. 
+        Args:
+            delta (ndarray): 7f delta joint position (rad) from current
+                 joint position. 
+        Returns: None
+        Notes: Only for use with JointImpedance controller.
+               Does not check for exceeding maximum joint limits. (TODO)
+        """
         self.check_controller("JointImpedance")
         kwargs = {'delta': delta}
         self.set_controller_goal(**kwargs)
