@@ -73,7 +73,6 @@ class BulletRobotInterface(RobotInterface):
         # available (tuned) controller types for this interface
         self.available_controllers = ['EEImpedance', 'JointVelocity', 'JointImpedance', 'Native']
         super().__init__(controlType)
-        self.model = ManualModel()
         self.update()
 
         self.controller = self.make_controller(controlType)
