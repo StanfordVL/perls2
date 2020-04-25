@@ -109,6 +109,7 @@ class RobotInterface(object):
             return ValueError("Invalid control type")
 
 
+
     def change_controller(self, next_type):
         """Change to a different controller type.
         Args: 
@@ -156,10 +157,10 @@ class RobotInterface(object):
         self.controller.set_goal(**kwargs)
         self.action_set = True
 
-
     def check_controller(self, fn_control_type):
-        if self.controller != fn_control_type:
-            raise ValueError('Invalid Control Type. Change to ' + fn_control_type)
+        if self.controlType != fn_control_type:
+            raise ValueError('Wrong Control Type for this command. Change from '+ self.controlType +
+             ' to ' + fn_control_type)
 
     def move_ee_delta(self, delta, fix_pos=None, fix_ori=None):
         """ Use controller to move end effector by some delta.
@@ -200,19 +201,24 @@ class RobotInterface(object):
         """        
 
         self.check_controller("JointVelocity")
-        self.set_controller_goal({'dq_des': dq_des})
+        kwargs = {'dq_des': dq_des}
+        self.set_controller_goal(**kwargs)
 
     def set_joint_delta(self, delta):
+
         self.check_controller("JointImpedance")
-        self.set_controller_goal({'delta': delta})
+        kwargs = {'delta': delta}
+        self.set_controller_goal(**kwargs)
 
     def set_joint_positions(self, pose):    
         self.check_controller("JointImpedance")
-        self.set_controller_goal({'delta':None,'pose':pose})
+        kwargs = {'delta':None,'pose':pose}
+        self.set_controller_goal(**kwargs)
 
     def set_joint_torque(self, torque):
         self.check_controller("JointTorque")
-        self.set_controller_goal({'torque':torques})
+        kwargs = {'torque':torques}
+        self.set_controller_goal(**kwargs)
 
     @abc.abstractmethod
     def create(config):
