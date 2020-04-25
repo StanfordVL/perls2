@@ -178,8 +178,8 @@ class SimpleReachEnv(Env):
         #                                 [0, 0.952846, 0, 0.303454])
         delta = np.hstack((action, [0, 0, 0]))
         hold_ori = [0, 0.952846, 0, 0.303454]
-        self.robot_interface.move_ee_delta(delta=delta)
-
+        #self.robot_interface.move_ee_delta(delta=delta)
+        self.robot_interface.set_joint_velocity(delta)
     def _check_termination(self):
         """ Query state of environment to check termination condition
 
