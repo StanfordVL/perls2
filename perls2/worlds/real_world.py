@@ -3,7 +3,7 @@
 
 import abc
 import pybullet
-
+import time
 from perls2.worlds.world import World
 from perls2.worlds.bullet_world import BulletWorld
 from perls2.arenas.real_arena import RealArena
@@ -83,26 +83,19 @@ class RealWorld(World):
         Takes a step forward, since this happens naturally in reality, we don't
         do anything.
         """
-        import matplotlib.pyplot as plt
-        import time
-        ee_list = []
-
-        initial_pos = self.robot_interface.ee_position[self.dim_num]
-        for step in range(500):
+        for step in range(self.config['sim_params']['control_freq']):
             start = time.time()
             self.pb_world.robot_interface.set_joints_pos_vel(
                 joint_pos=self.robot_interface.q,
                 joint_vel=self.robot_interface.dq)
             self.pb_world.step()
             self.robot_interface.step()
-            delta = self.robot_interface.ee_position[self.dim_num] - initial_pos
-            ee_list.append(delta)
             while (time.time() - start) < 0.025:
                 pass
         self.action_set = False
         # plt.plot(ee_list)
         # plt.show()
-        self.dim_num+=1
+
 
     def visualize(self, observation, action):
         """Visualize the action - that is,
