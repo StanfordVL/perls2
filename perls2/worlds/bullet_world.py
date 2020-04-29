@@ -157,13 +157,13 @@ class BulletWorld(World):
         return self._physics_id
 
 
-    def add_object(self, path, name, pose, scale, is_static=False):
+    def add_object(self, path, name, pose, scale=1.0, is_static=False):
         """ Add object to world explicitly.
 
         Args:
             path (str): filepath name to object urdf
             name (str): name of object used for dictionary key
-            pose (list): (7,) pose of the object as [x, y, z, qx, qy, qz, w]
+            pose (list): ((3,),(4,)) pose of the object as [[x, y, z], [qx, qy, qz, w]]
                 orientation as quaternion.
             scale (double): scale of object.
             is_static (bool): whether object should remain fixed or not.
@@ -177,6 +177,8 @@ class BulletWorld(World):
                                    [0, 0, 0, 0, 0, 0, 1],
                                    1.0,)
         """
+
+        #TODO: automatically convert Euler to Quaternion
 
         # Get the pybullet id from arena
         obj_id = self.arena._load_object_path(path, name, pose, scale, is_static=False)

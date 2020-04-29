@@ -192,8 +192,7 @@ class BulletArena(Arena):
         obj_id = pybullet.loadURDF(
                     obj_path,
                     basePosition=pose[0],
-                    baseOrientation=pybullet.getQuaternionFromEuler(
-                            pose[1]),
+                    baseOrientation=pose[1],
                     globalScaling=scale,
                     useFixedBase=is_static,
                     flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
