@@ -7,9 +7,10 @@ from perls2.arenas.arena import Arena
 import logging
 logging.basicConfig(level=logging.DEBUG)
 
+
 class BulletArena(Arena):
-    """The class definition for Areanas using pybullet. 
-    Arenas 
+    """The class definition for Areanas using pybullet.
+    Arenas
     """
 
     def __init__(self,
@@ -80,13 +81,14 @@ class BulletArena(Arena):
         self.object_dict = {}
         if ('object' in self.config.keys()):
             # Load the objects from the config file and
-            # save their names and pybullet body id 
+            # save their names and pybullet body id
             # (not object id from config file)
             if ('object_dict' in self.config['object'].keys()):
                 for obj_idx, obj_key in enumerate(
                         self.config['object']['object_dict']):
                     pb_obj_id = self.load_object(obj_idx)
-                    obj_name = self.config['object']['object_dict'][obj_key]['name']
+                    obj_name = \
+                        self.config['object']['object_dict'][obj_key]['name']
                     logging.debug(obj_name + " loaded")
 
                     # key value for object_dict is obj_name: pb_obj_id
@@ -94,7 +96,6 @@ class BulletArena(Arena):
                     # This makes it easier to reference.
                     self.object_dict[obj_name] = pb_obj_id
                     for step in range(50):
-                        #logging.debug("stepping for stability")
                         pybullet.stepSimulation(self.physics_id)
 
     def load_robot(self):
@@ -115,7 +116,8 @@ class BulletArena(Arena):
 
         # Load Arm
         if (self.robot_cfg['base'] != 'None'):
-            base_file = os.path.join(self.data_dir, self.robot_cfg['base']['path'])
+            base_file = os.path.join(
+                    self.data_dir, self.robot_cfg['base']['path'])
             base_id = pybullet.loadURDF(
                 fileName=base_file,
                 basePosition=self.robot_cfg['base']['pose'],
@@ -131,14 +133,14 @@ class BulletArena(Arena):
 
     def load_urdf(self, key):
         """General function to load urdf based on key
-        
+
         Args:
-            key (string): key for the urdf to be loaded. 
+            key (string): key for the urdf to be loaded.
 
         Returns:
-            uid (int): pybullet Body ID for that body. 
+            uid (int): pybullet Body ID for that body.
 
-        Note: Keys must be specified at top level of config. 
+        Note: Keys must be specified at top level of config.
               Function does not traverse directory.
         """
         path = os.path.join(self.data_dir, self.config[key]['path'])
@@ -153,7 +155,6 @@ class BulletArena(Arena):
             flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
             physicsClientId=self.physics_id)
         return uid
-
 
     def load_ground(self):
         """ Load ground and return ground_id
@@ -188,7 +189,9 @@ class BulletArena(Arena):
         return obj_id
 
     def _load_object_path(self, path, name, pose, scale, is_static):
-        obj_path = os.path.join(self.data_dir,path)
+        obj_path = os.path.join(self.data_dir, path)
+        if len(pose[1] == 3):
+            pose[1] = pybullet.getQuaternionFromEuler(pose[1])
         obj_id = pybullet.loadURDF(
                     obj_path,
                     basePosition=pose[0],
@@ -205,14 +208,20 @@ class BulletArena(Arena):
         Args:
             object_id (int): pybullet id from load urdf
         """
-        logging.debug("Num bodies" + str(pybullet.getNumBodies(self.physics_id)))
-        logging.debug(str(pybullet.getBodyInfo(object_id, physicsClientId=self.physics_id)))
+        logging.debug(
+            "Num bodies" + str(pybullet.getNumBodies(self.physics_id)))
+        logging.debug(str(
+            pybullet.getBodyInfo(object_id, physicsClientId=self.physics_id)))
         logging.debug(self.object_dict)
 
         if phys_id is None:
-            pybullet.removeBody(bodyUniqueId=object_id, physicsClientId=self.physics_id)
+            pybullet.removeBody(
+                bodyUniqueId=object_id,
+                physicsClientId=self.physics_id)
         else:
-            pybullet.removeBody(bodyUniqueId=object_id, physicsClientId=phys_id)
+            pybullet.removeBody(
+                bodyUniqueId=object_id,
+                physicsClientId=phys_id)
 
     def view_matrix_to_extrinsic(self):
         L = (np.asarray(self.camera_target_pos) -
