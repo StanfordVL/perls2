@@ -147,8 +147,7 @@ class RobotInterface(object):
 
     def check_controller(self, fn_control_type):
         if self.controlType != fn_control_type:
-            raise ValueError('Wrong Control Type for this command. Change from '+ self.controlType +
-             ' to ' + fn_control_type)
+            raise ValueError('Wrong Control Type for this command. Change to ' + fn_control_type)
 
     def move_ee_delta(self, delta, fix_pos=None, fix_ori=None):
         """ Use controller to move end effector by some delta.
@@ -176,7 +175,6 @@ class RobotInterface(object):
         if fix_pos is not None:
             if len(fix_pos) != 3:
                 raise ValueError('fix_pos incorrect dimensions, should be length 3')
-
         kwargs = {'delta': delta, 'set_pos': fix_pos, 'set_ori':fix_ori}
         self.set_controller_goal(**kwargs)
 
@@ -191,7 +189,7 @@ class RobotInterface(object):
         """        
 
         self.check_controller("JointVelocity")
-        kwargs = {'dq_des': dq_des}
+        kwargs = {'velocities': dq_des}
         self.set_controller_goal(**kwargs)
 
     def set_joint_delta(self, delta):
