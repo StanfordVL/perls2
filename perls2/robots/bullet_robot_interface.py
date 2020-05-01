@@ -26,7 +26,11 @@ def nested_tuple_to_list(tuple_input):
             return elem
 
 class BulletRobotInterface(RobotInterface):
-    """ Abstract interface to be implemented for each Pybullet simulated robot
+    """ Abstract interface to be implemented for each Pybullet simulated robot. 
+
+    The BullletRobotInterface looks at the config file to determine the appropriate
+    interface to generate. 
+    
     """
     def __init__(self,
                  physics_id,
@@ -196,7 +200,9 @@ class BulletRobotInterface(RobotInterface):
             physicsClientId=self._physics_id)
 
         jointPoses = list(jointPoses)
-        return jointPoses    def set_joints_to_neutral_positions(self):
+        return jointPoses    
+
+    def set_joints_to_neutral_positions(self):
         """Set joints on robot to neutral positions as specified by the config file.
 
         Note: Breaks physics by forcibly setting the joint state. To be used only at
@@ -368,7 +374,7 @@ class BulletRobotInterface(RobotInterface):
             value * l_finger_joint_range)
 
         r_finger_position = (
-            r_finger_joint_limits.get('upper') -
+            r_finger_joint_limits.get('lower') +
             value * r_finger_joint_range)
 
         # Set the joint angles all at once
@@ -395,12 +401,18 @@ class BulletRobotInterface(RobotInterface):
     def open_gripper(self):
         """Open the gripper of the robot
         """
-        self.set_gripper_to_value(0.01)
+        if 'gripper' in self.config.keys():
+            self.set_gripper_to_value(self.config['gripper']['open_value'])
+        else:
+            self.set_gripper_to_value(0.99)
 
     def close_gripper(self):
         """Close the gripper of the robot
         """
-        self.set_gripper_to_value(0.99)
+        if 'gripper' in self.config.keys():
+            self.set_gripper_to_value(self.config['gripper']['close_value'])
+        else:
+            self.set_gripper_to_value(0.1)
 
     # Properties
 
