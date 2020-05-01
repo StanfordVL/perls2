@@ -147,7 +147,9 @@ class BulletRobotInterface(RobotInterface):
             physicsClientId=self._physics_id)
 
         jointPoses = list(jointPoses)
-        return jointPoses    def set_joints_to_neutral_positions(self):
+        return jointPoses
+
+    def set_joints_to_neutral_positions(self):
         """Set joints on robot to neutral positions as specified by the config file.
 
         Note: Breaks physics by forcibly setting the joint state. To be used only at

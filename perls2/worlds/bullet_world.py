@@ -206,7 +206,6 @@ class BulletWorld(World):
         """
         try:
             objectI = self.objects.pop(name)
-            self.arena._remove_object(objectI.obj_id, objectI.physics_id)
         except:
             logging.ERROR('key not found')
         self.arena._remove_object(objectI.obj_id, objectI.physics_id)
