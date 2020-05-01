@@ -242,22 +242,11 @@ class BulletWorld(World):
 
         # Prepare for next step by executing action
         if self.robot_interface.controlType == "JointVelocity":
-            jv_list = []
-
             for exec_steps in range(self.ctrl_steps_per_action):
                 for step in range(self.control_freq):
                     self.robot_interface.step()
                     pybullet.stepSimulation(self._physics_id)
-                    jv_list.append([self.robot_interface.motor_joint_velocities[self.joint_num]])
-                #pybullet.stepSimulation(self._physics_id)
             self.robot_interface.action_set = False
-            import matplotlib.pyplot as plt
-            # plt.plot(jv_list)
-            # plt.title("Joint Num " + str(self.joint_num))
-            # plt.xlabel("num pb.stepSim steps")
-            # plt.ylabel("joint velocity (dq) [rad/s]")
-            # plt.show()
-            self.joint_num+=1
         elif self.robot_interface.controlType == "EEImpedance":
             ee_list = []
             initial_ee_position = self.robot_interface.ee_pose[self.dim_num]
@@ -265,17 +254,7 @@ class BulletWorld(World):
                 for step in range(self.control_freq):
                     self.robot_interface.step()
                     pybullet.stepSimulation(self._physics_id)
-                    # delta = self.robot_interface.ee_pose[self.dim_num] - initial_ee_position
-                    # ee_list.append(delta)
-                #pybullet.stepSimulation(self._physics_id)
             self.robot_interface.action_set = False
-            # import matplotlib.pyplot as plt
-            # plt.plot(ee_list)
-            # plt.title("EE impedance: delta for dim" + str(self.dim_num))
-            # plt.xlabel("num pb.stepSim steps")
-            # plt.ylabel("delta [m]")
-            # plt.show()
-            # self.dim_num+=1
         elif self.robot_interface.controlType == "JointImpedance": 
             q_list = []
             initial_q_pos = self.robot_interface.motor_joint_positions[self.joint_num]
@@ -287,12 +266,7 @@ class BulletWorld(World):
                     q_list.append(delta)
 
             self.robot_interface.action_set = False
-            # import matplotlib.pyplot as plt
-            # plt.plot(q_list)
-            # plt.title("Joint Impedance for Joint Num " + str(self.joint_num))
-            # plt.xlabel("num pb.stepSim steps")
-            # plt.ylabel("joint position [rad]")
-            # plt.show()
+
             self.joint_num += 1
         elif self.robot_interface.controlType == "JointTorque": 
             q_list = []
@@ -306,12 +280,6 @@ class BulletWorld(World):
                     q_list.append(delta)
 
             self.robot_interface.action_set = False
-            import matplotlib.pyplot as plt
-            # plt.plot(q_list)
-            # plt.title("Joint Num " + str(self.joint_num))
-            # plt.xlabel("num pb.stepSim steps")
-            # plt.ylabel("joint torque")
-            # plt.show()
             self.joint_num += 1
         else:
             pass
