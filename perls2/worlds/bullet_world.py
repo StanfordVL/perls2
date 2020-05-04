@@ -157,6 +157,9 @@ class BulletWorld(World):
         # TODO REMOVE DEBUGs    
         self.joint_num = 0
         self.dim_num = 0
+        self.step_counter = 0
+
+        self.ee_list = []
 
     @property
     def physics_id(self):
@@ -248,12 +251,14 @@ class BulletWorld(World):
                     pybullet.stepSimulation(self._physics_id)
             self.robot_interface.action_set = False
         elif self.robot_interface.controlType == "EEImpedance":
-            ee_list = []
-            initial_ee_position = self.robot_interface.ee_pose[self.dim_num]
+            initial_ee_position = self.robot_interface.ee_position
             for exec_steps in range(self.ctrl_steps_per_action):
                 for step in range(self.control_freq):
                     self.robot_interface.step()
                     pybullet.stepSimulation(self._physics_id)
+                    self.ee_list.append(np.subtract(self.robot_interface.ee_position, initial_ee_position))
+            # np.savez('dev/logs/control/step' + str(self.step_counter) + '.npz', 
+            #          ee_list=self.ee_list)
             self.robot_interface.action_set = False
         elif self.robot_interface.controlType == "JointImpedance": 
             q_list = []
@@ -284,8 +289,8 @@ class BulletWorld(World):
         else:
             pass
 
-
-
+        self.step_counter +=1
+        #self.step_log = open('dev/logs/control/step' + str(self.step_counter) + '.txt', 'w+')
 
     def get_observation(self):
         """Get observation of current env state
