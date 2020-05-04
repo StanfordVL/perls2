@@ -94,6 +94,9 @@ controller:
     input_min: -1.0
     output_max: 1.0
     output_min: -1.0
+  interpolator:
+      type: 'linear'
+      order: 3
 
 object: 
   'None'
