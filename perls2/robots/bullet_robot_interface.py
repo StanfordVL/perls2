@@ -50,7 +50,7 @@ class BulletRobotInterface(RobotInterface):
                 -'EEimp' : end_effector impedance control.
                 -'JointVelocity': Joint Velocity Control
         """       
-        # super().__init__(controlType)
+        super().__init__(controlType, config)
         self._physics_id = physics_id
         self._arm_id = arm_id
         self._link_id_dict = self.get_link_dict()
