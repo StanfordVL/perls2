@@ -14,6 +14,7 @@ from tq_control.controllers.joint_imp import JointImpController
 from tq_control.controllers.joint_torque import JointTorqueController
 
 from tq_control.robot_model.manual_model import ManualModel
+from tq_control.interpolator.linear_interpolator import LinearInterpolator
 from tq_control.utils import transform_utils as T
 import numpy as np
 import logging
@@ -40,7 +41,8 @@ class RobotInterface(object):
     """
 
     def __init__(self,
-                 controlType):
+                 controlType,
+                 config=None):
         """
         Initialize variables
 
@@ -56,6 +58,16 @@ class RobotInterface(object):
         self.controlType = controlType
         self.action_set = False
         self.model = ManualModel()
+        if config is not None:
+            if config['controller']['interpolator']['type'] == 'linear':
+                self.interpolator = LinearInterpolator(max_dx=0.5, 
+                                                       ndim=3, 
+                                                       controller_freq=1000, 
+                                                       policy_freq=20, 
+                                                       ramp_ratio=0.02)
+            else:
+                self.interpolator = None
+        self.interpolator_goal_set = False
 
     def update(self):
         raise NotImplementedError
@@ -87,7 +99,7 @@ class RobotInterface(object):
             return EEImpController(self.model,
                 kp=controller_dict['kp'], 
                 damping=controller_dict['damping'],
-                interpolator_pos =None,
+                interpolator_pos =self.interpolator,
                 interpolator_ori=None,
                 control_freq=self.config['sim_params']['control_freq'])
         elif control_type == "JointVelocity":
@@ -175,6 +187,7 @@ class RobotInterface(object):
         if fix_pos is not None:
             if len(fix_pos) != 3:
                 raise ValueError('fix_pos incorrect dimensions, should be length 3')
+
         kwargs = {'delta': delta, 'set_pos': fix_pos, 'set_ori':fix_ori}
         self.set_controller_goal(**kwargs)
 
