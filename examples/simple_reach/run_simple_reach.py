@@ -31,7 +31,8 @@ def get_action(observation):
     step = 0.05
     delta = observation
     action = step * delta/np.linalg.norm(delta)
-    return action
+    return delta
+    #return action
 
 
 env = SimpleReachEnv('examples/simple_reach/simple_reach.yaml', True, None)
