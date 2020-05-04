@@ -34,3 +34,4 @@ var/
 
 *.ipynb
 .ipynb_checkpoints/
+dev/logs/
