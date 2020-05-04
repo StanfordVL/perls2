@@ -24,7 +24,8 @@ def make_ee_positions_list(steps):
   return ee_list
 
 
-EE_POSITIONS_LIST = make_ee_positions_list(steps=100)
+EE_POSITIONS_LIST = np.array([[0.0, 0.0,    0.0, 0.0,    0.0,    0.1]])#make_ee_positions_list(steps=100)
+
 
 
 
@@ -111,3 +112,14 @@ env.robot_interface.disconnect()
 
  
 print("Demo complete.")
+
+# import matplotlib
+# matplotlib.use('TkAgg')
+# import matplotlib.pyplot as plt
+
+# step_data = np.load('dev/logs/control/step0.npz')['ee_list']
+# step0_x = [pos[0] for pos in step_data]
+# print(step0_x)
+# plt.plot(step0_x)
+# plt.show()
+
