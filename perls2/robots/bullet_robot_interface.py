@@ -12,6 +12,8 @@ from tq_control.controllers.joint_imp import JointImpController
 from tq_control.controllers.joint_torque import JointTorqueController
 from tq_control.robot_model.manual_model import ManualModel
 
+from tq_control.interpolator.linear_interpolator import LinearInterpolator
+
 import logging
 logging.basicConfig(level=logging.INFO)
 import scipy
@@ -221,7 +223,8 @@ class BulletRobotInterface(RobotInterface):
                 pybullet.resetJointState(
                     bodyUniqueId=self._arm_id,
                     jointIndex=i,
-                    targetValue=self.limb_neutral_positions[i])
+                    targetValue=self.limb_neutral_positions[i], 
+                    physicsClientId=self.physics_id)
 
                 # Set position control to maintain position
                 pybullet.setJointMotorControl2(
@@ -232,7 +235,8 @@ class BulletRobotInterface(RobotInterface):
                     targetVelocity=0,
                     force=100,
                     positionGain=0.1,
-                    velocityGain=1.2)
+                    velocityGain=1.2,
+                    physicsClientId=self.physics_id)
     @property
     def ee_index(self):
         return self._ee_index
@@ -370,11 +374,11 @@ class BulletRobotInterface(RobotInterface):
 
         # Determine the joint position by clipping to upper limit.
         l_finger_position = (
-            l_finger_joint_limits.get('upper') -
+            l_finger_joint_limits.get('lower') +
             value * l_finger_joint_range)
 
         r_finger_position = (
-            r_finger_joint_limits.get('lower') +
+            r_finger_joint_limits.get('upper') -
             value * r_finger_joint_range)
 
         # Set the joint angles all at once
@@ -499,6 +503,11 @@ class BulletRobotInterface(RobotInterface):
         return self.ee_position + self.ee_orientation
 
 
+    @property
+    def ee_pose_euler(self):
+        euler_orn = pybullet.getEulerFromQuaternion(self.ee_orientation)
+        return self.ee_position + list(euler_orn)
+    
     def set_ee_pose_position_control(
             self,
             target_position,
