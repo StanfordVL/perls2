@@ -8,7 +8,7 @@ from perls2.robots.robot_interface import RobotInterface
 from perls2.controllers.ee_imp import EEImpController
 
 from perls2.controllers.joint_vel import JointVelController
-from tq_control.controllers.joint_imp import JointImpController
+from perls2.controllers.joint_imp import JointImpController
 from perls2.controllers.joint_torque import JointTorqueController
 from perls2.controllers.robot_model.model import Model
 
