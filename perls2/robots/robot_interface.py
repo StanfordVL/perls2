@@ -6,16 +6,16 @@ Author: Roberto Martin-Martin
 
 import abc  # For abstract class definitions
 import six  # For abstract class definitions
-from tq_control.controllers.ee_imp import EEImpController
-from tq_control.controllers.ee_imp import EEImpController
+from perls2.controllers.ee_imp import EEImpController
+from perls2.controllers.ee_imp import EEImpController
 import time
-from tq_control.controllers.joint_vel import JointVelController
-from tq_control.controllers.joint_imp import JointImpController
-from tq_control.controllers.joint_torque import JointTorqueController
+from perls2.controllers.joint_vel import JointVelController
+from perls2.controllers.joint_imp import JointImpController
+from perls2.controllers.joint_torque import JointTorqueController
 
-from tq_control.robot_model.manual_model import ManualModel
-from tq_control.interpolator.linear_interpolator import LinearInterpolator
-from tq_control.utils import transform_utils as T
+from perls2.controllers.robot_model.model import Model
+from perls2.controllers.interpolator.linear_interpolator import LinearInterpolator
+from perls2.controllers.utils import transform_utils as T
 import numpy as np
 import logging
 from scipy.spatial.transform import Rotation as R
@@ -35,7 +35,7 @@ class RobotInterface(object):
     Attributes:
         control_type (str): Type of controller for robot to use
             e.g. IK, OSC, Joint Velocity
-        model (ManualModel): a model of the robot state as defined by tq_control.
+        model (Model): a model of the robot state as defined by tq_control.
         controller (Controller): tq_control object that takes robot states and compute torques.
 
     """
@@ -49,7 +49,7 @@ class RobotInterface(object):
         Args:
             control_type (str): Type of controller for robot to use
                 e.g. IK, OSC, Joint Velocity
-            model (ManualModel): a model of the robot state as defined by tq_control.
+            model (Model): a model of the robot state as defined by tq_control.
             controller (Controller): tq_control object that takes robot states and compute torques.
 
         :TODO:
@@ -57,7 +57,7 @@ class RobotInterface(object):
         """
         self.controlType = controlType
         self.action_set = False
-        self.model = ManualModel()
+        self.model = Model()
         if config is not None:
             if config['controller']['interpolator']['type'] == 'linear':
                 self.interpolator = LinearInterpolator(max_dx=0.5, 

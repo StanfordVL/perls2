@@ -5,14 +5,14 @@ import numpy as np
 import abc
 
 from perls2.robots.robot_interface import RobotInterface
-from tq_control.controllers.ee_imp import EEImpController
+from perls2.controllers.ee_imp import EEImpController
 
-from tq_control.controllers.joint_vel import JointVelController
+from perls2.controllers.joint_vel import JointVelController
 from tq_control.controllers.joint_imp import JointImpController
-from tq_control.controllers.joint_torque import JointTorqueController
-from tq_control.robot_model.manual_model import ManualModel
+from perls2.controllers.joint_torque import JointTorqueController
+from perls2.controllers.robot_model.model import Model
 
-from tq_control.interpolator.linear_interpolator import LinearInterpolator
+from perls2.controllers.interpolator.linear_interpolator import LinearInterpolator
 
 import logging
 logging.basicConfig(level=logging.INFO)
