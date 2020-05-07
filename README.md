@@ -24,7 +24,7 @@ PERLS2 only supports ubuntu 16.04 and later.
         `git clone https://github.com/StanfordVL/perls2.git`
     2. Create a virtual environment, e.g. 
         
-        `virtualenv -p python3 perls2env`
+        `virtualenv -p python3.7 perls2env`
     3. Source your virtual environment e.g. 
         
         `source perls2env/bin/activate`
