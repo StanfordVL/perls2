@@ -14,7 +14,7 @@ TODO: Examples Links
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Installing
-PERLS2 only supports python3 for the core libraries (python 2.7 is used for interfacing to robots that use ROS.)
+PERLS2 only supports python3.7 for the core libraries (python 2.7 is used for interfacing to robots that use ROS.)
 PERLS2 only supports ubuntu 16.04 and later.
 ### On Ubuntu 16.04
 
