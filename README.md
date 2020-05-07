@@ -28,62 +28,26 @@ PERLS2 only supports ubuntu 16.04 and later.
     3. Source your virtual environment e.g. 
         
         `source perls2env/bin/activate`
-    4. Go to the perls2 directory and install requirements
+    4. Install RBDL and required dependencies by following the instructions [here](https://github.com/StanfordVL/rbdl/wiki/Perls2-RBDL-Install-Instructions)
+    
+    5. Go to the perls2 directory and install requirements
         
         `cd ~/perls2`
         
         `pip install -r requirements.txt`
         * You could get an error like `error: numpy 1.11.0 is installed but numpy>=1.11.1 is required by set(['opencv-python'])`. In that case you may want to force to install the right version of numpy: `pip install --upgrade --force-reinstall numpy`
-    5. Install perls2 
+
+    6. Install perls2 
         
         `pip install -e .`
 ## Run PERL demos
 Check out the  demos in the examples folder. Intructions for each demo may be found in the README in each folder.
 ### Example: Run simple reach demo
-`cd perls2/examples/simple_reach`
+`cd perls2`
 
-`python run_simple_reach.py`
-
-
-**TODO**
-## Running the tests
-
-Individual tests for components such as interfaces should be tested after any changes are made. 
-For example, to run the tester script for the BulletSawyerInterface: 
-
-Source the environment
-`source perls2env/bin/activate`
-
-Move to the tester script directory
-`cd perls2/tester/bullet_tester`
-
-Run the tester
-`python bullet_sawyer_tester`
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
+`python examples/simple_reach/run_simple_reach.py`
 
 
-## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
 
