@@ -15,14 +15,14 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 #### For Mac OS X
-PERLS2 only supports python3.7 for the core libraries (python 2.7 is used for interfacing to robots that use ROS.)
+PERLS2 only supports python3.6 (python3.7 for mac osx) for the core libraries (python 2.7 is used for interfacing to robots that use ROS.)
 1. Clone and install PERLs repo
     1. Clone repo: 
         
         `git clone https://github.com/StanfordVL/perls2.git`
     2. Create a virtual environment, e.g. 
         
-        `virtualenv -p python3.7 perls2env`
+        `virtualenv -p python3.6 perls2env`
     3. Source your virtual environment e.g. 
         
         `source perls2env/bin/activate`
