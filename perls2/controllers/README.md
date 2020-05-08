@@ -46,3 +46,5 @@ The available interpolators are:
 The Model class (robot_model/model.py) captures the current state of the robot that the controller uses to output a control command. They are updated by RobotInterface objects. 
 
 ## Important Notes
+
+* None of the controllers in this library apply gravity compensation or coriolis compensation. These terms need to be added by the robot interface before setting the torque. This is because many real robot interfaces take these compensated values into account at the low level. 
