@@ -6,7 +6,6 @@ Author: Roberto Martin-Martin
 
 import pybullet
 import numpy as np
-import rbdl
 from perls2.robots.bullet_robot_interface import BulletRobotInterface
 import logging
 
@@ -33,8 +32,6 @@ class BulletSawyerInterface(BulletRobotInterface):
             x y z qx qy qz qw
         """
         self.data_dir = config['data_dir']
-        import os
-        logging.debug("loading rbdl bullet sawyers")
 
         super().__init__(physics_id, arm_id, config, controlType)
         self._ee_index = self.get_link_id_from_name('right_hand')
