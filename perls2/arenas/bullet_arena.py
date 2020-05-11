@@ -55,7 +55,7 @@ class BulletArena(Arena):
         # Load URDFs to set up simulation environment.
         logging.info("Bullet Arena Created")
         self.plane_id = self.load_ground()
-
+        logging.debug("ground loaded")
         (self.arm_id, self.base_id) = self.load_robot()
         logging.debug("Robot loaded")
         reset_angles = self.robot_cfg['neutral_joint_angles']
@@ -155,7 +155,7 @@ class BulletArena(Arena):
                 self.config[key]['pose'][1]),
             globalScaling=1.0,
             useFixedBase=self.config[key]['is_static'],
-            flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
+            flags=(pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT | pybullet.URDF_USE_INERTIA_FROM_FILE), 
             physicsClientId=self.physics_id)
         return uid
 
@@ -164,6 +164,7 @@ class BulletArena(Arena):
         """ Load ground and return ground_id
         """
         plane_path = os.path.join(self.data_dir, self.config['ground']['path'])
+        logging.debug("plane path " + str(plane_path))
         plane_id = pybullet.loadURDF(
             fileName=plane_path,
             basePosition=self.config['ground']['pose'][0],
