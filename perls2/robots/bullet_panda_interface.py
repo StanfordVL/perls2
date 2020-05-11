@@ -28,9 +28,6 @@ class BulletPandaInterface(BulletRobotInterface):
                  controlType='EEImp'):
 
         self.data_dir = config['data_dir']
-        import os
-        model_path = os.path.join(self.data_dir, 'robot/franka_panda/panda.urdf')
-        self.rbdl_model = rbdl.loadModel(bytes(model_path, 'utf-8'))
         super().__init__(physics_id, arm_id, config, controlType)
 
         self._ee_index = self.get_link_id_from_name('panda_link7')

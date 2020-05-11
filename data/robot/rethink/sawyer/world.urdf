@@ -1,0 +1,48 @@
+
+<?xml version="1.0" ?>
+
+<world name="demo_world" gravity="0.0 0.0 0.0">
+
+	<robot name="sawyer">
+		<!-- model node is required -->
+		<model dir="../resources/sawyer" path="sawyer.urdf" name="sawyer" />
+		<!-- origin node is optional -->
+		<origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+	</robot>
+
+	<static_object name="Floor">
+		<origin xyz="0.5 0.0 -0.025" rpy="0 0 0" />
+		<collision>
+	        <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+	        <geometry>
+	            <box size="1.2 0.61 0.05" />
+	        </geometry>
+	    </collision>
+	    <visual>
+	        <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+	        <geometry>
+	            <box size="1.2 0.61 0.05" />
+	        </geometry>
+	        <material name="material_green">
+		        <color rgba="0.1 0.2 0.1 1.0" />
+	        </material>
+	    </visual>
+	</static_object>
+
+	<light name="light1" type="directional">
+		<position xyz="0.0 -6.0 6.0" />
+		<lookat xyz="0.0 0.0 0.0" />
+	</light>
+
+	<light name="light2" type="directional">
+		<position xyz="0.0 6.0 6.0" />
+		<lookat xyz="0.0 0.0 0.0" />
+	</light>
+
+	<camera name="camera_fixed">
+		<position xyz="2.0 0 0.7" />
+		<vertical xyz="0.0 0.0 1.0" />
+		<lookat xyz="0.0 0.0 0.3" />
+	</camera>
+
+</world>

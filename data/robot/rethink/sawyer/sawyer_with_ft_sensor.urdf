@@ -1,0 +1,444 @@
+<?xml version="1.0" ?>
+
+<robot name="sawyer">
+  <material name="black">
+    <color rgba="0 0 0 1"/>
+  </material>
+  <material name="darkgray">
+    <color rgba="0.2 0.2 0.2 1"/>
+  </material>
+  <material name="darkred">
+    <color rgba="0.5 0.1 0.1 1"/>
+  </material>
+  <material name="sawyer_red">
+    <color rgba="0.5 0.1 0.1 1"/>
+  </material>
+  <material name="sawyer_gray">
+    <color rgba="0.75294 0.75294 0.75294 1"/>
+  </material>
+
+  <link name="base">
+    <inertial>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <mass value="60.86397744"/>
+        <inertia ixx="5.0635929" ixy="0" ixz="0" iyy="6.08689388" iyz="0" izz="4.96191932"/>
+    </inertial>
+  </link>
+
+  <joint name="right_arm_mount" type="fixed">
+    <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+    <parent link="base"/>
+    <child link="right_arm_base_link"/>
+  </joint>
+
+  <link name="right_arm_base_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.0006241 -2.8025E-05 0.065404"/>
+      <mass value="2.0687"/>
+      <inertia ixx="0.0067599" ixy="0" ixz="0" iyy="0.0067877" iyz="0" izz="0.0074031"/>
+    </inertial>
+    <visual>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="sawyer_graphics/base.obj"/>
+      </geometry>
+    </visual>
+  <!--   <collision>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="sawyer_graphics/base.obj"/>
+      </geometry>
+    </collision> -->
+  </link>
+
+  <link name="right_l0">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.024366 0.010969 0.14363"/>
+      <mass value="5.3213"/>
+      <inertia ixx="0.053314" ixy="0" ixz="0" iyy="0.057902" iyz="0" izz="0.023659"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="sawyer_graphics/l0.obj"/>
+      </geometry>
+    </visual>
+   <!--  <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="sawyer_graphics/l0.obj"/>
+      </geometry>
+    </collision> -->
+  </link>
+
+  <joint name="right_j0" type="revolute">
+    <origin rpy="0 0 0" xyz="0 0 0.08"/>
+    <parent link="right_arm_base_link"/>
+    <child link="right_l0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="80.0" lower="-3.0503" upper="3.0503" velocity="1.74"/>
+  </joint>
+
+  <link name="head">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.0053207 -2.6549E-05 0.1021"/>
+      <mass value="1.5795"/>
+      <inertia ixx="0.011833" ixy="0" ixz="0" iyy="0.0082709" iyz="0" izz="0.0049661"/>
+    </inertial>
+    <visual>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="sawyer_graphics/head.obj"/>
+      </geometry>
+    </visual>
+   <!--  <collision>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="sawyer_graphics/head.obj"/>
+      </geometry>
+    </collision> -->
+  </link>
+
+  <joint name="head_pan" type="fixed"> <!-- Used to be revolute for head rotation -->
+    <origin rpy="0 0 0" xyz="0 0 0.2965"/>
+    <parent link="right_l0"/>
+    <child link="head"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="8" lower="-5.0952" upper="0.9064" velocity="1.8"/>
+  </joint>
+
+  <link name="right_l1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.0030849 -0.026811 0.092521"/>
+      <mass value="4.505"/>
+      <inertia ixx="0.022398" ixy="0" ixz="0" iyy="0.014613" iyz="0" izz="0.017295"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="sawyer_graphics/l1.obj"/>
+      </geometry>
+    </visual>
+   <!--  <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="sawyer_graphics/l1.obj"/>
+      </geometry>
+    </collision> -->
+  </link>
+
+  <joint name="right_j1" type="revolute">
+    <origin rpy="-1.57079632679 1.57079632679 0" xyz="0.081 0.05 0.237"/>
+    <parent link="right_l0"/>
+    <child link="right_l1"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="80.0" lower="-3.8095" upper="2.2736" velocity="1.328"/>
+  </joint>
+
+  <link name="right_l2">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.00016044 -0.014967 0.13582"/>
+      <mass value="1.745"/>
+      <inertia ixx="0.025506" ixy="0" ixz="0" iyy="0.0253" iyz="0" izz="0.0034179"/>
+    </inertial>
+    <visual>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="sawyer_graphics/l2.obj"/>
+      </geometry>
+    </visual>
+   <!--  <collision>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="sawyer_graphics/l2.obj"/>
+      </geometry>
+    </collision> -->
+  </link>
+
+  <joint name="right_j2" type="revolute">
+    <origin rpy="1.57079632679 0 0" xyz="0 -0.14 0.1325"/>
+    <parent link="right_l1"/>
+    <child link="right_l2"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="40.0" lower="-3.0426" upper="3.0426" velocity="1.957"/>
+  </joint>
+
+  <link name="right_l3">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.0048135 -0.0281 -0.084154"/>
+      <mass value="2.5097"/>
+      <inertia ixx="0.01016" ixy="0" ixz="0" iyy="0.0065685" iyz="0" izz="0.0069078"/>
+    </inertial>
+    <visual>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="sawyer_graphics/l3.obj"/>
+      </geometry>
+    </visual>
+   <!--  <collision>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="sawyer_graphics/l3.obj"/>
+      </geometry>
+    </collision> -->
+  </link>
+
+  <joint name="right_j3" type="revolute">
+    <origin rpy="-1.57079632679 0 0" xyz="0 -0.042 0.26"/>
+    <parent link="right_l2"/>
+    <child link="right_l3"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="40.0" lower="-3.0439" upper="3.0439" velocity="1.957"/>
+  </joint>
+  
+  <link name="right_l4">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.0018844 0.0069001 0.1341"/>
+      <mass value="1.1136"/>
+      <inertia ixx="0.013557" ixy="0" ixz="0" iyy="0.013555" iyz="0" izz="0.0013658"/>
+    </inertial>
+    <visual>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="sawyer_graphics/l4.obj"/>
+      </geometry>
+    </visual>
+ <!--    <collision>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="sawyer_graphics/l4.obj"/>
+      </geometry>
+    </collision> -->
+  </link>
+
+  <joint name="right_j4" type="revolute">
+    <origin rpy="1.57079632679 0 0" xyz="0 -0.125 -0.1265"/>
+    <parent link="right_l3"/>
+    <child link="right_l4"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="9.0" lower="-2.9761" upper="2.9761" velocity="3.485"/>
+  </joint>
+
+  <link name="right_l5">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.0061133 -0.023697 0.076416"/>
+      <mass value="1.5625"/>
+      <inertia ixx="0.0047328" ixy="0" ixz="0" iyy="0.0029676" iyz="0" izz="0.0031762"/>
+    </inertial>
+    <visual>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="sawyer_graphics/l5.obj"/>
+      </geometry>
+    </visual>
+   <!--  <collision>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="sawyer_graphics/l5.obj"/>
+      </geometry>
+    </collision> -->
+  </link>
+
+  <joint name="right_j5" type="revolute">
+    <origin rpy="-1.57079632679 0 0" xyz="0 0.031 0.275"/>
+    <parent link="right_l4"/>
+    <child link="right_l5"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="9.0" lower="-2.9761" upper="2.9761" velocity="3.485"/>
+  </joint>
+
+  <!-- if camera position on arm needed -->
+  <!-- 
+  <link name="right_hand_camera"/>
+  <joint name="right_hand_camera" type="fixed">
+    <origin rpy="0 1.57079632679 0" xyz="0.039552 -0.033 0.0695"/>
+    <parent link="right_l5"/>
+    <child link="right_hand_camera"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  -->
+
+  <link name="link6">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-8.0726E-06 0.0085838 -0.0049566"/>
+      <mass value="0.3292"/>
+      <inertia ixx="0.00031105" ixy="0" ixz="0" iyy="0.00021549" iyz="0" izz="0.00035976"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="sawyer_graphics/l6.obj"/>
+      </geometry>
+    </visual>
+   <!--  <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="sawyer_graphics/l6.obj"/>
+      </geometry>
+    </collision> -->
+  </link>
+
+  <joint name="right_j6" type="revolute">
+    <origin rpy="-1.57079632679 -0.17453 3.1416" xyz="0 -0.11 0.1053"/>
+    <parent link="right_l5"/>
+    <child link="link6"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="9.0" lower="-4.7124" upper="4.7124" velocity="4.545"/>
+  </joint>
+
+  <link name="right_hand">
+    <inertial>
+      <origin rpy="0 0 0" xyz="1e-08 1e-08 1e-08"/>
+      <mass value="1e-08"/>
+      <inertia ixx="1e-08" ixy="1e-08" ixz="1e-08" iyy="1e-08" iyz="1e-08" izz="1e-08"/>
+    </inertial>
+  </link>
+
+  <joint name="right_hand" type="fixed">
+    <origin rpy="0 0 1.5708" xyz="0 0 0.0245"/>
+    <axis xyz="0 0 1"/>
+    <parent link="link6"/>
+    <child link="right_hand"/>
+  </joint>
+
+  <link name="force_sensor">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <mass value="1.5"/>
+      <inertia ixx=".01" ixy="0" ixz="0" iyy=".01" iyz="0" izz=".01"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length=".06" radius=".03"/>
+      </geometry>
+      <material name="sawyer_red"/>
+    </visual>
+  </link>
+
+  <joint name="right_gripper_base" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 .03"/>
+    <parent link="right_hand"/>
+    <child link="force_sensor"/>
+  </joint>
+
+  <link name="right_gripper_base">
+    <inertial>
+      <inertia ixx="1.0e-01" ixy=".01" ixz=".01" iyy="1.0e-01" iyz=".01" izz="1.0e-01"/>
+      <mass value="0.47"/>
+      <origin rpy="0 0 0" xyz="0.0028 -0.0004 0.0343"/>
+    </inertial>
+    <visual>
+      <origin rpy="1.57079632679 0 0" xyz="0 0 .05"/>
+      <geometry>
+        <mesh filename="sawyer_graphics/electric_gripper.obj"/>
+      </geometry>
+    </visual>
+    <!-- <collision>
+      <origin rpy="1.57079632679 0 0" xyz="0 0 .05"/>
+      <geometry>
+        <mesh filename="sawyer_graphics/electric_gripper.obj"/>
+      </geometry>
+    </collision> -->
+  </link>
+
+  <joint name="right_gripper_base_joint" type="fixed">
+    <child link="right_gripper_base"/>
+    <origin rpy="0 0 0" xyz="0 0 0.03"/>
+    <parent link="force_sensor"/>
+  </joint>
+
+  <link name="right_gripper_tip">
+    <inertial>
+      <inertia ixx="1.10e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.10e-09"/>
+      <mass value="0.00001"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.015 0.015 0.015"/>
+      </geometry>
+      <material name="sawyer_red"/>
+    </visual>
+  </link>
+
+  <joint name="right_gripper_tip_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.14062"/>
+    <parent link="right_gripper_base"/>
+    <child link="right_gripper_tip"/>
+  </joint>
+
+  <link name="right_gripper_r_finger">
+    <collision>
+      <geometry>
+        <mesh filename="sawyer_graphics/finger.obj"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </collision>
+    <inertial>
+      <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <mass value="2.0e-06"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="sawyer_graphics/finger.obj"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+
+  <joint name="right_gripper_r_finger_joint" type="fixed"> <!-- type="prismatic" -->
+    <!-- <axis xyz="0 1 0"/> -->
+    <child link="right_gripper_r_finger"/>
+   <!--  <dynamics damping="0.7" friction="0.0"/> -->
+    <!-- <limit effort="20" lower="-0.020833" upper="0" velocity="5"/> -->
+    <origin rpy="1.57079632679 0 1.57079632679" xyz="0.003 0.03 0.04552"/>
+    <parent link="right_gripper_base"/>
+  </joint>
+
+  <link name="right_gripper_l_finger">
+    <collision>
+      <geometry>
+        <mesh filename="sawyer_graphics/finger.obj"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </collision>
+    <inertial>
+      <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <mass value="2.0e-06"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="sawyer_graphics/finger.obj"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+
+  <joint name="right_gripper_l_finger_joint" type="fixed"> <!-- type="prismatic" -->
+    <!-- <axis xyz="0 1 0"/> -->
+    <child link="right_gripper_l_finger"/>
+   <!--  <dynamics damping="0.7" friction="0.0"/> -->
+    <!-- <limit effort="20" lower="-0.020833" upper="0" velocity="5"/> -->
+    <!-- <mimic joint="right_gripper_r_finger_joint" multiplier="-1.0"/> -->
+    <origin rpy="1.57079632679 0 -1.57079632679" xyz="0.003 -0.03 0.04552"/>
+    <parent link="right_gripper_base"/>
+  </joint>
+
+
+
+  <!-- if camera position on head needed -->
+  <!-- 
+    <link name="head_camera"/>
+  <joint name="head_camera" type="fixed">
+    <origin rpy="-2.1293 0 -1.57079632679" xyz="0.0228027 0 0.216572"/>
+    <parent link="head"/>
+    <child link="head_camera"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  -->
+
+</robot>
