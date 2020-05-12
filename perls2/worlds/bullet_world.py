@@ -244,53 +244,17 @@ class BulletWorld(World):
         # TODO: add real time option
 
         # Prepare for next step by executing action
-        if self.robot_interface.controlType == "JointVelocity":
-            for exec_steps in range(self.ctrl_steps_per_action):
-                for step in range(self.control_freq):
-                    self.robot_interface.step()
-                    pybullet.stepSimulation(self._physics_id)
-            self.robot_interface.action_set = False
-        elif self.robot_interface.controlType == "EEImpedance":
-            initial_ee_position = self.robot_interface.ee_position
-            for exec_steps in range(self.ctrl_steps_per_action):
-                for step in range(self.control_freq):
-                    self.robot_interface.step()
-                    pybullet.stepSimulation(self._physics_id)
-                    self.ee_list.append(np.subtract(self.robot_interface.ee_position, initial_ee_position))
-            # np.savez('dev/logs/control/step' + str(self.step_counter) + '.npz', 
-            #          ee_list=self.ee_list)
-            self.robot_interface.action_set = False
-        elif self.robot_interface.controlType == "JointImpedance": 
-            q_list = []
-            initial_q_pos = self.robot_interface.motor_joint_positions[self.joint_num]
-            for exec_steps in range(self.ctrl_steps_per_action):
-                for step in range(self.control_freq):
-                    self.robot_interface.step()
-                    pybullet.stepSimulation(self._physics_id)
-                    delta = self.robot_interface.motor_joint_positions[self.joint_num] - initial_q_pos
-                    q_list.append(delta)
+        for exec_steps in range(self.ctrl_steps_per_action):
+            self.run_control_loop_for_action()
 
-            self.robot_interface.action_set = False
-
-            self.joint_num += 1
-        elif self.robot_interface.controlType == "JointTorque": 
-            q_list = []
-            self.joint_num= 0
-            initial_q_pos = self.robot_interface.last_torques_cmd[self.joint_num]
-            for exec_steps in range(self.ctrl_steps_per_action):
-                for step in range(self.control_freq):
-                    self.robot_interface.step()
-                    pybullet.stepSimulation(self._physics_id)
-                    delta = self.robot_interface.last_torques_cmd[self.joint_num] #- initial_q_pos
-                    q_list.append(delta)
-
-            self.robot_interface.action_set = False
-            self.joint_num += 1
-        else:
-            pass
 
         self.step_counter +=1
         #self.step_log = open('dev/logs/control/step' + str(self.step_counter) + '.txt', 'w+')
+
+    def run_control_loop_for_action(self):
+        for step in range(self.control_freq):
+            self.robot_interface.step()
+            pybullet.stepSimulation(self._physics_id)
 
     def get_observation(self):
         """Get observation of current env state
