@@ -39,7 +39,6 @@ class RealWorld(World):
         # if self.use_visualizer:
         #     self._physics_id = pybullet.connect(pybullet.GUI)
         # else:
-        self._physics_id = pybullet.connect(pybullet.DIRECT)
 
         # # Pybullet sim parmeters
         # pybullet.setGravity(0, 0, -10, physicsClientId=self._physics_id)
@@ -51,7 +50,9 @@ class RealWorld(World):
         # Create an arena to load robot and objects
         self.pb_world = BulletWorld(self.config, False, 'Internal Bullet World')
         self.pb_world.robot_interface.change_controller("Internal")
+        self._physics_id = self.pb_world.physics_id
         self.arena = RealArena(self.config, self._physics_id)
+        print("physics id: " + str(self._physics_id))
         self.robot_interface = RealRobotInterface.create(
                                                  config=self.config,
                                                  physics_id=self._physics_id,
@@ -65,6 +66,7 @@ class RealWorld(World):
         self.robot_interface.connect()
 
         self.dim_num = 0
+
     def reset(self):
         """Reset the environment.
 
@@ -73,6 +75,7 @@ class RealWorld(World):
         """
         # reload robot to restore body after any collisions
         self.pb_world.reset()
+        self.robot_interface.reset()
 
     def step(self):
         """Take a step.
