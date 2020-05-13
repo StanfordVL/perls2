@@ -6,7 +6,7 @@ data_dir: 'data'
 # Simulation parameters
 sim_params:
   time_step: .001 #0.004166 #0.002 #0.004166  # 1./240.
-  control_freq: 1000 #4000 #5 #20
+  control_freq: 50 #4000 #5 #20
   steps_per_action: 2 #6 #1 #5 # policy to sim update ratio
 
   MAX_STEPS: 100000
@@ -71,7 +71,7 @@ controller:
   selected_type: 'EEImpedance' # Choose between 'EEImpedance', 'JointVelocity'
   EEImpedance:
     kp: 50 #70 #50 #200 #75 #200 # P Gain for Impedance Control
-    damping: .8 #1 #0.5 #1 #0.5 # Damping factor [0,1] 
+    damping: 1.2 #1 #0.5 #1 #0.5 # Damping factor [0,1] 
     input_max: 1.0
     input_min: -1.0
     output_max: 1.0
@@ -95,7 +95,7 @@ controller:
     output_max: 1.0
     output_min: -1.0
   interpolator:
-      type: 'linear'
+      type: 'None'
       order: 3
 
 object: 

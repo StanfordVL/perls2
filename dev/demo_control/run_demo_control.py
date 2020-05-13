@@ -14,18 +14,19 @@ def make_ee_positions_list(steps):
   """
   ee_list = []
   dim = 0
-  for step in range(6):
-    delta = np.zeros(6)
-    #dim = np.random.randint(0, 6)
-    sign = np.random.choice([-1, 1])
-    delta[dim] = sign*0.1
-    ee_list.append(delta)
-    dim+=1
+  for step in range(steps):
+    for dim_i in range(1):
+      delta = np.zeros(6)
+      #dim = np.random.randint(0, 6)
+      sign = 1 #np.random.choice([-1, 1])
+      delta[1] = sign*0.1
+      ee_list.append(delta)
+      # dim+=1
   return ee_list
 
 
-EE_POSITIONS_LIST = np.array([[0.0, 0.0,    0.0, 0.0,    0.0,    0.1]])#make_ee_positions_list(steps=100)
-
+#EE_POSITIONS_LIST = make_ee_positions_list(steps=10)
+EE_POSITIONS_LIST = np.genfromtxt('/home/rohunk-local/RobotTeleop/osc_actions.csv', delimiter=',')
 
 
 

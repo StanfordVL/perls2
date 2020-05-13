@@ -253,9 +253,12 @@ class BulletWorld(World):
 
     def run_control_loop_for_action(self):
         for step in range(self.control_freq):
+            # start = time.time()
             self.robot_interface.step()
+            # print("robot_interface step(): " + str(time.time() - start))
+            # start = time.time()
             pybullet.stepSimulation(self._physics_id)
-
+            # print("pb step sim: " + str(time.time() - start))
     def get_observation(self):
         """Get observation of current env state
 
