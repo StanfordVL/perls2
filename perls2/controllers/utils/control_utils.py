@@ -1,9 +1,9 @@
 import numpy as np
 import perls2.controllers.utils.transform_utils as trans
 import time
-#import numba
+import numba
 
-# @numba.jit(nopython=True, cache=True)
+@numba.jit(nopython=True, cache=True)
 def opspace_matrices(mass_matrix, J_full, J_pos, J_ori):
     mass_matrix_inv = np.linalg.inv(mass_matrix)
 
@@ -50,7 +50,7 @@ def opspace_matrices(mass_matrix, J_full, J_pos, J_ori):
 
     return lambda_full, lambda_pos, lambda_ori, nullspace_matrix
 
-# @numba.jit(nopython=True, cache=True)
+@numba.jit(nopython=True, cache=True)
 def cross_product(vec1, vec2):
     mat = np.array(([0, -vec1[2], vec1[1]],
                     [vec1[2], 0, -vec1[0]],
@@ -72,7 +72,7 @@ def orientation_error(desired, current):
     error = 0.5 * (cross_product(rc1, rd1) + cross_product(rc2, rd2) + cross_product(rc3, rd3))
     return error
 
-# @numba.jit(nopython=True, cache=True)
+@numba.jit(nopython=True, cache=True)
 def set_goal_position(delta,
                       current_position,
                       position_limit=None,
@@ -98,7 +98,7 @@ def set_goal_position(delta,
 
     return goal_position
 
-# @numba.jit(nopython=True, cache=True)
+#@numba.jit(nopython=True, cache=True)
 def set_goal_orientation(delta,
                          current_orientation,
                          orientation_limit=None,
