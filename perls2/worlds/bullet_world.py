@@ -118,7 +118,10 @@ class BulletWorld(World):
         self.robot_interface = BulletRobotInterface.create(
             config=self.config,
             physics_id=self._physics_id,
-            arm_id=self.arena.arm_id)
+            arm_id=self.arena.arm_id, 
+            controlType=self.config['controller']['selected_type'])
+        
+        self.control_freq = self.config['sim_params']['control_freq']
 
         self.sensor_interface = BulletCameraInterface(
             physics_id=self._physics_id,
@@ -144,13 +147,19 @@ class BulletWorld(World):
         self.print_this_step = False
 
         self.name = name
-        # To ensure smoothness of simulation and collisions, execute
+
+        #To ensure smoothness of simulation and collisions, execute
         # a number of simulation steps per action received by policy
-        self.ctrl_steps_per_action = (
-            self.config['sim_params']['steps_per_action'])
+        self.ctrl_steps_per_action = self.config['sim_params']['steps_per_action']
 
         self.is_sim = True
+        
+        # TODO REMOVE DEBUGs    
+        self.joint_num = 0
+        self.dim_num = 0
+        self.step_counter = 0
 
+        self.ee_list = []
 
     @property
     def physics_id(self):
@@ -237,8 +246,20 @@ class BulletWorld(World):
 
         # Prepare for next step by executing action
         for exec_steps in range(self.ctrl_steps_per_action):
-            pybullet.stepSimulation(self._physics_id)
+            self.run_control_loop_for_action()
 
+
+        self.step_counter +=1
+        #self.step_log = open('dev/logs/control/step' + str(self.step_counter) + '.txt', 'w+')
+
+    def run_control_loop_for_action(self):
+        for step in range(self.control_freq):
+            # start = time.time()
+            self.robot_interface.step()
+            # print("robot_interface step(): " + str(time.time() - start))
+            # start = time.time()
+            pybullet.stepSimulation(self._physics_id)
+            # print("pb step sim: " + str(time.time() - start))
     def get_observation(self):
         """Get observation of current env state
 
@@ -272,6 +293,11 @@ class BulletWorld(World):
     def info(self):
         return {
                 }
+
+    def rewardFunction(self):
+        """ User defined-Reward for agent given env state
+        """
+        raise NotImplementedError
 
     def check_stable(self,
                      linear_velocity_threshold,
@@ -355,4 +381,5 @@ class BulletWorld(World):
 
             if ((num_stable_steps >= min_stable_steps) or
                     (num_steps >= max_steps)):
+
                 break

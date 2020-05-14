@@ -6,7 +6,6 @@ Author: Roberto Martin-Martin
 
 import pybullet
 import numpy as np
-
 from perls2.robots.bullet_robot_interface import BulletRobotInterface
 import logging
 
@@ -16,14 +15,13 @@ class BulletSawyerInterface(BulletRobotInterface):
     functionsfor information about the state of the robot as well as sending
     commands.
 
-
     """
 
     def __init__(self,
                  physics_id,
                  arm_id,
                  config=None,
-                 controlType=None):
+                 controlType='JointVelocity'):
         """
         Initialize variables
 
@@ -33,14 +31,18 @@ class BulletSawyerInterface(BulletRobotInterface):
             Pose of robot base in world frame
             x y z qx qy qz qw
         """
+        self.data_dir = config['data_dir']
+
         super().__init__(physics_id, arm_id, config, controlType)
         self._ee_index = self.get_link_id_from_name('right_hand')
 
         # Neutral positions and configuration specifics
-        self.limb_neutral_positions = [0, -1.18, 0.00, 2.18, 0.00, 0.57, 3.3161,
-                                       0, 0, 0, 0, 0, 0, 0]
+        self.limb_neutral_positions = self.config['sawyer']['neutral_joint_angles']
         self._name = "Rethink Bullet Sawyer"
         logging.debug("BulletSawyerInterface created")
+        self._default_force = 100
+        self._default_position_gain = 0.1
+        self._default_velocity_gain = 2.5
 
     def start(self):
         """Start the robot
@@ -50,7 +52,6 @@ class BulletSawyerInterface(BulletRobotInterface):
     @property
     def ee_index(self):
         return self.get_link_id_from_name("right_hand")
-
 
     @property
     def version(self):
@@ -90,3 +91,6 @@ class BulletSawyerInterface(BulletRobotInterface):
             forces=[250]*self._num_joints,
             positionGains=[0.1]*self._num_joints,
             velocityGains=[1.2]*self._num_joints)
+
+    def disconnect(self):
+        pass

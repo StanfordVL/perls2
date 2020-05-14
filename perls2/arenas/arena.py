@@ -29,34 +29,37 @@ class Arena:
         self.randomize_after_reset = True
 
         # Load camera parameters
-        camera_extrinsics_cfg = self.config['sensor']['camera']['extrinsics']
+        if isinstance(self.config['sensor'], dict):
+            camera_extrinsics_cfg = self.config['sensor']['camera']['extrinsics']
 
-        self.camera_eye_pos = camera_extrinsics_cfg['eye_position']
-        self.camera_target_pos = camera_extrinsics_cfg['target_position']
-        self.camera_up_vector = camera_extrinsics_cfg['up_vector']
+            self.camera_eye_pos = camera_extrinsics_cfg['eye_position']
+            self.camera_target_pos = camera_extrinsics_cfg['target_position']
+            self.camera_up_vector = camera_extrinsics_cfg['up_vector']
 
-        # Image parameters
-        camera_intrinsics_cfg = self.config['sensor']['camera']['intrinsics']
+            # Image parameters
+            camera_intrinsics_cfg = self.config['sensor']['camera']['intrinsics']
 
-        self.image_height = camera_intrinsics_cfg['image_height']
-        self.image_width = camera_intrinsics_cfg['image_width']
-        self.near_plane = camera_intrinsics_cfg['near_plane']
-        self.far_plane = camera_intrinsics_cfg['far_plane']
-        self.fov = camera_intrinsics_cfg['fov']
+            self.image_height = camera_intrinsics_cfg['image_height']
+            self.image_width = camera_intrinsics_cfg['image_width']
+            self.near_plane = camera_intrinsics_cfg['near_plane']
+            self.far_plane = camera_intrinsics_cfg['far_plane']
+            self.fov = camera_intrinsics_cfg['fov']
 
 
-        self._rand_camera_intrin_cfg = (
-            self.config['sensor']['camera']['random']['intrinsics'])
-        self._rand_camera_extrin_cfg = (
-            self.config['sensor']['camera']['random']['extrinsics'])
-        self._random_obj_cfg = self.config['object']['random']
+            self._rand_camera_intrin_cfg = (
+                self.config['sensor']['camera']['random']['intrinsics'])
+            self._rand_camera_extrin_cfg = (
+                self.config['sensor']['camera']['random']['extrinsics'])
+
+        if isinstance(self.config['object'], dict):
+            self._random_obj_cfg = self.config['object']['random']
 
         # Get the robot config dict by using the name of the robot
         # as a key. The robot config yaml should be included at
         # project config file level.
         robot_name = self.config['world']['robot']
         self.robot_cfg = self.config[robot_name]
-        print(self.robot_cfg)
+
 
     def random_vec_bounded(self, lower_bound, upper_bound):
         """Create a xf random position within bounds

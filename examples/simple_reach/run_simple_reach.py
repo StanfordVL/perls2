@@ -31,10 +31,11 @@ def get_action(observation):
     step = 0.05
     delta = observation
     action = step * delta/np.linalg.norm(delta)
-    return action
+    return delta
+    #return action
 
 
-env = SimpleReachEnv('simple_reach.yaml', True, None)
+env = SimpleReachEnv('examples/simple_reach/simple_reach.yaml', True, None)
 
 # Lists for saving demonstrations
 training_list = []
@@ -54,6 +55,7 @@ for ep_num in range(10):
     done = False
     while not done:
         action = get_action(observation[0])
+
         start = time.time()
         observation, reward, termination, info = env.step(action)
         step_record = (action, observation, reward,  termination)

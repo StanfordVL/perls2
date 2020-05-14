@@ -9,7 +9,7 @@ sawyer:
       [0, 0, 0]
     is_static:
       True
-  base:
+  base: 
     path:
       'robot/rethink/sawyer_description/urdf/sawyer_base.urdf'
     pose:

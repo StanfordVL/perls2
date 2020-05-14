@@ -9,6 +9,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 
 class BulletArena(Arena):
+<<<<<<< HEAD
     """The class definition for Areanas using pybullet.
     Arenas
     """
@@ -16,7 +17,6 @@ class BulletArena(Arena):
     def __init__(self,
                  config,
                  physics_id):
-
         """ Initialization function.
 
             Gets parameters from configuration file for managing experimental
@@ -33,6 +33,7 @@ class BulletArena(Arena):
         self.physics_id = physics_id
         self._bodies_pbid_dict = {}
         self._objects_dict = {}
+        self.robot_type = self.config['world']['robot']
 
         # initialize view matrix
         self._view_matrix = pybullet.computeViewMatrix(
@@ -55,18 +56,21 @@ class BulletArena(Arena):
 
         # Load URDFs to set up simulation environment.
         logging.info("Bullet Arena Created")
-
         self.plane_id = self.load_ground()
+        logging.debug("ground loaded")
         (self.arm_id, self.base_id) = self.load_robot()
         logging.debug("Robot loaded")
         reset_angles = self.robot_cfg['neutral_joint_angles']
+        print(len(reset_angles))
 
         for i, angle in enumerate(reset_angles):
             # Force reset (breaks physics)
+
             pybullet.resetJointState(
                 bodyUniqueId=self.arm_id,
                 jointIndex=i,
-                targetValue=angle)
+                targetValue=angle, 
+                physicsClientId=self.physics_id)
 
         self.scene_objects_dict = {}
         # Load scene objects (e.g. table, bins)
@@ -79,7 +83,7 @@ class BulletArena(Arena):
                     pybullet.stepSimulation(self.physics_id)
 
         self.object_dict = {}
-        if ('object' in self.config.keys()):
+        if (isinstance(self.config['object'], dict)):
             # Load the objects from the config file and
             # save their names and pybullet body id
             # (not object id from config file)
@@ -102,7 +106,7 @@ class BulletArena(Arena):
         """ Load the robot and return arm_id, base_id
         """
         arm_file = os.path.join(self.data_dir, self.robot_cfg['arm']['path'])
-
+        print(" ARM FILE: " + str(arm_file))
         arm_id = pybullet.loadURDF(
             fileName=arm_file,
             basePosition=self.robot_cfg['arm']['pose'],
@@ -113,6 +117,7 @@ class BulletArena(Arena):
             flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
             physicsClientId=self.physics_id)
         logging.info("Loaded robot" + " arm_id :" + str(arm_id))
+        print(pybullet.getNumJoints(arm_id, self.physics_id))
 
         # Load Arm
         if (self.robot_cfg['base'] != 'None'):
@@ -129,6 +134,7 @@ class BulletArena(Arena):
                 physicsClientId=self.physics_id)
         else:
             base_id = -1
+
         return (arm_id, base_id)
 
     def load_urdf(self, key):
@@ -152,7 +158,7 @@ class BulletArena(Arena):
                 self.config[key]['pose'][1]),
             globalScaling=1.0,
             useFixedBase=self.config[key]['is_static'],
-            flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
+            flags=(pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT | pybullet.URDF_USE_INERTIA_FROM_FILE), 
             physicsClientId=self.physics_id)
         return uid
 
@@ -160,6 +166,7 @@ class BulletArena(Arena):
         """ Load ground and return ground_id
         """
         plane_path = os.path.join(self.data_dir, self.config['ground']['path'])
+        logging.debug("plane path " + str(plane_path))
         plane_id = pybullet.loadURDF(
             fileName=plane_path,
             basePosition=self.config['ground']['pose'][0],
@@ -181,7 +188,7 @@ class BulletArena(Arena):
                     basePosition=object_dict['default_position'],
                     baseOrientation=pybullet.getQuaternionFromEuler(
                             object_dict['pose'][1]),
-                    globalScaling=1.0,
+                    globalScaling=object_dict['scale'],
                     useFixedBase=object_dict['is_static'],
                     flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
                     physicsClientId=self.physics_id)
@@ -274,3 +281,4 @@ class BulletArena(Arena):
                 farVal=rand_far_plane)
 
         return random_projection_matrix
+

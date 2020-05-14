@@ -1,0 +1,3 @@
+[submodule "perls2/tq_control"]
+	path = perls2/tq_control
+	url = https://github.com/stanford-iprl-lab/tq_control.git
