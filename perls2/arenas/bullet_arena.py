@@ -186,7 +186,7 @@ class BulletArena(Arena):
                     basePosition=object_dict['default_position'],
                     baseOrientation=pybullet.getQuaternionFromEuler(
                             object_dict['pose'][1]),
-                    globalScaling=1.0,
+                    globalScaling=object_dict['scale'],
                     useFixedBase=object_dict['is_static'],
                     flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
                     physicsClientId=self.physics_id)
