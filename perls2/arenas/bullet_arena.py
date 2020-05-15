@@ -9,7 +9,6 @@ logging.basicConfig(level=logging.DEBUG)
 
 
 class BulletArena(Arena):
-<<<<<<< HEAD
     """The class definition for Areanas using pybullet.
     Arenas
     """
