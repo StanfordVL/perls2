@@ -6,7 +6,7 @@ import abc
 
 from perls2.robots.robot_interface import RobotInterface
 from perls2.controllers.ee_imp import EEImpController
-
+from perls2.controllers.ee_posture import EEPostureController
 from perls2.controllers.joint_vel import JointVelController
 from perls2.controllers.joint_imp import JointImpController
 from perls2.controllers.joint_torque import JointTorqueController
@@ -75,7 +75,7 @@ class BulletRobotInterface(RobotInterface):
 
         self.last_torques_cmd = [0]*7
         # available (tuned) controller types for this interface
-        self.available_controllers = ['EEImpedance', 'JointVelocity', 'JointImpedance', 'Native']
+        self.available_controllers = ['EEImpedance', 'EEPosture', 'JointVelocity', 'JointImpedance', 'Native']
         super().__init__(controlType)
         self.update()
 

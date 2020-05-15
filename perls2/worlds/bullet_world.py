@@ -143,7 +143,7 @@ class BulletWorld(World):
                 obj_id=self.arena.object_dict[obj_name],
                 name=obj_name)
         # TODO: give world a method get_object_interface(str name)
-
+        # TODO: make object default position a part of objectn not all objects.
         self.print_this_step = False
 
         self.name = name

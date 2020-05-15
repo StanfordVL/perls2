@@ -7,7 +7,7 @@ Author: Roberto Martin-Martin
 import abc  # For abstract class definitions
 import six  # For abstract class definitions
 from perls2.controllers.ee_imp import EEImpController
-from perls2.controllers.ee_imp import EEImpController
+from perls2.controllers.ee_posture import EEPostureController
 import time
 from perls2.controllers.joint_vel import JointVelController
 from perls2.controllers.joint_imp import JointImpController
@@ -21,7 +21,8 @@ import logging
 from scipy.spatial.transform import Rotation as R
 
 
-AVAILABLE_CONTROLLERS = ["EEImpedance", 
+AVAILABLE_CONTROLLERS = ["EEImpedance",
+                         "EEPosture",  
                          "Internal",
                          "JointVelocity",
                          "JointImpedance", 
@@ -97,6 +98,13 @@ class RobotInterface(object):
         controller_dict = self.config['controller'][control_type]
         if control_type == "EEImpedance":
             return EEImpController(self.model,
+                kp=controller_dict['kp'], 
+                damping=controller_dict['damping'],
+                interpolator_pos =self.interpolator,
+                interpolator_ori=None,
+                control_freq=self.config['sim_params']['control_freq'])
+        elif control_type == "EEPosture":
+            return EEPostureController(self.model, 
                 kp=controller_dict['kp'], 
                 damping=controller_dict['damping'],
                 interpolator_pos =self.interpolator,
@@ -179,7 +187,7 @@ class RobotInterface(object):
             that dimension. 
 
         """
-        self.check_controller("EEImpedance")
+        #self.check_controller("EEImpedance")
         if fix_ori is not None:
             if len(fix_ori) != 4:
                 raise ValueError('fix_ori incorrect dimensions, should be quaternion length 4')
