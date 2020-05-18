@@ -148,13 +148,15 @@ class BulletCameraInterface(SimCameraInterface):
         self._view_matrix = pybullet.computeViewMatrix(
                 cameraEyePosition=self.cameraEyePosition,
                 cameraTargetPosition=self.cameraTargetPosition,
-                cameraUpVector=self.cameraUpVector)
+                cameraUpVector=self.cameraUpVector, 
+                physicsClientId=self._physics_id)
 
         self._projection_matrix = pybullet.computeProjectionMatrixFOV(
                 fov=FOV,
                 aspect=float(self.image_width) / float(self.image_height),
                 nearVal=NEAR_PLANE,
-                farVal=FAR_PLANE)
+                farVal=FAR_PLANE,
+                physicsClientId = self._physics_id)
 
     def set_calibration(self, K, rotation, translation):
         """Set the camera calibration data.
@@ -271,7 +273,8 @@ class BulletCameraInterface(SimCameraInterface):
         view_matrix = pybullet.computeViewMatrix(
                     cameraEyePosition=camera_position,
                     cameraTargetPosition=focus,
-                    cameraUpVector=up_vector)
+                    cameraUpVector=up_vector, 
+                    physicsClientId=self._physics_id)
 
         return view_matrix
 
