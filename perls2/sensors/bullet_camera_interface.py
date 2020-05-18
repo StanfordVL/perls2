@@ -63,6 +63,7 @@ class BulletCameraInterface(SimCameraInterface):
             aspect=float(image_width) / float(image_height),
             nearVal=NEAR_PLANE,
             farVal=FAR_PLANE)
+        self.start()
 
     def set_projection_matrix(self, projection_matrix):
         self._projection_matrix = projection_matrix
