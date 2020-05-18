@@ -72,7 +72,7 @@ class EEImpController(Controller):
                  orientation_limits=None,
                  interpolator_pos=None,
                  interpolator_ori=None,
-                 uncouple_pos_ori=False,
+                 uncouple_pos_ori=True,
                  ):
 
         super(EEImpController, self).__init__()
