@@ -16,7 +16,7 @@ These instructions will get you a copy of the project up and running on your loc
 ### Installing
 
 #### On Ubuntu 16.04
-PERLS2 only supports python 3.6 virtual environments (due to a dependency on RBDL). 
+PERLS2 only supports python 3.6+ virtual environments.
 
 1. Clone and install PERLs repo
     1. Clone repo: 
