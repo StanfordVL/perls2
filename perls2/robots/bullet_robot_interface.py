@@ -18,7 +18,6 @@ import logging
 logging.basicConfig(level=logging.INFO)
 import scipy
 from scipy.spatial.transform import Rotation as R
-import rbdl
 
 def nested_tuple_to_list(tuple_input):
     for elem in tuple_input:
@@ -73,7 +72,6 @@ class BulletRobotInterface(RobotInterface):
         self._joint_max_velocities = self.get_joint_max_velocities()
         self._joint_max_forces = self.get_joint_max_forces()
         self._dof = self.get_dof() 
-        print("DOF " + str(self._dof))       
 
         self.last_torques_cmd = [0]*7
         # available (tuned) controller types for this interface
@@ -202,7 +200,8 @@ class BulletRobotInterface(RobotInterface):
             physicsClientId=self._physics_id)
 
         jointPoses = list(jointPoses)
-        return jointPoses    
+        return jointPoses
+
 
     def set_joints_to_neutral_positions(self):
         """Set joints on robot to neutral positions as specified by the config file.
@@ -869,12 +868,11 @@ class BulletRobotInterface(RobotInterface):
         """ compute the system inertia given its joint positions. Uses
         rbdl Composite Rigid Body Algorithm.
         """
-        mass_matrix = np.zeros((9, 9),  dtype=np.double)
-        rbdl.CompositeRigidBodyAlgorithm(self.rbdl_model, 
-            np.asarray(self.motor_joint_positions),
-            mass_matrix)
-        mass_matrix = np.array(mass_matrix)[:7, :7]
-        return mass_matrix
+
+        mass_matrix = pybullet.calculateMassMatrix(self._arm_id, 
+            self.q, 
+            self.physics_id)
+        return np.array(mass_matrix)[:7,:7]
 
     @property
     def jacobian(self):

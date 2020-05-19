@@ -166,13 +166,13 @@ class BulletWorld(World):
         return self._physics_id
 
 
-    def add_object(self, path, name, pose, scale, is_static=False):
+    def add_object(self, path, name, pose, scale=1.0, is_static=False):
         """ Add object to world explicitly.
 
         Args:
             path (str): filepath name to object urdf
             name (str): name of object used for dictionary key
-            pose (list): (7,) pose of the object as [x, y, z, qx, qy, qz, w]
+            pose (list): ((3,),(4,)) pose of the object as [[x, y, z], [qx, qy, qz, w]]
                 orientation as quaternion.
             scale (double): scale of object.
             is_static (bool): whether object should remain fixed or not.
@@ -186,6 +186,8 @@ class BulletWorld(World):
                                    [0, 0, 0, 0, 0, 0, 1],
                                    1.0,)
         """
+
+        #TODO: automatically convert Euler to Quaternion
 
         # Get the pybullet id from arena
         obj_id = self.arena._load_object_path(path, name, pose, scale, is_static=False)
@@ -213,7 +215,6 @@ class BulletWorld(World):
         """
         try:
             objectI = self.objects.pop(name)
-            self.arena._remove_object(objectI.obj_id, objectI.physics_id)
         except:
             logging.ERROR('key not found')
         self.arena._remove_object(objectI.obj_id, objectI.physics_id)
@@ -244,54 +245,21 @@ class BulletWorld(World):
         # TODO: add real time option
 
         # Prepare for next step by executing action
-        if self.robot_interface.controlType == "JointVelocity":
-            for exec_steps in range(self.ctrl_steps_per_action):
-                for step in range(self.control_freq):
-                    self.robot_interface.step()
-                    pybullet.stepSimulation(self._physics_id)
-            self.robot_interface.action_set = False
-        elif self.robot_interface.controlType == "EEImpedance":
-            initial_ee_position = self.robot_interface.ee_position
-            for exec_steps in range(self.ctrl_steps_per_action):
-                for step in range(self.control_freq):
-                    self.robot_interface.step()
-                    pybullet.stepSimulation(self._physics_id)
-                    self.ee_list.append(np.subtract(self.robot_interface.ee_position, initial_ee_position))
-            # np.savez('dev/logs/control/step' + str(self.step_counter) + '.npz', 
-            #          ee_list=self.ee_list)
-            self.robot_interface.action_set = False
-        elif self.robot_interface.controlType == "JointImpedance": 
-            q_list = []
-            initial_q_pos = self.robot_interface.motor_joint_positions[self.joint_num]
-            for exec_steps in range(self.ctrl_steps_per_action):
-                for step in range(self.control_freq):
-                    self.robot_interface.step()
-                    pybullet.stepSimulation(self._physics_id)
-                    delta = self.robot_interface.motor_joint_positions[self.joint_num] - initial_q_pos
-                    q_list.append(delta)
+        for exec_steps in range(self.ctrl_steps_per_action):
+            self.run_control_loop_for_action()
 
-            self.robot_interface.action_set = False
-
-            self.joint_num += 1
-        elif self.robot_interface.controlType == "JointTorque": 
-            q_list = []
-            self.joint_num= 0
-            initial_q_pos = self.robot_interface.last_torques_cmd[self.joint_num]
-            for exec_steps in range(self.ctrl_steps_per_action):
-                for step in range(self.control_freq):
-                    self.robot_interface.step()
-                    pybullet.stepSimulation(self._physics_id)
-                    delta = self.robot_interface.last_torques_cmd[self.joint_num] #- initial_q_pos
-                    q_list.append(delta)
-
-            self.robot_interface.action_set = False
-            self.joint_num += 1
-        else:
-            pass
 
         self.step_counter +=1
         #self.step_log = open('dev/logs/control/step' + str(self.step_counter) + '.txt', 'w+')
 
+    def run_control_loop_for_action(self):
+        for step in range(self.control_freq):
+            # start = time.time()
+            self.robot_interface.step()
+            # print("robot_interface step(): " + str(time.time() - start))
+            # start = time.time()
+            pybullet.stepSimulation(self._physics_id)
+            # print("pb step sim: " + str(time.time() - start))
     def get_observation(self):
         """Get observation of current env state
 

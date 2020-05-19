@@ -4,7 +4,6 @@ Class defining the interface to the Panda Robot in Bullet
 
 import pybullet
 import numpy as np
-import rbdl 
 from perls2.robots.bullet_robot_interface import BulletRobotInterface
 
 

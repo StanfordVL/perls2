@@ -6,7 +6,6 @@ Author: Roberto Martin-Martin
 
 import pybullet
 import numpy as np
-import rbdl
 from perls2.robots.bullet_robot_interface import BulletRobotInterface
 import logging
 
@@ -33,9 +32,6 @@ class BulletSawyerInterface(BulletRobotInterface):
             x y z qx qy qz qw
         """
         self.data_dir = config['data_dir']
-        import os
-        model_path = os.path.join(self.data_dir, 'robot/rethink/sawyer_description/urdf/sawyer_rbdl.urdf')
-        self.rbdl_model = rbdl.loadModel(bytes(model_path, 'utf-8'))
 
         super().__init__(physics_id, arm_id, config, controlType)
         self._ee_index = self.get_link_id_from_name('right_hand')

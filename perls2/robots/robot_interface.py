@@ -191,7 +191,17 @@ class RobotInterface(object):
         kwargs = {'delta': delta, 'set_pos': fix_pos, 'set_ori':fix_ori}
         self.set_controller_goal(**kwargs)
 
+    def set_ee_pose(self, des_pose):
+        """ Use controller to set end effector pose. 
 
+        Args: des pose (7f): [x, y , z, qx, qy, qz, w]. end effector pose as position + quaternion orientation
+
+        """
+        self.check_controller("EEImpedance")
+        kwargs = {'delta': None, 'set_pos': des_pose[:3], 'set_ori': des_pose[3:]}
+        self.set_controller_goal(**kwargs)
+
+        
     def set_joint_velocity(self, dq_des):
         """ Use controller to set joint velocity of the robot.
         Args:
@@ -227,6 +237,7 @@ class RobotInterface(object):
         self.check_controller("JointTorque")
         kwargs = {'torque':torques}
         self.set_controller_goal(**kwargs)
+
 
     @abc.abstractmethod
     def create(config):
