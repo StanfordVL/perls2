@@ -3,7 +3,9 @@
 import numpy as np
 import yaml
 import logging
-
+import sys 
+import perls2 
+import os 
 
 class Arena:
     """The class definition for arenas
@@ -24,7 +26,11 @@ class Arena:
         Returns:
             None
         """
+        self.perls2_dir = perls2.__path__[0] 
+        self.perls2_data = os.path.join(self.perls2_dir, '../data')
+        logging.info("perls dir: " + self.perls2_data)
         self.config = config
+        
         logging.info("Arena created")
         self.randomize_after_reset = True
 

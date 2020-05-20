@@ -15,7 +15,6 @@ from perls2.controllers.robot_model.model import Model
 from perls2.controllers.interpolator.linear_interpolator import LinearInterpolator
 
 import logging
-logging.basicConfig(level=logging.INFO)
 import scipy
 from scipy.spatial.transform import Rotation as R
 

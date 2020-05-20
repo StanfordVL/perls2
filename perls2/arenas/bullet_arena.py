@@ -93,18 +93,24 @@ class BulletArena(Arena):
                     obj_name = \
                         self.config['object']['object_dict'][obj_key]['name']
                     logging.debug(obj_name + " loaded")
+                    obj_config = self.config['object']['object_dict'][obj_key]
 
+                    print("obj config is " + str(obj_config))
+                    obj_name = obj_config['name']
+                    logging.debug(obj_name + " loaded with pb id: " + str(pb_obj_id))
+                    obj_config['pb_id'] = pb_obj_id
                     # key value for object_dict is obj_name: pb_obj_id
                     # example - '013_apple': 3
                     # This makes it easier to reference.
-                    self.object_dict[obj_name] = pb_obj_id
+
+                    self.object_dict[obj_name] = obj_config
                     for step in range(50):
                         pybullet.stepSimulation(self.physics_id)
 
     def load_robot(self):
         """ Load the robot and return arm_id, base_id
         """
-        arm_file = os.path.join(self.data_dir, self.robot_cfg['arm']['path'])
+        arm_file = os.path.join(self.perls2_data, self.robot_cfg['arm']['path'])
         print(" ARM FILE: " + str(arm_file))
         arm_id = pybullet.loadURDF(
             fileName=arm_file,
@@ -120,8 +126,7 @@ class BulletArena(Arena):
 
         # Load Arm
         if (self.robot_cfg['base'] != 'None'):
-            base_file = os.path.join(
-                    self.data_dir, self.robot_cfg['base']['path'])
+            base_file = os.path.join(self.perls2_data, self.robot_cfg['base']['path'])
             base_id = pybullet.loadURDF(
                 fileName=base_file,
                 basePosition=self.robot_cfg['base']['pose'],
@@ -164,8 +169,7 @@ class BulletArena(Arena):
     def load_ground(self):
         """ Load ground and return ground_id
         """
-        plane_path = os.path.join(self.data_dir, self.config['ground']['path'])
-        logging.debug("plane path " + str(plane_path))
+        plane_path = os.path.join(self.perls2_data, self.config['ground']['path'])
         plane_id = pybullet.loadURDF(
             fileName=plane_path,
             basePosition=self.config['ground']['pose'][0],
@@ -195,9 +199,10 @@ class BulletArena(Arena):
         return obj_id
 
     def _load_object_path(self, path, name, pose, scale, is_static):
-        obj_path = os.path.join(self.data_dir, path)
         if len(pose[1] == 3):
             pose[1] = pybullet.getQuaternionFromEuler(pose[1])
+
+        obj_path = os.path.join(self.perls2_data,path)
         obj_id = pybullet.loadURDF(
                     obj_path,
                     basePosition=pose[0],
