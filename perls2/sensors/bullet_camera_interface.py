@@ -57,6 +57,7 @@ class BulletCameraInterface(SimCameraInterface):
             cameraEyePosition=self.cameraEyePosition,
             cameraTargetPosition=self.cameraTargetPosition,
             cameraUpVector=self.cameraUpVector)
+        self.fov = FOV
 
         self._projection_matrix = pybullet.computeProjectionMatrixFOV(
             fov=FOV,
