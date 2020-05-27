@@ -156,6 +156,29 @@ class BulletCameraInterface(SimCameraInterface):
                 nearVal=NEAR_PLANE,
                 farVal=FAR_PLANE)
 
+    def set_target(self, new_target_pos):
+        """ Places camera in new position
+
+        Modifies cameraEyePosition property and adjusts view and
+        projection matrices
+
+        Args:
+            new_camera_pos (3f): x y z coordinates of new camera position.
+        Returns: None
+        """
+        self.cameraTargetPosition = new_target_pos
+
+        self._view_matrix = pybullet.computeViewMatrix(
+                cameraEyePosition=self.cameraEyePosition,
+                cameraTargetPosition=self.cameraTargetPosition,
+                cameraUpVector=self.cameraUpVector)
+
+        self._projection_matrix = pybullet.computeProjectionMatrixFOV(
+                fov=FOV,
+                aspect=float(self.image_width) / float(self.image_height),
+                nearVal=NEAR_PLANE,
+                farVal=FAR_PLANE)
+
     def set_calibration(self, K, rotation, translation):
         """Set the camera calibration data.
 
