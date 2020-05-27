@@ -133,12 +133,12 @@ class BulletWorld(World):
             )
 
         # Create a dictionary of object interfaces
-        self.objects = {}
+        self.object_interfaces = {}
 
         # Create object interfaces for each of the objects found in the arena
         # dictionary
         for obj_idx, obj_name in enumerate(self.arena.object_dict):
-            self.objects[obj_name] = BulletObjectInterface(
+            self.object_interfaces[obj_name] = BulletObjectInterface(
                 physics_id=self._physics_id,
                 obj_id=self.arena.object_dict[obj_name]['pb_id'],
                 name=obj_name)
@@ -199,10 +199,13 @@ class BulletWorld(World):
                 obj_id=obj_id,
                 name=name)
         # Add to Objects dictionary
-        self.objects[name] = object_interface
+        self.object_interfaces[name] = object_interface
 
         return object_interface
 
+    def add_object_interface(self, obj_interface):
+        
+        self.object_interfaces[obj_interface.name] = obj_interface
     def remove_object(self, name):
         """ Remove object from world.
         Args:
@@ -214,7 +217,7 @@ class BulletWorld(World):
         Notes: Removes object from arena as well as objects dictionary.
         """
         try:
-            objectI = self.objects.pop(name)
+            objectI = self.object_interfaces.pop(name)
         except:
             logging.ERROR('key not found')
         self.arena._remove_object(objectI.obj_id, objectI.physics_id)
@@ -371,8 +374,8 @@ class BulletWorld(World):
             if num_steps < check_after_steps:
                 continue
 
-            for obj_idx, obj_key in enumerate(self.objects):
-                if (np.linalg.norm(self.objects[obj_key].linear_velocity) >=
+            for obj_idx, obj_key in enumerate(self.object_interfaces):
+                if (np.linalg.norm(self.object_interfaces[obj_key].linear_velocity) >=
                         linear_velocity_threshold):
                     all_stable = False
 
