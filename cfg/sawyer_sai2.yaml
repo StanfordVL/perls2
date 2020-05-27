@@ -2,22 +2,22 @@
 sawyer:
   arm:
     path:
-      'robot/rethink/sawyer/sawyer.urdf'
+      'robot/rethink/sawyer/sawyer_arm.urdf'
     pose:
       [0, 0, 0]
     orn:
       [0, 0, 0]
     is_static:
       True
-  base: 'None'
-    # path: 'None'
-    #   #'robot/rethink/sawyer_description/urdf/sawyer_base.urdf'
-    # pose:
-    #   [0, 0, .01]
-    # orn:
-    #   [0, 0, 0]
-    # is_static:
-    #   True
+  base: 
+    path: 'None'
+      #'robot/rethink/sawyer_description/urdf/sawyer_base.urdf'
+    pose:
+      [0, 0, .01]
+    orn:
+      [0, 0, 0]
+    is_static:
+      True
   neutral_joint_angles:
     [0,-1.18,0.00,2.18,0.00,0.57,3.3161]
     #[0,-1.18,0.00,2.18,0.00,0.57,3.3161]
