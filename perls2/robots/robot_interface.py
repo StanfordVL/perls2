@@ -151,7 +151,7 @@ class RobotInterface(object):
                 torques = self.controller.run_controller() + self.N_q
                 self.set_torques(torques)
             else:
-                print("ACTION NOT SET")
+                logging.warn("ACTION NOT SET")
 
     def set_controller_goal(self, **kwargs):
         self.controller.set_goal(**kwargs)
