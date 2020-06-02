@@ -94,6 +94,14 @@ class BulletObjectInterface(ObjectInterface):
             self._obj_id, self._physics_id)
         return list(obj_position + obj_orn)
 
+    @property
+    def orientation(self):
+        """Get the orientation of the object in world frame.
+        """
+        _, obj_orn = pybullet.getBasePositionAndOrientation(
+            self._obj_id, self._physics_id)
+        return np.asarray(obj_orn)        
+
     @pose.setter
     def pose(self, des_pose):
         """Set pose of object in world frame.
