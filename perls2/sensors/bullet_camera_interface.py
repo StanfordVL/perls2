@@ -132,7 +132,29 @@ class BulletCameraInterface(SimCameraInterface):
                 'depth': depth,
                 'segmask': segmask,
                 }
+    def frames_rgb(self):
+        """Render the world at the current time step.
+            Args: None
+            Returns:
+                dict with rgb, depth and segmask image.
+        """
+        _, _, rgba, depth, segmask = pybullet.getCameraImage(
+            height=self._image_height,
+            width=self._image_width,
+            viewMatrix=self._view_matrix,
+            projectionMatrix=self._projection_matrix,
+            physicsClientId=self._physics_id)
 
+        rgba = np.array(rgba).astype('uint8')
+        rgba = rgba.reshape((self._image_height, self._image_width, 4))
+        # invert
+        image = rgba[:, :, :3]
+        image = np.invert(image)
+
+
+        return {
+                'rgb': image,
+                }
     def place(self, new_camera_pos):
         """ Places camera in new position
 
