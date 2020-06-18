@@ -6,7 +6,7 @@ from perls2.sensors.sim_camera_interface import SimCameraInterface
 import numpy as np
 import pybullet
 
-FOV = 60
+FOV =90
 NEAR_PLANE = 0.02
 FAR_PLANE = 100
 
@@ -131,6 +131,7 @@ class BulletCameraInterface(SimCameraInterface):
                 'rgb': image,
                 'depth': depth,
                 'segmask': segmask,
+                'rgba': rgba
                 }
     def frames_rgb(self):
         """Render the world at the current time step.

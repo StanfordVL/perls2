@@ -117,7 +117,7 @@ class EEImpController(Controller):
         self.model.update()
 
         if delta is not None:
-            if (len(delta) < 6):
+            if (len(delta) <6):
               raise ValueError("incorrect delta dimension")
 
             scaled_delta = self.scale_action(delta)

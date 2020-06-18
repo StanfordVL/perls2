@@ -188,8 +188,9 @@ class BulletArena(Arena):
                             object_dict['pose'][1]),
                     globalScaling=object_dict['scale'],
                     useFixedBase=object_dict['is_static'],
-                    flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
+                    flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT | pybullet.URDF_USE_INERTIA_FROM_FILE,
                     physicsClientId=self.physics_id)
+        print(str(obj_key) + ": " + str(obj_id))
 
         return obj_id
 
@@ -202,7 +203,7 @@ class BulletArena(Arena):
                             pose[1]),
                     globalScaling=scale,
                     useFixedBase=is_static,
-                    flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
+                    flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT | pybullet.URDF_USE_INERTIA_FROM_FILE,
                     physicsClientId=self.physics_id)
         return obj_id
 

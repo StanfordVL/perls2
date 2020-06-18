@@ -127,7 +127,6 @@ class RobotInterface(object):
             return ValueError("Invalid control type")
 
 
-
     def change_controller(self, next_type):
         """Change to a different controller type.
         Args: 
