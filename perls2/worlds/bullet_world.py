@@ -134,12 +134,12 @@ class BulletWorld(World):
             )
 
         # Create a dictionary of object interfaces
-        self.objects = {}
+        self.object_interfaces = {}
 
         # Create object interfaces for each of the objects found in the arena
         # dictionary
         for obj_idx, obj_name in enumerate(self.arena.object_dict):
-            self.objects[obj_name] = BulletObjectInterface(
+            self.object_interfaces[obj_name] = BulletObjectInterface(
                 physics_id=self._physics_id,
                 obj_id=self.arena.object_dict[obj_name],
                 name=obj_name)

@@ -1,7 +1,7 @@
 """Class definition for environment with generic lift task
 """
 from perls2.envs.env import Env
-
+import logging
 class LiftEnv(Env):
 
     def get_observation(self):
