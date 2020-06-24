@@ -386,6 +386,26 @@ class BulletRobotInterface(RobotInterface):
             self.set_gripper_to_value(self.config['gripper']['close_value'])
         else:
             self.set_gripper_to_value(0.1)
+    @property
+    def gripper_q(self):
+        # Set the joint angles all at once
+        joint_pos = self.q
+
+        l_finger_index = self.get_link_id_from_name(
+            self.robot_cfg['l_finger_name'])
+        r_finger_index = self.get_link_id_from_name(
+            self.robot_cfg['r_finger_name'])
+
+        return (self.q[l_finger_index], self.q[r_finger_index])
+
+    @property
+    def gripper_dq(self):
+        joint_vel = self.dq
+        l_finger_index = self.get_link_id_from_name(
+            self.robot_cfg['l_finger_name'])
+        r_finger_index = self.get_link_id_from_name(
+            self.robot_cfg['r_finger_name'])
+        return (self.dq[l_finger_index], self.dq[r_finger_index])
 
     # Properties
 
