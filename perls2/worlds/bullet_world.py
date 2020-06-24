@@ -383,3 +383,8 @@ class BulletWorld(World):
                     (num_steps >= max_steps)):
 
                 break
+
+    def set_state(self, filepath):
+        """ Set simulation to .bullet path found in filepath
+        """
+        pybullet.restoreState(fileName=filepath, physicsClientId=self.physics_id)
