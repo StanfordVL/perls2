@@ -24,6 +24,7 @@ class Model:
         self.mass_matrix = None
 
         self.torque_compensation = None
+        self.nullspace = None
 
 
     def update_states(self,
