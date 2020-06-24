@@ -13,6 +13,7 @@ from perls2.controllers.joint_vel import JointVelController
 from perls2.controllers.joint_imp import JointImpController
 from perls2.controllers.joint_torque import JointTorqueController
 
+
 from perls2.controllers.robot_model.model import Model
 from perls2.controllers.interpolator.linear_interpolator import LinearInterpolator
 from perls2.controllers.utils import transform_utils as T
@@ -123,6 +124,14 @@ class RobotInterface(object):
         elif control_type == "JointTorque":
             return JointTorqueController(
                 robot_model=self.model )
+        elif control_type == "EEPosture":
+            return EEPostureController(self.model, 
+                kp=controller_dict['kp'], 
+                damping=controller_dict['damping'],
+                posture_gain=controller_dict['posture_gain'],
+                interpolator_pos =self.interpolator,
+                interpolator_ori=None,
+                control_freq=self.config['sim_params']['control_freq'])
         else: 
             return ValueError("Invalid control type")
 
