@@ -111,6 +111,7 @@ class BulletWorld(World):
 
         pybullet.setGravity(0, 0, -9.8, physicsClientId=self._physics_id)
         pybullet.setTimeStep(self._time_step, physicsClientId=self._physics_id)
+        pybullet.setPhysicsEngineParameter(deterministicOverlappingPairs=1)
 
         # Create an arena to load robot and objects
         self.arena = BulletArena(self.config, self._physics_id)
@@ -143,7 +144,7 @@ class BulletWorld(World):
                 obj_id=self.arena.object_dict[obj_name]['pb_id'],
                 name=obj_name)
         # TODO: give world a method get_object_interface(str name)
-
+        # TODO: make object default position a part of objectn not all objects.
         self.print_this_step = False
 
         self.name = name
@@ -261,7 +262,7 @@ class BulletWorld(World):
             self.robot_interface.step()
             # print("robot_interface step(): " + str(time.time() - start))
             # start = time.time()
-            pybullet.stepSimulation(self._physics_id)
+            pybullet.stepSimulation(physicsClientId=self._physics_id)
             # print("pb step sim: " + str(time.time() - start))
     def get_observation(self):
         """Get observation of current env state
@@ -367,7 +368,7 @@ class BulletWorld(World):
         num_stable_steps = 0
 
         while(1):
-            pybullet.stepSimulation(self._physics_id)
+            pybullet.stepSimulation(physicsClientId=self._physics_id)
             num_steps += 1
             all_stable = True
 
@@ -386,3 +387,8 @@ class BulletWorld(World):
                     (num_steps >= max_steps)):
 
                 break
+
+    def set_state(self, filepath):
+        """ Set simulation to .bullet path found in filepath
+        """
+        pybullet.restoreState(fileName=filepath, physicsClientId=self.physics_id)

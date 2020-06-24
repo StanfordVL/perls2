@@ -7,11 +7,12 @@ Author: Roberto Martin-Martin
 import abc  # For abstract class definitions
 import six  # For abstract class definitions
 from perls2.controllers.ee_imp import EEImpController
-from perls2.controllers.ee_imp import EEImpController
+from perls2.controllers.ee_posture import EEPostureController
 import time
 from perls2.controllers.joint_vel import JointVelController
 from perls2.controllers.joint_imp import JointImpController
 from perls2.controllers.joint_torque import JointTorqueController
+
 
 from perls2.controllers.robot_model.model import Model
 from perls2.controllers.interpolator.linear_interpolator import LinearInterpolator
@@ -21,7 +22,8 @@ import logging
 from scipy.spatial.transform import Rotation as R
 
 
-AVAILABLE_CONTROLLERS = ["EEImpedance", 
+AVAILABLE_CONTROLLERS = ["EEImpedance",
+                         "EEPosture",  
                          "Internal",
                          "JointVelocity",
                          "JointImpedance", 
@@ -102,6 +104,13 @@ class RobotInterface(object):
                 interpolator_pos =self.interpolator,
                 interpolator_ori=None,
                 control_freq=self.config['sim_params']['control_freq'])
+        elif control_type == "EEPosture":
+            return EEPostureController(self.model, 
+                kp=controller_dict['kp'], 
+                damping=controller_dict['damping'],
+                interpolator_pos =self.interpolator,
+                interpolator_ori=None,
+                control_freq=self.config['sim_params']['control_freq'])
         elif control_type == "JointVelocity":
             return JointVelController(
                 robot_model=self.model, 
@@ -115,9 +124,16 @@ class RobotInterface(object):
         elif control_type == "JointTorque":
             return JointTorqueController(
                 robot_model=self.model )
+        elif control_type == "EEPosture":
+            return EEPostureController(self.model, 
+                kp=controller_dict['kp'], 
+                damping=controller_dict['damping'],
+                posture_gain=controller_dict['posture_gain'],
+                interpolator_pos =self.interpolator,
+                interpolator_ori=None,
+                control_freq=self.config['sim_params']['control_freq'])
         else: 
             return ValueError("Invalid control type")
-
 
 
     def change_controller(self, next_type):
@@ -179,7 +195,7 @@ class RobotInterface(object):
             that dimension. 
 
         """
-        self.check_controller("EEImpedance")
+        #self.check_controller("EEImpedance")
         if fix_ori is not None:
             if len(fix_ori) != 4:
                 raise ValueError('fix_ori incorrect dimensions, should be quaternion length 4')

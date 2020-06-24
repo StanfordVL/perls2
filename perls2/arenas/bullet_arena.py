@@ -119,7 +119,7 @@ class BulletArena(Arena):
                                     self.robot_cfg['arm']['orn']),
             globalScaling=1.0,
             useFixedBase=self.robot_cfg['arm']['is_static'],
-            flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
+            flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT | pybullet.URDF_USE_INERTIA_FROM_FILE,
             physicsClientId=self.physics_id)
         logging.info("Loaded robot" + " arm_id :" + str(arm_id))
         print(pybullet.getNumJoints(arm_id, self.physics_id))
@@ -134,7 +134,7 @@ class BulletArena(Arena):
                                         self.robot_cfg['base']['orn']),
                 globalScaling=1.0,
                 useFixedBase=self.robot_cfg['base']['is_static'],
-                flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
+                flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT | pybullet.URDF_USE_INERTIA_FROM_FILE,
                 physicsClientId=self.physics_id)
         else:
             base_id = -1
@@ -193,8 +193,9 @@ class BulletArena(Arena):
                             object_dict['pose'][1]),
                     globalScaling=object_dict['scale'],
                     useFixedBase=object_dict['is_static'],
-                    flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
+                    flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT | pybullet.URDF_USE_INERTIA_FROM_FILE,
                     physicsClientId=self.physics_id)
+        print(str(obj_key) + ": " + str(obj_id))
 
         return obj_id
 
@@ -209,7 +210,7 @@ class BulletArena(Arena):
                     baseOrientation=pose[1],
                     globalScaling=scale,
                     useFixedBase=is_static,
-                    flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
+                    flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT | pybullet.URDF_USE_INERTIA_FROM_FILE,
                     physicsClientId=self.physics_id)
         return obj_id
 

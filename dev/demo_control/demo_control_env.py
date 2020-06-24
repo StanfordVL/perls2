@@ -21,7 +21,8 @@ class DemoControlEnv(Env):
     def _exec_action(self, action):
         """Applies the given action to the simulation.
         """
-        if self.robot_interface.controlType == 'EEImpedance':
+        if (self.robot_interface.controlType == 'EEImpedance' or 
+           (self.robot_interface.controlType == 'EEPosture')):
             self.robot_interface.move_ee_delta(action)
         elif self.robot_interface.controlType == 'JointVelocity':
             self.robot_interface.set_joint_velocity(action)
