@@ -718,7 +718,6 @@ class BulletRobotInterface(RobotInterface):
         return np.asarray(
             pybullet.getMatrixFromQuaternion(self.ee_orientation))
 
-
     @property
     def state_dict(self):
         """ Return a dictionary containing the robot state,
@@ -1023,11 +1022,7 @@ class BulletRobotInterface(RobotInterface):
             physicsClientId=self._physics_id)
 
         gravity_torques = np.transpose(self.jacobian)*gravity_forces
-
-    @property
-    def nullspace_matrix(self):
-        return np.eye(7,7) - np.dot(self.JBar, self.jacobian)
-
+    
     def set_torques(self, joint_torques):
         """Set torques to the motor. Useful for keeping torques constant through
         multiple simulation steps.
