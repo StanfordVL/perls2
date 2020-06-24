@@ -1,7 +1,6 @@
 """The parent class for environments.
 
 """
-
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -50,13 +49,14 @@ class Env(gym.Env):
     """
 
     def __init__(self,
-                 cfg_path,
+                 config,
                  use_visualizer=False,
                  name=None):
         """Initialize.
 
         Args:
-            cfg_path (str): A relative filepath to the config file.
+            config (str, dict): A relative filepath to the config file. Or a 
+                parsed YamlConfig file as a dictionary. 
                 e.g. 'cfg/my_config.yaml'
             use_visualizer (bool): A flag for whether or not to use visualizer
             name (str): of the environment
@@ -65,7 +65,10 @@ class Env(gym.Env):
         """
 
         # Get config dictionary.
-        self.config = YamlConfig(cfg_path)
+        if type(config) is dict:
+            self.config = config
+        else:
+            self.config = YamlConfig(config)
         self.world = God.make_world(self.config,
                                    use_visualizer,
                                    name)
@@ -201,7 +204,16 @@ class Env(gym.Env):
     def rewardFunction(self):
         """ Compute and return user-defined reward for agent given env state.
         """
-        raise NotImplementedError
+        logging.warning("rewardFunction not defined!")
+        return 0
 
     def _check_termination(self):
-        return self.num_steps >= self.MAX_STEPS            
+        return self.num_steps >= self.MAX_STEPS 
+
+    def is_done(self):
+        return self._check_termination()
+
+    def is_success(self):
+        """Check if the task condition is reached."""
+        logging.warning("is_success not defined!")
+        return False           
