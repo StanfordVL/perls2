@@ -87,7 +87,10 @@ class EEImpController(Controller):
         self.orientation_limits = orientation_limits
 
         # kp kv
-        self.kp = np.ones(6) * kp
+        if kp is list:
+            self.kp = kp
+        else:
+            self.kp = np.ones(6) * kp
         self.kv = np.ones(6) * 2 * np.sqrt(self.kp) * damping
 
         # control frequency
