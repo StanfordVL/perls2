@@ -111,6 +111,7 @@ class BulletWorld(World):
 
         pybullet.setGravity(0, 0, -9.8, physicsClientId=self._physics_id)
         pybullet.setTimeStep(self._time_step, physicsClientId=self._physics_id)
+        # pybullet.setRealTimeSimulation(enableRealTimeSimulation=1, physicsClientId=self._physics_id)
         pybullet.setPhysicsEngineParameter(deterministicOverlappingPairs=1)
 
         # Create an arena to load robot and objects
@@ -198,7 +199,7 @@ class BulletWorld(World):
                 obj_id=obj_id,
                 name=name)
         # Add to Objects dictionary
-        self.objects[name] = object_interface
+        self.object_interfaces[name] = object_interface
 
         return object_interface
 
@@ -213,7 +214,7 @@ class BulletWorld(World):
         Notes: Removes object from arena as well as objects dictionary.
         """
         try:
-            objectI = self.objects.pop(name)
+            objectI = self.object_interfaces.pop(name)
             self.arena._remove_object(objectI.obj_id, objectI.physics_id)
         except:
             logging.ERROR('key not found')
@@ -371,8 +372,8 @@ class BulletWorld(World):
             if num_steps < check_after_steps:
                 continue
 
-            for obj_idx, obj_key in enumerate(self.objects):
-                if (np.linalg.norm(self.objects[obj_key].linear_velocity) >=
+            for obj_idx, obj_key in enumerate(self.object_interfaces):
+                if (np.linalg.norm(self.object_interfaces[obj_key].linear_velocity) >=
                         linear_velocity_threshold):
                     all_stable = False
 
