@@ -82,7 +82,7 @@ class Env(gym.Env):
 
         # Currently only sim worlds support object interfaces
         if self.world.is_sim:
-            self.objects = self.world.objects
+            self.object_interfaces = self.world.object_interfaces
 
         # Set observation space using gym spaces
         #    - Box for continuous, Discrete for discrete
