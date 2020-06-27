@@ -2,25 +2,62 @@
 """
 from perls2.envs.env import Env
 import logging
+import numpy as np
 class LiftEnv(Env):
-
     def get_observation(self):
         observation_dict = {}
 
         # observation_dict['rgb'] = self.sensor_interface.frames_rgb()['rgb']
-        observation_dict['ee_pose'] = np.array(self.robot_interface.ee_pose)
+        observation_dict['ee_pose'] = self.robot_interface.ee_pose
         observation_dict['object_pose'] = self.object_interface.pose
+        observation_dict['q'] = self.robot_interface.q
+        observation_dict['dq'] = self.robot_interface.dq
+        observation_dict['last_torques'] = self.robot_interface.last_torques
         return observation_dict
 
     @property
     def name(self):
-        return "LiftEnv"
+        return "RobotTeleop"
 
-    def _exec_action(self, action):
-        # import pdb; pdb.set_trace()
-        self.robot_interface.move_ee_delta(delta=action[:6])
-        # if action[7] > 0: 
-        #     self.open_gripper()
+    def get_grasp_from_command(self, gripper_command):
+        """
+        Returns a boolean grasp value for the input continuous control command.
+        This function uses a decision boundary to decide whether the input 
+        command corresponds to closing the gripper or opening it.
+        """
+        return (gripper_command[0] < 0.5)
+
+    def _exec_action(self, position_control, rotation_control, gripper_control, 
+        force_control=None, absolute=False):
+
+        action = np.concatenate([position_control, rotation_control, gripper_control])
+
+        if absolute:    
+            print("absolute")
+            arm_action = np.hstack((position_control, rotation_control))
+
+            self.robot_interface.set_ee_pose(arm_action)
+
+        else: 
+            position_control = np.clip(position_control,[-0.05] * 3, [0.05]*3)
+            #rotation_control = [0, 0, 0]#np.clip(rotation_control,[-0.05] * 3, [0.05]*3)
+            delta = np.hstack((position_control, rotation_control))
+  
+            self.robot_interface.move_ee_delta(delta=delta)
+
+        grasp = self.get_grasp_from_command(gripper_control)
+
+        if grasp:
+            self.robot_interface.close_gripper()
+        else:
+            self.robot_interface.open_gripper()
+
+        # remember the last gripper action taken
+        self.last_grasp = grasp
+        # print("returning action")
+
+
+        return action
 
     def reset(self):
         """Reset the environment.
@@ -55,6 +92,12 @@ class LiftEnv(Env):
         observation = None
         return observation 
 
+    def _step(self):
+        self.world.step()
+        #obs = self.get_observation()
+        self.num_steps = self.num_steps + 1
+        
+
     def step(self, action):
         """Take a step.
 
@@ -69,9 +112,9 @@ class LiftEnv(Env):
         Takes a step forward similar to openAI.gym's implementation.
         """
 
-        self._exec_action(action)
-        self.world.step()
-        self.num_steps = self.num_steps+1
+        self._exec_action(action[0:3],action[3:6],action[6:])
+        self._step()
+        observation = None
 
         termination = self._check_termination()
 
@@ -81,17 +124,21 @@ class LiftEnv(Env):
 
         reward = self.rewardFunction()
 
-        observation = None
-
         info = self.info
 
         return observation, reward, termination, info
     
     def is_success(self):
-        if (self.object_interface.position[2] > 0.1):
+        if (self.object_interface.position[2] > 0.05):
             return True
         else:
             return False
 
     def is_done(self):
         return self._check_termination()
+
+    def rewardFunction(self):
+        if self.is_success():
+            return 1.0
+        else:
+            return 0.0
