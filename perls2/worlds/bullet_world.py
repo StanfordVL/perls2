@@ -111,6 +111,7 @@ class BulletWorld(World):
 
         pybullet.setGravity(0, 0, -9.8, physicsClientId=self._physics_id)
         pybullet.setTimeStep(self._time_step, physicsClientId=self._physics_id)
+        # pybullet.setRealTimeSimulation(enableRealTimeSimulation=1, physicsClientId=self._physics_id)
         pybullet.setPhysicsEngineParameter(deterministicOverlappingPairs=1)
 
         # Create an arena to load robot and objects
@@ -219,6 +220,7 @@ class BulletWorld(World):
         """
         try:
             objectI = self.object_interfaces.pop(name)
+            self.arena._remove_object(objectI.obj_id, objectI.physics_id)
         except:
             logging.ERROR('key not found')
         self.arena._remove_object(objectI.obj_id, objectI.physics_id)
