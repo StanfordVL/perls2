@@ -35,7 +35,6 @@ PERLS2 only supports python 3.6+ virtual environments.
         `cd ~/perls2`
         
         `pip install -r requirements.txt`
-        * You could get an error like `error: numpy 1.11.0 is installed but numpy>=1.11.1 is required by set(['opencv-python'])`. In that case you may want to force to install the right version of numpy: `pip install --upgrade --force-reinstall numpy`
 
     5. Install perls2 
         
