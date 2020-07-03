@@ -42,7 +42,7 @@ class SimpleReachEnv(Env):
 
         # for sim we are tracking an object, increase goal position to be above
         # the actual position of the object.
-        self.object_interface = self.world.objects['013_apple']
+        self.object_interface = self.world.object_interfaces['013_apple']
 
         if (self.world.is_sim):
             self.update_goal_position()

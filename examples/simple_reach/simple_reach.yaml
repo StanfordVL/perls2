@@ -94,6 +94,7 @@ object:
       pose: [[1.5, 0, 0], [0,0,0]]
       is_static: True
       scale: 1.0
+      default_position: [0.7, 0.1, 0.03] #z  = 0.1
   default_position: [0.7, 0.1, 0.03] #z  = 0.1
   random:
     randomize: False
