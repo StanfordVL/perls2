@@ -117,11 +117,13 @@ class BulletWorld(World):
         # Create an arena to load robot and objects
         self.arena = BulletArena(self.config, self._physics_id)
 
+        self.controller_dict = self.config['controller']['Bullet']
+        
         self.robot_interface = BulletRobotInterface.create(
             config=self.config,
             physics_id=self._physics_id,
             arm_id=self.arena.arm_id, 
-            controlType=self.config['controller']['selected_type'])
+            controlType=self.config['controller']['Bullet']['selected_type'])
         
         self.control_freq = self.config['sim_params']['control_freq']
 
