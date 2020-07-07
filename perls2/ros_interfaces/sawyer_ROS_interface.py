@@ -84,15 +84,19 @@ from moveit_msgs.srv import (
 import actionlib
 from safenet import SafenetMonitor
 
+from perls2.worlds.bullet_world import BulletWorld
+
 def bstr_to_ndarray(array_bstr):
     """Convert bytestring array to 1d array
     """
     return np.fromstring(array_bstr[1:-1], dtype=np.float, sep = ',')
 
 class SawyerCtrlInterface(object):
-    def __init__(self, use_safenet=False,
-                       use_moveit=False,
-                       node_name='sawyer_interface'):
+    def __init__(self, 
+                 config='cfg/sawyer_ctrl_config.yaml', 
+                 use_safenet=False,
+                 use_moveit=False,
+                 node_name='sawyer_interface'):
         """
         Initialize Sawyer Robot for control
 
@@ -202,6 +206,7 @@ class SawyerCtrlInterface(object):
         rospack = rospkg.RosPack()
 
         self._clid = pb.connect(pb.DIRECT)
+        
         pb.resetSimulation()
         # TODO: make this not hard coded
         sawyer_urdf_path = \
@@ -687,6 +692,10 @@ class SawyerCtrlInterface(object):
                 jacobianMat[i, j] = jacobian[i, j]
         return jacobianMat
 
+    @property
+    def J(self, q=None):
+        if q is None:
+            q = self.q
     @property
     def info(self):
         """
