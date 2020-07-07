@@ -96,7 +96,8 @@ class RobotInterface(object):
         """
         if control_type == "Internal":
             return "Internal"
-        controller_dict = self.config['controller'][control_type]
+        world_name = self.config['world']['type']
+        controller_dict = self.config['controller'][world_name][control_type]
         if control_type == "EEImpedance":
             return EEImpController(self.model,
                 kp=controller_dict['kp'], 
@@ -114,7 +115,7 @@ class RobotInterface(object):
         elif control_type == "JointVelocity":
             return JointVelController(
                 robot_model=self.model, 
-                kv=self.config['controller']['JointVelocity']['kv'])
+                kv=controller_dict['kv'])
         elif control_type == "JointImpedance":
             return JointImpController(
                 robot_model= self.model, 
