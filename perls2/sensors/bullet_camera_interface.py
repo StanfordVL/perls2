@@ -6,7 +6,7 @@ from perls2.sensors.sim_camera_interface import SimCameraInterface
 import numpy as np
 import pybullet
 
-FOV = 60
+FOV =90
 NEAR_PLANE = 0.02
 FAR_PLANE = 100
 
@@ -63,6 +63,7 @@ class BulletCameraInterface(SimCameraInterface):
             aspect=float(image_width) / float(image_height),
             nearVal=NEAR_PLANE,
             farVal=FAR_PLANE)
+        self.start()
 
     def set_projection_matrix(self, projection_matrix):
         self._projection_matrix = projection_matrix
@@ -130,8 +131,29 @@ class BulletCameraInterface(SimCameraInterface):
                 'rgb': image,
                 'depth': depth,
                 'segmask': segmask,
+                'rgba': rgba
                 }
+    def frames_rgb(self):
+        """Render the world at the current time step.
+            Args: None
+            Returns:
+                dict with rgb, depth and segmask image.
+        """
+        _, _, rgba, depth, segmask = pybullet.getCameraImage(
+            height=self._image_height,
+            width=self._image_width,
+            viewMatrix=self._view_matrix,
+            projectionMatrix=self._projection_matrix,
+            physicsClientId=self._physics_id)
 
+        rgba = np.array(rgba).astype('uint8')
+        rgba = rgba.reshape((self._image_height, self._image_width, 4))
+        # invert
+        image = rgba[:, :, :3]
+        #image = np.invert(image)
+        return {
+                'rgb': image,
+                }
     def place(self, new_camera_pos):
         """ Places camera in new position
 
@@ -147,13 +169,15 @@ class BulletCameraInterface(SimCameraInterface):
         self._view_matrix = pybullet.computeViewMatrix(
                 cameraEyePosition=self.cameraEyePosition,
                 cameraTargetPosition=self.cameraTargetPosition,
-                cameraUpVector=self.cameraUpVector)
+                cameraUpVector=self.cameraUpVector, 
+                physicsClientId=self._physics_id)
 
         self._projection_matrix = pybullet.computeProjectionMatrixFOV(
                 fov=FOV,
                 aspect=float(self.image_width) / float(self.image_height),
                 nearVal=NEAR_PLANE,
-                farVal=FAR_PLANE)
+                farVal=FAR_PLANE,
+                physicsClientId = self._physics_id)
 
     def set_calibration(self, K, rotation, translation):
         """Set the camera calibration data.
@@ -270,7 +294,8 @@ class BulletCameraInterface(SimCameraInterface):
         view_matrix = pybullet.computeViewMatrix(
                     cameraEyePosition=camera_position,
                     cameraTargetPosition=focus,
-                    cameraUpVector=up_vector)
+                    cameraUpVector=up_vector, 
+                    physicsClientId=self._physics_id)
 
         return view_matrix
 

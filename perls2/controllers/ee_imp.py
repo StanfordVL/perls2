@@ -72,7 +72,7 @@ class EEImpController(Controller):
                  orientation_limits=None,
                  interpolator_pos=None,
                  interpolator_ori=None,
-                 uncouple_pos_ori=False,
+                 uncouple_pos_ori=True,
                  ):
 
         super(EEImpController, self).__init__()
@@ -87,7 +87,10 @@ class EEImpController(Controller):
         self.orientation_limits = orientation_limits
 
         # kp kv
-        self.kp = np.ones(6) * kp
+        if kp is list:
+            self.kp = kp
+        else:
+            self.kp = np.ones(6) * kp
         self.kv = np.ones(6) * 2 * np.sqrt(self.kp) * damping
 
         # control frequency
@@ -117,7 +120,7 @@ class EEImpController(Controller):
         self.model.update()
 
         if delta is not None:
-            if (len(delta) < 6):
+            if (len(delta) <6):
               raise ValueError("incorrect delta dimension")
 
             scaled_delta = self.scale_action(delta)

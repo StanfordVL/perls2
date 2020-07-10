@@ -91,7 +91,7 @@ def bstr_to_ndarray(array_bstr):
     """
     return np.fromstring(array_bstr[1:-1], dtype=np.float, sep = ',')
 
-class SawyerCtrlInterface(object):
+class SawyerCtrlInterface(object, RobotInterface):
     def __init__(self, 
                  config='cfg/sawyer_ctrl_config.yaml', 
                  use_safenet=False,
@@ -205,17 +205,18 @@ class SawyerCtrlInterface(object):
         # get an instance of RosPack with the default search paths
         rospack = rospkg.RosPack()
 
+        # set up internal pybullet simulation for jacobian and mass matrix calcs.
         self._clid = pb.connect(pb.DIRECT)
-        
-        pb.resetSimulation()
-        # TODO: make this not hard coded
-        sawyer_urdf_path = \
-            rospack.get_path('perls_robot_interface_ros') + '/models/sawyer_pybullet.urdf'
+        pb.resetSimulation(physicsClientId=self._clid)
 
-        self._pb_sawyer = pb.loadURDF(
-                                        sawyer_urdf_path,
-                                        (0, 0, 0),
-                                        useFixedBase=True)
+        # TODO: make this not hard coded
+        sawyer_urdf_path = self.config['sawyer_ctrl_config']['sawyer']['arm']['path']
+
+        self._pb_sawyer = pb.loadURDF(sawyer_urdf_path,
+                                      (0, 0, 0),
+                                      useFixedBase=True, 
+                                      physicsClientId=self._clid)
+        self.num_free_joints = 7
 
         # Get dictionary of free (not fixed) joint indices of urdf
         #self._free_joint_idx_dict = self.get_free_joint_idx_dict()
@@ -259,6 +260,7 @@ class SawyerCtrlInterface(object):
 
         # Set initial values for redis db
         self.redisClient.set('robot::cmd_type', 'joint_position')
+        self.redisClient.set('robot::controller', 'JointImpedance')
         self.redisClient.set('robot::qd', str(self.neutral_joint_position))
 
 
@@ -665,37 +667,69 @@ class SawyerCtrlInterface(object):
         tau = self._limb.joint_efforts()
         return [tau[n] for n in self._joint_names]
 
+    # @property
+    # def J(self, q=None):
+    #     """
+    #     Estimate and return the kinematic Jacobian at q or at the
+    #     current configuration.
+    #     :return: Jacobian matrix (2D numpy array)
+    #     """
+
+    #     q_kdl_array = KDL.JntArray(7)
+
+    #     if q is None:
+    #         q = self.q
+
+    #     num_dof = len(self.q)
+
+    #     for i in range(0, num_dof):
+    #         q_kdl_array[i] = q[i]
+
+    #     jacKDL = KDL.ChainJntToJacSolver(self._kdl_chain)
+    #     jacobian = KDL.Jacobian(7)
+    #     jacKDL.JntToJac(q_kdl_array, jacobian)
+    #     jacobianMat = np.matrix(np.zeros([6, num_dof]))
+    #     for i in range(0, 6):
+    #         for j in range(0, num_dof):
+    #             jacobianMat[i, j] = jacobian[i, j]
+    #     return jacobianMat
+
     @property
     def J(self, q=None):
+        """ Calculate the full jacobian using pybullet.
         """
-        Estimate and return the kinematic Jacobian at q or at the
-        current configuration.
-        :return: Jacobian matrix (2D numpy array)
-        """
-
-        q_kdl_array = KDL.JntArray(7)
-
         if q is None:
-            q = self.q
 
+            q = self.q
         num_dof = len(self.q)
 
-        for i in range(0, num_dof):
-            q_kdl_array[i] = q[i]
+        linear_jacobian, angular_jacobian = pb.calculateJacobian(
+            bodyUniqueId=self._pb_sawyer,
+            linkIndex=6,
+            localPosition=[9.3713e-08,    0.28673,  -0.237291],
+            objPositions=self.q[:7],
+            objVelocities=self.dq[:7],
+            objAccelerations=[0]*7,
+            physicsClientId=self._clid
+            )
+        linear_jacobian = np.reshape(
+            linear_jacobian, (3, self.num_free_joints))
 
-        jacKDL = KDL.ChainJntToJacSolver(self._kdl_chain)
-        jacobian = KDL.Jacobian(7)
-        jacKDL.JntToJac(q_kdl_array, jacobian)
-        jacobianMat = np.matrix(np.zeros([6, num_dof]))
-        for i in range(0, 6):
-            for j in range(0, num_dof):
-                jacobianMat[i, j] = jacobian[i, j]
-        return jacobianMat
+        angular_jacobian = np.reshape(
+            angular_jacobian, (3, self.num_free_joints))
+
+        jacobian = np.vstack(
+            (linear_jacobian[:,:self.dof],angular_jacobian[:,:self.dof]))
+
+        return jacobian
 
     @property
-    def J(self, q=None):
-        if q is None:
-            q = self.q
+    def mass_matrix(self):
+        mass_matrix = pybullet.calculateMassMatrix(self._pb_sawyer, 
+            self.q, 
+            physicsClientId=self._clid)
+        return np.array(mass_matrix)[:7,:7]
+    
     @property
     def info(self):
         """
@@ -879,6 +913,8 @@ class SawyerCtrlInterface(object):
         self.redisClient.set('robot::dq', str(self.dq))
         self.redisClient.set('robot::tau', str(self.tau))
 
+        self.redisClient.set('robot::J', str(self.J))
+        self.redisClient.set('robot::mass_matrix', str(self.mass_matrix))
         #self.redisClient.set('tip_pose',
         #    str(self._from_tip_to_base_of_gripper(self.ee_pose)))
 
@@ -1744,6 +1780,9 @@ class SawyerCtrlInterface(object):
             self.reset_to_neutral()
         else:
             rospy.logwarn('Unknown command')
+
+
+
 
 
 ### MAIN ###

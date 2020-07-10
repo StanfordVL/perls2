@@ -15,20 +15,17 @@ def make_ee_positions_list(steps):
   ee_list = []
   dim = 0
   for step in range(steps):
-    for dim_i in range(1):
+    for dim_i in range(6):
       delta = np.zeros(6)
       #dim = np.random.randint(0, 6)
-      sign = 1 #np.random.choice([-1, 1])
-      delta[1] = sign*0.1
+      sign = np.random.choice([-1, 1])
+      delta[dim_i] = sign*0.05
       ee_list.append(delta)
       # dim+=1
   return ee_list
 
 
-#EE_POSITIONS_LIST = make_ee_positions_list(steps=10)
-EE_POSITIONS_LIST = np.genfromtxt('/home/rohunk-local/RobotTeleop/osc_actions.csv', delimiter=',')
-
-
+EE_POSITIONS_LIST = make_ee_positions_list(steps=10)
 
 JOINT_VELOCITY_LIST =[[0.1, 0.0,    0.0, 0.0,    0.0,    0.0, 0.0]] #,
 # [0.0, -0.1,    0.0, 0.0,    0.0,    0.0, 0.0],
@@ -69,17 +66,21 @@ print("Perls2 Demo Control Environment Created.")
 control_types = {"1" : "EEImpedance", 
                  "2" : "JointVelocity",
                  "3" : "JointImpedance",
-                 "4" : "JointTorque"}
+                 "4" : "JointTorque", 
+                 "5" : "EEPosture"}
+
 command_dict = {"EEImpedance": EE_POSITIONS_LIST,
                   "JointVelocity": JOINT_VELOCITY_LIST,
                   "JointImpedance": JOINT_IMP_LIST,
-                  "JointTorque": JOINT_TORQUE_LIST}
+                  "JointTorque": JOINT_TORQUE_LIST,
+                  "EEPosture": EE_POSITIONS_LIST}
 
 control_message = """Select Control Type: 
 \t [1] : EE Impedance 
 \t [2] : Joint Velocity
 \t [3] : Joint Impedance
 \t [4] : Joint Torque
+\t [5] : EE Posture
 >>"""
 
 while True: 
@@ -100,13 +101,11 @@ env.robot_interface.change_controller(selected_control_name)
 env.reset()
 initial_ee_pose = env.robot_interface.dq
 delta_list = []
-# EE Impedance Test (delta)
 
 for step, action in enumerate(command_dict[selected_control_name]):
     start = time.time()
+    print(action)
     env.step(action)
-    # while (time.time() - start) < 5:
-    #     pass
 
 env.reset()
 env.robot_interface.disconnect()

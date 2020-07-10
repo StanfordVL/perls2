@@ -98,7 +98,6 @@ class BulletWorld(World):
 
         # Get configuration parameters
         self.config = config
-
         # Connect to appropriate pybullet channel based on use_visualizer flag
         self.use_visualizer = use_visualizer
         if self.use_visualizer:
@@ -111,10 +110,14 @@ class BulletWorld(World):
 
         pybullet.setGravity(0, 0, -9.8, physicsClientId=self._physics_id)
         pybullet.setTimeStep(self._time_step, physicsClientId=self._physics_id)
+        # pybullet.setRealTimeSimulation(enableRealTimeSimulation=1, physicsClientId=self._physics_id)
+        pybullet.setPhysicsEngineParameter(deterministicOverlappingPairs=1)
 
         # Create an arena to load robot and objects
         self.arena = BulletArena(self.config, self._physics_id)
 
+        self.controller_dict = self.config['controller']['Bullet']
+        
         self.robot_interface = BulletRobotInterface.create(
             config=self.config,
             physics_id=self._physics_id,
@@ -133,17 +136,17 @@ class BulletWorld(World):
             )
 
         # Create a dictionary of object interfaces
-        self.objects = {}
+        self.object_interfaces = {}
 
         # Create object interfaces for each of the objects found in the arena
         # dictionary
         for obj_idx, obj_name in enumerate(self.arena.object_dict):
-            self.objects[obj_name] = BulletObjectInterface(
+            self.object_interfaces[obj_name] = BulletObjectInterface(
                 physics_id=self._physics_id,
                 obj_id=self.arena.object_dict[obj_name],
                 name=obj_name)
         # TODO: give world a method get_object_interface(str name)
-
+        # TODO: make object default position a part of objectn not all objects.
         self.print_this_step = False
 
         self.name = name
@@ -160,6 +163,10 @@ class BulletWorld(World):
         self.step_counter = 0
 
         self.ee_list = []
+
+    def __del__(self):
+        logging.info("pybullet physics client {} disconnected".format(self._physics_id))
+        pybullet.disconnect(self._physics_id)
 
     @property
     def physics_id(self):
@@ -199,7 +206,7 @@ class BulletWorld(World):
                 obj_id=obj_id,
                 name=name)
         # Add to Objects dictionary
-        self.objects[name] = object_interface
+        self.object_interfaces[name] = object_interface
 
         return object_interface
 
@@ -231,6 +238,9 @@ class BulletWorld(World):
         """
         pass
 
+    def reboot(self):
+        pybullet.resetSimulation(self._physics_id)
+
     def step(self):
         """Step the world(simulation) forward.
 
@@ -248,7 +258,6 @@ class BulletWorld(World):
         for exec_steps in range(self.ctrl_steps_per_action):
             self.run_control_loop_for_action()
 
-
         self.step_counter +=1
         #self.step_log = open('dev/logs/control/step' + str(self.step_counter) + '.txt', 'w+')
 
@@ -258,8 +267,9 @@ class BulletWorld(World):
             self.robot_interface.step()
             # print("robot_interface step(): " + str(time.time() - start))
             # start = time.time()
-            pybullet.stepSimulation(self._physics_id)
+            pybullet.stepSimulation(physicsClientId=self._physics_id)
             # print("pb step sim: " + str(time.time() - start))
+    
     def get_observation(self):
         """Get observation of current env state
 
@@ -364,15 +374,15 @@ class BulletWorld(World):
         num_stable_steps = 0
 
         while(1):
-            pybullet.stepSimulation(self._physics_id)
+            pybullet.stepSimulation(physicsClientId=self._physics_id)
             num_steps += 1
             all_stable = True
 
             if num_steps < check_after_steps:
                 continue
 
-            for obj_idx, obj_key in enumerate(self.objects):
-                if (np.linalg.norm(self.objects[obj_key].linear_velocity) >=
+            for obj_idx, obj_key in enumerate(self.object_interfaces):
+                if (np.linalg.norm(self.object_interfaces[obj_key].linear_velocity) >=
                         linear_velocity_threshold):
                     all_stable = False
 
@@ -383,3 +393,9 @@ class BulletWorld(World):
                     (num_steps >= max_steps)):
 
                 break
+
+    def set_state(self, filepath):
+        """ Set simulation to .bullet path found in filepath
+        """
+        pybullet.restoreState(fileName=filepath, physicsClientId=self.physics_id)
+        logging.debug("physicsClientId {} set to {}".format(self.physics_id, filepath))
