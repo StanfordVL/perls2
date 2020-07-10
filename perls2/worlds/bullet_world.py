@@ -98,7 +98,6 @@ class BulletWorld(World):
 
         # Get configuration parameters
         self.config = config
-
         # Connect to appropriate pybullet channel based on use_visualizer flag
         self.use_visualizer = use_visualizer
         if self.use_visualizer:
@@ -123,7 +122,7 @@ class BulletWorld(World):
             config=self.config,
             physics_id=self._physics_id,
             arm_id=self.arena.arm_id, 
-            controlType=self.config['controller']['Bullet']['selected_type'])
+            controlType=self.config['controller']['selected_type'])
         
         self.control_freq = self.config['sim_params']['control_freq']
 
