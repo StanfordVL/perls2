@@ -111,7 +111,7 @@ class BulletWorld(World):
         pybullet.setGravity(0, 0, -9.8, physicsClientId=self._physics_id)
         pybullet.setTimeStep(self._time_step, physicsClientId=self._physics_id)
         # pybullet.setRealTimeSimulation(enableRealTimeSimulation=1, physicsClientId=self._physics_id)
-        pybullet.setPhysicsEngineParameter(deterministicOverlappingPairs=1)
+        pybullet.setPhysicsEngineParameter(deterministicOverlappingPairs=1, physicsClientId=self._physics_id)
 
         # Create an arena to load robot and objects
         self.arena = BulletArena(self.config, self._physics_id)
