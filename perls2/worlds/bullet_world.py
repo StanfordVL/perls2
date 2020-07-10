@@ -164,6 +164,10 @@ class BulletWorld(World):
 
         self.ee_list = []
 
+    def __del__(self):
+        logging.info("pybullet physics client {} disconnected".format(self._physics_id))
+        pybullet.disconnect(self._physics_id)
+
     @property
     def physics_id(self):
         return self._physics_id
