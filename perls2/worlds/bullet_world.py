@@ -237,6 +237,9 @@ class BulletWorld(World):
         """
         pass
 
+    def reboot(self):
+        pybullet.resetSimulation(self._physics_id)
+
     def step(self):
         """Step the world(simulation) forward.
 
@@ -254,7 +257,6 @@ class BulletWorld(World):
         for exec_steps in range(self.ctrl_steps_per_action):
             self.run_control_loop_for_action()
 
-
         self.step_counter +=1
         #self.step_log = open('dev/logs/control/step' + str(self.step_counter) + '.txt', 'w+')
 
@@ -266,6 +268,7 @@ class BulletWorld(World):
             # start = time.time()
             pybullet.stepSimulation(physicsClientId=self._physics_id)
             # print("pb step sim: " + str(time.time() - start))
+    
     def get_observation(self):
         """Get observation of current env state
 
@@ -394,3 +397,4 @@ class BulletWorld(World):
         """ Set simulation to .bullet path found in filepath
         """
         pybullet.restoreState(fileName=filepath, physicsClientId=self.physics_id)
+        logging.debug("physicsClientId {} set to {}".format(self.physics_id, filepath))
