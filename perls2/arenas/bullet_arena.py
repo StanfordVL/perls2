@@ -5,7 +5,7 @@ import os
 import numpy as np
 from perls2.arenas.arena import Arena
 import logging
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 
 class BulletArena(Arena):
     """The class definition for Arenas using pybullet. 
@@ -53,13 +53,12 @@ class BulletArena(Arena):
             self.config['sensor']['camera']['random']['randomize'])
 
         # Load URDFs to set up simulation environment.
-        logging.info("Bullet Arena Created")
+        logging.debug("Bullet Arena Created")
         self.plane_id = self.load_ground()
         logging.debug("ground loaded")
         (self.arm_id, self.base_id) = self.load_robot()
         logging.debug("Robot loaded")
         reset_angles = self.robot_cfg['neutral_joint_angles']
-        print(len(reset_angles))
 
         for i, angle in enumerate(reset_angles):
             # Force reset (breaks physics)
@@ -104,7 +103,7 @@ class BulletArena(Arena):
         """ Load the robot and return arm_id, base_id
         """
         arm_file = os.path.join(self.data_dir, self.robot_cfg['arm']['path'])
-        print(" ARM FILE: " + str(arm_file))
+
         arm_id = pybullet.loadURDF(
             fileName=arm_file,
             basePosition=self.robot_cfg['arm']['pose'],
@@ -115,8 +114,6 @@ class BulletArena(Arena):
             flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT | pybullet.URDF_USE_INERTIA_FROM_FILE,
             physicsClientId=self.physics_id)
         logging.info("Loaded robot" + " arm_id :" + str(arm_id))
-        print(pybullet.getNumJoints(arm_id, self.physics_id))
-
         # Load Arm
         if (self.robot_cfg['base'] != 'None'):
             base_file = os.path.join(self.data_dir, self.robot_cfg['base']['path'])
@@ -190,7 +187,7 @@ class BulletArena(Arena):
                     useFixedBase=object_dict['is_static'],
                     flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
                     physicsClientId=self.physics_id)
-        print(str(obj_key) + ": " + str(obj_id))
+        logging.debug(" Loaded object " +  str(obj_key) + " with id: " + str(obj_id))
 
         return obj_id
 

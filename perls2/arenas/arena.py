@@ -25,7 +25,7 @@ class Arena:
             None
         """
         self.config = config
-        logging.info("Arena created")
+
         self.randomize_after_reset = True
 
         # Load camera parameters
@@ -59,6 +59,7 @@ class Arena:
         # project config file level.
         robot_name = self.config['world']['robot']
         self.robot_cfg = self.config[robot_name]
+        logging.debug("Arena created")
 
 
     def random_vec_bounded(self, lower_bound, upper_bound):
