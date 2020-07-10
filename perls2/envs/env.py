@@ -120,9 +120,7 @@ class Env(gym.Env):
         self.world.reset()
         self.robot_interface.reset()
         self.sensor_interface.reset()
-        if (self.world.is_sim and self.has_objects):
-            self.object_interface.reset()
-
+        
         observation = self.get_observation()
 
         return observation
