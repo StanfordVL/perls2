@@ -1746,9 +1746,6 @@ class SawyerCtrlInterface(object):
             rospy.logwarn('Unknown command')
 
 
-
-
-
 ### MAIN ###
 if __name__ == "__main__":
     # Create ros node
