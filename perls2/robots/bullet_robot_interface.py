@@ -76,7 +76,6 @@ class BulletRobotInterface(RobotInterface):
         self.last_torques_cmd = [0]*7
         # available (tuned) controller types for this interface
         self.available_controllers = ['EEImpedance', 'EEPosture', 'JointVelocity', 'JointImpedance', 'Native']
-        super().__init__(controlType)
         self.update()
 
         self.controller = self.make_controller(controlType)
