@@ -60,7 +60,10 @@ class RobotInterface(object):
         self.controlType = controlType
         self.action_set = False
         self.model = Model()
+        self.config = config
         if config is not None:
+            world_name = config['world']['type']
+            controller_config = config['controller'][world_name]
             if config['controller']['interpolator']['type'] == 'linear':
                 self.interpolator = LinearInterpolator(max_dx=0.5, 
                                                        ndim=3, 
@@ -94,6 +97,7 @@ class RobotInterface(object):
             'kp' : (float) gain for position / orientation error
             'damping' : (float) [0,1] damping coefficient for error
         """
+
         if control_type == "Internal":
             return "Internal"
         world_name = self.config['world']['type']
@@ -111,6 +115,10 @@ class RobotInterface(object):
                 damping=controller_dict['damping'],
                 interpolator_pos =self.interpolator,
                 interpolator_ori=None,
+                input_max=np.array(controller_dict['input_max']),
+                input_min=np.array(controller_dict['input_min']),
+                output_max=np.array(controller_dict['output_max']), 
+                output_min=np.array(controller_dict['output_min']),
                 control_freq=self.config['sim_params']['control_freq'])
         elif control_type == "JointVelocity":
             return JointVelController(
