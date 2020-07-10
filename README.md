@@ -1,20 +1,16 @@
 # perls2
 PErception and Robotic Learning System v2
 
-PERLS provides robot software infrastructure for projects within SVL. PERLS allows for a unified framework that enables robotics research on both simualted and real robots. PERLS2 is a redesign with the goal of offering only essential functionality for robotics research. Please refer to the PERLS Design Document for more information. 
+perls2 provides robot software infrastructure for projects within SVL. It serves as a unified framework that connects both simualted and real robots, sensors, renders and simulation enviornments for performing robotics experiments. 
 
-TODO: Design Doc Link
-
-TODO: API Link
-
-TODO: Examples Links
+The design document describes the goals, specifications and milestones for perls2 development. 
+[Design Document](https://docs.google.com/document/d/1JJA4TpnnS4lhWyXyyhaU3PcngXAHG2iap1pUcpQy9wY/edit)
 
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Installing
-<<<<<<< HEAD
 PERLS2 only supports python3.6 for the core libraries (python 2.7 is used for interfacing to robots that use ROS.)
 PERLS2 only supports ubuntu 16.04 and later.
 ### On Ubuntu 16.04
