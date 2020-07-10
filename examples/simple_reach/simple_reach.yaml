@@ -70,14 +70,15 @@ sensor:
 
 controller:
   selected_type: 'EEImpedance' # Choose between 'EEImpedance', 'JointVelocity'
-  EEImpedance:
-    kp: 200 # P Gain for Impedance Control
-    damping: .8 # Damping factor [0,1] 
-  JointVelocity: 
-    kp: 0.5
-  JointImpedance: 
-    kp: 50
-    damping: 1
+  Bullet:
+    EEImpedance:
+      kp: 200 # P Gain for Impedance Control
+      damping: .8 # Damping factor [0,1] 
+    JointVelocity: 
+      kp: 0.5
+    JointImpedance: 
+      kp: 50
+      damping: 1
   interpolator:
       type: 'linear'
       order: 3
