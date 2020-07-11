@@ -74,6 +74,10 @@ controller:
     EEImpedance:
       kp: 200 # P Gain for Impedance Control
       damping: .8 # Damping factor [0,1] 
+      input_max: [1, 1, 1, 1, 1, 1]
+      input_min: [-1, -1, -1, -1, -1, -1]
+      output_max: [0.05, 0.05, 0.05, 1.57, 1.57, 1.57]
+      output_min: [-0.05, -0.05, -0.05, -1.57, -1.57, -1.57]    
     JointVelocity: 
       kp: 0.5
     JointImpedance: 
