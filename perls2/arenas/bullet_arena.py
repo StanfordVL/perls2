@@ -58,8 +58,31 @@ class BulletArena(Arena):
         logging.debug("ground loaded")
         (self.arm_id, self.base_id) = self.load_robot()
         logging.debug("Robot loaded")
-        reset_angles = self.robot_cfg['neutral_joint_angles']
+        self.reset_robot_to_neutral()
+        self.load_scene_objects()
+        self.load_objects_from_config()
 
+    def reload(self): 
+        """ Reload all scene objects, objects and robots. 
+
+        Return: tuple of pybullet ids for assigning to robots. 
+        """
+        self.plane_id = self.load_ground()
+        
+        (self.arm_id, self.base_id) = self.load_robot()
+        self.reset_robot_to_neutral()
+
+        self.load_scene_objects()
+        self.load_objects_from_config()
+        return (self.arm_id, self.base_id)
+
+    def reset_robot_to_neutral(self):
+        """ Reset robot to neutral joint angles. 
+
+        This step is important to keep the robot from messing up 
+        simulation set up. 
+        """
+        reset_angles = self.robot_cfg['neutral_joint_angles']
         for i, angle in enumerate(reset_angles):
             # Force reset (breaks physics)
 
@@ -69,7 +92,12 @@ class BulletArena(Arena):
                 targetValue=angle, 
                 physicsClientId=self.physics_id)
 
+
+    def load_scene_objects(self):
+        """ Load scene objects from config file. 
+        """ 
         self.scene_objects_dict = {}
+        
         # Load scene objects (e.g. table, bins)
         for obj_key in self.config['scene_objects']:
             if obj_key in self.config:
@@ -79,6 +107,9 @@ class BulletArena(Arena):
                 for step in range(10):
                     pybullet.stepSimulation(self.physics_id)
 
+    def load_objects_from_config(self):
+        """ Load objects from config file
+        """
         self.object_dict = {}
         if (isinstance(self.config['object'], dict)):
             # Load the objects from the config file and
@@ -98,6 +129,8 @@ class BulletArena(Arena):
                     for step in range(50):
                         #logging.debug("stepping for stability")
                         pybullet.stepSimulation(self.physics_id)
+        else: 
+            print("No objects from config")
 
     def load_robot(self):
         """ Load the robot and return arm_id, base_id
@@ -210,7 +243,7 @@ class BulletArena(Arena):
         Args:
             object_id (int): pybullet id from load urdf
         """
-        logging.debug("Num bodies" + str(pybullet.getNumBodies(self.physics_id)))
+        logging.debug("Num bodies" + str(pybullet.getNumBodies(physicsClientId=self.physics_id)))
         logging.debug(str(pybullet.getBodyInfo(object_id, physicsClientId=self.physics_id)))
         logging.debug(self.object_dict)
 
