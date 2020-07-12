@@ -26,8 +26,6 @@ class Arena:
         """
         self.config = config
 
-        self.randomize_after_reset = True
-
         # Load camera parameters
         if isinstance(self.config['sensor'], dict):
             camera_extrinsics_cfg = self.config['sensor']['camera']['extrinsics']
