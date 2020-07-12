@@ -73,6 +73,9 @@ class Env(gym.Env):
                                    use_visualizer,
                                    name)
 
+        self.initialize()
+
+    def initialize(self):
         # Environment access the following attributes of the world directly.
         self.arena = self.world.arena
         self.robot_interface = self.world.robot_interface
