@@ -141,10 +141,6 @@ class BulletObjectInterface(ObjectInterface):
         pybullet.resetBasePositionAndOrientation(
             self._obj_id, self.obj_pos, self.obj_orn, self._physics_id)
 
-        # HACK HACK HACK
-        for step in range(10):
-            pybullet.stepSimulation(self._physics_id)
-
     @property
     def linear_velocity(self):
         """Get the lienar velocity of the body.
