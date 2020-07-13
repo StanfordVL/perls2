@@ -2,7 +2,7 @@ import abc
 import numpy as np
 
 
-class Interpolator(object, metaclass=abc.ABCMeta):
+class Interpolator(object):
     """
     General interpolator interface.
     """

@@ -10,7 +10,7 @@ class JointImpController(Controller):
     """
 
     def __init__(self,
-                 robot_model: Model,
+                 robot_model,
                  input_max=1,
                  input_min=-1,
                  output_max= 1.0,

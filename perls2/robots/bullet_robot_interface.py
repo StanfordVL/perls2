@@ -56,7 +56,7 @@ class BulletRobotInterface(RobotInterface):
         robot_name = self.config['world']['robot']
         self.robot_cfg = self.config[robot_name]
         self._ee_index = 7  # Default
-        self._num_joints = pybullet.getNumJoints(self._arm_id, self._physics_id)
+        self._num_joints = pybullet.getNumJoints(self._arm_id, physicsClientId=self._physics_id)
         self._motor_joint_indices = self.get_motor_joint_indices()
 
         # set the default values
@@ -75,7 +75,6 @@ class BulletRobotInterface(RobotInterface):
         self.last_torques_cmd = [0]*7
         # available (tuned) controller types for this interface
         self.available_controllers = ['EEImpedance', 'EEPosture', 'JointVelocity', 'JointImpedance', 'Native']
-        super().__init__(controlType)
         self.update()
 
         self.controller = self.make_controller(controlType)
@@ -210,7 +209,7 @@ class BulletRobotInterface(RobotInterface):
             raise ValueError("no arm id")
         else:
 
-            self._num_joints = 7 #
+            self._num_joints = len(self.limb_neutral_positions) #
 
             joint_indices = [i for i in range(0, self._num_joints)]
 
@@ -792,7 +791,7 @@ class BulletRobotInterface(RobotInterface):
         """ Return number of joints in urdf.
         Note: This is total number of joints, not number of free joints
         """
-        return pybullet.getNumJoints(self._arm_id)
+        return pybullet.getNumJoints(self._arm_id, physicsClientId=self.physics_id)
 
     @property
     def dof(self):
@@ -1082,6 +1081,6 @@ class BulletRobotInterface(RobotInterface):
         for joint in range(7):
             positions, velocities, forces, torque = pybullet.getJointState(self._arm_id,
                     joint,
-                    self._physics_id)
+                    physicsClientId=self._physics_id)
             last_torques.append(torque)
         return last_torques

@@ -11,6 +11,7 @@ from scipy.spatial.transform import Rotation as R
 from perls2.robots.robot_interface import RobotInterface
 import numpy as np
 import logging
+
 class RealRobotInterface(RobotInterface):
     """Abstract interface to be implemented for each real and simulated
     robot.

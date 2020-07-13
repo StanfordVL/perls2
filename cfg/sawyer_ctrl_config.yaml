@@ -1,0 +1,15 @@
+!include sawyer.yaml
+# Cfg file for Env
+world:
+  type: 'Bullet'
+  robot: 'sawyer'
+data_dir: 'data'
+# Simulation parameters
+sim_params:
+  time_step: 0.001 #0.004166  # 1./240.
+  steps_per_action: 20 # policy to sim update ratio
+  MAX_STEPS: 500
+
+# Robots are specified by types and urdf locations
+# also may include intial setup like poses and orientations
+

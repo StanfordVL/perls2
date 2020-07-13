@@ -30,9 +30,6 @@ class Arena:
         self.perls2_data = os.path.join(self.perls2_dir, '../data')
         logging.info("perls dir: " + self.perls2_data)
         self.config = config
-        
-        logging.info("Arena created")
-        self.randomize_after_reset = True
 
         # Load camera parameters
         if isinstance(self.config['sensor'], dict):
@@ -65,6 +62,7 @@ class Arena:
         # project config file level.
         robot_name = self.config['world']['robot']
         self.robot_cfg = self.config[robot_name]
+        logging.debug("Arena created")
 
 
     def random_vec_bounded(self, lower_bound, upper_bound):

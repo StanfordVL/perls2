@@ -73,6 +73,9 @@ class Env(gym.Env):
                                    use_visualizer,
                                    name)
 
+        self.initialize()
+
+    def initialize(self):
         # Environment access the following attributes of the world directly.
         self.arena = self.world.arena
         self.robot_interface = self.world.robot_interface
@@ -120,9 +123,7 @@ class Env(gym.Env):
         self.world.reset()
         self.robot_interface.reset()
         self.sensor_interface.reset()
-        if (self.world.is_sim and self.has_objects):
-            self.object_interface.reset()
-
+        
         observation = self.get_observation()
 
         return observation

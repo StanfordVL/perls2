@@ -69,42 +69,43 @@ sensor:
 
 controller:
   selected_type: 'EEImpedance' # Choose between 'EEImpedance', 'JointVelocity'
-  EEImpedance:
-    kp: [80.0, 80.0, 80.0, 10., 10., 10.] #70 #50 #200 #75 #200 # P Gain for Impedance Control
-    damping: 1.0 #1 #0.5 #1 #0.5 # Damping factor [0,1] 
-    input_max: 1.0
-    input_min: -1.0
-    output_max: 1.0
-    output_min: -1.0
-  JointVelocity: 
-    kv: 8.0 #0.5
-    input_max: 1.0
-    input_min: -1.0
-    output_max: 1.0 #1.0
-    output_min: -1.0 #-1.0
-  JointImpedance: 
-    kp: 100
-    damping: 1.0
-    input_max: 1.0
-    input_min: -1.0
-    output_max: 1.0
-    output_min: -1.0
-  JointTorque: 
-    input_max: 1.0
-    input_min: -1.0
-    output_max: 1.0
-    output_min: -1.0
-  EEPosture:
-    kp: 200 #70 #50 #200 #75 #200 # P Gain for Impedance Control
-    damping: 0.8 #1 #0.5 #1 #0.5 # Damping factor [0,1] 
-    posture_gain: 0.7
-    input_max: 1.0
-    input_min: -1.0
-    output_max: 1.0
-    output_min: -1.0
-  interpolator:
-      type: 'None'
-      order: 3
+  Bullet:
+    EEImpedance:
+      kp: [80.0, 80.0, 80.0, 10., 10., 10.] #70 #50 #200 #75 #200 # P Gain for Impedance Control
+      damping: 1.0 #1 #0.5 #1 #0.5 # Damping factor [0,1] 
+      input_max: 1.0
+      input_min: -1.0
+      output_max: 1.0
+      output_min: -1.0
+    JointVelocity: 
+      kv: 8.0 #0.5
+      input_max: 1.0
+      input_min: -1.0
+      output_max: 1.0 #1.0
+      output_min: -1.0 #-1.0
+    JointImpedance: 
+      kp: 100
+      damping: 1.0
+      input_max: 1.0
+      input_min: -1.0
+      output_max: 1.0
+      output_min: -1.0
+    JointTorque: 
+      input_max: 1.0
+      input_min: -1.0
+      output_max: 1.0
+      output_min: -1.0
+    EEPosture:
+      kp: 200 #70 #50 #200 #75 #200 # P Gain for Impedance Control
+      damping: 0.8 #1 #0.5 #1 #0.5 # Damping factor [0,1] 
+      posture_gain: 0.7
+      input_max: 1.0
+      input_min: -1.0
+      output_max: 1.0
+      output_min: -1.0
+    interpolator:
+        type: 'None'
+        order: 3
 
 object: 
   'None'
