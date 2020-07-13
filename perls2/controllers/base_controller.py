@@ -2,7 +2,7 @@ import abc
 import numpy as np
 
 
-class Controller(object, metaclass=abc.ABCMeta):
+class Controller(object):
     """
     General controller interface.
     """
