@@ -256,8 +256,9 @@ for ep_num, ep_data in enumerate(demos_data):
     replay_obs = []
 
     print("Replaying demo {}".format(ep_num))
+    # Test out different reset options here: 
     replay_env.reset()
-    #replay_env.restore_state_bullet(ep_data['states'][0])
+    replay_env.restore_state_bullet(ep_data['states'][0])
     replay_obs.append(replay_env.get_observation())
 
     for j,action in enumerate(ep_data['actions']):
