@@ -73,7 +73,7 @@ class EEImpController(Controller):
                  interpolator_pos=None,
                  interpolator_ori=None,
                  uncouple_pos_ori=True,
-                 ):
+                 **kwargs):
 
         super(EEImpController, self).__init__()
         # input and output max and min
