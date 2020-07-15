@@ -21,7 +21,6 @@ import numpy as np
 import logging
 from scipy.spatial.transform import Rotation as R
 
-
 AVAILABLE_CONTROLLERS = ["EEImpedance",
                          "EEPosture",  
                          "Internal",
@@ -163,12 +162,10 @@ class RobotInterface(object):
             raise ValueError("Invalid control type " + 
                 "\nChoose from EEImpedance, JointVelocity, JointImpedance, JointTorque")
 
-
-
     def step(self):
         """Update the robot state and model, set torques from controller
         """
-        self.update()
+        self.update_model()
         if self.controller == "Internal":
             return
         else:
@@ -179,6 +176,7 @@ class RobotInterface(object):
                 print("ACTION NOT SET")
 
     def set_controller_goal(self, **kwargs):
+
         self.controller.set_goal(**kwargs)
         self.action_set = True
 
@@ -240,7 +238,7 @@ class RobotInterface(object):
         kwargs = {'velocities': dq_des}
         self.set_controller_goal(**kwargs)
 
-    def set_joint_delta(self, delta):
+    def set_joint_delta(self, **kwargs):
         """ Use controller to set new joint position with a delta. 
         Args:
             delta (ndarray): 7f delta joint position (rad) from current
@@ -250,12 +248,14 @@ class RobotInterface(object):
                Does not check for exceeding maximum joint limits. (TODO)
         """
         self.check_controller("JointImpedance")
-        kwargs = {'delta': delta}
+
         self.set_controller_goal(**kwargs)
 
-    def set_joint_positions(self, pose):    
+    def set_joint_positions(self, **kwargs):    
         self.check_controller("JointImpedance")
-        kwargs = {'delta':None,'pose':pose}
+        if 'set_qpos' not in kwargs.keys():
+            raise KeyError("kwargs for set joint position must contain 'set_qpos' key")
+        kwargs['delta'] = None
         self.set_controller_goal(**kwargs)
 
     def set_joint_torque(self, torque):
@@ -264,7 +264,6 @@ class RobotInterface(object):
         self.set_controller_goal(**kwargs)
 
 
-    @abc.abstractmethod
     def create(config):
         """Factory for creating robot interfaces based on config type
         """
