@@ -76,7 +76,7 @@ class BulletRobotInterface(RobotInterface):
         self.last_torques_cmd = [0]*7
         # available (tuned) controller types for this interface
         self.available_controllers = ['EEImpedance', 'EEPosture', 'JointVelocity', 'JointImpedance', 'Native']
-        self.update()
+        self.update_model()
 
         self.controller = self.make_controller(controlType)
 
@@ -120,9 +120,10 @@ class BulletRobotInterface(RobotInterface):
             *This may need to do other things
         """
         self.set_joints_to_neutral_positions()
-    
+        self.update_model()
+        self.action_set = False
 
-    def update(self):
+    def update_model(self):
         orn = R.from_quat(self.ee_orientation)
         self.model.update_states(np.asarray(self.ee_position),
                                  np.asarray(self.ee_orientation),
