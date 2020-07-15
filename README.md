@@ -6,7 +6,8 @@ perls2 provides robot software infrastructure for projects within SVL. It serves
 The design document describes the goals, specifications and milestones for perls2 development. 
 
 [Design Document](https://docs.google.com/document/d/1JJA4TpnnS4lhWyXyyhaU3PcngXAHG2iap1pUcpQy9wY/edit)
-New to perls2? [Start Here] (https://github.com/StanfordVL/perls2/wiki/Start-Here-(Intro))
+
+New to perls2? [Start Here](https://github.com/StanfordVL/perls2/wiki/Start-Here-(Intro))
 
 ## Installing
 PERLS2 only supports python3.6 for the core libraries (python 2.7 is used for interfacing to robots that use ROS.)
