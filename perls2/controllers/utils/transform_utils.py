@@ -275,8 +275,8 @@ def mat2quat(rmat, precise=False):
         np.negative(q, q)
     return q[[1, 2, 3, 0]]
 
-def euler2mat(euler: object) -> object: #assume xyz
-
+#def euler2mat(euler: object) -> object: #assume xyz
+def euler2mat(euler):
     euler = np.asarray(euler, dtype=np.float64)
     assert euler.shape[-1] == 3, "Invalid shaped euler {}".format(euler)
 

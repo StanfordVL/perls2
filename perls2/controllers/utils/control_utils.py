@@ -3,6 +3,7 @@ import perls2.controllers.utils.transform_utils as trans
 import time
 import numba
 
+
 @numba.jit(nopython=True, cache=True)
 def opspace_matrices(mass_matrix, J_full, J_pos, J_ori):
     mass_matrix_inv = np.linalg.inv(mass_matrix)

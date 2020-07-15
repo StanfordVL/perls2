@@ -16,7 +16,6 @@ from perls2.robots.bullet_robot_interface import BulletRobotInterface
 from perls2.sensors.bullet_camera_interface import BulletCameraInterface
 from perls2.objects.bullet_object_interface import BulletObjectInterface
 
-
 class BulletWorld(World):
     """Class for PyBullet worlds.
 
@@ -108,10 +107,8 @@ class BulletWorld(World):
         logging.info("New PhysicsID: " + str(self._physics_id))
         self._time_step = self.config['sim_params']['time_step']
 
-        pybullet.setGravity(0, 0, -9.8, physicsClientId=self._physics_id)
-        pybullet.setTimeStep(self._time_step, physicsClientId=self._physics_id)
-        # pybullet.setRealTimeSimulation(enableRealTimeSimulation=1, physicsClientId=self._physics_id)
-        pybullet.setPhysicsEngineParameter(deterministicOverlappingPairs=1)
+        self.set_pb_physics()
+
 
         # Create an arena to load robot and objects
         self.arena = BulletArena(self.config, self._physics_id)
@@ -135,16 +132,7 @@ class BulletWorld(World):
             cameraUpVector=self.config['sensor']['camera']['extrinsics']['up_vector']
             )
 
-        # Create a dictionary of object interfaces
-        self.object_interfaces = {}
-
-        # Create object interfaces for each of the objects found in the arena
-        # dictionary
-        for obj_idx, obj_name in enumerate(self.arena.object_dict):
-            self.object_interfaces[obj_name] = BulletObjectInterface(
-                physics_id=self._physics_id,
-                obj_id=self.arena.object_dict[obj_name],
-                name=obj_name)
+        self.load_object_interfaces()
         # TODO: give world a method get_object_interface(str name)
         # TODO: make object default position a part of objectn not all objects.
         self.print_this_step = False
@@ -164,6 +152,28 @@ class BulletWorld(World):
 
         self.ee_list = []
 
+    def _reinitialize(self):
+        """ Reinitialize arenas, robot interfaces etc after reconnecting.
+        """
+        self.set_pb_physics()
+        self.arena = BulletArena(self.config, self._physics_id)
+
+        self.robot_interface = BulletRobotInterface.create(
+            config=self.config,
+            physics_id=self._physics_id,
+            arm_id=self.arena.arm_id, 
+            controlType=self.config['controller']['selected_type'])
+        self.sensor_interface = BulletCameraInterface(
+            physics_id=self._physics_id,
+            image_height=self.config['sensor']['camera']['image']['height'],
+            image_width=self.config['sensor']['camera']['image']['width'], 
+            cameraEyePosition=self.config['sensor']['camera']['extrinsics']['eye_position'],
+            cameraTargetPosition=self.config['sensor']['camera']['extrinsics']['target_position'],
+            cameraUpVector=self.config['sensor']['camera']['extrinsics']['up_vector']
+            )
+        self.load_object_interfaces()
+        self.is_sim = True        
+
     def __del__(self):
         logging.info("pybullet physics client {} disconnected".format(self._physics_id))
         pybullet.disconnect(self._physics_id)
@@ -172,6 +182,28 @@ class BulletWorld(World):
     def physics_id(self):
         return self._physics_id
 
+    def set_pb_physics(self):
+        """ Set physics parameters for pybullet simulation.
+        """
+        pybullet.setGravity(0, 0, -9.8, physicsClientId=self._physics_id)
+        pybullet.setTimeStep(self._time_step, physicsClientId=self._physics_id)
+        # pybullet.setRealTimeSimulation(enableRealTimeSimulation=1, physicsClientId=self._physics_id)
+        pybullet.setPhysicsEngineParameter(deterministicOverlappingPairs=1, physicsClientId=self._physics_id)
+
+    def load_object_interfaces(self): 
+        """ Create a dictionary of object interfaces. 
+
+        Uses arena to create object interfaces for each object. 
+        """
+        self.object_interfaces = {}
+
+        # Create object interfaces for each of the objects found in the arena
+        # dictionary
+        for obj_idx, obj_name in enumerate(self.arena.object_dict):
+            self.object_interfaces[obj_name] = BulletObjectInterface(
+                physics_id=self._physics_id,
+                obj_id=self.arena.object_dict[obj_name],
+                name=obj_name)
 
     def add_object(self, path, name, pose, scale=1.0, is_static=False):
         """ Add object to world explicitly.
@@ -188,7 +220,7 @@ class BulletWorld(World):
             object_interface (ObjectInterface): object interface added to world.
 
         Examples:
-            objI = self.world.add_object('objects/ycb/013_apple/google_16k/textured.urdf',
+            objI = self.add_object('objects/ycb/013_apple/google_16k/textured.urdf',
                                   '013_apple',
                                    [0, 0, 0, 0, 0, 0, 1],
                                    1.0,)
@@ -238,8 +270,28 @@ class BulletWorld(World):
         """
         pass
 
+    def reconnect(self):
+        """Disconnects and reconnects to new physics engine
+        """
+        pybullet.disconnect(physicsClientId=self.physics_id)
+
+        if self.use_visualizer:
+            self._physics_id = pybullet.connect(pybullet.GUI)
+        else:
+            self._physics_id = pybullet.connect(pybullet.DIRECT)
+        self.arena.physics_id = self._physics_id
+        self.robot_interface.physics_id = self._physics_id
+        self.sensor_interface.physics_id = self._physics_id
+
     def reboot(self):
-        pybullet.resetSimulation(self._physics_id)
+        """ Reboot pybullet simulation by clearing all objects, urdfs and 
+        resetting sim state.
+
+        Warning: this is a slow process and should only be used for restoring state
+        and deterministic applications. 
+        """
+        pybullet.resetSimulation(physicsClientId=self._physics_id)
+        self._reinitialize()
 
     def step(self):
         """Step the world(simulation) forward.

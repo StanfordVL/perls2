@@ -72,7 +72,7 @@ class SimpleReachEnv(Env):
                 self.object_interface.place(self.arena.randomize_obj_pos())
             else:
                 self.object_interface.place(
-                    self.config['object']['default_position'])
+                    self.config['object']['object_dict']['object_0']['default_position'])
 
             self.sensor_interface.set_view_matrix(self.arena.view_matrix)
             self.sensor_interface.set_projection_matrix(
