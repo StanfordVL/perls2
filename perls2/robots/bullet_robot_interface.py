@@ -473,16 +473,19 @@ class BulletRobotInterface(RobotInterface):
         Updates every call. Does not store property.
         """
         ee_position, _, _, _, _, _, = pybullet.getLinkState(
-
             self._arm_id,
             self._ee_index,
+            computeForwardKinematics=1, 
             physicsClientId=self._physics_id)
         return list(ee_position)
 
     @property
     def ee_orientation(self):
         _, ee_orientation, _, _, _, _, = pybullet.getLinkState(
-            self._arm_id, self._ee_index, physicsClientId=self._physics_id)
+            self._arm_id, 
+            self._ee_index,             
+            computeForwardKinematics=1, 
+            physicsClientId=self._physics_id)
 
         return list(ee_orientation)
 
