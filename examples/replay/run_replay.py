@@ -100,10 +100,10 @@ class ReplayEnv(SimpleReachEnv):
             The observation.
         """
         # Reset simulation to clear everything out, and reinitialize
-        self.world.reconnect()
-        self.world.reboot()
+        # self.world.reconnect()
+        # self.world.reboot()
 
-        self.initialize()
+        # self.initialize()
         self.goal_position = [0, 0, 0]
 
         # for sim we are tracking an object, increase goal position to be above
@@ -190,7 +190,7 @@ class ReplayEnv(SimpleReachEnv):
 env = ReplayEnv('examples/replay/replay.yaml', True, None)
 bullet_save_dir = 'examples/replay/bullet_states/'
 # Lists for saving demonstrations
-num_episodes = 2
+num_episodes = 5
 action_list = []
 
 states = []
@@ -265,7 +265,7 @@ for ep_num, ep_data in enumerate(demos_data):
         # print("Demo   {}  step {} state:\n{} ".format(ep_num, j, ep_data['obs'][j]))
         # print("Replay {}  step {} state:\n{} ".format(ep_num, j, replay_obs[j]))
 
-        if not np.all(np.equal(ep_data['obs'][j][10:], replay_obs[j][10:])):
+        if not np.all(np.equal(ep_data['obs'][j], replay_obs[j])):
             print("Step {} not equal".format(j))
             print("Delta : {}".format(np.subtract(ep_data['obs'][j], replay_obs[j])))
         else: 
@@ -277,7 +277,7 @@ for ep_num, ep_data in enumerate(demos_data):
 
 
         # enforce policy frequency by waiting
-        while ((time.time() - start) < 0.005):
+        while ((time.time() - start) < 0.05):
             pass
             step += 1
         done = termination
@@ -285,11 +285,6 @@ for ep_num, ep_data in enumerate(demos_data):
     replay_data.append({'obs': replay_obs})
 
 
-
-# print(demo_obs[0])
-# print("Reboot obs")
-# print(reboot_obs[0])
-import pdb; pdb.set_trace()
-print("num replay_obs {}".format(len(reboot_obs)))
+print("num replay_obs {}".format(len(replay_obs)))
 print("num demo obs {}". format(len(demo_obs)))
 print("test complete.")

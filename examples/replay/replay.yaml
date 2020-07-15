@@ -102,7 +102,7 @@ object:
       default_position: [0.7, 0.1, 0.03] #z  = 0.1
 #  default_position: [0.7, 0.1, 0.03] #z  = 0.1
   random:
-    randomize: False
+    randomize: True
     position:
       lower:
         [0.67, 0.1, 0.03]
