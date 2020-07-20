@@ -7,6 +7,8 @@ The design document describes the goals, specifications and milestones for perls
 
 [Design Document](https://docs.google.com/document/d/1JJA4TpnnS4lhWyXyyhaU3PcngXAHG2iap1pUcpQy9wY/edit)
 
+Visit [the wiki](https://github.com/StanfordVL/perls2/wiki) for detailed tutorials and explanations 
+
 New to perls2? [Start Here](https://github.com/StanfordVL/perls2/wiki/Start-Here-(Intro))
 
 ## Installing
