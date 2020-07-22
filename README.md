@@ -1,7 +1,7 @@
 # perls2
 PErception and Robotic Learning System v2
 
-perls2 provides robot software infrastructure for projects within SVL. It serves as a unified framework that connects both simualted and real robots, sensors, renders and simulation enviornments for performing robotics experiments. 
+perls2 provides robot software infrastructure for projects within SVL. It serves as a unified framework that connects both simulated and real robots, sensors, renders and simulation environments for performing robotics experiments. 
 
 The design document describes the goals, specifications and milestones for perls2 development. 
 
