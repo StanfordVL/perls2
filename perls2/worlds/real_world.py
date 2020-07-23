@@ -35,30 +35,15 @@ class RealWorld(World):
 
         self.name = name
         self.use_visualizer = use_visualizer
-        # Connect to pybullet to compute kinematics for robots
-        # if self.use_visualizer:
-        #     self._physics_id = pybullet.connect(pybullet.GUI)
-        # else:
-
-        # # Pybullet sim parmeters
-        # pybullet.setGravity(0, 0, -10, physicsClientId=self._physics_id)
 
         # Learning parameters
         self.episode_num = 0
 
-        # TODO: ctl_steps_per_action - this has more to do with OSC
-        # Create an arena to load robot and objects
-        self.pb_world = BulletWorld(self.config, False, 'Internal Bullet World')
-        self.pb_world.robot_interface.change_controller("Internal")
-        self._physics_id = self.pb_world.physics_id
-        self.arena = RealArena(self.config, self._physics_id)
-        print("physics id: " + str(self._physics_id))
+        self.arena = RealArena(self.config)
+
         self.robot_interface = RealRobotInterface.create(
                                                  config=self.config,
-                                                 physics_id=self._physics_id,
-                                                 arm_id=self.arena.arm_id, 
-                                                 controlType=self.config['controller']['selected_type'], 
-                                                 pb_interface=self.pb_world.robot_interface)
+                                                 controlType=self.config['controller']['selected_type'])
         
         self.sensor_interface = KinectCameraInterface(self.config)
 
@@ -74,7 +59,6 @@ class RealWorld(World):
             The observation.
         """
         # reload robot to restore body after any collisions
-        self.pb_world.reset()
         self.robot_interface.reset()
 
     def step(self):
@@ -86,18 +70,11 @@ class RealWorld(World):
         Takes a step forward, since this happens naturally in reality, we don't
         do anything.
         """
-        for step in range(self.config['sim_params']['control_freq']):
-            start = time.time()
-            self.pb_world.robot_interface.set_joints_pos_vel(
-                joint_pos=self.robot_interface.q,
-                joint_vel=self.robot_interface.dq)
-            self.pb_world.step()
-            self.robot_interface.step()
-            while (time.time() - start) < 0.025:
-                pass
+        start = time.time()
+        self.robot_interface.step()
+        while (time.time() - start) < (1./self.config['policy_freq']):
+            time.sleep(.0001)
         self.action_set = False
-        # plt.plot(ee_list)
-        # plt.show()
 
 
     def visualize(self, observation, action):

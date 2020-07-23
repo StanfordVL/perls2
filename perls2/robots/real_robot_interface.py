@@ -19,11 +19,9 @@ class RealRobotInterface(RobotInterface):
 
     def __init__(self,
                  config,
-                 controlType=None,
-                 pb_interface=None):
+                 controlType=None):
 
-        super().__init__(controlType)
-        self.pb_interface= pb_interface
+        super().__init__(config=config, controlType=controlType )
         self.config = config
         self.robot_cfg  = self.config[self.config['world']['robot']]
 
@@ -31,13 +29,13 @@ class RealRobotInterface(RobotInterface):
         self.controller = self.make_controller(controlType)
 
 
-    def create(config, physics_id, arm_id, controlType, pb_interface=None):
+    def create(config, controlType):
         """Factory for creating robot interfaces based on config type
         """
         if (config['world']['robot'] == 'sawyer'):
             from perls2.robots.real_sawyer_interface import RealSawyerInterface
             return RealSawyerInterface(
-                config=config, physics_id=physics_id, arm_id=arm_id, controlType=controlType, pb_interface=pb_interface)
+                config=config, controlType=controlType)
         else:
             raise ValueError("invalid robot interface type. choose 'sawyer'")
     

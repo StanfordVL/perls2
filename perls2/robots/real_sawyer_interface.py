@@ -31,18 +31,15 @@ class RealSawyerInterface(RealRobotInterface):
 
     def __init__(self,
                  config,
-                 physics_id=None,
-                 arm_id=None,
                  use_safenet=True,
                  use_moveit=True,
                  controlType='EEImpedance',
-                 node_name='sawyer_interface', 
-                 pb_interface=None):
+                 node_name='sawyer_interface'):
         """
         Initialize variables and wrappers
         """
         self.redisClient = redis.Redis()
-        super().__init__(config, controlType, pb_interface)
+        super().__init__(controlType=controlType, config=config)
         logging.debug("Real Sawyer Interface created")
         # Check if redis connection already exists, if not
         # setup a new one.
