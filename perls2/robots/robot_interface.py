@@ -112,6 +112,8 @@ class RobotInterface(object):
             return EEPostureController(self.model, 
                 kp=controller_dict['kp'], 
                 damping=controller_dict['damping'],
+                posture_gain=controller_dict['posture_gain'],
+                posture=controller_dict['posture'],
                 interpolator_pos =self.interpolator,
                 interpolator_ori=None,
                 input_max=np.array(controller_dict['input_max']),
@@ -170,7 +172,8 @@ class RobotInterface(object):
             return
         else:
             if self.action_set:               
-                torques = self.controller.run_controller() + self.N_q
+                torques = self.controller.run_controller() 
+
                 self.set_torques(torques)
             else:
                 print("ACTION NOT SET")

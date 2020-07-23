@@ -24,6 +24,7 @@ class EEPostureController(EEImpController):
                  kp=50,
                  damping=1,
                  posture_gain=0,
+                 posture=[0,-1.18,0.00,2.18,0.00,0.57,3.3161],
                  control_freq=20,
                  position_limits=None,
                  orientation_limits=None,
@@ -33,6 +34,7 @@ class EEPostureController(EEImpController):
         """ Initialize controller.
         """
         self.posture_gain = posture_gain
+        self.goal_posture = posture
         super(EEPostureController, self).__init__(
             robot_model=robot_model, 
             input_max=input_max,
@@ -50,10 +52,10 @@ class EEPostureController(EEImpController):
 
 
     def set_goal(self, delta,  
-        set_pos=None, set_ori=None, posture=[0,-1.18,0.00,2.18,0.00,0.57,3.3161], **kwargs):
+        set_pos=None, set_ori=None, **kwargs):
 
         super().set_goal(delta, set_pos, set_ori)
-        self.goal_posture = posture
+    
 
 
     def run_controller(self):
@@ -92,10 +94,12 @@ class EEPostureController(EEImpController):
 
         position_error = desired_pos - self.model.ee_pos
         vel_pos_error = desired_vel_pos - self.model.ee_pos_vel
+
         desired_force = (np.multiply(np.array(position_error), np.array(self.kp[0:3]))
                          + np.multiply(vel_pos_error, self.kv[0:3])) + desired_acc_pos
 
         vel_ori_error = desired_vel_ori - self.model.ee_ori_vel
+
         desired_torque = (np.multiply(np.array(ori_error), np.array(self.kp[3:6]))
                           + np.multiply(vel_ori_error, self.kv[3:6])) + desired_acc_ori
         
@@ -111,14 +115,21 @@ class EEPostureController(EEImpController):
             desired_wrench = np.concatenate([desired_force, desired_torque])
             decoupled_wrench = np.dot(lambda_full, desired_wrench)
 
-
+        #import pdb; pdb.set_trace()
+        #print("N_q {}".format(self.model.torque_compensation))
         self.torques = np.dot(self.model.J_full.T, decoupled_wrench) + self.model.torque_compensation
         
-        posture_error = np.array(self.model.joint_pos - self.goal_posture) 
-        pgain_vec = np.array([-self.posture_gain] * 7)
-        posture_control = np.multiply(pgain_vec, posture_error)
+        # Null space posture compensation
+        posture_error = np.array(self.goal_posture - self.model.joint_pos) 
 
-        self.torques = self.torques + np.dot(nullspace_matrix.T, posture_control)
-        # todo: null space! (as a wrapper)
+        joint_kp = np.array([self.posture_gain] * 7)
+        joint_kv = np.sqrt(self.posture_gain) *2
+
+        pose_torques = np.dot(self.model.mass_matrix, (joint_kp *(
+            posture_error) - joint_kv*self.model.joint_vel))
+
+        self.torques = self.torques + np.dot(nullspace_matrix.T, pose_torques)
+
 
         return self.torques
+

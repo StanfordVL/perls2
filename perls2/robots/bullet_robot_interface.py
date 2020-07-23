@@ -125,14 +125,15 @@ class BulletRobotInterface(RobotInterface):
 
     def update_model(self):
         orn = R.from_quat(self.ee_orientation)
-        self.model.update_states(np.asarray(self.ee_position),
-                                 np.asarray(self.ee_orientation),
-                                 np.asarray(self.ee_v),
-                                 np.asarray(self.ee_w),
-                                 np.asarray(self.motor_joint_positions[:7]),
-                                 np.asarray(self.motor_joint_velocities[:7]),
-                                 np.asarray(self.last_torques_cmd[:7]),
-                                 )
+        self.model.update_states(ee_pos=np.asarray(self.ee_position),
+                                 ee_ori=np.asarray(self.ee_orientation),
+                                 ee_pos_vel=np.asarray(self.ee_v),
+                                 ee_ori_vel=np.asarray(self.ee_w),
+                                 joint_pos=np.asarray(self.motor_joint_positions[:7]),
+                                 joint_vel=np.asarray(self.motor_joint_velocities[:7]),
+                                 joint_tau=np.asarray(self.last_torques_cmd[:7]),
+                                 joint_dim=7, 
+                                 torque_compensation=np.asarray(self.N_q[:7]))#np.asarray(self.gravity_vector))
 
         self.model.update_model(J_pos=self.linear_jacobian,
                                 J_ori=self.angular_jacobian,
