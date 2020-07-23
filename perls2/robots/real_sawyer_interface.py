@@ -18,6 +18,9 @@ import redis
 from perls2.robots.real_robot_interface import RealRobotInterface
 from scipy.spatial.transform import Rotation as R
 
+# For dumping config dict to redis
+import json
+
 def bstr_to_ndarray(array_bstr):
     """Convert bytestring array to 1d array
     """
@@ -44,11 +47,10 @@ class RealSawyerInterface(RealRobotInterface):
         # Check if redis connection already exists, if not
         # setup a new one.
 
-
         # Sets environment connected flag for control interface
         self.redisClient.set('robot::env_connected', 'True')
         self.neutral_joint_angles = self.robot_cfg['neutral_joint_angles']
-        self.RESET_TIMEOUT = 10       # Wait 3 seconds for reset to complete.
+        self.RESET_TIMEOUT = 50       # Wait 3 seconds for reset to complete.
 
     def connect(self):
         self.redisClient.set('robot::env_connected', 'True')
@@ -63,11 +65,14 @@ class RealSawyerInterface(RealRobotInterface):
         TODO: This doesn't actually work, it just waits for the timeout.
         """
         logging.debug("Resetting robot")
-        self.redisClient.set('robot::cmd_type', 'reset_to_neutral')
+        reset_cmd = {'robot::cmd_tstamp' : time.time(), 
+                     'robot::cmd_type': 'reset_to_neutral'
+        }
+        self.redisClient.mset(reset_cmd)
         start = time.time()
         while (self.redisClient.get('robot::reset_complete') != b'True' and
                (time.time() - start < self.RESET_TIMEOUT)):
-            time.sleep(0.1)
+            time.sleep(0.01)
 
         if (self.redisClient.get('robot::reset_complete') == b'True'):
             logging.debug("reset successful")
@@ -242,18 +247,34 @@ class RealSawyerInterface(RealRobotInterface):
 
     @property
     def linear_jacobian (self):
-        return self.pb_interface.linear_jacobian
+        return bstr_to_ndarray(self.redisClient.get('robot::linear_jacobian'))
 
 
     @property
     def angular_jacobian(self):
-        return self.pb_interface.angular_jacobian
-
+        return bstr_to_ndarray(self.redisClient.get('robot::angular_jacobian'))
 
     @property
     def mass_matrix(self):
-        return self.pb_interface.mass_matrix
+        return bstr_to_ndarray(self.redisClient.get('robot::mass_matrix'))
 
     @property
     def N_q(self):
-        return self.pb_interface.N_q
+        return bstr_to_ndarray(self.redisClient.get('robot::N_q'))
+
+
+    def set_controller_params_from_config(self):
+        selected_type = self.config['controller']['selected_type']
+        control_config = self.config['controller'][control_type]
+
+        redis_key = "robot::controller::control_params"
+        self.redisClient.set(redis_key, str(self.control_config))
+
+        # Set control type 
+        self.redisClient.set("robot::controller:selected_type", control_type )
+        logging.debug("Control parameters set to redis")
+
+    def set_goal_state(self, goal): 
+        self.redisClient.set("robot::desired_state", str(goal))
+
+
