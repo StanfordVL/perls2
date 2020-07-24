@@ -15,8 +15,7 @@ class RealArena(Arena):
     """
 
     def __init__(self,
-                 config,
-                 physics_id):
+                 config):
         """ Initialization function.
 
         Parameters
@@ -43,54 +42,3 @@ class RealArena(Arena):
         # project config file level.
         robot_name = self.config['world']['robot']
         self.robot_cfg = self.config[robot_name]
-
-        self.physics_id = physics_id
-        robot_name = self.config['world']['robot']
-        self.robot_cfg = self.config[robot_name]
-        #print(self.robot_cfg['arm']['path'])
-
-        self.arm_id, self.base_id = self.load_robot()
-        # Get the robot config dict by using the name of the robot
-        # as a key. The robot config yaml should be included at
-        # project config file level.
-
-
-    def load_robot(self):
-        """ Load the robot and return arm_id, base_id
-        """
-        arm_file = os.path.join(
-            self.data_dir, self.robot_cfg['arm']['path'])
-
-        base_file = os.path.join(
-            self.data_dir, self.robot_cfg['base']['path'])
-
-        arm_id = pybullet.loadURDF(
-            fileName=arm_file,
-            basePosition=self.robot_cfg['arm']['pose'],
-            baseOrientation=pybullet.getQuaternionFromEuler(
-                self.robot_cfg['arm']['orn']),
-            globalScaling=1.0,
-            useFixedBase=self.robot_cfg['arm']['is_static'],
-            flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
-            physicsClientId=self.physics_id)
-
-        logging.debug("Loaded robot" + " arm_id :" + str(arm_id))
-
-        # Load Arm
-        base_id = pybullet.loadURDF(
-            fileName=base_file,
-            basePosition=self.robot_cfg['base']['pose'],
-            baseOrientation=pybullet.getQuaternionFromEuler(
-                self.robot_cfg['base']['orn']),
-            globalScaling=1.0,
-            useFixedBase=self.robot_cfg['base']['is_static'],
-            flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
-            physicsClientId=self.physics_id)
-
-        return (arm_id, base_id)
-
-    @property
-    # TODO: should this be a part of the real arena?
-    def goal_position(self):
-        goal = self.randomize_param(self.config['goal_position'])
-        return goal
