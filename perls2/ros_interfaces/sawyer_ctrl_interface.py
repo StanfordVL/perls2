@@ -960,7 +960,7 @@ class SawyerCtrlInterface(RobotInterface):
         start = time.time()
         self.update_model()
         if self.action_set:     
-            import pdb; pdb.set_trace()          
+     
             torques = self.controller.run_controller() 
             self.set_torques(torques)
 
@@ -971,7 +971,7 @@ class SawyerCtrlInterface(RobotInterface):
         else:
             pass
             #print("ACTION NOT SET")
-        #self.update() 
+        #self.update_redis() 
         self.timelog_end.write(str(time.time()) + ',\n')
         # For timing only: 
         self.timelog_start.write(self.last_cmd_tstamp +',\n')
@@ -1083,12 +1083,6 @@ class SawyerCtrlInterface(RobotInterface):
         self._limb.set_joint_trajectory(self._joint_names, value[0], value[1], value[2])
 
 
-
-
-
-    # GazeboSimCtrl #######################################################
-
-
     def update_model(self):
         orn = R.from_quat(self.ee_orientation)
         self.model.update_states(ee_pos=np.asarray(self.ee_position),
@@ -1106,26 +1100,28 @@ class SawyerCtrlInterface(RobotInterface):
                                 J_ori=self.angular_jacobian,
                                 mass_matrix=self.mass_matrix)
     
-    def update(self):
+    def update_redis(self):
         """ update db parameters for the robot on a regular loop
+
         """
-         # Set initial redis keys
-        self.redisClient.set('robot::ee_position', str(self.ee_position))
-        self.redisClient.set('robot::ee_pose', str(self.ee_pose))
-        self.redisClient.set('robot::ee_orientation', str(self.ee_orientation))
-        self.redisClient.set('robot::ee_v', str(self.ee_v))
-        self.redisClient.set('robot::ee_omega', str(self.ee_omega))
-        self.redisClient.set('robot::q', str(self.q))
-        self.redisClient.set('robot::dq', str(self.dq))
-        self.redisClient.set('robot::tau', str(self.tau))
+        # Set initial redis keys
+        robot_state = {
+            'robot::state::tstamp' : str(time.time())
+            'robot::ee_position':  str(self.ee_position), 
+            'robot::ee_pose': str(self.ee_pose),
+            'robot::ee_orientation': str(self.ee_orientation),
+            'robot::ee_v': str(self.ee_v), 
+            'robot::ee_omega': str(self.ee_omega),
+            'robot::q': str(self.q),
+            'robot::dq': str(self.dq),
+            'robot::tau': str(self.tau),
+            'robot::J': str(self.J),
+            'robot::linear_jacobian': str(self.linear_jacobian),
+            'robot::angular_jacobian': str(self.angular_jacobian),
+            'robot::mass_matrix', str(self.mass_matrix)
+        }
 
-        self.redisClient.set('robot::J', str(self.J))
-        self.redisClient.set('robot::linear_jacobian', str(self.linear_jacobian))
-        self.redisClient.set('robot::angular_jacobian', str(self.angular_jacobian))
-        self.redisClient.set('robot::mass_matrix', str(self.mass_matrix))
-        #self.redisClient.set('tip_pose',
-        #    str(self._from_tip_to_base_of_gripper(self.ee_pose)))
-
+        self.redisClient.mset(robot_state)
 
     ## HELPER
     def get_free_joint_idx_dict(self):
@@ -2029,7 +2025,7 @@ class SawyerCtrlInterface(RobotInterface):
                     # Just for debugging
                     self.redisClient.set("robot::last_cmd_tstamp", self.last_cmd_tstamp)
             self.step()
-            self.update()
+            self.update_redis()
 
 
 ### MAIN ###
