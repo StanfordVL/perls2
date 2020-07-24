@@ -100,8 +100,7 @@ class Env(gym.Env):
             dtype=np.float32)
 
         # Real worlds use pybullet for IK
-        if (self.config['world']['type'] == 'Bullet' or
-                self.config['world']['type'] == 'Real'):
+        if (self.config['world']['type'] == 'Bullet'):
             self._physics_id = self.world._physics_id
 
         self.MAX_STEPS = self.config['sim_params']['MAX_STEPS']
