@@ -1018,14 +1018,14 @@ class BulletRobotInterface(RobotInterface):
         Notes: to ignore coriolis forces we set the object velocities to zero.
         """
 
-        gravity_forces = pybullet.calculateInverseDynamics(
+        gravity_torques = pybullet.calculateInverseDynamics(
             bodyUniqueId=self._arm_id,
-            objPositions=self.q,
-            objVelocities=[0]*self._num_joints,
-            objAccelerations=[0]*self._num_joints,
+            objPositions=self.motor_joint_positions,
+            objVelocities=[0]*len(self.motor_joint_positions),
+            objAccelerations=[0]*len(self.motor_joint_positions),
             physicsClientId=self._physics_id)
 
-        gravity_torques = np.transpose(self.jacobian)*gravity_forces
+        return gravity_torques[:7]
     
     def set_torques(self, joint_torques):
         """Set torques to the motor. Useful for keeping torques constant through
@@ -1033,12 +1033,13 @@ class BulletRobotInterface(RobotInterface):
 
         Args: joint_torques (list): list of joint torques with dimensions (num_joints,)
         """
+        #print("joint torques {}".format(joint_torques))
+
         clipped_torques = np.clip(
             joint_torques[:7],
             -self._joint_max_forces[:7],
             self._joint_max_forces[:7])
 
-        #clipped_torques = joint_torques * self._joint_max_forces[:7]
         # For some reason you have to keep disabling the velocity motors
         # before every torque command.
         self.set_to_torque_mode()
