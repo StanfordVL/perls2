@@ -102,7 +102,7 @@ class BulletArena(Arena):
         # Load scene objects (e.g. table, bins)
         for obj_key in self.config['scene_objects']:
             if obj_key in self.config:
-                self.scene_objects_dict[obj_key] = self.load_urdf(obj_key)
+                self.scene_objects_dict[obj_key] = self._load_perls2_urdf(obj_key)
                 logging.debug(obj_key + " loaded")
 
                 for step in range(10):
@@ -143,7 +143,7 @@ class BulletArena(Arena):
         """ Load the robot and return arm_id, base_id
         """
 
-        arm_file = os.path.join(self.data_dir, self.robot_cfg['arm']['path'])
+        arm_file = os.path.join(self.perls2_data, self.robot_cfg['arm']['path'])
 
         arm_id = pybullet.loadURDF(
             fileName=arm_file,
@@ -172,7 +172,7 @@ class BulletArena(Arena):
 
         return (arm_id, base_id)
 
-    def load_urdf(self, key):
+    def _load_perls2_urdf(self, key):
         """General function to load urdf based on key
 
         Args:
@@ -184,7 +184,7 @@ class BulletArena(Arena):
         Note: Keys must be specified at top level of config.
               Function does not traverse directory.
         """
-        path = os.path.join(self.data_dir, self.config[key]['path'])
+        path = os.path.join(self.perls2_data, self.config[key]['path'])
 
         uid = pybullet.loadURDF(
             fileName=path,
