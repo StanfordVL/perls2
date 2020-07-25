@@ -109,7 +109,6 @@ class BulletWorld(World):
 
         self.set_pb_physics()
 
-
         # Create an arena to load robot and objects
         self.arena = BulletArena(self.config, self._physics_id)
 
@@ -447,6 +446,20 @@ class BulletWorld(World):
 
     def set_state(self, filepath):
         """ Set simulation to .bullet path found in filepath
+
+            Args: 
+                filepath (str): filepath of .bullet file for saved state. 
+
+            Returns: 
+                None
+
+            Examples: 
+                env.world.set_state('/path/to/state.bullet')
+
+            Notes: 
+                To use this function correctly, the same objects / robots must be loaded 
+                in the same order. Therefore it is only recommended to use with the same
+                world / config, rather than trying to load an empty world.
         """
         pybullet.restoreState(fileName=filepath, physicsClientId=self.physics_id)
-        logging.debug("physicsClientId {} set to {}".format(self.physics_id, filepath))
+
