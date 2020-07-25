@@ -37,3 +37,6 @@ var/
 dev/logs/
 *.bullet
 *.txt
+
+#Media
+*.mp4
