@@ -261,6 +261,13 @@ class SawyerCtrlInterface(RobotInterface):
 
         rospy.loginfo('Sawyer initialization finished after {} seconds'.format(time.time() - start))
 
+        joint_state_topic = 'robot/joint_states'
+        _joint_state_sub = rospy.Subscriber(
+            joint_state_topic,
+            JointState,
+            self._on_joint_states,
+            queue_size=1,
+            tcp_nodelay=True)
 
         # Set desired pose to initial
         curr_ee_pose = self.ee_pose
@@ -1106,7 +1113,7 @@ class SawyerCtrlInterface(RobotInterface):
         """
         # Set initial redis keys
         robot_state = {
-            'robot::state::tstamp' : str(time.time())
+            'robot::state::tstamp' : str(time.time()),
             'robot::ee_position':  str(self.ee_position), 
             'robot::ee_pose': str(self.ee_pose),
             'robot::ee_orientation': str(self.ee_orientation),
@@ -1118,7 +1125,7 @@ class SawyerCtrlInterface(RobotInterface):
             'robot::J': str(self.J),
             'robot::linear_jacobian': str(self.linear_jacobian),
             'robot::angular_jacobian': str(self.angular_jacobian),
-            'robot::mass_matrix', str(self.mass_matrix)
+            'robot::mass_matrix': str(self.mass_matrix)
         }
 
         self.redisClient.mset(robot_state)
@@ -2025,7 +2032,15 @@ class SawyerCtrlInterface(RobotInterface):
                     # Just for debugging
                     self.redisClient.set("robot::last_cmd_tstamp", self.last_cmd_tstamp)
             self.step()
-            self.update_redis()
+
+
+    def _on_joint_states(self, msg):
+        self.update_redis()
+        # for idx, name in enumerate(msg.name):
+        #     if name in self._joint_names:
+        #         self._joint_angle[name] = msg.position[idx]
+        #         self._joint_velocity[name] = msg.velocity[idx]
+        #         self._joint_effort[name] = msg.effort[idx]
 
 
 ### MAIN ###
