@@ -16,7 +16,12 @@ class DemoControlEnv(Env):
     """
 
     def get_observation(self):
-        return None
+        obs  = {}
+        obs['ee_pose'] = self.robot_interface.ee_pose
+        obs['q'] = self.robot_interface.q
+        obs['dq'] = self.robot_interface.dq
+
+        return obs
     
     def _exec_action(self, action):
         """Applies the given action to the simulation.
@@ -27,10 +32,12 @@ class DemoControlEnv(Env):
         elif self.robot_interface.controlType == 'JointVelocity':
             self.robot_interface.set_joint_velocity(action)
         elif self.robot_interface.controlType == 'JointImpedance':
-            self.robot_interface.set_joint_delta(action)
+            #self.robot_interface.set_joint_delta(action)
+            self.robot_interface.set_joint_positions(action)
         elif self.robot_interface.controlType == 'JointTorque':
             self.robot_interface.set_joint_torque(action)
         self.robot_interface.action_set = True
 
     def rewardFunction(self):
         return None
+

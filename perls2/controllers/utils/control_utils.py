@@ -73,7 +73,7 @@ def orientation_error(desired, current):
     error = 0.5 * (cross_product(rc1, rd1) + cross_product(rc2, rd2) + cross_product(rc3, rd3))
     return error
 
-@numba.jit(nopython=True, cache=True)
+#@numba.jit(nopython=True, cache=True)
 def set_goal_position(delta,
                       current_position,
                       position_limit=None,

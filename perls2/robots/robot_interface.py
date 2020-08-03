@@ -162,7 +162,7 @@ class RobotInterface(object):
             return self.controlType
         else:
             raise ValueError("Invalid control type " + 
-                "\nChoose from EEImpedance, JointVelocity, JointImpedance, JointTorque")
+                "\nChoose from {}".format(AVAILABLE_CONTROLLERS))
 
     def step(self):
         """Update the robot state and model, set torques from controller
@@ -241,7 +241,7 @@ class RobotInterface(object):
         kwargs = {'velocities': dq_des}
         self.set_controller_goal(**kwargs)
 
-    def set_joint_delta(self, **kwargs):
+    def set_joint_delta(self, delta, **kwargs):
         """ Use controller to set new joint position with a delta. 
         Args:
             delta (ndarray): 7f delta joint position (rad) from current
@@ -251,13 +251,12 @@ class RobotInterface(object):
                Does not check for exceeding maximum joint limits. (TODO)
         """
         self.check_controller("JointImpedance")
-
+        kwargs = {"delta": delta}
         self.set_controller_goal(**kwargs)
 
-    def set_joint_positions(self, **kwargs):    
+    def set_joint_positions(self, set_qpos, **kwargs):    
         self.check_controller("JointImpedance")
-        if 'set_qpos' not in kwargs.keys():
-            raise KeyError("kwargs for set joint position must contain 'set_qpos' key")
+        kwargs['set_qpos'] = set_qpos
         kwargs['delta'] = None
         self.set_controller_goal(**kwargs)
 

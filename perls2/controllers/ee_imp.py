@@ -204,3 +204,6 @@ class EEImpController(Controller):
         self.torques = np.dot(self.model.J_full.T, decoupled_wrench) + self.model.torque_compensation
         # todo: null space! (as a wrapper)
         return self.torques
+
+    def reset_goal(self):
+        self.set_goal(np.zeros(6))

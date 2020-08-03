@@ -35,13 +35,13 @@ JOINT_VELOCITY_LIST =[[0.1, 0.0,    0.0, 0.0,    0.0,    0.0, 0.0]] #,
 # [0.0, 0.0,    0.0, 0.0,    0.0,    -0.1, 0.0],
 # [0.0, 0.0,    0.0, 0.0,    0.0,    0.0, 0.05]]      
 
-JOINT_IMP_LIST = [[0.1, 0.0,    0.0, 0.0,    0.0,    0.0, 0.0],
-[0.0, -0.1,    0.0, 0.0,    0.0,    0.0, 0.0],
-[0.0, 0.0,    0.1, 0.0,    0.0,    0.0, 0.0],
-[0.0, 0.0,    0.0, -0.1,    0.0,    0.0, 0.0],
-[0.0, 0.0,    0.0, 0.0,    0.1,    0.0, 0.0],
-[0.0, 0.0,    0.0, 0.0,    0.0,    -0.1, 0.0],
-[0.0, 0.0,    0.0, 0.0,    0.0,    0.0, 0.05]]           
+JOINT_IMP_LIST = [[0.05, 0.0,    0.0, 0.0,    0.0,    0.0, 0.0]]
+# [0.0, -0.05,    0.0, 0.0,    0.0,    0.0, 0.0],
+# [0.0, 0.0,    0.05, 0.0,    0.0,    0.0, 0.0],
+# [0.0, 0.0,    0.0, -0.05,    0.0,    0.0, 0.0],
+# [0.0, 0.0,    0.0, 0.0,    0.05,    0.0, 0.0],
+# [0.0, 0.0,    0.0, 0.0,    0.0,    -0.05, 0.0],
+# [0.0, 0.0,    0.0, 0.0,    0.0,    0.0, 0.05]]           
 
 JOINT_TORQUE_LIST = [[0.05, 0.0,    0.0, 0.0,    0.0,    0.0, 0.0],
 [0.0, -0.1,    0.0, 0.0,    0.0,    0.0, 0.0],
@@ -59,6 +59,16 @@ def get_action_for_controller(ctrl_type, step_num):
     else:
         raise ValueError("invalid control type string")
     return action
+
+# Analyze results
+def check_state(control_name, obs_list):
+  global JOINT_IMP_LIST
+  if control_name == "JointImpedance":
+    print(obs_list)
+
+    delta_list = [np.subtract(obs_list[j+1]['q'],obs_list[j]['q']) for j in range(len(obs_list) -1)]
+    for j, (action, delta) in enumerate(zip(JOINT_IMP_LIST, delta_list)):
+      print("error {}".format(np.subtract(action, delta)))
 
 env = DemoControlEnv('dev/demo_control/demo_control_cfg.yaml', True, 'Demo Control Env')
 print("Perls2 Demo Control Environment Created.")
@@ -98,20 +108,30 @@ selected_control_name = control_types[control_selected]
 
 env.robot_interface.change_controller(selected_control_name)
 
-env.reset()
-initial_ee_pose = env.robot_interface.dq
+obs_list = []
+## TODO ENABLE INITIAL RESET
+# init_obs = env.reset()
+# obs_list.append(init_obs)
+
 delta_list = []
 
 for step, action in enumerate(command_dict[selected_control_name]):
+    print("in control loop")
     start = time.time()
-    print(action)
-    env.step(action)
 
-env.reset()
+    print(action)
+    obs, _, _, _ = env.step(action)
+    obs_list.append(obs)
+    print("waiting")
+    #import pdb; pdb.set_trace()
+
+
+#env.reset()
 env.robot_interface.disconnect()
 
- 
+check_state(selected_control_name, obs_list)
 print("Demo complete.")
+
 
 # import matplotlib
 # matplotlib.use('TkAgg')

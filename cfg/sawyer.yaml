@@ -19,7 +19,7 @@ sawyer:
     is_static:
       True
   neutral_joint_angles:
-    [0,-1.18,0.00,2.18,0.00,0.57,3.3161]
+    [0.00, -1.18, 0.00, 2.18, 0.00, 0.57, 1.5708]
   limb_joint_names: [
   'right_j0',
   'right_j1',

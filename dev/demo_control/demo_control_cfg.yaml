@@ -5,12 +5,14 @@ world:
 data_dir: 'data'
 # Simulation parameters
 sim_params:
-  time_step: .001 #0.004166 #0.002 #0.004166  # 1./240.
+  time_step: 0.004166  # in seconds #0.004166 #0.002 #0.004166  # 1./240.
   control_freq: 2 #4000 #5 #20
-  steps_per_action: 50 #6 #1 #5 # policy to sim update ratio
+  steps_per_action: 200 #6 #1 #5 # policy to sim update ratio
 
   MAX_STEPS: 100000
 
+policy_freq : 20 # Hz
+control_freq: 800 # Hz
 !include ../../cfg/sawyer.yaml
 !include ../../cfg/panda.yaml
 !include ../../cfg/table_and_bin.yaml
@@ -68,7 +70,7 @@ sensor:
           upper: 150
 
 controller:
-  selected_type: 'EEImpedance' # Choose between 'EEImpedance', 'JointVelocity'
+  selected_type: 'JointImpedance' # Choose between 'EEImpedance', 'JointVelocity'
   Bullet:
     EEImpedance:
       kp: [80.0, 80.0, 80.0, 10., 10., 10.] #70 #50 #200 #75 #200 # P Gain for Impedance Control
@@ -84,7 +86,42 @@ controller:
       output_max: 1.0 #1.0
       output_min: -1.0 #-1.0
     JointImpedance: 
-      kp: 100
+      kp: 250 #100
+      damping: 1.0
+      input_max: 1.0
+      input_min: -1.0
+      output_max: 1.0
+      output_min: -1.0
+    JointTorque: 
+      input_max: 1.0
+      input_min: -1.0
+      output_max: 1.0
+      output_min: -1.0
+    EEPosture:
+      kp: 50 #70 #50 #200 #75 #200 # P Gain for Impedance Control
+      damping: 1.0 #1 #0.5 #1 #0.5 # Damping factor [0,1] 
+      posture_gain: 200
+      posture: [0,-1.18,0.00,2.18,0.00,0.57,3.3161]
+      input_max: 1.0
+      input_min: -1.0
+      output_max: 1.0
+      output_min: -1.0
+  Real:
+    EEImpedance:
+      kp: [80.0, 80.0, 80.0, 10., 10., 10.] #70 #50 #200 #75 #200 # P Gain for Impedance Control
+      damping: 1.0 #1 #0.5 #1 #0.5 # Damping factor [0,1] 
+      input_max: 1.0
+      input_min: -1.0
+      output_max: 1.0
+      output_min: -1.0
+    JointVelocity: 
+      kv: 8.0 #0.5
+      input_max: 1.0
+      input_min: -1.0
+      output_max: 1.0 #1.0
+      output_min: -1.0 #-1.0
+    JointImpedance: 
+      kp: 200 #100
       damping: 1.0
       input_max: 1.0
       input_min: -1.0
@@ -103,9 +140,9 @@ controller:
       input_min: -1.0
       output_max: 1.0
       output_min: -1.0
-    interpolator:
-        type: 'None'
-        order: 3
+  interpolator:
+      type: 'linear'
+      order: 1
 
 object: 
   'None'

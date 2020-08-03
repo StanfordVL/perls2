@@ -35,7 +35,8 @@ class Model:
                       joint_pos,
                       joint_vel,
                       joint_tau,
-                      joint_dim=None):
+                      joint_dim=None, 
+                      torque_compensation=None):
 
         self.ee_pos = ee_pos
 
@@ -62,7 +63,8 @@ class Model:
                 # Default to joint_pos length
                 self.joint_dim = len(joint_pos)
             # Update torque_compensation accordingly
-            self.torque_compensation = np.zeros(self.joint_dim)
+            #self.torque_compensation = np.zeros(self.joint_dim)
+        self.torque_compensation = np.asarray(torque_compensation)
 
     def update_model(self,
                      J_pos,
