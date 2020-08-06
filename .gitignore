@@ -40,3 +40,6 @@ dev/logs/
 
 #Media
 *.mp4
+
+# Data storing
+*.npz
