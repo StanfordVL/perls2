@@ -375,7 +375,7 @@ class Square(Path):
     def __init__(self, start_pos, side_num_pts):
         self.start_pos = start_pos
         self.side_num_pts = side_num_pts
-        self.deltaxy = 1
+        self.deltaxy = 0.1
         self.path = [[0, 0, 0]]
         self.make_path()
 

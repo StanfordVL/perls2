@@ -15,7 +15,7 @@ from perls2.controllers.robot_model.model import Model
 from perls2.controllers.interpolator.linear_interpolator import LinearInterpolator
 
 import logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 import scipy
 from scipy.spatial.transform import Rotation as R
 
@@ -72,8 +72,9 @@ class BulletRobotInterface(RobotInterface):
         self._joint_max_velocities = self.get_joint_max_velocities()
         self._joint_max_forces = self.get_joint_max_forces()
         self._dof = self.get_dof() 
-
+        self.gripper_width = 0.99
         self.last_torques_cmd = [0]*7
+
         # available (tuned) controller types for this interface
         self.available_controllers = ['EEImpedance', 'EEPosture', 'JointVelocity', 'JointImpedance', 'Native']
         self.update_model()
@@ -325,6 +326,7 @@ class BulletRobotInterface(RobotInterface):
     def set_gripper_to_value(self, value):
         """Close the gripper of the robot
         """
+        self.gripper_width = value
         # Get the joint limits for the right and left joint from config file
         l_finger_joint_limits = self.get_joint_limit(
             self.get_link_id_from_name(self.robot_cfg['l_finger_name']))
@@ -603,7 +605,7 @@ class BulletRobotInterface(RobotInterface):
         """
         # Pybullet uses velocity motors by default. Setting max force to 0
         # allows for torque control
-        maxForce = 0.00
+        maxForce = 0.0
         mode = pybullet.VELOCITY_CONTROL
 
         for i in range(self._dof):
@@ -856,6 +858,7 @@ class BulletRobotInterface(RobotInterface):
             objAccelerations=[0]*len(self.motor_joint_positions),
             physicsClientId=self._physics_id
             )
+        #print("N_q {}".format(Nq))
         return np.asarray(Nq)[:7]
 
     @property
@@ -956,7 +959,7 @@ class BulletRobotInterface(RobotInterface):
         """
         joint_states = pybullet.getJointStates(
         self._arm_id, range(pybullet.getNumJoints(self._arm_id,
-                                                  physicsClientId=self.physics_id)),
+                                                  physicsClientId=self.physics_id)), 
         physicsClientId=self.physics_id)
         # Joint info specifies type of joint ("fixed" or not)
         joint_infos = [pybullet.getJointInfo(self._arm_id, i,  physicsClientId=self.physics_id) for i in range(pybullet.getNumJoints(self._arm_id, 
@@ -1033,7 +1036,6 @@ class BulletRobotInterface(RobotInterface):
 
         Args: joint_torques (list): list of joint torques with dimensions (num_joints,)
         """
-        #print("joint torques {}".format(joint_torques))
 
         clipped_torques = np.clip(
             joint_torques[:7],

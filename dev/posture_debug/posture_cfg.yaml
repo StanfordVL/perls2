@@ -1,0 +1,150 @@
+# perls2 Robot Environment Config
+world:
+  type: 'Bullet'
+  robot: 'sawyer'
+data_dir: '/home/rohunk-local/perls2/data'
+# data_dir: '/Users/ajaymandlekar/Desktop/Google Drive/Stanford/ccr/perls2/data'
+# Simulation parameters
+sim_params:
+  time_step: 0.001 #0.004166  # 1./240.
+  control_freq: 2 #4000 #5 #20
+  steps_per_action: 40 #6 #1 #5 # policy to sim update ratio
+  MAX_STEPS: 500
+
+# Robots are specified by types and urdf locations
+# also may include intial setup like poses and orientations
+!include posture_sawyer.yaml
+!include /home/rohunk-local/perls2/cfg/panda.yaml
+# !include /Users/ajaymandlekar/Desktop/Google Drive/Stanford/ccr/perls2/cfg/sawyer.yaml
+# !include /Users/ajaymandlekar/Desktop/Google Drive/Stanford/ccr/perls2/cfg/panda.yaml
+#!include /vision2/u/rohunk/perls2/cfg/table_and_bin.yaml
+scene_objects:
+  ['table']
+
+sensor:
+  camera:
+    name:
+        'camera'
+    image:
+      height: 512
+      width: 512
+    extrinsics:
+        eye_position:
+          [1.0, 0.0, 0.6]
+        target_position:
+          [0.6, 0., 0.2]
+        up_vector:
+          [-1., 0., 1.]
+    intrinsics:
+        image_height: 1080
+        image_width: 1920
+        fov: 60
+        near_plane: 0.02
+        far_plane: 100
+    # Parameters for randomization
+    random:
+      randomize: False
+      extrinsics:
+        eye_position:
+          lower:
+            [0.6, 0., 1.75]
+          upper:
+            [0.6, 0., 1.75]
+        target_position:
+          lower:
+            [0.6, 0., 0]
+          upper:
+            [0.6, 0., 0]
+      intrinsics:
+        fov:
+          lower: 50
+          upper: 80
+        near_plane:
+          lower: 0.01
+          upper: 0.05
+        far_plane:
+          lower: 10
+          upper: 150
+
+controller:
+  selected_type: 'EEPosture' # Choose between 'EEImpedance', 'JointVelocity'
+  Bullet:
+    EEImpedance:
+      kp: 80 #70 #50 #200 #75 #200 # P Gain for Impedance Control
+      damping: 1.0   #1 #0.5 #1 #0.5 # Damping factor [0,1] 
+      input_min: [-1, -1, -1, -1, -1, -1]
+      input_max: [ 1,  1,  1,  1,  1,  1]
+      output_max: [ 0.05,  0.05, 0.05, 1.570, 1.570, 1.570]
+      output_min: [-0.05, -0.05, -0.05, -1.570, -1.570, -1.570]
+    EEPosture:
+      kp: 80 #70 #50 #200 #75 #200 # P Gain for Impedance Control
+      damping: 1.0 #1 #0.5 #1 #0.5 # Damping factor [0,1] 
+      posture_gain: 100.0
+      posture: [0,-1.18,0.00,2.18,0.00,0.57,3.3161]
+      input_min: [-1, -1, -1, -1, -1, -1]
+      input_max: [ 1,  1,  1,  1,  1,  1]
+      output_max: [ 0.05,  0.05, 0.05, 1.570, 1.570, 1.570]
+      output_min: [-0.05, -0.05, -0.05, -1.570, -1.570, -1.570]
+    JointVelocity: 
+      kv: 8.0 #0.5
+    JointImpedance: 
+      kp: 50
+      damping: 1.0
+  interpolator:
+    type: 'linear'
+    order: 1
+
+gripper:
+  close_value: 0.6
+  open_value: 0.99
+
+object:
+  object_dict:
+    object_0:
+      name:
+        'cube'
+      count:
+        1
+      path:
+        '/home/rohunk-local/RobotTeleop/data/cube.urdf'
+      pose: [[1.5, 0, 0], [0,0,0]]
+      is_static: False
+      scale: 0.045
+      default_position: [0.65, 0.0, 0.1] #z  = 0.1
+  random:
+    randomize: True
+    position:
+      lower:
+        [0.62, -0.02, 0.1]
+      upper:
+        [0.69, 0.02, 0.1]
+
+
+ground:
+  path: 'scene_objects/plane/plane.urdf'
+  pose: [[0, 0, -0.9], [0, 0, 0]]
+  is_static: True
+
+# path: 'tables/table_svl/table.urdf'
+table:
+  path: 'scene_objects/table_svl/table.urdf'
+  pose: [[0.6, 0, -0.00], [0, 0, 0.0]]
+  height:
+    range: [0.8, 0.8]
+  is_static: True
+
+bin:
+  path: 'scene_objects/beveled_bin/beveled_bin.urdf'
+  pose: [[0.6, 0, 0], [0, 0, 0]]
+  is_static: True
+
+  # Perception and Learning
+env:
+  observation_space:
+    low:
+      [-2.0, -2.0, -2.0, 0, 0, 0, 0]
+    high:
+      [2.0, 2.0, 2.0, 1.0, 1.0, 1.0, 1.0]
+  action_space:
+    low:  [-1, -1, -1, -1, -1, -1, -1]
+    high: [ 1,  1,  1,  1,  1,  1, 1]

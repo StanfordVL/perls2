@@ -64,10 +64,10 @@ class RobotInterface(object):
             world_name = config['world']['type']
             controller_config = config['controller'][world_name]
             if config['controller']['interpolator']['type'] == 'linear':
-                self.interpolator = LinearInterpolator(max_dx=0.5, 
+                self.interpolator = LinearInterpolator(max_dx=0.01, 
                                                        ndim=3, 
-                                                       controller_freq=1000, 
-                                                       policy_freq=20, 
+                                                       controller_freq=self.config['control_freq'], 
+                                                       policy_freq=self.config['policy_freq'], 
                                                        ramp_ratio=0.02)
             else:
                 self.interpolator = None
