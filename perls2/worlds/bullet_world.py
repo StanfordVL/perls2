@@ -140,8 +140,9 @@ class BulletWorld(World):
 
         #To ensure smoothness of simulation and collisions, execute
         # a number of simulation steps per action received by policy
-        self.ctrl_steps_per_action = self.config['sim_params']['steps_per_action']
-
+        
+        #self.ctrl_steps_per_action = self.config['sim_params']['steps_per_action']
+        self.ctrl_steps_per_action = int((self.config['control_freq'] / float(self.config['policy_freq'] * self.config['sim_params']['time_step'])))
         self.is_sim = True
         
         # TODO REMOVE DEBUGs    
@@ -306,8 +307,9 @@ class BulletWorld(World):
 
         # Prepare for next step by executing action
         for exec_steps in range(self.ctrl_steps_per_action):
-            self.run_control_loop_for_action()
-
+            #self.run_control_loop_for_action()
+            self.robot_interface.step()
+            pybullet.stepSimulation(physicsClientId=self._physics_id)
         self.step_counter +=1
         #self.step_log = open('dev/logs/control/step' + str(self.step_counter) + '.txt', 'w+')
 
