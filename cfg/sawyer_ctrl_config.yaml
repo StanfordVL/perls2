@@ -8,7 +8,8 @@ sim_params:
   time_step: 0.001 #0.004166  # 1./240.
   steps_per_action: 20 # policy to sim update ratio
   MAX_STEPS: 500
-
+real_params: 
+  nuc_hostname: "c3po-ctrl.stanford.edu" # Hostname for the NUC for real robot control. 
 !include table_and_bin.yaml
 !include sawyer.yaml
 # Robots are specified by types and urdf locations
