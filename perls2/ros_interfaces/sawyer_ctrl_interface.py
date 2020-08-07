@@ -82,7 +82,7 @@ from moveit_msgs.srv import (
     GetMotionPlan
 )
 import actionlib
-from safenet import SafenetMonitor
+#from safenet import SafenetMonitor
 
 from perls2.robots.real_robot_interface import RealRobotInterface
 from perls2.robots.robot_interface import RobotInterface
@@ -136,6 +136,7 @@ class SawyerCtrlInterface(RobotInterface):
         # Connect to redis client
         # use default port 6379 at local host.
         # TODO:  match these up in cfg file later.
+	self.config = YamlConfig(config)
         self.redisClient = redis.Redis(
             host=socket.gethostbyname(self.config['real_params']['nuc_hostname']),
             port=6379, 
@@ -150,7 +151,7 @@ class SawyerCtrlInterface(RobotInterface):
         self.controlType = controlType
         self.action_set = False
         self.model = Model()
-        self.config = YamlConfig(config)
+        
         if config is not None:
             world_name = self.config['world']['type']
             controller_config = self.config['controller'][world_name]
@@ -256,13 +257,13 @@ class SawyerCtrlInterface(RobotInterface):
             rospy.logerr('IKService from Intera timed out')
             self._ik_service = False
 
-        self._interaction_options = InteractionOptions()
-        if len(self._interaction_options._data.D_impedance) == 0:
-            self._interaction_options._data.D_impedance = [8, 8, 8, 2, 2, 2]
+#        self._interaction_options = InteractionOptions()
+#        if len(self._interaction_options._data.D_impedance) == 0:
+#            self._interaction_options._data.D_impedance = [8, 8, 8, 2, 2, 2]
 
-        self._interaction_options_pub = \
-            rospy.Publisher('/robot/limb/right/interaction_control_command',
-                            InteractionControlCommand, queue_size = 1)
+#        self._interaction_options_pub = \
+#            rospy.Publisher('/robot/limb/right/interaction_control_command',
+#                            InteractionControlCommand, queue_size = 1)
 
         rospy.loginfo('Sawyer initialization finished after {} seconds'.format(time.time() - start))
 
