@@ -140,8 +140,38 @@ class RealRobotInterface(RobotInterface):
                 TODO: add this check.
         """ 
         self.check_controller("JointImpedance")
-        kwargs['delta'] = delta
+        kwargs['delta'] = delta.tolist()
         kwargs['cmd_type'] = "set_joint_delta"
+        self.set_controller_goal(**kwargs)
+
+    def move_ee_delta(self, delta, set_pos=None, set_ori=None):
+        """ Use controller to move end effector by some delta.
+
+        Args: 
+            delta (6f): delta position (dx, dy, dz) concatenated with delta orientation.
+                Orientation change is specified as an Euler angle body XYZ rotation about the
+                end effector link. 
+            set_pos (3f): end effector position to maintain while changing orientation. 
+                [x, y, z]. If not None, the delta for position is ignored. 
+            set_ori (4f): end effector orientation to maintain while changing orientation
+                as a quaternion [qx, qy, qz, w]. If not None, any delta for orientation is ignored. 
+        
+        Note: only for use with EE impedance controller
+        Note: to fix position or orientation, it is better to specify using the kwargs than
+            to use a 0 for the corresponding delta. This prevents any error from accumulating in 
+            that dimension. 
+
+        """
+        #self.check_controller("EEImpedance")
+        if set_ori is not None:
+            if len(set_ori) != 4:
+                raise ValueError('set_ori incorrect dimensions, should be quaternion length 4')
+            set_ori= T.quat2mat(set_ori)
+        if set_pos is not None:
+            if len(set_pos) != 3:
+                raise ValueError('set_pos incorrect dimensions, should be length 3')
+
+        kwargs = {'cmd_type': "move_ee_delta", 'delta': delta.tolist(), 'set_pos': set_pos, 'set_ori':set_ori}
         self.set_controller_goal(**kwargs)
 
     def set_controller_goal(self, cmd_type, **kwargs): 
