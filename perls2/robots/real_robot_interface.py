@@ -39,8 +39,6 @@ class RealRobotInterface(RobotInterface):
         self.config = config
         self.robot_cfg  = self.config[self.config['world']['robot']]
 
-        self.update_model()
-
     def create(config, controlType):
         """Factory for creating robot interfaces based on config type
 

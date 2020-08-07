@@ -20,6 +20,7 @@ from scipy.spatial.transform import Rotation as R
 
 # For dumping config dict to redis
 import json
+import socket
 
 def bstr_to_ndarray(array_bstr):
     """Convert bytestring array to 1d array
@@ -41,8 +42,14 @@ class RealSawyerInterface(RealRobotInterface):
         """
         Initialize variables and wrappers
         """
-        self.redisClient = redis.Redis()
         super().__init__(controlType=controlType, config=config)
+        self.redisClient = redis.Redis(
+            host=socket.gethostbyname(self.config['real_params']['nuc_hostname']),
+            port=6379, 
+            password="tarsbendervisiongoddardr2d2sawyerbb8")
+        import pdb; pdb.set_trace()
+        self.update_model()
+
         logging.debug("Real Sawyer Interface created")
         # Check if redis connection already exists, if not
         # setup a new one.

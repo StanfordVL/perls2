@@ -94,6 +94,7 @@ from perls2.controllers.robot_model.model import Model
 from perls2.utils.yaml_config import YamlConfig
 from scipy.spatial.transform import Rotation as R
 import json
+import socket
 
 def bstr_to_ndarray(array_bstr): 
     """Convert bytestring array to 1d array
@@ -135,7 +136,11 @@ class SawyerCtrlInterface(RobotInterface):
         # Connect to redis client
         # use default port 6379 at local host.
         # TODO:  match these up in cfg file later.
-        self.redisClient = redis.Redis()
+        self.redisClient = redis.Redis(
+            host=socket.gethostbyname(self.config['real_params']['nuc_hostname']),
+            port=6379, 
+            password="tarsbendervisiongoddardr2d2sawyerbb8")
+        
         self.redisClient.flushall()
         self.current_state = "SETUP"
         ## Timing

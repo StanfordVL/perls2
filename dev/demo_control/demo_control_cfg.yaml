@@ -1,6 +1,6 @@
 # Cfg file for  Demo control environment 
 world:
-  type: 'Bullet' #'Bullet'
+  type: 'Real' #'Bullet'
   robot: 'sawyer' #'panda'
 data_dir: 'data'
 # Simulation parameters
@@ -8,6 +8,9 @@ sim_params:
   time_step: 0.004166  # in seconds #0.004166 #0.002 #0.004166  # 1./240.
   control_freq: 2 #4000 #5 #20
   steps_per_action: 200 #6 #1 #5 # policy to sim update ratio
+  MAX_STEPS: 500
+real_params: 
+  nuc_hostname: "c3po-ctrl.stanford.edu" # Hostname for the NUC for real robot control. 
 
   MAX_STEPS: 100000
 
