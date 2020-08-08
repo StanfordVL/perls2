@@ -179,7 +179,7 @@ class RobotInterface(object):
                 print("ACTION NOT SET")
 
     def set_controller_goal(self, **kwargs):
-	import  pdb; pdb.set_trace()
+    import  pdb; pdb.set_trace()
         self.controller.set_goal(**kwargs)
         self.action_set = True
 
@@ -213,8 +213,10 @@ class RobotInterface(object):
         if set_pos is not None:
             if len(set_pos) != 3:
                 raise ValueError('set_pos incorrect dimensions, should be length 3')
-	import pdb; pdb.set_trace()
-	self.check_controller("EEPosture")
+
+        import pdb; pdb.set_trace()
+        self.check_controller("EEPosture")
+
         kwargs = {'delta': delta, 'set_pos': set_pos, 'set_ori':set_ori}
         self.set_controller_goal(**kwargs)
 

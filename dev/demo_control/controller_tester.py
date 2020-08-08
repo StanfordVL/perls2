@@ -15,7 +15,8 @@ CONTROL_TYPES = {"1" : "EEImpedance",
              "4" : "JointTorque", 
              "5" : "EEPosture"}
 
-DEMO_TYPES = {"1" : "Sequential", 
+DEMO_TYPES = { "0" : "Zero", 
+            "1" : "Sequential", 
              "2" : "Square",
              "3" : "Circle"}
 
@@ -102,10 +103,12 @@ class Demo():
         self.env = DemoControlEnv('dev/demo_control/demo_control_cfg.yaml', True, 'Demo Control Env')
         self.ctrl_type = ctrl_type
         self.env.robot_interface.change_controller(self.ctrl_type)
+        import pdb; pdb.set_trace()
         self.demo_type = demo_type
         self.errors = []
         self.actions = []
         self.states = []
+        self.world_type = self.env.config['world']['type']
 
     def get_action_list(self):
         raise NotImplementedError
@@ -198,9 +201,10 @@ class OpSpaceDeltaDemo(OpSpaceDemo):
             self.plotxy()
 
     def get_goal_states(self):
+        import pdb; pdb.set_trace()
         goal_states = [self.init_state]
         for action in self.action_list:
-            goal_states.append(np.add(goal_states[-1], action*self.env.config['controller']['Bullet']['EEPosture']['output_max']))
+            goal_states.append(np.add(goal_states[-1], action*self.env.config['controller']['Real']['EEPosture']['output_max']))
         return goal_states
 
     def compute_error(self, goal, current):
@@ -217,6 +221,9 @@ class OpSpaceDeltaDemo(OpSpaceDemo):
             [0, -0.05, 0, 0, 0, 0]
 
         """
+        if self.demo_type == "Zero": 
+            action_list = [np.zeros(6)]*20
+            return action_list
         if self.demo_type == "Sequential":
             # Joint position delta demo. 
             ee_pose_delta_demo = []
@@ -321,6 +328,9 @@ class JointSpaceDeltaDemo(JointSpaceDemo):
             joint_position_delta_demo.append(delta)
 
         return joint_position_delta_demo
+
+    def compute_error(self, goal, current):
+        return np.subtract(goal, current)
 
 class JointSpaceAbsDemo(JointSpaceDeltaDemo):
     def __init__(self, ctrl_type, demo_type, use_abs, start_pos): 

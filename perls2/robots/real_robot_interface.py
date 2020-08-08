@@ -92,7 +92,7 @@ class RealRobotInterface(RobotInterface):
         if next_type in AVAILABLE_CONTROLLERS:            
             # self.controller = self.make_controller(next_type)
             self.controlType = next_type
-            self.redisClient.set("robot::controller:control_type", next_type)
+            self.redisClient.set("robot::controller::control_type", next_type)
             control_config = self.config['controller']['Real'][self.controlType]
             self.redisClient.set("robot::controller::control_params", json.dumps(control_config))
             return self.controlType

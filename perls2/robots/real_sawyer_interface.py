@@ -47,7 +47,6 @@ class RealSawyerInterface(RealRobotInterface):
             host=socket.gethostbyname(self.config['real_params']['nuc_hostname']),
             port=6379, 
             password="tarsbendervisiongoddardr2d2sawyerbb8")
-        import pdb; pdb.set_trace()
         self.update_model()
 
         logging.debug("Real Sawyer Interface created")
@@ -57,7 +56,7 @@ class RealSawyerInterface(RealRobotInterface):
         # Sets environment connected flag for control interface
         self.redisClient.set('robot::env_connected', 'True')
         self.neutral_joint_angles = self.robot_cfg['neutral_joint_angles']
-        self.RESET_TIMEOUT = 50       # Wait 3 seconds for reset to complete.
+        self.RESET_TIMEOUT = 5       # Wait 3 seconds for reset to complete.
 
     def connect(self):
         self.redisClient.set('robot::env_connected', 'True')
@@ -154,6 +153,10 @@ class RealSawyerInterface(RealRobotInterface):
         """
         return bstr_to_ndarray(self.redisClient.get('robot::ee_v'))
 
+    @property
+    def ee_pose_euler(self):
+        euler_orn = pb.getEulerFromQuaternion(self.ee_orientation)
+        return list(self.ee_position) + list(euler_orn)
     @property
     def ee_omega(self):
         """

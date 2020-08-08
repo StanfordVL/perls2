@@ -148,7 +148,7 @@ class SawyerCtrlInterface(RobotInterface):
         self.startTime = time.time()
         self.endTime = time.time()
         # Set up controller_dict
-        self.controlType = controlType
+        self.controller_type = controlType
         self.action_set = False
         self.model = Model()
         

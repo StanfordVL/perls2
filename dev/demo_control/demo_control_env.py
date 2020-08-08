@@ -32,8 +32,8 @@ class DemoControlEnv(Env):
         elif self.robot_interface.controlType == 'JointVelocity':
             self.robot_interface.set_joint_velocity(action)
         elif self.robot_interface.controlType == 'JointImpedance':
-            #self.robot_interface.set_joint_delta(action)
-            self.robot_interface.set_joint_positions(action)
+            self.robot_interface.set_joint_delta(action)
+            #self.robot_interface.set_joint_positions(action)
         elif self.robot_interface.controlType == 'JointTorque':
             self.robot_interface.set_joint_torque(action)
         self.robot_interface.action_set = True
