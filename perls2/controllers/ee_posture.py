@@ -54,7 +54,7 @@ class EEPostureController(EEImpController):
     def set_goal(self, delta,  
         set_pos=None, set_ori=None, **kwargs):
 
-        super().set_goal(delta, set_pos, set_ori)
+        super(EEPostureController, self).set_goal(delta, set_pos, set_ori)
     
 
 
