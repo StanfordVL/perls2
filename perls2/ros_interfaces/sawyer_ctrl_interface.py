@@ -326,12 +326,15 @@ class SawyerCtrlInterface(RobotInterface):
 
     def make_controller_from_redis(self, control_type, controller_dict):
         if control_type == "EEImpedance":
+	    self.controlType ="EEImpedance"
             return EEImpController(self.model, 
                 **controller_dict)
-        elif control_type == "EEPosture": 
+        elif control_type == "EEPosture":
+	    self.controlType = "EEPosture" 
             return EEPostureController(self.model, 
                 **controller_dict)
         elif control_type =="JointImpedance":
+	    self.controlType = "JointImpedance"
             return JointImpController(self.model, 
                 **controller_dict)
 
