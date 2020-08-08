@@ -83,10 +83,10 @@ from moveit_msgs.srv import (
 )
 import actionlib
 #from safenet import SafenetMonitor
-
 from perls2.robots.real_robot_interface import RealRobotInterface
 from perls2.robots.robot_interface import RobotInterface
 from perls2.controllers.ee_imp import EEImpController
+from perls2.controllers.ee_posture import EEPostureController
 from perls2.controllers.joint_imp import JointImpController
 from perls2.controllers.interpolator.linear_interpolator import LinearInterpolator
 from perls2.controllers.robot_model.model import Model
@@ -141,7 +141,7 @@ class SawyerCtrlInterface(RobotInterface):
             host=socket.gethostbyname(self.config['real_params']['nuc_hostname']),
             port=6379, 
             password="tarsbendervisiongoddardr2d2sawyerbb8")
-        
+
         self.redisClient.flushall()
         self.current_state = "SETUP"
         ## Timing
@@ -264,7 +264,6 @@ class SawyerCtrlInterface(RobotInterface):
 #        self._interaction_options_pub = \
 #            rospy.Publisher('/robot/limb/right/interaction_control_command',
 #                            InteractionControlCommand, queue_size = 1)
-
         rospy.loginfo('Sawyer initialization finished after {} seconds'.format(time.time() - start))
 
         joint_state_topic = 'robot/joint_states'
@@ -328,6 +327,9 @@ class SawyerCtrlInterface(RobotInterface):
     def make_controller_from_redis(self, control_type, controller_dict):
         if control_type == "EEImpedance":
             return EEImpController(self.model, 
+                **controller_dict)
+        elif control_type == "EEPosture": 
+            return EEPostureController(self.model, 
                 **controller_dict)
         elif control_type =="JointImpedance":
             return JointImpController(self.model, 
@@ -1344,12 +1346,18 @@ class SawyerCtrlInterface(RobotInterface):
     def controller_goal(self):
         return json.loads(self.redisClient.get('robot::controller::goal'))
 
+    @property 
+    def controller_type(self):
+        return self.redisClient.get('robot::controller::control_type')
+
     @property
     def cmd_tstamp(self):
         return self.redisClient.get('robot::cmd_tstamp')
 
     def process_cmd(self):
         print("CMD TYPE {}".format(self.cmd_type))
+        self.control_dict = self.get_controller_params()
+        self.controller = self.make_controller_from_redis(self.controller_type, self.control_dict)
         if (self.cmd_type == b'set_ee_pose'):
             rospy.loginfo('des_pose ' + str(self.desired_ee_pose))
             #rospy.loginfo('prev Cmd ' + str(ctrlInterface.prev_cmd))
