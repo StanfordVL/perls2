@@ -148,8 +148,6 @@ class SawyerCtrlInterface(RobotInterface):
         ## Timing
         self.startTime = time.time()
         self.endTime = time.time()
-        # Set up controller_dict
-        self.controller_type = controlType
         self.action_set = False
         self.model = Model()
         
@@ -327,17 +325,14 @@ class SawyerCtrlInterface(RobotInterface):
 
     def make_controller_from_redis(self, control_type, controller_dict):
         if control_type == "EEImpedance":
-	    self.controlType ="EEImpedance"
             return EEImpController(self.model, 
-                **controller_dict)
+                    **controller_dict)
         elif control_type == "EEPosture":
-	    self.controlType = "EEPosture" 
             return EEPostureController(self.model, 
-                **controller_dict)
+                    **controller_dict)
         elif control_type =="JointImpedance":
-	    self.controlType = "JointImpedance"
             return JointImpController(self.model, 
-                **controller_dict)
+                    **controller_dict)
 
     def get_controller_params(self):
         return json.loads(self.redisClient.get("robot::controller::control_params"))
@@ -1351,7 +1346,7 @@ class SawyerCtrlInterface(RobotInterface):
         return json.loads(self.redisClient.get('robot::controller::goal'))
 
     @property 
-    def controller_type(self):
+    def controlType(self):
         return self.redisClient.get('robot::controller::control_type')
 
     @property
@@ -1361,7 +1356,10 @@ class SawyerCtrlInterface(RobotInterface):
     def process_cmd(self):
         print("CMD TYPE {}".format(self.cmd_type))
         self.control_dict = self.get_controller_params()
-        self.controller = self.make_controller_from_redis(self.controller_type, self.control_dict)
+        self.controller = self.make_controller_from_redis(self.controlType, self.control_dict)
+        # todo hack for states.         
+        self.redisClient.set('robot::reset_complete', 'False')
+
         if (self.cmd_type == b'set_ee_pose'):
             rospy.loginfo('des_pose ' + str(self.desired_ee_pose))
             #rospy.loginfo('prev Cmd ' + str(ctrlInterface.prev_cmd))
