@@ -18,7 +18,8 @@ CONTROL_TYPES = {"1" : "EEImpedance",
 DEMO_TYPES = { "0" : "Zero", 
             "1" : "Sequential", 
              "2" : "Square",
-             "3" : "Circle"}
+             "3" : "Circle",
+             "4" : "Line"}
 
 # command_dict = {"EEImpedance": EE_POSITIONS_LIST,
 #                   "JointVelocity": JOINT_VELOCITY_LIST,
@@ -180,6 +181,10 @@ class OpSpaceDeltaDemo(OpSpaceDemo):
             # Get goal states based on demo and control type. 
             self.action_list = self.get_action_list()
             self.goal_states = self.get_goal_states()
+        elif self.demo_type == "Line":
+            # Get goal states based on demo and control type. 
+            self.action_list = self.get_action_list()
+            self.goal_states = self.get_goal_states()
         else:
             raise ValueError("invalid demo type")
 
@@ -224,6 +229,11 @@ class OpSpaceDeltaDemo(OpSpaceDemo):
         """
         if self.demo_type == "Zero": 
             action_list = [np.zeros(6)]*20
+            return action_list
+        if self.demo_type == "Line":
+            delta = np.zeros(6)
+            delta[0] = 0.05
+            action_list = [delta]*5
             return action_list
         if self.demo_type == "Sequential":
             # Joint position delta demo. 
@@ -386,7 +396,7 @@ class Square(Path):
     def __init__(self, start_pos, side_num_pts):
         self.start_pos = start_pos
         self.side_num_pts = side_num_pts
-        self.deltaxy = 0.1
+        self.deltaxy = 0.01
         self.path = [[0, 0, 0]]
         self.make_path()
 
