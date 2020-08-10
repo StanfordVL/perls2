@@ -53,8 +53,6 @@ class RealSawyerInterface(RealRobotInterface):
         # Check if redis connection already exists, if not
         # setup a new one.
 
-        # Sets environment connected flag for control interface
-        self.redisClient.set('robot::env_connected', 'True')
         self.neutral_joint_angles = self.robot_cfg['neutral_joint_angles']
         self.RESET_TIMEOUT = 15       # Wait 3 seconds for reset to complete.
         self.set_controller_params_from_config()
@@ -77,15 +75,18 @@ class RealSawyerInterface(RealRobotInterface):
                      'robot::cmd_type': 'reset_to_neutral'
         }
         self.redisClient.mset(reset_cmd)
+        # Wait for reset to be read by contrl interface. 
+        time.sleep(2)
         start = time.time()
         while (self.redisClient.get('robot::reset_complete') != b'True' and
                (time.time() - start < self.RESET_TIMEOUT)):
             time.sleep(0.01)
 
         if (self.redisClient.get('robot::reset_complete') == b'True'):
-            logging.debug("reset successful")
+            print("reset successful")
         else:
-            logging.debug("reset failed")
+            print("reset failed")
+
 
     @property
     def version(self):
@@ -277,13 +278,13 @@ class RealSawyerInterface(RealRobotInterface):
 
     def set_controller_params_from_config(self):
         selected_type = self.config['controller']['selected_type']
-        control_config = self.config['controller'][control_type]
+        self.control_config = self.config['controller']['Real'][selected_type]
 
         redis_key = "robot::controller::control_params"
         self.redisClient.set(redis_key, str(self.control_config))
 
         # Set control type 
-        self.redisClient.set("robot::controller:selected_type", control_type )
+        self.redisClient.set("robot::controller:controller_type", selected_type )
         logging.debug("Control parameters set to redis")
 
     def set_goal_state(self, goal): 
