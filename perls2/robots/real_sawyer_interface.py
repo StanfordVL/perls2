@@ -43,10 +43,10 @@ class RealSawyerInterface(RealRobotInterface):
         Initialize variables and wrappers
         """
         super().__init__(controlType=controlType, config=config)
-        self.redisClient = redis.Redis(
-            host=socket.gethostbyname(self.config['real_params']['nuc_hostname']),
-            port=6379, 
-            password="tarsbendervisiongoddardr2d2sawyerbb8")
+        redis_kwargs = self.config['redis']
+        if 'localhost' not in redis_kwargs['host']:
+            redis_kwargs['host'] = socket.gethostbyname(self.config['redis']['host'])
+        self.redisClient = redis.Redis(**redis_kwargs)
         self.update_model()
 
         logging.debug("Real Sawyer Interface created")

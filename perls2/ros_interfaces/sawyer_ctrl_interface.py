@@ -136,11 +136,12 @@ class SawyerCtrlInterface(RobotInterface):
         # Connect to redis client
         # use default port 6379 at local host.
         # TODO:  match these up in cfg file later.
-	self.config = YamlConfig(config)
-        self.redisClient = redis.Redis(
-            host=socket.gethostbyname(self.config['real_params']['nuc_hostname']),
-            port=6379, 
-            password="tarsbendervisiongoddardr2d2sawyerbb8")
+        self.config = YamlConfig(config)
+        redis_kwargs = self.config['redis']
+        if 'localhost' not in redis_kwargs['host']:
+            redis_kwargs['host'] = socket.gethostbyname(self.config['redis']['host'])
+
+        self.redisClient = redis.Redis(**redis_kwargs)
 
         self.redisClient.flushall()
         self.current_state = "SETUP"
