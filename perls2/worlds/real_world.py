@@ -71,7 +71,8 @@ class RealWorld(World):
         """
         start = time.time()
         self.robot_interface.step()
-        while (time.time() - start) < (1./self.config['policy_freq']):
+
+        while (time.time() - start) < (1./float(self.config['policy_freq'])):
             time.sleep(.0001)
         self.action_set = False
 
