@@ -11,10 +11,14 @@ sim_params:
 real_params: 
   nuc_hostname: "localhost" # Hostname for the NUC for real robot control. 
 
-  
 redis: 
-  host: localhost
+  host: c3po-ctrl.stanford.edu
   port: 6379
+  password: "tarsbendervisiongoddardr2d2sawyerbb8"
+   
+# redis: 
+#   host: localhost
+#   port: 6379
 
 !include table_and_bin.yaml
 !include sawyer.yaml
