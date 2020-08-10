@@ -48,7 +48,6 @@ class RealWorld(World):
         self.sensor_interface = KinectCameraInterface(self.config)
 
         self.is_sim = False
-        self.robot_interface.connect()
 
         self.dim_num = 0
 
