@@ -864,7 +864,7 @@ class SawyerCtrlInterface(RobotInterface):
         linear_jacobian = np.reshape(
             linear_jacobian, (3, self.num_free_joints))
 
-        return linear_jacobian
+        return linear_jacobian[:,:7]
 
     @property
     def angular_jacobian(self):
@@ -875,7 +875,7 @@ class SawyerCtrlInterface(RobotInterface):
         angular_jacobian = np.reshape(
             angular_jacobian, (3, self.num_free_joints))
         
-        return angular_jacobian
+        return angular_jacobian[:,:7]
 
     @property
     def mass_matrix(self):
