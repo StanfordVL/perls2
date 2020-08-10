@@ -56,7 +56,9 @@ class RealSawyerInterface(RealRobotInterface):
         # Sets environment connected flag for control interface
         self.redisClient.set('robot::env_connected', 'True')
         self.neutral_joint_angles = self.robot_cfg['neutral_joint_angles']
-        self.RESET_TIMEOUT = 5       # Wait 3 seconds for reset to complete.
+        self.RESET_TIMEOUT = 15       # Wait 3 seconds for reset to complete.
+        self.set_controller_params_from_config()
+        self.connect()
 
     def connect(self):
         self.redisClient.set('robot::env_connected', 'True')

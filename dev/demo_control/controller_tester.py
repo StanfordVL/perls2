@@ -103,7 +103,6 @@ class Demo():
         self.env = DemoControlEnv('dev/demo_control/demo_control_cfg.yaml', True, 'Demo Control Env')
         self.ctrl_type = ctrl_type
         self.env.robot_interface.change_controller(self.ctrl_type)
-        import pdb; pdb.set_trace()
         self.demo_type = demo_type
         self.errors = []
         self.actions = []
@@ -188,7 +187,7 @@ class OpSpaceDeltaDemo(OpSpaceDemo):
         self.step_num = 0
 
     def run(self):
-        import pdb; pdb.set_trace()
+        self.env.reset()
         for i, action in enumerate(self.action_list):
 
             self.env.step(action)          
@@ -198,10 +197,12 @@ class OpSpaceDeltaDemo(OpSpaceDemo):
             self.states.append(new_state)
             self.errors.append(self.compute_error(self.goal_states[i], new_state))
             print(self.errors[-1])
-            self.plotxy()
+        
+        self.plotxy()
+        self.env.robot_interface.disconnect()
 
     def get_goal_states(self):
-        import pdb; pdb.set_trace()
+
         goal_states = [self.init_state]
         for action in self.action_list:
             goal_states.append(np.add(goal_states[-1], action*self.env.config['controller']['Real']['EEPosture']['output_max']))
