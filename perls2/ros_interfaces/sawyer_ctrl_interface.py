@@ -340,14 +340,14 @@ class SawyerCtrlInterface(RobotInterface):
     def reset_to_neutral(self):
         """Blocking call for resetting the arm to neutral position
         """
-        self.redisClient.set('reset_complete', 'False')
+        self.redisClient.set('robot::reset_complete', 'False')
         rospy.loginfo("Resetting to neutral")
         self.goto_q(self.neutral_joint_position,  max_joint_speed_ratio=0.2)
 
         # set to joint position control to avoid repeating reset.
         # self.redisClient.set('robot::cmd_type', 'joint_position')
         # self.redisClient.set('robot::qd', str(self.neutral_joint_position))
-        self.redisClient.set('reset_complete', 'True')
+        self.redisClient.set('robot::reset_complete', 'True')
         rospy.loginfo("reset complete")
 
     @property
