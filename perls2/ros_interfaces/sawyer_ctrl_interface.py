@@ -326,6 +326,8 @@ class SawyerCtrlInterface(RobotInterface):
         self.controller_times = []
 
     def make_controller_from_redis(self, control_type, controller_dict):
+        logging.debug("Making controller {} with params: {}".format(control_type, controller_dict))
+
         if control_type == "EEImpedance":
             return EEImpController(self.model, 
                     **controller_dict)
@@ -1358,8 +1360,7 @@ class SawyerCtrlInterface(RobotInterface):
 
     def process_cmd(self):
         print("CMD TYPE {}".format(self.cmd_type))
-        self.control_dict = self.get_controller_params()
-        self.controller = self.make_controller_from_redis(self.controlType, self.control_dict)
+
         # todo hack for states.         
         self.redisClient.set('robot::reset_complete', 'False')
 
@@ -1397,6 +1398,8 @@ class SawyerCtrlInterface(RobotInterface):
             return False
 
     def run(self):
+        self.control_dict = self.get_controller_params()
+        self.controller = self.make_controller_from_redis(self.controlType, self.control_dict)
         while (self.env_connected == b'True'):
             start = time.time()
 
