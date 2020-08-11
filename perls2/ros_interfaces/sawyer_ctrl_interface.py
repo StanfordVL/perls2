@@ -323,6 +323,8 @@ class SawyerCtrlInterface(RobotInterface):
         self.timelog_start = open('cmd_tstamp.txt', 'w')
         self.timelog_end = open('cmd_set_time.txt', 'w')
 
+        self.controller_times = []
+
     def make_controller_from_redis(self, control_type, controller_dict):
         if control_type == "EEImpedance":
             return EEImpController(self.model, 
@@ -974,8 +976,9 @@ class SawyerCtrlInterface(RobotInterface):
         start = time.time()
         self.update_model()
         if self.action_set:     
-     
+            t1 = time.time()
             torques = self.controller.run_controller() 
+            self.controller_times.append(time.time() - start)
             self.set_torques(torques)
 
             while (time.time() - start < 1.0/500.0):
@@ -1405,6 +1408,7 @@ class SawyerCtrlInterface(RobotInterface):
                     # Just for debugging
                     self.redisClient.set("robot::last_cmd_tstamp", self.last_cmd_tstamp)
             self.step()
+        np.savez('dev/sawyer_ctrl_timing/run_controller_times.npz', delay=np.array(self.controller_times), allow_pickle=True)
 
 
     def _on_joint_states(self, msg):
