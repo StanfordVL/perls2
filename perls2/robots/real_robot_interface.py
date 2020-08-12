@@ -13,7 +13,8 @@ import numpy as np
 import logging
 import json 
 import time
-
+from perls2.ros_interfaces.redis_keys import * 
+from perls2.ros_interfaces.redis_interface import RobotRedisInterface
 AVAILABLE_CONTROLLERS = ["EEImpedance",
                          "EEPosture",  
                          "Internal",
@@ -77,7 +78,7 @@ class RealRobotInterface(RobotInterface):
         """Set the control parameters key on redis
         """
         control_config = self.config['controller']['Real'][self.control_type]
-        self.redisClient.set("robot::controller::control_params", json.dumps(control_config))
+        self.redisClient.set(CONTROLLER_CONTROL_PARAMS_KEY, json.dumps(control_config))
   
     def change_controller(self, next_type):
         """Change to a different controller type.
@@ -92,9 +93,9 @@ class RealRobotInterface(RobotInterface):
         if next_type in AVAILABLE_CONTROLLERS:            
             # self.controller = self.make_controller(next_type)
             self.controlType = next_type
-            self.redisClient.set("robot::controller::control_type", next_type)
+            self.redisClient.set(CONTROLLER_CONTROL_TYPE_KEY, next_type)
             control_config = self.config['controller']['Real'][self.controlType]
-            self.redisClient.set("robot::controller::control_params", json.dumps(control_config))
+            self.redisClient.set(CONTROLLER_CONTROL_PARAMS_KEY, json.dumps(control_config))
             return self.controlType
         else:
             raise ValueError("Invalid control type " + 
@@ -197,8 +198,8 @@ class RealRobotInterface(RobotInterface):
         """
         logging.debug("cmd_type {}".format(cmd_type))
 
-        control_cmd = { 'robot::cmd_tstamp': time.time(),
-                        'robot::cmd_type' : cmd_type, 
-                       'robot::controller::goal' : json.dumps(kwargs)}
+        control_cmd = { ROBOT_CMD_TSTAMP_KEY: time.time(),
+                        ROBOT_CMD_TYPE_KEY : cmd_type, 
+                        CONTROLLER_GOAL_KEY : json.dumps(kwargs)}
         self.redisClient.mset(control_cmd)
         self.action_set = True

@@ -78,7 +78,7 @@ class RobotRedisInterface(RedisInterface):
     def get(self, key):
         if ROBOT_STATE_KEY in key or ROBOT_MODEL_KEY in key:
             return self._get_key_ndarray(key)
-        elif CONTROLLER_CONTROL_PARAMS_KEY == key:
+        elif CONTROLLER_CONTROL_PARAMS_KEY in key or CONTROLLER_GOAL_KEY in key:
             return self._get_key_json(key)
         else:
             return self._client.get(key)
