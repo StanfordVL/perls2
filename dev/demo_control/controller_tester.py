@@ -195,7 +195,7 @@ class OpSpaceDeltaDemo(OpSpaceDemo):
     def run(self):
         self.env.reset()
         for i, action in enumerate(self.action_list):
-            self.cmd_start_list.append(time.time)
+            self.cmd_start_list.append(time.time())
             self.env.step(action)          
             self.actions.append(action)
             new_state = self.get_state()
@@ -204,7 +204,7 @@ class OpSpaceDeltaDemo(OpSpaceDemo):
             self.errors.append(self.compute_error(self.goal_states[i], new_state))
             # print(self.errors[-1])
         
-        # self.plotxy()
+        np.savez('dev/sawyer_ctrl_timing/cmd_start_time.npz', tstamp=self.cmd_start_list, allow_pickle=True)
         self.env.robot_interface.disconnect()
 
     def get_goal_states(self):
