@@ -968,14 +968,13 @@ class SawyerCtrlInterface(RobotInterface):
         return NotImplemented
 
     # Controllers#######################################################
-    def step(self):
+    def step(self, start):
         """Update the robot state and model, set torques from controller
         
         Note this is different from other robot interfaces, as the Sawyer
         low-level controller takes gravity compensation into account.
         """
 
-        start = time.time()
         self.update_model()
         if self.action_set:     
             t1 = time.time()
@@ -990,10 +989,7 @@ class SawyerCtrlInterface(RobotInterface):
         else:
             pass
             #print("ACTION NOT SET")
-        #self.update_redis() 
-        self.timelog_end.write(str(time.time()) + ',\n')
-        # For timing only: 
-        self.timelog_start.write(self.last_cmd_tstamp +',\n')
+
     @q.setter
     def q(self, qd):
         """
@@ -1359,7 +1355,7 @@ class SawyerCtrlInterface(RobotInterface):
         return self.redisClient.get('robot::cmd_tstamp')
 
     def process_cmd(self):
-        print("CMD TYPE {}".format(self.cmd_type))
+        # print("CMD TYPE {}".format(self.cmd_type))
 
         # todo hack for states.         
         self.redisClient.set('robot::reset_complete', 'False')
@@ -1398,8 +1394,12 @@ class SawyerCtrlInterface(RobotInterface):
             return False
 
     def run(self):
-        self.control_dict = self.get_controller_params()
-        self.controller = self.make_controller_from_redis(self.controlType, self.control_dict)
+        if (self.env_connected == b'True'):
+
+		self.control_dict = self.get_controller_params()
+        	self.controller = self.make_controller_from_redis(self.controlType, self.control_dict)
+
+        # TODO: Run controller once to initalize numba
         while (self.env_connected == b'True'):
             start = time.time()
 
@@ -1410,7 +1410,7 @@ class SawyerCtrlInterface(RobotInterface):
                     self.last_cmd_tstamp = self.cmd_tstamp
                     # Just for debugging
                     self.redisClient.set("robot::last_cmd_tstamp", self.last_cmd_tstamp)
-            self.step()
+            self.step(start)
         np.savez('dev/sawyer_ctrl_timing/run_controller_times.npz', delay=np.array(self.controller_times), allow_pickle=True)
 
 
