@@ -22,7 +22,7 @@ redis:
 #   port: 6379
 
 #policy_freq : 10 # Hz
-policy_freq: 0.1 # For gazebo? 
+policy_freq: 20 # For gazebo? 
 control_freq: 500 # Hz
 !include ../../cfg/sawyer.yaml
 !include ../../cfg/panda.yaml
