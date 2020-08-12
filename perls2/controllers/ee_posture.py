@@ -49,15 +49,42 @@ class EEPostureController(EEImpController):
             interpolator_pos=interpolator_pos,
             interpolator_ori=interpolator_ori,
             uncouple_pos_ori=uncouple_pos_ori)
+        # Compile numba jit in advance to reduce initial calc time.
+        self._compile_jit_functions()
 
+    def _compile_jit_functions(self):
+        """
+        Helper function to incur the cost of compiling jit functions used by this class
+        and robosuite upfront.
+        """
+        dummy_mat = np.eye(3)
+        dummy_quat = np.zeros(4)
+        dummy_quat[-1] = 1.
+        T.mat2quat(dummy_mat)
+        T.quat2mat(dummy_quat)
+
+        dummy_nullspace_matrix = np.zeros((7, 7))
+
+        nullspace_torques(
+            mass_matrix=self.model.mass_matrix, 
+            nullspace_matrix=dummy_nullspace_matrix, 
+            initial_joint=self.model.joint_pos,
+            joint_pos=self.model.joint_pos,
+            joint_vel=self.model.joint_vel,
+        )
+        opspace_matrices(
+            mass_matrix=self.model.mass_matrix,
+            J_full=self.model.J_full,
+            J_pos=self.model.J_pos,
+            J_ori=self.model.J_ori,
+        )
+        orientation_error(dummy_mat, dummy_mat)
 
     def set_goal(self, delta,  
         set_pos=None, set_ori=None, **kwargs):
 
         super(EEPostureController, self).set_goal(delta, set_pos, set_ori)
     
-
-
     def run_controller(self):
         # TODO: check if goal has been set.
         desired_vel_pos = 0.0
