@@ -181,7 +181,7 @@ class OpSpaceDeltaDemo(OpSpaceDemo):
             # Get goal states based on demo and control type. 
             self.action_list = self.get_action_list()
             self.goal_states = self.get_goal_states()
-        elif self.demo_type == "Line":
+        elif self.demo_type in ["Zero", "Line" ]:
             # Get goal states based on demo and control type. 
             self.action_list = self.get_action_list()
             self.goal_states = self.get_goal_states()
@@ -229,7 +229,7 @@ class OpSpaceDeltaDemo(OpSpaceDemo):
 
         """
         if self.demo_type == "Zero": 
-            action_list = [np.zeros(6)]*20
+            action_list = [np.zeros(6)]*500
             return action_list
         if self.demo_type == "Line":
             delta = np.zeros(6)
