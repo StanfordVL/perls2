@@ -280,12 +280,10 @@ class RealSawyerInterface(RealRobotInterface):
         selected_type = self.config['controller']['selected_type']
         self.control_config = self.config['controller']['Real'][selected_type]
 
-        redis_key = "robot::controller::control_params"
-        self.redisClient.set(redis_key, str(self.control_config))
+        self.redisClient.mset({"robot::controller::control_params": json.dumps(self.control_config), 
+                              "robot::controller::control_type": selected_type}) 
 
-        # Set control type 
-        self.redisClient.set("robot::controller:controller_type", selected_type )
-        logging.debug("Control parameters set to redis")
+        print("{} Control parameters set to redis: {}".format(selected_type, self.control_config))
 
     def set_goal_state(self, goal): 
         self.redisClient.set("robot::desired_state", str(goal))

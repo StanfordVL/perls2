@@ -89,11 +89,11 @@ class ControllerTester():
         self.demo = OpSpaceDeltaDemo(self.ctrl_type, self.demo_type, False)
 
         initial_state = self.demo.env.reset()
-        print(self.demo.env.robot_interface.ee_pose)
+        # print(self.demo.env.robot_interface.ee_pose)
         self.demo.run()
         #self.demo.plot_error()
         #self.demo.plotxy()
-        self.demo.save_data()
+#        self.demo.save_data()
 
 class Demo():
     """Class definition for demonstration. 
@@ -181,7 +181,7 @@ class OpSpaceDeltaDemo(OpSpaceDemo):
             # Get goal states based on demo and control type. 
             self.action_list = self.get_action_list()
             self.goal_states = self.get_goal_states()
-        elif self.demo_type == "Line":
+        elif self.demo_type in ["Zero", "Line" ]:
             # Get goal states based on demo and control type. 
             self.action_list = self.get_action_list()
             self.goal_states = self.get_goal_states()
@@ -190,20 +190,21 @@ class OpSpaceDeltaDemo(OpSpaceDemo):
 
         self.num_steps = len(self.action_list)
         self.step_num = 0
+        self.cmd_start_list = []
 
     def run(self):
         self.env.reset()
         for i, action in enumerate(self.action_list):
-
+            self.cmd_start_list.append(time.time())
             self.env.step(action)          
             self.actions.append(action)
             new_state = self.get_state()
 
             self.states.append(new_state)
             self.errors.append(self.compute_error(self.goal_states[i], new_state))
-            print(self.errors[-1])
+            # print(self.errors[-1])
         
-        self.plotxy()
+        np.savez('dev/sawyer_ctrl_timing/cmd_start_time.npz', tstamp=self.cmd_start_list, allow_pickle=True)
         self.env.robot_interface.disconnect()
 
     def get_goal_states(self):
@@ -228,7 +229,7 @@ class OpSpaceDeltaDemo(OpSpaceDemo):
 
         """
         if self.demo_type == "Zero": 
-            action_list = [np.zeros(6)]*20
+            action_list = [np.zeros(6)]*500
             return action_list
         if self.demo_type == "Line":
             delta = np.zeros(6)
