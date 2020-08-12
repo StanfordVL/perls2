@@ -89,11 +89,11 @@ class ControllerTester():
         self.demo = OpSpaceDeltaDemo(self.ctrl_type, self.demo_type, False)
 
         initial_state = self.demo.env.reset()
-        print(self.demo.env.robot_interface.ee_pose)
+        # print(self.demo.env.robot_interface.ee_pose)
         self.demo.run()
         #self.demo.plot_error()
         #self.demo.plotxy()
-        self.demo.save_data()
+#        self.demo.save_data()
 
 class Demo():
     """Class definition for demonstration. 
@@ -190,20 +190,21 @@ class OpSpaceDeltaDemo(OpSpaceDemo):
 
         self.num_steps = len(self.action_list)
         self.step_num = 0
+        self.cmd_start_list = []
 
     def run(self):
         self.env.reset()
         for i, action in enumerate(self.action_list):
-
+            self.cmd_start_list.append(time.time)
             self.env.step(action)          
             self.actions.append(action)
             new_state = self.get_state()
 
             self.states.append(new_state)
             self.errors.append(self.compute_error(self.goal_states[i], new_state))
-            print(self.errors[-1])
+            # print(self.errors[-1])
         
-        self.plotxy()
+        # self.plotxy()
         self.env.robot_interface.disconnect()
 
     def get_goal_states(self):
