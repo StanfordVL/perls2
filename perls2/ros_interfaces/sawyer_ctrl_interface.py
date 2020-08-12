@@ -51,7 +51,8 @@ except ImportError:
     print('intera_interface not imported, did you remember to run cd ~/ros_ws;./intera.sh?')
 
 import numpy as np
-
+import logging
+logging.basicConfig(level=logging.DEBUG)
 import pybullet as pb
 import time
 # import PyKDL as KDL
@@ -324,9 +325,10 @@ class SawyerCtrlInterface(RobotInterface):
         self.timelog_end = open('cmd_set_time.txt', 'w')
 
         self.controller_times = []
-
+	self.loop_times = []
+	self.cmd_end_time = []
     def make_controller_from_redis(self, control_type, controller_dict):
-        logging.debug("Making controller {} with params: {}".format(control_type, controller_dict))
+        print("Making controller {} with params: {}".format(control_type, controller_dict))
 
         if control_type == "EEImpedance":
             return EEImpController(self.model, 
@@ -977,11 +979,13 @@ class SawyerCtrlInterface(RobotInterface):
 
         self.update_model()
         if self.action_set:     
-            t1 = time.time()
+            #t1 = time.time()
             torques = self.controller.run_controller() 
-            self.controller_times.append(time.time() - start)
+            #self.controller_times.append(time.time() - start)
             self.set_torques(torques)
-
+            if self.new_cmd:
+		self.cmd_end_time.append(time.time())
+		self.new_cmd = False
             while (time.time() - start < 1.0/500.0):
                 pass 
                 #time.sleep(.00001)
@@ -1402,9 +1406,9 @@ class SawyerCtrlInterface(RobotInterface):
         # TODO: Run controller once to initalize numba
         while (self.env_connected == b'True'):
             start = time.time()
-
+	    # self.loop_times.append(start)
             if self.check_for_new_cmd():
-
+		self.new_cmd = True
                 self.process_cmd()
                 if self.cmd_tstamp is not None:
                     self.last_cmd_tstamp = self.cmd_tstamp
@@ -1412,6 +1416,8 @@ class SawyerCtrlInterface(RobotInterface):
                     self.redisClient.set("robot::last_cmd_tstamp", self.last_cmd_tstamp)
             self.step(start)
         np.savez('dev/sawyer_ctrl_timing/run_controller_times.npz', delay=np.array(self.controller_times), allow_pickle=True)
+        np.savez('dev/sawyer_ctrl_timing/sawyer_ctrl_loop_times.npz', tstamps=np.array(self.loop_times), allow_pickle=True)
+	np.savez('dev/sawyer_ctrl_timing/cmd_end_times.npz', tstamps=np.array(self.cmd_end_time), allow_pickle=True)
 
 
     def _on_joint_states(self, msg):
@@ -1425,6 +1431,7 @@ class SawyerCtrlInterface(RobotInterface):
 
 ### MAIN ###
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.DEBUG)
     # Create ros node
     rospy.init_node("sawyer_interface", log_level=rospy.DEBUG)
     #load_gazebo_models()
@@ -1441,6 +1448,21 @@ if __name__ == "__main__":
 
     rospy.loginfo('Running control loop')
     ctrlInterface.run()
+
+    # Timing test: 
+    # Print stats for run_controller step. 
+"""
+    print("Torque calculation: run_controller delay (s) \n")
+    tdict =np.load('dev/sawyer_ctrl_timing/run_controller_times.npz')
+    delay_times = tdict['delay']
+    print("Num samples collected:\t{}\n".format(len(delay_times)))
+    print("Mean delay:\t{}\n".format(np.mean(delay_times)))
+    print("Max delay:\t{}\n".format(np.max(delay_times)))
+    print("index of max:\t{}\n".format(np.argmax(delay_times)))
+    print("First sample:\t{}\n".format(delay_times[0]))
+    print("sample 2:\t{}\n".format(delay_times[1]))
+    print("Last sample:\t{}\n".format(delay_times[-1]))
+"""
     # while(ctrlInterface.env_connected == b'True'):
     #     rospy.logdebug('Environment connected')
     #     start = time.time()
