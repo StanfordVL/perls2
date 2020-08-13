@@ -99,6 +99,7 @@ import socket
 
 from perls2.ros_interfaces.redis_interface import RobotRedisInterface as RobotRedis
 from perls2.ros_interfaces.redis_keys import *
+
 class SawyerCtrlInterface(RobotInterface):
     """ Class definition for Sawyer Control Interface. 
 
@@ -328,6 +329,7 @@ class SawyerCtrlInterface(RobotInterface):
         self.controller_times = []
         self.loop_times = []
         self.cmd_end_time = []
+
     def make_controller_from_redis(self, control_type, controller_dict):
         print("Making controller {} with params: {}".format(control_type, controller_dict))
 
@@ -383,14 +385,6 @@ class SawyerCtrlInterface(RobotInterface):
         """
         return list(self._limb.endpoint_pose()['position'])
 
-    #@ee_position.setter
-    def set_ee_position(self, position):
-        """ set
-         ee position
-        """
-        rospy.logdebug('set ee position')
-        self.ee_pose = (list(position) + self.ee_orientation)
-
     @property
     def ee_orientation(self):
         """
@@ -408,231 +402,6 @@ class SawyerCtrlInterface(RobotInterface):
         y, z, qx, qy, qz, qw]
         """
         return list(self.ee_position + self.ee_orientation)
-
-    @ee_pose.setter
-    def ee_pose(self, xd, realtime = False):
-        """
-        Set the end effector pose.
-        Use this function for poses that are close to the current pose.
-        There are two options for the implementation of this function:
-        1) Operational space control. NOT IN SAWYER
-        2) IK and set q or goto_q (only if the goal is close) -> the
-        motion "interpolates" in joint space!
-        :param xd:
-
-        Args:
-            xd: list
-                list of desired position, orientation values [x, y,
-                z, qx, qy, qz, qw]
-            realtime: whether to use realtime for pb simulation.
-
-        Notes:
-        Uses a pybullet simulation with matching urdf to calculate the
-        corresponding joint angles for the desired pose via inverse
-        kinematics.
-
-        """
-        rospy.logdebug("calculating joint angles for ee_pose")
-        self.startTime = time.time()
-
-        useRealTimeSimulation = 0
-        # This only affects when we simulate (avoids having to step)
-        pb.setRealTimeSimulation(useRealTimeSimulation)
-        rospy.logdebug("Current joint configuration: %s", self.q)
-        num_joints_bullet = pb.getNumJoints(self._pb_sawyer)
-        for i in range(num_joints_bullet):
-            joint_info = pb.getJointInfo(self._pb_sawyer, i)
-            q_index = joint_info[3]
-            # q_index > -1 means it is not a fix joint
-            # The joints of the arm are called right_j0-6
-            if q_index > -1 and 'right_j' in joint_info[1]:
-                q_index2 = int(joint_info[1].replace('right_j', ''))
-                pb.resetJointState(self._pb_sawyer, i, self.q[q_index2])
-
-        xd_bullet = self._from_tip_to_base_of_gripper(xd)
-        #xd_bullet = xd
-
-        # We iterate several times (max max_iter) using the last
-        # solution until the distance (only translation) to the desired
-        #configuration is small enough (max max_dist)
-        close_enough = False
-        iter = 0
-        max_iter = [20, 1][int(realtime)]
-        max_dist = 0.001 # Meters
-        sawyer_ee_index = 16  # Where is this magic number coming from?
-        qd_full = None
-        joint_dumping = [0.1] * num_joints_bullet
-        while not close_enough and iter < max_iter:
-            qd_full = pb.calculateInverseKinematics(self._pb_sawyer,
-                                                    sawyer_ee_index,
-                                                    xd_bullet[0:3],
-                                                    # restPoses=self.q,
-                                                    targetOrientation = xd_bullet[3:7],
-                                                    jointDamping = joint_dumping)
-
-            mod_qd_full = qd_full[0:1] + qd_full[2:] #qd_full contains head joint
-            for i in range(num_joints_bullet):
-                joint_info = pb.getJointInfo(self._pb_sawyer, i)
-                q_index = joint_info[3]
-                if q_index > -1 and 'right_j' in joint_info[1]:
-                    q_index2 = int(joint_info[1].replace('right_j', ''))
-                    pb.resetJointState(self._pb_sawyer,
-                                       i,
-                                       mod_qd_full[q_index2])
-            link_new_state = pb.getLinkState(self._pb_sawyer,
-                                             sawyer_ee_index)
-
-
-            x_new = link_new_state[4]
-            diff = [xd_bullet[0] - x_new[0],
-                    xd_bullet[1] - x_new[1],
-                    xd_bullet[2] - x_new[2]]  # Only position
-            dist = np.sqrt(diff[0] * diff[0] +
-                           diff[1] * diff[1] +
-                           diff[2] * diff[2])
-            close_enough = (dist < max_dist)
-            iter += 1
-        qd =[]
-        qd_idx = 0
-        # ignore head joint -> We need to know which one is the pan-head
-        for i in range(num_joints_bullet):
-            joint_info = pb.getJointInfo(self._pb_sawyer, i)
-            q_index = joint_info[3]
-            # q_index > -1 means it is not a fix joint
-            # The joints of the arm are called right_j0-6
-            if q_index > -1:
-                if 'right_j' in joint_info[1]:
-                    qd += [qd_full[qd_idx]]
-                qd_idx += 1
-
-        rospy.logdebug("Moving to the joint configuration %s to achieve"
-                        + " the Cartesian goal", qd)
-
-        # Depending on the amount of joint motion we will use one
-        # function or another from the Intera SDK
-        q_threshold = 100 #0.005  # 100
-        if ((not self.blocking) and
-            (np.linalg.norm(np.array(qd) - np.array(self.q)) < q_threshold)):
-            rospy.logdebug("Calling direct motion to move the joints")
-            self.q = qd
-        else:
-            rospy.logdebug("Calling goto to move the joints")
-            self.goto_q(qd)
-
-
-    def goto_ee_pose(self, xd, **kwargs):
-        """
-        Set the end effector pose.
-        Use this funtion for larger distances to current pose.
-        There are two options:
-        1) Use moveit! to interpolate in cartesian the shortest path to
-        xd and plan the sequence joint configurations to execute it ->
-        -> the motion "interpolates" in Cartesian space even though
-        follows a joint space trajectory
-        2) Use the Intera SDK motion interface of the robot to first
-        compute the joint configuration at the desired pose (IK service)
-        and then plan and execute a trajectory in joint space towards it
-        :param xd: list of desired position, orientation values [x, y,
-        z, qx, qy, qz, qw]
-        3) The kwargs parameter includes a flag to switch between pose
-        interpolation and joint space interpolation. It also includes parameters
-        to specify the arm's maximum linear and rotational speed and acceleration
-        """
-        if self._use_moveit:
-            ee_pose = Pose()
-            ee_pose.position.x = xd[0]
-            ee_pose.position.y = xd[1]
-            ee_pose.position.z = xd[2]
-            ee_pose.orientation.x = xd[3]
-            ee_pose.orientation.y = xd[4]
-            ee_pose.orientation.z = xd[5]
-            ee_pose.orientation.w = xd[6]
-            self._moveit_group.set_pose_target(ee_pose)
-            qd_trajectory_moveit = self._moveit_group.plan()
-
-            if len(qd_trajectory_moveit.joint_trajectory.points) == 0:
-                rospy.logerr('No viable plan to reach target pose.')
-                return False
-            else:
-                self._moveit_group.execute(qd_trajectory_moveit)
-                qd_trajectory = []
-                for point in qd_trajectory_moveit.joint_trajectory.points:
-                    js_waypoint = {'time': point.time_from_start,
-                                   'pose': point.positions,
-                                   'velocity': point.velocities,
-                                   'acceleration': point.accelerations}
-                    qd_trajectory += [js_waypoint]
-                self.js_trajectory(qd_trajectory)
-        else:
-            ik_request = SolvePositionIKRequest()
-            hdr = Header(stamp=rospy.Time.now(), frame_id='base')
-            poses = {'right': PoseStamped(header=hdr,pose=Pose(position=Point(*xd[0:3]),
-                                     orientation=Quaternion(*xd[3:7]),
-                    ),
-                ),
-            }
-            # Add desired pose for inverse kinematics
-            ik_request.pose_stamp.append(poses["right"])
-            # Request inverse kinematics from base to "right_hand" frame
-            ik_request.tip_names.append('right_hand')
-            try:
-                resp = self._iksvc(ik_request)  # get IK response
-                #print(resp)
-            except (rospy.ServiceException, rospy.ROSException) as e:
-                rospy.logerr("Service call failed: %s" % (e,))
-                return False
-
-            if resp.result_type[0] <= 0:
-                rospy.logerr("IK response is not valid")
-                return False
-            else:
-
-                wpt_opts = MotionWaypointOptions(label="0", n_dim=7, joint_tolerances=0.01,
-                             max_linear_speed=kwargs.get("max_linear_speed", 0.3),
-                             max_linear_accel=kwargs.get("max_linear_accel", 0.3),
-                             max_rotational_speed=kwargs.get("max_rotational_speed", 0.75),
-                             max_rotational_accel=kwargs.get("max_rotational_accel", 0.75),
-                             max_joint_speed_ratio=1.0)
-                start_waypoint = MotionWaypoint(limb=self._limb, options = wpt_opts.to_msg())
-                traj_options = TrajectoryOptions()
-                if kwargs['traj_type'] == 'joint_angles':
-                    traj_options.interpolation_type = TrajectoryOptions.JOINT
-                    start_waypoint.set_joint_angles(joint_angles=self.q) #Why is one of the waypoints our current location? Is this required?
-                elif kwargs['traj_type'] == 'cartesian':
-
-                    traj_options.interpolation_type = TrajectoryOptions.CARTESIAN
-                    poseStamped = PoseStamped(pose = Pose(position = Point(*self.ee_pose[0:3]), orientation = Quaternion(*self.ee_pose[3:7])))
-                    start_waypoint.set_cartesian_pose(poseStamped, 'right_hand', self.q)
-                else:
-                    raise ValueError('kwargs traj_type not set.')
-
-
-                qd_trajectory = MotionTrajectory(trajectory_options = traj_options, limb=self._limb)
-                qd_trajectory.append_waypoint(start_waypoint.to_msg())
-
-                end_waypoint = MotionWaypoint(limb=self._limb, options = wpt_opts.to_msg())
-                if kwargs['traj_type'] == 'joint_angles':
-                    end_waypoint.set_joint_angles(joint_angles=resp.joints[0].position)
-                elif kwargs['traj_type'] == 'cartesian':
-                    poseStamped = PoseStamped(pose=Pose(position=Point(*xd[0:3]), orientation=Quaternion(*xd[3:7])))
-                    end_waypoint.set_cartesian_pose(poseStamped, 'right_hand', resp.joints[0].position)
-                else:
-                    raise ValueError('kwargs traj_type not set.')
-
-                qd_trajectory.append_waypoint(end_waypoint.to_msg())
-
-                strr = qd_trajectory.to_msg()
-                result = qd_trajectory.send_trajectory()
-                if result is None:
-                    rospy.logerr('Trajectory FAILED to send')
-                    return False
-
-                if result.result:
-                    rospy.loginfo('Motion controller successfully finished the trajectory!')
-                else:
-                    rospy.logerr('Motion controller failed to complete the trajectory with error '
-                                 + str(result.errorId))
-                    return False
 
     @property
     def ee_v(self):
@@ -709,16 +478,6 @@ class SawyerCtrlInterface(RobotInterface):
         return [dq[n] for n in self._joint_names]
 
     @property
-    def ddq(self):
-        """
-        Get the joint accelerations of the robot arm.
-        :return: a list of joint accelerations in radian/s^2, which
-        is ordered by indices from small to large.
-        Typically the order goes from base to end effector.
-        """
-        return NotImplemented
-
-    @property
     def tau(self):
         """
         Get the joint torques of the robot arm.
@@ -728,34 +487,6 @@ class SawyerCtrlInterface(RobotInterface):
         """
         tau = self._limb.joint_efforts()
         return [tau[n] for n in self._joint_names]
-
-
-    # @property
-    # def J(self, q=None):
-    #     """
-    #     Estimate and return the kinematic Jacobian at q or at the
-    #     current configuration.
-    #     :return: Jacobian matrix (2D numpy array)
-    #     """
-
-    #     q_kdl_array = KDL.JntArray(7)
-
-    #     if q is None:
-    #         q = self.q
-
-    #     num_dof = len(self.q)
-
-    #     for i in range(0, num_dof):
-    #         q_kdl_array[i] = q[i]
-
-    #     jacKDL = KDL.ChainJntToJacSolver(self._kdl_chain)
-    #     jacobian = KDL.Jacobian(7)
-    #     jacKDL.JntToJac(q_kdl_array, jacobian)
-    #     jacobianMat = np.matrix(np.zeros([6, num_dof]))
-    #     for i in range(0, 6):
-    #         for j in range(0, num_dof):
-    #             jacobianMat[i, j] = jacobian[i, j]
-    #     return jacobianMat
 
     @property 
     def num_joints(self):
@@ -911,65 +642,6 @@ class SawyerCtrlInterface(RobotInterface):
 
         return assembly_names, camera_info
 
-    def configure(self, configs):
-        """
-        Configure the parameters of the robot
-        :param configs: configuration
-        :return: None
-        """
-        return NotImplemented
-
-    def get_link_name(self, uid, lid):
-        """
-        Get the name string of given link
-        :param uid: integer body unique id
-        :param lid: integer link id of body
-        :return: name string of link on body
-        """
-        return NotImplemented
-
-    def get_link_state(self, lid):
-        """
-        Get the state of given link on given body
-        :param uid: integer body unique id
-        :param lid: integer link id on body
-        :return: a tuple of
-        link world position (list of floats [x, y, z]),
-        link world orientation (list of floats [qx, qy, qz, qw]),
-        local position offset of CoM frame,
-        local orientation offset of CoM frame,
-        world position of asset file link frame,
-        world orientation of asset file link frame,
-        link world linear velocity,
-        link world angular velocity.
-        """
-        return NotImplemented
-
-    def get_joint_info(self, jid):
-        """
-        Get the information of body joint
-        :param uid: integer unique body id
-        :param jid: integer joint id on body
-        :return: a tuple of
-        joint index,
-        joint name string in asset file,
-        joint type string ('fixed', 'revolute',
-        'prismatic', 'spherical', 'planar', 'gear',
-        'point2point'),
-        the first position index in the positional
-        state variables for this body,
-        the first velocity index in the velocity
-        state variables for this body,
-        joint damping value,
-        joint friction coefficient,
-        joint lower limit,
-        joint upper limit,
-        maximum force joint can sustain,
-        maximum velocity joint can sustain,
-        name string of associated link.
-        """
-        return NotImplemented
-
     # Controllers#######################################################
     def step(self, start):
         """Update the robot state and model, set torques from controller
@@ -994,25 +666,6 @@ class SawyerCtrlInterface(RobotInterface):
         else:
             pass
             #print("ACTION NOT SET")
-
-    @q.setter
-    def q(self, qd):
-        """
-        Set joint position according to given values list. Note
-        that the length of the list must match the number of joints.
-        Using the set_position function (no underlying controller)
-        :param qd: A list of length DOF of desired joint configurations
-        """
-        rospy.logdebug('setting q')
-        assert len(qd) == len(self._joint_names), \
-            'Input number of position values must match the number of joints'
-
-        command = {self._joint_names[i]: qd[i] for i in range(len(self._joint_names))}
-        self._limb.set_joint_position_speed(0.1)
-        self._limb.set_joint_positions(command)
-
-        rospy.logdebug('desired ee pose ' + str(self.prev_cmd))
-        rospy.logdebug('current ee pose ' + str(self.ee_pose))
 
     def goto_q(self, qd, max_joint_speed_ratio=0.3, timeout=15.0,
                threshold=0.008726646):
@@ -1044,33 +697,6 @@ class SawyerCtrlInterface(RobotInterface):
         rospy.logdebug('desired ee pose ' + str(self.prev_cmd))
         rospy.logdebug('current ee pose ' + str(self.ee_pose))
 
-    @dq.setter
-    def dq(self, dqd):
-        """
-        Set joint velocities according to given values list. Note that
-        the length of the list must match that of the joint indices.
-        :param dqd: A list of length DOF of desired joint velocities.
-        """
-        assert len(dqd) == len(self._joint_names), \
-            'Input number of velocity values must match the number of joints'
-
-        command = {self._joint_names[i]: dqd[i] for i in range(len(self._joint_names))}
-        self._limb.set_joint_velocities(command)
-
-    @tau.setter
-    def tau(self, taud):
-        """
-        Set joint torques according to given values list. Note that the
-        length of the list must match that of the joint indices.
-        :param taud: A list of length DOF of desired torques.
-        :return: None
-        """
-        assert len(taud) == len(self._joint_names), \
-            'Input number of torque values must match the number of joints'
-
-        command = {self._joint_names[i]: taud[i] for i in range(len(self._joint_names))}
-
-        self._limb.set_joint_torques(command)
 
     def set_torques(self, desired_torques):
         """
@@ -1331,21 +957,7 @@ class SawyerCtrlInterface(RobotInterface):
         """ Redis key identifying the type of command robot should execute
         """
         return self.redisClient.get(ROBOT_CMD_TYPE_KEY)
-
-
-    @property
-    def desired_ee_pose(self):
-        return bstr_to_ndarray(self.redisClient.get('robot::desired_ee_pose'))
-
-    @property
-    def qd(self):
-        return bstr_to_ndarray(self.redisClient.get('robot::qd'))
-
-    @property
-    def desired_torque(self):
-        return bstr_to_ndarray(self.redisClient.get('robot::tau_desired'))
        
-    
     @property
     def controller_goal(self):
         return self.redisClient.get(CONTROLLER_GOAL_KEY)
@@ -1422,11 +1034,7 @@ class SawyerCtrlInterface(RobotInterface):
 
     def _on_joint_states(self, msg):
         self.update_redis()
-        # for idx, name in enumerate(msg.name):
-        #     if name in self._joint_names:
-        #         self._joint_angle[name] = msg.position[idx]
-        #         self._joint_velocity[name] = msg.velocity[idx]
-        #         self._joint_effort[name] = msg.effort[idx]
+
 
 
 ### MAIN ###
