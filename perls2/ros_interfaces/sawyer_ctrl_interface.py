@@ -178,7 +178,7 @@ class SawyerCtrlInterface(RobotInterface):
             rospy.logerr('No head found, head functionality disabled')
             self._has_head = False
 
-        self._limb = iif.Limb()
+        self._limb = iif.Limb(limb="right", synchronous_pub=False)
         self._joint_names = self._limb.joint_names()
 
         self._use_safenet = use_safenet
@@ -970,33 +970,33 @@ class SawyerCtrlInterface(RobotInterface):
     def cmd_tstamp(self):
         return self.redisClient.get(ROBOT_CMD_TSTAMP_KEY)
 
-    def process_cmd(self):
+    def process_cmd(self, cmd_type, controller_goal):
         # print("CMD TYPE {}".format(self.cmd_type))
 
         # todo hack for states.         
         self.redisClient.set(ROBOT_RESET_COMPL_KEY, 'False')
 
-        if (self.cmd_type == b'set_ee_pose'):
+        if (cmd_type == b'set_ee_pose'):
             rospy.loginfo('des_pose ' + str(self.desired_ee_pose))
             #rospy.loginfo('prev Cmd ' + str(ctrlInterface.prev_cmd))
             #if not np.array_equal(ctrlInterface.prev_cmd,desired_pose):
             # TODO: get rid of all prev_cmd for debugging
             self.prev_cmd = self.desired_ee_pose
             self.ee_pose = self.desired_ee_pose
-        elif (self.cmd_type == b'move_ee_delta'):
-            self.move_ee_delta(**self.controller_goal)
-        elif(self.cmd_type == b'set_joint_positions'):
+        elif (cmd_type == b'move_ee_delta'):
+            self.move_ee_delta(**controller_goal)
+        elif(cmd_type == b'set_joint_positions'):
             print("joint position command received")
             #self.check_controller("JointImpedance")
-            self.set_joint_positions(**self.controller_goal)
-        elif(self.cmd_type == b'set_joint_delta'):
-            self.set_joint_delta(**self.controller_goal)
-        elif (self.cmd_type == b'torque'):
+            self.set_joint_positions(**controller_goal)
+        elif(cmd_type == b'set_joint_delta'):
+            self.set_joint_delta(**controller_goal)
+        elif (cmd_type == b'torque'):
             raise NotImplementedError
             #self.tau = self.desired_torque
-        elif(self.cmd_type == b'reset_to_neutral'):
+        elif(cmd_type == b'reset_to_neutral'):
             self.reset_to_neutral()
-        elif(self.cmd_type == b'ee_delta'):
+        elif(cmd_type == b'ee_delta'):
             raise NotImplementedError
             #self.move_ee_delta(self.desired_state)
         else:
@@ -1021,7 +1021,7 @@ class SawyerCtrlInterface(RobotInterface):
         # self.loop_times.append(start)
             if self.check_for_new_cmd():
                 self.new_cmd = True
-                self.process_cmd()
+                self.process_cmd(self.cmd_type, self.controller_goal)
                 if self.cmd_tstamp is not None:
                     self.last_cmd_tstamp = self.cmd_tstamp
                     # Just for debugging
