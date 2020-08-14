@@ -16,19 +16,19 @@ class RedisInterface():
         port (int): identifying port for where server is being hosted. Usually 6379
         pw (str): password to connect to secured server (Necessary for tcp connections.)
         """
-    def __init__(self, host, port, pw=None):
+    def __init__(self, host, port, password=None):
         # IP address rather than hostname is used to connect to redis. This is an idiosyncracy of our setup. 
         # It is more convenient however, to store the hostname in the config file. So we look it up via sockets.
         self.host = host
         self.port = port
         if 'localhost' not in host:
-            self.host = socket.gethostbyname(self.config['redis']['host'])
+            self.host = socket.gethostbyname(host)
 
         setup_kwargs = {'host': self.host, 
                         'port': self.port}
         
-        if pw is not None: 
-            setup_kwargs['password']  = pw
+        if password is not None: 
+            setup_kwargs['password']  = password
 
         # Connect to redis server.
         self._client = redis.Redis(**setup_kwargs)
@@ -55,8 +55,8 @@ class RobotRedisInterface(RedisInterface):
         
     """
 
-    def __init__(self, host, port, pw=None):
-        RedisInterface.__init__(self, host, port, pw)
+    def __init__(self, host, port, password=None):
+        RedisInterface.__init__(self, host, port, password)
 
     def _get_key_ndarray(self, key):
         """Return value from desired key, converting bytestring to ndarray
