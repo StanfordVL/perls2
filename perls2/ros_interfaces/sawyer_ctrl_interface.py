@@ -575,52 +575,44 @@ class SawyerCtrlInterface(RobotInterface):
             objAccelerations=[0]*num_dof,
             physicsClientId=self._clid
             )
+
+        self._linear_jacobian = np.reshape(
+            linear_jacobian, (3, self.num_free_joints))
+
+        self._angular_jacobian = np.reshape(
+            angular_jacobian, (3, self.num_free_joints))
+
+        self._jacobian = np.vstack(
+            (self._linear_jacobian[:,:len(self.q)], self._angular_jacobian[:,:len(self.q)]))
         return linear_jacobian, angular_jacobian
 
     @property
     def J(self, q=None):
         """ Calculate the full jacobian using pb.
         """
-        linear_jacobian, angular_jacobian = self._calc_jacobian(q)
-        linear_jacobian = np.reshape(
-            linear_jacobian, (3, self.num_free_joints))
-
-        angular_jacobian = np.reshape(
-            angular_jacobian, (3, self.num_free_joints))
-
-        jacobian = np.vstack(
-            (linear_jacobian[:,:len(self.q)],angular_jacobian[:,:len(self.q)]))
-
-        return jacobian
+        return self._jacobian
 
     @property
     def linear_jacobian(self):
         """The linear jacobian x_dot = J_t*q_dot
         """
-
-        linear_jacobian, _ = self._calc_jacobian(self.q)
-        linear_jacobian = np.reshape(
-            linear_jacobian, (3, self.num_free_joints))
-
-        return linear_jacobian[:,:7]
+        return self._linear_jacobian[:,:7]
 
     @property
     def angular_jacobian(self):
         """The linear jacobian x_dot = J_t*q_dot
-        """
-
-        _, angular_jacobian = self._calc_jacobian(self.q)
-        angular_jacobian = np.reshape(
-            angular_jacobian, (3, self.num_free_joints))
-        
-        return angular_jacobian[:,:7]
+        """    
+        return self._angular_jacobian[:,:7]
 
     @property
     def mass_matrix(self):
+        return self._mass_matrix
+
+    def calc_mass_matrix(self):
         mass_matrix = pb.calculateMassMatrix(self._pb_sawyer, 
             self.q, 
             physicsClientId=self._clid)
-        return np.array(mass_matrix)[:7,:7]
+        self._mass_matrix = np.array(mass_matrix)[:7,:7]   
     
     @property 
     def torque_compensation(self):
@@ -1033,6 +1025,8 @@ class SawyerCtrlInterface(RobotInterface):
 
 
     def _on_joint_states(self, msg):
+        self._calc_jacobian()
+        self.calc_mass_matrix()
         self.update_redis()
 
 
