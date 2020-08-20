@@ -34,7 +34,7 @@ class EEPostureController(EEImpController):
         """ Initialize controller.
         """
         self.posture_gain = posture_gain
-        self.goal_posture = np.array(posture)
+        self.goal_posture = np.asarray(posture)
         super(EEPostureController, self).__init__(
             robot_model=robot_model, 
             input_max=input_max,
