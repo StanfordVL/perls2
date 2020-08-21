@@ -96,7 +96,7 @@ class World():
         raise NotImplementedError
 
     @abc.abstractmethod
-    def step(self, action):
+    def step(self, action, start=None):
         """Take a step.
 
         Args:
