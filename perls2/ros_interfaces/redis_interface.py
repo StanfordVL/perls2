@@ -1,6 +1,7 @@
 """Class definition for Redis Interface.
 """
 import redis
+import hiredis
 import socket
 import numpy as np
 import json

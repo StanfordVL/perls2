@@ -34,7 +34,7 @@ class EEPostureController(EEImpController):
         """ Initialize controller.
         """
         self.posture_gain = posture_gain
-        self.goal_posture = posture
+        self.goal_posture = np.asarray(posture)
         super(EEPostureController, self).__init__(
             robot_model=robot_model, 
             input_max=input_max,
@@ -52,6 +52,7 @@ class EEPostureController(EEImpController):
         # Compile numba jit in advance to reduce initial calc time.
         self._compile_jit_functions()
 
+
     def _compile_jit_functions(self):
         """
         Helper function to incur the cost of compiling jit functions used by this class
@@ -63,20 +64,19 @@ class EEPostureController(EEImpController):
         T.mat2quat(dummy_mat)
         T.quat2mat(dummy_quat)
 
-        dummy_nullspace_matrix = np.zeros((7, 7))
-
-        nullspace_torques(
-            mass_matrix=self.model.mass_matrix, 
-            nullspace_matrix=dummy_nullspace_matrix, 
-            initial_joint=self.model.joint_pos,
-            joint_pos=self.model.joint_pos,
-            joint_vel=self.model.joint_vel,
-        )
-        opspace_matrices(
+        #dummy_nullspace_matrix = np.zeros((7, 7))
+        _, _, _, dummy_nullspace_matrix =opspace_matrices(
             mass_matrix=self.model.mass_matrix,
             J_full=self.model.J_full,
             J_pos=self.model.J_pos,
             J_ori=self.model.J_ori,
+        )
+        nullspace_torques(
+            mass_matrix=self.model.mass_matrix, 
+            nullspace_matrix=dummy_nullspace_matrix, 
+            initial_joint=self.goal_posture,
+            joint_pos=self.model.joint_pos,
+            joint_vel=self.model.joint_vel,
         )
         orientation_error(dummy_mat, dummy_mat)
 
@@ -142,20 +142,14 @@ class EEPostureController(EEImpController):
             desired_wrench = np.concatenate([desired_force, desired_torque])
             decoupled_wrench = np.dot(lambda_full, desired_wrench)
 
-        #import pdb; pdb.set_trace()
-        #print("N_q {}".format(self.model.torque_compensation))
         self.torques = np.dot(self.model.J_full.T, decoupled_wrench) + self.model.torque_compensation
-        
-        # Null space posture compensation
-        posture_error = np.array(self.goal_posture - self.model.joint_pos) 
+        self.torques += nullspace_torques(self.model.mass_matrix, 
+                                          nullspace_matrix, 
+                                          self.goal_posture, 
+                                          self.model.joint_pos, 
+                                          self.model.joint_vel, 
+                                         self.posture_gain)
 
-        joint_kp = np.array([self.posture_gain] * 7)
-        joint_kv = np.sqrt(self.posture_gain) *2
-
-        pose_torques = np.dot(self.model.mass_matrix, (joint_kp *(
-            posture_error) - joint_kv*self.model.joint_vel))
-
-        self.torques = self.torques + np.dot(nullspace_matrix.T, pose_torques)
 
 
         return self.torques
