@@ -21,7 +21,7 @@ JOINT_STATE_PUBLISH_RATE = args.publish_rate
 
 
 rospy.logdebug("Creating joint state publish rate publisher")
-pub = rospy.Publisher('/robot/joint_state_publish_rate', UInt16)
+pub = rospy.Publisher('/robot/joint_state_publish_rate', UInt16, queue_size=5)
 rospy.init_node("sawyer_joint_pub_rate", anonymous=True)
 rate = rospy.Rate(10)
 

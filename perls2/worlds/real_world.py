@@ -45,7 +45,7 @@ class RealWorld(World):
                                                  config=self.config,
                                                  controlType=self.config['controller']['selected_type'])
         
-        self.sensor_interface = KinectCameraInterface(self.config)
+        self.sensor_interface = None #KinectCameraInterface(self.config)
 
         self.is_sim = False
 

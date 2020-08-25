@@ -15,6 +15,15 @@ class DemoControlEnv(Env):
     """The class for Pybullet Sawyer Robot environments performing a reaching task.
     """
 
+    def reset(self):
+        self.episode_num += 1
+        self.num_steps = 0
+        self.world.reset()
+        self.robot_interface.reset()
+        #self.sensor_interface.reset()
+        
+        observation = self.get_observation()
+
     def get_observation(self):
         obs  = {}
         obs['ee_pose'] = self.robot_interface.ee_pose
@@ -28,7 +37,8 @@ class DemoControlEnv(Env):
         """
         if (self.robot_interface.controlType == 'EEImpedance' or 
            (self.robot_interface.controlType == 'EEPosture')):
-            self.robot_interface.move_ee_delta(action)
+            #self.robot_interface.move_ee_delta(action)
+            self.robot_interface.set_ee_pose(action)
         elif self.robot_interface.controlType == 'JointVelocity':
             self.robot_interface.set_joint_velocity(action)
         elif self.robot_interface.controlType == 'JointImpedance':
