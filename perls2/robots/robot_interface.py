@@ -218,14 +218,14 @@ class RobotInterface(object):
         kwargs = {'delta': delta, 'set_pos': set_pos, 'set_ori':set_ori}
         self.set_controller_goal(**kwargs)
 
-    def set_ee_pose(self, des_pose):
+    def set_ee_pose(self, set_pos, set_ori, **kwargs):
         """ Use controller to set end effector pose. 
 
         Args: des pose (7f): [x, y , z, qx, qy, qz, w]. end effector pose as position + quaternion orientation
 
         """
-        self.check_controller("EEImpedance")
-        kwargs = {'delta': None, 'set_pos': des_pose[:3], 'set_ori': des_pose[3:]}
+        #self.check_controller("EEImpedance")
+        kwargs = {'delta': None, 'set_pos': set_pos[:3], 'set_ori': set_ori[3:]}
         self.set_controller_goal(**kwargs)
 
         
