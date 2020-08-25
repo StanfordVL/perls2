@@ -4,7 +4,7 @@ from perls2.controllers.utils.control_utils import *
 import perls2.controllers.utils.transform_utils as T
 import numpy as np
 import time
-
+import math
 class EEImpController(Controller):
     """ Class definition for End-effector Impedance Controller. 
 
@@ -40,7 +40,7 @@ class EEImpController(Controller):
             of a calculated goal eef position will be clipped. Can be either be a 2-list (same min/max value for all
             cartesian dims), or a 2-list of list (specific min/max values for each dim)
         
-        orientation_limits (2-list of float or 2-list of list of floats): Limits (rad) below and above which the
+        orientation_limits (2-list of float or 2-list of list of floats): [Lower_bounds, upper_bounds]. Limits (rad) below and above which the
             magnitude of a calculated goal eef orientation will be clipped. Can be either be a 2-list
             (same min/max value for all joint dims), or a 2-list of list (specific min/mx values for each dim)
         
@@ -69,7 +69,7 @@ class EEImpController(Controller):
                  damping=1,
                  control_freq=20,
                  position_limits=None,
-                 orientation_limits=None,
+                 orientation_limits=[[-math.pi/2]*3, [math.pi/2]*3],
                  interpolator_pos=None,
                  interpolator_ori=None,
                  uncouple_pos_ori=True,
@@ -84,7 +84,7 @@ class EEImpController(Controller):
 
         # limits
         self.position_limits = position_limits
-        self.orientation_limits = orientation_limits
+        self.orientation_limits = np.array(orientation_limits)
 
         # kp kv
         if kp is list:
@@ -128,10 +128,16 @@ class EEImpController(Controller):
               raise ValueError("incorrect delta dimension")
 
             scaled_delta = self.scale_action(delta)
-            self.goal_ori = set_goal_orientation(scaled_delta[3:],
-                                                 self.model.ee_ori_mat,
-                                                 orientation_limit=self.orientation_limits,
-                                                 set_ori=set_ori)
+      # We only want to update goal orientation if there is a valid delta ori value
+        # use math.isclose instead of numpy because numpy is slow
+            bools = [0. if math.isclose(elem, 0.) else 1. for elem in scaled_delta[3:]]
+            if sum(bools) > 0.:
+                self.goal_ori = set_goal_orientation(scaled_delta[3:],
+                                                     self.model.ee_ori_mat,
+                                                     orientation_limit=self.orientation_limits,
+                                                     set_ori=set_ori,
+                                                     axis_angle=True)
+
             self.goal_pos = set_goal_position(scaled_delta[:3],
                                               self.model.ee_pos,
                                               position_limit=self.position_limits,
@@ -142,6 +148,7 @@ class EEImpController(Controller):
                                                  self.model.ee_ori_mat,
                                                  orientation_limit=self.orientation_limits,
                                                  set_ori=T.quat2mat(set_ori))
+
             self.goal_pos = set_goal_position(None,
                                               self.model.ee_pos,
                                               position_limit=self.position_limits,
@@ -153,7 +160,7 @@ class EEImpController(Controller):
 
         if self.interpolator_ori is not None:
             self.ori_ref = np.array(self.model.ee_ori_mat) #reference is the current orientation at start
-            self.interpolator_ori.set_goal(orientation_error(self.goal_ori, self.ori_ref)) #goal is the total orientation error
+            self.interpolator_ori.set_goal(self.model.ee_ori_quat) # goal is the clipped orientation. 
             self.relative_ori = np.zeros(3) #relative orientation always starts at 0
     
     
@@ -176,11 +183,9 @@ class EEImpController(Controller):
             desired_pos = np.array(self.goal_pos)
 
         if self.interpolator_ori is not None:
-            #relative orientation based on difference between current ori and ref
-            self.relative_ori = orientation_error(self.model.ee_ori_mat, self.ori_ref)
 
-            interpolated_results = self.interpolator_ori.get_interpolated_goal(self.relative_ori)
-            ori_error = interpolated_results[0:3]
+            desired_ori = T.quat2mat(self.interpolator_ori.get_interpolated_goal(self.model.ee_ori_quat))
+            ori_error = orientation_error(desired_ori, self.model.ee_ori_mat)
 
             if self.interpolator_ori.order == 4:
                 desired_vel_ori = interpolated_results[3:6]
