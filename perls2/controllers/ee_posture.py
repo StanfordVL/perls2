@@ -33,7 +33,7 @@ class EEPostureController(EEImpController):
                  uncouple_pos_ori=True, ):
         """ Initialize controller.
         """
-        self.posture_gain = posture_gain
+        self.posture_gain = np.asarray(posture_gain)
         self.goal_posture = np.asarray(posture)
         super(EEPostureController, self).__init__(
             robot_model=robot_model, 
