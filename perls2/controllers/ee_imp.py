@@ -117,6 +117,10 @@ class EEImpController(Controller):
         self.set_goal(np.zeros(6))
 
     def set_goal(self, delta, set_pos=None, set_ori=None, **kwargs):
+        if not (isinstance(set_pos, np.ndarray)) and set_pos is not None:
+            set_pos = np.array(set_pos)
+        if not (isinstance(set_ori, np.ndarray)) and set_ori is not None:
+            set_ori = np.array(set_ori)
         self.model.update()
 
         if delta is not None:
@@ -124,17 +128,25 @@ class EEImpController(Controller):
               raise ValueError("incorrect delta dimension")
 
             scaled_delta = self.scale_action(delta)
+            self.goal_ori = set_goal_orientation(scaled_delta[3:],
+                                                 self.model.ee_ori_mat,
+                                                 orientation_limit=self.orientation_limits,
+                                                 set_ori=set_ori)
+            self.goal_pos = set_goal_position(scaled_delta[:3],
+                                              self.model.ee_pos,
+                                              position_limit=self.position_limits,
+                                              set_pos=set_pos)
         else:
             scaled_delta = None
+            self.goal_ori = set_goal_orientation(None,
+                                                 self.model.ee_ori_mat,
+                                                 orientation_limit=self.orientation_limits,
+                                                 set_ori=T.quat2mat(set_ori))
+            self.goal_pos = set_goal_position(None,
+                                              self.model.ee_pos,
+                                              position_limit=self.position_limits,
+                                              set_pos=set_pos)
 
-        self.goal_ori = set_goal_orientation(scaled_delta[3:],
-                                             self.model.ee_ori_mat,
-                                             orientation_limit=self.orientation_limits,
-                                             set_ori=set_ori)
-        self.goal_pos = set_goal_position(scaled_delta[:3],
-                                          self.model.ee_pos,
-                                          position_limit=self.position_limits,
-                                          set_pos=set_pos)
 
         if self.interpolator_pos is not None:
             self.interpolator_pos.set_goal(self.goal_pos)
