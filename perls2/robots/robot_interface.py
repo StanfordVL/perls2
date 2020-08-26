@@ -63,16 +63,26 @@ class RobotInterface(object):
         if config is not None:
             world_name = config['world']['type']
             controller_config = config['controller'][world_name]
-            if config['controller']['interpolator']['type'] == 'linear':
-                self.interpolator = LinearInterpolator(max_dx=0.01, 
+            interp_pos_cfg = config['controller']['interpolator_pos']
+            if interp_pos_cfg['type'] == 'linear':
+                self.interpolator_pos = LinearInterpolator(max_dx=interp_pos_cfg['max_dx'], 
                                                        ndim=3, 
                                                        controller_freq=self.config['control_freq'], 
                                                        policy_freq=self.config['policy_freq'], 
-                                                       ramp_ratio=0.02)
+                                                       ramp_ratio=interp_pos_cfg['ramp_ratio'])
             else:
-                self.interpolator = None
-        self.interpolator_goal_set = False
+                self.interpolator_pos = None
+            interp_ori_cfg = config['controller']['interpolator_ori']
+            if interp_ori_cfg['type'] == 'linear':
+                self.interpolator_ori = LinearOriInterpolator(max_dx=interp_ori_cfg['max_dx'], 
+                                                       ndim=3, 
+                                                       controller_freq=self.config['control_freq'], 
+                                                       policy_freq=self.config['policy_freq'], 
+                                                       ramp_ratio=interp_ori_cfg['ramp_ratio'])
+            else:
+                self.interpolator_ori = None
 
+        self.interpolator_pos_goal_set = False
     def update(self):
         raise NotImplementedError
 
@@ -105,7 +115,7 @@ class RobotInterface(object):
             return EEImpController(self.model,
                 kp=controller_dict['kp'], 
                 damping=controller_dict['damping'],
-                interpolator_pos =self.interpolator,
+                interpolator_pos =self.interpolator_pos,
                 interpolator_ori=None,
                 control_freq=self.config['sim_params']['control_freq'])
         elif control_type == "EEPosture":
@@ -114,7 +124,7 @@ class RobotInterface(object):
                 damping=controller_dict['damping'],
                 posture_gain=controller_dict['posture_gain'],
                 posture=controller_dict['posture'],
-                interpolator_pos =self.interpolator,
+                interpolator_pos =self.interpolator_pos,
                 interpolator_ori=None,
                 input_max=np.array(controller_dict['input_max']),
                 input_min=np.array(controller_dict['input_min']),
@@ -139,7 +149,7 @@ class RobotInterface(object):
                 kp=controller_dict['kp'], 
                 damping=controller_dict['damping'],
                 posture_gain=controller_dict['posture_gain'],
-                interpolator_pos =self.interpolator,
+                interpolator_pos =self.interpolator_pos,
                 interpolator_ori=None,
                 control_freq=self.config['sim_params']['control_freq'])
         else: 

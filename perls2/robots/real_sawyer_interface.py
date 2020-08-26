@@ -45,6 +45,8 @@ class RealSawyerInterface(RealRobotInterface):
         """
         super().__init__(controlType=controlType, config=config)
         self.redisClient = RobotRedisInterface(**self.config['redis'])
+        logging.info("warming up redis connection - sleep for 10s")
+        time.sleep(10.0)
         self.update_model()
 
         logging.debug("Real Sawyer Interface created")
