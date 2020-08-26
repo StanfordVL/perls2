@@ -192,8 +192,8 @@ class RobotInterface(object):
         self.controller.set_goal(**kwargs)
         self.action_set = True
 
-    def check_controller(self, fn_control_type):
-        if self.controlType != fn_control_type:
+    def check_controller(self, fn_control_types):
+        if self.controlType not in fn_control_types:
             raise ValueError('Wrong Control Type for this command. Change to ' + fn_control_type)
 
     def move_ee_delta(self, delta, set_pos=None, set_ori=None):
@@ -223,7 +223,7 @@ class RobotInterface(object):
             if len(set_pos) != 3:
                 raise ValueError('set_pos incorrect dimensions, should be length 3')
 
-        self.check_controller("EEPosture")
+        self.check_controller(["EEImpedance", "EEPosture"])
 
         kwargs = {'delta': delta, 'set_pos': set_pos, 'set_ori':set_ori}
         self.set_controller_goal(**kwargs)
