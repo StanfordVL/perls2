@@ -130,13 +130,12 @@ class EEImpController(Controller):
             scaled_delta = self.scale_action(delta)
       # We only want to update goal orientation if there is a valid delta ori value
         # use math.isclose instead of numpy because numpy is slow
-            bools = [0. if math.isclose(elem, 0.) else 1. for elem in scaled_delta[3:]]
-            if sum(bools) > 0.:
-                self.goal_ori = set_goal_orientation(scaled_delta[3:],
+
+            self.goal_ori = set_goal_orientation(scaled_delta[3:],
                                                      self.model.ee_ori_mat,
                                                      orientation_limit=self.orientation_limits,
                                                      set_ori=set_ori,
-                                                     axis_angle=True)
+                                                     axis_angle=False)
 
             self.goal_pos = set_goal_position(scaled_delta[:3],
                                               self.model.ee_pos,
