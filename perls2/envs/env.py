@@ -127,7 +127,7 @@ class Env(gym.Env):
 
         return observation
 
-    def step(self, action):
+    def step(self, action, start=None):
         """Take a step.
 
         Execute the action first, then step the world.
@@ -136,12 +136,14 @@ class Env(gym.Env):
 
         Args:
             action: The action to take.
+            start: timestamp (time.time()) taken before policy computes action. 
+                This helps enforce policy frequency. 
         Returns:
             Observation, reward, termination, info for the environment
                 as a tuple.
         """
         self._exec_action(action)
-        self.world.step()
+        self.world.step(start)
         self.num_steps = self.num_steps+1
 
         termination = self._check_termination()

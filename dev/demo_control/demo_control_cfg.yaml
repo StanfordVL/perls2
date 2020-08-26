@@ -22,7 +22,7 @@ redis:
 #   port: 6379
 
 #policy_freq : 10 # Hz
-policy_freq: 20 # For gazebo? 
+policy_freq: 20.0 # For gazebo? 
 control_freq: 500 # Hz
 !include ../../cfg/sawyer.yaml
 !include ../../cfg/panda.yaml
@@ -144,7 +144,7 @@ controller:
       output_max: 1.0
       output_min: -1.0
     EEPosture:
-      kp: [100.0, 100.0, 100.0, 10., 10., 10.] #70 #50 #200 #75 #200 # P Gain for Impedance Control
+      kp: [60.0, 60.0, 60.0, 10., 10., 10.] #70 #50 #200 #75 #200 # P Gain for Impedance Control
       damping: 1.0 #1 #0.5 #1 #0.5 # Damping factor [0,1] 
       posture_gain: 5 #0.7
       input_max: 1.0

@@ -9,6 +9,7 @@ class Model:
 
         # robot states
         self.ee_pos = None
+        self.ee_ori_quat = None
         self.ee_ori_mat = None
         self.ee_pos_vel = None
         self.ee_ori_vel = None
@@ -42,7 +43,9 @@ class Model:
 
         if ee_ori.shape == (3, 3):
             self.ee_ori_mat = ee_ori
+            self.ee_ori_quat = T.mat2quat(ee_ori)
         elif ee_ori.shape[0] == 4:
+            self.ee_ori_quat = ee_ori
             self.ee_ori_mat = T.quat2mat(ee_ori)
         else:
             raise ValueError("orientation is not quaternion or matrix")

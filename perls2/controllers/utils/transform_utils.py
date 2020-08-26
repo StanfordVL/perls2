@@ -129,14 +129,14 @@ def quat_slerp(quat0, quat1, fraction, spin=0, shortestpath=True):
     elif fraction == 1.0:
         return q1
     d = np.dot(q0, q1)
-    if abs(abs(d) - 1.0) < _EPS:
+    if abs(abs(d) - 1.0) < EPS:
         return q0
     if shortestpath and d < 0.0:
         # invert rotation
         d = -d
         q1 *= -1.0
     angle = math.acos(d) + spin * math.pi
-    if abs(angle) < _EPS:
+    if abs(angle) < EPS:
         return q0
     isin = 1.0 / math.sin(angle)
     q0 *= math.sin((1.0 - fraction) * angle) * isin

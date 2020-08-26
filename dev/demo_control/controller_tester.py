@@ -86,9 +86,7 @@ class ControllerTester():
             self.demo_type = prompt_menu_selection("Demo", DEMO_TYPES)
         
         # Create demo based on control type and demo type. 
-        self.demo = OpSpaceDeltaDemo(self.ctrl_type, self.demo_type, False)
-
-        initial_state = self.demo.env.reset()
+        self.demo = OpSpaceDeltaDemo(self.ctrl_type, self.demo_type, True)
         # print(self.demo.env.robot_interface.ee_pose)
         self.demo.run()
         #self.demo.plot_error()
@@ -102,6 +100,9 @@ class Demo():
     """
     def __init__(self, ctrl_type, demo_type, use_abs):
         self.env = DemoControlEnv('dev/demo_control/demo_control_cfg.yaml', True, 'Demo Control Env')
+        print("warming up redis connection")
+        time.sleep(10.0)
+        print("initializing")
         self.ctrl_type = ctrl_type
         self.env.robot_interface.change_controller(self.ctrl_type)
         self.demo_type = demo_type
@@ -109,6 +110,7 @@ class Demo():
         self.actions = []
         self.states = []
         self.world_type = self.env.config['world']['type']
+        self.initial_pose = self.env.robot_interface.ee_pose
 
     def get_action_list(self):
         raise NotImplementedError
@@ -124,7 +126,7 @@ class Demo():
             new_state = self.get_state()
 
             self.states.append(new_state)
-            self.errors.append(self.compute_error(new_state))
+            self.errors.append(self.compute_error(self.env.robot_interface.ee_pose_euler))
             print(self.errors[-1])
 
     def save_data(self, name=None):
@@ -162,11 +164,11 @@ class Demo():
 class OpSpaceDemo(Demo):
     def __init__(self, ctrl_type, demo_type, use_abs):
         self.action_space_dim = 6
-        self.delta_val = 0.01
+        self.delta_val = 0.02
         super().__init__(ctrl_type, demo_type, use_abs)
 
-    def get_state(self): 
-        return self.env.robot_interface.ee_pose_euler
+    def get_state(self):
+        return self.env.robot_interface.ee_pose
 
     def get_action_list(self):
         raise NotImplementedError
@@ -174,10 +176,12 @@ class OpSpaceDemo(Demo):
 class OpSpaceDeltaDemo(OpSpaceDemo):
     def __init__(self, ctrl_type, demo_type, use_abs):
         super().__init__(ctrl_type, demo_type, use_abs)
-        self.init_state = self.get_state()
 
+        self.init_state = self.get_state()
+        self.states.append(self.init_state)
+        self.use_abs = use_abs
         if self.demo_type == "Square":
-            self.path = Square([0., 0., 0.], 2)
+            self.path = Square([0., 0., 0.], 10)
             # Get goal states based on demo and control type. 
             self.action_list = self.get_action_list()
             self.goal_states = self.get_goal_states()
@@ -193,29 +197,47 @@ class OpSpaceDeltaDemo(OpSpaceDemo):
         self.cmd_start_list = []
 
     def run(self):
-        self.env.reset()
+        #self.env.reset()
         for i, action in enumerate(self.action_list):
-            self.cmd_start_list.append(time.time())
-            self.env.step(action)          
+            print("Action:\t{}\n".format(action))
+            self.env.step(action, time.time())
             self.actions.append(action)
             new_state = self.get_state()
-
+            print(new_state)
             self.states.append(new_state)
-            self.errors.append(self.compute_error(self.goal_states[i], new_state))
+            self.errors.append(self.compute_error(self.goal_states[i], self.env.robot_interface.ee_pose_euler))
             # print(self.errors[-1])
         
-        np.savez('dev/sawyer_ctrl_timing/cmd_start_time.npz', tstamp=self.cmd_start_list, allow_pickle=True)
+        #np.savez('dev/sawyer_ctrl_timing/0821_time/0821_cmd_start_time.npz', start=self.cmd_start_list, allow_pickle=True)
+        np.savez(
+            'dev/sawyer_ctrl_accuracy/0821/0821_test_line', 
+            type=self.demo_type, 
+            states=self.states,
+            errors=self.errors, 
+            actions=self.actions, 
+            goal_states=self.goal_states, 
+            action_list=self.action_list, 
+            allow_pickle=True)
+
         self.env.robot_interface.disconnect()
+        self.plotxy()
 
     def get_goal_states(self):
 
         goal_states = [self.init_state]
-        for action in self.action_list:
-            goal_states.append(np.add(goal_states[-1], action*self.env.config['controller']['Real']['EEPosture']['output_max']))
+        if self.use_abs: 
+            goal_states = self.action_list
+        else:
+            for action in self.action_list:
+                goal_states.append(np.add(goal_states[-1], action*self.env.config['controller']['Real']['EEPosture']['output_max']))
         return goal_states
 
     def compute_error(self, goal, current):
-        return np.subtract(goal, current)
+        if self.use_abs:
+            error = np.subtract(goal[:3], current[:3])
+        else:
+            error = np.subtract(goal, current)
+        return error
         
     def get_action_list(self):
         """ Get action list for random demo.
@@ -229,12 +251,17 @@ class OpSpaceDeltaDemo(OpSpaceDemo):
 
         """
         if self.demo_type == "Zero": 
-            action_list = [np.zeros(6)]*500
+            if self.use_abs:
+                action_list = [np.array(self.initial_pose)]*10000
+            else:
+                action_list = [np.zeros(6)]*500
             return action_list
         if self.demo_type == "Line":
             delta = np.zeros(6)
-            delta[0] = 0.05
+            delta[2] = self.delta_val
+
             action_list = [delta]*5
+
             return action_list
         if self.demo_type == "Sequential":
             # Joint position delta demo. 
@@ -278,7 +305,10 @@ class OpSpaceDeltaDemo(OpSpaceDemo):
 
         plt.plot(goal_x, goal_y, '*r')
         plt.plot(state_x, state_y, '*b')
-        print(self.goal_states[len(self.states)])
+        plt.xlabel("X position")
+        plt.ylabel("y position")
+        plt.title("xy position - Goal [red] vs actual [blue]")
+        #print(self.goal_states[len(self.states)])
         print(self.states[-1])
 
         plt.show()
@@ -397,7 +427,7 @@ class Square(Path):
     def __init__(self, start_pos, side_num_pts):
         self.start_pos = start_pos
         self.side_num_pts = side_num_pts
-        self.deltaxy = 0.01
+        self.deltaxy = 0.02
         self.path = [[0, 0, 0]]
         self.make_path()
 
@@ -414,6 +444,33 @@ class Square(Path):
         # Top side
         for pt in range(self.side_num_pts):
             self.path.append([0.0, -self.deltaxy, 0.0])
+
+# class Line(Path):
+#     """ Class definition for straight line path. 
+#     """
+#     def __init__(self, direction, num_pts, delta):
+#         """
+#         Args: 
+#             direction (str): either 'x', 'y' or 'z'. 
+#             num_pts (int): num steps in line
+#             delta (float): distance to travel per step (m)
+#         """
+#         dim_index = {'x': 0, 'y':1, 'z':2}
+#         if direction not in ['x', 'y','z']:
+#             raise ValueError("Invalid line direction.")
+#         if num_pts * delta > 0.7:
+#             raise ValueError("Straight line value distance too great. Reduce delta or num_pts")
+
+#         self.path = []
+#         self.num_pts = num_pts
+#         self.delta = delta
+
+#         self.make_path()
+
+#     def make_path(self):
+#         for pt in range(self.num_pts):
+#             path_step = [0]*6
+#             self.path.append([])
 
 
 if __name__ == '__main__':

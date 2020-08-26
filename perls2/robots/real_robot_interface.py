@@ -175,6 +175,16 @@ class RealRobotInterface(RobotInterface):
         kwargs = {'cmd_type': "move_ee_delta", 'delta': delta.tolist(), 'set_pos': set_pos, 'set_ori':set_ori}
         self.set_controller_goal(**kwargs)
 
+    def set_ee_pose(self, des_pose):
+        """ Use controller to set end effector pose. 
+
+        Args: des pose (7f): [x, y , z, qx, qy, qz, w]. end effector pose as position + quaternion orientation
+
+        """
+        #self.check_controller("EEImpedance")
+        kwargs = {'cmd_type': "set_ee_pose", 'delta': None, 'set_pos': des_pose[:3].tolist(), 'set_ori': des_pose[3:].tolist()}
+        self.set_controller_goal(**kwargs)
+
     def set_controller_goal(self, cmd_type, **kwargs): 
         """ Set the appropriate redis keys for the robot command. Internal use only.
             

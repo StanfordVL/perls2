@@ -292,7 +292,7 @@ class BulletWorld(World):
         pybullet.resetSimulation(physicsClientId=self._physics_id)
         self._reinitialize()
 
-    def step(self):
+    def step(self, start=None):
         """Step the world(simulation) forward.
 
         Args:

@@ -74,7 +74,7 @@ class RealSawyerInterface(RealRobotInterface):
         }
         self.redisClient.mset(reset_cmd)
         # Wait for reset to be read by contrl interface. 
-        time.sleep(2)
+        time.sleep(5)
         start = time.time()
         while (self.redisClient.get(ROBOT_RESET_COMPL_KEY) != b'True' and
                (time.time() - start < self.RESET_TIMEOUT)):

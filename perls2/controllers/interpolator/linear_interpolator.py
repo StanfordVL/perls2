@@ -1,3 +1,4 @@
+from __future__ import division
 from perls2.controllers.interpolator.base_interpolator import Interpolator
 import numpy as np
 

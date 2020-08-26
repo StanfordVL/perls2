@@ -45,7 +45,7 @@ class RealWorld(World):
                                                  config=self.config,
                                                  controlType=self.config['controller']['selected_type'])
         
-        self.sensor_interface = KinectCameraInterface(self.config)
+        self.sensor_interface = None #KinectCameraInterface(self.config)
 
         self.is_sim = False
 
@@ -60,20 +60,23 @@ class RealWorld(World):
         # reload robot to restore body after any collisions
         self.robot_interface.reset()
 
-    def step(self):
+    def step(self, start=None):
         """Take a step.
 
-        Args: None
+        Args: 
+            start (float): time.time() timestamp taken from before policy computes action.
+                This is to enforce policy frequency.
         Returns: None
 
         Takes a step forward, since this happens naturally in reality, we don't
         do anything.
         """
-        start = time.time()
+        if start is None: 
+            start = time.time()
         self.robot_interface.step()
 
         while (time.time() - start) < (1./float(self.config['policy_freq'])):
-            time.sleep(.0001)
+            pass
         self.action_set = False
 
 
