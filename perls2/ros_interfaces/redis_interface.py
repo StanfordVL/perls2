@@ -98,3 +98,9 @@ class RobotRedisInterface(RedisInterface):
                 value (string, bytes): redis compatible value
         """
         self._client.set(key, value)
+
+    def flushall(self):
+        """Wrapper for FLUSHALL redis command. 
+        Deletes ALL keys and values. 
+        """
+        self._client.flushall()

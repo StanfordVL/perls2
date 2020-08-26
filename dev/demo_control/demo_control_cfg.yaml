@@ -13,7 +13,7 @@ real_params:
   nuc_hostname: "c3po-ctrl.stanford.edu" # Hostname for the NUC for real robot control. 
 
 redis: 
-  host: c3po-ctrl.stanford.edu
+  host: r2d2-ws.stanford.edu
   port: 6379
   password: "tarsbendervisiongoddardr2d2sawyerbb8"
 

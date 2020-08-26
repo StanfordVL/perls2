@@ -214,7 +214,7 @@ class RobotInterface(object):
                 raise ValueError('set_pos incorrect dimensions, should be length 3')
 
         self.check_controller("EEPosture")
-
+        print("delta {}".format(delta))
         kwargs = {'delta': delta, 'set_pos': set_pos, 'set_ori':set_ori}
         self.set_controller_goal(**kwargs)
 

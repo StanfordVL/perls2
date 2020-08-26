@@ -100,6 +100,8 @@ import socket
 from perls2.ros_interfaces.redis_interface import RobotRedisInterface as RobotRedis
 from perls2.ros_interfaces.redis_keys import *
 
+LOOP_LATENCY = 0.000
+LOOP_TIME = (1.0/500.0) - LOOP_LATENCY
 class SawyerCtrlInterface(RobotInterface):
     """ Class definition for Sawyer Control Interface. 
 
@@ -132,6 +134,10 @@ class SawyerCtrlInterface(RobotInterface):
 
 
         """
+        self.log_start_times = []
+        self.log_end_times = []
+        self.cmd_start_times = []
+        self.cmd_end_times = []
         # Connect to redis client
         # use default port 6379 at local host.
         # TODO:  match these up in cfg file later.
@@ -142,9 +148,9 @@ class SawyerCtrlInterface(RobotInterface):
 
         # self.redisClient = redis.Redis(**redis_kwargs)
 
-        # self.redisClient.flushall()
+        # 
         self.redisClient = RobotRedis(**self.config['redis'])
-            
+        self.redisClient.flushall()   
         self.current_state = "SETUP"
         ## Timing
         self.startTime = time.time()
@@ -156,11 +162,14 @@ class SawyerCtrlInterface(RobotInterface):
             world_name = self.config['world']['type']
             controller_config = self.config['controller'][world_name]
             if self.config['controller']['interpolator']['type'] == 'linear':
-                self.interpolator = LinearInterpolator(max_dx=0.5, 
-                                                       ndim=3, 
-                                                       controller_freq=1000, 
-                                                       policy_freq=20, 
-                                                       ramp_ratio=0.02)
+                interp_kwargs = {'max_dx': 0.1, 
+                                 'ndim': 3, 
+                                  'controller_freq': 500, 
+                                  'policy_freq' : 20, 
+                                  'ramp_ratio' :  0.2 }
+                self.interpolator_pos = LinearInterpolator(**interp_kwargs)
+                self.interpolator_ori = LinearInterpolator(**interp_kwargs)
+                rospy.loginfo("Linear interpolator created with params {}".format(interp_kwargs))
             else:
                 self.interpolator = None
         self.interpolator_goal_set = False
@@ -266,13 +275,13 @@ class SawyerCtrlInterface(RobotInterface):
 #                            InteractionControlCommand, queue_size = 1)
         rospy.loginfo('Sawyer initialization finished after {} seconds'.format(time.time() - start))
 
-        joint_state_topic = 'robot/joint_states'
-        _joint_state_sub = rospy.Subscriber(
-            joint_state_topic,
-            JointState,
-            self._on_joint_states,
-            queue_size=1,
-            tcp_nodelay=True)
+        # joint_state_topic = 'robot/joint_states'
+        # _joint_state_sub = rospy.Subscriber(
+        #     joint_state_topic,
+        #     JointState,
+        #     self._on_joint_states,
+        #     queue_size=1,
+        #     tcp_nodelay=True)
 
         # Set desired pose to initial
         curr_ee_pose = self.ee_pose
@@ -288,28 +297,44 @@ class SawyerCtrlInterface(RobotInterface):
             'set_joint_positions' : self.set_joint_positions
             }
 
-        # Set initial values for redis db
-        self.redisClient.set(ROBOT_CMD_TYPE_KEY, 'set_joint_positions')
-        self.redisClient.set(CONTROLLER_CONTROL_TYPE_KEY, 'JointImpedance')
-        # self.redisClient.set('robot::qd', str(self.neutral_joint_position))
-        self.redisClient.set(CONTROLLER_GOAL_KEY, 
-            json.dumps({'delta': None, 'set_qpos': self.neutral_joint_position}))
+        self.default_control_type = self.config['controller']['selected_type']
+        self.default_params = self.config['controller']['Real'][self.default_control_type]
+        self.redisClient.set(CONTROLLER_CONTROL_TYPE_KEY, self.default_control_type)
+        self.redisClient.set(CONTROLLER_CONTROL_PARAMS_KEY, json.dumps(self.default_params))
 
-        default_params = self.config['controller']['Real']['JointImpedance']
-        self.redisClient.set(CONTROLLER_CONTROL_PARAMS_KEY, json.dumps(default_params))
+        # Set initial values for redis db
+        # self.redisClient.set(ROBOT_CMD_TYPE_KEY, 'set_joint_positions')
+
+        # self.redisClient.set(CONTROLLER_CONTROL_TYPE_KEY, 'JointImpedance')
+        # # self.redisClient.set('robot::qd', str(self.neutral_joint_position))
+        # self.redisClient.set(CONTROLLER_GOAL_KEY, 
+        #     json.dumps({'delta': None, 'set_qpos': self.neutral_joint_position}))
+
+        # default_params = self.config['controller']['Real']['JointImpedance']
+        # self.redisClient.set(CONTROLLER_CONTROL_PARAMS_KEY, json.dumps(default_params))
+        
+
+        # Set initial redis keys
+        self._linear_jacobian = None
+        self._angular_jacobian = None
+        self._jacobian = None
+        self._calc_mass_matrix()
+        self._calc_jacobian() 
+            
+        self.update_redis()
 
         self.update_model()
 
+        self.controlType = self.get_control_type()
         self.control_dict = self.get_controller_params()
-        self.controller = self.make_controller_from_redis(controlType, self.control_dict)
+        self.controller = self.make_controller_from_redis(self.controlType, self.control_dict)
 
 
        # self.redisClient.set('robot::desired_ee_pose', str(curr_ee_pose))
         # self.redisClient.set('robot::env_connected', 'False')
         # self.redisClient.set('run_controller', 'False')
 
-        # Set initial redis keys
-        self.update_redis()
+
         # self.redisClient.set('robot::ee_position', str(self.ee_position))
 
         # self.redisClient.set('robot::ee_orientation', str(self.ee_orientation))
@@ -319,7 +344,7 @@ class SawyerCtrlInterface(RobotInterface):
         # self.redisClient.set('robot::tau_desired', str(self.tau))
 
         self.redisClient.set(ROBOT_CMD_TSTAMP_KEY, time.time())
-        self.last_cmd_tstamp = self.cmd_tstamp
+        self.last_cmd_tstamp = self.get_cmd_tstamp()
         rospy.logdebug('Control Interface initialized')
 
         # TIMING TEST ONLY
@@ -330,21 +355,32 @@ class SawyerCtrlInterface(RobotInterface):
         self.loop_times = []
         self.cmd_end_time = []
 
+        print("CURRENT EE_POSE {}".format(self.ee_pose))
+
+
+
     def make_controller_from_redis(self, control_type, controller_dict):
         print("Making controller {} with params: {}".format(control_type, controller_dict))
-
+        self.controlType = control_type
         if control_type == "EEImpedance":
             return EEImpController(self.model, 
-                    **controller_dict)
+                     interpolator_pos=self.interpolator_pos, 
+                     interpolator_ori=self.interpolator_ori, **controller_dict)
         elif control_type == "EEPosture":
             return EEPostureController(self.model, 
-                    **controller_dict)
+                     interpolator_pos=self.interpolator_pos, 
+                     interpolator_ori=self.interpolator_ori, **controller_dict)
         elif control_type =="JointImpedance":
             return JointImpController(self.model, 
                     **controller_dict)
 
+
+
     def get_controller_params(self):
         return self.redisClient.get(CONTROLLER_CONTROL_PARAMS_KEY)
+
+    def get_control_type(self):
+        return self.redisClient.get(CONTROLLER_CONTROL_TYPE_KEY)
 
     def reset_to_neutral(self):
         """Blocking call for resetting the arm to neutral position
@@ -575,52 +611,43 @@ class SawyerCtrlInterface(RobotInterface):
             objAccelerations=[0]*num_dof,
             physicsClientId=self._clid
             )
-        return linear_jacobian, angular_jacobian
+        
+        self._linear_jacobian = np.reshape(
+            linear_jacobian, (3, self.num_free_joints))
 
-    @property
+        self._angular_jacobian = np.reshape(
+            angular_jacobian, (3, self.num_free_joints))
+
+        self._jacobian = np.vstack(
+            (self._linear_jacobian[:,:len(self.q)],self._angular_jacobian[:,:len(self.q)]))
+
     def J(self, q=None):
         """ Calculate the full jacobian using pb.
         """
-        linear_jacobian, angular_jacobian = self._calc_jacobian(q)
-        linear_jacobian = np.reshape(
-            linear_jacobian, (3, self.num_free_joints))
-
-        angular_jacobian = np.reshape(
-            angular_jacobian, (3, self.num_free_joints))
-
-        jacobian = np.vstack(
-            (linear_jacobian[:,:len(self.q)],angular_jacobian[:,:len(self.q)]))
-
-        return jacobian
+        return self._jacobian
 
     @property
     def linear_jacobian(self):
         """The linear jacobian x_dot = J_t*q_dot
         """
-
-        linear_jacobian, _ = self._calc_jacobian(self.q)
-        linear_jacobian = np.reshape(
-            linear_jacobian, (3, self.num_free_joints))
-
-        return linear_jacobian[:,:7]
+        return self._linear_jacobian[:,:7]
 
     @property
     def angular_jacobian(self):
         """The linear jacobian x_dot = J_t*q_dot
         """
-
-        _, angular_jacobian = self._calc_jacobian(self.q)
-        angular_jacobian = np.reshape(
-            angular_jacobian, (3, self.num_free_joints))
-        
-        return angular_jacobian[:,:7]
+        return self._angular_jacobian[:,:7]
 
     @property
     def mass_matrix(self):
+        return self._mass_matrix
+
+    def _calc_mass_matrix(self):
         mass_matrix = pb.calculateMassMatrix(self._pb_sawyer, 
             self.q, 
             physicsClientId=self._clid)
-        return np.array(mass_matrix)[:7,:7]
+        self._mass_matrix =  np.array(mass_matrix)[:7,:7]
+
     
     @property 
     def torque_compensation(self):
@@ -651,17 +678,20 @@ class SawyerCtrlInterface(RobotInterface):
         """
 
         self.update_model()
+     
         if self.action_set:     
             #t1 = time.time()
+
             torques = self.controller.run_controller() 
-            #self.controller_times.append(time.time() - start)
+            #self.set_torques([0]*7)
+        
             self.set_torques(torques)
-            if self.new_cmd:
-                self.cmd_end_time.append(time.time())
-                self.new_cmd = False
-            while (time.time() - start < 1.0/500.0):
+ 
+
+            while (time.time() - start < LOOP_TIME):
                 pass 
                 #time.sleep(.00001)
+
 
         else:
             pass
@@ -707,7 +737,7 @@ class SawyerCtrlInterface(RobotInterface):
         """
         assert len(desired_torques) == len(self._joint_names), \
             'Input number of torque values must match the number of joints'
-
+        #print(desired_torques)
         command = {self._joint_names[i]: desired_torques[i] for i in range(len(self._joint_names))}
 
         self._limb.set_joint_torques(command)
@@ -730,6 +760,9 @@ class SawyerCtrlInterface(RobotInterface):
 
 
     def update_model(self):
+        self._calc_jacobian()
+        self._calc_mass_matrix()
+
         orn = R.from_quat(self.ee_orientation)
         self.model.update_states(ee_pos=np.asarray(self.ee_position),
                                  ee_ori= np.asarray(self.ee_orientation),
@@ -964,76 +997,88 @@ class SawyerCtrlInterface(RobotInterface):
 
     @property 
     def controlType(self):
-        return self.redisClient.get(CONTROLLER_CONTROL_TYPE_KEY)
+        return self._controlType
+        #return self.redisClient.get(CONTROLLER_CONTROL_TYPE_KEY)
+    
+    @controlType.setter
+    def controlType(self, new_type):
+        self._controlType = new_type 
 
-    @property
-    def cmd_tstamp(self):
+    def get_cmd_tstamp(self):
         return self.redisClient.get(ROBOT_CMD_TSTAMP_KEY)
 
     def process_cmd(self, cmd_type, controller_goal):
         # print("CMD TYPE {}".format(self.cmd_type))
 
         # todo hack for states.         
-        self.redisClient.set(ROBOT_RESET_COMPL_KEY, 'False')
+        
 
-        if (cmd_type == b'set_ee_pose'):
-            rospy.loginfo('des_pose ' + str(self.desired_ee_pose))
-            #rospy.loginfo('prev Cmd ' + str(ctrlInterface.prev_cmd))
-            #if not np.array_equal(ctrlInterface.prev_cmd,desired_pose):
-            # TODO: get rid of all prev_cmd for debugging
-            self.prev_cmd = self.desired_ee_pose
-            self.ee_pose = self.desired_ee_pose
+        if (cmd_type == b"set_ee_pose"):
+            self.set_ee_pose(**controller_goal)
         elif (cmd_type == b'move_ee_delta'):
             self.move_ee_delta(**controller_goal)
-        elif(cmd_type == b'set_joint_positions'):
-            print("joint position command received")
-            #self.check_controller("JointImpedance")
-            self.set_joint_positions(**controller_goal)
-        elif(cmd_type == b'set_joint_delta'):
-            self.set_joint_delta(**controller_goal)
-        elif (cmd_type == b'torque'):
-            raise NotImplementedError
-            #self.tau = self.desired_torque
+
+        # elif(cmd_type == b'set_joint_positions'):
+        #     print("joint position command received")
+        #     #self.check_controller("JointImpedance")
+        #     self.set_joint_positions(**controller_goal)
+        # elif(cmd_type == b'set_joint_delta'):
+        #     self.set_joint_delta(**controller_goal)
+        # elif (cmd_type == b'torque'):
+        #     raise NotImplementedError
+        #     #self.tau = self.desired_torque
         elif(cmd_type == b'reset_to_neutral'):
+
+            self.redisClient.set(ROBOT_RESET_COMPL_KEY, 'False')
             self.reset_to_neutral()
-        elif(cmd_type == b'ee_delta'):
-            raise NotImplementedError
-            #self.move_ee_delta(self.desired_state)
+        # elif(cmd_type == b'ee_delta'):
+        #     raise NotImplementedError
+        #     #self.move_ee_delta(self.desired_state)
+        elif cmd_type ==b'IDLE':
+            # make sure action set if false
+            self.action_set = False
+            return
+        elif cmd_type == b'CHANGE_CONTROLLER':
+            self.controller = self.make_controller_from_redis(self.get_control_type(),
+                self.get_controller_params())
         else:
-            rospy.logwarn('Unknown command')
+            rospy.logwarn("Unknown command{}".format(cmd_type))
  
     def check_for_new_cmd(self):
-
-        if self.last_cmd_tstamp is None or (self.last_cmd_tstamp!= self.cmd_tstamp):
+        cmd_tstamp = self.get_cmd_tstamp()
+        if self.last_cmd_tstamp is None or (self.last_cmd_tstamp!=cmd_tstamp):
+            self.last_cmd_tstamp = cmd_tstamp
             return True
         else:
             return False
 
     def run(self):
-        if (self.env_connected == b'True'):
-
-            self.control_dict = self.get_controller_params()
-            self.controller = self.make_controller_from_redis(self.controlType, self.control_dict)
-
+        # if (self.env_connected == b'True'):
+        #     self.controller = self.make_controller_from_redis(self.get_control_type(), self.get_controller_params())
         # TODO: Run controller once to initalize numba
-        while (self.env_connected == b'True'):
+
+        while True:
             start = time.time()
-        # self.loop_times.append(start)
-            if self.check_for_new_cmd():
-                self.new_cmd = True
-                self.process_cmd(self.cmd_type, self.controller_goal)
-                if self.cmd_tstamp is not None:
-                    self.last_cmd_tstamp = self.cmd_tstamp
-                    # Just for debugging
-                    self.redisClient.set(ROBOT_LAST_CMD_TSTAMP, self.last_cmd_tstamp)
-            self.step(start)
-        np.savez('dev/sawyer_ctrl_timing/run_controller_times.npz', delay=np.array(self.controller_times), allow_pickle=True)
-        np.savez('dev/sawyer_ctrl_timing/sawyer_ctrl_loop_times.npz', tstamps=np.array(self.loop_times), allow_pickle=True)
-        np.savez('dev/sawyer_ctrl_timing/cmd_end_times.npz', tstamps=np.array(self.cmd_end_time), allow_pickle=True)
+            self.log_start_times.append(start)
+            if (self.env_connected == b'True'):
+                if self.check_for_new_cmd():
+                    self.process_cmd(self.cmd_type, self.controller_goal)
+                self.step(start)
+            else:
+                break
+        #self.log_start_times.append(time.time())
+        np.savez('dev/sawyer_ctrl_timing/0821_time_nuc/0821_ctrl_loop_sq.npz', start=np.array(self.log_start_times), end=np.array(self.log_end_times), allow_pickle=True)
+        #np.savez('dev/sawyer_ctrl_timing/0821_time_nuc/0821_cmd_times.npz', start=np.array(self.cmd_start_times), end=np.array(self.cmd_end_times), allow_pickle=True)
+        # np.savez('dev/sawyer_ctrl_timing/run_controller_times.npz', delay=np.array(self.controller_times), allow_pickle=True)
+        # np.savez('dev/sawyer_ctrl_timing/sawye_ctrl_loop_times.npz', tstamps=np.array(self.loop_times), allow_pickle=True)
+        # np.savez('dev/sawyer_ctrl_timing/cmd_end_times.npz', tstamps=np.array(self.cmd_end_time), allow_pickle=True)
 
 
-    def _on_joint_states(self, msg):
-        self.update_redis()
+    # def _on_joint_states(self, msg):
+    #     pass
+    #     # self.calc_mass_matrix()
+    #     # self._calc_jacobian() 
+    #     #self.update_redis()
 
 
 
@@ -1046,15 +1091,14 @@ if __name__ == "__main__":
     ctrlInterface = SawyerCtrlInterface(use_safenet=False, use_moveit=False)
     # Control Loop
     threshold = 0.05
+    rospy.loginfo("warming up redis...")
+    rospy.sleep(10.0)
     rospy.loginfo("waiting for environment ... ")
     while (ctrlInterface.env_connected != b'True'):
         # do nothing until the environment is connected
         pass
-
     #if (ctrlInterface.redisClient.get('env_connected') == b'True'):
-
-
-    rospy.loginfo('Running control loop')
+    rospy.loginfo('Environment connected... entering control loop')
     ctrlInterface.run()
 
     # Timing test: 
