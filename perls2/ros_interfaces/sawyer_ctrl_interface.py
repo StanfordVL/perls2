@@ -90,6 +90,7 @@ from perls2.controllers.ee_imp import EEImpController
 from perls2.controllers.ee_posture import EEPostureController
 from perls2.controllers.joint_imp import JointImpController
 from perls2.controllers.interpolator.linear_interpolator import LinearInterpolator
+from perls2.controllers.interpolator.linear_ori_interpolator import LinearOriInterpolator
 from perls2.controllers.robot_model.model import Model
 
 from perls2.utils.yaml_config import YamlConfig
@@ -162,13 +163,13 @@ class SawyerCtrlInterface(RobotInterface):
             world_name = self.config['world']['type']
             controller_config = self.config['controller'][world_name]
             if self.config['controller']['interpolator']['type'] == 'linear':
-                interp_kwargs = {'max_dx': 0.1, 
+                interp_kwargs = {'max_dx': 0.5, 
                                  'ndim': 3, 
                                   'controller_freq': 500, 
                                   'policy_freq' : 20, 
                                   'ramp_ratio' :  0.2 }
                 self.interpolator_pos = LinearInterpolator(**interp_kwargs)
-                self.interpolator_ori = LinearInterpolator(**interp_kwargs)
+                self.interpolator_ori = None#LinearOriInterpolator(**interp_kwargs)
                 rospy.loginfo("Linear interpolator created with params {}".format(interp_kwargs))
             else:
                 self.interpolator = None
