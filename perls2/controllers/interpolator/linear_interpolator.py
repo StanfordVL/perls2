@@ -37,7 +37,7 @@ class LinearInterpolator(Interpolator):
     '''
     def set_goal(self, goal):
         # First, check to make sure requested goal shape is the same as self.dim
-    	if goal.shape[0] != self.dim:
+        if goal.shape[0] != self.dim:
                 print("Requested goal: {}".format(goal))
                 raise ValueError("LinearInterpolator: Input size wrong for goal; needs to be {}!".format(self.dim))
 
