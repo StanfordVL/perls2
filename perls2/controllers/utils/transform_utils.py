@@ -704,3 +704,15 @@ def get_pose_error(target_pose, current_pose):
     error[:3] = pos_err
     error[3:] = rot_err
     return error
+
+def convert_euler_quat_2mat(ori):
+    """Convert an euler or quaternion to matrix for orientation error.
+    """
+    if len(ori) == 3: 
+        # Euler angles. 
+        return euler2mat(ori)
+    elif len(ori) == 4:
+        return quat2mat(ori)
+    else:
+        raise ValueError("Invalid orientation dim of len {}".format(len(ori)))
+                

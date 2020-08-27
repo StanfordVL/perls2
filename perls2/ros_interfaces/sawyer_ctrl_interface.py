@@ -612,7 +612,7 @@ class SawyerCtrlInterface(RobotInterface):
             objAccelerations=[0]*num_dof,
             physicsClientId=self._clid
             )
-        
+
         self._linear_jacobian = np.reshape(
             linear_jacobian, (3, self.num_free_joints))
 
@@ -620,8 +620,10 @@ class SawyerCtrlInterface(RobotInterface):
             angular_jacobian, (3, self.num_free_joints))
 
         self._jacobian = np.vstack(
-            (self._linear_jacobian[:,:len(self.q)],self._angular_jacobian[:,:len(self.q)]))
+            (self._linear_jacobian[:,:len(self.q)], self._angular_jacobian[:,:len(self.q)]))
+        return linear_jacobian, angular_jacobian
 
+    @property
     def J(self, q=None):
         """ Calculate the full jacobian using pb.
         """
@@ -636,7 +638,7 @@ class SawyerCtrlInterface(RobotInterface):
     @property
     def angular_jacobian(self):
         """The linear jacobian x_dot = J_t*q_dot
-        """
+        """    
         return self._angular_jacobian[:,:7]
 
     @property
@@ -648,7 +650,6 @@ class SawyerCtrlInterface(RobotInterface):
             self.q, 
             physicsClientId=self._clid)
         self._mass_matrix =  np.array(mass_matrix)[:7,:7]
-
     
     @property 
     def torque_compensation(self):
@@ -1080,8 +1081,6 @@ class SawyerCtrlInterface(RobotInterface):
     #     # self.calc_mass_matrix()
     #     # self._calc_jacobian() 
     #     #self.update_redis()
-
-
 
 ### MAIN ###
 if __name__ == "__main__":
