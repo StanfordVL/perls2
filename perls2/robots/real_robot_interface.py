@@ -171,18 +171,22 @@ class RealRobotInterface(RobotInterface):
         if set_pos is not None:
             if len(set_pos) != 3:
                 raise ValueError('set_pos incorrect dimensions, should be length 3')
-
+        print("delta {}".format(delta))
         kwargs = {'cmd_type': "move_ee_delta", 'delta': delta.tolist(), 'set_pos': set_pos, 'set_ori':set_ori}
         self.set_controller_goal(**kwargs)
 
-    def set_ee_pose(self, des_pose):
+    def set_ee_pose(self, set_pos, set_ori, **kwargs):
         """ Use controller to set end effector pose. 
 
         Args: des pose (7f): [x, y , z, qx, qy, qz, w]. end effector pose as position + quaternion orientation
 
         """
         #self.check_controller("EEImpedance")
-        kwargs = {'cmd_type': "set_ee_pose", 'delta': None, 'set_pos': des_pose[:3].tolist(), 'set_ori': des_pose[3:].tolist()}
+        if not isinstance(set_pos, list):
+            set_pos = set_pos.tolist()
+        if not isinstance(set_ori, list):
+            set_ori = set_ori.tolist()
+        kwargs = {'cmd_type': "set_ee_pose", 'delta': None, 'set_pos': set_pos, 'set_ori': set_ori}
         self.set_controller_goal(**kwargs)
 
     def set_controller_goal(self, cmd_type, **kwargs): 

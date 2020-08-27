@@ -77,10 +77,10 @@ class EEImpController(Controller):
 
         super(EEImpController, self).__init__()
         # input and output max and min
-        self.input_max = input_max
-        self.input_min = input_min
-        self.output_max = output_max
-        self.output_min = output_min
+        self.input_max = np.array(input_max)
+        self.input_min = np.array(input_min)
+        self.output_max = np.array(output_max)
+        self.output_min = np.array(output_min)
 
         # limits
         self.position_limits = position_limits
@@ -129,14 +129,14 @@ class EEImpController(Controller):
 
             scaled_delta = self.scale_action(delta)
       # We only want to update goal orientation if there is a valid delta ori value
-        # use math.isclose instead of numpy because numpy is slow
-            bools = [0. if math.isclose(elem, 0.) else 1. for elem in scaled_delta[3:]]
-            if sum(bools) > 0.:
-                self.goal_ori = set_goal_orientation(scaled_delta[3:],
+        # use math.isclose insad of numpy because numpy is slow
+            # bools = [0. if np.isclose(elem, 0.) else 1. for elem in scaled_delta[3:]]
+            # if sum(bools) > 0.
+            self.goal_ori = set_goal_orientation(scaled_delta[3:],
                                                      self.model.ee_ori_mat,
                                                      orientation_limit=self.orientation_limits,
                                                      set_ori=set_ori,
-                                                     axis_angle=True)
+                                                     axis_angle=False)
 
             self.goal_pos = set_goal_position(scaled_delta[:3],
                                               self.model.ee_pos,

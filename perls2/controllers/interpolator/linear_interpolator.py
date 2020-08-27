@@ -26,7 +26,7 @@ class LinearInterpolator(Interpolator):
         self.order = 1                                             # Order of the interpolator (1 = linear)
         self.step = 0                                              # Current step of the interpolator
         self.total_steps = \
-            np.floor(ramp_ratio * controller_freq / policy_freq)   # Total num steps per interpolator action
+            np.floor(ramp_ratio * float(controller_freq) / float(policy_freq))   # Total num steps per interpolator action
 
     '''
     set_goal: Takes a requested goal and updates internal parameters for next interpolation step
@@ -38,8 +38,8 @@ class LinearInterpolator(Interpolator):
     def set_goal(self, goal):
         # First, check to make sure requested goal shape is the same as self.dim
         if goal.shape[0] != self.dim:
-            print("Requested goal: {}".format(goal))
-            raise ValueError("LinearInterpolator: Input size wrong for goal; needs to be {}!".format(self.dim))
+                print("Requested goal: {}".format(goal))
+                raise ValueError("LinearInterpolator: Input size wrong for goal; needs to be {}!".format(self.dim))
 
         # Update goal and reset interpolation step
         self.goal = np.array(goal)

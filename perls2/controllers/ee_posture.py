@@ -106,8 +106,7 @@ class EEPostureController(EEImpController):
         if self.interpolator_ori is not None:
             #relative orientation based on difference between current ori and ref
             self.relative_ori = orientation_error(self.model.ee_ori_mat, self.ori_ref)
-
-            interpolated_results = self.interpolator_ori.get_interpolated_goal(self.relative_ori)
+            interpolated_results = self.interpolator_ori.get_interpolated_goal(self.model.ee_ori)
             ori_error = interpolated_results[0:3]
 
             if self.interpolator_ori.order == 4:

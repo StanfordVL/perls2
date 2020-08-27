@@ -11,15 +11,15 @@ sim_params:
   MAX_STEPS: 500
 real_params: 
   nuc_hostname: "c3po-ctrl.stanford.edu" # Hostname for the NUC for real robot control. 
+  
+# redis: 
+#   host: c3po-ctrl.stanford.edu
+#   port: 6379
+#   password: "tarsbendervisiongoddardr2d2sawyerbb8"
 
 redis: 
-  host: c3po-ctrl.stanford.edu
+  host: localhost
   port: 6379
-  password: "tarsbendervisiongoddardr2d2sawyerbb8"
-
-# redis: 
-#   host: localhost
-#   port: 6379
 
 #policy_freq : 10 # Hz
 policy_freq: 20.0 # For gazebo? 
@@ -81,10 +81,10 @@ sensor:
           upper: 150
 
 controller:
-  selected_type: 'EEPosture' # Choose between 'EEImpedance', 'JointVelocity'
+  selected_type: 'EEImpedance' # Choose between 'EEImpedance', 'JointVelocity'
   Bullet:
     EEImpedance:
-      kp: [80.0, 80.0, 80.0, 10., 10., 10.] #70 #50 #200 #75 #200 # P Gain for Impedance Control
+      kp: [65.0, 65.0, 65.0, 10., 10., 10.] #70 #50 #200 #75 #200 # P Gain for Impedance Control
       damping: 1.0 #1 #0.5 #1 #0.5 # Damping factor [0,1] 
       input_max: 1.0
       input_min: -1.0
@@ -151,9 +151,15 @@ controller:
       input_min: -1.0
       output_max: 1.0
       output_min: -1.0
-  interpolator:
+  interpolator_pos:
       type: 'linear'
       order: 1
+      max_dx: 0.2
+      ramp_ratio: 0.2
+  interpolator_ori: 
+      type: 'None' #'linear'
+    # max_dx: 0.01
+    # ramp_ratio: 0.2
 
 object: 
   'None'
