@@ -113,7 +113,7 @@ class SawyerCtrlInterface(RobotInterface):
     """
     def __init__(self, 
                  config='cfg/sawyer_ctrl_config.yaml', 
-                 controlType='JointImpedance',
+                 controlType='EEImpedance',
                  use_safenet=False,
                  use_moveit=False,
                  node_name='sawyer_interface'):
@@ -304,6 +304,7 @@ class SawyerCtrlInterface(RobotInterface):
         self.redisClient.set(CONTROLLER_CONTROL_PARAMS_KEY, json.dumps(self.default_params))
 
         # Set initial values for redis db
+
         # self.redisClient.set(ROBOT_CMD_TYPE_KEY, 'set_joint_positions')
 
         # self.redisClient.set(CONTROLLER_CONTROL_TYPE_KEY, 'JointImpedance')
@@ -324,10 +325,12 @@ class SawyerCtrlInterface(RobotInterface):
             
         self.update_redis()
 
+
         self.update_model()
 
         self.controlType = self.get_control_type()
         self.control_dict = self.get_controller_params()
+
         self.controller = self.make_controller_from_redis(self.controlType, self.control_dict)
 
 
@@ -1014,8 +1017,8 @@ class SawyerCtrlInterface(RobotInterface):
 
         # todo hack for states.         
         
-
         if (cmd_type == b"set_ee_pose"):
+
             self.set_ee_pose(**controller_goal)
         elif (cmd_type == b'move_ee_delta'):
             self.move_ee_delta(**controller_goal)
@@ -1069,7 +1072,7 @@ class SawyerCtrlInterface(RobotInterface):
             else:
                 break
         #self.log_start_times.append(time.time())
-        np.savez('dev/sawyer_ctrl_timing/0821_time_nuc/0821_ctrl_loop_sq.npz', start=np.array(self.log_start_times), end=np.array(self.log_end_times), allow_pickle=True)
+        #np.savez('dev/sawyer_ctrl_timing/0821_time_nuc/0821_ctrl_loop_sq.npz', start=np.array(self.log_start_times), end=np.array(self.log_end_times), allow_pickle=True)
         #np.savez('dev/sawyer_ctrl_timing/0821_time_nuc/0821_cmd_times.npz', start=np.array(self.cmd_start_times), end=np.array(self.cmd_end_times), allow_pickle=True)
         # np.savez('dev/sawyer_ctrl_timing/run_controller_times.npz', delay=np.array(self.controller_times), allow_pickle=True)
         # np.savez('dev/sawyer_ctrl_timing/sawye_ctrl_loop_times.npz', tstamps=np.array(self.loop_times), allow_pickle=True)

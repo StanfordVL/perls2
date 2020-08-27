@@ -101,7 +101,7 @@ class OpSpaceDemo(Demo):
             print(new_state)
             self.states.append(new_state)
             self.errors.append(self.compute_error(self.goal_states[i], new_state))
-        
+        self.env.robot_interface.disconnect()
         if self.plot_error:
             self.plot_errors()
         if self.plot_pos:

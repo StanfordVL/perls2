@@ -77,10 +77,10 @@ class EEImpController(Controller):
 
         super(EEImpController, self).__init__()
         # input and output max and min
-        self.input_max = input_max
-        self.input_min = input_min
-        self.output_max = output_max
-        self.output_min = output_min
+        self.input_max = np.array(input_max)
+        self.input_min = np.array(input_min)
+        self.output_max = np.array(output_max)
+        self.output_min = np.array(output_min)
 
         # limits
         self.position_limits = position_limits

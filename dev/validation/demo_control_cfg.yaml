@@ -1,6 +1,6 @@
 # Cfg file for  Demo control environment 
 world:
-  type: 'Bullet' #'Bullet'
+  type: 'Real' #'Bullet'
   robot: 'sawyer' #'panda'
 data_dir: 'data'
 # Simulation parameters
@@ -11,15 +11,15 @@ sim_params:
   MAX_STEPS: 500
 real_params: 
   nuc_hostname: "c3po-ctrl.stanford.edu" # Hostname for the NUC for real robot control. 
+  
+# redis: 
+#   host: c3po-ctrl.stanford.edu
+#   port: 6379
+#   password: "tarsbendervisiongoddardr2d2sawyerbb8"
 
 redis: 
-  host: r2d2-ws.stanford.edu
+  host: localhost
   port: 6379
-  password: "tarsbendervisiongoddardr2d2sawyerbb8"
-
-# redis: 
-#   host: localhost
-#   port: 6379
 
 #policy_freq : 10 # Hz
 policy_freq: 20.0 # For gazebo? 
