@@ -707,6 +707,7 @@ class SawyerCtrlInterface(RobotInterface):
 
             torques = self.controller.run_controller() 
             #self.set_torques([0]*7)
+            torques = np.clip(torques, -5.0, 5.0)
         
             self.set_torques(torques)
  
