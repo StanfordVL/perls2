@@ -172,7 +172,8 @@ class SawyerCtrlInterface(RobotInterface):
                 self.interpolator_ori = None#LinearOriInterpolator(**interp_kwargs)
                 rospy.loginfo("Linear interpolator created with params {}".format(interp_kwargs))
             else:
-                self.interpolator = None
+                self.interpolator_pos = None
+                self.interpolator_ori = None
         self.interpolator_goal_set = False
 
         start = time.time()
@@ -253,11 +254,21 @@ class SawyerCtrlInterface(RobotInterface):
         # TODO: make this not hard coded
         sawyer_urdf_path = self.config['sawyer']['arm']['path']
 
-        self._pb_sawyer = pb.loadURDF(sawyer_urdf_path,
-                                      (0, 0, 0),
-                                      useFixedBase=True, 
-                                      physicsClientId=self._clid)
-
+        # self._pb_sawyer = pb.loadURDF(sawyer_urdf_path,
+        #                               (0, 0, 0),
+        #                               useFixedBase=True, 
+        #                               physicsClientId=self._clid)
+        self._pb_sawyer = pb.loadURDF(
+            fileName=sawyer_urdf_path,
+            basePosition=self.config['sawyer']['arm']['pose'],
+            baseOrientation=pb.getQuaternionFromEuler(
+                                    self.config['sawyer']['arm']['orn']),
+            globalScaling=1.0,
+            useFixedBase=self.config['sawyer']['arm']['is_static'],
+            flags=pb.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT | pb.URDF_USE_INERTIA_FROM_FILE,
+            physicsClientId=self._clid)
+        # For pybullet dof
+        self._motor_joint_positions = self.get_motor_joint_positions()
         try:
             ns = "ExternalTools/right/PositionKinematicsNode/IKService"
             self._iksvc = rospy.ServiceProxy(ns, SolvePositionIK)
@@ -556,6 +567,9 @@ class SawyerCtrlInterface(RobotInterface):
 
     @property
     def motor_joint_positions(self):
+        return self._motor_joint_positions
+
+    def get_motor_joint_positions(self):
         """ returns the motor joint positions for "each DoF" according to pb.
 
         Note: fixed joints have 0 degrees of freedoms.
@@ -593,23 +607,25 @@ class SawyerCtrlInterface(RobotInterface):
 
         return joint_velocities
 
-    def _calc_jacobian(self, q=None):
+    def _calc_jacobian(self, q=None, dq=None, localPos=None):
         if q is None:
             q = self.q
-
+        if dq is None:
+            dq = self.dq 
+        if localPos is None:
+            localPos = [0, 0, 0]
         num_dof = len(self.motor_joint_positions)
 
         # append zeros to q to fit pybullet
-        q = self.q
-        dq = self.dq 
-        for extra_dof in range(num_dof - len(self.q)):
+
+        for extra_dof in range(num_dof - len(q)):
             q.append(0)
             dq.append(0)
 
         linear_jacobian, angular_jacobian = pb.calculateJacobian(
             bodyUniqueId=self._pb_sawyer,
             linkIndex=6,
-            localPosition=[9.3713e-08,    0.28673,  -0.237291],
+            localPosition=localPos,
             objPositions=q,#[:num_dof],
             objVelocities=dq,#[:num_dof],
             objAccelerations=[0]*num_dof,
@@ -648,9 +664,11 @@ class SawyerCtrlInterface(RobotInterface):
     def mass_matrix(self):
         return self._mass_matrix
 
-    def _calc_mass_matrix(self):
+    def _calc_mass_matrix(self, q=None):
+        if q is None:
+            q = self.q
         mass_matrix = pb.calculateMassMatrix(self._pb_sawyer, 
-            self.q, 
+            q, 
             physicsClientId=self._clid)
         self._mass_matrix =  np.array(mass_matrix)[:7,:7]
     
