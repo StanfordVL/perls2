@@ -192,12 +192,6 @@ class SawyerCtrlInterface(RobotInterface):
         self._limb = iif.Limb(limb="right", synchronous_pub=False)
         self._joint_names = self._limb.joint_names()
 
-        self._use_safenet = use_safenet
-        if self._use_safenet:
-            self.safenet = SafenetMonitor('right_hand')
-
-        self.transform_matrix = None
-
         self.cmd = []
 
         try:
@@ -214,36 +208,6 @@ class SawyerCtrlInterface(RobotInterface):
         self.blocking = False
         # Initialize motion planning part
         self._use_moveit = use_moveit
-        if use_moveit:
-            moveit_commander.roscpp_initialize(sys.argv)
-            self._moveit_robot = moveit_commander.RobotCommander()
-            self._moveit_scene = moveit_commander.PlanningSceneInterface()
-            self._moveit_group = moveit_commander.MoveGroupCommander("right_arm")
-            self._moveit_group.allow_replanning(True)
-            self._moveit_group.set_pose_reference_frame('world')
-            # Allow some leeway in position(meters) and orientation (radians)
-            self._moveit_group.set_goal_position_tolerance(0.005)
-            self._moveit_group.set_goal_orientation_tolerance(0.05)
-            print_msg = "The robot groups are: {0}".format( self._moveit_robot.get_group_names())
-            rospy.loginfo(print_msg)
-            print_msg = "Any planning will be performed relative to the {0} reference frame".format(
-                self._moveit_group.get_planning_frame())
-            rospy.loginfo(print_msg)
-            print_msg = "The command group is '{0}'".format( self._moveit_group.get_name())
-            rospy.loginfo(print_msg)
-            print_msg = "The {0} group has active joints: {1}".format(self._moveit_group.get_name(),
-                                                            self._moveit_group.get_active_joints())
-            rospy.loginfo(print_msg)
-            print_msg = "Its end effector link is: {0}".format(
-                self._moveit_group.get_end_effector_link())
-            rospy.loginfo(print_msg)
-            self._cartesian_path_service = rospy.ServiceProxy('compute_cartesian_path',
-                                                              GetCartesianPath)
-            self._js_path_service = rospy.ServiceProxy('plan_kinematic_path', GetMotionPlan)
-            self._js_path_action = actionlib.SimpleActionClient('move_group', MoveGroupAction)
-            self._js_path_action.wait_for_server()
-
-
         # get an instance of RosPack with the default search paths
         rospack = rospkg.RosPack()
 
@@ -388,7 +352,6 @@ class SawyerCtrlInterface(RobotInterface):
         elif control_type =="JointImpedance":
             return JointImpController(self.model, 
                     **controller_dict)
-
 
 
     def get_controller_params(self):
@@ -864,34 +827,6 @@ class SawyerCtrlInterface(RobotInterface):
         #rospy.logdebug("Free joint dict " +str(free_joint_dict))
         return free_joint_dict
 
-    def show_image(self, image_path, rate=1.0):
-        """
-        Display given image on sawyer head display
-        :param image_path: absolute path string of the image
-        :param rate: refresh rate
-        :return: None
-        """
-        self._display.display_image(image_path, display_rate=rate)
-
-    @property
-    def light(self):
-        """
-        Get the info (names) of all available lights
-        :return: A dictionary where keys are light name strings, and
-        values are their boolean on status
-        """
-        return {name: self._lights.get_light_state(name) for name in self._lights.list_all_lights()}
-
-    @light.setter
-    def light(self, name_on):
-        """
-        Set the status of given light
-        :param name: string name of the light
-        :param on: boolean True for on, False for off
-        :return: True if light state is set, False if not
-        """
-        name_on = (name, on)
-        self._lights.set_light_state(name, on)
 
     def set_max_speed(self, factor):
         """
@@ -900,14 +835,6 @@ class SawyerCtrlInterface(RobotInterface):
         :return: None
         """
         self._limb.set_joint_position_speed(factor)
-
-    def set_grasp_weight(self, weight):
-        """
-        Set the weight of object the gripper is grasping
-        :param weight: float in kg
-        :return: True if successful, False if failure
-        """
-        return self._gripper.set_object_weight(weight)
 
 
     def _msg_wrapper(self, ctype):
@@ -925,82 +852,7 @@ class SawyerCtrlInterface(RobotInterface):
 
             self._command_msg.header.stamp = rospy.Time.now()
 
-    def _from_tip_to_base_of_gripper(self, tip_pose):
-        """
-        Transforms a pose from the tip to the base of the gripper
-        PyBullet functions (e.g. inverse kin) are queried wrt the
-        base of the gripper but Intera provides
-        the pose of the tip of the gripper
-        :param tip_pose: Pose (x, y, z, qx, qy, qz, qw) of the tip of the gripper
-        :return: Pose (x, y, z, qx, qy, qz, qw) of the base of the gripper
-        """
-        # This is the static transformation from base to tip of the gripper as
-        # defined in the URDF
-        T_ee_base = np.eye(4)
-        T_ee_base[0:3, 0:3] = np.array(
-            pb.getMatrixFromQuaternion([0.000, 0.000, np.sqrt(2) / 2,
-                np.sqrt(2) / 2])).reshape((3, 3))
 
-        T_ee_base[0:3, 3] = [0.000, 0.000, 0.0245]
-        #T_ee_base[0:3, 3] = [0.000, 0.000, np.linalg.norm(
-        #                                                [-0.11,0.1053, 0.0245])]
-
-        T_tip = np.eye(4)
-        T_tip[0:3, 0:3] = np.array(
-            pb.getMatrixFromQuaternion(tip_pose[3:7])).reshape((3, 3))
-        T_tip[0:3, 3] = tip_pose[0:3]
-
-        T_base = T_tip.dot(np.linalg.inv(T_ee_base))
-
-        base_pose = 7 * [0]
-        base_pose[0:3] = T_base[0:3, 3]
-
-        # In pyQuaternion the elements are ordered as (w, x, y, z)
-        base_pose[3:6] = pyQuaternion(matrix=T_base).elements[1:4]
-        base_pose[6] = pyQuaternion(matrix=T_base).elements[0]
-        return base_pose
-
-
-    def _distance_between_position_msgs(self, pos1, pos2):
-        """
-        Computes the L2 distance between two ROS Point3 messages
-        :param pos1: one 3D point msg
-        :param pos2: another 3D point msg
-        :return: distance between points
-        """
-        return np.sqrt((pos1.x-pos2.x)**2 + (pos1.y-pos2.y)**2 + (pos1.z-pos2.z)**2)
-
-    def pose_endpoint_transform(self, pose, curr_endpoint='right_hand', des_endpoint='right_gripper_tip'):
-        '''
-        Takes a pose from one endpoint reference frame to another. For example, instead of moving the right_hand to a desired
-        position, you can move the right_gripper_tip to that position.
-        :param pose: list of the pose. [x,y,z,qx,qy,qz,qw]
-        :param curr_endpoint: current endpoint of the Sawyer Arm. Default to 'right_hand'
-        :param des_endpoint: where you would like the endpoint to be. Default to 'right_gripper_tip'
-        return: list of the new pose. [x,y,z,qx,qy,qz,qw]
-        '''
-        if self.transform_matrix is None:
-            listener = tf.TransformListener()
-            start_time = rospy.Time.now().secs
-            listener.waitForTransform(curr_endpoint, des_endpoint, rospy.Time(0), rospy.Duration(1.0))
-            (trans1,rot1) = listener.lookupTransform(des_endpoint, curr_endpoint, rospy.Time(0))
-
-            trans1_mat = tf.transformations.translation_matrix(trans1)
-            rot1_mat   = tf.transformations.quaternion_matrix(rot1)
-            self.transform_matrix = np.dot(trans1_mat, rot1_mat)
-
-        trans2 = pose[0:3]
-        rot2 = pose[3:]
-        trans2_mat = tf.transformations.translation_matrix(trans2)
-        rot2_mat = tf.transformations.quaternion_matrix(rot2)
-        mat2 = np.dot(trans2_mat, rot2_mat)
-
-        mat3 = np.dot(mat2, self.transform_matrix)
-        trans3 = tf.transformations.translation_from_matrix(mat3)
-        rot3 = tf.transformations.quaternion_from_matrix(mat3)
-
-        # return pose
-        return trans3.tolist()+rot3.tolist()
     #### REDIS / CONTROL INTERFACE SPECIFIC ATTRIBUTES AND FUNCTIONS #############
 
     @property
