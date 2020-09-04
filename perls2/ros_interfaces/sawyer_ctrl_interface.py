@@ -993,12 +993,22 @@ if __name__ == "__main__":
     rospy.loginfo("warming up redis...")
     rospy.sleep(10.0)
     rospy.loginfo("waiting for environment ... ")
-    while (ctrlInterface.env_connected != b'True'):
-        # do nothing until the environment is connected
+    try:
+        while not rospy.is_shutdown():
+            if (ctrlInterface.env_connected != b'True'):
+                pass
+            else:
+                break
+    except KeyboardInterrupt:
         pass
+
+    while (ctrlInterface.env_connected == b'True'):
+        rospy.loginfo('Environment connected... entering control loop')
+        ctrlInterface.run()
+    rospy.loginfo("Env disconnected. shutting down.")
+
+
     #if (ctrlInterface.redisClient.get('env_connected') == b'True'):
-    rospy.loginfo('Environment connected... entering control loop')
-    ctrlInterface.run()
 
     # Timing test: 
     # Print stats for run_controller step. 
