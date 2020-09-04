@@ -163,7 +163,7 @@ class SawyerCtrlInterface(RobotInterface):
             world_name = self.config['world']['type']
             controller_config = self.config['controller'][world_name]
             if self.config['controller']['interpolator']['type'] == 'linear':
-                interp_kwargs = {'max_dx': 0.5, 
+                interp_kwargs = {'max_dx': 0.02, 
                                  'ndim': 3, 
                                   'controller_freq': 500, 
                                   'policy_freq' : 20, 
