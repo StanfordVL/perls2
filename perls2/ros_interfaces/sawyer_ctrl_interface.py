@@ -300,8 +300,8 @@ class SawyerCtrlInterface(RobotInterface):
             
         self.update_redis()
 
-
         self.update_model()
+        #self.update_model_fake()
 
         self.controlType = self.get_control_type()
         self.control_dict = self.get_controller_params()
@@ -766,6 +766,31 @@ class SawyerCtrlInterface(RobotInterface):
                                 J_ori=self.angular_jacobian,
                                 mass_matrix=self.mass_matrix)
     
+    def update_model_fake(self):
+        print("Faking model update.")
+        self._calc_jacobian(q=[0.07722660000000001, -1.18184,  -0.126824,  2.16396, -0.000586914,  0.569958,  3.3169], 
+                            dq=[-0.001, -0.001, -0.001, -0.001, -0.001, -0.001, -0.001], 
+                            localPos=[0, 0, 0])
+
+        self._calc_mass_matrix(q=[0.07722660000000001, -1.18184,  -0.126824,  2.16396, -0.000586914,  0.569958,  3.3169])
+        
+        self.model.update_states(
+            joint_pos=np.asarray([0.07722660000000001, -1.18184,  -0.126824,  2.16396, -0.000586914,  0.569958,  3.3169]),
+            joint_vel=np.asarray([-0.001, -0.001, -0.001, -0.001, -0.001, -0.001, -0.001]), 
+            joint_tau=np.asarray([0]*7),
+            joint_dim=7, 
+            ee_pos=np.asarray([0.4414109558093273, 0.1362869923437277, 0.2226497131449411]), 
+            ee_ori=np.asarray([[ 0.04045032467504951,   0.9989898290880128,  0.01957275178368858],
+                                [  0.9980146369158152, -0.03944889205737932, -0.04909755001258394],
+                                [ -0.0482758297233308,  0.02151990460360002,  -0.9986021920516579]]),
+            ee_pos_vel=np.asarray([0.000669978070674465, -0.0009012872684052355,  0.0005563004018595134]), 
+            ee_ori_vel=np.asarray([-0.0009558964849243162, -0.00291106318854339, -1.293813315344437e-06]), 
+            torque_compensation=np.asarray([0]*7))
+        
+        self.model.update_model(J_pos=self.linear_jacobian,
+                                J_ori=self.angular_jacobian,
+                                mass_matrix=self.mass_matrix)
+
     def update_redis(self):
         """ update db parameters for the robot on a regular loop
 
