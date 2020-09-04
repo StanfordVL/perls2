@@ -14,39 +14,35 @@ def opspace_matrices(mass_matrix, J_full, J_pos, J_ori):
         J_full.transpose())
 
     # (J M^-1 J^T)^-1
-    lambda_full = np.linalg.inv(lambda_full_inv)
+    #lambda_full = np.linalg.inv(lambda_full_inv)
 
     # Jx M^-1 Jx^T
     lambda_pos_inv = np.dot(
         np.dot(J_pos, mass_matrix_inv),
         J_pos.transpose())
-    
+
     # Jr M^-1 Jr^T
     lambda_ori_inv = np.dot(
         np.dot(J_ori, mass_matrix_inv),
         J_ori.transpose())
 
-    # take the inverse, but zero out elements in cases of a singularity
-    # todo: maybe there is an error here? check with danfei and ajay
+    svd_u, svd_s, svd_v = np.linalg.svd(lambda_full_inv)  
+    singularity_threshold = 0.05 
+    svd_s_inv = np.array([0 if x < singularity_threshold else 1. / x for x in svd_s]) 
+    lambda_full = svd_v.T.dot(np.diag(svd_s_inv)).dot(svd_u.T)
     
+    # take the inverse, but zero out elements in cases of a singularity
     svd_u, svd_s, svd_v = np.linalg.svd(lambda_pos_inv)
-
-
-    singularity_threshold = 0.00025
-
+    singularity_threshold = 0.002
     svd_s_inv = np.array([0 if x < singularity_threshold else 1. / x for x in svd_s])
-
     lambda_pos = svd_v.T.dot(np.diag(svd_s_inv)).dot(svd_u.T)
 
     svd_u, svd_s, svd_v = np.linalg.svd(lambda_ori_inv)
-
     svd_s_inv = np.array([0 if x < singularity_threshold else 1. / x for x in svd_s])
-
-
     lambda_ori = svd_v.T.dot(np.diag(svd_s_inv)).dot(svd_u.T)
 
+    # nullspace
     Jbar = np.dot(mass_matrix_inv, J_full.transpose()).dot(lambda_full)
-
     nullspace_matrix = np.eye(J_full.shape[-1], J_full.shape[-1]) - np.dot(Jbar, J_full)
 
     return lambda_full, lambda_pos, lambda_ori, nullspace_matrix
