@@ -898,8 +898,8 @@ class SawyerCtrlInterface(RobotInterface):
         #     print("joint position command received")
         #     #self.check_controller("JointImpedance")
         #     self.set_joint_positions(**controller_goal)
-        # elif(cmd_type == b'set_joint_delta'):
-        #     self.set_joint_delta(**controller_goal)
+        elif(cmd_type == b'set_joint_delta'):
+             self.set_joint_delta(**controller_goal)
         # elif (cmd_type == b'torque'):
         #     raise NotImplementedError
         #     #self.tau = self.desired_torque
