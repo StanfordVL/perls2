@@ -100,6 +100,7 @@ import socket
 
 from perls2.ros_interfaces.redis_interface import RobotRedisInterface as RobotRedis
 from perls2.ros_interfaces.redis_keys import *
+import perls2.controllers.utils.transform_utils as T
 
 LOOP_LATENCY = 0.000
 LOOP_TIME = (1.0/500.0) - LOOP_LATENCY
@@ -158,7 +159,7 @@ class SawyerCtrlInterface(RobotInterface):
         self.endTime = time.time()
         self.action_set = False
         self.model = Model()
-        
+        self.ee_name = self.config['sawyer']['end_effector_name']
         if config is not None:
             world_name = self.config['world']['type']
             controller_config = self.config['controller'][world_name]
@@ -241,7 +242,13 @@ class SawyerCtrlInterface(RobotInterface):
         except:
             rospy.logerr('IKService from Intera timed out')
             self._ik_service = False
-
+        self.joint_names = self.config['sawyer']['limb_joint_names']
+        self.free_joint_dict = self.get_free_joint_dict()
+        self.joint_dict = self.get_joint_dict()
+        self._link_id_dict = self.get_link_dict()
+        # self.createPoseMarker(lineWidth=10,
+        #                       lineLength=1.0,  
+        #                  parentLinkIndex=2)
 #        self._interaction_options = InteractionOptions()
 #        if len(self._interaction_options._data.D_impedance) == 0:
 #            self._interaction_options._data.D_impedance = [8, 8, 8, 2, 2, 2]
@@ -524,6 +531,46 @@ class SawyerCtrlInterface(RobotInterface):
 
         return motor_joint_indices
 
+    def get_free_joint_dict(self):
+        """Dictionary of free joints in urdf and corresponding indicies.
+        """
+        free_joint_dict = {}
+
+        num_joints = pb.getNumJoints(
+            self._pb_sawyer, physicsClientId=self._clid)
+
+
+        for joint_id in range(num_joints):
+
+            joint_ind, joint_name, joint_type, _, _, _, _, _, _, _, _, _, _, _, _, _, _ = (
+                pb.getJointInfo(bodyUniqueId=self._pb_sawyer,
+                                      jointIndex=joint_id,
+                                      physicsClientId=self._clid))
+            if joint_type != pb.JOINT_FIXED:
+                free_joint_dict.update(
+                    {
+                        joint_name: joint_ind 
+                    })
+
+        return free_joint_dict
+
+
+    def _pad_zeros_to_joint_values(self, des_joint_values):
+        """Pads zeros to appropriate joint index positions for joints not listed in limb_joint_names
+        """
+        # Order the joints by their value from least to greatest.
+        sorted_free_joints = sorted(self.free_joint_dict.items(), key=lambda x:x[1], reverse=False)
+        padded_joint_values = [0]*len(sorted_free_joints)
+        des_joint_index = 0
+        for joint_ind in range(len(sorted_free_joints)):
+            # If the joint name is a motor joint
+            if sorted_free_joints[joint_ind][0] in self.joint_names:
+                padded_joint_values[joint_ind] = des_joint_values[des_joint_index]
+                des_joint_index+=1
+
+        return padded_joint_values
+
+
     @property
     def num_free_joints(self):
         return len(self.get_motor_joint_indices())
@@ -580,40 +627,85 @@ class SawyerCtrlInterface(RobotInterface):
         num_dof = len(self.motor_joint_positions)
 
         # append zeros to q to fit pybullet
-
-        for extra_dof in range(num_dof - len(q)):
-            q.append(0)
-            dq.append(0)
+        num_extra_dof = self.num_free_joints - len(q)
+        # for _ in range(num_extra_dof):
+        #     q.append(0)
+        #     dq.append(0)
+        q = self._pad_zeros_to_joint_values(q)
+        dq = self._pad_zeros_to_joint_values(dq)
+        # pb_q = self.get_ordered_joint_values(q)
+        # pb_dq = self.get_ordered_joint_values(dq)
 
         linear_jacobian, angular_jacobian = pb.calculateJacobian(
             bodyUniqueId=self._pb_sawyer,
-            linkIndex=6,
+            linkIndex=self._link_id_dict[self.ee_name],
             localPosition=localPos,
             objPositions=q,#[:num_dof],
             objVelocities=dq,#[:num_dof],
-            objAccelerations=[0]*num_dof,
+            objAccelerations=[0]*self.num_free_joints,
             physicsClientId=self._clid
             )
-
+        # Save full linear jacoban as 3 x 10
         self._linear_jacobian = np.reshape(
             linear_jacobian, (3, self.num_free_joints))
-
+        # save full angular jacobian as 3x10
         self._angular_jacobian = np.reshape(
             angular_jacobian, (3, self.num_free_joints))
+        # Save full jacobian as 6x10
 
         self._jacobian = np.vstack(
-            (self._linear_jacobian[:,:len(self.q)], self._angular_jacobian[:,:len(self.q)]))
+            (self._linear_jacobian, self._angular_jacobian))
         return linear_jacobian, angular_jacobian
+
+    # def get_pb_joint_val_dict(self, values):
+    #     """Returns a dictionary with  joint names as keys and desired joint positions or velocities as values. 
+    #     Keys not found in self.config['limb_joint_names'] will be set to 0. 
+
+    #     """
+    #     pb_joint_pos_dict = {}
+    #     # Set all keys to zero joint pos. 
+    #     for key in self.joint_dict.keys():
+    #         pb_joint_pos_dict.update(
+    #             {
+    #                 key: 0
+    #             })
+    #     # Now only update the keys found in limb_joint_names with values from q. 
+    #     for joint_ind, joint_pos in enumerate(values):
+    #         # q joint values are from 0...7, different from the urdf joint index.
+    #         # Get the corresponding joint name e.g. 'right_j...'
+    #         joint_name = self.joint_names[joint_ind]
+    #         pb_joint_pos_dict.update(
+    #             {
+    #             joint_name: joint_pos
+    #             })
+
+    #     return pb_joint_pos_dict
+
+    # def get_ordered_joint_values(self, joint_values):
+    #     """ Get a full list of pb joint values (positions or velocities) in correct order. 
+    #     Args: 
+    #         joint_values (list): ordered list with desired joint values from motor joint 0 to motor joint 6.
+    #     Returns
+    #         pb_joint_values (list): desired joint values in order of joint_indexes in urdf. 0s for joints
+    #             other than the motor joints. 
+    #     """
+    #     pb_joint_vals = [0]*self.num_joints
+    #     for motor_joint_ind, motor_joint_name in enumerate(self.joint_names):
+    #         pb_joint_ind = self.joint_dict[motor_joint_name]
+    #         pb_joint_vals[pb_joint_ind] = joint_values[motor_joint_ind]
+
+    #     return pb_joint_vals
+
 
     @property
     def J(self, q=None):
-        """ Calculate the full jacobian using pb.
+        """ Full jacobian using pb as a 6x7 matrix
         """
-        return self._jacobian
+        return self._jacobian[:,:7]
 
     @property
     def linear_jacobian(self):
-        """The linear jacobian x_dot = J_t*q_dot
+        """The linear jacobian x_dot = J_t*q_dot using pb as a 3x7 matrix
         """
         return self._linear_jacobian[:,:7]
 
@@ -726,24 +818,112 @@ class SawyerCtrlInterface(RobotInterface):
             'Input number of torque values must match the number of joints'
         #print(desired_torques)
         command = {self._joint_names[i]: desired_torques[i] for i in range(len(self._joint_names))}
-
         self._limb.set_joint_torques(command)
 
-    def q_dq_ddq(self, value):
-        """
-        Set joint position, velocity and acceleration
-        :param value: A list of lists of length DOF with desired
-        position, velocity and acceleration for each joint.
-        :return: None
-        """
-        assert len(value[0]) == len(self._joint_names), \
-            'Input number of position values must match the number of joints'
-        assert len(value[1]) == len(self._joint_names), \
-            'Input number of velocity values must match the number of joints'
-        assert len(value[2]) == len(self._joint_names), \
-            'Input number of acceleration values must match the number of joints'
+    def get_link_id_from_name(self, link_name):
+        """Get link id from name
 
-        self._limb.set_joint_trajectory(self._joint_names, value[0], value[1], value[2])
+        Args:
+            link_name (str): name of link in urdf file
+        Returns:
+            link_id (int): index of the link in urdf file.
+             OR -1 if not found.
+        """
+        if link_name in self._link_id_dict:
+            return self._link_id_dict.get(link_name)
+        else:
+            return -1
+
+    def get_link_dict(self):
+        """Create a dictionary between link id and link name
+        Dictionary keys are link_name : link_id
+
+        Notes: Each link is connnected by a joint to its parent, so
+               num links = num joints
+        """
+
+        num_links = pb.getNumJoints(
+            self._pb_sawyer, physicsClientId=self._clid)
+
+        link_id_dict = {}
+
+        for link_id in range(num_links):
+            link_id_dict.update(
+                {
+                    self.get_link_name(
+                        (self._pb_sawyer, link_id)).decode('utf-8'): link_id
+                })
+
+        return link_id_dict
+
+
+
+    def get_link_name(self, link_uid):
+        """Get the name of the link. (joint)
+
+        Parameters
+        ----------
+        link_uid :
+            A tuple of the body Unique ID and the link index.
+
+        Returns
+        -------
+
+            The name of the link.
+
+        """
+        arm_id, link_ind = link_uid
+        _, _, _, _, _, _, _, _, _, _, _, _, link_name, _, _, _, _ = (
+                pb.getJointInfo(bodyUniqueId=arm_id,
+                                      jointIndex=link_ind,
+                                      physicsClientId=self._clid))
+        return link_name
+
+
+    def get_joint_dict(self):
+        """Create a dictionary between link id and link name
+        Dictionary keys are link_name : link_id
+
+        Notes: Each link is connnected by a joint to its parent, so
+               num links = num joints
+        """
+
+        num_joints = pb.getNumJoints(
+            self._pb_sawyer, physicsClientId=self._clid)
+
+        joint_id_dict = {}
+
+        for joint_id in range(num_joints):
+            joint_id_dict.update(
+                {
+                    self.get_joint_name(
+                        (self._pb_sawyer, joint_id)).decode('utf-8'): joint_id
+                })
+            print("{}:\t{}".format(joint_id,  self.get_joint_name(
+                        (self._pb_sawyer, joint_id)).decode('utf-8')))
+
+        return joint_id_dict
+
+    def get_joint_name(self, link_uid):
+        """Get the name of the joint
+
+        Parameters
+        ----------
+        link_uid :
+            A tuple of the body Unique ID and the link index.
+
+        Returns
+        -------
+
+            The name of the link.
+
+        """
+        arm_id, joint_ind = link_uid
+        _, joint_name, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ = (
+                pb.getJointInfo(bodyUniqueId=arm_id,
+                                      jointIndex=joint_ind,
+                                      physicsClientId=self._clid))
+        return joint_name
 
 
     def update_model(self):
@@ -751,10 +931,38 @@ class SawyerCtrlInterface(RobotInterface):
         self._calc_mass_matrix()
 
         orn = R.from_quat(self.ee_orientation)
+        ## Hack the velocity
+        #HACKITY HACK HACK HACK TODO HACK 
+
+        # Reset pybullet model to joint State to get ee_pose and orientation. 
+        for joint_ind, joint_name in enumerate(self.joint_names):
+            pb.resetJointState(
+                bodyUniqueId=self._pb_sawyer,
+                jointIndex=self.joint_dict[joint_name],
+                targetValue=self.q[joint_ind],
+                targetVelocity=self.dq[joint_ind], 
+                physicsClientId=self._clid)
+
+        pb_ee_pos, pb_ee_ori, _, _, _, _, pb_ee_v, pb_ee_w = pb.getLinkState(self._pb_sawyer,
+            self._link_id_dict[self.ee_name],
+            computeLinkVelocity=1, 
+            physicsClientId=self._clid
+            )
+
+        self.pb_ee_pos_log.append(pb_ee_pos)
+        self.pb_ee_ori_log.append(T.quat2mat(pb_ee_ori))
+        self.pb_ee_v_log.append(pb_ee_v)
+        self.pb_ee_w_log.append(pb_ee_w)
+        print("EE_V INTERA{}".format(self.ee_v))
+        # Get ee orientation as a matrix
+        ee_ori_mat = T.quat2mat(self.ee_orientation)
+        # Get end effector velocity in world frame
+        ee_v_world = np.dot(ee_ori_mat, np.array(self.ee_v).transpose())
+        ee_w_world = np.dot(ee_ori_mat, np.array(self.ee_omega).transpose())
         self.model.update_states(ee_pos=np.asarray(self.ee_position),
                                  ee_ori= np.asarray(self.ee_orientation),
-                                 ee_pos_vel=np.asarray(self.ee_v),
-                                 ee_ori_vel=np.asarray(self.ee_omega),
+                                 ee_pos_vel=np.asarray(ee_v_world),
+                                 ee_ori_vel=np.asarray(ee_w_world),
                                  joint_pos=np.asarray(self.q[:7]),
                                  joint_vel=np.asarray(self.dq[:7]),
                                  joint_tau=np.asarray(self.tau),
@@ -914,7 +1122,6 @@ class SawyerCtrlInterface(RobotInterface):
         # todo hack for states.         
         
         if (cmd_type == b"set_ee_pose"):
-
             self.set_ee_pose(**controller_goal)
         elif (cmd_type == b'move_ee_delta'):
             self.move_ee_delta(**controller_goal)
