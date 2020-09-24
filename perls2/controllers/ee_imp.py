@@ -160,7 +160,7 @@ class EEImpController(Controller):
 
         if self.interpolator_ori is not None:
             self.ori_ref = np.array(self.model.ee_ori_mat) #reference is the current orientation at start
-            self.interpolator_ori.set_goal(self.model.ee_ori_quat) # goal is the clipped orientation. 
+            self.interpolator_ori.set_goal(T.mat2quat(self.goal_ori)) # goal is the clipped orientation. 
             self.relative_ori = np.zeros(3) #relative orientation always starts at 0
     
     
@@ -184,7 +184,7 @@ class EEImpController(Controller):
 
         if self.interpolator_ori is not None:
 
-            desired_ori = T.quat2mat(self.interpolator_ori.get_interpolated_goal(self.model.ee_ori_quat))
+            desired_ori = T.quat2mat(self.interpolator_ori.get_interpolated_goal())
             ori_error = orientation_error(desired_ori, self.model.ee_ori_mat)
 
             if self.interpolator_ori.order == 4:
