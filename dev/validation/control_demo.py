@@ -252,32 +252,159 @@ class OpSpaceDemo(Demo):
         e_qz.plot(errors_qz)
         e_qz.set_title("qz error per step.")
         e_qz.set_ylabel("error (rad)")
-        e_qz.set_xlabel("step num")        
+        e_qz.set_xlabel("step num")
 
         plt.show()
-           
+
+def apply_delta(pose, delta):
+    """ Applies delta to pose to obtain new 7f pose.
+    Args: pose (7f): x, y, z, qx, qy, qz, w . Position and quaternion
+          delta (6f): dx, dy, dz, ax, ay, az. delta position and axis-angle
+
+    """
+    if len(delta) != 6:
+        raise ValueError("delta should be [x, y, z, ax, ay, az]. Orientation should be axis-angle")
+    if len(pose) != 7:
+        raise ValueError("pose should be [x, y, z, qx, qy, qz, w] Orientation should be quaternion.")
+    pos = pose[:3]
+    dpos = delta[:3]
+
+    # Get current orientation and delta as matrices to apply 3d rotation.
+    ori_mat = T.quat2mat(pose[3:])
+    delta_quat = T.axisangle2quat(delta[3:])
+    delta_mat = T.quat2mat(delta_quat)
+    new_ori = np.dot(delta_mat.T, ori_mat)
+
+    # convert new orientation to quaternion.
+    new_ori_quat = T.mat2quat(new_ori)
+
+    # add dpos to current position.
+    new_pos = np.add(pos, dpos)
+
+    return np.hstack((new_pos, new_ori_quat))
+
 class Path():
     """Class definition for path definition (specific to ee trajectories)
-    
+
     A Path is a series
- 
+
     """
 
-    def __init__(self, shape, num_pts): 
+    def __init__(self, shape, num_pts):
         self.shape = shape
         self.num_pts = num_pts
         self.path = []
 
     def make_path(self):
-        self.path = [self.start_pos]
+        self.path = [self.start_pose]
         for delta in self.deltas:
-            self.path.append(np.add(self.path[-1], delta))
-class Line(Path):
-    """Class definition for straight line in given direction. 
+            new_pose = apply_delta(self.path[-1], delta)
+            # self.path.append(np.add(self.path[-1], delta))
+            self.path.append(new_pose)
+
+        # Append path to the same
+        for _ in range(int(0.2*self.num_pts)):
+            self.path.append(self.path[-1])
+
+
+def make_simple_rot_mat(angle=np.pi/4):
+    """Make a simple rotation matrix, rotating about one axis.
     """
-    def __init__(self, start_pos, num_pts, delta_val, dim=0):
-        self.start_pos = start_pos
+    rot_m = np.eye(3)
+    rot_m[0, 0] = np.cos(angle)
+    rot_m[0, 1] = -np.sin(angle)
+    rot_m[0, 2] = 0
+    rot_m[1, 0] = np.sin(angle)
+    rot_m[1, 1] = np.cos(angle)
+    rot_m[1, 2] = 0
+    rot_m[2, 0] = 0
+    rot_m[2, 1] = 0
+    rot_m[2, 2] = 1
+    return rot_m
+
+class Rotation(Path):
+    """ Class definition for path that rotating end effector in place.
+    Start and end orientation should be in euler angles.
+    """
+    def __init__(self, start_pose, num_pts,
+                 rotation_rad=np.pi/4, delta_val=None, dim=2, end_ori=None):
+        print("Making Rotation Path")
+        self.start_pose = start_pose
+        self.end_ori = end_ori
         self.num_pts = num_pts
+        self.rotation_rad = rotation_rad
+        if delta_val is None:
+            delta_val = np.divide(rotation_rad, num_pts)
+            print("delta_val\t{}".format(delta_val))
+        self.dim = dim
+        self.delta_val = delta_val
+        self.get_deltas()
+        self.path = []
+        self.make_path()
+
+    def get_deltas(self):
+        """Convert euler angle rotation with magnitude delta in the direction
+        specified by dim.
+        """
+        delta = np.zeros(3)
+        delta[self.dim] = self.delta_val
+        # pad with position deltas= 0
+        delta = np.hstack(([0, 0, 0], delta))
+        self.deltas = [delta]*self.num_pts
+
+    # def make_path(self):
+    #     # Convert euler rotation to matrix.
+    #     # Apply to last orientation to get next desired orientation.
+
+    #     self.path = [self.start_ori]
+    #     for delta in self.deltas:
+    #         self.delta_mat = T.euler2mat(delta)
+    #         new_ori_ee = np.dot(self.path[-1],self.delta_mat)
+    #         self.path.append(new_ori_ee)
+
+    #     # import pdb; pdb.set_trace()
+    #     # mat2quat = T.mat2quat(self.start_ori)
+    #     # quat2mat = T.quat2mat(mat2quat)
+    #     # mat2quat = T.mat2quat(quat2mat)
+
+    #     # Convert to quaternions for pose specification.
+    #     for idx, ori_mat in enumerate(self.path):
+    #         self.path[idx] = self.start_pos.tolist() + T.mat2quat(ori_mat).tolist()
+
+    #     # Append path to the same
+    #     for _ in range(100):
+    #         self.path.append(self.path[-1])
+        # for _ in range(100):
+        #     self.path.append(self.start_pos.tolist() + T.mat2quat(self.start_ori).tolist())
+
+
+
+class Line(Path):
+    """Class definition for straight line in given direction.
+    """
+    def __init__(self, start_pose, num_pts, path_length,
+                 delta_val=None, dim=0, end_pos=None):
+        """ Initialize Line class
+
+        Args:
+            start_pos (list): 7f pose at start of path. Best to
+                set at robot reset pose.
+            num_pts (int): number of points in path.
+            length (float): length of path in m
+            delta_val (float): (optional) delta in m between
+                each step. If None, end_pos must be specified.
+            dim (int): direction to move for line, x = 0, y=1,
+                z=2.
+            end_pos (list): (optional) end pose for path. If not
+                None, dim, and delta_val are ignored. Straight
+                Line is interpolated between start and end_pos.
+
+        """
+        self.start_pose = start_pose
+        self.num_pts = num_pts
+        self.path_length = path_length
+        if delta_val is None:
+            delta_val = np.divide(self.path_length, self.num_pts)
         self.delta_val = delta_val
         self.dim = dim
         self.deltas = []
@@ -286,34 +413,38 @@ class Line(Path):
         self.make_path()
 
     def get_deltas(self):
+
         delta = np.zeros(6)
         delta[self.dim] = self.delta_val
         self.deltas = [delta]*self.num_pts
-        self.deltas[0] = np.zeros(6)
+        # self.deltas[0] = np.zeros(7)
+
 
 class Square(Path):
-    """Class def for square path. 
+    """Class def for square path.
 
-    Square path defined by side length and start point. 
-    At step 4 * sidelength -1, ee is not at initial point. 
-    Last step returns to initial point. 
+    Square path defined by side length and start point.
+    At step 4 * sidelength -1, ee is not at initial point.
+    Last step returns to initial point.
 
     Square path is ordered in clockwise from origin (Bottom, Left, Top, Right)
 
-    Attributes: 
-        start_pos (3f): xyz start position to begin square from. 
-        side_num_pts (int): number of steps to take on each side. (not counting start.)
-        delta_val (float): step size in m to take for each step. 
-        deltas (list): list of delta xyz from a position to reach next position on path.
-        path (list): list of actions to take to perform square path. Actions are either delta
-            xyz from current position (if use_abs is False) or they are absolute positions
-            taken by adding the deltas to the start pos.
+    Attributes:
+        start_pos (3f): xyz start position to begin square from.
+        side_num_pts (int): number of steps to take on each side.
+            (not counting start.)
+        delta_val (float): step size in m to take for each step.
+        deltas (list): list of delta xyz from a position to reach next position
+             on path.
+        path (list): list of actions to take to perform square path. Actions
+            are either delta xyz from current position (if use_abs is False) or
+            they are absolute positions taken by adding the deltas to start.
 
-    """ 
-    def __init__(self, start_pos, side_num_pts, delta_val):
+    """
+    def __init__(self, start_pose, side_num_pts, delta_val):
 
-        self.start_pos = start_pos
-        self.side_num_pts = side_num_pts
+        self.start_pose = start_pose
+        self.num_pts = side_num_pts
         self.delta_val = delta_val
         self.deltas = []
         self.get_deltas()
@@ -321,24 +452,21 @@ class Square(Path):
         self.make_path()
 
     def get_deltas(self):
-        """ Get a series of steps from current position that produce 
-        a square shape. Travel starts with bottom side in positive direction, 
-        then proceeds counter-clockwise (left, top, right.)
+        """ Get a series of steps from current position that produce
+        a square shape. Travel starts with bottom side in positive direction,
+        then proceeds clockwise (left, top, right.)
 
         """
         self.deltas = [[0, 0, 0, 0, 0, 0]]
         # Bottom side.
-        for pt in range(self.side_num_pts):
-           self.deltas.append([self.delta_val, 0.0, 0.0, 0.0, 0.0, 0.0])
+        for pt in range(self.num_pts):
+            self.deltas.append([self.delta_val, 0.0, 0.0, 0.0, 0.0, 0.0])
         # Left Side
-        for pt in range(self.side_num_pts):
-             self.deltas.append([0.0, self.delta_val, 0.0, 0.0, 0.0, 0.0])
-        # Top side
-        for pt in range(self.side_num_pts):
-             self.deltas.append([-self.delta_val, 0, 0.0, 0.0, 0.0, 0.0])
-        # Right side
-        for pt in range(self.side_num_pts):
+        for pt in range(self.num_pts):
             self.deltas.append([0.0, -self.delta_val, 0.0, 0.0, 0.0, 0.0])
-
-
-
+        # Top side
+        for pt in range(self.num_pts):
+            self.deltas.append([-self.delta_val, 0.0, 0.0, 0.0, 0.0, 0.0])
+        # Right side
+        for pt in range(self.num_pts):
+            self.deltas.append([0.0, self.delta_val, 0.0, 0.0, 0.0, 0.0])
