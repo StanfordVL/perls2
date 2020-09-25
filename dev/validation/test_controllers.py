@@ -1,42 +1,46 @@
-import numpy as np
-import time 
-import logging
-from datetime import datetime
-import argparse
-import matplotlib.pyplot as plt
 
-from demo_control_env import DemoControlEnv
-from control_demo import *
+import logging
+import argparse
+
+from control_demo import Demo
 
 logging.basicConfig(level=logging.INFO)
 mpl_logger = logging.getLogger('matplotlib')
-mpl_logger.setLevel(logging.WARNING) 
+mpl_logger.setLevel(logging.WARNING)
 
-CONTROL_TYPES = {"1" : "EEImpedance", 
-             "2" : "JointVelocity",
-             "3" : "JointImpedance",
-             "4" : "JointTorque", 
-             "5" : "EEPosture"}
+CONTROL_TYPES = {
+    "1": "EEImpedance",
+    "2": "JointVelocity",
+    "3": "JointImpedance",
+    "4": "JointTorque",
+    "5": "EEPosture"}
 
-DEMO_TYPES = { "0" : "Zero", 
-            "1" : "Sequential", 
-             "2" : "Square",
-             "3" : "Circle",
-             "4" : "Line"}
-USE_ABS = {"0": True,
-            "1": False}
-TEST_FUNCS = { "0": 'set_ee_pose', 
-               "1": 'move_ee_delta'}
+DEMO_TYPES = {
+    "0": "Zero",
+    "1": "Sequential",
+    "2": "Square",
+    "3": "Circle",
+    "4": "Line",
+    "5": "Rotation"}
+
+USE_ABS = {
+    "0": True,
+    "1": False}
+TEST_FUNCS = {
+    "0": 'set_ee_pose',
+    "1": 'move_ee_delta'}
+
 
 def prompt_menu_selection(menu_type, options):
-    """ Prompt user to select option from menu. 
-    Args: 
+    """ Prompt user to select option from menu.
+    Args:
         menu_type (str) : type of menu to indicate what user is selecting
-        options (dict): dictionary of valid options to select from. 
+        options (dict): dictionary of valid options to select from.
 
-    Returns: str indicating option selected by user, value of key from options dict.
+    Returns: str indicating option selected by user, value of key from options
+        dict.
 
-    Example: 
+    Example:
         pets_dict = {"1" : "Cat", "2": "Dog", "3": Parrot}
         pet_type = prompt_menu_selection("Pet", pets_dict)
 
@@ -52,7 +56,7 @@ def prompt_menu_selection(menu_type, options):
         return menu_title + menu_options
 
     while True:
-        try: 
+        try:
             option_selected = input(menu_msg(menu_type, options))
             if option_selected not in options.keys():
                 raise ValueError
@@ -60,43 +64,75 @@ def prompt_menu_selection(menu_type, options):
         except ValueError:
             print(" Invalid input. please enter number from options provided")
 
-    print("{} type ".format(menu_type) + options[option_selected] + " selected.")
+    print("{} type ".format(menu_type) + options[option_selected] +
+          " selected.")
     return options[option_selected]
+
 
 class ControllerTester():
     """Class that manages the demo / test.
 
     """
     def __init__(self, **kwargs):
-        self.kwargs = kwargs 
-        # Prompt the user if any of the important set up arguments are not filled in.
+        self.kwargs = kwargs
+        # Prompt the user if any of the important set up arguments are not
+        # filled in.
         if self.kwargs['ctrl_type'] is None:
-            self.kwargs['ctrl_type'] = prompt_menu_selection("Control", CONTROL_TYPES)
-        if  self.kwargs['demo_type'] is None:
-           self.kwargs['demo_type'] = prompt_menu_selection("Demo", DEMO_TYPES)
-        if self.kwargs['use_abs']  is None:
+            self.kwargs['ctrl_type'] = prompt_menu_selection(
+                "Control", CONTROL_TYPES)
+        if self.kwargs['demo_type'] is None:
+            self.kwargs['demo_type'] = prompt_menu_selection(
+                "Demo", DEMO_TYPES)
+        if self.kwargs['use_abs'] is None:
             self.kwargs['use_abs'] = prompt_menu_selection("Use Abs", USE_ABS)
         if self.kwargs['test_fn'] is None:
-            self.kwargs['test_fn'] = prompt_menu_selection("Function to test", TEST_FUNCS)
-        
-        self.demo = Demo.make_demo(**self.kwargs)
+            self.kwargs['test_fn'] = prompt_menu_selection(
+                "Function to test", TEST_FUNCS)
+        self.demo = Demo.make_demo(**self.kwargs)  # noqa: F405
 
-    def run(self):        
-        # Create demo based on control type and demo type. 
+    def run(self):
+        # Create demo based on control type and demo type.
 
         self.demo.run()
-  
+
+
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Test controllers and measure errors.")
-    parser.add_argument('--ctrl_type', default=None, help='Type of controller to test')
-    parser.add_argument('--use_abs', action="store_true", help='Use absolute positions')
-    parser.add_argument('--demo_type', default=None, help='Type of menu to run.')
-    parser.add_argument('--test_fn', default='set_ee_pose', help='Function to test', 
-        choices=['set_ee_pose', 'move_ee_delta'])
-    parser.add_argument('--delta_val',default=None, type=float, help="Max step size (m or rad) to take for demo.")
-    parser.add_argument('--num_steps', default=None, type=int, help="max steps for demo.")
-    parser.add_argument('--plot_pos', action="store_true", help="whether to plot positions of demo.")
-    parser.add_argument('--plot_error',action="store_true", help="whether to plot errors.")
+    parser = argparse.ArgumentParser(
+        description="Test controllers and measure errors.")
+    parser.add_argument('--ctrl_type',
+                        default=None,
+                        help='Type of controller to test')
+    parser.add_argument('--use_abs',
+                        action="store_true",
+                        help='Use absolute positions')
+    parser.add_argument('--demo_type',
+                        default=None,
+                        help='Type of menu to run.')
+    parser.add_argument('--test_fn',
+                        default='set_ee_pose',
+                        help='Function to test',
+                        choices=['set_ee_pose', 'move_ee_delta'])
+    parser.add_argument('--path_length', type=float,
+                        default=None, help='length in m of path')
+    parser.add_argument('--delta_val',
+                        default=None, type=float,
+                        help="Max step size (m or rad) to take for demo.")
+    parser.add_argument('--num_steps', default=None, type=int,
+                        help="max steps for demo.")
+    parser.add_argument('--plot_pos', action="store_true",
+                        help="whether to plot positions of demo.")
+    parser.add_argument('--plot_error', action="store_true",
+                        help="whether to plot errors.")
+    parser.add_argument('--save', action="store_true",
+                        help="whether to store data to file")
+    parser.add_argument('--demo_name', default=None,
+                        type=str, help="Valid filename for demo.")
+    parser.add_argument('--save_fig', action="store_true",
+                        help="whether to save pngs of plots")
+    parser.add_argument('--fix_ori', action="store_true",
+                        help="fix orientation for move_ee_delta")
+    parser.add_argument('--fix_pos', action="store_true",
+                        help="fix position for move_ee_delta")
     args = parser.parse_args()
     kwargs = vars(args)
     tester = ControllerTester(**kwargs)
