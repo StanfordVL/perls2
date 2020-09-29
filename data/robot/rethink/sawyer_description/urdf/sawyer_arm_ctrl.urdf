@@ -254,7 +254,7 @@
   <!-- Base of end effector -->
   <link name="right_gripper_base">
     <visual>
-      <origin rpy="-1.57079632679 3.14159265359 0" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://rethink_ee_description/meshes/electric_gripper/electric_gripper_base.STL"/>
       </geometry>
@@ -268,9 +268,9 @@
       <material name="darkgray"/>
     </collision>
     <inertial>
-      <origin rpy="-1.57079632679 3.14159265359 0" xyz="0.0 0.0 0.0"/>
-      <mass value="0.3"/>
-      <inertia ixx="2e-08" ixy="0" ixz="0" iyy="3e-08" iyz="0" izz="2e-08"/>
+      <inertia ixx="1.0e-01" ixy=".01" ixz=".01" iyy="1.0e-01" iyz=".01" izz="1.0e-01"/>
+      <mass value="0.47"/>
+      <origin rpy="-1.57079632679 3.14159265359 0" xyz="0.0028 -0.0004 0.0343"/>
     </inertial>
   </link>
   <link name="r_gripper_l_finger">
