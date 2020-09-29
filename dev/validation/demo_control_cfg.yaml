@@ -1,16 +1,29 @@
 # Cfg file for  Demo control environment 
 world:
-  type: 'Bullet' #'Bullet'
+  type: 'Real' #'Bullet'
   robot: 'sawyer' #'panda'
 data_dir: 'data'
 # Simulation parameters
 sim_params:
-  time_step: .001 #0.004166 #0.002 #0.004166  # 1./240.
+  time_step: 0.004166  # in seconds #0.004166 #0.002 #0.004166  # 1./240.
   control_freq: 2 #4000 #5 #20
-  steps_per_action: 50 #6 #1 #5 # policy to sim update ratio
+  steps_per_action: 200 #6 #1 #5 # policy to sim update ratio
+  MAX_STEPS: 500
+real_params: 
+  nuc_hostname: "c3po-ctrl.stanford.edu" # Hostname for the NUC for real robot control. 
+  
+# redis: 
+#   host: c3po-ctrl.stanford.edu
+#   port: 6379
+#   password: "tarsbendervisiongoddardr2d2sawyerbb8"
 
-  MAX_STEPS: 100000
+redis: 
+  host: localhost
+  port: 6379
 
+#policy_freq : 10 # Hz
+policy_freq: 20.0 # For gazebo? 
+control_freq: 500 # Hz
 !include ../../cfg/sawyer.yaml
 !include ../../cfg/panda.yaml
 !include ../../cfg/table_and_bin.yaml
@@ -71,6 +84,41 @@ controller:
   selected_type: 'EEImpedance' # Choose between 'EEImpedance', 'JointVelocity'
   Bullet:
     EEImpedance:
+      kp: [65.0, 65.0, 65.0, 10., 10., 10.] #70 #50 #200 #75 #200 # P Gain for Impedance Control
+      damping: 1.0 #1 #0.5 #1 #0.5 # Damping factor [0,1] 
+      input_max: 1.0
+      input_min: -1.0
+      output_max: 1.0
+      output_min: -1.0
+    JointVelocity: 
+      kv: 8.0 #0.5
+      input_max: 1.0
+      input_min: -1.0
+      output_max: 1.0 #1.0
+      output_min: -1.0 #-1.0
+    JointImpedance: 
+      kp: 250 #100
+      damping: 1.0
+      input_max: 1.0
+      input_min: -1.0
+      output_max: 1.0
+      output_min: -1.0
+    JointTorque: 
+      input_max: 1.0
+      input_min: -1.0
+      output_max: 1.0
+      output_min: -1.0
+    EEPosture:
+      kp: 80 #70 #50 #200 #75 #200 # P Gain for Impedance Control
+      damping: 1.0 #1 #0.5 #1 #0.5 # Damping factor [0,1] 
+      posture_gain: 60
+      posture: [0,-1.18,0.00,2.18,0.00,0.57,3.3161]
+      input_max: 1.0
+      input_min: -1.0
+      output_max: 1.0
+      output_min: -1.0
+  Real:
+    EEImpedance:
       kp: [80.0, 80.0, 80.0, 10., 10., 10.] #70 #50 #200 #75 #200 # P Gain for Impedance Control
       damping: 1.0 #1 #0.5 #1 #0.5 # Damping factor [0,1] 
       input_max: 1.0
@@ -84,7 +132,7 @@ controller:
       output_max: 1.0 #1.0
       output_min: -1.0 #-1.0
     JointImpedance: 
-      kp: 100
+      kp: 200 #100
       damping: 1.0
       input_max: 1.0
       input_min: -1.0
@@ -96,16 +144,22 @@ controller:
       output_max: 1.0
       output_min: -1.0
     EEPosture:
-      kp: 200 #70 #50 #200 #75 #200 # P Gain for Impedance Control
-      damping: 0.8 #1 #0.5 #1 #0.5 # Damping factor [0,1] 
-      posture_gain: 0.7
+      kp: [60.0, 60.0, 60.0, 10., 10., 10.] #70 #50 #200 #75 #200 # P Gain for Impedance Control
+      damping: 1.0 #1 #0.5 #1 #0.5 # Damping factor [0,1] 
+      posture_gain: 5 #0.7
       input_max: 1.0
       input_min: -1.0
       output_max: 1.0
       output_min: -1.0
-    interpolator:
-        type: 'None'
-        order: 3
+  interpolator_pos:
+      type: 'linear'
+      order: 1
+      max_dx: 0.2
+      ramp_ratio: 0.2
+  interpolator_ori: 
+      type: 'None' #'linear'
+    # max_dx: 0.01
+    # ramp_ratio: 0.2
 
 object: 
   'None'

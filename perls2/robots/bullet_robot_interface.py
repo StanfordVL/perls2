@@ -15,7 +15,7 @@ from perls2.controllers.robot_model.model import Model
 from perls2.controllers.interpolator.linear_interpolator import LinearInterpolator
 
 import logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 import scipy
 from scipy.spatial.transform import Rotation as R
 
@@ -72,11 +72,12 @@ class BulletRobotInterface(RobotInterface):
         self._joint_max_velocities = self.get_joint_max_velocities()
         self._joint_max_forces = self.get_joint_max_forces()
         self._dof = self.get_dof() 
-
+        self.gripper_width = 0.99
         self.last_torques_cmd = [0]*7
+
         # available (tuned) controller types for this interface
         self.available_controllers = ['EEImpedance', 'EEPosture', 'JointVelocity', 'JointImpedance', 'Native']
-        self.update()
+        self.update_model()
 
         self.controller = self.make_controller(controlType)
 
@@ -120,18 +121,20 @@ class BulletRobotInterface(RobotInterface):
             *This may need to do other things
         """
         self.set_joints_to_neutral_positions()
-    
+        self.update_model()
+        self.action_set = False
 
-    def update(self):
+    def update_model(self):
         orn = R.from_quat(self.ee_orientation)
-        self.model.update_states(np.asarray(self.ee_position),
-                                 np.asarray(self.ee_orientation),
-                                 np.asarray(self.ee_v),
-                                 np.asarray(self.ee_w),
-                                 np.asarray(self.motor_joint_positions[:7]),
-                                 np.asarray(self.motor_joint_velocities[:7]),
-                                 np.asarray(self.last_torques_cmd[:7]),
-                                 )
+        self.model.update_states(ee_pos=np.asarray(self.ee_position),
+                                 ee_ori=np.asarray(self.ee_orientation),
+                                 ee_pos_vel=np.asarray(self.ee_v),
+                                 ee_ori_vel=np.asarray(self.ee_w),
+                                 joint_pos=np.asarray(self.motor_joint_positions[:7]),
+                                 joint_vel=np.asarray(self.motor_joint_velocities[:7]),
+                                 joint_tau=np.asarray(self.last_torques_cmd[:7]),
+                                 joint_dim=7, 
+                                 torque_compensation=np.asarray(self.N_q[:7]))#np.asarray(self.gravity_vector))
 
         self.model.update_model(J_pos=self.linear_jacobian,
                                 J_ori=self.angular_jacobian,
@@ -352,6 +355,7 @@ class BulletRobotInterface(RobotInterface):
     def set_gripper_to_value(self, value):
         """Close the gripper of the robot
         """
+        self.gripper_width = value
         # Get the joint limits for the right and left joint from config file
         l_finger_joint_limits = self.get_joint_limit(
             self.get_link_id_from_name(self.robot_cfg['l_finger_name']))
@@ -502,16 +506,19 @@ class BulletRobotInterface(RobotInterface):
         Updates every call. Does not store property.
         """
         ee_position, _, _, _, _, _, = pybullet.getLinkState(
-
             self._arm_id,
             self._ee_index,
+            computeForwardKinematics=1, 
             physicsClientId=self._physics_id)
         return list(ee_position)
 
     @property
     def ee_orientation(self):
         _, ee_orientation, _, _, _, _, = pybullet.getLinkState(
-            self._arm_id, self._ee_index, physicsClientId=self._physics_id)
+            self._arm_id, 
+            self._ee_index,             
+            computeForwardKinematics=1, 
+            physicsClientId=self._physics_id)
 
         return list(ee_orientation)
 
@@ -627,7 +634,7 @@ class BulletRobotInterface(RobotInterface):
         """
         # Pybullet uses velocity motors by default. Setting max force to 0
         # allows for torque control
-        maxForce = 0.00
+        maxForce = 0.0
         mode = pybullet.VELOCITY_CONTROL
 
         for i in range(self._dof):
@@ -880,6 +887,7 @@ class BulletRobotInterface(RobotInterface):
             objAccelerations=[0]*len(self.motor_joint_positions),
             physicsClientId=self._physics_id
             )
+        #print("N_q {}".format(Nq))
         return np.asarray(Nq)[:7]
 
     @property
@@ -980,7 +988,7 @@ class BulletRobotInterface(RobotInterface):
         """
         joint_states = pybullet.getJointStates(
         self._arm_id, range(pybullet.getNumJoints(self._arm_id,
-                                                  physicsClientId=self.physics_id)),
+                                                  physicsClientId=self.physics_id)), 
         physicsClientId=self.physics_id)
         # Joint info specifies type of joint ("fixed" or not)
         joint_infos = [pybullet.getJointInfo(self._arm_id, i,  physicsClientId=self.physics_id) for i in range(pybullet.getNumJoints(self._arm_id, 
@@ -1042,14 +1050,14 @@ class BulletRobotInterface(RobotInterface):
         Notes: to ignore coriolis forces we set the object velocities to zero.
         """
 
-        gravity_forces = pybullet.calculateInverseDynamics(
+        gravity_torques = pybullet.calculateInverseDynamics(
             bodyUniqueId=self._arm_id,
-            objPositions=self.q,
-            objVelocities=[0]*self._num_joints,
-            objAccelerations=[0]*self._num_joints,
+            objPositions=self.motor_joint_positions,
+            objVelocities=[0]*len(self.motor_joint_positions),
+            objAccelerations=[0]*len(self.motor_joint_positions),
             physicsClientId=self._physics_id)
 
-        gravity_torques = np.transpose(self.jacobian)*gravity_forces
+        return gravity_torques[:7]
     
     def set_torques(self, joint_torques):
         """Set torques to the motor. Useful for keeping torques constant through
@@ -1057,12 +1065,12 @@ class BulletRobotInterface(RobotInterface):
 
         Args: joint_torques (list): list of joint torques with dimensions (num_joints,)
         """
+
         clipped_torques = np.clip(
             joint_torques[:7],
             -self._joint_max_forces[:7],
             self._joint_max_forces[:7])
 
-        #clipped_torques = joint_torques * self._joint_max_forces[:7]
         # For some reason you have to keep disabling the velocity motors
         # before every torque command.
         self.set_to_torque_mode()

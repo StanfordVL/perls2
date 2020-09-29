@@ -9,6 +9,7 @@ class Model:
 
         # robot states
         self.ee_pos = None
+        self.ee_ori_quat = None
         self.ee_ori_mat = None
         self.ee_pos_vel = None
         self.ee_ori_vel = None
@@ -35,13 +36,16 @@ class Model:
                       joint_pos,
                       joint_vel,
                       joint_tau,
-                      joint_dim=None):
+                      joint_dim=None, 
+                      torque_compensation=None):
 
         self.ee_pos = ee_pos
 
         if ee_ori.shape == (3, 3):
             self.ee_ori_mat = ee_ori
+            self.ee_ori_quat = T.mat2quat(ee_ori)
         elif ee_ori.shape[0] == 4:
+            self.ee_ori_quat = ee_ori
             self.ee_ori_mat = T.quat2mat(ee_ori)
         else:
             raise ValueError("orientation is not quaternion or matrix")
@@ -62,7 +66,8 @@ class Model:
                 # Default to joint_pos length
                 self.joint_dim = len(joint_pos)
             # Update torque_compensation accordingly
-            self.torque_compensation = np.zeros(self.joint_dim)
+            #self.torque_compensation = np.zeros(self.joint_dim)
+        self.torque_compensation = np.asarray(torque_compensation)
 
     def update_model(self,
                      J_pos,

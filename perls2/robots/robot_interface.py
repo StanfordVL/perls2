@@ -21,7 +21,6 @@ import numpy as np
 import logging
 from scipy.spatial.transform import Rotation as R
 
-
 AVAILABLE_CONTROLLERS = ["EEImpedance",
                          "EEPosture",  
                          "Internal",
@@ -64,16 +63,26 @@ class RobotInterface(object):
         if config is not None:
             world_name = config['world']['type']
             controller_config = config['controller'][world_name]
-            if config['controller']['interpolator']['type'] == 'linear':
-                self.interpolator = LinearInterpolator(max_dx=0.5, 
+            interp_pos_cfg = config['controller']['interpolator_pos']
+            if interp_pos_cfg['type'] == 'linear':
+                self.interpolator_pos = LinearInterpolator(max_dx=interp_pos_cfg['max_dx'], 
                                                        ndim=3, 
-                                                       controller_freq=1000, 
-                                                       policy_freq=20, 
-                                                       ramp_ratio=0.02)
+                                                       controller_freq=self.config['control_freq'], 
+                                                       policy_freq=self.config['policy_freq'], 
+                                                       ramp_ratio=interp_pos_cfg['ramp_ratio'])
             else:
-                self.interpolator = None
-        self.interpolator_goal_set = False
+                self.interpolator_pos = None
+            interp_ori_cfg = config['controller']['interpolator_ori']
+            if interp_ori_cfg['type'] == 'linear':
+                self.interpolator_ori = LinearOriInterpolator(max_dx=interp_ori_cfg['max_dx'], 
+                                                       ndim=3, 
+                                                       controller_freq=self.config['control_freq'], 
+                                                       policy_freq=self.config['policy_freq'], 
+                                                       ramp_ratio=interp_ori_cfg['ramp_ratio'])
+            else:
+                self.interpolator_ori = None
 
+        self.interpolator_pos_goal_set = False
     def update(self):
         raise NotImplementedError
 
@@ -106,14 +115,16 @@ class RobotInterface(object):
             return EEImpController(self.model,
                 kp=controller_dict['kp'], 
                 damping=controller_dict['damping'],
-                interpolator_pos =self.interpolator,
+                interpolator_pos =self.interpolator_pos,
                 interpolator_ori=None,
                 control_freq=self.config['sim_params']['control_freq'])
         elif control_type == "EEPosture":
             return EEPostureController(self.model, 
                 kp=controller_dict['kp'], 
                 damping=controller_dict['damping'],
-                interpolator_pos =self.interpolator,
+                posture_gain=controller_dict['posture_gain'],
+                posture=controller_dict['posture'],
+                interpolator_pos =self.interpolator_pos,
                 interpolator_ori=None,
                 input_max=np.array(controller_dict['input_max']),
                 input_min=np.array(controller_dict['input_min']),
@@ -138,7 +149,7 @@ class RobotInterface(object):
                 kp=controller_dict['kp'], 
                 damping=controller_dict['damping'],
                 posture_gain=controller_dict['posture_gain'],
-                interpolator_pos =self.interpolator,
+                interpolator_pos =self.interpolator_pos,
                 interpolator_ori=None,
                 control_freq=self.config['sim_params']['control_freq'])
         else: 
@@ -161,19 +172,18 @@ class RobotInterface(object):
             return self.controlType
         else:
             raise ValueError("Invalid control type " + 
-                "\nChoose from EEImpedance, JointVelocity, JointImpedance, JointTorque")
-
-
+                "\nChoose from {}".format(AVAILABLE_CONTROLLERS))
 
     def step(self):
         """Update the robot state and model, set torques from controller
         """
-        self.update()
+        self.update_model()
         if self.controller == "Internal":
             return
         else:
             if self.action_set:               
-                torques = self.controller.run_controller() + self.N_q
+                torques = self.controller.run_controller() 
+
                 self.set_torques(torques)
             else:
                 print("ACTION NOT SET")
@@ -182,20 +192,20 @@ class RobotInterface(object):
         self.controller.set_goal(**kwargs)
         self.action_set = True
 
-    def check_controller(self, fn_control_type):
-        if self.controlType != fn_control_type:
+    def check_controller(self, fn_control_types):
+        if self.controlType not in fn_control_types:
             raise ValueError('Wrong Control Type for this command. Change to ' + fn_control_type)
 
-    def move_ee_delta(self, delta, fix_pos=None, fix_ori=None):
+    def move_ee_delta(self, delta, set_pos=None, set_ori=None):
         """ Use controller to move end effector by some delta.
 
         Args: 
             delta (6f): delta position (dx, dy, dz) concatenated with delta orientation.
                 Orientation change is specified as an Euler angle body XYZ rotation about the
                 end effector link. 
-            fix_pos (3f): end effector position to maintain while changing orientation. 
+            set_pos (3f): end effector position to maintain while changing orientation. 
                 [x, y, z]. If not None, the delta for position is ignored. 
-            fix_ori (4f): end effector orientation to maintain while changing orientation
+            set_ori (4f): end effector orientation to maintain while changing orientation
                 as a quaternion [qx, qy, qz, w]. If not None, any delta for orientation is ignored. 
         
         Note: only for use with EE impedance controller
@@ -205,25 +215,26 @@ class RobotInterface(object):
 
         """
         #self.check_controller("EEImpedance")
-        if fix_ori is not None:
-            if len(fix_ori) != 4:
-                raise ValueError('fix_ori incorrect dimensions, should be quaternion length 4')
-            fix_ori= T.quat2mat(fix_ori)
-        if fix_pos is not None:
-            if len(fix_pos) != 3:
-                raise ValueError('fix_pos incorrect dimensions, should be length 3')
+        if set_ori is not None:
+            if len(set_ori) != 4:
+                raise ValueError('set_ori incorrect dimensions, should be quaternion length 4')
+            set_ori= T.quat2mat(set_ori)
+        if set_pos is not None:
+            if len(set_pos) != 3:
+                raise ValueError('set_pos incorrect dimensions, should be length 3')
 
-        kwargs = {'delta': delta, 'set_pos': fix_pos, 'set_ori':fix_ori}
+        self.check_controller(["EEImpedance", "EEPosture"])
+        kwargs = {'delta': delta, 'set_pos': set_pos, 'set_ori':set_ori}
         self.set_controller_goal(**kwargs)
 
-    def set_ee_pose(self, des_pose):
+    def set_ee_pose(self, set_pos, set_ori, **kwargs):
         """ Use controller to set end effector pose. 
 
         Args: des pose (7f): [x, y , z, qx, qy, qz, w]. end effector pose as position + quaternion orientation
 
         """
-        self.check_controller("EEImpedance")
-        kwargs = {'delta': None, 'set_pos': des_pose[:3], 'set_ori': des_pose[3:]}
+        #self.check_controller("EEImpedance")
+        kwargs = {'delta': None, 'set_pos': set_pos[:3], 'set_ori': set_ori[3:]}
         self.set_controller_goal(**kwargs)
 
         
@@ -240,7 +251,7 @@ class RobotInterface(object):
         kwargs = {'velocities': dq_des}
         self.set_controller_goal(**kwargs)
 
-    def set_joint_delta(self, delta):
+    def set_joint_delta(self, delta, **kwargs):
         """ Use controller to set new joint position with a delta. 
         Args:
             delta (ndarray): 7f delta joint position (rad) from current
@@ -250,12 +261,13 @@ class RobotInterface(object):
                Does not check for exceeding maximum joint limits. (TODO)
         """
         self.check_controller("JointImpedance")
-        kwargs = {'delta': delta}
+        kwargs = {"delta": delta}
         self.set_controller_goal(**kwargs)
 
-    def set_joint_positions(self, pose):    
+    def set_joint_positions(self, set_qpos, **kwargs):    
         self.check_controller("JointImpedance")
-        kwargs = {'delta':None,'pose':pose}
+        kwargs['set_qpos'] = set_qpos
+        kwargs['delta'] = None
         self.set_controller_goal(**kwargs)
 
     def set_joint_torque(self, torque):
@@ -264,7 +276,6 @@ class RobotInterface(object):
         self.set_controller_goal(**kwargs)
 
 
-    @abc.abstractmethod
     def create(config):
         """Factory for creating robot interfaces based on config type
         """

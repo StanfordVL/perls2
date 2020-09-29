@@ -17,6 +17,11 @@ import time
 import redis
 from perls2.robots.real_robot_interface import RealRobotInterface
 from scipy.spatial.transform import Rotation as R
+from perls2.ros_interfaces.redis_interface import RobotRedisInterface
+from perls2.ros_interfaces.redis_keys import * 
+# For dumping config dict to redis
+import json
+import socket
 
 def bstr_to_ndarray(array_bstr):
     """Convert bytestring array to 1d array
@@ -31,33 +36,33 @@ class RealSawyerInterface(RealRobotInterface):
 
     def __init__(self,
                  config,
-                 physics_id=None,
-                 arm_id=None,
                  use_safenet=True,
                  use_moveit=True,
                  controlType='EEImpedance',
-                 node_name='sawyer_interface', 
-                 pb_interface=None):
+                 node_name='sawyer_interface'):
         """
         Initialize variables and wrappers
         """
-        self.redisClient = redis.Redis()
-        super().__init__(config, controlType, pb_interface)
+        super().__init__(controlType=controlType, config=config)
+        self.redisClient = RobotRedisInterface(**self.config['redis'])
+        logging.info("warming up redis connection - sleep for 10s")
+        time.sleep(10.0)
+        self.update_model()
+
         logging.debug("Real Sawyer Interface created")
         # Check if redis connection already exists, if not
         # setup a new one.
 
-
-        # Sets environment connected flag for control interface
-        self.redisClient.set('robot::env_connected', 'True')
         self.neutral_joint_angles = self.robot_cfg['neutral_joint_angles']
-        self.RESET_TIMEOUT = 10       # Wait 3 seconds for reset to complete.
+        self.RESET_TIMEOUT = 15       # Wait 3 seconds for reset to complete.
+        self.set_controller_params_from_config()
+        self.connect()
 
     def connect(self):
-        self.redisClient.set('robot::env_connected', 'True')
+        self.redisClient.set(ROBOT_ENV_CONN_KEY, 'True')
 
     def disconnect(self):
-        self.redisClient.set('robot::env_connected', 'False')
+        self.redisClient.set(ROBOT_ENV_CONN_KEY, 'False')
 
     def reset(self):
         """ Reset arm to neutral configuration. Blocking call
@@ -66,16 +71,22 @@ class RealSawyerInterface(RealRobotInterface):
         TODO: This doesn't actually work, it just waits for the timeout.
         """
         logging.debug("Resetting robot")
-        self.redisClient.set('robot::cmd_type', 'reset_to_neutral')
+        reset_cmd = {ROBOT_CMD_TSTAMP_KEY : time.time(), 
+                     ROBOT_CMD_TYPE_KEY: 'reset_to_neutral'
+        }
+        self.redisClient.mset(reset_cmd)
+        # Wait for reset to be read by contrl interface. 
+        time.sleep(5)
         start = time.time()
-        while (self.redisClient.get('robot::reset_complete') != b'True' and
+        while (self.redisClient.get(ROBOT_RESET_COMPL_KEY) != b'True' and
                (time.time() - start < self.RESET_TIMEOUT)):
-            time.sleep(0.1)
+            time.sleep(0.01)
 
-        if (self.redisClient.get('robot::reset_complete') == b'True'):
-            logging.debug("reset successful")
+        if (self.redisClient.get(ROBOT_RESET_COMPL_KEY) == b'True'):
+            print("reset successful")
         else:
-            logging.debug("reset failed")
+            print("reset failed")
+
 
     @property
     def version(self):
@@ -100,8 +111,7 @@ class RealSawyerInterface(RealRobotInterface):
         :return: a list of floats for the position [x, y, z]
         """
         # Get position as bytes string
-        ee_pos_bstr = self.redisClient.get('robot::ee_position')
-        return bstr_to_ndarray(ee_pos_bstr)
+        return self.redisClient.get(ROBOT_STATE_EE_POS_KEY)
 
     @ee_position.setter
     def ee_position(self, position):
@@ -114,7 +124,7 @@ class RealSawyerInterface(RealRobotInterface):
         :return: a list of floats for the orientation quaternion [qx,
         qy, qz, qw]
         """
-        return bstr_to_ndarray(self.redisClient.get('robot::ee_orientation'))
+        return self.redisClient.get(ROBOT_STATE_EE_ORN_KEY)
 
     @property
     def ee_pose(self):
@@ -123,7 +133,7 @@ class RealSawyerInterface(RealRobotInterface):
         :return: a list of floats for the position and orientation [x,
         y, z, qx, qy, qz, qw]
         """
-        return bstr_to_ndarray(self.redisClient.get('robot::ee_pose'))
+        return self.redisClient.get(ROBOT_STATE_EE_POSE_KEY)
 
     @ee_pose.setter
     def ee_pose(self, pose):
@@ -132,7 +142,7 @@ class RealSawyerInterface(RealRobotInterface):
         :return: a list of floats for the position and orientation [x,
         y, z, qx, qy, qz, qw]
         """
-        self.redisClient.set('robot::cmd_type', 'ee_pose')
+        self.redisClient.set(ROBOT_CMD_TYPE_KEY, 'ee_pose')
         self.redisClient.set('robot::desired_ee_pose', str(pose))
 
     @property
@@ -143,8 +153,12 @@ class RealSawyerInterface(RealRobotInterface):
         :return: a list of floats for the linear velocity m/s [vx, vy,
         vz]
         """
-        return bstr_to_ndarray(self.redisClient.get('robot::ee_v'))
+        return self.redisClient.get(ROBOT_STATE_EE_V_KEY)
 
+    @property
+    def ee_pose_euler(self):
+        euler_orn = pb.getEulerFromQuaternion(self.ee_orientation)
+        return list(self.ee_position) + list(euler_orn)
     @property
     def ee_omega(self):
         """
@@ -152,7 +166,7 @@ class RealSawyerInterface(RealRobotInterface):
         :return: a list of floats for the twist velocity [vx, vy, vz,
         wx, wy, wz]
         """
-        return bstr_to_ndarray(self.redisClient.get('robot::ee_omega'))
+        return self.redisClient.get(ROBOT_STATE_EE_OMEGA_KEY)
 
     @property
     def ee_twist(self):
@@ -196,11 +210,11 @@ class RealSawyerInterface(RealRobotInterface):
         indices from small to large.
         Typically the order goes from base to end effector.
         """
-        return bstr_to_ndarray(self.redisClient.get('robot::q'))
+        return self.redisClient.get(ROBOT_STATE_Q_KEY)
 
     @q.setter
     def q(self, qd):
-        self.redisClient.set('robot::cmd_type', 'joint_position')
+        self.redisClient.set(ROBOT_CMD_TYPE_KEY, 'joint_position')
         self.redisClient.set('robot::qd', str(qd))
 
     @property
@@ -211,7 +225,7 @@ class RealSawyerInterface(RealRobotInterface):
         indices from small to large.
         Typically the order goes from base to end effector.
         """
-        return bstr_to_ndarray(self.redisClient.get('robot::dq'))
+        return self.redisClient.get(ROBOT_STATE_DQ_KEY)
 
 
     @property
@@ -232,7 +246,7 @@ class RealSawyerInterface(RealRobotInterface):
         small to large.
         Typically the order goes from base to end effector.
         """
-        return bstr_to_ndarray(self.redisClient.get('robot::tau'))
+        return self.redisClient.get(ROBOT_STATE_TAU_KEY)
 
     def set_torques(self, torques):
         torques = np.clip(
@@ -241,22 +255,36 @@ class RealSawyerInterface(RealRobotInterface):
             self.pb_interface._joint_max_forces[:7])
 
         self.redisClient.set('robot::tau_desired', str(list(torques)))
-        self.redisClient.set('robot::cmd_type', 'torque')
+        self.redisClient.set(ROBOT_CMD_TYPE_KEY, 'torque')
 
     @property
     def linear_jacobian (self):
-        return self.pb_interface.linear_jacobian
+        return self.redisClient.get(ROBOT_MODEL_L_JACOBIAN_KEY)
 
 
     @property
     def angular_jacobian(self):
-        return self.pb_interface.angular_jacobian
-
+        return self.redisClient.get(ROBOT_MODEL_A_JACOBIAN_KEY)
 
     @property
     def mass_matrix(self):
-        return self.pb_interface.mass_matrix
+        return self.redisClient.get(ROBOT_MODEL_MASS_MATRIX_KEY)
 
     @property
     def N_q(self):
-        return self.pb_interface.N_q
+        return bstr_to_ndarray(self.redisClient.get('robot::N_q'))
+
+
+    def set_controller_params_from_config(self):
+        selected_type = self.config['controller']['selected_type']
+        self.control_config = self.config['controller']['Real'][selected_type]
+
+        self.redisClient.mset({CONTROLLER_CONTROL_PARAMS_KEY: json.dumps(self.control_config), 
+                               CONTROLLER_CONTROL_TYPE_KEY: selected_type}) 
+
+        print("{} Control parameters set to redis: {}".format(selected_type, self.control_config))
+
+    def set_goal_state(self, goal): 
+        self.redisClient.set("robot::desired_state", str(goal))
+
+

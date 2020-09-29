@@ -80,6 +80,7 @@ class JointImpController(Controller):
             self.interpolator_qpos.set_goal(self.goal_qpos)
 
     def run_controller(self, action=None):
+        
         # First, update goal if action is not set to none
         # Action will be interpreted as delta value from current
         if action is not None:

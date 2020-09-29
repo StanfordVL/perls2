@@ -24,6 +24,7 @@ class EEPostureController(EEImpController):
                  kp=50,
                  damping=1,
                  posture_gain=0,
+                 posture=[0,-1.18,0.00,2.18,0.00,0.57,3.3161],
                  control_freq=20,
                  position_limits=None,
                  orientation_limits=None,
@@ -32,7 +33,8 @@ class EEPostureController(EEImpController):
                  uncouple_pos_ori=True, ):
         """ Initialize controller.
         """
-        self.posture_gain = posture_gain
+        self.posture_gain = np.asarray(posture_gain)
+        self.goal_posture = np.asarray(posture)
         super(EEPostureController, self).__init__(
             robot_model=robot_model, 
             input_max=input_max,
@@ -47,15 +49,42 @@ class EEPostureController(EEImpController):
             interpolator_pos=interpolator_pos,
             interpolator_ori=interpolator_ori,
             uncouple_pos_ori=uncouple_pos_ori)
+        # Compile numba jit in advance to reduce initial calc time.
+        self._compile_jit_functions()
 
+
+    def _compile_jit_functions(self):
+        """
+        Helper function to incur the cost of compiling jit functions used by this class
+        and robosuite upfront.
+        """
+        dummy_mat = np.eye(3)
+        dummy_quat = np.zeros(4)
+        dummy_quat[-1] = 1.
+        T.mat2quat(dummy_mat)
+        T.quat2mat(dummy_quat)
+
+        #dummy_nullspace_matrix = np.zeros((7, 7))
+        _, _, _, dummy_nullspace_matrix =opspace_matrices(
+            mass_matrix=self.model.mass_matrix,
+            J_full=self.model.J_full,
+            J_pos=self.model.J_pos,
+            J_ori=self.model.J_ori,
+        )
+        nullspace_torques(
+            mass_matrix=self.model.mass_matrix, 
+            nullspace_matrix=dummy_nullspace_matrix, 
+            initial_joint=self.goal_posture,
+            joint_pos=self.model.joint_pos,
+            joint_vel=self.model.joint_vel,
+        )
+        orientation_error(dummy_mat, dummy_mat)
 
     def set_goal(self, delta,  
-        set_pos=None, set_ori=None, posture=[0,-1.18,0.00,2.18,0.00,0.57,3.3161], **kwargs):
+        set_pos=None, set_ori=None, **kwargs):
 
-        super().set_goal(delta, set_pos, set_ori)
-        self.goal_posture = posture
-
-
+        super(EEPostureController, self).set_goal(delta, set_pos, set_ori)
+    
     def run_controller(self):
         # TODO: check if goal has been set.
         desired_vel_pos = 0.0
@@ -77,8 +106,7 @@ class EEPostureController(EEImpController):
         if self.interpolator_ori is not None:
             #relative orientation based on difference between current ori and ref
             self.relative_ori = orientation_error(self.model.ee_ori_mat, self.ori_ref)
-
-            interpolated_results = self.interpolator_ori.get_interpolated_goal(self.relative_ori)
+            interpolated_results = self.interpolator_ori.get_interpolated_goal(self.model.ee_ori)
             ori_error = interpolated_results[0:3]
 
             if self.interpolator_ori.order == 4:
@@ -92,10 +120,12 @@ class EEPostureController(EEImpController):
 
         position_error = desired_pos - self.model.ee_pos
         vel_pos_error = desired_vel_pos - self.model.ee_pos_vel
+
         desired_force = (np.multiply(np.array(position_error), np.array(self.kp[0:3]))
                          + np.multiply(vel_pos_error, self.kv[0:3])) + desired_acc_pos
 
         vel_ori_error = desired_vel_ori - self.model.ee_ori_vel
+
         desired_torque = (np.multiply(np.array(ori_error), np.array(self.kp[3:6]))
                           + np.multiply(vel_ori_error, self.kv[3:6])) + desired_acc_ori
         
@@ -111,14 +141,15 @@ class EEPostureController(EEImpController):
             desired_wrench = np.concatenate([desired_force, desired_torque])
             decoupled_wrench = np.dot(lambda_full, desired_wrench)
 
-
         self.torques = np.dot(self.model.J_full.T, decoupled_wrench) + self.model.torque_compensation
-        
-        posture_error = np.array(self.model.joint_pos - self.goal_posture) 
-        pgain_vec = np.array([-self.posture_gain] * 7)
-        posture_control = np.multiply(pgain_vec, posture_error)
+        self.torques += nullspace_torques(self.model.mass_matrix, 
+                                          nullspace_matrix, 
+                                          self.goal_posture, 
+                                          self.model.joint_pos, 
+                                          self.model.joint_vel, 
+                                         self.posture_gain)
 
-        self.torques = self.torques + np.dot(nullspace_matrix.T, posture_control)
-        # todo: null space! (as a wrapper)
+
 
         return self.torques
+

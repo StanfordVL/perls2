@@ -126,7 +126,7 @@ class BulletObjectInterface(ObjectInterface):
         """
         self._obj_id = new_id
     
-    def place(self, new_object_pos):
+    def place(self, new_object_pos, new_object_orn=None):
         """ Given an upper and lower bound,
             set the location of the object to a new position
 
@@ -134,10 +134,18 @@ class BulletObjectInterface(ObjectInterface):
             disregards the physics
         """
         # Get the current orietation so it is maintained during reset
+
         self.obj_pos, self.obj_orn = pybullet.getBasePositionAndOrientation(
             self._obj_id, self._physics_id)
 
         self.obj_pos = new_object_pos
+        if new_object_orn is not None:
+            self.obj_orn = new_object_orn
+
+        pybullet.resetBasePositionAndOrientation(
+            self._obj_id, self.obj_pos, self.obj_orn, self._physics_id)
+
+    def reset(self):
         pybullet.resetBasePositionAndOrientation(
             self._obj_id, self.obj_pos, self.obj_orn, self._physics_id)
 

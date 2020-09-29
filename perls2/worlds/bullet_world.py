@@ -109,7 +109,6 @@ class BulletWorld(World):
 
         self.set_pb_physics()
 
-
         # Create an arena to load robot and objects
         self.arena = BulletArena(self.config, self._physics_id)
 
@@ -141,8 +140,9 @@ class BulletWorld(World):
 
         #To ensure smoothness of simulation and collisions, execute
         # a number of simulation steps per action received by policy
-        self.ctrl_steps_per_action = self.config['sim_params']['steps_per_action']
-
+        
+        #self.ctrl_steps_per_action = self.config['sim_params']['steps_per_action']
+        self.ctrl_steps_per_action = int((self.config['control_freq'] / float(self.config['policy_freq'] * self.config['sim_params']['time_step'])))
         self.is_sim = True
         
         # TODO REMOVE DEBUGs    
@@ -293,7 +293,7 @@ class BulletWorld(World):
         pybullet.resetSimulation(physicsClientId=self._physics_id)
         self._reinitialize()
 
-    def step(self):
+    def step(self, start=None):
         """Step the world(simulation) forward.
 
         Args:
@@ -308,8 +308,9 @@ class BulletWorld(World):
 
         # Prepare for next step by executing action
         for exec_steps in range(self.ctrl_steps_per_action):
-            self.run_control_loop_for_action()
-
+            #self.run_control_loop_for_action()
+            self.robot_interface.step()
+            pybullet.stepSimulation(physicsClientId=self._physics_id)
         self.step_counter +=1
         #self.step_log = open('dev/logs/control/step' + str(self.step_counter) + '.txt', 'w+')
 
@@ -448,6 +449,20 @@ class BulletWorld(World):
 
     def set_state(self, filepath):
         """ Set simulation to .bullet path found in filepath
+
+            Args: 
+                filepath (str): filepath of .bullet file for saved state. 
+
+            Returns: 
+                None
+
+            Examples: 
+                env.world.set_state('/path/to/state.bullet')
+
+            Notes: 
+                To use this function correctly, the same objects / robots must be loaded 
+                in the same order. Therefore it is only recommended to use with the same
+                world / config, rather than trying to load an empty world.
         """
         pybullet.restoreState(fileName=filepath, physicsClientId=self.physics_id)
-        logging.debug("physicsClientId {} set to {}".format(self.physics_id, filepath))
+
