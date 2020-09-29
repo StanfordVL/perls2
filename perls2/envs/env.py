@@ -33,7 +33,7 @@ class Env(gym.Env):
         sensor_interface (perls2.SensorInterface): Retrieves sensor info and
             executes changes to extrinsic/intrinsic params.
         object_interfaces (dict): Dictionary of ObjectInterfaces
-            changes to params.
+        action_space
     """
 
     def __init__(self,
@@ -43,8 +43,8 @@ class Env(gym.Env):
         """Initialize.
 
         Args:
-            config (str, dict): A relative filepath to the config file. Or a 
-                parsed YamlConfig file as a dictionary. 
+            config (str, dict): A relative filepath to the config file. Or a
+                parsed YamlConfig file as a dictionary.
                 e.g. 'cfg/my_config.yaml'
             use_visualizer (bool): A flag for whether or not to use visualizer
             name (str): of the environment
@@ -132,7 +132,7 @@ class Env(gym.Env):
         return observation
 
     def step(self, action):
-        """Take a step.
+        """Step environment forward by applying action.
 
         Execute the action first, then step the world.
         Update the episodes / steps and determine termination

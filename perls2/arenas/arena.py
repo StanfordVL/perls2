@@ -6,9 +6,14 @@ import logging
 
 
 class Arena:
-    """The class definition for arenas
-    Arenas are static structures that other interfaces can reference for 
-    params set in config files, including randomized parameters. 
+    """The class definition for Arenas, objects used to set up environments.
+
+    Arenas are static structures that other interfaces can reference for
+    params set in config files, including randomized parameters. For simulated
+    worlds they are also responsible for loading and removing objects, robots,
+    and cameras.
+
+
     """
 
     def __init__(self,
@@ -28,21 +33,22 @@ class Arena:
 
         # Load camera parameters
         if isinstance(self.config['sensor'], dict):
-            camera_extrinsics_cfg = self.config['sensor']['camera']['extrinsics']
+            camera_extrinsics_cfg = \
+                self.config['sensor']['camera']['extrinsics']
 
             self.camera_eye_pos = camera_extrinsics_cfg['eye_position']
             self.camera_target_pos = camera_extrinsics_cfg['target_position']
             self.camera_up_vector = camera_extrinsics_cfg['up_vector']
 
             # Image parameters
-            camera_intrinsics_cfg = self.config['sensor']['camera']['intrinsics']
+            camera_intrinsics_cfg = \
+                self.config['sensor']['camera']['intrinsics']
 
             self.image_height = camera_intrinsics_cfg['image_height']
             self.image_width = camera_intrinsics_cfg['image_width']
             self.near_plane = camera_intrinsics_cfg['near_plane']
             self.far_plane = camera_intrinsics_cfg['far_plane']
             self.fov = camera_intrinsics_cfg['fov']
-
 
             self._rand_camera_intrin_cfg = (
                 self.config['sensor']['camera']['random']['intrinsics'])
@@ -58,7 +64,6 @@ class Arena:
         robot_name = self.config['world']['robot']
         self.robot_cfg = self.config[robot_name]
         logging.debug("Arena created")
-
 
     def random_vec_bounded(self, lower_bound, upper_bound):
         """Create a xf random position within bounds
