@@ -123,7 +123,7 @@ def set_goal_orientation(delta,
                          current_orientation,
                          orientation_limit=None,
                          set_ori=None,
-                         axis_angle=False):
+                         axis_angle=True):
     """
     Calculates and returns the desired goal orientation, clipping the result accordingly to @orientation_limits.
     @delta and @current_orientation must be specified if a relative goal is requested, else @set_ori must be

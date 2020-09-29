@@ -164,13 +164,13 @@ class SawyerCtrlInterface(RobotInterface):
             world_name = self.config['world']['type']
             controller_config = self.config['controller'][world_name]
             if self.config['controller']['interpolator']['type'] == 'linear':
-                interp_kwargs = {'max_dx': 0.02, 
+                interp_kwargs = {'max_dx': 0.005, 
                                  'ndim': 3, 
-                                  'controller_freq': 500, 
-                                  'policy_freq' : 20, 
-                                  'ramp_ratio' :  0.2 }
+                                 'controller_freq': 500, 
+                                 'policy_freq' : 20, 
+                                 'ramp_ratio' :  0.2 }
                 self.interpolator_pos = LinearInterpolator(**interp_kwargs)
-                self.interpolator_ori = None#LinearOriInterpolator(**interp_kwargs)
+                self.interpolator_ori = LinearOriInterpolator(**interp_kwargs)
                 rospy.loginfo("Linear interpolator created with params {}".format(interp_kwargs))
             else:
                 self.interpolator_pos = None
@@ -296,7 +296,10 @@ class SawyerCtrlInterface(RobotInterface):
 
         # default_params = self.config['controller']['Real']['JointImpedance']
         # self.redisClient.set(CONTROLLER_CONTROL_PARAMS_KEY, json.dumps(default_params))
-        
+        self.pb_ee_pos_log = []
+        self.pb_ee_ori_log = []
+        self.pb_ee_v_log = []
+        self.pb_ee_w_log = []        
 
         # Set initial redis keys
         self._linear_jacobian = None
@@ -342,8 +345,31 @@ class SawyerCtrlInterface(RobotInterface):
         self.cmd_end_time = []
 
         print("CURRENT EE_POSE {}".format(self.ee_pose))
+        #self.pb_pose_log = open('dev/validation/pb_pose.txt', 'w')
 
-
+    def createPoseMarker(
+        self, position=np.array([0,0,0]),
+                         orientation=np.array([0,0,0,1]),
+                         x_color=np.array([1,0,0]),
+                         y_color=np.array([0,1,0]),
+                         z_color=np.array([0,0,1]),
+                         lineLength=0.1,
+                         lineWidth=1,
+                         lifeTime=0,
+                         parentObjectUniqueId=0,
+                         parentLinkIndex=0,
+                         physicsClientId=0):
+        '''Create a pose marker that identifies a position and orientation in space with 3 colored lines.
+        '''
+        pts = np.array([[0,0,0],[lineLength,0,0],[0,lineLength,0],[0,0,lineLength]])
+        rotIdentity = np.array([0,0,0,1])
+        po, _ = pb.multiplyTransforms(position, orientation, pts[0,:], rotIdentity)
+        px, _ = pb.multiplyTransforms(position, orientation, pts[1,:], rotIdentity)
+        py, _ = pb.multiplyTransforms(position, orientation, pts[2,:], rotIdentity)
+        pz, _ = pb.multiplyTransforms(position, orientation, pts[3,:], rotIdentity)
+        pb.addUserDebugLine(po, px, x_color, lineWidth, lifeTime, self._pb_sawyer, parentLinkIndex, self._clid)
+        pb.addUserDebugLine(po, py, y_color, lineWidth, lifeTime, self._pb_sawyer, parentLinkIndex, self._clid)
+        pb.addUserDebugLine(po, pz, z_color, lineWidth, lifeTime, self._pb_sawyer, parentLinkIndex, self._clid)
 
     def make_controller_from_redis(self, control_type, controller_dict):
         print("Making controller {} with params: {}".format(control_type, controller_dict))
@@ -357,7 +383,14 @@ class SawyerCtrlInterface(RobotInterface):
                      interpolator_pos=self.interpolator_pos, 
                      interpolator_ori=self.interpolator_ori, **controller_dict)
         elif control_type =="JointImpedance":
+            interp_kwargs = {'max_dx': 0.05, 
+                             'ndim': 7, 
+                             'controller_freq': 500, 
+                             'policy_freq' : 20, 
+                             'ramp_ratio' :  0.2 }
+            self.interpolator_pos = LinearInterpolator(**interp_kwargs)
             return JointImpController(self.model, 
+                    interpolator_qpos=self.interpolator_pos,
                     **controller_dict)
 
 
@@ -434,6 +467,12 @@ class SawyerCtrlInterface(RobotInterface):
         """
         return list(self._limb.endpoint_velocity()['linear'])
 
+    def get_ee_v_world(self):
+        """
+        Returns ee_v in world frame, after applying transformations from eef ori.
+        """
+        return np.dot(np.array(self.ee_orientation), np.transpose(np.array(self.ee_v)))
+
     @property
     def ee_omega(self):
         """
@@ -442,6 +481,12 @@ class SawyerCtrlInterface(RobotInterface):
         wx, wy, wz]
         """
         return list(self._limb.endpoint_velocity()['angular'])
+
+    def get_ee_omega_world(self):
+        """
+        Returns ee_v in world frame, after applying transformations from eef ori.
+        """
+        return np.dot(np.array(self.ee_orientation), np.transpose(np.array(self.ee_omega)))
 
     @property
     def ee_twist(self):
@@ -514,6 +559,7 @@ class SawyerCtrlInterface(RobotInterface):
         """ Number of joints according to pybullet.
         """
         return pb.getNumJoints(self._pb_sawyer, physicsClientId=self._clid)
+    
     def get_motor_joint_indices(self):
         """ Go through urdf and get joint indices of "free" joints.
         """
@@ -761,7 +807,7 @@ class SawyerCtrlInterface(RobotInterface):
             #t1 = time.time()
 
             torques = self.controller.run_controller() 
-            #self.set_torques([0]*7)
+            # self.set_torques([0]*7)
             torques = np.clip(torques, -5.0, 5.0)
         
             self.set_torques(torques)
@@ -946,6 +992,7 @@ class SawyerCtrlInterface(RobotInterface):
         pb_ee_pos, pb_ee_ori, _, _, _, _, pb_ee_v, pb_ee_w = pb.getLinkState(self._pb_sawyer,
             self._link_id_dict[self.ee_name],
             computeLinkVelocity=1, 
+            computeForwardKinematics=1,
             physicsClientId=self._clid
             )
 
@@ -953,12 +1000,14 @@ class SawyerCtrlInterface(RobotInterface):
         self.pb_ee_ori_log.append(T.quat2mat(pb_ee_ori))
         self.pb_ee_v_log.append(pb_ee_v)
         self.pb_ee_w_log.append(pb_ee_w)
-        print("EE_V INTERA{}".format(self.ee_v))
+
         # Get ee orientation as a matrix
         ee_ori_mat = T.quat2mat(self.ee_orientation)
         # Get end effector velocity in world frame
         ee_v_world = np.dot(ee_ori_mat, np.array(self.ee_v).transpose())
+
         ee_w_world = np.dot(ee_ori_mat, np.array(self.ee_omega).transpose())
+        self.ee_omega_world = ee_w_world
         self.model.update_states(ee_pos=np.asarray(self.ee_position),
                                  ee_ori= np.asarray(self.ee_orientation),
                                  ee_pos_vel=np.asarray(ee_v_world),
@@ -1123,7 +1172,7 @@ class SawyerCtrlInterface(RobotInterface):
         
         if (cmd_type == b"set_ee_pose"):
             self.set_ee_pose(**controller_goal)
-        elif (cmd_type == b'move_ee_delta'):
+        elif (cmd_type == b"move_ee_delta"):
             self.move_ee_delta(**controller_goal)
 
         # elif(cmd_type == b'set_joint_positions'):
@@ -1131,7 +1180,11 @@ class SawyerCtrlInterface(RobotInterface):
         #     #self.check_controller("JointImpedance")
         #     self.set_joint_positions(**controller_goal)
         elif(cmd_type == b'set_joint_delta'):
-             self.set_joint_delta(**controller_goal)
+            self.set_joint_delta(**controller_goal)
+        elif (cmd_type==b'set_joint_positions'):
+            self.set_joint_positions(**controller_goal)
+        elif (cmd_type==b'set_joint_torques'):
+            self.set_joint_torques(**controller_goal)
         # elif (cmd_type == b'torque'):
         #     raise NotImplementedError
         #     #self.tau = self.desired_torque
@@ -1139,6 +1192,7 @@ class SawyerCtrlInterface(RobotInterface):
 
             self.redisClient.set(ROBOT_RESET_COMPL_KEY, 'False')
             self.reset_to_neutral()
+            print("EE_POSE\t{}".format(self.ee_pose))
         # elif(cmd_type == b'ee_delta'):
         #     raise NotImplementedError
         #     #self.move_ee_delta(self.desired_state)
@@ -1161,8 +1215,8 @@ class SawyerCtrlInterface(RobotInterface):
             return False
 
     def run(self):
-        # if (self.env_connected == b'True'):
-        #     self.controller = self.make_controller_from_redis(self.get_control_type(), self.get_controller_params())
+        if (self.env_connected == b'True'):
+            self.controller = self.make_controller_from_redis(self.get_control_type(), self.get_controller_params())
         # TODO: Run controller once to initalize numba
 
         while True:
@@ -1175,6 +1229,26 @@ class SawyerCtrlInterface(RobotInterface):
             else:
                 break
         #self.log_start_times.append(time.time())
+
+        # np.savez('dev/validation/0918_pb_state_log_sawyer_ctrl2.npz', 
+        #     ee_pos=np.array(self.pb_ee_pos_log), 
+        #     ee_ori = np.array(self.pb_ee_ori_log), 
+        #     ee_v=np.array(self.pb_ee_v_log), 
+        #     ee_w=np.array(self.pb_ee_w_log), 
+        #     allow_pickle=True)
+
+        # np.savez('dev/validation/0918_controller_log.npz', 
+        #     des_pos = np.array(self.controller.des_pos_log), 
+        #     des_ori = np.array(self.controller.des_ori_log), 
+        #     ee_pos=np.array(self.controller.intera_ee_pos_log), 
+        #     ee_ori=np.array(self.controller.intera_ee_ori_log),
+        #     ee_v=np.array(self.controller.intera_ee_v_log), 
+        #     ee_w=np.array(self.controller.intera_ee_w_log), 
+        #     pos_error=np.array(self.controller.pos_error_log), 
+        #     ori_error=np.array(self.controller.ori_error_log),
+        #     interp_pos=np.array(self.controller.interp_pos_log),
+        #     allow_pickle=True) 
+
         #np.savez('dev/sawyer_ctrl_timing/0821_time_nuc/0821_ctrl_loop_sq.npz', start=np.array(self.log_start_times), end=np.array(self.log_end_times), allow_pickle=True)
         #np.savez('dev/sawyer_ctrl_timing/0821_time_nuc/0821_cmd_times.npz', start=np.array(self.cmd_start_times), end=np.array(self.cmd_end_times), allow_pickle=True)
         # np.savez('dev/sawyer_ctrl_timing/run_controller_times.npz', delay=np.array(self.controller_times), allow_pickle=True)
@@ -1212,6 +1286,7 @@ if __name__ == "__main__":
     while (ctrlInterface.env_connected == b'True'):
         rospy.loginfo('Environment connected... entering control loop')
         ctrlInterface.run()
+
     rospy.loginfo("Env disconnected. shutting down.")
 
 
