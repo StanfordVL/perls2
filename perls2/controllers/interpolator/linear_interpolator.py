@@ -39,9 +39,12 @@ class LinearInterpolator(Interpolator):
     '''
     def set_goal(self, goal):
         # First, check to make sure requested goal shape is the same as self.dim
-        if goal.shape[0] != self.dim:
-                print("Requested goal: {}".format(goal))
-                raise ValueError("LinearInterpolator: Input size wrong for goal; needs to be {}!".format(self.dim))
+        if goal is list: 
+            goal = np.asarray(goal)
+
+        if len(goal) != self.dim:
+            print("Requested goal: {}".format(goal))
+            raise ValueError("LinearInterpolator: Input size wrong for goal; needs to be {}!".format(self.dim))
 
         # Set initial goal for smoothing.
         if self.prev_goal is None:

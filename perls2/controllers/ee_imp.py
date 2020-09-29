@@ -5,13 +5,30 @@ import perls2.controllers.utils.transform_utils as T
 import numpy as np
 import time
 import math
+
+import rospy
+import tf
+
+import rospy
+import sensor_msgs.msg
+from std_msgs.msg import String
+
+def publish_pose(pose, name):
+    # optionally broadcast the target pose as a tf frame
+    br = tf.TransformBroadcaster()
+    br.sendTransform(
+        pose[0], pose[1], rospy.Time.now(),
+        name, 'world'
+    )
+
+
 class EEImpController(Controller):
-    """ Class definition for End-effector Impedance Controller. 
+    """ Class definition for End-effector Impedance Controller.
 
-    End effector impedance uses PD control to reach desired end-effector 
-    position and orientation. 
+    End effector impedance uses PD control to reach desired end-effector
+    position and orientation.
 
-    Attributes: 
+    Attributes:
         input_max (float or list of float): Maximum above which an inputted action will be clipped. Can be either be
             a scalar (same value for all action dimensions), or a list (specific values for each dimension). If the
             latter, dimension should be the same as the control dimension for this controller
@@ -66,16 +83,29 @@ class EEImpController(Controller):
                  output_max=1.0,
                  output_min=-1.0,
                  kp=50,
+                 kv=None,
                  damping=1,
                  control_freq=20,
                  position_limits=None,
-                 orientation_limits=[[-math.pi/2]*3, [math.pi/2]*3],
+                 orientation_limits=None,
                  interpolator_pos=None,
                  interpolator_ori=None,
-                 uncouple_pos_ori=True,
+                 uncouple_pos_ori=False,
                  ):
 
         super(EEImpController, self).__init__()
+        # Logging 
+        self.intera_ee_pos_log = []
+        self.intera_ee_ori_log = []
+        self.intera_ee_v_log = []
+        self.intera_ee_w_log = []
+        self.ori_error_log = []
+        self.pos_error_log = []
+        self.des_pos_log = []
+        self.des_ori_log =[]
+        self.interp_pos_log = []
+        self.interp_ori_log = []
+
         # input and output max and min
         self.input_max = np.array(input_max)
         self.input_min = np.array(input_min)
@@ -84,14 +114,19 @@ class EEImpController(Controller):
 
         # limits
         self.position_limits = position_limits
-        self.orientation_limits = np.array(orientation_limits)
+        self.orientation_limits = orientation_limits
 
         # kp kv
         if kp is list:
             self.kp = kp
         else:
             self.kp = np.ones(6) * kp
-        self.kv = np.ones(6) * 2 * np.sqrt(self.kp) * damping
+
+        # Set kv using damping if kv not explicitly set.    
+        if kv is not None: 
+            self.kv = kv
+        else:
+            self.kv = np.ones(6) * 2 * np.sqrt(self.kp) * damping
 
         # control frequency
         self.control_freq = control_freq
@@ -102,8 +137,6 @@ class EEImpController(Controller):
         # interpolator
         self.interpolator_pos = interpolator_pos
         self.interpolator_ori = interpolator_ori
-        # self.interpolator_ori = None
-        # todo: orientation interpolators change to relative! refactor!
 
         # whether or not pos and ori want to be uncoupled
         self.uncoupling = uncouple_pos_ori
@@ -112,15 +145,45 @@ class EEImpController(Controller):
         self.goal_ori = None
         self.goal_pos = None
 
+        self.prev_goal_ori = None
+        self.prev_goal_pos = None
+
         self.relative_ori = np.zeros(3)
 
         self.set_goal(np.zeros(6))
+
+        self._compile_jit_functions()
+
+    def _compile_jit_functions(self):
+        """
+        Helper function to incur the cost of compiling jit functions used by this class
+        and robosuite upfront.
+        """
+        dummy_mat = np.eye(3)
+        dummy_quat = np.zeros(4)
+        dummy_quat[-1] = 1.
+        T.mat2quat(dummy_mat)
+        T.quat2mat(dummy_quat)
+
+        #dummy_nullspace_matrix = np.zeros((7, 7))
+        _, _, _, dummy_nullspace_matrix =opspace_matrices(
+            mass_matrix=self.model.mass_matrix,
+            J_full=self.model.J_full,
+            J_pos=self.model.J_pos,
+            J_ori=self.model.J_ori,
+        )
+        orientation_error(dummy_mat, dummy_mat)
 
     def set_goal(self, delta, set_pos=None, set_ori=None, **kwargs):
         if not (isinstance(set_pos, np.ndarray)) and set_pos is not None:
             set_pos = np.array(set_pos)
         if not (isinstance(set_ori, np.ndarray)) and set_ori is not None:
-            set_ori = np.array(set_ori)
+            if len(set_ori) != 4:
+                raise ValueError("invalid ori dimensions, should be quaternion.")
+            else:
+                set_ori = T.quat2mat(np.array(set_ori))
+                print("set_ori\t{}".format(set_ori))
+
         self.model.update()
 
         if delta is not None:
@@ -128,26 +191,27 @@ class EEImpController(Controller):
               raise ValueError("incorrect delta dimension")
 
             scaled_delta = self.scale_action(delta)
-      # We only want to update goal orientation if there is a valid delta ori value
-        # use math.isclose insad of numpy because numpy is slow
-            # bools = [0. if np.isclose(elem, 0.) else 1. for elem in scaled_delta[3:]]
-            # if sum(bools) > 0.
+
             self.goal_ori = set_goal_orientation(scaled_delta[3:],
                                                      self.model.ee_ori_mat,
                                                      orientation_limit=self.orientation_limits,
                                                      set_ori=set_ori,
-                                                     axis_angle=False)
+                                                     axis_angle=True)
 
             self.goal_pos = set_goal_position(scaled_delta[:3],
                                               self.model.ee_pos,
                                               position_limit=self.position_limits,
                                               set_pos=set_pos)
         else:
+
+
             scaled_delta = None
+
             self.goal_ori = set_goal_orientation(None,
                                                  self.model.ee_ori_mat,
                                                  orientation_limit=self.orientation_limits,
-                                                 set_ori=T.quat2mat(set_ori))
+                                                 set_ori=set_ori, 
+                                                 axis_angle=True)
 
             self.goal_pos = set_goal_position(None,
                                               self.model.ee_pos,
@@ -159,26 +223,22 @@ class EEImpController(Controller):
             self.interpolator_pos.set_goal(self.goal_pos)
 
         if self.interpolator_ori is not None:
+
             self.ori_ref = np.array(self.model.ee_ori_mat) #reference is the current orientation at start
-            self.interpolator_ori.set_goal(T.mat2quat(self.goal_ori)) # goal is the clipped orientation. 
+            self.interpolator_ori.set_goal(T.mat2quat(self.goal_ori)) # goal is the clipped orientation.
             self.relative_ori = np.zeros(3) #relative orientation always starts at 0
-    
-    
+
     def run_controller(self):
-        # TODO: check if goal has been set.
-        desired_vel_pos = 0.0
-        desired_acc_pos = 0.0
-        desired_vel_ori = 0.0
-        desired_acc_ori = 0.0
+
+            # TODO: check if goal has been set.
+        desired_vel_pos = np.asarray([0.0, 0.0, 0.0])
+        desired_acc_pos = np.asarray([0.0, 0.0, 0.0])
+        desired_vel_ori = np.asarray([0.0, 0.0, 0.0])
+        desired_acc_ori = np.asarray([0.0, 0.0, 0.0])
 
         if self.interpolator_pos is not None:
-            if self.interpolator_pos.order == 4:
-                interpolated_results = self.interpolator_pos.get_interpolated_goal(self.model.ee_pos)
-                desired_pos = interpolated_results[0:3]
-                desired_vel_pos = interpolated_results[3:6]
-                desired_acc_pos = interpolated_results[6:]
-            else:
-                desired_pos = self.interpolator_pos.get_interpolated_goal(self.model.ee_pos)
+            desired_pos = self.interpolator_pos.get_interpolated_goal()
+            self.interp_pos_log.append(desired_pos)
         else:
             desired_pos = np.array(self.goal_pos)
 
@@ -186,15 +246,12 @@ class EEImpController(Controller):
 
             desired_ori = T.quat2mat(self.interpolator_ori.get_interpolated_goal())
             ori_error = orientation_error(desired_ori, self.model.ee_ori_mat)
-
-            if self.interpolator_ori.order == 4:
-                desired_vel_ori = interpolated_results[3:6]
-                desired_acc_ori = interpolated_results[6:]
-                self.ori_interpolate_started = True
-
+            publish_pose((desired_pos, T.mat2quat(desired_ori)), 'interp_pose')
         else:
             desired_ori = np.array(self.goal_ori)
             ori_error = orientation_error(desired_ori, self.model.ee_ori_mat)
+
+        publish_pose((self.goal_pos, T.mat2quat(self.goal_ori)), 'goal_pose')
 
         position_error = desired_pos - self.model.ee_pos
         vel_pos_error = desired_vel_pos - self.model.ee_pos_vel
@@ -202,13 +259,14 @@ class EEImpController(Controller):
                          + np.multiply(vel_pos_error, self.kv[0:3])) + desired_acc_pos
 
         vel_ori_error = desired_vel_ori - self.model.ee_ori_vel
-        desired_torque = (np.multiply(np.array(ori_error), np.array(self.kp[3:6]))
-                          + np.multiply(vel_ori_error, self.kv[3:6])) + desired_acc_ori
-        
+        desired_torque = (np.multiply(np.array(ori_error), np.array(self.kp[3:]))
+                          + np.multiply(vel_ori_error, self.kv[3:])) + desired_acc_ori
+
         lambda_full, lambda_pos, lambda_ori, nullspace_matrix = opspace_matrices(self.model.mass_matrix,
                                                                                  self.model.J_full,
                                                                                  self.model.J_pos,
                                                                                  self.model.J_ori)
+        self.nullspace_matrix = nullspace_matrix
         if self.uncoupling:
             decoupled_force = np.dot(lambda_pos, desired_force)
             decoupled_torque = np.dot(lambda_ori, desired_torque)
@@ -217,9 +275,17 @@ class EEImpController(Controller):
             desired_wrench = np.concatenate([desired_force, desired_torque])
             decoupled_wrench = np.dot(lambda_full, desired_wrench)
 
-
         self.torques = np.dot(self.model.J_full.T, decoupled_wrench) + self.model.torque_compensation
-        # todo: null space! (as a wrapper)
+
+        self.des_pos_log.append(self.goal_pos)
+        self.des_ori_log.append(self.goal_ori)
+        self.intera_ee_pos_log.append(self.model.ee_pos)
+        self.intera_ee_ori_log.append(self.model.ee_ori_mat)
+        self.intera_ee_v_log.append(self.model.ee_pos_vel)
+        self.intera_ee_w_log.append(self.model.ee_ori_vel)
+        self.pos_error_log.append(position_error)
+        self.ori_error_log.append(ori_error)
+
         return self.torques
 
     def reset_goal(self):
