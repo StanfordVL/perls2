@@ -144,7 +144,7 @@ class RobotInterface(object):
                 )
         elif control_type == "JointTorque":
             return JointTorqueController(
-                robot_model=self.model )
+                robot_model=self.model)
         elif control_type == "EEPosture":
             return EEPostureController(self.model,
                 kp=controller_dict['kp'],
@@ -240,7 +240,7 @@ class RobotInterface(object):
         self.set_controller_goal(**kwargs)
 
         
-    def set_joint_velocity(self, dq_des):
+    def set_joint_velocities(self, velocities):
         """ Use controller to set joint velocity of the robot.
         Args:
             dq_des(ndarray): 7f desired joint velocities (rad/s) for each joint.
@@ -250,7 +250,7 @@ class RobotInterface(object):
         """        
 
         self.check_controller("JointVelocity")
-        kwargs = {'velocities': dq_des}
+        kwargs = {'velocities': velocities}
         self.set_controller_goal(**kwargs)
 
     def set_joint_delta(self, delta, **kwargs):
@@ -280,7 +280,7 @@ class RobotInterface(object):
             torques (list): 7f list of toruqes to command. 
         """
         self.check_controller("JointTorque")
-        kwargs = {'torque':torques}
+        kwargs = {'torques':torques}
         self.set_controller_goal(**kwargs)
 
 

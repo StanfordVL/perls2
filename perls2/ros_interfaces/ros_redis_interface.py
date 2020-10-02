@@ -5,6 +5,7 @@ import hiredis
 from perls2.utils.yaml_config import YamlConfig
 from perls2.ros_interfaces.redis_interface import RobotRedisInterface as RobotRedis
 from perls2.ros_interfaces.redis_keys import * 
+import json
 import numpy as np        
 try:
     import intera_interface as iif
@@ -22,15 +23,15 @@ def on_joint_states(msg):
         ROBOT_STATE_EE_ORN_KEY: str(list(_limb.endpoint_pose()['orientation'])),
         ROBOT_STATE_EE_V_KEY: str(list(_limb.endpoint_velocity()['linear'])), 
         ROBOT_STATE_Q_KEY: str( _limb.joint_ordered_angles()),
-        ROBOT_STATE_DQ_KEY: str(_limb.joint_velocities()),
-        ROBOT_STATE_TAU_KEY: str(_limb.joint_efforts()),
+        ROBOT_STATE_DQ_KEY: json.dumps(_limb.joint_velocities()),
+        ROBOT_STATE_TAU_KEY: json.dumps(_limb.joint_efforts()),
         ROBOT_MODEL_JACOBIAN_KEY: str(np.zeros((6,7))),
         ROBOT_MODEL_L_JACOBIAN_KEY: str(np.zeros((3,6))),
         ROBOT_MODEL_A_JACOBIAN_KEY: str(np.zeros((3,6))),
         ROBOT_MODEL_MASS_MATRIX_KEY: str(np.zeros((7,7)))
     }
-
     redisClient.mset(robot_state)   
+
 rospy.init_node("ros_redis_interface")
 _limb = iif.Limb(limb="right", synchronous_pub=False)
 

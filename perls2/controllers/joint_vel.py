@@ -71,7 +71,7 @@ class JointVelController(Controller):
         if self.interpolator is not None:
             if self.interpolator.order == 1:
                 # Linear case
-                desired_vel = self.interpolator.get_interpolated_goal(self.model.joint_vel)
+                desired_vel = self.interpolator.get_interpolated_goal()
             else:
                 # Nonlinear case not currently supported
                 pass
@@ -79,6 +79,7 @@ class JointVelController(Controller):
             desired_vel = np.array(self.goal_vel)
 
         # Compute torques (pre-compensation)
+        print(desired_vel - self.model.joint_vel)
         self.torques = np.multiply(self.kv, (desired_vel - self.model.joint_vel)) + self.model.torque_compensation
 
         # Return final torques

@@ -89,6 +89,8 @@ from perls2.robots.robot_interface import RobotInterface
 from perls2.controllers.ee_imp import EEImpController
 from perls2.controllers.ee_posture import EEPostureController
 from perls2.controllers.joint_imp import JointImpController
+from perls2.controllers.joint_torque import JointTorqueController
+from perls2.controllers.joint_vel import JointVelController
 from perls2.controllers.interpolator.linear_interpolator import LinearInterpolator
 from perls2.controllers.interpolator.linear_ori_interpolator import LinearOriInterpolator
 from perls2.controllers.robot_model.model import Model
@@ -392,6 +394,28 @@ class SawyerCtrlInterface(RobotInterface):
             return JointImpController(self.model, 
                     interpolator_qpos=self.interpolator_pos,
                     **controller_dict)
+        elif control_type =="JointTorque":
+            interp_kwargs = {'max_dx': 0.05, 
+                             'ndim': 7, 
+                             'controller_freq': 500, 
+                             'policy_freq' : 20, 
+                             'ramp_ratio' :  0.2 }
+            self.interpolator_pos = LinearInterpolator(**interp_kwargs)
+            return JointTorqueController(self.model, 
+                    interpolator=self.interpolator_pos,
+                    **controller_dict)
+        elif control_type == "JointVelocity":
+            interp_kwargs = {'max_dx': 0.05, 
+                             'ndim': 7, 
+                             'controller_freq': 500, 
+                             'policy_freq' : 20, 
+                             'ramp_ratio' :  0.2 }
+            self.interpolator_pos = LinearInterpolator(**interp_kwargs)
+            return JointVelController(self.model, 
+                interpolator=self.interpolator_pos, 
+                **controller_dict)
+        else:
+            raise ValueError("Invalid control type.")
 
 
     def get_controller_params(self):
@@ -1185,6 +1209,8 @@ class SawyerCtrlInterface(RobotInterface):
             self.set_joint_positions(**controller_goal)
         elif (cmd_type==b'set_joint_torques'):
             self.set_joint_torques(**controller_goal)
+        elif (cmd_type==b'set_joint_velocities'):
+            self.set_joint_velocities(**controller_goal)
         # elif (cmd_type == b'torque'):
         #     raise NotImplementedError
         #     #self.tau = self.desired_torque
