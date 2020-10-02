@@ -30,8 +30,8 @@ class Demo():
                                   use_abs=use_abs,
                                   test_fn=test_fn,
                                   name='Demo Control Env')
-        print("initializing")
         self.ctrl_type = ctrl_type
+
         self.env.robot_interface.change_controller(self.ctrl_type)
         self.demo_type = demo_type
         self.use_abs = use_abs
@@ -71,8 +71,14 @@ class Demo():
         """
         if kwargs['ctrl_type'] in ["EEImpedance", "EEPosture"]:
             return OpSpaceDemo(**kwargs)
-        elif kwargs['ctrl_type'] in ["JointImpedance"]:
-            return JointSpaceDeltaDemo(**kwargs)
+        elif kwargs['ctrl_type'] in ["JointImpedance", "JointTorque", "JointVelocity"]:
+            return JointSpaceDemo(**kwargs)
+        else:
+            raise ValueError("invalid demo / controller pairing.")
+            # if self.use_abs:
+            #     return JointSpaceDeltaDemo(**kwargs)
+            # else:
+            #     return JointSpaceAbsDemo(**kwargs)
 
 
 class JointSpaceDemo(Demo):
@@ -90,18 +96,33 @@ class JointSpaceDemo(Demo):
     def __init__(self, ctrl_type, demo_type, use_abs=False,
                  delta_val=0.05, num_steps=10, test_fn='set_joint_delta',
                  **kwargs):
-        super().__init__(ctrl_type, demo_type, use_abs, test_fn, **kwargs)
+        super().__init__(ctrl_type=ctrl_type,
+                         demo_type=demo_type,
+                         use_abs=use_abs, test_fn=test_fn, **kwargs)
         # Get goal states based on demo and control type.
-        self.start_pos = self.env.robot_interface.q
+
+        # Joint torque requires edge case to not include gravity comp.
+        if ctrl_type == "JointTorque":
+            self.start_pos = [0, 0, 0, 0, 0, 0, 0]
+        else:
+            self.start_pos = self.get_state() #self.env.robot_interface.q
         self.delta_val = delta_val
-        self.goal_states = []
-        self.action_list = self.get_action_list()
-        self.goal_states = self.get_goal_states()
-        self.num_steps = len(self.action_list)
+        print("delta_val\{}".format(delta_val))
+        self.path = SequentialJoint(start_pose=self.start_pos,
+                                    delta_val=self.delta_val)
+        self.goal_poses = self.path.path
+        self.num_steps = len(self.goal_poses)
         self.step_num = 0
 
     def get_state(self):
-        return self.env.robot_interface.q[:7]
+        if self.ctrl_type == "JointTorque":
+            return self.env.robot_interface.tau[:7]
+        elif self.ctrl_type == "JointImpedance":
+            return self.env.robot_interface.q[:7]
+        elif self.ctrl_type == "JointVelocity":
+            return self.env.robot_interface.dq[:7]
+        else:
+            raise ValueError("Invalid ctrl type.")
 
     def run(self):
         """Run the demo. Execute actions in sequence and calculate error.
@@ -110,20 +131,142 @@ class JointSpaceDemo(Demo):
             function {}".format(self.ctrl_type, self.demo_type, self.test_fn))
 
         print("Joint Pose initial{}".format(self.env.robot_interface.q))
-        for i, action in enumerate(self.action_list):
+        for i, goal_pose in enumerate(self.goal_poses):
+
+            action = self.get_action(goal_pose, self.get_state())
+            action_kwargs = self.get_action_kwargs(action)
             print("Action:\t{}".format(action))
-            self.env.step(action, time.time())
+            self.env.step(action_kwargs, time.time())
             self.actions.append(action)
             new_state = self.get_state()
-            print("q Pos:\t{}".format(self.env.robot_interface.q))
-            print("goal state:\t{}".format(self.goal_states[i+1]))
+
             self.states.append(new_state)
             self.errors.append(
-                self.compute_error(self.goal_states[i+1], new_state))
-            print(self.errors[-1])
+                self.compute_error(goal_pose, new_state))
+            print("Errors:\t{}".format(self.errors[-1]))
 
         self.env.robot_interface.disconnect()
+        if self.plot_error:
+            self.plot_errors()
+        if self.plot_pos:
+            self.plot_positions()
 
+    def get_action_kwargs(self, action):
+        """
+        Args:
+            action (list): action to be converted in kwargs for robot_interface functions.
+        Returns
+            action_kwargs (dict): dictionary with key-value pairs corresponding to
+                arguments for robot_interface command being tested.
+        """
+        action_kwargs = {}
+        if isinstance(action, np.ndarray):
+            action = action.tolist()
+
+        if self.test_fn == "set_joint_delta":
+            action_kwargs['delta'] = action
+            action_kwargs['set_qpos'] = None
+        if self.test_fn == "set_joint_positions":
+            action_kwargs['delta'] = None
+            action_kwargs['pose'] = action
+        if self.test_fn == "set_joint_torques":
+            action_kwargs['torques'] = action
+        if self.test_fn == "set_joint_velocities":
+            action_kwargs['velocities'] = action
+
+        return action_kwargs
+
+    def get_action(self, goal_state, current_state):
+        """Get action corresponding to test_fn
+
+        Args:
+            goal_pose (list): 7f desired joint positions
+            current_pose (list): 7f current joint positions.
+
+        Return:
+            action (list): 7f joint delta or joint positions.
+        """
+        if self.test_fn == "set_joint_delta":
+            action = np.subtract(goal_state, current_state)
+        elif self.test_fn == "set_joint_positions":
+            action = goal_state
+        elif self.test_fn == "set_joint_torques":
+            action = goal_state
+        elif self.test_fn == "set_joint_velocities":
+            action = goal_state
+        else:
+            raise ValueError("Invalid test function")
+
+        return action
+
+    def compute_error(self, goal, current):
+        return np.subtract(goal, current)
+
+    def plot_positions(self):
+        """ Plot 6 plots for joint position.
+        Helps for visualizing decoupling.
+        """
+
+        goal_0 = [goal[0] for goal in self.goal_poses]
+        goal_1 = [goal[1] for goal in self.goal_poses]
+        goal_2 = [goal[2] for goal in self.goal_poses]
+        goal_3 = [goal[3] for goal in self.goal_poses]
+        goal_4 = [goal[4] for goal in self.goal_poses]
+        goal_5 = [goal[5] for goal in self.goal_poses]
+        goal_6 = [goal[6] for goal in self.goal_poses]
+
+        state_0 = [state[0] for state in self.states]
+        state_1 = [state[1] for state in self.states]
+        state_2 = [state[2] for state in self.states]
+        state_3 = [state[3] for state in self.states]
+        state_4 = [state[4] for state in self.states]
+        state_5 = [state[5] for state in self.states]
+        state_6 = [state[6] for state in self.states]
+
+        fig, ((ax_0, ax_1, ax_2, ax_3), (ax_4, ax_5, ax_6, ax_7)) = plt.subplots(2, 4)
+
+        ax_0.plot(goal_0, 'b')
+        ax_1.plot(goal_1, 'b')
+        ax_2.plot(goal_2, 'b')
+        ax_3.plot(goal_3, 'b')
+        ax_4.plot(goal_4, 'b')
+        ax_5.plot(goal_5, 'b')
+        ax_6.plot(goal_6, 'b')
+
+        ax_0.plot(state_0, 'r')
+        ax_1.plot(state_1,'r')
+        ax_2.plot(state_2, 'r')
+        ax_3.plot(state_3, 'r')
+        ax_4.plot(state_4, 'r')
+        ax_5.plot(state_5,'r')
+        ax_6.plot(state_6, 'r')
+
+        plt.show()
+
+
+    def plot_errors(self):
+        """ Plot 6 plots showing errors for each dimension.
+        x, y, z and qx, qy, qz euler angles (from C.orientation_error)
+        """
+        error_0 = [error[0] for error in self.errors]
+        error_1 = [error[1] for error in self.errors]
+        error_2 = [error[2] for error in self.errors]
+        error_3 = [error[3] for error in self.errors]
+        error_4 = [error[4] for error in self.errors]
+        error_5 = [error[5] for error in self.errors]
+        error_6 = [error[6] for error in self.errors]
+
+        fig, ((e_0, e_1, e_2, e_3), (e_4, e_5, e_6, e_7)) = plt.subplots(2, 4)
+
+        e_0.plot(error_0, 'r')
+        e_1.plot(error_1,'r')
+        e_2.plot(error_2, 'r')
+        e_3.plot(error_3, 'r')
+        e_4.plot(error_4, 'r')
+        e_5.plot(error_5,'r')
+        e_6.plot(error_6, 'r')
+
+        plt.show()
 
 class JointSpaceDeltaDemo(JointSpaceDemo):
 
@@ -162,12 +305,11 @@ class JointSpaceDeltaDemo(JointSpaceDemo):
 
         return joint_position_delta_demo
 
-    def compute_error(self, goal, current):
-        return np.subtract(goal, current)
+
 
 
 class JointSpaceAbsDemo(JointSpaceDeltaDemo):
-    def __init__(self, ctrl_type, demo_type, use_abs, start_pos):
+    def __init__(self, ctrl_type, demo_type, start_pos, use_abs=True,):
         self.start_pos = start_pos
         super().__init__(ctrl_type, demo_type, use_abs)
 
@@ -215,25 +357,28 @@ class OpSpaceDemo(Demo):
     def run(self):
         """Run the demo. Execute actions in sequence and calculate error.
         """
-        print("Running {} demo \n with control type {}.\n \
-            Test function {}".format(
+        print("Running {} demo \nwith control type {}. \
+            \nTest function {}".format(
             self.ctrl_type, self.demo_type, self.test_fn))
 
-        print("EE Pose initial{}\n".format(self.env.robot_interface.ee_pose))
+        print("EE Pose initial:\n{}\n".format(self.env.robot_interface.ee_pose))
         print("--------")
+        # Execute actions based on goal poses
         for i, goal_pose in enumerate(self.goal_poses):
+
+            # Get action corresponding to test_fn and goal pose
             action= self.get_action(goal_pose, self.get_state())
             action_kwargs = self.get_action_kwargs(action)
-            #action_kw = self.get_action_kwargs(action)
-            print("Action:\t{}".format(action[:3]))
+
+            # Step environment forward
             self.env.step(action_kwargs, time.time())
+
             self.actions.append(action)
             new_state = self.get_state()
-            print("EE Pose:\t{}".format(self.env.robot_interface.ee_pose[:3]))
             self.states.append(new_state)
             self.errors.append(
-                self.compute_error(self.goal_poses[i], new_state))
-            print("ori_error\t{}".format(self.errors[-1][3:]))
+                self.compute_error(goal_pose, new_state))
+
             #input("Press Enter to continue")
 
         self.env.robot_interface.disconnect()
@@ -245,8 +390,26 @@ class OpSpaceDemo(Demo):
         if self.save:
             self.save_data()
 
-
     def get_action(self, goal_pose, current_pose):
+        """ Return action corresponding to goal and test_fn
+
+        Args:
+            goal_pose (list): 7f position and quaternion of goal pose
+            current_pose (list): 7f position and quaternion of current
+                pose.
+
+        Returns:
+            action (list): action corresponding to robot_interface
+                function being tested as a list.
+
+        Notes:
+            - If test function is "move_ee_delta" returns
+                (list 6f) [dx, dy, dz, ax, ay, az] with
+                delta position and delta orientation as axis-angle.
+            - If test function is "set_ee_pose" returns (list 6f)
+                [x,y,z,qx,qy,qz, w] absolute position and orientation
+                as quaternion.
+        """
         if self.test_fn =="move_ee_delta":
             action = get_delta(goal_pose, current_pose)
         elif self.test_fn =="set_ee_pose":
@@ -256,7 +419,7 @@ class OpSpaceDemo(Demo):
         return action
 
     def get_action_kwargs(self, action):
-        """Return tuple of action and dict of kwargs specific to function being tested.
+        """Return dict of kwargs specific to function being tested.
 
         Args:
             action (list): action to be converted in kwargs for robot_interface functions.
@@ -270,13 +433,14 @@ class OpSpaceDemo(Demo):
             action_kwargs['set_pos'] = None
             action_kwargs['set_ori'] = None
             if self.fix_ori:
-                action_kwargs['set_ori'] = self.goal_pose[3:]
+                action_kwargs['set_ori'] = self.initial_pose[3:]
             if self.fix_pos:
-                action_kwargs['set_pos'] = self.goal_pose[:3]
+                action_kwargs['set_pos'] = self.initial_pose[:3]
         if self.test_fn=="set_ee_pose":
             action_kwargs['delta'] = None
             action_kwargs['set_pos'] = action[:3]
             action_kwargs['set_ori'] = action[3:]
+
 
         return action_kwargs
 
@@ -527,7 +691,16 @@ def apply_delta(pose, delta):
 class Path():
     """Class definition for path definition (specific to ee trajectories)
 
-    A Path is a series
+    A Path is a series absolute goal poses (7f) used to produce actions
+        for the agent to take.
+
+    Attributes:
+        num_pts (int): number of points in path.
+        path (list): list 7f of absolute goal poses in path. Goal poses
+            are specified by [x, y, z, qx, qy, qz, w] position and quaternion.
+        deltas (list): list 6f deltas between poses to produce path.
+
+
 
     """
 
@@ -538,7 +711,7 @@ class Path():
 
     def make_path(self):
         self.path = [self.start_pose]
-        for delta in self.deltas:
+        for delta in self._deltas:
             new_pose = apply_delta(self.path[-1], delta)
             # self.path.append(np.add(self.path[-1], delta))
             self.path.append(new_pose)
@@ -546,6 +719,69 @@ class Path():
         # Append path to the same
         for _ in range(int(0.2*self.num_pts)):
             self.path.append(self.path[-1])
+
+
+class SequentialJoint(Path):
+    """Series of joint positions sequentially incremented/decremented by delta.
+    """
+    def __init__(self, start_pose, delta_val=0.01, num_steps=30):
+        print("Sequential Joint path")
+
+        self.start_pose = start_pose
+        self.delta_val = delta_val
+        self.num_steps = num_steps
+        self._deltas = self._get_deltas()
+
+        self.path = []
+        self.make_path()
+
+    def _get_deltas(self):
+        """Return series of joint deltas where each joint is individually
+            incremented, and then decremented by delta.
+        """
+
+        deltas = []
+        # for joint_i in range(7):
+        #
+        joint_i = 1
+
+        for _ in range(self.num_steps):
+            delta = np.zeros(7)
+            delta[joint_i] = self.delta_val
+            deltas.append(delta)
+
+           # # # add set of zeros to pause.
+           # delta= np.zeros(6)
+           # for _ in range(3):
+           #  deltas.append(delta)
+
+        for _ in range(self.num_steps):
+            delta = np.zeros(7)
+            #delta[-1 - joint_i] = -self.delta_val
+            #delta[joint_i] = -self.delta_val
+            deltas.append(delta)
+
+        # #for joint_i in range(7):
+        for _ in range(self.num_steps):
+            delta = np.zeros(7)
+            #delta[-1 - joint_i] = -self.delta_val
+            delta[joint_i] = -self.delta_val
+            deltas.append(delta)
+
+           # delta= np.zeros(6)
+           # for _ in range(3):
+           #  deltas.append(delta)
+        return deltas
+
+    def make_path(self):
+        """Create path by sequentially adding deltas to joint pose.
+        """
+
+        self.path = [self.start_pose]
+
+        for delta in self._deltas:
+            new_pose = np.add(self.path[-1], delta)
+            self.path.append(new_pose)
 
 
 def make_simple_rot_mat(angle=np.pi/4):
@@ -575,8 +811,10 @@ class Rotation(Path):
         self.num_pts = num_pts
         self.rotation_rad = rotation_rad
         if delta_val is None:
-            delta_val = np.divide(rotation_rad, num_pts)
-            print("delta_val\t{}".format(delta_val))
+            if num_pts == 0:
+                delta_val = 0
+            else:
+                delta_val = np.divide(rotation_rad, num_pts)
         self.dim = dim
         self.delta_val = delta_val
         self.get_deltas()
@@ -591,13 +829,13 @@ class Rotation(Path):
         delta[self.dim] = self.delta_val
         # pad with position deltas= 0
         delta = np.hstack(([0, 0, 0], delta))
-        self.deltas = [delta]*self.num_pts
+        self._deltas = [delta]*self.num_pts
 
 class Line(Path):
     """Class definition for straight line in given direction.
     """
     def __init__(self, start_pose, num_pts, path_length,
-                 delta_val=None, dim=0, end_pos=None):
+                 delta_val=None, dim=2, end_pos=None):
         """ Initialize Line class
 
         Args:
@@ -621,7 +859,7 @@ class Line(Path):
             delta_val = np.divide(self.path_length, self.num_pts)
         self.delta_val = delta_val
         self.dim = dim
-        self.deltas = []
+        self._deltas = []
         self.get_deltas()
         self.path = []
         self.make_path()
@@ -630,8 +868,8 @@ class Line(Path):
 
         delta = np.zeros(6)
         delta[self.dim] = self.delta_val
-        self.deltas = [delta]*self.num_pts
-        # self.deltas[0] = np.zeros(7)
+        self._deltas = [delta]*self.num_pts
+        # self._deltas[0] = np.zeros(7)
 
 
 class Square(Path):
@@ -644,11 +882,10 @@ class Square(Path):
     Square path is ordered in clockwise from origin (Bottom, Left, Top, Right)
 
     Attributes:
-        start_pos (3f): xyz start position to begin square from.
-        side_num_pts (int): number of steps to take on each side.
-            (not counting start.)
+        start_pose (7f): start pose to begin square from.
+        num_pts (int): number of steps to take on each side.
         delta_val (float): step size in m to take for each step.
-        deltas (list): list of delta xyz from a position to reach next position
+        _deltas (list): list of delta xyz from a position to reach next position
              on path.
         path (list): list of actions to take to perform square path. Actions
             are either delta xyz from current position (if use_abs is False) or
@@ -660,7 +897,7 @@ class Square(Path):
         self.start_pose = start_pose
         self.num_pts = side_num_pts
         self.delta_val = delta_val
-        self.deltas = []
+        self._deltas = []
         self.get_deltas()
         self.path = []
         self.make_path()
@@ -671,16 +908,16 @@ class Square(Path):
         then proceeds clockwise (left, top, right.)
 
         """
-        self.deltas = [[0, 0, 0, 0, 0, 0]]
+        self._deltas = [[0, 0, 0, 0, 0, 0]]
         # Bottom side.
         for pt in range(self.num_pts):
-            self.deltas.append([self.delta_val, 0.0, 0.0, 0.0, 0.0, 0.0])
+            self._deltas.append([self.delta_val, 0.0, 0.0, 0.0, 0.0, 0.0])
         # Left Side
         for pt in range(self.num_pts):
-            self.deltas.append([0.0, -self.delta_val, 0.0, 0.0, 0.0, 0.0])
+            self._deltas.append([0.0, -self.delta_val, 0.0, 0.0, 0.0, 0.0])
         # Top side
         for pt in range(self.num_pts):
-            self.deltas.append([-self.delta_val, 0.0, 0.0, 0.0, 0.0, 0.0])
+            self._deltas.append([-self.delta_val, 0.0, 0.0, 0.0, 0.0, 0.0])
         # Right side
         for pt in range(self.num_pts):
-            self.deltas.append([0.0, self.delta_val, 0.0, 0.0, 0.0, 0.0])
+            self._deltas.append([0.0, self.delta_val, 0.0, 0.0, 0.0, 0.0])
