@@ -1001,8 +1001,6 @@ class SawyerCtrlInterface(RobotInterface):
         self._calc_mass_matrix()
 
         orn = R.from_quat(self.ee_orientation)
-        ## Hack the velocity
-        #HACKITY HACK HACK HACK TODO HACK 
 
         # Reset pybullet model to joint State to get ee_pose and orientation. 
         for joint_ind, joint_name in enumerate(self.joint_names):
@@ -1128,9 +1126,7 @@ class SawyerCtrlInterface(RobotInterface):
                                 str(free_joint_dict[joint_name]))
             else:
                 rospy.logdebug("Not fixed")
-                # reset the joint to the correct state
-                #pb.resetJointState(self._pb_sawyer, i, self.q[q_index2])
-        #rospy.logdebug("Free joint dict " +str(free_joint_dict))
+
         return free_joint_dict
 
 
@@ -1198,11 +1194,6 @@ class SawyerCtrlInterface(RobotInterface):
             self.set_ee_pose(**controller_goal)
         elif (cmd_type == b"move_ee_delta"):
             self.move_ee_delta(**controller_goal)
-
-        # elif(cmd_type == b'set_joint_positions'):
-        #     print("joint position command received")
-        #     #self.check_controller("JointImpedance")
-        #     self.set_joint_positions(**controller_goal)
         elif(cmd_type == b'set_joint_delta'):
             self.set_joint_delta(**controller_goal)
         elif (cmd_type==b'set_joint_positions'):
@@ -1211,22 +1202,14 @@ class SawyerCtrlInterface(RobotInterface):
             self.set_joint_torques(**controller_goal)
         elif (cmd_type==b'set_joint_velocities'):
             self.set_joint_velocities(**controller_goal)
-        # elif (cmd_type == b'torque'):
-        #     raise NotImplementedError
-        #     #self.tau = self.desired_torque
         elif(cmd_type == b'reset_to_neutral'):
-
             self.redisClient.set(ROBOT_RESET_COMPL_KEY, 'False')
             self.reset_to_neutral()
-            print("EE_POSE\t{}".format(self.ee_pose))
-        # elif(cmd_type == b'ee_delta'):
-        #     raise NotImplementedError
-        #     #self.move_ee_delta(self.desired_state)
-        elif cmd_type ==b'IDLE':
+        elif (cmd_type == b'IDLE'):
             # make sure action set if false
             self.action_set = False
             return
-        elif cmd_type == b'CHANGE_CONTROLLER':
+        elif (cmd_type == b'CHANGE_CONTROLLER'):
             self.controller = self.make_controller_from_redis(self.get_control_type(),
                 self.get_controller_params())
         else:
@@ -1280,13 +1263,6 @@ class SawyerCtrlInterface(RobotInterface):
         # np.savez('dev/sawyer_ctrl_timing/run_controller_times.npz', delay=np.array(self.controller_times), allow_pickle=True)
         # np.savez('dev/sawyer_ctrl_timing/sawye_ctrl_loop_times.npz', tstamps=np.array(self.loop_times), allow_pickle=True)
         # np.savez('dev/sawyer_ctrl_timing/cmd_end_times.npz', tstamps=np.array(self.cmd_end_time), allow_pickle=True)
-
-
-    # def _on_joint_states(self, msg):
-    #     pass
-    #     # self.calc_mass_matrix()
-    #     # self._calc_jacobian() 
-    #     #self.update_redis()
 
 ### MAIN ###
 if __name__ == "__main__":
