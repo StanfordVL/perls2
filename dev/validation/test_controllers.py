@@ -111,7 +111,7 @@ if __name__ == '__main__':
     parser.add_argument('--test_fn',
                         default='set_ee_pose',
                         help='Function to test',
-                        choices=['set_ee_pose', 'move_ee_delta'])
+                        choices=['set_ee_pose', 'move_ee_delta', 'set_joint_delta', 'set_joint_positions', 'set_joint_torques', 'set_joint_velocities'])
     parser.add_argument('--path_length', type=float,
                         default=None, help='length in m of path')
     parser.add_argument('--delta_val',
