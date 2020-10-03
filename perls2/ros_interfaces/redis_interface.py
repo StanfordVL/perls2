@@ -76,6 +76,9 @@ class RobotRedisInterface(RedisInterface):
 
         return json.loads(self._client.get(key))
 
+    def get_dict(self, key):
+        return self._get_key_json(key)
+
     def get(self, key):
         if ROBOT_STATE_KEY in key or ROBOT_MODEL_KEY in key:
             return self._get_key_ndarray(key)
