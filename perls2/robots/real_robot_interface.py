@@ -98,6 +98,12 @@ class RealRobotInterface(RobotInterface):
             control_config = self.config['controller']['Real'][self.controlType]
             self.redisClient.set(CONTROLLER_CONTROL_PARAMS_KEY, json.dumps(control_config))
             print("Changing controller to {} with params: {}".format(self.controlType, control_config))
+
+            # Command to send
+            cmd_type = "CHANGE_CONTROLLER"
+            control_cmd = { ROBOT_CMD_TSTAMP_KEY: time.time(),
+                            ROBOT_CMD_TYPE_KEY : cmd_type}
+            self.redisClient.mset(control_cmd)
             return self.controlType
         else:
             raise ValueError("Invalid control type " +
