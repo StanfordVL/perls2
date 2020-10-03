@@ -28,8 +28,9 @@ controller:
   selected_type: 'EEPosture' # Choose between 'EEImpedance', 'JointVelocity'
   Real:
     EEImpedance:
-      kp: [40.0, 40.0, 40.0, 10., 10., 10.] #70 #50 #200 #75 #200 # P Gain for Impedance Control
-      damping: 1.0 #1 #0.5 #1 #0.5 # Damping factor [0,1] 
+      kp: [40, 40, 40, 5.0, 5.0, 3.0] #70 #50 #200 #75 #200 # P Gain for Impedance Control
+      kv: [10.0, 10.0, 10.0, 1.0, 1.0, 1.7]
+      damping: null #1 #0.5 #1 #0.5 # Damping factor [0,1] 
       input_max: [1, 1, 1, 1, 1, 1]
       input_min: [-1, -1, -1, -1, -1, -1]
       output_max: [1, 1, 1, 1, 1, 1]
@@ -41,7 +42,7 @@ controller:
       output_max: 1.0 #1.0
       output_min: -1.0 #-1.0
     JointImpedance: 
-      kp: 100
+      kp: [100.0, 100.0, 80.0, 80.0, 70.0, 70.0, 50.0]
       damping: 1.0
       input_max: 1.0
       input_min: -1.0
@@ -53,13 +54,22 @@ controller:
       output_max: 1.0
       output_min: -1.0
     EEPosture:
-      kp: [40.0, 40.0, 40.0, 10.0, 10.0, 10.0] #70 #50 #200 #75 #200 # P Gain for Impedance Control
-      damping: 1.0 #1 #0.5 #1 #0.5 # Damping factor [0,1] 
-      posture_gain: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] #[25.0, 25.0, 25.0, 20.0, 15.0, 15.0, 15.0] #[70.0, 70.0, 70.0, 60.0, 50.0, 50.0, 50.0]
+      kp: [40, 40, 40, 5.0, 5.0, 3.0] #70 #50 #200 #75 #200 # P Gain for Impedance Control
+      kv: [10.0, 10.0, 10.0, 1.0, 1.0, 1.7]
+      damping: null #1 #0.5 #1 #0.5 # Damping factor [0,1] 
+      posture_gain: [7.0, 7.0, 7.0, 6.0, 5.0, 5.0, 5.0] # 5.0, 25.0, 25.0, 20.0, 15.0, 15.0, 15.0] #[70.0, 70.0, 70.0, 60.0, 50.0, 50.0, 50.0]
       input_max: 1.0
       input_min: -1.0
       output_max: 1.0
       output_min: -1.0
+    # EEPosture:
+    #   kp: [60.0, 60.0, 60.0, 10.0, 10.0, 10.0] #70 #50 #200 #75 #200 # P Gain for Impedance Control
+    #   damping: 1.0 #1 #0.5 #1 #0.5 # Damping factor [0,1] 
+    #   posture_gain: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] #[25.0, 25.0, 25.0, 20.0, 15.0, 15.0, 15.0] #[70.0, 70.0, 70.0, 60.0, 50.0, 50.0, 50.0]
+    #   input_max: 1.0
+    #   input_min: -1.0
+    #   output_max: 1.0
+    #   output_min: -1.0
   interpolator:
     type: 'linear'
     order: 1
@@ -68,7 +78,7 @@ controller:
 sawyer:
   arm:
     path:
-      'robot/rethink/sawyer_description/urdf/sawyer_arm_ctrl.urdf'
+      'robot/rethink/sawyer_description/urdf/sawyer_urdf.urdf'
     pose:
       [0, 0, 0]
     orn:
@@ -98,7 +108,7 @@ sawyer:
   # Height of the limb (installed on the base) from the ground, for computing IK.
   limb_height: 0.9
   # Link name of the end effector, for computing IK.
-  end_effector_name: 'right_hand'
+  end_effector_name: 'right_gripper_base'
   # Joint name of the left finger of the gripper.
   l_finger_name: 'r_gripper_l_finger'
   # Joint name of the right finger of the gripper.

@@ -16,6 +16,7 @@ class JointImpController(Controller):
                  output_max= 1.0,
                  output_min=-1.0,
                  kp=50,
+                 kv=None,
                  damping=1,
                  control_freq=20,
                  qpos_limits=None,
@@ -36,8 +37,17 @@ class JointImpController(Controller):
         self.joint_dim = robot_model.joint_dim
 
         # kp kv
-        self.kp = np.ones(self.joint_dim) * kp
-        self.kv = np.ones(self.joint_dim) * 2 * np.sqrt(self.kp) * damping
+        if kp is list:
+            self.kp = np.ones(self.joint_dim) * kp
+        else:
+            self.kp = kp
+
+        if kv is None:
+            self.kv = np.ones(self.joint_dim) * 2 * np.sqrt(self.kp) * damping
+        elif kv is list:
+            self.kv = kv
+        else:
+            self.kv = np.ones(self.joint_dim) * kv
 
         # control frequency
         self.control_freq = control_freq
@@ -50,7 +60,7 @@ class JointImpController(Controller):
 
         # initialize
         self.goal_qpos = None
-
+        self.prev_goal = None
         self.set_goal(np.zeros(self.joint_dim))
 
     def set_goal(self, delta, set_qpos=None):
@@ -98,7 +108,7 @@ class JointImpController(Controller):
         if self.interpolator_qpos is not None:
             if self.interpolator_qpos.order == 1:
                 # Linear case
-                desired_qpos = self.interpolator_qpos.get_interpolated_goal(self.model.joint_pos)
+                desired_qpos = self.interpolator_qpos.get_interpolated_goal()
             else:
                 # Nonlinear case not currently supported
                 pass
@@ -106,7 +116,10 @@ class JointImpController(Controller):
             desired_qpos = np.array(self.goal_qpos)
 
         position_error = desired_qpos - self.model.joint_pos
+        print("Position error:\t{}".format(position_error))
+
         vel_pos_error = desired_vel_pos - self.model.joint_vel
+        print("vel pos_error:\t{}".format(vel_pos_error))
         desired_torque = (np.multiply(np.array(position_error), np.array(self.kp))
                          + np.multiply(vel_pos_error, self.kv)) + desired_acc_pos
 

@@ -89,6 +89,8 @@ from perls2.robots.robot_interface import RobotInterface
 from perls2.controllers.ee_imp import EEImpController
 from perls2.controllers.ee_posture import EEPostureController
 from perls2.controllers.joint_imp import JointImpController
+from perls2.controllers.joint_torque import JointTorqueController
+from perls2.controllers.joint_vel import JointVelController
 from perls2.controllers.interpolator.linear_interpolator import LinearInterpolator
 from perls2.controllers.interpolator.linear_ori_interpolator import LinearOriInterpolator
 from perls2.controllers.robot_model.model import Model
@@ -100,6 +102,7 @@ import socket
 
 from perls2.ros_interfaces.redis_interface import RobotRedisInterface as RobotRedis
 from perls2.ros_interfaces.redis_keys import *
+import perls2.controllers.utils.transform_utils as T
 
 LOOP_LATENCY = 0.000
 LOOP_TIME = (1.0/500.0) - LOOP_LATENCY
@@ -158,21 +161,22 @@ class SawyerCtrlInterface(RobotInterface):
         self.endTime = time.time()
         self.action_set = False
         self.model = Model()
-        
+        self.ee_name = self.config['sawyer']['end_effector_name']
         if config is not None:
             world_name = self.config['world']['type']
             controller_config = self.config['controller'][world_name]
             if self.config['controller']['interpolator']['type'] == 'linear':
-                interp_kwargs = {'max_dx': 0.5, 
+                interp_kwargs = {'max_dx': 0.005, 
                                  'ndim': 3, 
-                                  'controller_freq': 500, 
-                                  'policy_freq' : 20, 
-                                  'ramp_ratio' :  0.2 }
+                                 'controller_freq': 500, 
+                                 'policy_freq' : 20, 
+                                 'ramp_ratio' :  0.2 }
                 self.interpolator_pos = LinearInterpolator(**interp_kwargs)
-                self.interpolator_ori = None#LinearOriInterpolator(**interp_kwargs)
+                self.interpolator_ori = LinearOriInterpolator(**interp_kwargs)
                 rospy.loginfo("Linear interpolator created with params {}".format(interp_kwargs))
             else:
-                self.interpolator = None
+                self.interpolator_pos = None
+                self.interpolator_ori = None
         self.interpolator_goal_set = False
 
         start = time.time()
@@ -191,12 +195,6 @@ class SawyerCtrlInterface(RobotInterface):
         self._limb = iif.Limb(limb="right", synchronous_pub=False)
         self._joint_names = self._limb.joint_names()
 
-        self._use_safenet = use_safenet
-        if self._use_safenet:
-            self.safenet = SafenetMonitor('right_hand')
-
-        self.transform_matrix = None
-
         self.cmd = []
 
         try:
@@ -213,36 +211,6 @@ class SawyerCtrlInterface(RobotInterface):
         self.blocking = False
         # Initialize motion planning part
         self._use_moveit = use_moveit
-        if use_moveit:
-            moveit_commander.roscpp_initialize(sys.argv)
-            self._moveit_robot = moveit_commander.RobotCommander()
-            self._moveit_scene = moveit_commander.PlanningSceneInterface()
-            self._moveit_group = moveit_commander.MoveGroupCommander("right_arm")
-            self._moveit_group.allow_replanning(True)
-            self._moveit_group.set_pose_reference_frame('world')
-            # Allow some leeway in position(meters) and orientation (radians)
-            self._moveit_group.set_goal_position_tolerance(0.005)
-            self._moveit_group.set_goal_orientation_tolerance(0.05)
-            print_msg = "The robot groups are: {0}".format( self._moveit_robot.get_group_names())
-            rospy.loginfo(print_msg)
-            print_msg = "Any planning will be performed relative to the {0} reference frame".format(
-                self._moveit_group.get_planning_frame())
-            rospy.loginfo(print_msg)
-            print_msg = "The command group is '{0}'".format( self._moveit_group.get_name())
-            rospy.loginfo(print_msg)
-            print_msg = "The {0} group has active joints: {1}".format(self._moveit_group.get_name(),
-                                                            self._moveit_group.get_active_joints())
-            rospy.loginfo(print_msg)
-            print_msg = "Its end effector link is: {0}".format(
-                self._moveit_group.get_end_effector_link())
-            rospy.loginfo(print_msg)
-            self._cartesian_path_service = rospy.ServiceProxy('compute_cartesian_path',
-                                                              GetCartesianPath)
-            self._js_path_service = rospy.ServiceProxy('plan_kinematic_path', GetMotionPlan)
-            self._js_path_action = actionlib.SimpleActionClient('move_group', MoveGroupAction)
-            self._js_path_action.wait_for_server()
-
-
         # get an instance of RosPack with the default search paths
         rospack = rospkg.RosPack()
 
@@ -253,11 +221,21 @@ class SawyerCtrlInterface(RobotInterface):
         # TODO: make this not hard coded
         sawyer_urdf_path = self.config['sawyer']['arm']['path']
 
-        self._pb_sawyer = pb.loadURDF(sawyer_urdf_path,
-                                      (0, 0, 0),
-                                      useFixedBase=True, 
-                                      physicsClientId=self._clid)
-
+        # self._pb_sawyer = pb.loadURDF(sawyer_urdf_path,
+        #                               (0, 0, 0),
+        #                               useFixedBase=True, 
+        #                               physicsClientId=self._clid)
+        self._pb_sawyer = pb.loadURDF(
+            fileName=sawyer_urdf_path,
+            basePosition=self.config['sawyer']['arm']['pose'],
+            baseOrientation=pb.getQuaternionFromEuler(
+                                    self.config['sawyer']['arm']['orn']),
+            globalScaling=1.0,
+            useFixedBase=self.config['sawyer']['arm']['is_static'],
+            flags=pb.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT | pb.URDF_USE_INERTIA_FROM_FILE,
+            physicsClientId=self._clid)
+        # For pybullet dof
+        self._motor_joint_positions = self.get_motor_joint_positions()
         try:
             ns = "ExternalTools/right/PositionKinematicsNode/IKService"
             self._iksvc = rospy.ServiceProxy(ns, SolvePositionIK)
@@ -266,7 +244,13 @@ class SawyerCtrlInterface(RobotInterface):
         except:
             rospy.logerr('IKService from Intera timed out')
             self._ik_service = False
-
+        self.joint_names = self.config['sawyer']['limb_joint_names']
+        self.free_joint_dict = self.get_free_joint_dict()
+        self.joint_dict = self.get_joint_dict()
+        self._link_id_dict = self.get_link_dict()
+        # self.createPoseMarker(lineWidth=10,
+        #                       lineLength=1.0,  
+        #                  parentLinkIndex=2)
 #        self._interaction_options = InteractionOptions()
 #        if len(self._interaction_options._data.D_impedance) == 0:
 #            self._interaction_options._data.D_impedance = [8, 8, 8, 2, 2, 2]
@@ -314,7 +298,10 @@ class SawyerCtrlInterface(RobotInterface):
 
         # default_params = self.config['controller']['Real']['JointImpedance']
         # self.redisClient.set(CONTROLLER_CONTROL_PARAMS_KEY, json.dumps(default_params))
-        
+        self.pb_ee_pos_log = []
+        self.pb_ee_ori_log = []
+        self.pb_ee_v_log = []
+        self.pb_ee_w_log = []        
 
         # Set initial redis keys
         self._linear_jacobian = None
@@ -325,8 +312,8 @@ class SawyerCtrlInterface(RobotInterface):
             
         self.update_redis()
 
-
         self.update_model()
+        #self.update_model_fake()
 
         self.controlType = self.get_control_type()
         self.control_dict = self.get_controller_params()
@@ -359,9 +346,32 @@ class SawyerCtrlInterface(RobotInterface):
         self.loop_times = []
         self.cmd_end_time = []
 
-        print("CURRENT EE_POSE {}".format(self.ee_pose))
+        rospy.logdebug("CURRENT EE_POSE {}".format(self.ee_pose))
+        #self.pb_pose_log = open('dev/validation/pb_pose.txt', 'w')
 
-
+    def createPoseMarker(
+        self, position=np.array([0,0,0]),
+                         orientation=np.array([0,0,0,1]),
+                         x_color=np.array([1,0,0]),
+                         y_color=np.array([0,1,0]),
+                         z_color=np.array([0,0,1]),
+                         lineLength=0.1,
+                         lineWidth=1,
+                         lifeTime=0,
+                         parentObjectUniqueId=0,
+                         parentLinkIndex=0,
+                         physicsClientId=0):
+        '''Create a pose marker that identifies a position and orientation in space with 3 colored lines.
+        '''
+        pts = np.array([[0,0,0],[lineLength,0,0],[0,lineLength,0],[0,0,lineLength]])
+        rotIdentity = np.array([0,0,0,1])
+        po, _ = pb.multiplyTransforms(position, orientation, pts[0,:], rotIdentity)
+        px, _ = pb.multiplyTransforms(position, orientation, pts[1,:], rotIdentity)
+        py, _ = pb.multiplyTransforms(position, orientation, pts[2,:], rotIdentity)
+        pz, _ = pb.multiplyTransforms(position, orientation, pts[3,:], rotIdentity)
+        pb.addUserDebugLine(po, px, x_color, lineWidth, lifeTime, self._pb_sawyer, parentLinkIndex, self._clid)
+        pb.addUserDebugLine(po, py, y_color, lineWidth, lifeTime, self._pb_sawyer, parentLinkIndex, self._clid)
+        pb.addUserDebugLine(po, pz, z_color, lineWidth, lifeTime, self._pb_sawyer, parentLinkIndex, self._clid)
 
     def make_controller_from_redis(self, control_type, controller_dict):
         print("Making controller {} with params: {}".format(control_type, controller_dict))
@@ -375,9 +385,37 @@ class SawyerCtrlInterface(RobotInterface):
                      interpolator_pos=self.interpolator_pos, 
                      interpolator_ori=self.interpolator_ori, **controller_dict)
         elif control_type =="JointImpedance":
+            interp_kwargs = {'max_dx': 0.05, 
+                             'ndim': 7, 
+                             'controller_freq': 500, 
+                             'policy_freq' : 20, 
+                             'ramp_ratio' :  0.2 }
+            self.interpolator_pos = LinearInterpolator(**interp_kwargs)
             return JointImpController(self.model, 
+                    interpolator_qpos=self.interpolator_pos,
                     **controller_dict)
-
+        elif control_type =="JointTorque":
+            interp_kwargs = {'max_dx': 0.05, 
+                             'ndim': 7, 
+                             'controller_freq': 500, 
+                             'policy_freq' : 20, 
+                             'ramp_ratio' :  0.2 }
+            self.interpolator_pos = LinearInterpolator(**interp_kwargs)
+            return JointTorqueController(self.model, 
+                    interpolator=self.interpolator_pos,
+                    **controller_dict)
+        elif control_type == "JointVelocity":
+            interp_kwargs = {'max_dx': 0.05, 
+                             'ndim': 7, 
+                             'controller_freq': 500, 
+                             'policy_freq' : 20, 
+                             'ramp_ratio' :  0.2 }
+            self.interpolator_pos = LinearInterpolator(**interp_kwargs)
+            return JointVelController(self.model, 
+                interpolator=self.interpolator_pos, 
+                **controller_dict)
+        else:
+            raise ValueError("Invalid control type.")
 
 
     def get_controller_params(self):
@@ -453,6 +491,12 @@ class SawyerCtrlInterface(RobotInterface):
         """
         return list(self._limb.endpoint_velocity()['linear'])
 
+    def get_ee_v_world(self):
+        """
+        Returns ee_v in world frame, after applying transformations from eef ori.
+        """
+        return np.dot(np.array(self.ee_orientation), np.transpose(np.array(self.ee_v)))
+
     @property
     def ee_omega(self):
         """
@@ -461,6 +505,12 @@ class SawyerCtrlInterface(RobotInterface):
         wx, wy, wz]
         """
         return list(self._limb.endpoint_velocity()['angular'])
+
+    def get_ee_omega_world(self):
+        """
+        Returns ee_v in world frame, after applying transformations from eef ori.
+        """
+        return np.dot(np.array(self.ee_orientation), np.transpose(np.array(self.ee_omega)))
 
     @property
     def ee_twist(self):
@@ -533,6 +583,7 @@ class SawyerCtrlInterface(RobotInterface):
         """ Number of joints according to pybullet.
         """
         return pb.getNumJoints(self._pb_sawyer, physicsClientId=self._clid)
+    
     def get_motor_joint_indices(self):
         """ Go through urdf and get joint indices of "free" joints.
         """
@@ -550,12 +601,55 @@ class SawyerCtrlInterface(RobotInterface):
 
         return motor_joint_indices
 
+    def get_free_joint_dict(self):
+        """Dictionary of free joints in urdf and corresponding indicies.
+        """
+        free_joint_dict = {}
+
+        num_joints = pb.getNumJoints(
+            self._pb_sawyer, physicsClientId=self._clid)
+
+
+        for joint_id in range(num_joints):
+
+            joint_ind, joint_name, joint_type, _, _, _, _, _, _, _, _, _, _, _, _, _, _ = (
+                pb.getJointInfo(bodyUniqueId=self._pb_sawyer,
+                                      jointIndex=joint_id,
+                                      physicsClientId=self._clid))
+            if joint_type != pb.JOINT_FIXED:
+                free_joint_dict.update(
+                    {
+                        joint_name: joint_ind 
+                    })
+
+        return free_joint_dict
+
+
+    def _pad_zeros_to_joint_values(self, des_joint_values):
+        """Pads zeros to appropriate joint index positions for joints not listed in limb_joint_names
+        """
+        # Order the joints by their value from least to greatest.
+        sorted_free_joints = sorted(self.free_joint_dict.items(), key=lambda x:x[1], reverse=False)
+        padded_joint_values = [0]*len(sorted_free_joints)
+        des_joint_index = 0
+        for joint_ind in range(len(sorted_free_joints)):
+            # If the joint name is a motor joint
+            if sorted_free_joints[joint_ind][0] in self.joint_names:
+                padded_joint_values[joint_ind] = des_joint_values[des_joint_index]
+                des_joint_index+=1
+
+        return padded_joint_values
+
+
     @property
     def num_free_joints(self):
         return len(self.get_motor_joint_indices())
 
     @property
     def motor_joint_positions(self):
+        return self._motor_joint_positions
+
+    def get_motor_joint_positions(self):
         """ returns the motor joint positions for "each DoF" according to pb.
 
         Note: fixed joints have 0 degrees of freedoms.
@@ -593,48 +687,95 @@ class SawyerCtrlInterface(RobotInterface):
 
         return joint_velocities
 
-    def _calc_jacobian(self, q=None):
+    def _calc_jacobian(self, q=None, dq=None, localPos=None):
         if q is None:
             q = self.q
-
+        if dq is None:
+            dq = self.dq 
+        if localPos is None:
+            localPos = [0, 0, 0]
         num_dof = len(self.motor_joint_positions)
 
         # append zeros to q to fit pybullet
-        q = self.q
-        dq = self.dq 
-        for extra_dof in range(num_dof - len(self.q)):
-            q.append(0)
-            dq.append(0)
+        num_extra_dof = self.num_free_joints - len(q)
+        # for _ in range(num_extra_dof):
+        #     q.append(0)
+        #     dq.append(0)
+        q = self._pad_zeros_to_joint_values(q)
+        dq = self._pad_zeros_to_joint_values(dq)
+        # pb_q = self.get_ordered_joint_values(q)
+        # pb_dq = self.get_ordered_joint_values(dq)
 
         linear_jacobian, angular_jacobian = pb.calculateJacobian(
             bodyUniqueId=self._pb_sawyer,
-            linkIndex=6,
-            localPosition=[9.3713e-08,    0.28673,  -0.237291],
+            linkIndex=self._link_id_dict[self.ee_name],
+            localPosition=localPos,
             objPositions=q,#[:num_dof],
             objVelocities=dq,#[:num_dof],
-            objAccelerations=[0]*num_dof,
+            objAccelerations=[0]*self.num_free_joints,
             physicsClientId=self._clid
             )
-
+        # Save full linear jacoban as 3 x 10
         self._linear_jacobian = np.reshape(
             linear_jacobian, (3, self.num_free_joints))
-
+        # save full angular jacobian as 3x10
         self._angular_jacobian = np.reshape(
             angular_jacobian, (3, self.num_free_joints))
+        # Save full jacobian as 6x10
 
         self._jacobian = np.vstack(
-            (self._linear_jacobian[:,:len(self.q)], self._angular_jacobian[:,:len(self.q)]))
+            (self._linear_jacobian, self._angular_jacobian))
         return linear_jacobian, angular_jacobian
+
+    # def get_pb_joint_val_dict(self, values):
+    #     """Returns a dictionary with  joint names as keys and desired joint positions or velocities as values. 
+    #     Keys not found in self.config['limb_joint_names'] will be set to 0. 
+
+    #     """
+    #     pb_joint_pos_dict = {}
+    #     # Set all keys to zero joint pos. 
+    #     for key in self.joint_dict.keys():
+    #         pb_joint_pos_dict.update(
+    #             {
+    #                 key: 0
+    #             })
+    #     # Now only update the keys found in limb_joint_names with values from q. 
+    #     for joint_ind, joint_pos in enumerate(values):
+    #         # q joint values are from 0...7, different from the urdf joint index.
+    #         # Get the corresponding joint name e.g. 'right_j...'
+    #         joint_name = self.joint_names[joint_ind]
+    #         pb_joint_pos_dict.update(
+    #             {
+    #             joint_name: joint_pos
+    #             })
+
+    #     return pb_joint_pos_dict
+
+    # def get_ordered_joint_values(self, joint_values):
+    #     """ Get a full list of pb joint values (positions or velocities) in correct order. 
+    #     Args: 
+    #         joint_values (list): ordered list with desired joint values from motor joint 0 to motor joint 6.
+    #     Returns
+    #         pb_joint_values (list): desired joint values in order of joint_indexes in urdf. 0s for joints
+    #             other than the motor joints. 
+    #     """
+    #     pb_joint_vals = [0]*self.num_joints
+    #     for motor_joint_ind, motor_joint_name in enumerate(self.joint_names):
+    #         pb_joint_ind = self.joint_dict[motor_joint_name]
+    #         pb_joint_vals[pb_joint_ind] = joint_values[motor_joint_ind]
+
+    #     return pb_joint_vals
+
 
     @property
     def J(self, q=None):
-        """ Calculate the full jacobian using pb.
+        """ Full jacobian using pb as a 6x7 matrix
         """
-        return self._jacobian
+        return self._jacobian[:,:7]
 
     @property
     def linear_jacobian(self):
-        """The linear jacobian x_dot = J_t*q_dot
+        """The linear jacobian x_dot = J_t*q_dot using pb as a 3x7 matrix
         """
         return self._linear_jacobian[:,:7]
 
@@ -648,9 +789,11 @@ class SawyerCtrlInterface(RobotInterface):
     def mass_matrix(self):
         return self._mass_matrix
 
-    def _calc_mass_matrix(self):
+    def _calc_mass_matrix(self, q=None):
+        if q is None:
+            q = self.q
         mass_matrix = pb.calculateMassMatrix(self._pb_sawyer, 
-            self.q, 
+            q, 
             physicsClientId=self._clid)
         self._mass_matrix =  np.array(mass_matrix)[:7,:7]
     
@@ -688,19 +831,16 @@ class SawyerCtrlInterface(RobotInterface):
             #t1 = time.time()
 
             torques = self.controller.run_controller() 
-            #self.set_torques([0]*7)
+            # self.set_torques([0]*7)
+            torques = np.clip(torques, -5.0, 5.0)
         
             self.set_torques(torques)
- 
 
             while (time.time() - start < LOOP_TIME):
                 pass 
                 #time.sleep(.00001)
-
-
         else:
             pass
-            #print("ACTION NOT SET")
 
     def goto_q(self, qd, max_joint_speed_ratio=0.3, timeout=15.0,
                threshold=0.008726646):
@@ -742,26 +882,110 @@ class SawyerCtrlInterface(RobotInterface):
         """
         assert len(desired_torques) == len(self._joint_names), \
             'Input number of torque values must match the number of joints'
-        #print(desired_torques)
-        command = {self._joint_names[i]: desired_torques[i] for i in range(len(self._joint_names))}
 
+        command = {self._joint_names[i]: desired_torques[i] for i in range(len(self._joint_names))}
         self._limb.set_joint_torques(command)
 
-    def q_dq_ddq(self, value):
-        """
-        Set joint position, velocity and acceleration
-        :param value: A list of lists of length DOF with desired
-        position, velocity and acceleration for each joint.
-        :return: None
-        """
-        assert len(value[0]) == len(self._joint_names), \
-            'Input number of position values must match the number of joints'
-        assert len(value[1]) == len(self._joint_names), \
-            'Input number of velocity values must match the number of joints'
-        assert len(value[2]) == len(self._joint_names), \
-            'Input number of acceleration values must match the number of joints'
+    def get_link_id_from_name(self, link_name):
+        """Get link id from name
 
-        self._limb.set_joint_trajectory(self._joint_names, value[0], value[1], value[2])
+        Args:
+            link_name (str): name of link in urdf file
+        Returns:
+            link_id (int): index of the link in urdf file.
+             OR -1 if not found.
+        """
+        if link_name in self._link_id_dict:
+            return self._link_id_dict.get(link_name)
+        else:
+            return -1
+
+    def get_link_dict(self):
+        """Create a dictionary between link id and link name
+        Dictionary keys are link_name : link_id
+
+        Notes: Each link is connnected by a joint to its parent, so
+               num links = num joints
+        """
+
+        num_links = pb.getNumJoints(
+            self._pb_sawyer, physicsClientId=self._clid)
+
+        link_id_dict = {}
+
+        for link_id in range(num_links):
+            link_id_dict.update(
+                {
+                    self.get_link_name(
+                        (self._pb_sawyer, link_id)).decode('utf-8'): link_id
+                })
+
+        return link_id_dict
+
+    def get_link_name(self, link_uid):
+        """Get the name of the link. (joint)
+
+        Parameters
+        ----------
+        link_uid :
+            A tuple of the body Unique ID and the link index.
+
+        Returns
+        -------
+
+            The name of the link.
+
+        """
+        arm_id, link_ind = link_uid
+        _, _, _, _, _, _, _, _, _, _, _, _, link_name, _, _, _, _ = (
+                pb.getJointInfo(bodyUniqueId=arm_id,
+                                      jointIndex=link_ind,
+                                      physicsClientId=self._clid))
+        return link_name
+
+
+    def get_joint_dict(self):
+        """Create a dictionary between link id and link name
+        Dictionary keys are link_name : link_id
+
+        Notes: Each link is connnected by a joint to its parent, so
+               num links = num joints
+        """
+
+        num_joints = pb.getNumJoints(
+            self._pb_sawyer, physicsClientId=self._clid)
+
+        joint_id_dict = {}
+
+        for joint_id in range(num_joints):
+            joint_id_dict.update(
+                {
+                    self.get_joint_name(
+                        (self._pb_sawyer, joint_id)).decode('utf-8'): joint_id
+                })
+
+        return joint_id_dict
+
+    def get_joint_name(self, link_uid):
+        """Get the name of the joint
+
+        Parameters
+        ----------
+        link_uid :
+            A tuple of the body Unique ID and the link index.
+
+        Returns
+        -------
+
+            The name of the link.
+
+        """
+        arm_id, joint_ind = link_uid
+        _, joint_name, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ = (
+                pb.getJointInfo(bodyUniqueId=arm_id,
+                                      jointIndex=joint_ind,
+                                      physicsClientId=self._clid))
+        return joint_name
 
 
     def update_model(self):
@@ -769,10 +993,39 @@ class SawyerCtrlInterface(RobotInterface):
         self._calc_mass_matrix()
 
         orn = R.from_quat(self.ee_orientation)
+
+        # Reset pybullet model to joint State to get ee_pose and orientation. 
+        for joint_ind, joint_name in enumerate(self.joint_names):
+            pb.resetJointState(
+                bodyUniqueId=self._pb_sawyer,
+                jointIndex=self.joint_dict[joint_name],
+                targetValue=self.q[joint_ind],
+                targetVelocity=self.dq[joint_ind], 
+                physicsClientId=self._clid)
+
+        pb_ee_pos, pb_ee_ori, _, _, _, _, pb_ee_v, pb_ee_w = pb.getLinkState(self._pb_sawyer,
+            self._link_id_dict[self.ee_name],
+            computeLinkVelocity=1, 
+            computeForwardKinematics=1,
+            physicsClientId=self._clid
+            )
+
+        self.pb_ee_pos_log.append(pb_ee_pos)
+        self.pb_ee_ori_log.append(T.quat2mat(pb_ee_ori))
+        self.pb_ee_v_log.append(pb_ee_v)
+        self.pb_ee_w_log.append(pb_ee_w)
+
+        # Get ee orientation as a matrix
+        ee_ori_mat = T.quat2mat(self.ee_orientation)
+        # Get end effector velocity in world frame
+        ee_v_world = np.dot(ee_ori_mat, np.array(self.ee_v).transpose())
+
+        ee_w_world = np.dot(ee_ori_mat, np.array(self.ee_omega).transpose())
+        self.ee_omega_world = ee_w_world
         self.model.update_states(ee_pos=np.asarray(self.ee_position),
                                  ee_ori= np.asarray(self.ee_orientation),
-                                 ee_pos_vel=np.asarray(self.ee_v),
-                                 ee_ori_vel=np.asarray(self.ee_omega),
+                                 ee_pos_vel=np.asarray(ee_v_world),
+                                 ee_ori_vel=np.asarray(ee_w_world),
                                  joint_pos=np.asarray(self.q[:7]),
                                  joint_vel=np.asarray(self.dq[:7]),
                                  joint_tau=np.asarray(self.tau),
@@ -784,6 +1037,31 @@ class SawyerCtrlInterface(RobotInterface):
                                 J_ori=self.angular_jacobian,
                                 mass_matrix=self.mass_matrix)
     
+    def update_model_fake(self):
+        rospy.logdebug("Faking model update.")
+        self._calc_jacobian(q=[0.07722660000000001, -1.18184,  -0.126824,  2.16396, -0.000586914,  0.569958,  3.3169], 
+                            dq=[-0.001, -0.001, -0.001, -0.001, -0.001, -0.001, -0.001], 
+                            localPos=[0, 0, 0])
+
+        self._calc_mass_matrix(q=[0.07722660000000001, -1.18184,  -0.126824,  2.16396, -0.000586914,  0.569958,  3.3169])
+        
+        self.model.update_states(
+            joint_pos=np.asarray([0.07722660000000001, -1.18184,  -0.126824,  2.16396, -0.000586914,  0.569958,  3.3169]),
+            joint_vel=np.asarray([-0.001, -0.001, -0.001, -0.001, -0.001, -0.001, -0.001]), 
+            joint_tau=np.asarray([0]*7),
+            joint_dim=7, 
+            ee_pos=np.asarray([0.4414109558093273, 0.1362869923437277, 0.2226497131449411]), 
+            ee_ori=np.asarray([[ 0.04045032467504951,   0.9989898290880128,  0.01957275178368858],
+                                [  0.9980146369158152, -0.03944889205737932, -0.04909755001258394],
+                                [ -0.0482758297233308,  0.02151990460360002,  -0.9986021920516579]]),
+            ee_pos_vel=np.asarray([0.000669978070674465, -0.0009012872684052355,  0.0005563004018595134]), 
+            ee_ori_vel=np.asarray([-0.0009558964849243162, -0.00291106318854339, -1.293813315344437e-06]), 
+            torque_compensation=np.asarray([0]*7))
+        
+        self.model.update_model(J_pos=self.linear_jacobian,
+                                J_ori=self.angular_jacobian,
+                                mass_matrix=self.mass_matrix)
+
     def update_redis(self):
         """ update db parameters for the robot on a regular loop
 
@@ -840,39 +1118,9 @@ class SawyerCtrlInterface(RobotInterface):
                                 str(free_joint_dict[joint_name]))
             else:
                 rospy.logdebug("Not fixed")
-                # reset the joint to the correct state
-                #pb.resetJointState(self._pb_sawyer, i, self.q[q_index2])
-        #rospy.logdebug("Free joint dict " +str(free_joint_dict))
+
         return free_joint_dict
 
-    def show_image(self, image_path, rate=1.0):
-        """
-        Display given image on sawyer head display
-        :param image_path: absolute path string of the image
-        :param rate: refresh rate
-        :return: None
-        """
-        self._display.display_image(image_path, display_rate=rate)
-
-    @property
-    def light(self):
-        """
-        Get the info (names) of all available lights
-        :return: A dictionary where keys are light name strings, and
-        values are their boolean on status
-        """
-        return {name: self._lights.get_light_state(name) for name in self._lights.list_all_lights()}
-
-    @light.setter
-    def light(self, name_on):
-        """
-        Set the status of given light
-        :param name: string name of the light
-        :param on: boolean True for on, False for off
-        :return: True if light state is set, False if not
-        """
-        name_on = (name, on)
-        self._lights.set_light_state(name, on)
 
     def set_max_speed(self, factor):
         """
@@ -881,14 +1129,6 @@ class SawyerCtrlInterface(RobotInterface):
         :return: None
         """
         self._limb.set_joint_position_speed(factor)
-
-    def set_grasp_weight(self, weight):
-        """
-        Set the weight of object the gripper is grasping
-        :param weight: float in kg
-        :return: True if successful, False if failure
-        """
-        return self._gripper.set_object_weight(weight)
 
 
     def _msg_wrapper(self, ctype):
@@ -906,82 +1146,7 @@ class SawyerCtrlInterface(RobotInterface):
 
             self._command_msg.header.stamp = rospy.Time.now()
 
-    def _from_tip_to_base_of_gripper(self, tip_pose):
-        """
-        Transforms a pose from the tip to the base of the gripper
-        PyBullet functions (e.g. inverse kin) are queried wrt the
-        base of the gripper but Intera provides
-        the pose of the tip of the gripper
-        :param tip_pose: Pose (x, y, z, qx, qy, qz, qw) of the tip of the gripper
-        :return: Pose (x, y, z, qx, qy, qz, qw) of the base of the gripper
-        """
-        # This is the static transformation from base to tip of the gripper as
-        # defined in the URDF
-        T_ee_base = np.eye(4)
-        T_ee_base[0:3, 0:3] = np.array(
-            pb.getMatrixFromQuaternion([0.000, 0.000, np.sqrt(2) / 2,
-                np.sqrt(2) / 2])).reshape((3, 3))
 
-        T_ee_base[0:3, 3] = [0.000, 0.000, 0.0245]
-        #T_ee_base[0:3, 3] = [0.000, 0.000, np.linalg.norm(
-        #                                                [-0.11,0.1053, 0.0245])]
-
-        T_tip = np.eye(4)
-        T_tip[0:3, 0:3] = np.array(
-            pb.getMatrixFromQuaternion(tip_pose[3:7])).reshape((3, 3))
-        T_tip[0:3, 3] = tip_pose[0:3]
-
-        T_base = T_tip.dot(np.linalg.inv(T_ee_base))
-
-        base_pose = 7 * [0]
-        base_pose[0:3] = T_base[0:3, 3]
-
-        # In pyQuaternion the elements are ordered as (w, x, y, z)
-        base_pose[3:6] = pyQuaternion(matrix=T_base).elements[1:4]
-        base_pose[6] = pyQuaternion(matrix=T_base).elements[0]
-        return base_pose
-
-
-    def _distance_between_position_msgs(self, pos1, pos2):
-        """
-        Computes the L2 distance between two ROS Point3 messages
-        :param pos1: one 3D point msg
-        :param pos2: another 3D point msg
-        :return: distance between points
-        """
-        return np.sqrt((pos1.x-pos2.x)**2 + (pos1.y-pos2.y)**2 + (pos1.z-pos2.z)**2)
-
-    def pose_endpoint_transform(self, pose, curr_endpoint='right_hand', des_endpoint='right_gripper_tip'):
-        '''
-        Takes a pose from one endpoint reference frame to another. For example, instead of moving the right_hand to a desired
-        position, you can move the right_gripper_tip to that position.
-        :param pose: list of the pose. [x,y,z,qx,qy,qz,qw]
-        :param curr_endpoint: current endpoint of the Sawyer Arm. Default to 'right_hand'
-        :param des_endpoint: where you would like the endpoint to be. Default to 'right_gripper_tip'
-        return: list of the new pose. [x,y,z,qx,qy,qz,qw]
-        '''
-        if self.transform_matrix is None:
-            listener = tf.TransformListener()
-            start_time = rospy.Time.now().secs
-            listener.waitForTransform(curr_endpoint, des_endpoint, rospy.Time(0), rospy.Duration(1.0))
-            (trans1,rot1) = listener.lookupTransform(des_endpoint, curr_endpoint, rospy.Time(0))
-
-            trans1_mat = tf.transformations.translation_matrix(trans1)
-            rot1_mat   = tf.transformations.quaternion_matrix(rot1)
-            self.transform_matrix = np.dot(trans1_mat, rot1_mat)
-
-        trans2 = pose[0:3]
-        rot2 = pose[3:]
-        trans2_mat = tf.transformations.translation_matrix(trans2)
-        rot2_mat = tf.transformations.quaternion_matrix(rot2)
-        mat2 = np.dot(trans2_mat, rot2_mat)
-
-        mat3 = np.dot(mat2, self.transform_matrix)
-        trans3 = tf.transformations.translation_from_matrix(mat3)
-        rot3 = tf.transformations.quaternion_from_matrix(mat3)
-
-        # return pose
-        return trans3.tolist()+rot3.tolist()
     #### REDIS / CONTROL INTERFACE SPECIFIC ATTRIBUTES AND FUNCTIONS #############
 
     @property
@@ -1003,7 +1168,6 @@ class SawyerCtrlInterface(RobotInterface):
     @property 
     def controlType(self):
         return self._controlType
-        #return self.redisClient.get(CONTROLLER_CONTROL_TYPE_KEY)
     
     @controlType.setter
     def controlType(self, new_type):
@@ -1012,38 +1176,28 @@ class SawyerCtrlInterface(RobotInterface):
     def get_cmd_tstamp(self):
         return self.redisClient.get(ROBOT_CMD_TSTAMP_KEY)
 
-    def process_cmd(self, cmd_type, controller_goal):
-        # print("CMD TYPE {}".format(self.cmd_type))
-
-        # todo hack for states.         
-        
+    def process_cmd(self, cmd_type):
         if (cmd_type == b"set_ee_pose"):
-
-            self.set_ee_pose(**controller_goal)
-        elif (cmd_type == b'move_ee_delta'):
-            self.move_ee_delta(**controller_goal)
-
-        # elif(cmd_type == b'set_joint_positions'):
-        #     print("joint position command received")
-        #     #self.check_controller("JointImpedance")
-        #     self.set_joint_positions(**controller_goal)
-        # elif(cmd_type == b'set_joint_delta'):
-        #     self.set_joint_delta(**controller_goal)
-        # elif (cmd_type == b'torque'):
-        #     raise NotImplementedError
-        #     #self.tau = self.desired_torque
+            self.set_ee_pose(**self.controller_goal)
+        elif (cmd_type == b"move_ee_delta"):
+            self.move_ee_delta(**self.controller_goal)
+        elif(cmd_type == b'set_joint_delta'):
+            self.set_joint_delta(**self.controller_goal)
+        elif (cmd_type==b'set_joint_positions'):
+            self.set_joint_positions(**self.controller_goal)
+        elif (cmd_type==b'set_joint_torques'):
+            self.set_joint_torques(**self.controller_goal)
+        elif (cmd_type==b'set_joint_velocities'):
+            self.set_joint_velocities(**self.controller_goal)
         elif(cmd_type == b'reset_to_neutral'):
-
             self.redisClient.set(ROBOT_RESET_COMPL_KEY, 'False')
             self.reset_to_neutral()
-        # elif(cmd_type == b'ee_delta'):
-        #     raise NotImplementedError
-        #     #self.move_ee_delta(self.desired_state)
-        elif cmd_type ==b'IDLE':
+        elif (cmd_type == b'IDLE'):
             # make sure action set if false
             self.action_set = False
             return
-        elif cmd_type == b'CHANGE_CONTROLLER':
+        elif (cmd_type == b'CHANGE_CONTROLLER'):
+            rospy.loginfo("CHANGE CONTROLLER COMMAND RECEIVED")
             self.controller = self.make_controller_from_redis(self.get_control_type(),
                 self.get_controller_params())
         else:
@@ -1058,76 +1212,71 @@ class SawyerCtrlInterface(RobotInterface):
             return False
 
     def run(self):
-        # if (self.env_connected == b'True'):
-        #     self.controller = self.make_controller_from_redis(self.get_control_type(), self.get_controller_params())
-        # TODO: Run controller once to initalize numba
+        if (self.env_connected == b'True'):
+            self.controller = self.make_controller_from_redis(self.get_control_type(), self.get_controller_params())
 
         while True:
             start = time.time()
             self.log_start_times.append(start)
             if (self.env_connected == b'True'):
                 if self.check_for_new_cmd():
-                    self.process_cmd(self.cmd_type, self.controller_goal)
+                    self.process_cmd(self.cmd_type)
                 self.step(start)
             else:
                 break
         #self.log_start_times.append(time.time())
+
+        # np.savez('dev/validation/0918_pb_state_log_sawyer_ctrl2.npz', 
+        #     ee_pos=np.array(self.pb_ee_pos_log), 
+        #     ee_ori = np.array(self.pb_ee_ori_log), 
+        #     ee_v=np.array(self.pb_ee_v_log), 
+        #     ee_w=np.array(self.pb_ee_w_log), 
+        #     allow_pickle=True)
+
+        # np.savez('dev/validation/0918_controller_log.npz', 
+        #     des_pos = np.array(self.controller.des_pos_log), 
+        #     des_ori = np.array(self.controller.des_ori_log), 
+        #     ee_pos=np.array(self.controller.intera_ee_pos_log), 
+        #     ee_ori=np.array(self.controller.intera_ee_ori_log),
+        #     ee_v=np.array(self.controller.intera_ee_v_log), 
+        #     ee_w=np.array(self.controller.intera_ee_w_log), 
+        #     pos_error=np.array(self.controller.pos_error_log), 
+        #     ori_error=np.array(self.controller.ori_error_log),
+        #     interp_pos=np.array(self.controller.interp_pos_log),
+        #     allow_pickle=True) 
+
         #np.savez('dev/sawyer_ctrl_timing/0821_time_nuc/0821_ctrl_loop_sq.npz', start=np.array(self.log_start_times), end=np.array(self.log_end_times), allow_pickle=True)
         #np.savez('dev/sawyer_ctrl_timing/0821_time_nuc/0821_cmd_times.npz', start=np.array(self.cmd_start_times), end=np.array(self.cmd_end_times), allow_pickle=True)
         # np.savez('dev/sawyer_ctrl_timing/run_controller_times.npz', delay=np.array(self.controller_times), allow_pickle=True)
         # np.savez('dev/sawyer_ctrl_timing/sawye_ctrl_loop_times.npz', tstamps=np.array(self.loop_times), allow_pickle=True)
         # np.savez('dev/sawyer_ctrl_timing/cmd_end_times.npz', tstamps=np.array(self.cmd_end_time), allow_pickle=True)
 
-
-    # def _on_joint_states(self, msg):
-    #     pass
-    #     # self.calc_mass_matrix()
-    #     # self._calc_jacobian() 
-    #     #self.update_redis()
-
 ### MAIN ###
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
     # Create ros node
     rospy.init_node("sawyer_interface", log_level=rospy.DEBUG)
-    #load_gazebo_models()
+
     ctrlInterface = SawyerCtrlInterface(use_safenet=False, use_moveit=False)
+    
     # Control Loop
-    threshold = 0.05
     rospy.loginfo("warming up redis...")
     rospy.sleep(10.0)
     rospy.loginfo("waiting for environment ... ")
-    while (ctrlInterface.env_connected != b'True'):
-        # do nothing until the environment is connected
+    try:
+        while not rospy.is_shutdown():
+            if (ctrlInterface.env_connected != b'True'):
+                pass
+            else:
+                break
+    except KeyboardInterrupt:
         pass
-    #if (ctrlInterface.redisClient.get('env_connected') == b'True'):
-    rospy.loginfo('Environment connected... entering control loop')
-    ctrlInterface.run()
 
-    # Timing test: 
-    # Print stats for run_controller step. 
-"""
-    print("Torque calculation: run_controller delay (s) \n")
-    tdict =np.load('dev/sawyer_ctrl_timing/run_controller_times.npz')
-    delay_times = tdict['delay']
-    print("Num samples collected:\t{}\n".format(len(delay_times)))
-    print("Mean delay:\t{}\n".format(np.mean(delay_times)))
-    print("Max delay:\t{}\n".format(np.max(delay_times)))
-    print("index of max:\t{}\n".format(np.argmax(delay_times)))
-    print("First sample:\t{}\n".format(delay_times[0]))
-    print("sample 2:\t{}\n".format(delay_times[1]))
-    print("Last sample:\t{}\n".format(delay_times[-1]))
-"""
-    # while(ctrlInterface.env_connected == b'True'):
-    #     rospy.logdebug('Environment connected')
-    #     start = time.time()
-    #     ctrlInterface.process_cmd()
+    while (ctrlInterface.env_connected == b'True'):
+        rospy.loginfo('Environment connected... entering control loop')
+        ctrlInterface.run()
 
-    #     ctrlInterface.step()
-    #     ctrlInterface.update()
-
-    #     while ((time.time() - start) < 0.001):
-    #         pass
+    rospy.loginfo("Env disconnected. shutting down.")
 
 
 

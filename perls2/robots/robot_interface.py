@@ -22,10 +22,10 @@ import logging
 from scipy.spatial.transform import Rotation as R
 
 AVAILABLE_CONTROLLERS = ["EEImpedance",
-                         "EEPosture",  
+                         "EEPosture",
                          "Internal",
                          "JointVelocity",
-                         "JointImpedance", 
+                         "JointImpedance",
                          "JointTorque"]
 
 @six.add_metaclass(abc.ABCMeta)
@@ -60,6 +60,10 @@ class RobotInterface(object):
         self.action_set = False
         self.model = Model()
         self.config = config
+                
+        self.interpolator_pos = None
+        self.interpolator_ori = None
+        
         if config is not None:
             world_name = config['world']['type']
             controller_config = config['controller'][world_name]
@@ -70,8 +74,6 @@ class RobotInterface(object):
                                                        controller_freq=self.config['control_freq'], 
                                                        policy_freq=self.config['policy_freq'], 
                                                        ramp_ratio=interp_pos_cfg['ramp_ratio'])
-            else:
-                self.interpolator_pos = None
             interp_ori_cfg = config['controller']['interpolator_ori']
             if interp_ori_cfg['type'] == 'linear':
                 self.interpolator_ori = LinearOriInterpolator(max_dx=interp_ori_cfg['max_dx'], 
@@ -79,8 +81,7 @@ class RobotInterface(object):
                                                        controller_freq=self.config['control_freq'], 
                                                        policy_freq=self.config['policy_freq'], 
                                                        ramp_ratio=interp_ori_cfg['ramp_ratio'])
-            else:
-                self.interpolator_ori = None
+
 
         self.interpolator_pos_goal_set = False
     def update(self):
@@ -113,14 +114,14 @@ class RobotInterface(object):
         controller_dict = self.config['controller'][world_name][control_type]
         if control_type == "EEImpedance":
             return EEImpController(self.model,
-                kp=controller_dict['kp'], 
+                kp=controller_dict['kp'],
                 damping=controller_dict['damping'],
                 interpolator_pos =self.interpolator_pos,
                 interpolator_ori=None,
                 control_freq=self.config['sim_params']['control_freq'])
         elif control_type == "EEPosture":
-            return EEPostureController(self.model, 
-                kp=controller_dict['kp'], 
+            return EEPostureController(self.model,
+                kp=controller_dict['kp'],
                 damping=controller_dict['damping'],
                 posture_gain=controller_dict['posture_gain'],
                 posture=controller_dict['posture'],
@@ -128,31 +129,31 @@ class RobotInterface(object):
                 interpolator_ori=None,
                 input_max=np.array(controller_dict['input_max']),
                 input_min=np.array(controller_dict['input_min']),
-                output_max=np.array(controller_dict['output_max']), 
+                output_max=np.array(controller_dict['output_max']),
                 output_min=np.array(controller_dict['output_min']),
                 control_freq=self.config['sim_params']['control_freq'])
         elif control_type == "JointVelocity":
             return JointVelController(
-                robot_model=self.model, 
+                robot_model=self.model,
                 kv=controller_dict['kv'])
         elif control_type == "JointImpedance":
             return JointImpController(
-                robot_model= self.model, 
-                kp=controller_dict['kp'], 
+                robot_model= self.model,
+                kp=controller_dict['kp'],
                 damping=controller_dict['damping']
                 )
         elif control_type == "JointTorque":
             return JointTorqueController(
-                robot_model=self.model )
+                robot_model=self.model)
         elif control_type == "EEPosture":
-            return EEPostureController(self.model, 
-                kp=controller_dict['kp'], 
+            return EEPostureController(self.model,
+                kp=controller_dict['kp'],
                 damping=controller_dict['damping'],
                 posture_gain=controller_dict['posture_gain'],
                 interpolator_pos =self.interpolator_pos,
                 interpolator_ori=None,
                 control_freq=self.config['sim_params']['control_freq'])
-        else: 
+        else:
             return ValueError("Invalid control type")
 
 
@@ -189,6 +190,7 @@ class RobotInterface(object):
                 print("ACTION NOT SET")
 
     def set_controller_goal(self, **kwargs):
+        self.update_model()
         self.controller.set_goal(**kwargs)
         self.action_set = True
 
@@ -234,11 +236,11 @@ class RobotInterface(object):
 
         """
         #self.check_controller("EEImpedance")
-        kwargs = {'delta': None, 'set_pos': set_pos[:3], 'set_ori': set_ori[3:]}
+        kwargs = {'delta': None, 'set_pos': set_pos, 'set_ori': set_ori}
         self.set_controller_goal(**kwargs)
 
         
-    def set_joint_velocity(self, dq_des):
+    def set_joint_velocities(self, velocities):
         """ Use controller to set joint velocity of the robot.
         Args:
             dq_des(ndarray): 7f desired joint velocities (rad/s) for each joint.
@@ -248,7 +250,7 @@ class RobotInterface(object):
         """        
 
         self.check_controller("JointVelocity")
-        kwargs = {'velocities': dq_des}
+        kwargs = {'velocities': velocities}
         self.set_controller_goal(**kwargs)
 
     def set_joint_delta(self, delta, **kwargs):
@@ -264,15 +266,21 @@ class RobotInterface(object):
         kwargs = {"delta": delta}
         self.set_controller_goal(**kwargs)
 
-    def set_joint_positions(self, set_qpos, **kwargs):    
+    def set_joint_positions(self, set_qpos, **kwargs):   
+        """ Use controller to set new joint positions. 
+        """ 
         self.check_controller("JointImpedance")
         kwargs['set_qpos'] = set_qpos
         kwargs['delta'] = None
         self.set_controller_goal(**kwargs)
 
-    def set_joint_torque(self, torque):
+    def set_joint_torques(self, torques):
+        """Set joint torques to new joint torques. 
+        Args: 
+            torques (list): 7f list of toruqes to command. 
+        """
         self.check_controller("JointTorque")
-        kwargs = {'torque':torques}
+        kwargs = {'torques':torques}
         self.set_controller_goal(**kwargs)
 
 

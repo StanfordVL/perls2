@@ -5,7 +5,7 @@ import scipy
 
 class Model:
 
-    def __init__(self):
+    def __init__(self, offset_mass_matrix=True):
 
         # robot states
         self.ee_pos = None
@@ -23,7 +23,8 @@ class Model:
         self.J_ori = None
         self.J_full = None
         self.mass_matrix = None
-
+        self.offset_mass_matrix = offset_mass_matrix
+        self.mass_matrix_offset_val = [0.05, 0.05, 0.05]
         self.torque_compensation = None
         self.nullspace = None
 
@@ -73,7 +74,13 @@ class Model:
                      J_pos,
                      J_ori,
                      mass_matrix):
+
         self.mass_matrix = mass_matrix
+        if self.offset_mass_matrix:
+          mm_weight_indices = [(4,4), (5,5), (6,6)] 
+          for i in range(3):
+            self.mass_matrix[mm_weight_indices[i]] += self.mass_matrix_offset_val[i]
+
         self.J_full = np.concatenate((J_pos, J_ori))
         self.J_pos = J_pos
         self.J_ori = J_ori
