@@ -79,7 +79,6 @@ class JointVelController(Controller):
             desired_vel = np.array(self.goal_vel)
 
         # Compute torques (pre-compensation)
-        print(desired_vel - self.model.joint_vel)
         self.torques = np.multiply(self.kv, (desired_vel - self.model.joint_vel)) + self.model.torque_compensation
 
         # Return final torques
