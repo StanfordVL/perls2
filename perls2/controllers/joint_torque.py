@@ -1,12 +1,30 @@
 from perls2.controllers.base_controller import Controller
 from perls2.controllers.robot_model.model import Model
-from perls2.controllers.utils.control_utils import *
+import perls2.controllers.utils.control_utils as C
 import perls2.controllers.utils.transform_utils as T
 import numpy as np
+
 
 class JointTorqueController(Controller):
     """
     Controller for joint torque
+
+    Attributes:
+        robot_model (Model): model of robot containing state and parameters.
+
+        input_max (float or list of floats): Maximum above which an inputted action will be clipped.
+
+        input_min (float or list of floats): Minimum below which an inputted action will be clipped.
+
+        output_max (float or list of float): Maximum which defines upper end of scaling range when scaling an input
+            action.
+        output_min (float or list of float): Minimum which defines lower end of scaling range when scaling an input
+            action.
+        interpolator (LinearInterpolator): Interpolator object to be used for interpolating between consecutive goals..
+        goal_torque (list of float): goal torques for controller.
+        current_torque (list of float): current torque being outputted.
+        joint_dim (int): number of joints in the arm (usually 7.)
+        torques (list): 7f list of torques.
     """
 
     def __init__(self,
@@ -18,7 +36,24 @@ class JointTorqueController(Controller):
                  control_freq=20,
                  interpolator=None,
                  ):
+        """ Initialize Joint Torque Controller.
 
+        Args:
+            robot_model (Model): model of robot containing state and parameters.
+
+            input_max (float or list of floats): Maximum above which an inputted action will be clipped.
+
+            input_min (float or list of floats): Minimum below which an inputted action will be clipped.
+
+            output_max (float or list of float): Maximum which defines upper end of scaling range when scaling an input
+                action.
+            output_min (float or list of float): Minimum which defines lower end of scaling range when scaling an input
+                action.
+            interpolator (LinearInterpolator): Interpolator object to be used for interpolating between consecutive goals..
+            goal_torque (list of float): goal torques for controller.
+            current_torque (list of float): current torque being outputted.
+
+        """
         super(JointTorqueController, self).__init__()
         # input and output max and min
         self.input_max = input_max
@@ -46,6 +81,14 @@ class JointTorqueController(Controller):
         self.set_goal(np.zeros(self.joint_dim))
 
     def set_goal(self, torques):
+        """ Set goal torques.
+
+        Args:
+            torques (list): 7f list of torques to command to the robot.
+
+        Returns:
+            None
+        """
         self.model.update()
 
         # Check to make sure delta is size self.joint_dim
@@ -55,13 +98,12 @@ class JointTorqueController(Controller):
         if self.interpolator is not None:
             self.interpolator.set_goal(self.goal_torque)
 
-    def run_controller(self, action=None):
-        # First, update goal if action is not set to none
-        # Action will be interpreted as delta value from current
-        if action is not None:
-            self.set_goal(action)
-        else:
-            self.model.update()
+    def run_controller(self):
+        """ Run controller to calculate torques.
+
+        Args:
+            action (list): list of torques
+        """
 
         # Next, check whether goal has been set
         assert self.goal_torque is not None, "Error: Joint torque goal has not been set yet!"

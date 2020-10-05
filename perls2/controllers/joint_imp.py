@@ -1,8 +1,9 @@
 from perls2.controllers.base_controller import Controller
 from perls2.controllers.robot_model.model import Model
-from perls2.controllers.utils.control_utils import *
+import perls2.controllers.utils.control_utils import as C
 import perls2.controllers.utils.transform_utils as T
 import numpy as np
+
 
 class JointImpController(Controller):
     """
@@ -13,9 +14,10 @@ class JointImpController(Controller):
                  robot_model,
                  input_max=1,
                  input_min=-1,
-                 output_max= 1.0,
+                 output_max=1.0,
                  output_min=-1.0,
                  kp=50,
+                 kv=None,
                  damping=1,
                  control_freq=20,
                  qpos_limits=None,
@@ -36,8 +38,17 @@ class JointImpController(Controller):
         self.joint_dim = robot_model.joint_dim
 
         # kp kv
-        self.kp = np.ones(self.joint_dim) * kp
-        self.kv = np.ones(self.joint_dim) * 2 * np.sqrt(self.kp) * damping
+        if kp is list:
+            self.kp = np.ones(self.joint_dim) * kp
+        else:
+            self.kp = kp
+
+        if kv is None:
+            self.kv = np.ones(self.joint_dim) * 2 * np.sqrt(self.kp) * damping
+        elif kv is list:
+            self.kv = kv
+        else:
+            self.kv = np.ones(self.joint_dim) * kv
 
         # control frequency
         self.control_freq = control_freq
@@ -50,10 +61,24 @@ class JointImpController(Controller):
 
         # initialize
         self.goal_qpos = None
-
+        self.prev_goal = None
         self.set_goal(np.zeros(self.joint_dim))
 
-    def set_goal(self, delta, set_qpos=None):
+    def set_goal(self, delta, set_qpos=None, **kwargs):
+        """Set goal for controller. 
+        Args:
+            delta (list): (7f) list of deltas from current joint positions
+            set_qpos (list): (7f) goal positions for the joints.
+            kwargs (dict): additional keyword arguments.
+
+        Returns:
+            None
+
+        Examples::
+            $ self.controller.set_goal(delta=[0.1, 0.1, 0, 0, 0, 0], set_pos=None, set_ori=None)
+
+            $self.controller.set_goal(delta=None, set_pose=[0.4, 0.2, 0.4], set_ori=[0, 0, 0, 1])
+        """
         self.model.update()
 
         if delta is not None:
@@ -71,16 +96,23 @@ class JointImpController(Controller):
                 )
             scaled_delta = None
 
-        self.goal_qpos = set_goal_position(scaled_delta,
-                                          self.model.joint_pos,
-                                          position_limit=self.position_limits,
-                                          set_pos=set_qpos)
+        self.goal_qpos = C.set_goal_position(scaled_delta,
+                                             self.model.joint_pos,
+                                             position_limit=self.position_limits,
+                                             set_pos=set_qpos)
 
         if self.interpolator_qpos is not None:
             self.interpolator_qpos.set_goal(self.goal_qpos)
 
     def run_controller(self, action=None):
-        
+        """Calculate torques to acheive goal.
+
+        Args:
+            None
+        Returns:
+            torques (list): 7f list of torques to command.
+
+        """
         # First, update goal if action is not set to none
         # Action will be interpreted as delta value from current
         if action is not None:
@@ -92,13 +124,13 @@ class JointImpController(Controller):
         assert self.goal_qpos is not None, "Error: Joint qpos goal has not been set yet!"
 
         desired_qpos = 0
-        desired_vel_pos = 0 # Note that this is currently unused
-        desired_acc_pos = 0 # Note that this is currently unused
+        desired_vel_pos = 0  # Note that this is currently unused
+        desired_acc_pos = 0  # Note that this is currently unused
 
         if self.interpolator_qpos is not None:
             if self.interpolator_qpos.order == 1:
                 # Linear case
-                desired_qpos = self.interpolator_qpos.get_interpolated_goal(self.model.joint_pos)
+                desired_qpos = self.interpolator_qpos.get_interpolated_goal()
             else:
                 # Nonlinear case not currently supported
                 pass
@@ -107,8 +139,8 @@ class JointImpController(Controller):
 
         position_error = desired_qpos - self.model.joint_pos
         vel_pos_error = desired_vel_pos - self.model.joint_vel
-        desired_torque = (np.multiply(np.array(position_error), np.array(self.kp))
-                         + np.multiply(vel_pos_error, self.kv)) + desired_acc_pos
+        desired_torque = (np.multiply(np.array(position_error), np.array(self.kp) +
+            np.multiply(vel_pos_error, self.kv)) + desired_acc_pos
 
         self.torques = np.dot(self.model.mass_matrix, desired_torque) + self.model.torque_compensation
 
