@@ -67,13 +67,13 @@ class Env(gym.Env):
         """Create attributes for environment.
 
         This function creates the following attributes:
-            -Arena
-            -RobotInterface
-            -SensorInterface
-            -ObjectInterface(s) (if applicable)
-            -observation_space
-            -action_space
-            -various counters.
+            *Arena
+            *RobotInterface
+            *SensorInterface
+            *ObjectInterface(s) (if applicable)
+            *observation_space
+            *action_space
+            *various counters.
         This is a public function as sometimes it is necessary to reinitialize
         an environment to fully reset a simulation.
 
