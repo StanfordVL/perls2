@@ -24,8 +24,8 @@ import perls2
 
 
 
-project = 'iGibson'
-copyright = 'Stanford University 2018-2020'
+project = 'perls2'
+copyright = 'Stanford University 2019-2021'
 author = 'Rohun Kulkarni' 
 github_doc_root = 'https://github.com/StanfordVL/perls2'
 

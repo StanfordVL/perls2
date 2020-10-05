@@ -8,6 +8,7 @@ perls2's Documentation
 
    env.rst
    world.rst
+   controller.rst
 
 
 
