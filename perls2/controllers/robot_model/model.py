@@ -4,8 +4,38 @@ import scipy
 
 
 class Model:
-
+    """Robot state and dynamics model. 
+    
+    Attributes:
+      ee_pos (list): 3f xyz position (m) of end-effector in world frame. 
+      ee_ori_quat (list): 4f orientation of end-effector as quaternion 
+        in world frame.
+      ee_ori_mat (list): (3f, 3f) orientation of end-effector in world frame
+        as a rotation matrix. 
+      ee_pos_vel (list): 3f xyz velocity of end-effector. 
+      ee_ori_vel (list): 3f angular velocity of end-effector about 
+        world frame axes. 
+      joint_pos (list): 7f joint positions ordered from base to ee(radians)
+      joint_vel (list): 7f joint velocity ordered from base to ee(rad/s)
+      joint_torque (list): 7f joint torques ordered from base to ee (Nm)
+      J_pos (list): (3, 7) Jacobian mapping ee linear velocity to joint velocity. 
+      J_ori (list): (3, 7) Jacobian mapping ee angular velocity to joint velocity. 
+      J_ful (list): (6, 7) Jacobian mapping ee twist to joint velocity.
+      mass_marix (list): (7,7) Joint space inertia matrix
+      off_set_mass_matrix (bool): flag to offset mass_matrix at last 3 joints. 
+      mass_matrix_offset_val (list): 3f list of offsets to add to the mass matrix
+        diagonal's last three elements. Used for real robots to adjust for high 
+        friction at end joints. 
+      torque_compensation (list): Additional compensation torques, usually used for 
+        gravity. 
+      nullspace (list): List of nullspace constrained torques for the osc task.
+    """
     def __init__(self, offset_mass_matrix=True):
+        """Initialize the robot model.
+        
+        Args: 
+          offset_mass_matrix (bool): flag to turn on mass_matrix offset. 
+        """
 
         # robot states
         self.ee_pos = None
