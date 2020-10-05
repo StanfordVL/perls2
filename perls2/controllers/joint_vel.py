@@ -71,7 +71,7 @@ class JointVelController(Controller):
         if self.interpolator is not None:
             if self.interpolator.order == 1:
                 # Linear case
-                desired_vel = self.interpolator.get_interpolated_goal(self.model.joint_vel)
+                desired_vel = self.interpolator.get_interpolated_goal()
             else:
                 # Nonlinear case not currently supported
                 pass

@@ -18,7 +18,7 @@ import redis
 from perls2.robots.real_robot_interface import RealRobotInterface
 from scipy.spatial.transform import Rotation as R
 from perls2.ros_interfaces.redis_interface import RobotRedisInterface
-from perls2.ros_interfaces.redis_keys import * 
+from perls2.ros_interfaces.redis_keys import *
 # For dumping config dict to redis
 import json
 import socket
@@ -71,11 +71,11 @@ class RealSawyerInterface(RealRobotInterface):
         TODO: This doesn't actually work, it just waits for the timeout.
         """
         logging.debug("Resetting robot")
-        reset_cmd = {ROBOT_CMD_TSTAMP_KEY : time.time(), 
+        reset_cmd = {ROBOT_CMD_TSTAMP_KEY : time.time(),
                      ROBOT_CMD_TYPE_KEY: 'reset_to_neutral'
         }
         self.redisClient.mset(reset_cmd)
-        # Wait for reset to be read by contrl interface. 
+        # Wait for reset to be read by contrl interface.
         time.sleep(5)
         start = time.time()
         while (self.redisClient.get(ROBOT_RESET_COMPL_KEY) != b'True' and
@@ -225,7 +225,13 @@ class RealSawyerInterface(RealRobotInterface):
         indices from small to large.
         Typically the order goes from base to end effector.
         """
-        return self.redisClient.get(ROBOT_STATE_DQ_KEY)
+        dq_dict = self.redisClient.get_dict(ROBOT_STATE_DQ_KEY)
+
+        dq = []
+        for limb_name in self.config['sawyer']['limb_joint_names']:
+            dq.append(dq_dict[limb_name])
+
+        return dq
 
 
     @property
@@ -246,7 +252,13 @@ class RealSawyerInterface(RealRobotInterface):
         small to large.
         Typically the order goes from base to end effector.
         """
-        return self.redisClient.get(ROBOT_STATE_TAU_KEY)
+        tau_dict = self.redisClient.get_dict(ROBOT_STATE_TAU_KEY)
+        tau = []
+
+        for limb_name in self.config['sawyer']['limb_joint_names']:
+            tau.append(tau_dict[limb_name])
+
+        return tau
 
     def set_torques(self, torques):
         torques = np.clip(
@@ -279,12 +291,16 @@ class RealSawyerInterface(RealRobotInterface):
         selected_type = self.config['controller']['selected_type']
         self.control_config = self.config['controller']['Real'][selected_type]
 
-        self.redisClient.mset({CONTROLLER_CONTROL_PARAMS_KEY: json.dumps(self.control_config), 
-                               CONTROLLER_CONTROL_TYPE_KEY: selected_type}) 
+        self.redisClient.mset({CONTROLLER_CONTROL_PARAMS_KEY: json.dumps(self.control_config),
+                               CONTROLLER_CONTROL_TYPE_KEY: selected_type})
+        cmd_type = "CHANGE_CONTROLLER"
+        control_cmd = { ROBOT_CMD_TSTAMP_KEY: time.time(),
+                            ROBOT_CMD_TYPE_KEY : cmd_type}
+        self.redisClient.mset(control_cmd)
 
-        print("{} Control parameters set to redis: {}".format(selected_type, self.control_config))
+        logging.debug("{} Control parameters set to redis: {}".format(selected_type, self.control_config))
 
-    def set_goal_state(self, goal): 
+    def set_goal_state(self, goal):
         self.redisClient.set("robot::desired_state", str(goal))
 
 

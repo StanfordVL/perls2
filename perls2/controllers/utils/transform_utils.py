@@ -253,6 +253,44 @@ def mat2quat(rmat):
     inds = np.array([1, 2, 3, 0])
     return q1[inds]
 
+def mat2quat(rmat):
+    """
+    Converts given rotation matrix to quaternion.
+    Args:
+        rmat: 3x3 rotation matrix
+    Returns:
+        vec4 float quaternion angles
+    """
+    M = np.asarray(rmat).astype(np.float32)[:3, :3]
+
+    m00 = M[0, 0]
+    m01 = M[0, 1]
+    m02 = M[0, 2]
+    m10 = M[1, 0]
+    m11 = M[1, 1]
+    m12 = M[1, 2]
+    m20 = M[2, 0]
+    m21 = M[2, 1]
+    m22 = M[2, 2]
+    # symmetric matrix K
+    K = np.array(
+        [
+            [m00 - m11 - m22, np.float32(0.0), np.float32(0.0), np.float32(0.0)],
+            [m01 + m10, m11 - m00 - m22, np.float32(0.0), np.float32(0.0)],
+            [m02 + m20, m12 + m21, m22 - m00 - m11, np.float32(0.0)],
+            [m21 - m12, m02 - m20, m10 - m01, m00 + m11 + m22],
+        ]
+    )
+    K /= 3.0
+    # quaternion is Eigen vector of K that corresponds to largest eigenvalue
+    w, V = np.linalg.eigh(K)
+    inds = np.array([3, 0, 1, 2])
+    q1 = V[inds, np.argmax(w)]
+    if q1[0] < 0.0:
+        np.negative(q1, q1)
+    inds = np.array([1, 2, 3, 0])
+    return q1[inds]
+
 #def euler2mat(euler: object) -> object: #assume xyz
 def euler2mat(euler):
     euler = np.asarray(euler, dtype=np.float64)
@@ -414,6 +452,7 @@ def quat2mat(quaternion):
             [q2[1, 3] - q2[2, 0], q2[2, 3] + q2[1, 0], 1.0 - q2[1, 1] - q2[2, 2]],
         ]
     )
+
 
 def pose_in_A_to_pose_in_B(pose_A, pose_A_in_B):
     """
@@ -628,6 +667,43 @@ def clip_rotation(quat, limit):
 
     return quat
 
+def quat2axisangle(quat):
+    """
+    Converts (x, y, z, w) quaternion to axis-angle format.
+    Returns a unit vector direction scaled by its angle in radians.
+    """
+    # clip quaternion
+    if quat[3] > 1.:
+        quat[3] = 1.
+    elif quat[3] < -1.:
+        quat[3] = -1.
+
+    den = np.sqrt(1. - quat[3] * quat[3])
+    if math.isclose(den, 0.):
+        # This is (close to) a zero degree rotation, immediately return
+        return np.zeros(3)
+
+    return (quat[:3] * 2. * math.acos(quat[3])) / den
+
+def axisangle2quat(vec):
+    """
+    Converts scaled axis-angle to (x, y, z, w) quat.
+    """
+    # Grab angle
+    angle = np.linalg.norm(vec)
+
+    # handle zero-rotation case
+    if math.isclose(angle, 0.):
+        return np.array([0., 0., 0., 1.])
+
+    # make sure that axis is a unit vector
+    axis = vec / angle
+
+    q = np.zeros(4)
+    q[3] = np.cos(angle / 2.)
+    q[:3] = axis * np.sin(angle / 2.)
+    return q
+
 
 def make_pose(translation, rotation):
     """
@@ -756,11 +832,10 @@ def get_pose_error(target_pose, current_pose):
 def convert_euler_quat_2mat(ori):
     """Convert an euler or quaternion to matrix for orientation error.
     """
-    if len(ori) == 3: 
-        # Euler angles. 
+    if len(ori) == 3:
+        # Euler angles.
         return euler2mat(ori)
     elif len(ori) == 4:
         return quat2mat(ori)
     else:
         raise ValueError("Invalid orientation dim of len {}".format(len(ori)))
-                

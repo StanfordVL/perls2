@@ -181,7 +181,7 @@ class OpSpaceDeltaDemo(OpSpaceDemo):
         self.states.append(self.init_state)
         self.use_abs = use_abs
         if self.demo_type == "Square":
-            self.path = Square([0., 0., 0.], 10)
+            self.path = Square(self.init_state[:3], 10)
             # Get goal states based on demo and control type. 
             self.action_list = self.get_action_list()
             self.goal_states = self.get_goal_states()
@@ -199,11 +199,11 @@ class OpSpaceDeltaDemo(OpSpaceDemo):
     def run(self):
         #self.env.reset()
         for i, action in enumerate(self.action_list):
-            print("Action:\t{}\n".format(action))
+            print("Action:\t{}".format(action[:3]))
             self.env.step(action, time.time())
             self.actions.append(action)
             new_state = self.get_state()
-            print(new_state)
+            print("EE Pose:\t{}\n".format(new_state))
             self.states.append(new_state)
             self.errors.append(self.compute_error(self.goal_states[i], self.env.robot_interface.ee_pose_euler))
             # print(self.errors[-1])
@@ -252,7 +252,7 @@ class OpSpaceDeltaDemo(OpSpaceDemo):
         """
         if self.demo_type == "Zero": 
             if self.use_abs:
-                action_list = [np.array(self.initial_pose)]*10000
+                action_list = [np.array(self.initial_pose)]*5
             else:
                 action_list = [np.zeros(6)]*500
             return action_list

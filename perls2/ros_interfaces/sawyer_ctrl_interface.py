@@ -89,6 +89,8 @@ from perls2.robots.robot_interface import RobotInterface
 from perls2.controllers.ee_imp import EEImpController
 from perls2.controllers.ee_posture import EEPostureController
 from perls2.controllers.joint_imp import JointImpController
+from perls2.controllers.joint_torque import JointTorqueController
+from perls2.controllers.joint_vel import JointVelController
 from perls2.controllers.interpolator.linear_interpolator import LinearInterpolator
 from perls2.controllers.interpolator.linear_ori_interpolator import LinearOriInterpolator
 from perls2.controllers.robot_model.model import Model
@@ -344,7 +346,7 @@ class SawyerCtrlInterface(RobotInterface):
         self.loop_times = []
         self.cmd_end_time = []
 
-        print("CURRENT EE_POSE {}".format(self.ee_pose))
+        rospy.logdebug("CURRENT EE_POSE {}".format(self.ee_pose))
         #self.pb_pose_log = open('dev/validation/pb_pose.txt', 'w')
 
     def createPoseMarker(
@@ -392,6 +394,28 @@ class SawyerCtrlInterface(RobotInterface):
             return JointImpController(self.model, 
                     interpolator_qpos=self.interpolator_pos,
                     **controller_dict)
+        elif control_type =="JointTorque":
+            interp_kwargs = {'max_dx': 0.05, 
+                             'ndim': 7, 
+                             'controller_freq': 500, 
+                             'policy_freq' : 20, 
+                             'ramp_ratio' :  0.2 }
+            self.interpolator_pos = LinearInterpolator(**interp_kwargs)
+            return JointTorqueController(self.model, 
+                    interpolator=self.interpolator_pos,
+                    **controller_dict)
+        elif control_type == "JointVelocity":
+            interp_kwargs = {'max_dx': 0.05, 
+                             'ndim': 7, 
+                             'controller_freq': 500, 
+                             'policy_freq' : 20, 
+                             'ramp_ratio' :  0.2 }
+            self.interpolator_pos = LinearInterpolator(**interp_kwargs)
+            return JointVelController(self.model, 
+                interpolator=self.interpolator_pos, 
+                **controller_dict)
+        else:
+            raise ValueError("Invalid control type.")
 
 
     def get_controller_params(self):
@@ -811,16 +835,12 @@ class SawyerCtrlInterface(RobotInterface):
             torques = np.clip(torques, -5.0, 5.0)
         
             self.set_torques(torques)
- 
 
             while (time.time() - start < LOOP_TIME):
                 pass 
                 #time.sleep(.00001)
-
-
         else:
             pass
-            #print("ACTION NOT SET")
 
     def goto_q(self, qd, max_joint_speed_ratio=0.3, timeout=15.0,
                threshold=0.008726646):
@@ -862,7 +882,7 @@ class SawyerCtrlInterface(RobotInterface):
         """
         assert len(desired_torques) == len(self._joint_names), \
             'Input number of torque values must match the number of joints'
-        #print(desired_torques)
+
         command = {self._joint_names[i]: desired_torques[i] for i in range(len(self._joint_names))}
         self._limb.set_joint_torques(command)
 
@@ -901,8 +921,6 @@ class SawyerCtrlInterface(RobotInterface):
                 })
 
         return link_id_dict
-
-
 
     def get_link_name(self, link_uid):
         """Get the name of the link. (joint)
@@ -945,8 +963,6 @@ class SawyerCtrlInterface(RobotInterface):
                     self.get_joint_name(
                         (self._pb_sawyer, joint_id)).decode('utf-8'): joint_id
                 })
-            print("{}:\t{}".format(joint_id,  self.get_joint_name(
-                        (self._pb_sawyer, joint_id)).decode('utf-8')))
 
         return joint_id_dict
 
@@ -977,8 +993,6 @@ class SawyerCtrlInterface(RobotInterface):
         self._calc_mass_matrix()
 
         orn = R.from_quat(self.ee_orientation)
-        ## Hack the velocity
-        #HACKITY HACK HACK HACK TODO HACK 
 
         # Reset pybullet model to joint State to get ee_pose and orientation. 
         for joint_ind, joint_name in enumerate(self.joint_names):
@@ -1024,7 +1038,7 @@ class SawyerCtrlInterface(RobotInterface):
                                 mass_matrix=self.mass_matrix)
     
     def update_model_fake(self):
-        print("Faking model update.")
+        rospy.logdebug("Faking model update.")
         self._calc_jacobian(q=[0.07722660000000001, -1.18184,  -0.126824,  2.16396, -0.000586914,  0.569958,  3.3169], 
                             dq=[-0.001, -0.001, -0.001, -0.001, -0.001, -0.001, -0.001], 
                             localPos=[0, 0, 0])
@@ -1104,9 +1118,7 @@ class SawyerCtrlInterface(RobotInterface):
                                 str(free_joint_dict[joint_name]))
             else:
                 rospy.logdebug("Not fixed")
-                # reset the joint to the correct state
-                #pb.resetJointState(self._pb_sawyer, i, self.q[q_index2])
-        #rospy.logdebug("Free joint dict " +str(free_joint_dict))
+
         return free_joint_dict
 
 
@@ -1156,7 +1168,6 @@ class SawyerCtrlInterface(RobotInterface):
     @property 
     def controlType(self):
         return self._controlType
-        #return self.redisClient.get(CONTROLLER_CONTROL_TYPE_KEY)
     
     @controlType.setter
     def controlType(self, new_type):
@@ -1165,42 +1176,28 @@ class SawyerCtrlInterface(RobotInterface):
     def get_cmd_tstamp(self):
         return self.redisClient.get(ROBOT_CMD_TSTAMP_KEY)
 
-    def process_cmd(self, cmd_type, controller_goal):
-        # print("CMD TYPE {}".format(self.cmd_type))
-
-        # todo hack for states.         
-        
+    def process_cmd(self, cmd_type):
         if (cmd_type == b"set_ee_pose"):
-            self.set_ee_pose(**controller_goal)
+            self.set_ee_pose(**self.controller_goal)
         elif (cmd_type == b"move_ee_delta"):
-            self.move_ee_delta(**controller_goal)
-
-        # elif(cmd_type == b'set_joint_positions'):
-        #     print("joint position command received")
-        #     #self.check_controller("JointImpedance")
-        #     self.set_joint_positions(**controller_goal)
+            self.move_ee_delta(**self.controller_goal)
         elif(cmd_type == b'set_joint_delta'):
-            self.set_joint_delta(**controller_goal)
+            self.set_joint_delta(**self.controller_goal)
         elif (cmd_type==b'set_joint_positions'):
-            self.set_joint_positions(**controller_goal)
+            self.set_joint_positions(**self.controller_goal)
         elif (cmd_type==b'set_joint_torques'):
-            self.set_joint_torques(**controller_goal)
-        # elif (cmd_type == b'torque'):
-        #     raise NotImplementedError
-        #     #self.tau = self.desired_torque
+            self.set_joint_torques(**self.controller_goal)
+        elif (cmd_type==b'set_joint_velocities'):
+            self.set_joint_velocities(**self.controller_goal)
         elif(cmd_type == b'reset_to_neutral'):
-
             self.redisClient.set(ROBOT_RESET_COMPL_KEY, 'False')
             self.reset_to_neutral()
-            print("EE_POSE\t{}".format(self.ee_pose))
-        # elif(cmd_type == b'ee_delta'):
-        #     raise NotImplementedError
-        #     #self.move_ee_delta(self.desired_state)
-        elif cmd_type ==b'IDLE':
+        elif (cmd_type == b'IDLE'):
             # make sure action set if false
             self.action_set = False
             return
-        elif cmd_type == b'CHANGE_CONTROLLER':
+        elif (cmd_type == b'CHANGE_CONTROLLER'):
+            rospy.loginfo("CHANGE CONTROLLER COMMAND RECEIVED")
             self.controller = self.make_controller_from_redis(self.get_control_type(),
                 self.get_controller_params())
         else:
@@ -1217,14 +1214,13 @@ class SawyerCtrlInterface(RobotInterface):
     def run(self):
         if (self.env_connected == b'True'):
             self.controller = self.make_controller_from_redis(self.get_control_type(), self.get_controller_params())
-        # TODO: Run controller once to initalize numba
 
         while True:
             start = time.time()
             self.log_start_times.append(start)
             if (self.env_connected == b'True'):
                 if self.check_for_new_cmd():
-                    self.process_cmd(self.cmd_type, self.controller_goal)
+                    self.process_cmd(self.cmd_type)
                 self.step(start)
             else:
                 break
@@ -1255,22 +1251,15 @@ class SawyerCtrlInterface(RobotInterface):
         # np.savez('dev/sawyer_ctrl_timing/sawye_ctrl_loop_times.npz', tstamps=np.array(self.loop_times), allow_pickle=True)
         # np.savez('dev/sawyer_ctrl_timing/cmd_end_times.npz', tstamps=np.array(self.cmd_end_time), allow_pickle=True)
 
-
-    # def _on_joint_states(self, msg):
-    #     pass
-    #     # self.calc_mass_matrix()
-    #     # self._calc_jacobian() 
-    #     #self.update_redis()
-
 ### MAIN ###
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
     # Create ros node
     rospy.init_node("sawyer_interface", log_level=rospy.DEBUG)
-    #load_gazebo_models()
+
     ctrlInterface = SawyerCtrlInterface(use_safenet=False, use_moveit=False)
+    
     # Control Loop
-    threshold = 0.05
     rospy.loginfo("warming up redis...")
     rospy.sleep(10.0)
     rospy.loginfo("waiting for environment ... ")
@@ -1288,34 +1277,6 @@ if __name__ == "__main__":
         ctrlInterface.run()
 
     rospy.loginfo("Env disconnected. shutting down.")
-
-
-    #if (ctrlInterface.redisClient.get('env_connected') == b'True'):
-
-    # Timing test: 
-    # Print stats for run_controller step. 
-"""
-    print("Torque calculation: run_controller delay (s) \n")
-    tdict =np.load('dev/sawyer_ctrl_timing/run_controller_times.npz')
-    delay_times = tdict['delay']
-    print("Num samples collected:\t{}\n".format(len(delay_times)))
-    print("Mean delay:\t{}\n".format(np.mean(delay_times)))
-    print("Max delay:\t{}\n".format(np.max(delay_times)))
-    print("index of max:\t{}\n".format(np.argmax(delay_times)))
-    print("First sample:\t{}\n".format(delay_times[0]))
-    print("sample 2:\t{}\n".format(delay_times[1]))
-    print("Last sample:\t{}\n".format(delay_times[-1]))
-"""
-    # while(ctrlInterface.env_connected == b'True'):
-    #     rospy.logdebug('Environment connected')
-    #     start = time.time()
-    #     ctrlInterface.process_cmd()
-
-    #     ctrlInterface.step()
-    #     ctrlInterface.update()
-
-    #     while ((time.time() - start) < 0.001):
-    #         pass
 
 
 
