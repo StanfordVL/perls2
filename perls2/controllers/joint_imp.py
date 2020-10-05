@@ -1,6 +1,6 @@
 from perls2.controllers.base_controller import Controller
 from perls2.controllers.robot_model.model import Model
-import perls2.controllers.utils.control_utils import as C
+import perls2.controllers.utils.control_utils as C
 import perls2.controllers.utils.transform_utils as T
 import numpy as np
 
@@ -139,7 +139,7 @@ class JointImpController(Controller):
 
         position_error = desired_qpos - self.model.joint_pos
         vel_pos_error = desired_vel_pos - self.model.joint_vel
-        desired_torque = (np.multiply(np.array(position_error), np.array(self.kp) +
+        desired_torque = (np.multiply(np.array(position_error), np.array(self.kp)) +
             np.multiply(vel_pos_error, self.kv)) + desired_acc_pos
 
         self.torques = np.dot(self.model.mass_matrix, desired_torque) + self.model.torque_compensation
