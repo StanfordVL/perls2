@@ -42,10 +42,10 @@ class RealWorld(World):
         self.arena = RealArena(self.config)
 
         self.robot_interface = RealRobotInterface.create(
-                                                 config=self.config,
-                                                 controlType=self.config['controller']['selected_type'])
+            config=self.config,
+            controlType=self.config['controller']['selected_type'])
 
-        self.camera_interface = None #KinectCameraInterface(self.config)
+        self.camera_interface = KinectCameraInterface(self.config)
 
         self.is_sim = False
 
@@ -78,26 +78,3 @@ class RealWorld(World):
         while (time.time() - start) < (1./float(self.config['policy_freq'])):
             pass
         self.action_set = False
-
-
-    def visualize(self, observation, action):
-        """Visualize the action - that is,
-        add visual markers to the world (in case of sim)
-        or execute some movements (in case of real) to
-        indicate the action about to be performed.
-
-        Args:
-            observation: The observation of the current step.
-            action: The selected action.
-        """
-        pass
-
-    def handle_exception(self, e):
-        """Handle an exception.
-        """
-        pass
-
-    @property
-    def info(self):
-        return {
-                }

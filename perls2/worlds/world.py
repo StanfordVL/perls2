@@ -29,6 +29,7 @@ class World():
             robot commands.
         sensor_interface (SensorInterface): Retrieves sensor info and executes
             changes to params
+        is_sim (bool): Flag that is true if world is simulation.
     """
 
     def __init__(self,

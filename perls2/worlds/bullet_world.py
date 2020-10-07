@@ -33,8 +33,8 @@ class BulletWorld(World):
         camera_interface (BulletCameraInterface): Retrieves camera images and
             executes changes to params (e.g. intrinsics/extrinsics)
 
-        object_interface (BulletObjectInterface): retrieves object info and
-            executes changes to params
+        object_interfaces (dict): A dictionary of perls2.BulletObjectInterfaces currently in the simulation.
+            Keys are string unique identifying names for the object.
 
         physics_id (int): Unique id identifying physics client for Pybullet.
             Used to connect other interfaces when working with multiple
@@ -114,8 +114,7 @@ class BulletWorld(World):
             image_width=self.config['sensor']['camera']['image']['width'],
             cameraEyePosition=self.config['sensor']['camera']['extrinsics']['eye_position'],
             cameraTargetPosition=self.config['sensor']['camera']['extrinsics']['target_position'],
-            cameraUpVector=self.config['sensor']['camera']['extrinsics']['up_vector']
-            )
+            cameraUpVector=self.config['sensor']['camera']['extrinsics']['up_vector'])
 
         self._load_object_interfaces()
         self.name = name
@@ -123,9 +122,6 @@ class BulletWorld(World):
         self.ctrl_steps_per_action = int((self.config['control_freq'] / float(self.config['policy_freq'] * self.config['sim_params']['time_step'])))
         self.is_sim = True
 
-        # TODO REMOVE DEBUGs
-        self.joint_num = 0
-        self.dim_num = 0
         self.step_counter = 0
 
         self.ee_list = []
@@ -147,8 +143,7 @@ class BulletWorld(World):
             image_width=self.config['sensor']['camera']['image']['width'],
             cameraEyePosition=self.config['sensor']['camera']['extrinsics']['eye_position'],
             cameraTargetPosition=self.config['sensor']['camera']['extrinsics']['target_position'],
-            cameraUpVector=self.config['sensor']['camera']['extrinsics']['up_vector']
-            )
+            cameraUpVector=self.config['sensor']['camera']['extrinsics']['up_vector'])
         self._load_object_interfaces()
         self.is_sim = True
 
