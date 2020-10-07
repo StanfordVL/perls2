@@ -16,6 +16,7 @@ from perls2.robots.bullet_robot_interface import BulletRobotInterface
 from perls2.sensors.bullet_camera_interface import BulletCameraInterface
 from perls2.objects.bullet_object_interface import BulletObjectInterface
 
+
 class BulletWorld(World):
     """Class for PyBullet worlds.
 
@@ -23,13 +24,13 @@ class BulletWorld(World):
     BulletCamera and BulletObjectInterfaces based on the config file.
 
     Attributes:
-        arena (BulletArena): Manages the sim by loading models, and for
-        simulations, randomizing objects and sensors params.
+        arena (BulletArena): Manages the sim by loading models, and for simulations,
+            randomizing objects and sensors params.
 
         robot_interface (BulletRobotInterface): Communicates with robots and
             executes robot commands.
 
-        sensor_interface (BulletSensorInterface): Retrieves sensor info and
+        camera_interface (BulletCameraInterface): Retrieves camera images and
             executes changes to params (e.g. intrinsics/extrinsics)
 
         object_interface (BulletObjectInterface): retrieves object info and
@@ -49,18 +50,6 @@ class BulletWorld(World):
         name: str
             A name to describe the world (e.g. training or testing)
 
-    Methods:
-        (These are similar to openAI.gym)
-        step:
-            Step env forward and return observation, reward, termination, info.
-            Not typically user-defined but may be modified.
-        reset:
-            Reset env to initial setting and return observation.
-            Some aspects such as randomization are user-defined
-        render:
-        close:
-        seed:
-
     """
 
     def __init__(self,
@@ -71,12 +60,9 @@ class BulletWorld(World):
 
         Args:
             config (dict): YAML config dict containing specifications.
-
             use_visualizer (bool): Whether or not to use visualizer.
-
-                ..note::Pybullet only allows for one simulation to be
+                Note:: Pybullet only allows for one simulation to be
                 connected to GUI. It is up to the user to manage this.
-
             name (str): Name of the world. (for multiple worlds)
 
         Returns:
@@ -85,10 +71,10 @@ class BulletWorld(World):
         Example:
             BulletWorld('cfg/my_config.yaml', True, 'MyBulletWorld')
 
-        ..note::
-            *The world_factory is the recommended way for creating an
-            appropriate instance of world according to the config parameters.*
-        ..note::
+        Notes:
+            The world_factory is the recommended way for creating an
+            appropriate instance of world according to the config parameters.
+
             Upon initialization the world automatically creates instances of
             BulletRobotInterface, BulletSensorInterface and
             BulletObjectInterface according to the config dictionary.
@@ -113,39 +99,31 @@ class BulletWorld(World):
         self.arena = BulletArena(self.config, self._physics_id)
 
         self.controller_dict = self.config['controller']['Bullet']
-        
+
         self.robot_interface = BulletRobotInterface.create(
             config=self.config,
             physics_id=self._physics_id,
-            arm_id=self.arena.arm_id, 
+            arm_id=self.arena.arm_id,
             controlType=self.config['controller']['selected_type'])
-        
-        self.control_freq = self.config['sim_params']['control_freq']
 
-        self.sensor_interface = BulletCameraInterface(
+        self.control_freq = self.config['control_freq']
+
+        self.camera_interface = BulletCameraInterface(
             physics_id=self._physics_id,
             image_height=self.config['sensor']['camera']['image']['height'],
-            image_width=self.config['sensor']['camera']['image']['width'], 
+            image_width=self.config['sensor']['camera']['image']['width'],
             cameraEyePosition=self.config['sensor']['camera']['extrinsics']['eye_position'],
             cameraTargetPosition=self.config['sensor']['camera']['extrinsics']['target_position'],
             cameraUpVector=self.config['sensor']['camera']['extrinsics']['up_vector']
             )
 
-        self.load_object_interfaces()
-        # TODO: give world a method get_object_interface(str name)
-        # TODO: make object default position a part of objectn not all objects.
-        self.print_this_step = False
-
+        self._load_object_interfaces()
         self.name = name
 
-        #To ensure smoothness of simulation and collisions, execute
-        # a number of simulation steps per action received by policy
-        
-        #self.ctrl_steps_per_action = self.config['sim_params']['steps_per_action']
         self.ctrl_steps_per_action = int((self.config['control_freq'] / float(self.config['policy_freq'] * self.config['sim_params']['time_step'])))
         self.is_sim = True
-        
-        # TODO REMOVE DEBUGs    
+
+        # TODO REMOVE DEBUGs
         self.joint_num = 0
         self.dim_num = 0
         self.step_counter = 0
@@ -161,22 +139,18 @@ class BulletWorld(World):
         self.robot_interface = BulletRobotInterface.create(
             config=self.config,
             physics_id=self._physics_id,
-            arm_id=self.arena.arm_id, 
+            arm_id=self.arena.arm_id,
             controlType=self.config['controller']['selected_type'])
-        self.sensor_interface = BulletCameraInterface(
+        self.camera_interface = BulletCameraInterface(
             physics_id=self._physics_id,
             image_height=self.config['sensor']['camera']['image']['height'],
-            image_width=self.config['sensor']['camera']['image']['width'], 
+            image_width=self.config['sensor']['camera']['image']['width'],
             cameraEyePosition=self.config['sensor']['camera']['extrinsics']['eye_position'],
             cameraTargetPosition=self.config['sensor']['camera']['extrinsics']['target_position'],
             cameraUpVector=self.config['sensor']['camera']['extrinsics']['up_vector']
             )
-        self.load_object_interfaces()
-        self.is_sim = True        
-
-    def __del__(self):
-        logging.info("pybullet physics client {} disconnected".format(self._physics_id))
-        pybullet.disconnect(self._physics_id)
+        self._load_object_interfaces()
+        self.is_sim = True
 
     @property
     def physics_id(self):
@@ -187,13 +161,12 @@ class BulletWorld(World):
         """
         pybullet.setGravity(0, 0, -9.8, physicsClientId=self._physics_id)
         pybullet.setTimeStep(self._time_step, physicsClientId=self._physics_id)
-        # pybullet.setRealTimeSimulation(enableRealTimeSimulation=1, physicsClientId=self._physics_id)
         pybullet.setPhysicsEngineParameter(deterministicOverlappingPairs=1, physicsClientId=self._physics_id)
 
-    def load_object_interfaces(self): 
-        """ Create a dictionary of object interfaces. 
+    def _load_object_interfaces(self):
+        """ Create a dictionary of object interfaces.
 
-        Uses arena to create object interfaces for each object. 
+        Uses arena to create object interfaces for each object.
         """
         self.object_interfaces = {}
 
@@ -220,23 +193,21 @@ class BulletWorld(World):
             object_interface (ObjectInterface): object interface added to world.
 
         Examples:
-            objI = self.add_object('objects/ycb/013_apple/google_16k/textured.urdf',
-                                  '013_apple',
-                                   [0, 0, 0, 0, 0, 0, 1],
-                                   1.0,)
+            objI = self.add_object('objects/ycb/013_apple/google_16k/textured.urdf', '013_apple', [0, 0, 0, 0, 0, 0, 1], 1.0,)
         """
-
-        #TODO: automatically convert Euler to Quaternion
-
         # Get the pybullet id from arena
-        obj_id = self.arena._load_object_path(path, name, pose, scale, is_static=False)
+        obj_id = self.arena._load_object_path(path=path,
+                                              name=name,
+                                              pose=pose,
+                                              scale=scale,
+                                              is_static=False)
         self.arena.object_dict[name] = obj_id
 
         # Create the BulletObject Interface
         object_interface = BulletObjectInterface(
-                physics_id=self._physics_id,
-                obj_id=obj_id,
-                name=name)
+            physics_id=self._physics_id,
+            obj_id=obj_id,
+            name=name)
         # Add to Objects dictionary
         self.object_interfaces[name] = object_interface
 
@@ -247,15 +218,12 @@ class BulletWorld(World):
         Args:
             name (str): name of the object as stored in objects dictionary.
 
-        Returns:
-            -
-
         Notes: Removes object from arena as well as objects dictionary.
         """
         try:
-            objectI = self.objects.pop(name)
-        except:
-            logging.ERROR('key not found')
+            objectI = self.object_interfaces.pop(name)
+        except KeyError:
+            raise KeyError('Invalid name -- object interface not found')
         self.arena._remove_object(objectI.obj_id, objectI.physics_id)
 
     def reset(self):
@@ -281,14 +249,14 @@ class BulletWorld(World):
             self._physics_id = pybullet.connect(pybullet.DIRECT)
         self.arena.physics_id = self._physics_id
         self.robot_interface.physics_id = self._physics_id
-        self.sensor_interface.physics_id = self._physics_id
+        self.camera_interface.physics_id = self._physics_id
 
     def reboot(self):
-        """ Reboot pybullet simulation by clearing all objects, urdfs and 
+        """ Reboot pybullet simulation by clearing all objects, urdfs and
         resetting sim state.
 
         Warning: this is a slow process and should only be used for restoring state
-        and deterministic applications. 
+        and deterministic applications.
         """
         pybullet.resetSimulation(physicsClientId=self._physics_id)
         self._reinitialize()
@@ -297,42 +265,19 @@ class BulletWorld(World):
         """Step the world(simulation) forward.
 
         Args:
-            None
+            start (float): timestamp for when env.step was called by policy. Ignored for this class.
         Returns:
             None
 
         Step simulation forward a number of times per action
         to ensure smoothness when for collisions
         """
-        # TODO: add real time option
 
         # Prepare for next step by executing action
         for exec_steps in range(self.ctrl_steps_per_action):
-            #self.run_control_loop_for_action()
             self.robot_interface.step()
             pybullet.stepSimulation(physicsClientId=self._physics_id)
-        self.step_counter +=1
-        #self.step_log = open('dev/logs/control/step' + str(self.step_counter) + '.txt', 'w+')
-
-    def run_control_loop_for_action(self):
-        for step in range(self.control_freq):
-            # start = time.time()
-            self.robot_interface.step()
-            # print("robot_interface step(): " + str(time.time() - start))
-            # start = time.time()
-            pybullet.stepSimulation(physicsClientId=self._physics_id)
-            # print("pb step sim: " + str(time.time() - start))
-    
-    def get_observation(self):
-        """Get observation of current env state
-
-        Returns:
-            An observation, typically a dict with multiple things
-
-        This function is to be user-defined. Note that some tools require
-        observations to be numpy arrays.
-        """
-        raise NotImplementedError
+        self.step_counter += 1
 
     def visualize(self, observation, action):
         """Visualize the action.
@@ -347,58 +292,12 @@ class BulletWorld(World):
         """
         pass
 
-    def handle_exception(self, e):
-        """Handle an exception.
-        """
-        pass
-
-    @property
-    def info(self):
-        return {
-                }
-
-    def rewardFunction(self):
-        """ User defined-Reward for agent given env state
-        """
-        raise NotImplementedError
-
-    def check_stable(self,
-                     linear_velocity_threshold,
-                     angular_velocity_threshold):
-        """Check if the loaded object is stable.
-
-        Args:
-            body: An instance of body.
-
-        Returns:
-            is_stable: True if the linear velocity and the angular velocity are
-            almost zero; False otherwise.
-        """
-        linear_velocity = np.linalg.norm(body.linear_velocity)
-        angular_velocity = np.linalg.norm(body.angular_velocity)
-
-        if linear_velocity_threshold is None:
-            has_linear_velocity = False
-        else:
-            has_linear_velocity = (
-                    linear_velocity >= linear_velocity_threshold)
-
-        if angular_velocity_threshold is None:
-            has_angular_velocity = False
-        else:
-            has_angular_velocity = (
-                    angular_velocity >= angular_velocity_threshold)
-
-        is_stable = (not has_linear_velocity) and (not has_angular_velocity)
-
-        return is_stable
-
-    def _wait_until_stable(self,
-                           linear_velocity_threshold=0.005,
-                           angular_velocity_threshold=0.005,
-                           check_after_steps=100,
-                           min_stable_steps=100,
-                           max_steps=30000):
+    def wait_until_stable(self,
+                          linear_velocity_threshold=0.005,
+                          angular_velocity_threshold=0.005,
+                          check_after_steps=100,
+                          min_stable_steps=100,
+                          max_steps=30000):
         """Wait until the objects are stable.
 
         Blocking code that checks if object linear and angular velocity are
@@ -442,25 +341,24 @@ class BulletWorld(World):
                 if all_stable:
                     num_stable_steps +=1
 
-            if ((num_stable_steps >= min_stable_steps) or
-                    (num_steps >= max_steps)):
+            if ((num_stable_steps >= min_stable_steps) or (num_steps >= max_steps)):
 
                 break
 
     def set_state(self, filepath):
         """ Set simulation to .bullet path found in filepath
 
-            Args: 
-                filepath (str): filepath of .bullet file for saved state. 
+            Args:
+                filepath (str): filepath of .bullet file for saved state.
 
-            Returns: 
+            Returns:
                 None
 
-            Examples: 
+            Examples:
                 env.world.set_state('/path/to/state.bullet')
 
-            Notes: 
-                To use this function correctly, the same objects / robots must be loaded 
+            Notes:
+                To use this function correctly, the same objects / robots must be loaded
                 in the same order. Therefore it is only recommended to use with the same
                 world / config, rather than trying to load an empty world.
         """

@@ -29,41 +29,6 @@ class World():
             robot commands.
         sensor_interface (SensorInterface): Retrieves sensor info and executes
             changes to params
-        object_interface (ObjectInterface): Retrieves object info and excecutes
-            changes to params
-
-    Public methods (similar to openAI gym):
-
-        step:
-            Step env forward and return observation, reward, termination, info.
-            Not typically user-defined but may be modified.
-
-        reset:
-            Reset env to initial state and return observation.
-            Some aspects such as randomization are user-defined
-        render:
-        close:
-        seed:
-
-    Notes:
-
-        *Arenas and interfaces are, by default, initialized specific to
-         the domain of the env i.e. BulletWorld creates a BulletArena and
-         Bullet_Robot/Sensor/Object_Interfaces.
-
-        *For any env, users need to set the following methods:
-            reset:
-                Define aspects for randomization/positioning. Maybe set up in
-                config file.
-            get_observation:
-                Define the observation returned by env upon reset, step.
-            rewardFunction:
-                Compute the reward received by the agent given current state of
-                the environment
-            exec_action:
-                Define how action received by agent should be executed.
-
-
     """
 
     def __init__(self,
@@ -88,7 +53,7 @@ class World():
 
     @abc.abstractmethod
     def reset(self):
-        """Reset the environment.
+        """Reset the world to initial state.
 
         Returns:
             The observation.
@@ -96,46 +61,7 @@ class World():
         raise NotImplementedError
 
     @abc.abstractmethod
-    def step(self, action, start=None):
-        """Take a step.
-
-        Args:
-            action: The action to take.
-        Returns:
-            Observation, reward, termination, info for the environment.
+    def step(self, start=None):
+        """Step simulation forward.
         """
         raise NotImplementedError
-
-    def visualize(self, observation, action):
-        """Visualize the action - that is,
-        add visual markers to the world (in case of sim)
-        or execute some movements (in case of real) to
-        indicate the action about to be performed.
-
-        Args:
-            observation: The observation of the current step.
-            action: The selected action.
-        """
-        pass
-
-    def render(self, mode='human', close=False):
-        """ Render the gym environment
-        """
-        pass
-
-    def handle_exception(self, e):
-        """Handle an exception.
-        """
-        pass
-
-    @property
-    def info(self):
-        """ Return dictionary with env info
-
-            This may include name, number of steps, whether episode was
-            successful, or other useful information for the agent.
-        """
-
-        return {
-                'name': type(self).__name__,
-                }

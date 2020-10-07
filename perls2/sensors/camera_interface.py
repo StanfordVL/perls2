@@ -107,3 +107,11 @@ class CameraInterface(SensorInterface):
     def distortion(self):
         """Camera distortion coefficients"""
         return self._distortion.copy()
+
+    @property
+    def view_matrix(self):
+        return self._view_matrix
+
+    @property
+    def projection_matrix(self):
+        return self._projection_matrix

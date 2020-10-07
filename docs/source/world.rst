@@ -1,10 +1,16 @@
-.. world.py documentation file
+World
+=====
+A world encompasses the reality the robot experiment takes place, this includes simulations
+like PyBullet, as well as The Simulation We Inhabit known as reality. Worlds contain RobotInterfaces,
+ObjectInterfaces, Arenas and SensorInterfaces. They do not include experimental concepts such as tasks
+and reward functions.
 
 World
-===================================
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
-.. automodule:: perls2.worlds.world
-    :special-members:
+-----
+.. autoclass:: perls2.worlds.world.World
+    :members:
+
+BulletWorld
+-----------
+.. autoclass:: perls2.worlds.bullet_world.BulletWorld
     :members:

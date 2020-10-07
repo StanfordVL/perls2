@@ -285,7 +285,6 @@ class EEImpController(Controller):
         # Get interpolated goal for position
         if self.interpolator_pos is not None:
             desired_pos = self.interpolator_pos.get_interpolated_goal()
-            self.interp_pos_log.append(desired_pos)
         else:
             desired_pos = np.array(self.goal_pos)
 
@@ -332,6 +331,6 @@ class EEImpController(Controller):
         return self.torques
 
     def reset_goal(self):
-        """ Helper function that resets goal to all zeros from current ee_pose. 
+        """ Helper function that resets goal to all zeros from current ee_pose.
         """
         self.set_goal(np.zeros(6))

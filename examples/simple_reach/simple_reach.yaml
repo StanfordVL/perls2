@@ -6,10 +6,10 @@ data_dir: 'data'
 # Simulation parameters
 sim_params:
   time_step: 0.001 #0.004166  # 1./240.
-  steps_per_action: 50 # policy to sim update ratio
-  control_freq: 1
   MAX_STEPS: 500
 
+policy_freq: 20 # For gazebo?
+control_freq: 500 # Hz
 
 # Robots are specified by types and urdf locations
 # also may include intial setup like poses and orientations
@@ -73,19 +73,23 @@ controller:
   Bullet:
     EEImpedance:
       kp: 200 # P Gain for Impedance Control
-      damping: .8 # Damping factor [0,1] 
+      damping: .8 # Damping factor [0,1]
       input_max: [1, 1, 1, 1, 1, 1]
       input_min: [-1, -1, -1, -1, -1, -1]
       output_max: [0.05, 0.05, 0.05, 1.57, 1.57, 1.57]
-      output_min: [-0.05, -0.05, -0.05, -1.57, -1.57, -1.57]    
-    JointVelocity: 
+      output_min: [-0.05, -0.05, -0.05, -1.57, -1.57, -1.57]
+    JointVelocity:
       kp: 0.5
-    JointImpedance: 
+    JointImpedance:
       kp: 50
       damping: 1
-  interpolator:
+  interpolator_pos:
       type: 'linear'
-      order: 3
+      order: 1
+      max_dx: 0.2
+      ramp_ratio: 0.2
+  interpolator_ori:
+      type: 'None'
 
 object:
   object_dict:
@@ -96,7 +100,8 @@ object:
         1
       path:
         'objects/ycb/013_apple/google_16k/textured.urdf'
-      pose: [[1.5, 0, 0], [0,0,0]]
+      position: [1.5, 0, 0]
+      orientation: [0,0,0]
       is_static: True
       scale: 1.0
       default_position: [0.7, 0.1, 0.03] #z  = 0.1

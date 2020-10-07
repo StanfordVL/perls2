@@ -63,13 +63,13 @@ class BulletArena(Arena):
         self.load_scene_objects()
         self.load_objects_from_config()
 
-    def reload(self): 
-        """ Reload all scene objects, objects and robots. 
+    def reload(self):
+        """ Reload all scene objects, objects and robots.
 
-        Return: tuple of pybullet ids for assigning to robots. 
+        Return: tuple of pybullet ids for assigning to robots.
         """
         self.plane_id = self.load_ground()
-        
+
         (self.arm_id, self.base_id) = self.load_robot()
         self.reset_robot_to_neutral()
 
@@ -78,10 +78,10 @@ class BulletArena(Arena):
         return (self.arm_id, self.base_id)
 
     def reset_robot_to_neutral(self):
-        """ Reset robot to neutral joint angles. 
+        """ Reset robot to neutral joint angles.
 
-        This step is important to keep the robot from messing up 
-        simulation set up. 
+        This step is important to keep the robot from messing up
+        simulation set up.
         """
         reset_angles = self.robot_cfg['neutral_joint_angles']
         for i, angle in enumerate(reset_angles):
@@ -90,15 +90,15 @@ class BulletArena(Arena):
             pybullet.resetJointState(
                 bodyUniqueId=self.arm_id,
                 jointIndex=i,
-                targetValue=angle, 
+                targetValue=angle,
                 physicsClientId=self.physics_id)
 
 
     def load_scene_objects(self):
-        """ Load scene objects from config file. 
-        """ 
+        """ Load scene objects from config file.
+        """
         self.scene_objects_dict = {}
-        
+
         # Load scene objects (e.g. table, bins)
         for obj_key in self.config['scene_objects']:
             if obj_key in self.config:
@@ -130,7 +130,7 @@ class BulletArena(Arena):
                     self.object_dict[obj_name] = pb_obj_id
                     for step in range(50):
                         pybullet.stepSimulation(self.physics_id)
-        else: 
+        else:
             print("No objects from config")
 
     def load_robot(self):
@@ -187,7 +187,7 @@ class BulletArena(Arena):
                 self.config[key]['pose'][1]),
             globalScaling=1.0,
             useFixedBase=self.config[key]['is_static'],
-            flags=(pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT | pybullet.URDF_USE_INERTIA_FROM_FILE), 
+            flags=(pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT | pybullet.URDF_USE_INERTIA_FROM_FILE),
             physicsClientId=self.physics_id)
         return uid
 
@@ -216,7 +216,7 @@ class BulletArena(Arena):
                     obj_path,
                     basePosition=object_dict['default_position'],
                     baseOrientation=pybullet.getQuaternionFromEuler(
-                            object_dict['pose'][1]),
+                            object_dict['orientation']),
                     globalScaling=object_dict['scale'],
                     useFixedBase=object_dict['is_static'],
                     flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
@@ -226,17 +226,35 @@ class BulletArena(Arena):
         return obj_id
 
     def _load_object_path(self, path, name, pose, scale, is_static):
+        """Wrapper for bullet Load URDF function.
+
+        Args:
+            path (str): relative filepath to object urdf
+            name (str): unique identifying string to name object.
+            pose (list): 6f or 7f pose. [Position, orientation]
+                Orientation may be euler or quaternion.
+            scale (float): Scale to resize object globally
+            is_static (bool): if object remains fixed during sim.
+
+        Returns
+            obj_id (int): unique int identifying object in pybullet sim.
+        """
         obj_path = os.path.join(self.data_dir, path)
-        if len(pose[1] == 3):
-            pose[1] = pybullet.getQuaternionFromEuler(pose[1])
+        position = pose[:3]
+        orientation = pose[3:]
+        # Convert to quaternion if euler angle.
+        if len(orientation) == 3:
+            orientation = pybullet.getQuaternionFromEuler(orientation)
+
         obj_id = pybullet.loadURDF(
-                    obj_path,
-                    basePosition=pose[0],
-                    baseOrientation=pose[1],
-                    globalScaling=scale,
-                    useFixedBase=is_static,
-                    flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
-                    physicsClientId=self.physics_id)
+            obj_path,
+            basePosition=position,
+            baseOrientation=orientation,
+            globalScaling=scale,
+            useFixedBase=is_static,
+            flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
+            physicsClientId=self.physics_id)
+
         return obj_id
 
     def _remove_object(self, object_id=0, phys_id=None):

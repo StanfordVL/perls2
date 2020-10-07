@@ -7,7 +7,7 @@ class LiftEnv(Env):
     def get_observation(self):
         observation_dict = {}
 
-        # observation_dict['rgb'] = self.sensor_interface.frames_rgb()['rgb']
+        # observation_dict['rgb'] = self.camera_interface.frames_rgb()['rgb']
         observation_dict['ee_pose'] = self.robot_interface.ee_pose
         observation_dict['object_pose'] = self.object_interface.pose
         observation_dict['q'] = self.robot_interface.q
@@ -22,27 +22,27 @@ class LiftEnv(Env):
     def get_grasp_from_command(self, gripper_command):
         """
         Returns a boolean grasp value for the input continuous control command.
-        This function uses a decision boundary to decide whether the input 
+        This function uses a decision boundary to decide whether the input
         command corresponds to closing the gripper or opening it.
         """
         return (gripper_command[0] < 0.5)
 
-    def _exec_action(self, position_control, rotation_control, gripper_control, 
+    def _exec_action(self, position_control, rotation_control, gripper_control,
         force_control=None, absolute=False):
 
         action = np.concatenate([position_control, rotation_control, gripper_control])
 
-        if absolute:    
+        if absolute:
             print("absolute")
             arm_action = np.hstack((position_control, rotation_control))
 
             self.robot_interface.set_ee_pose(arm_action)
 
-        else: 
+        else:
             position_control = np.clip(position_control,[-0.05] * 3, [0.05]*3)
             #rotation_control = [0, 0, 0]#np.clip(rotation_control,[-0.05] * 3, [0.05]*3)
             delta = np.hstack((position_control, rotation_control))
-  
+
             self.robot_interface.move_ee_delta(delta=delta)
 
         grasp = self.get_grasp_from_command(gripper_control)
@@ -84,19 +84,19 @@ class LiftEnv(Env):
                 self.object_interface.place(
                     self.config['object']['default_position'])
 
-            self.sensor_interface.set_view_matrix(self.arena.view_matrix)
-            self.sensor_interface.set_projection_matrix(
+            self.camera_interface.set_view_matrix(self.arena.view_matrix)
+            self.camera_interface.set_projection_matrix(
                 self.arena.projection_matrix)
-            self.world._wait_until_stable()
+            self.world.wait_until_stable()
 
         observation = None
-        return observation 
+        return observation
 
     def _step(self):
         self.world.step()
         #obs = self.get_observation()
         self.num_steps = self.num_steps + 1
-        
+
 
     def step(self, action):
         """Take a step.
@@ -127,7 +127,7 @@ class LiftEnv(Env):
         info = self.info
 
         return observation, reward, termination, info
-    
+
     def is_success(self):
         if (self.object_interface.position[2] > 0.05):
             return True

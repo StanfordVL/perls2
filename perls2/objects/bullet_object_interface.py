@@ -60,10 +60,13 @@ class BulletObjectInterface(ObjectInterface):
 
     def set_position(self, des_position):
         """ Set position of object in world frame.
+
         Args:
             des_position (list 3f): xyz position in world coordinates
+
         Returns:
             None
+
         Note: does not check for collisions
         """
         _, obj_orn = pybullet.getBasePositionAndOrientation(
@@ -81,9 +84,10 @@ class BulletObjectInterface(ObjectInterface):
 
     def set_orientation(self, des_ori):
         """ Set position of object in world frame.
+
         Args:
-            des_ori (list): 4f orientation in world coordinates as
-            quaternion.
+            des_ori (list): 4f orientation in world coordinates as quaternion.
+
         Returns:
             None
         Note: does not check for collisions
@@ -105,10 +109,13 @@ class BulletObjectInterface(ObjectInterface):
 
     def set_pose(self, des_pose):
         """Set pose of object in world frame.
+
         Args:
             pose (list 7f): [x,y,z,qx,qy,qz,w] pose in world coordinates
+
         Returns:
             None
+
         Note: does not check for collisions
         """
         if len(des_pose) != 7:
@@ -136,12 +143,17 @@ class BulletObjectInterface(ObjectInterface):
         """
         self._obj_id = new_id
 
-    def place(self, new_object_pos, new_object_orn=None):
-        """ Given an upper and lower bound,
-            set the location of the object to a new position
+    def place(self, new_object_pos=None, new_object_orn=None):
+        """ Places object in new position and orientation.
 
-            NOTE: this should only be done on an env reset as it
-            disregards the physics
+        Args:
+            new_object_pos (list): 3f new positions for object in world frame.
+            new_object_orn (list): 4f new object orientation as quaternion.
+
+        Notes:
+            If new_object_pos is None, maintains original position.
+            If new_object_orn is None, maintains original orientation.
+            If both are None, does nothing.
         """
         # Get the current orietation so it is maintained during reset
 

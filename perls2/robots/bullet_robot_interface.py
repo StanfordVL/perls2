@@ -26,12 +26,15 @@ def nested_tuple_to_list(tuple_input):
         else:
             return elem
 
-class BulletRobotInterface(RobotInterface):
-    """ Abstract interface to be implemented for each Pybullet simulated robot. 
 
-    The BullletRobotInterface looks at the config file to determine the appropriate
-    interface to generate. 
-    
+class BulletRobotInterface(RobotInterface):
+    """Abstract class that extends RobotInterface for BulletWorlds.
+
+    Attributes:
+        physics_id (int): id for PyBullet physics client.
+        arm_id (int): id for robot arm in PyBullet. Returned by pb.loadURDF
+        config (dict): config parameters for the perls2 env.
+        robot_cfg (dict): config parameters specific to the robot.
     """
     def __init__(self,
                  physics_id,
@@ -41,14 +44,14 @@ class BulletRobotInterface(RobotInterface):
         """
         Initialize variables
 
-        Args: 
+        Args:
             -physics_id (int): Bullet physicsClientId
             -arm_id (int): bodyID for the robot arm from pybullet.loadURDF
             -config (dict): configuration file for the robot.
             -control_type (str): sting identifying the type of controller choose from:
                 -'EEimp' : end_effector impedance control.
                 -'JointVelocity': Joint Velocity Control
-        """       
+        """
         super().__init__(controlType, config)
         self._physics_id = physics_id
         self._arm_id = arm_id
@@ -71,7 +74,7 @@ class BulletRobotInterface(RobotInterface):
         self.joint_limits = self.get_joint_limits()
         self._joint_max_velocities = self.get_joint_max_velocities()
         self._joint_max_forces = self.get_joint_max_forces()
-        self._dof = self.get_dof() 
+        self._dof = self.get_dof()
         self.gripper_width = 0.99
         self.last_torques_cmd = [0]*7
 
@@ -80,7 +83,6 @@ class BulletRobotInterface(RobotInterface):
         self.update_model()
 
         self.controller = self.make_controller(controlType)
-
 
     def create(config, physics_id, arm_id, controlType):
         """Factory for creating robot interfaces based on type
@@ -109,7 +111,6 @@ class BulletRobotInterface(RobotInterface):
             raise ValueError(
                 "invalid robot interface type. Specify in [world][robot]")
 
-
     def reset(self):
         """Reset the robot and move to rest pose.
 
@@ -133,7 +134,7 @@ class BulletRobotInterface(RobotInterface):
                                  joint_pos=np.asarray(self.motor_joint_positions[:7]),
                                  joint_vel=np.asarray(self.motor_joint_velocities[:7]),
                                  joint_tau=np.asarray(self.last_torques_cmd[:7]),
-                                 joint_dim=7, 
+                                 joint_dim=7,
                                  torque_compensation=np.asarray(self.N_q[:7]))#np.asarray(self.gravity_vector))
 
         self.model.update_model(J_pos=self.linear_jacobian,
@@ -143,22 +144,22 @@ class BulletRobotInterface(RobotInterface):
     @property
     def num_joints(self):
         """Returns number of joints from pybullet.getNumJoints
-        Note: This likely not to be the same as the degrees of freedom. 
+        Note: This likely not to be the same as the degrees of freedom.
               PB can sometimes be difficult requiring the correct number of joints for IK
         """
 
         num_joints =  pybullet.getNumJoints(self._arm_id, physicsClientId=self._physics_id)
         return num_joints
-    
+
     def set_joints_pos_vel(self, joint_pos, joint_vel=[0]*7):
-        """Manualy reset joints to positions and velocities. 
-            Args: 
+        """Manualy reset joints to positions and velocities.
+            Args:
                 joint_pos (list 7f): list of desired joint positions
                 joint_vel (list 7f): list of desired joint velocities
             Returns:
                 None
 
-        Note: breaks physics only to be used for IK, Mass Matrix and Jacobians 
+        Note: breaks physics only to be used for IK, Mass Matrix and Jacobians
         """
         if len(joint_pos) != 7:
             raise ValueError("joint_pos incorrect dimensions")
@@ -170,23 +171,23 @@ class BulletRobotInterface(RobotInterface):
                 bodyUniqueId=self._arm_id,
                 jointIndex=i,
                 targetValue=joint_pos[i],
-                targetVelocity=joint_vel[i], 
+                targetVelocity=joint_vel[i],
                 physicsClientId=self.physics_id)
 
     def inverse_kinematics(self, position, orientation):
         """Calculate inverse kinematics to get joint angles for a pose.
 
         Use pybullet's internal IK solver.
-        To be used with a joint-space controller. 
+        To be used with a joint-space controller.
 
-        Args: 
+        Args:
             position (list 3f): [x, y, z] of desired ee position
             orientation (list 4f): [qx, qy, qz, w] for desired ee orientation as quaternion.
 
         returns:
             jointPoses (list 7f): joint positions that solve IK in radians.
-        """        
- 
+        """
+
         ikSolver = 0
         orientation = self.ee_orientation
 
@@ -222,7 +223,7 @@ class BulletRobotInterface(RobotInterface):
                 pybullet.resetJointState(
                     bodyUniqueId=self._arm_id,
                     jointIndex=i,
-                    targetValue=self.limb_neutral_positions[i], 
+                    targetValue=self.limb_neutral_positions[i],
                     physicsClientId=self.physics_id)
 
                 # Set position control to maintain position
@@ -241,9 +242,9 @@ class BulletRobotInterface(RobotInterface):
         return self._ee_index
 
     def set_joints_pos_vel(self, joint_pos, joint_vel=[0]*7):
-        """Manualy reset joints to positions and velocities. 
+        """Manualy reset joints to positions and velocities.
 
-        Note: breaks physics only to be used for  Mass Matrix and Jacobians 
+        Note: breaks physics only to be used for  Mass Matrix and Jacobians
         """
         for i in range(7):
             # Force reset (breaks physics)
@@ -251,7 +252,7 @@ class BulletRobotInterface(RobotInterface):
                 bodyUniqueId=self._arm_id,
                 jointIndex=i,
                 targetValue=joint_pos[i],
-                targetVelocity=joint_vel[i], 
+                targetVelocity=joint_vel[i],
                 physicsClientId=self.physics_id)
 
     def get_link_name(self, link_uid):
@@ -341,7 +342,7 @@ class BulletRobotInterface(RobotInterface):
                 }
 
         return limit
-        
+
     def get_joint_limits(self):
         """ Get list of all joint limits
 
@@ -390,8 +391,8 @@ class BulletRobotInterface(RobotInterface):
         gripper_q = self.q
         gripper_q[l_finger_index] = l_finger_position
         gripper_q[r_finger_index] = r_finger_position
-        
-        gripper_des_q = [gripper_q[l_finger_index], 
+
+        gripper_des_q = [gripper_q[l_finger_index],
                           gripper_q[r_finger_index]]
         gripper_indices = [l_finger_index, r_finger_index]
 
@@ -400,7 +401,7 @@ class BulletRobotInterface(RobotInterface):
 
             jointIndices=gripper_indices,
             controlMode=pybullet.POSITION_CONTROL,
-            targetPositions=gripper_des_q, 
+            targetPositions=gripper_des_q,
             physicsClientId=self._physics_id)
 
     def open_gripper(self):
@@ -471,16 +472,16 @@ class BulletRobotInterface(RobotInterface):
         """Calculate inverse kinematics to get joint angles for a pose.
 
         Use pybullet's internal IK solver.
-        To be used with a joint-space controller. 
+        To be used with a joint-space controller.
 
-        Args: 
+        Args:
             position (list 3f): [x, y, z] of desired ee position
             orientation (list 4f): [qx, qy, qz, w] for desired ee orientation as quaternion.
 
         returns:
             jointPoses (list 7f): joint positions that solve IK in radians.
-        """        
- 
+        """
+
         ikSolver = 0
         orientation = self.ee_orientation
 
@@ -508,16 +509,16 @@ class BulletRobotInterface(RobotInterface):
         ee_position, _, _, _, _, _, = pybullet.getLinkState(
             self._arm_id,
             self._ee_index,
-            computeForwardKinematics=1, 
+            computeForwardKinematics=1,
             physicsClientId=self._physics_id)
         return list(ee_position)
 
     @property
     def ee_orientation(self):
         _, ee_orientation, _, _, _, _, = pybullet.getLinkState(
-            self._arm_id, 
-            self._ee_index,             
-            computeForwardKinematics=1, 
+            self._arm_id,
+            self._ee_index,
+            computeForwardKinematics=1,
             physicsClientId=self._physics_id)
 
         return list(ee_orientation)
@@ -531,7 +532,7 @@ class BulletRobotInterface(RobotInterface):
     def ee_pose_euler(self):
         euler_orn = pybullet.getEulerFromQuaternion(self.ee_orientation)
         return self.ee_position + list(euler_orn)
-    
+
     def set_ee_pose_position_control(
             self,
             target_position,
@@ -595,11 +596,6 @@ class BulletRobotInterface(RobotInterface):
     def q(self):
         """
         Get the joint configuration of the robot arm.
-        Args:
-            None
-        Returns:
-            list of joint positions in radians ordered by
-            from small to large.
         """
         q = []
         for joint_index in range(self.num_joints):
@@ -611,23 +607,19 @@ class BulletRobotInterface(RobotInterface):
 
         return q
 
-    @q.setter
-    def q(self, qd):
+    def set_q_pb(self, qd):
         """
         Get the joint configuration of the robot arm.
         Args:
-            qd: list
-                list of desired joint position
+            qd (list): list of desired joint position
         """
-
-
         pybullet.setJointMotorControlArray(
             bodyUniqueId=self._arm_id,
-            jointIndices=range(0,self._num_joints),
+            jointIndices=range(0, self._num_joints),
             controlMode=pybullet.POSITION_CONTROL,
-            targetPositions=qd, 
+            targetPositions=qd,
             physicsClientId=self.physics_id)
-        return q
+        return qd
 
     def set_to_torque_mode(self):
         """ Set the torques to the
@@ -728,7 +720,7 @@ class BulletRobotInterface(RobotInterface):
     def ee_v(self):
         link_state = pybullet.getLinkState(self._arm_id,
             self._ee_index,
-            computeLinkVelocity=1, 
+            computeLinkVelocity=1,
             physicsClientId=self.physics_id
             )
         return link_state[6]
@@ -896,8 +888,8 @@ class BulletRobotInterface(RobotInterface):
         rbdl Composite Rigid Body Algorithm.
         """
 
-        mass_matrix = pybullet.calculateMassMatrix(self._arm_id, 
-            self.q, 
+        mass_matrix = pybullet.calculateMassMatrix(self._arm_id,
+            self.q,
             physicsClientId=self.physics_id)
         return np.array(mass_matrix)[:7,:7]
 
@@ -969,7 +961,7 @@ class BulletRobotInterface(RobotInterface):
 
     def getMotorJointStates(self):
       joint_states = pybullet.getJointStates(
-        self._arm_id, range(pybullet.getNumJoints(self._arm_id)), 
+        self._arm_id, range(pybullet.getNumJoints(self._arm_id)),
         physicsClientId=self.physics_id)
 
       joint_infos = [pybullet.getJointInfo(self._arm_id, i, physicsClientId=self.physics_id) for i in range(pybullet.getNumJoints(self._arm_id, physicsClientId=self.physics_id))]
@@ -988,10 +980,10 @@ class BulletRobotInterface(RobotInterface):
         """
         joint_states = pybullet.getJointStates(
         self._arm_id, range(pybullet.getNumJoints(self._arm_id,
-                                                  physicsClientId=self.physics_id)), 
+                                                  physicsClientId=self.physics_id)),
         physicsClientId=self.physics_id)
         # Joint info specifies type of joint ("fixed" or not)
-        joint_infos = [pybullet.getJointInfo(self._arm_id, i,  physicsClientId=self.physics_id) for i in range(pybullet.getNumJoints(self._arm_id, 
+        joint_infos = [pybullet.getJointInfo(self._arm_id, i,  physicsClientId=self.physics_id) for i in range(pybullet.getNumJoints(self._arm_id,
                                                                                                                                      physicsClientId=self.physics_id))]
         # Only get joint states of free joints
         joint_states = [j for j, i in zip(joint_states, joint_infos) if i[2] != pybullet.JOINT_FIXED]
@@ -1058,7 +1050,7 @@ class BulletRobotInterface(RobotInterface):
             physicsClientId=self._physics_id)
 
         return gravity_torques[:7]
-    
+
     def set_torques(self, joint_torques):
         """Set torques to the motor. Useful for keeping torques constant through
         multiple simulation steps.
@@ -1079,7 +1071,7 @@ class BulletRobotInterface(RobotInterface):
             bodyUniqueId=self._arm_id,
             jointIndices=range(0,7),
             controlMode=pybullet.TORQUE_CONTROL,
-            forces=clipped_torques, 
+            forces=clipped_torques,
             physicsClientId=self._physics_id)
         self.last_torques_cmd = clipped_torques
         return clipped_torques

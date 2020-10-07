@@ -13,15 +13,4 @@ class ObjectInterface():
     """
 
     def __init__(self):
-        """
-        Initialize variables
-
-        Parameters
-        ----------
-
-        """
-
-    def get_position(self):
-        """ get position in world coordinates of object
-        """
-        raise NotImplementedError
+        pass

@@ -3,7 +3,7 @@
 from perls2.sensors.camera_interface import CameraInterface
 
 import numpy as np
-
+import logging
 from abc import ABCMeta, abstractmethod
 
 import redis
@@ -98,7 +98,6 @@ class KinectCameraInterface(CameraInterface):
         # Set stream as disabled at initialization.
         self.redisClient.set('camera::stream_enabled', 'False')
 
-
         self._prev_rgb_timestamp = 0
         self._prev_rgb = []
         self.start()
@@ -183,12 +182,12 @@ if __name__ == '__main__':
     import numpy as np
     camera = KinectCameraInterface()
 
-    print("connected to interface")
+    logging.info("connected to interface")
 
     # Connect the environment and enable the stream
     camera.redisClient.set('camera::interface_connected', 'True')
     camera.redisClient.set('camera::stream_enabled', 'True')
-    print("stream_enabled")
+    logging.info("stream_enabled")
 
     camera.prev_rgb_timestamp = camera.redisClient.get('camera::rgb_timestamp')
     camera.prev_rgb = camera.redisClient.get('camera::rgb_frame')

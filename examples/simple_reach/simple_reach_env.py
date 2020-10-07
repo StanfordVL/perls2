@@ -74,10 +74,10 @@ class SimpleReachEnv(Env):
                 self.object_interface.place(
                     self.config['object']['object_dict']['object_0']['default_position'])
 
-            self.sensor_interface.set_view_matrix(self.arena.view_matrix)
-            self.sensor_interface.set_projection_matrix(
+            self.camera_interface.set_view_matrix(self.arena.view_matrix)
+            self.camera_interface.set_projection_matrix(
                 self.arena.projection_matrix)
-            self.world._wait_until_stable()
+            self.world.wait_until_stable()
         else:
             self.goal_position = self.arena.goal_position
 
@@ -85,7 +85,7 @@ class SimpleReachEnv(Env):
 
         return observation
 
-    def step(self, action):
+    def step(self, action, start=None):
         """Take a step.
 
         Args:
@@ -100,7 +100,7 @@ class SimpleReachEnv(Env):
         """
         action = np.clip(action, self.action_space.low, self.action_space.high)
         self._exec_action(action)
-        self.world.step()
+        self.world.step(start)
         self.num_steps = self.num_steps+1
 
         termination = self._check_termination()
@@ -132,7 +132,7 @@ class SimpleReachEnv(Env):
             self.update_goal_position()
 
         current_ee_pose = self.robot_interface.ee_pose
-        camera_img = self.sensor_interface.frames()
+        camera_img = self.camera_interface.frames()
         delta = (self.goal_position - current_ee_pose[0:3])
         observation = (delta, current_ee_pose, camera_img.get('image'))
         return observation
@@ -144,7 +144,7 @@ class SimpleReachEnv(Env):
             than the actual object.
         """
         goal_height_offset = 0.2
-        object_pos = self.object_interface.get_position()
+        object_pos = self.object_interface.position
         object_pos[2] += goal_height_offset
         self.goal_position = object_pos
 
@@ -174,12 +174,12 @@ class SimpleReachEnv(Env):
             logging.debug(
                 'Next position: ' + str(next_position))
 
-        # self.robot_interface.set_ee_pose(list(next_position) + 
+        # self.robot_interface.set_ee_pose(list(next_position) +
         #                                 [0, 0.952846, 0, 0.303454])
         delta = np.hstack((action, [0, 0, 0]))
-        hold_ori = [0, 0.952846, 0, 0.303454]
-        self.robot_interface.move_ee_delta(delta=delta, fix_ori=hold_ori)
-        #self.robot_interface.set_joint_velocity(delta)
+        hold_ori = np.array([0, 0.952846, 0, 0.303454])
+        self.robot_interface.move_ee_delta(delta=delta, set_ori=hold_ori)
+
     def _check_termination(self):
         """ Query state of environment to check termination condition
 
@@ -209,11 +209,6 @@ class SimpleReachEnv(Env):
             abs_dist = np.linalg.norm(self.goal_position - current_ee_pos)
 
             return abs_dist
-        else:
-            current_ee_pos = np.asarray(self.robot_interface.ee_pose[0:3])
-            abs_dist = np.linalg.norm(self.goal_position - current_ee_pos)
-
-            return abs_dist
 
     def visualize(self, observation, action):
         """Visualize the action - that is,
@@ -233,9 +228,7 @@ class SimpleReachEnv(Env):
         pass
 
     def info(self):
-        return {
-
-                }
+        return {}
 
     def rewardFunction(self):
         dist_to_goal = self._get_dist_to_goal()

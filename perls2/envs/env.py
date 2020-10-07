@@ -84,7 +84,7 @@ class Env(gym.Env):
         # Environment access the following attributes of the world directly.
         self.arena = self.world.arena
         self.robot_interface = self.world.robot_interface
-        self.sensor_interface = self.world.sensor_interface
+        self.camera_interface = self.world.camera_interface
 
         self.has_objects = isinstance(self.config['object'], dict)
 
@@ -105,16 +105,12 @@ class Env(gym.Env):
             dtype=np.float32)
 
         # Real worlds use pybullet for IK and robot control.
-        if (self.config['world']['type'] == 'Bullet' or
-                self.config['world']['type'] == 'Real'):
+        if (self.config['world']['type'] == 'Bullet' or self.config['world']['type'] == 'Real'):
             self._physics_id = self.world._physics_id
 
         self.MAX_STEPS = self.config['sim_params']['MAX_STEPS']
         self.episode_num = 0
         self.num_steps = 0
-
-    def __del__(self):
-        logging.info("Env deleted perls2")
 
     def reset(self):
         """Reset the environment.
@@ -126,7 +122,7 @@ class Env(gym.Env):
         self.num_steps = 0
         self.world.reset()
         self.robot_interface.reset()
-        self.sensor_interface.reset()
+        self.camera_interface.reset()
         observation = self.get_observation()
 
         return observation
@@ -163,7 +159,6 @@ class Env(gym.Env):
 
         return observation, reward, termination, info
 
-    @abc.abstractmethod
     def get_observation(self):
         """Get observation of current env state.
 

@@ -1,0 +1,4 @@
+{
+  "dev/test/test_bullet.py::TestBulletEnv": true,
+  "dev/test/test_bullet.py::TesterEnv": true
+}

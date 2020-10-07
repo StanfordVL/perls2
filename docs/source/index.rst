@@ -6,10 +6,10 @@ perls2's Documentation
    :maxdepth: 2
    :caption: Contents:
 
-   env.rst
    world.rst
-   controller.rst
-
+   robot_interface.rst
+   object_interface.rst
+   camera_interface.rst
 
 
 Indices and tables

@@ -43,6 +43,7 @@ class RobotInterface(object):
         controller (Controller): tq_control object that takes robot states and
             compute torques.
 
+
     """
 
     def __init__(self,
@@ -96,22 +97,10 @@ class RobotInterface(object):
     def make_controller(self, control_type, **kwargs):
         """Returns a new controller type based on specs.
 
-        Wrapper for Controller constructor in tq_control
-
         Args:
             control_type (str) : name of the control type.
             kwargs:  dependent on type of controller to modify those
                 found in the config file.
-
-        EEImpedance kwargs: (not supported yet.)
-            'input_max' : (float) max value for input delta. Does not apply for
-                set_pose commands.
-            'input_min' : (float) min value for input delta. Does not apply for
-                set pose commands
-            'output_max' : (float) max value for scaled action delta.
-            'output_min' : (float) min value for scaled action delta.
-            'kp' : (float) gain for position / orientation error
-            'damping' : (float) [0,1] damping coefficient for error
         """
 
         if control_type == "Internal":
@@ -125,7 +114,7 @@ class RobotInterface(object):
                 damping=controller_dict['damping'],
                 interpolator_pos=self.interpolator_pos,
                 interpolator_ori=self.interpolator_ori,
-                control_freq=self.config['sim_params']['control_freq'])
+                control_freq=self.config['control_freq'])
         elif control_type == "EEPosture":
             return EEPostureController(
                 self.model,
@@ -139,7 +128,7 @@ class RobotInterface(object):
                 input_min=np.array(controller_dict['input_min']),
                 output_max=np.array(controller_dict['output_max']),
                 output_min=np.array(controller_dict['output_min']),
-                control_freq=self.config['sim_params']['control_freq'])
+                control_freq=self.config['control_freq'])
         elif control_type == "JointVelocity":
             return JointVelController(
                 robot_model=self.model,
@@ -161,6 +150,7 @@ class RobotInterface(object):
             next_type (str): keyword for desired control type.
                 Choose from:
                     -'EEImpedance'
+                    -'EEPosture'
                     -'JointVelocity'
                     -'JointImpedance'
                     -'JointTorque'
@@ -186,9 +176,19 @@ class RobotInterface(object):
                 logging.warn("ACTION NOT SET")
 
     def set_controller_goal(self, **kwargs):
+        """Update model and set the goal for controller.
+
+        Args:
+            kwargs (dict): arguments specific to controller for setting goal.
+        """
         self.update_model()
         self.controller.set_goal(**kwargs)
         self.action_set = True
+
+    def update_model(self):
+        """Update robot model with states and dynamics.
+        """
+        raise NotImplementedError
 
     def _check_controller(self, fn_control_types):
 
@@ -229,7 +229,8 @@ class RobotInterface(object):
             set_ori (4f): end effector orientation to maintain while changing orientation
                 as a quaternion [qx, qy, qz, w]. If not None, any delta for orientation is ignored.
 
-        Note: to fix position or orientation, it is better to specify using the kwargs than
+        Notes:
+            To fix position or orientation, it is better to specify using the kwargs than
             to use a 0 for the corresponding delta. This prevents any error from accumulating in
             that dimension.
 
@@ -241,7 +242,7 @@ class RobotInterface(object):
         self._check_control_arg('delta', delta, mandatory=True, length=6)
         if self._check_control_arg('set_ori', set_ori, mandatory=False, length=4):
             set_ori = T.quat2mat(set_ori)
-        self._check_control_arg('set_pos', set_pos, mandatory=True, length=3)
+        self._check_control_arg('set_pos', set_pos, mandatory=False, length=3)
         self._check_controller(["EEImpedance", "EEPosture"])
         kwargs = {'delta': delta, 'set_pos': set_pos, 'set_ori': set_ori}
         self.set_controller_goal(**kwargs)
@@ -263,11 +264,7 @@ class RobotInterface(object):
         """
         if self._check_control_arg('set_ori', set_ori, mandatory=True, length=4):
             set_ori = T.quat2mat(set_ori)
-        if set_pos is not None:
-            if len(set_pos) != 3:
-                raise ValueError('set_pos incorrect dimensions, should be length 3')
-        else:
-            raise ValueError('set_pos cannot be none.')
+        self._check_control_arg('set_pos', set_pos, mandatory=True, length=3)
         self._check_controller(["EEImpedance", "EEPosture"])
         kwargs = {'delta': None, 'set_pos': set_pos, 'set_ori': set_ori}
         self.set_controller_goal(**kwargs)
@@ -300,6 +297,12 @@ class RobotInterface(object):
 
     def set_joint_positions(self, set_qpos, **kwargs):
         """ Use controller to set new joint positions.
+
+        Args:
+            set_qpos: 7f absolute joint positions (rad)
+        Returns:
+            None
+        Notes: Only for use with Joint Impedance Controller
         """
         self._check_controller("JointImpedance")
         kwargs['set_qpos'] = set_qpos
@@ -308,8 +311,12 @@ class RobotInterface(object):
 
     def set_joint_torques(self, torques):
         """Set joint torques to new joint torques.
+
         Args:
             torques (list): 7f list of toruqes to command.
+
+        Notes:
+            Only for use with Joint Torque Controlle
         """
         self._check_controller("JointTorque")
         kwargs = {'torques': torques}
@@ -359,5 +366,23 @@ class RobotInterface(object):
     def ee_pose(self):
         """list of seven floats [x, y, z, qx, qy, qz, qw] of the 6D pose
         of the end effector.
+        """
+        raise NotImplementedError
+
+    @property
+    @abc.abstractmethod
+    def q(self):
+        """List of 7f describing joint positions (rad) of the robot arm.
+
+        Ordered from base to end_effector
+        """
+        raise NotImplementedError
+
+    @property
+    @abc.abstractmethod
+    def dq(self):
+        """List of 7f describing joint velocities (rad/s) of the robot arm.
+
+        Ordered from base to end_effector
         """
         raise NotImplementedError

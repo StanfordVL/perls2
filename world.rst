@@ -1,10 +1,10 @@
-.. ee_imp.py documentation file
+.. world.py documentation file
 
-EEPostureController
+World
 ===================================
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-.. automodule:: perls2.controllers.ee_posture
+.. automodule:: perls2.worlds.world
     :special-members:
     :members:

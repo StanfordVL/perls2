@@ -117,7 +117,7 @@ if __name__ == '__main__':
     parser.add_argument('--delta_val',
                         default=None, type=float,
                         help="Max step size (m or rad) to take for demo.")
-    parser.add_argument('--num_steps', default=None, type=int,
+    parser.add_argument('--num_steps', default=50, type=int,
                         help="max steps for demo.")
     parser.add_argument('--plot_pos', action="store_true",
                         help="whether to plot positions of demo.")

@@ -83,6 +83,37 @@ def quat_multiply(quaternion1, quaternion0):
     )
 
 
+def random_quat(rand=None):
+    """
+    Return uniform random unit quaternion.
+    E.g.:
+    >>> q = random_quat()
+    >>> np.allclose(1.0, vector_norm(q))
+    True
+    >>> q = random_quat(np.random.random(3))
+    >>> q.shape
+    (4,)
+    Args:
+        rand (3-array or None): If specified, must be three independent random variables that are uniformly distributed
+            between 0 and 1.
+    Returns:
+        np.array: (x,y,z,w) random quaternion
+    """
+    if rand is None:
+        rand = np.random.rand(3)
+    else:
+        assert len(rand) == 3
+    r1 = np.sqrt(1.0 - rand[0])
+    r2 = np.sqrt(rand[0])
+    pi2 = math.pi * 2.0
+    t1 = pi2 * rand[1]
+    t2 = pi2 * rand[2]
+    return np.array(
+        (np.sin(t1) * r1, np.cos(t1) * r1, np.sin(t2) * r2, np.cos(t2) * r2),
+        dtype=np.float32,
+    )
+
+
 def quat_conjugate(quaternion):
     """Return conjugate of quaternion.
     >>> q0 = random_quaternion()
