@@ -60,7 +60,6 @@ class RealRobotInterface(RobotInterface):
         else:
             raise ValueError("invalid robot interface type. choose 'sawyer'")
 
-
     def step(self):
         """Compatability only
 
@@ -148,6 +147,7 @@ class RealRobotInterface(RobotInterface):
                 Does not check if desired joint position appropriate dims.
                 TODO: add this check.
         """
+        self.check_controller("JointImpedance")
         if delta is not None:
             if isinstance(delta, np.ndarray):
                 delta = delta.tolist()
@@ -176,7 +176,7 @@ class RealRobotInterface(RobotInterface):
             that dimension.
 
         """
-        #self.check_controller("EEImpedance")
+        self.check_controller(["EEImpedance", "EEPosture"])
         if set_ori is not None:
             if len(set_ori) != 4:
                 raise ValueError('set_ori incorrect dimensions, should be quaternion length 4')
@@ -193,7 +193,8 @@ class RealRobotInterface(RobotInterface):
                 delta = delta.tolist()
         else:
             raise ValueError("delta cannot be none.")
-        kwargs = {'cmd_type': "move_ee_delta", 'delta': delta, 'set_pos': set_pos, 'set_ori':set_ori}
+
+        kwargs = {'cmd_type': "move_ee_delta", 'delta': delta, 'set_pos': set_pos, 'set_ori': set_ori}
         self.set_controller_goal(**kwargs)
 
     def set_ee_pose(self, set_pos, set_ori, **kwargs):
@@ -202,7 +203,7 @@ class RealRobotInterface(RobotInterface):
         Args: des pose (7f): [x, y , z, qx, qy, qz, w]. end effector pose as position + quaternion orientation
 
         """
-        #self.check_controller("EEImpedance")
+        self.check_controller(["EEImpedance", "EEPosture"])
         if not isinstance(set_pos, list):
             set_pos = set_pos.tolist()
         if not isinstance(set_ori, list):

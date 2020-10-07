@@ -68,8 +68,6 @@ class RobotInterface(object):
 
         # Create interpolator and controller from confi.
         if config is not None:
-            world_name = config['world']['type']
-            controller_config = config['controller'][world_name]
             # Make position interpolator from config
             interp_pos_cfg = config['controller']['interpolator_pos']
             if interp_pos_cfg['type'] == 'linear':
@@ -146,14 +144,16 @@ class RobotInterface(object):
 
     def change_controller(self, next_type):
         """Change to a different controller type.
+
         Args:
             next_type (str): keyword for desired control type.
                 Choose from:
-                    -'EEImpedance'
-                    -'EEPosture'
-                    -'JointVelocity'
-                    -'JointImpedance'
-                    -'JointTorque'
+                -'EEImpedance'
+                -'EEPosture'
+                -'JointVelocity'
+                -'JointImpedance'
+                -'JointTorque'
+
         """
         if next_type in AVAILABLE_CONTROLLERS:
             self.controller = self.make_controller(next_type)
@@ -271,10 +271,13 @@ class RobotInterface(object):
 
     def set_joint_velocities(self, velocities):
         """ Use controller to set joint velocity of the robot.
+
         Args:
             velocities (list): 7f desired joint velocities (rad/s) for each joint.
-                Joint 0 is the base
+            Joint 0 is the base
+
         Returns: None.
+
         Notes: Only for use with JointVelocity controller.
         """
 
@@ -284,12 +287,16 @@ class RobotInterface(object):
 
     def set_joint_delta(self, delta, **kwargs):
         """ Use controller to set new joint position with a delta.
+
         Args:
             delta (ndarray): 7f delta joint position (rad) from current
                  joint position.
+
         Returns: None
+
         Notes: Only for use with JointImpedance controller.
                Does not check for exceeding maximum joint limits. (TODO)
+
         """
         self._check_controller("JointImpedance")
         kwargs = {"delta": delta}
@@ -371,6 +378,30 @@ class RobotInterface(object):
 
     @property
     @abc.abstractmethod
+    def ee_v(self):
+        """list of seven floats [x, y, z, qx, qy, qz, qw] of the 6D pose
+        of the end effector.
+        """
+        raise NotImplementedError
+
+    @property
+    @abc.abstractmethod
+    def ee_w(self):
+        """list of seven floats [x, y, z, qx, qy, qz, qw] of the 6D pose
+        of the end effector.
+        """
+        raise NotImplementedError
+
+    @property
+    @abc.abstractmethod
+    def ee_twist(self):
+        """list of seven floats [x, y, z, qx, qy, qz, qw] of the 6D pose
+        of the end effector.
+        """
+        raise NotImplementedError
+
+    @property
+    @abc.abstractmethod
     def q(self):
         """List of 7f describing joint positions (rad) of the robot arm.
 
@@ -384,5 +415,68 @@ class RobotInterface(object):
         """List of 7f describing joint velocities (rad/s) of the robot arm.
 
         Ordered from base to end_effector
+        """
+        raise NotImplementedError
+
+    @property
+    @abc.abstractmethod
+    def tau(self):
+        """List of 7f describing joint torques (Nm)
+
+        Ordered from base to end_effector
+        """
+        raise NotImplementedError
+
+    @property
+    @abc.abstractmethod
+    def jacobian(self):
+        """List of 7f describing joint velocities (rad/s) of the robot arm.
+
+        Ordered from base to end_effector
+        """
+        raise NotImplementedError
+
+    @property
+    @abc.abstractmethod
+    def linear_jacobian(self):
+        """List of 7f describing joint velocities (rad/s) of the robot arm.
+
+        Ordered from base to end_effector
+        """
+        raise NotImplementedError
+
+    @property
+    @abc.abstractmethod
+    def angular_jacobian(self):
+        """List of 7f describing joint velocities (rad/s) of the robot arm.
+
+        Ordered from base to end_effector
+        """
+        raise NotImplementedError
+
+    @property
+    @abc.abstractmethod
+    def mass_matrix(self):
+        """List of 7f describing joint velocities (rad/s) of the robot arm.
+
+        Ordered from base to end_effector
+        """
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def open_gripper(self):
+        """ Open robot gripper.
+        """
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def close_gripper(self):
+        """ Close robot gripper
+        """
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def set_gripper_to_value(self, value):
+        """ Set gripper to desired open/close value
         """
         raise NotImplementedError

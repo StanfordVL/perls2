@@ -5,7 +5,6 @@ Author: Roberto Martin-Martin
 """
 
 import pybullet
-import numpy as np
 from perls2.robots.bullet_robot_interface import BulletRobotInterface
 import logging
 
@@ -57,11 +56,9 @@ class BulletSawyerInterface(BulletRobotInterface):
     def version(self):
         """dict of current versions of robot SDK, gripper, and robot
         """
-        return {
-                'robot': '5.0.4',
+        return {'robot': '5.0.4',
                 'gripper': 'rethink_ee',
-                'robotSDK': '5.0.4'
-                }
+                'robotSDK': '5.0.4'}
 
     @property
     def q(self):
@@ -88,9 +85,9 @@ class BulletSawyerInterface(BulletRobotInterface):
             jointIndices=range(0, self._num_joints),
             controlMode=pybullet.POSITION_CONTROL,
             targetPositions=qd,
-            forces=[250]*self._num_joints,
-            positionGains=[0.1]*self._num_joints,
-            velocityGains=[1.2]*self._num_joints)
+            forces=[250] * self._num_joints,
+            positionGains=[0.1] * self._num_joints,
+            velocityGains=[1.2] * self._num_joints)
 
     def disconnect(self):
         pass

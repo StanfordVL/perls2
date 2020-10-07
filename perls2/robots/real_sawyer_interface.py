@@ -4,24 +4,15 @@ Author: Roberto Martin-Martin
         Rohun Kulkarni
 """
 
-import abc  # For abstract class definitions
-import six  # For abstract class definitions
-import sys
-import copy
-import redis
 import numpy as np
 import logging
-logging.basicConfig(level=logging.DEBUG)
-import pybullet as pb
-import time
-import redis
+
 from perls2.robots.real_robot_interface import RealRobotInterface
-from scipy.spatial.transform import Rotation as R
 from perls2.ros_interfaces.redis_interface import RobotRedisInterface
 from perls2.ros_interfaces.redis_keys import *
 # For dumping config dict to redis
 import json
-import socket
+
 
 def bstr_to_ndarray(array_bstr):
     """Convert bytestring array to 1d array
@@ -50,9 +41,9 @@ class RealSawyerInterface(RealRobotInterface):
         self.update_model()
 
         logging.debug("Real Sawyer Interface created")
+
         # Check if redis connection already exists, if not
         # setup a new one.
-
         self.neutral_joint_angles = self.robot_cfg['neutral_joint_angles']
         self.RESET_TIMEOUT = 15       # Wait 3 seconds for reset to complete.
         self.set_controller_params_from_config()
@@ -71,22 +62,20 @@ class RealSawyerInterface(RealRobotInterface):
         TODO: This doesn't actually work, it just waits for the timeout.
         """
         logging.debug("Resetting robot")
-        reset_cmd = {ROBOT_CMD_TSTAMP_KEY : time.time(),
-                     ROBOT_CMD_TYPE_KEY: 'reset_to_neutral'
-        }
+        reset_cmd = {ROBOT_CMD_TSTAMP_KEY: time.time(),
+                     ROBOT_CMD_TYPE_KEY: 'reset_to_neutral'}
         self.redisClient.mset(reset_cmd)
         # Wait for reset to be read by contrl interface.
         time.sleep(5)
         start = time.time()
-        while (self.redisClient.get(ROBOT_RESET_COMPL_KEY) != b'True' and
-               (time.time() - start < self.RESET_TIMEOUT)):
+
+        while (self.redisClient.get(ROBOT_RESET_COMPL_KEY) != b'True' and (time.time() - start < self.RESET_TIMEOUT)):
             time.sleep(0.01)
 
         if (self.redisClient.get(ROBOT_RESET_COMPL_KEY) == b'True'):
             print("reset successful")
         else:
             print("reset failed")
-
 
     @property
     def version(self):
@@ -159,6 +148,7 @@ class RealSawyerInterface(RealRobotInterface):
     def ee_pose_euler(self):
         euler_orn = pb.getEulerFromQuaternion(self.ee_orientation)
         return list(self.ee_position) + list(euler_orn)
+
     @property
     def ee_omega(self):
         """
@@ -233,7 +223,6 @@ class RealSawyerInterface(RealRobotInterface):
 
         return dq
 
-
     @property
     def ddq(self):
         """
@@ -270,9 +259,12 @@ class RealSawyerInterface(RealRobotInterface):
         self.redisClient.set(ROBOT_CMD_TYPE_KEY, 'torque')
 
     @property
-    def linear_jacobian (self):
-        return self.redisClient.get(ROBOT_MODEL_L_JACOBIAN_KEY)
+    def jacobian(self):
+        return self.redisClient.get(ROBOT_MODEL_JACOBIAN_KEY)
 
+    @property
+    def linear_jacobian(self):
+        return self.redisClient.get(ROBOT_MODEL_L_JACOBIAN_KEY)
 
     @property
     def angular_jacobian(self):
@@ -286,16 +278,16 @@ class RealSawyerInterface(RealRobotInterface):
     def N_q(self):
         return bstr_to_ndarray(self.redisClient.get('robot::N_q'))
 
-
     def set_controller_params_from_config(self):
+        """Set controller parameters from config file to redis.
+        """
         selected_type = self.config['controller']['selected_type']
         self.control_config = self.config['controller']['Real'][selected_type]
 
         self.redisClient.mset({CONTROLLER_CONTROL_PARAMS_KEY: json.dumps(self.control_config),
                                CONTROLLER_CONTROL_TYPE_KEY: selected_type})
         cmd_type = "CHANGE_CONTROLLER"
-        control_cmd = { ROBOT_CMD_TSTAMP_KEY: time.time(),
-                            ROBOT_CMD_TYPE_KEY : cmd_type}
+        control_cmd = {ROBOT_CMD_TSTAMP_KEY: time.time(), ROBOT_CMD_TYPE_KEY: cmd_type}
         self.redisClient.mset(control_cmd)
 
         logging.debug("{} Control parameters set to redis: {}".format(selected_type, self.control_config))
@@ -303,4 +295,17 @@ class RealSawyerInterface(RealRobotInterface):
     def set_goal_state(self, goal):
         self.redisClient.set("robot::desired_state", str(goal))
 
+    def open_gripper(self):
+        """Open Robot gripper
+        """
+        raise NotImplementedError
 
+    def close_gripper(self):
+        """ Close robot gripper.
+        """
+        raise NotImplementedError
+
+    def set_gripper_to_value(self, value):
+        """Set gripper to desired value
+        """
+        raise NotImplementedError
