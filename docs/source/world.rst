@@ -14,3 +14,8 @@ BulletWorld
 -----------
 .. autoclass:: perls2.worlds.bullet_world.BulletWorld
     :members:
+
+RealWorld
+---------
+.. autoclass:: perls2.worlds.real_world.RealWorld
+    :members:

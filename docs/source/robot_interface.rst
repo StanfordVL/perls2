@@ -22,12 +22,22 @@ RobotInterface
     .. automethod:: set_joint_delta
     .. automethod:: set_joint_velocities
     .. automethod:: set_joint_torques
+    .. automethod:: open_gripper
+    .. automethod:: close_gripper
+    .. automethod:: set_gripper_to_value
     .. autoproperty:: name
     .. autoproperty:: ee_pose
     .. autoproperty:: ee_position
     .. autoproperty:: ee_orientation
+    .. autoproperty:: ee_v
+    .. autoproperty:: ee_w
+    .. autoproperty:: ee_twist
     .. autoproperty:: q
     .. autoproperty:: dq
+    .. autoproperty:: jacobian
+    .. autoproperty:: linear_jacobian
+    .. autoproperty:: angular_jacobian
+    .. autoproperty:: mass_matrix
 
 BulletRobotInterface
 --------------------
@@ -35,6 +45,36 @@ Extends RobotInterface functionality for BulletWorlds to be used
 wity PyBullet. Connects to pybullet physics engine to obtain
 robot state and dynamics parameters as well as execute torque control.
 
-..autoclass:: perls2.robots.robot_interface.BulletRobotInterface
+.. autoclass:: perls2.robots.bullet_robot_interface.BulletRobotInterface
+    :members:
 
-    ..automethod::
+
+BulletSawyerInterface
+---------------------
+Extends BulletRobotInterface for functionality specific to Rethink Sawyer Arms.
+
+.. autoclass:: perls2.robots.bullet_sawyer_interface.BulletSawyerInterface
+    :members:
+
+
+BulletPandaInterface
+--------------------
+Extends BulletRobotInterface for functionality specific to Franka Panda arms.
+
+.. autoclass:: perls2.robots.bullet_panda_interface.BulletPandaInterface
+
+RealRobotInterface
+------------------
+Extends RobotInterface for Real Robots.
+
+.. autoclass:: perls2.robots.real_robot_interface.RealRobotInterface
+
+RealSawyerInterface
+-------------------
+Extends RealRobotInterface for REthink SawyerArms
+
+.. autoclass:: perls2.robots.real_sawyer_interface.RealSawyerInterface
+
+RealPandaInterface
+------------------
+Coming soon.
