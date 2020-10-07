@@ -4,8 +4,6 @@
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
-
-import os.path
 import abc  # For abstract class definitions
 import six  # For abstract class definitions
 import gym
@@ -43,17 +41,19 @@ class Env(gym.Env):
         """Initialize.
 
         Args:
-            config (str, dict): A relative filepath to the config file. Or a
-                parsed YamlConfig file as a dictionary.
-                e.g. 'cfg/my_config.yaml'
+            config (str, dict): A relative filepath to the config file. Or a parsed YamlConfig file as a dictionary.
+                e.g. cfg/my_config.yaml
+
             use_visualizer (bool): A flag for whether or not to use visualizer
+
             name (str): of the environment
 
-                See documentation for more details about config files.
+        Notes:
+            See documentation for more details about config files.
         """
 
         # Get config dictionary.
-        if type(config) is dict:
+        if isinstance(config, YamlConfig):
             self.config = config
         else:
             self.config = YamlConfig(config)
@@ -67,13 +67,14 @@ class Env(gym.Env):
         """Create attributes for environment.
 
         This function creates the following attributes:
-            *Arena
-            *RobotInterface
-            *SensorInterface
-            *ObjectInterface(s) (if applicable)
-            *observation_space
-            *action_space
-            *various counters.
+            - Arena
+            - RobotInterface
+            - SensorInterface
+            - ObjectInterface(s) (if applicable)
+            - observation_space
+            - action_space
+            - various counters.
+
         This is a public function as sometimes it is necessary to reinitialize
         an environment to fully reset a simulation.
 
