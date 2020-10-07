@@ -145,7 +145,7 @@ class Env(gym.Env):
         """
         self._exec_action(action)
         self.world.step(start)
-        self.num_steps = self.num_steps+1
+        self.num_steps = self.num_steps + 1
 
         termination = self._check_termination()
 
@@ -204,11 +204,8 @@ class Env(gym.Env):
             successful, or other useful information for the agent.
         """
 
-        return {
-                'name': type(self).__name__,
-                }
+        return {'name': type(self).__name__}
 
-    # @abc.abstractmethod
     def rewardFunction(self):
         """ Compute and return user-defined reward for agent given env state.
         """
