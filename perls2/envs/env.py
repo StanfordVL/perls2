@@ -41,7 +41,7 @@ class Env(gym.Env):
         """Initialize.
 
         Args:
-            config (str, dict): A relative filepath to the config file. Or a parsed YamlConfig file as a dictionary.
+            config (str, YamlConfig): A relative filepath to the config file. Or a parsed YamlConfig file as a dictionary.
                 e.g. cfg/my_config.yaml
 
             use_visualizer (bool): A flag for whether or not to use visualizer
@@ -53,7 +53,7 @@ class Env(gym.Env):
         """
 
         # Get config dictionary.
-        if isinstance(config, YamlConfig):
+        if isinstance(config, YamlConfig:
             self.config = config
         else:
             self.config = YamlConfig(config)
