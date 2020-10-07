@@ -1,10 +1,11 @@
-numpy
-pybullet==2.7.1
-pyyaml==5.1.2
+numpy==1.18.4
+pybullet==2.8.1
+PyYAML==5.1.2
 gym==0.10.8
+hiredis==1.1.0
 redis==3.3.8
 opencv-python==4.1.1.26
 # For torque control in python2.7
-llvmlite==0.31.0
+llvmlite==0.32.1
 numba==0.47
-scipy
+six==1.14.0
