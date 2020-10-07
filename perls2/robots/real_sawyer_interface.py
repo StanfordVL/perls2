@@ -63,7 +63,7 @@ class RealSawyerInterface(RealRobotInterface):
         """
         logging.debug("Resetting robot")
         reset_cmd = {ROBOT_CMD_TSTAMP_KEY: time.time(),
-                     ROBOT_CMD_TYPE_KEY: 'reset_to_neutral'}
+                     ROBOT_CMD_TYPE_KEY: RESET}
         self.redisClient.mset(reset_cmd)
         # Wait for reset to be read by contrl interface.
         time.sleep(5)
@@ -102,10 +102,6 @@ class RealSawyerInterface(RealRobotInterface):
         # Get position as bytes string
         return self.redisClient.get(ROBOT_STATE_EE_POS_KEY)
 
-    @ee_position.setter
-    def ee_position(self, position):
-        self.redisClient.set('robot::desired_ee_position', str(position))
-
     @property
     def ee_orientation(self):
         """
@@ -123,16 +119,6 @@ class RealSawyerInterface(RealRobotInterface):
         y, z, qx, qy, qz, qw]
         """
         return self.redisClient.get(ROBOT_STATE_EE_POSE_KEY)
-
-    @ee_pose.setter
-    def ee_pose(self, pose):
-        """
-        Get the pose of the end effector.
-        :return: a list of floats for the position and orientation [x,
-        y, z, qx, qy, qz, qw]
-        """
-        self.redisClient.set(ROBOT_CMD_TYPE_KEY, 'ee_pose')
-        self.redisClient.set('robot::desired_ee_pose', str(pose))
 
     @property
     def ee_v(self):
@@ -249,15 +235,6 @@ class RealSawyerInterface(RealRobotInterface):
 
         return tau
 
-    def set_torques(self, torques):
-        torques = np.clip(
-            torques[:7],
-            -self.pb_interface._joint_max_forces[:7],
-            self.pb_interface._joint_max_forces[:7])
-
-        self.redisClient.set('robot::tau_desired', str(list(torques)))
-        self.redisClient.set(ROBOT_CMD_TYPE_KEY, 'torque')
-
     @property
     def jacobian(self):
         return self.redisClient.get(ROBOT_MODEL_JACOBIAN_KEY)
@@ -286,7 +263,7 @@ class RealSawyerInterface(RealRobotInterface):
 
         self.redisClient.mset({CONTROLLER_CONTROL_PARAMS_KEY: json.dumps(self.control_config),
                                CONTROLLER_CONTROL_TYPE_KEY: selected_type})
-        cmd_type = "CHANGE_CONTROLLER"
+        cmd_type = CHANGE_CONTROLLER
         control_cmd = {ROBOT_CMD_TSTAMP_KEY: time.time(), ROBOT_CMD_TYPE_KEY: cmd_type}
         self.redisClient.mset(control_cmd)
 
