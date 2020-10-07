@@ -6,6 +6,8 @@ perls2's Documentation
    :maxdepth: 1
    :caption: Introduction
 
+   install.md
+
 .. toctree::
    :maxdepth: 2
    :caption: API
