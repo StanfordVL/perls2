@@ -187,9 +187,10 @@ class EEImpController(Controller):
         """ Set goal for controller.
 
         Args:
+
             delta (list): (6f) list of deltas from current position
                 [dx, dy, dz, ax, ay, az]. Deltas expressed as position and
-                 axis-angle in orientation.
+                axis-angle in orientation.
             set_pos (list): (3f) fixed position goal. [x, y, z] in world
                 frame. Only used if delta is None.
             set_ori (list): (4f) fixed orientation goal as quaternion in
@@ -202,7 +203,8 @@ class EEImpController(Controller):
         Examples::
             $ self.controller.set_goal(delta=[0.1, 0.1, 0, 0, 0, 0], set_pos=None, set_ori=None)
 
-            $self.controller.set_goal(delta=None, set_pose=[0.4, 0.2, 0.4], set_ori=[0, 0, 0, 1])
+            $ self.controller.set_goal(delta=None, set_pose=[0.4, 0.2, 0.4], set_ori=[0, 0, 0, 1])
+
         """
         # Check args for dims and type (change to ndarray).
         if not (isinstance(set_pos, np.ndarray)) and set_pos is not None:

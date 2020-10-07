@@ -135,7 +135,7 @@ class EEPostureController(EEImpController):
         Args:
             delta (list): (6f) list of deltas from current position
                 [dx, dy, dz, ax, ay, az]. Deltas expressed as position and
-                 axis-angle in orientation.
+                axis-angle in orientation.
             set_pos (list): (3f) fixed position goal. [x, y, z] in world
                 frame. Only used if delta is None.
             set_ori (list): (4f) fixed orientation goal as quaternion in
