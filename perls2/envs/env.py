@@ -53,7 +53,7 @@ class Env(gym.Env):
         """
 
         # Get config dictionary.
-        if isinstance(config, YamlConfig:
+        if isinstance(config, YamlConfig):
             self.config = config
         else:
             self.config = YamlConfig(config)
