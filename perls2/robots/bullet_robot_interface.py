@@ -499,7 +499,7 @@ class BulletRobotInterface(RobotInterface):
                 physicsClientId=self._physics_id)
             q.append(q_i)
 
-        return q
+        return q[:7]
 
     @property
     def dq(self):
@@ -516,7 +516,7 @@ class BulletRobotInterface(RobotInterface):
                 self._arm_id, joint_index,
                 physicsClientId=self._physics_id)
             dq.append(dq_i)
-        return dq
+        return dq[:7]
 
     @property
     def ee_v(self):
@@ -617,7 +617,6 @@ class BulletRobotInterface(RobotInterface):
         TODO: Verify this jacobian cdis what we want or if ee position is further from
             com.
         """
-
         motor_pos, motor_vel, motor_accel = self.getMotorJointStates()
         linear, angular = pybullet.calculateJacobian(
             bodyUniqueId=self._arm_id,
@@ -884,7 +883,7 @@ class BulletRobotInterface(RobotInterface):
                 joint positions, velocities and torques.
         """
         joint_states = pybullet.getJointStates(
-            self._arm_id, range(pybullet.getNumJoints(self._arm_id)), physicsClientId=self.physics_id)
+            self._arm_id, range(pybullet.getNumJoints(self._arm_id, physicsClientId=self.physics_id)), physicsClientId=self.physics_id)
 
         joint_infos = [pybullet.getJointInfo(self._arm_id, i, physicsClientId=self.physics_id) for i in range(
             pybullet.getNumJoints(self._arm_id, physicsClientId=self.physics_id))]
@@ -1011,3 +1010,11 @@ class BulletRobotInterface(RobotInterface):
                 physicsClientId=self._physics_id)
             last_torques.append(torque)
         return last_torques
+
+    @property
+    def tau(self):
+        """List of 7f describing joint torques (Nm)
+
+        Ordered from base to end_effector
+        """
+        return self.last_torques
