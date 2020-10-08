@@ -211,24 +211,34 @@ class SawyerCtrlInterface(RobotInterface):
     def make_controller_from_redis(self, control_type, controller_dict):
         print("Making controller {} with params: {}".format(control_type, controller_dict))
         self.controlType = control_type
-        if control_type == EE_IMPEDANCE:
-            return EEImpController(
-                self.model,
-                interpolator_pos=self.interpolator_pos,
-                interpolator_ori=self.interpolator_ori,
-                **controller_dict)
-        elif control_type == EE_POSTURE:
-            return EEPostureController(
-                self.model,
-                interpolator_pos=self.interpolator_pos,
-                interpolator_ori=self.interpolator_ori,
-                **controller_dict)
-        elif control_type == JOINT_IMPEDANCE:
-            interp_kwargs = {'max_dx': 0.05,
-                             'ndim': 7,
-                             'controller_freq': 500,
-                             'policy_freq': 20,
-                             'ramp_ratio': 0.2}
+        if control_type == "EEImpedance":
+            interp_kwargs = {'max_dx': 0.005, 
+                             'ndim': 3, 
+                             'controller_freq': 500, 
+                             'policy_freq' : 20, 
+                             'ramp_ratio' :  0.2 }
+            self.interpolator_pos = LinearInterpolator(**interp_kwargs)
+            self.interpolator_ori = LinearOriInterpolator(**interp_kwargs)
+            return EEImpController(self.model, 
+                     interpolator_pos=self.interpolator_pos, 
+                     interpolator_ori=self.interpolator_ori, **controller_dict)
+        elif control_type == "EEPosture":
+            interp_kwargs = {'max_dx': 0.005, 
+                             'ndim': 3, 
+                             'controller_freq': 500, 
+                             'policy_freq' : 20, 
+                             'ramp_ratio' :  0.2 }
+            self.interpolator_pos = LinearInterpolator(**interp_kwargs)
+            self.interpolator_ori = LinearOriInterpolator(**interp_kwargs)
+            return EEPostureController(self.model, 
+                     interpolator_pos=self.interpolator_pos, 
+                     interpolator_ori=self.interpolator_ori, **controller_dict)
+        elif control_type =="JointImpedance":
+            interp_kwargs = {'max_dx': 0.05, 
+                             'ndim': 7, 
+                             'controller_freq': 500, 
+                             'policy_freq' : 20, 
+                             'ramp_ratio' :  0.2 }
             self.interpolator_pos = LinearInterpolator(**interp_kwargs)
             return JointImpController(
                 self.model,
@@ -880,6 +890,21 @@ class SawyerCtrlInterface(RobotInterface):
         """
         self._limb.set_joint_position_speed(factor)
 
+    def open_gripper(self):
+        """Open the gripper.
+        """
+        raise NotImplementedError
+
+    def close_gripper(self):
+        """Close gripper
+        """
+        raise NotImplementedError
+
+    def set_gripper_to_value(self, value):
+        """Set gripper to open/closed value
+        """
+        raise NotImplementedError
+
 # ### REDIS / CONTROL INTERFACE SPECIFIC ATTRIBUTES AND FUNCTIONS #############
 
     @property
@@ -958,32 +983,6 @@ class SawyerCtrlInterface(RobotInterface):
                 self.step(start)
             else:
                 break
-        #self.log_start_times.append(time.time())
-
-        # np.savez('dev/validation/0918_pb_state_log_sawyer_ctrl2.npz',
-        #     ee_pos=np.array(self.pb_ee_pos_log),
-        #     ee_ori = np.array(self.pb_ee_ori_log),
-        #     ee_v=np.array(self.pb_ee_v_log),
-        #     ee_w=np.array(self.pb_ee_w_log),
-        #     allow_pickle=True)
-
-        # np.savez('dev/validation/0918_controller_log.npz',
-        #     des_pos = np.array(self.controller.des_pos_log),
-        #     des_ori = np.array(self.controller.des_ori_log),
-        #     ee_pos=np.array(self.controller.intera_ee_pos_log),
-        #     ee_ori=np.array(self.controller.intera_ee_ori_log),
-        #     ee_v=np.array(self.controller.intera_ee_v_log),
-        #     ee_w=np.array(self.controller.intera_ee_w_log),
-        #     pos_error=np.array(self.controller.pos_error_log),
-        #     ori_error=np.array(self.controller.ori_error_log),
-        #     interp_pos=np.array(self.controller.interp_pos_log),
-        #     allow_pickle=True)
-
-        #np.savez('dev/sawyer_ctrl_timing/0821_time_nuc/0821_ctrl_loop_sq.npz', start=np.array(self.log_start_times), end=np.array(self.log_end_times), allow_pickle=True)
-        #np.savez('dev/sawyer_ctrl_timing/0821_time_nuc/0821_cmd_times.npz', start=np.array(self.cmd_start_times), end=np.array(self.cmd_end_times), allow_pickle=True)
-        # np.savez('dev/sawyer_ctrl_timing/run_controller_times.npz', delay=np.array(self.controller_times), allow_pickle=True)
-        # np.savez('dev/sawyer_ctrl_timing/sawye_ctrl_loop_times.npz', tstamps=np.array(self.loop_times), allow_pickle=True)
-        # np.savez('dev/sawyer_ctrl_timing/cmd_end_times.npz', tstamps=np.array(self.cmd_end_time), allow_pickle=True)
 
 ### MAIN ###
 if __name__ == "__main__":
@@ -991,7 +990,7 @@ if __name__ == "__main__":
     # Create ros node
     rospy.init_node("sawyer_interface", log_level=rospy.DEBUG)
 
-    ctrlInterface = SawyerCtrlInterface(use_safenet=False, use_moveit=False)
+    ctrlInterface = SawyerCtrlInterface(use_safenet=False)
 
     # Control Loop
     rospy.loginfo("warming up redis...")

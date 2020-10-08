@@ -8,12 +8,12 @@ import math
 
 
 class EEImpController(Controller):
-    """ Class definition for End-effector Impedance Controller.
+    """ Class definition for End-effector Impedance Controller. 
 
-    End effector impedance uses PD control to reach desired end-effector
-    position and orientation.
+    End effector impedance uses PD control to reach desired end-effector 
+    position and orientation. 
 
-    Attributes:
+    Attributes: 
         input_max (float or list of float): Maximum above which an inputted action will be clipped. Can be either be
             a scalar (same value for all action dimensions), or a list (specific values for each dimension). If the
             latter, dimension should be the same as the control dimension for this controller
@@ -80,8 +80,7 @@ class EEImpController(Controller):
                  interpolator_pos=None,
                  interpolator_ori=None,
                  uncouple_pos_ori=False,
-                 **kwargs,
-                 ):
+                 **kwargs):
         """ Initialize EE Impedance Controller.
 
         Args:
@@ -214,8 +213,8 @@ class EEImpController(Controller):
                 raise ValueError("invalid ori dimensions, should be quaternion.")
             else:
                 set_ori = T.quat2mat(np.array(set_ori))
-
         # Update the model.
+
         self.model.update()
 
         # If using a delta. Scale delta and set position and orientation goals.
@@ -261,6 +260,8 @@ class EEImpController(Controller):
         if self.interpolator_ori is not None:
             self.interpolator_ori.set_goal(T.mat2quat(self.goal_ori))
 
+    
+    
     def run_controller(self):
         """ Calculate torques to acheive goal.
 
@@ -302,7 +303,7 @@ class EEImpController(Controller):
 
         # Calculate desired force, torque at ee using control law and error.
         position_error = desired_pos - self.model.ee_pos
-        vel_pos_error = desired_vel_pos - self.model.ee_pos_vel
+        vel_pos_error = desired_vel_pos - self.model.ee_pos_vel 
         desired_force = (np.multiply(np.array(position_error), np.array(self.kp[0:3]))
                          + np.multiply(vel_pos_error, self.kv[0:3])) + desired_acc_pos
 
@@ -317,7 +318,6 @@ class EEImpController(Controller):
                                self.model.J_pos,
                                self.model.J_ori)
 
-        # Save nullspace matrix if referenced later.
         self.nullspace_matrix = nullspace_matrix
 
         # If uncoupling position and orientation use separated lambdas.
@@ -331,6 +331,7 @@ class EEImpController(Controller):
 
         # Project torques that acheive goal into task space.
         self.torques = np.dot(self.model.J_full.T, decoupled_wrench) + self.model.torque_compensation
+
         return self.torques
 
     def reset_goal(self):
