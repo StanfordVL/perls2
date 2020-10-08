@@ -83,7 +83,7 @@ class KinectROSInterface():
     HD_IMG_SIZE = (1080, 1920)
     QHD_IMG_SIZE = (540, 960)
 
-    def __init__(self, res_mode="hd"):
+    def __init__(self, res_mode="sd"):
         """ Constructor """
         self._depth = None
         self._ir = None
@@ -126,7 +126,7 @@ class KinectROSInterface():
         self.redisClient = redis.Redis()
         self.redisClient.set('env_connected', 'False')
 
-        self.invert = True
+        self.invert = False
 
     @property
     def rgb_frame(self):
@@ -139,15 +139,6 @@ class KinectROSInterface():
     @property
     def ir_frame(self):
         return self._ir
-
-    @abstractmethod
-    def capture_frames(self):
-        """ Wait to get images
-
-        Returns:
-            (color,depth,ir) : set of 3 numpy array
-        """
-        raise NotImplementedError()
 
     def has_frames(self):
         """ Check if frames have been acquired """
@@ -164,7 +155,7 @@ class KinectROSInterface():
             rgb_encoded, dtype=np.uint8, offset=8).reshape(h, w, 3)
         # depth_frame = self.redisClient.get('camera:depth_frame')
         # ir_frame = self.redisClient.get('camera::ir_frame')
-        rgb_frame = cv2.cvtColor(image_np, cv2.COLOR_RGB2BGR)
+        rgb_frame = image_np
 
         cv2.imshow('rgb', rgb_frame)
         # cv2.imshow('d', depth_frame)
@@ -174,12 +165,7 @@ class KinectROSInterface():
     def capture_frames(self):
         """ Capture the newest frame """
         self.wait_to_receive()
-        rospy.logdebug('frame received')
-        # Encode the shape of the picture into the bytes array
-        # rgb = np.array(self.rgb_frame).astype('uint8')
-        # rgb_bytes = rgb.tobytes()
-        # rgb_shape = struct.pack('>II',self._image_height, self._image_width)
-        # encoded_rgb = rgb_shape + rgb_bytes
+
         if self.invert:
             rgb_frame = cv2.cvtColor(self.rgb_frame, cv2.COLOR_RGB2BGR)
         else:
@@ -273,7 +259,7 @@ if __name__ == '__main__':
     import argparse
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--display", help='display the rgb frame. For DEBUG only!')
+    parser.add_argument("--display", action='store_true', help='display the rgb frame. For DEBUG only!')
     args = parser.parse_args()
 
     display_image = False
