@@ -12,16 +12,24 @@ import perls2.controllers.utils.transform_utils as T
 
 class Demo():
     """Class definition for demonstration.
-        Demonstrations are a series of actions that follow a specified pattern
-        and are of appropriate dimension for the controller.
+    Demonstrations are a series of actions that follow a specified pattern
+    and are of appropriate dimension for the controller.
 
-        Attributes:
+    Attributes:
         env (DemoControlEnv): environment to step with action generated
             by demo.
         ctrl_type (str): string identifying type of controller:
             EEPosture, EEImpedance, JointImpedance, JointTorque
         demo_type (str): type of demo to perform (zero, line, sequential,
             square.)
+        test_fn (str): RobotInterface function to test.
+        use_abs (bool): Use absolute values for poses or goal states.
+        demo_name (str): name of the demo control environment.
+        plot_pos (bool): flag to plot positions of states during demo.
+        plot_error (bool): flag to plot errors of controllers during demo.
+        save (bool): flag to save states, errors, actions of demo as npz.
+        world_type: Type of world Bullet or Real.
+        initial_pose (list): initial end-effector pose.
 
     """
     def __init__(self, ctrl_type, demo_type, test_fn,  use_abs=True, **kwargs):
@@ -75,10 +83,6 @@ class Demo():
             return JointSpaceDemo(**kwargs)
         else:
             raise ValueError("invalid demo / controller pairing.")
-            # if self.use_abs:
-            #     return JointSpaceDeltaDemo(**kwargs)
-            # else:
-            #     return JointSpaceAbsDemo(**kwargs)
 
 
 class JointSpaceDemo(Demo):
@@ -89,6 +93,13 @@ class JointSpaceDemo(Demo):
     They include joint positions, velocities and torques.
 
     Attributes:
+        ctrl_type (str): string identifying type of controller:
+            EEPosture, EEImpedance, JointImpedance, JointTorque
+        demo_type (str): type of demo to perform (zero, line, sequential,
+            square.)
+        use_abs (bool): Use absolute values for poses or goal states.
+        num_steps (int): number of steps in the demo.
+        test_fn (str): RobotInterface function to test.
         delta_val (float): magnitude of delta from current position.
             Absolute joint space demos are also determined by adding
             this delta to current joint position.
@@ -232,11 +243,11 @@ class JointSpaceDemo(Demo):
         ax_6.plot(goal_6, 'b')
 
         ax_0.plot(state_0, 'r')
-        ax_1.plot(state_1,'r')
+        ax_1.plot(state_1, 'r')
         ax_2.plot(state_2, 'r')
         ax_3.plot(state_3, 'r')
         ax_4.plot(state_4, 'r')
-        ax_5.plot(state_5,'r')
+        ax_5.plot(state_5, 'r')
         ax_6.plot(state_6, 'r')
 
         plt.show()
@@ -257,11 +268,11 @@ class JointSpaceDemo(Demo):
         fig, ((e_0, e_1, e_2, e_3), (e_4, e_5, e_6, e_7)) = plt.subplots(2, 4)
 
         e_0.plot(error_0, 'r')
-        e_1.plot(error_1,'r')
+        e_1.plot(error_1, 'r')
         e_2.plot(error_2, 'r')
         e_3.plot(error_3, 'r')
         e_4.plot(error_4, 'r')
-        e_5.plot(error_5,'r')
+        e_5.plot(error_5, 'r')
         e_6.plot(error_6, 'r')
 
         plt.show()
@@ -304,8 +315,6 @@ class JointSpaceDeltaDemo(JointSpaceDemo):
         return joint_position_delta_demo
 
 
-
-
 class JointSpaceAbsDemo(JointSpaceDeltaDemo):
     def __init__(self, ctrl_type, demo_type, start_pos, use_abs=True,):
         self.start_pos = start_pos
@@ -341,11 +350,14 @@ class OpSpaceDemo(Demo):
         super().__init__(ctrl_type=ctrl_type, demo_type=demo_type, use_abs=use_abs,
                          test_fn=test_fn, **kwargs)
         self.initial_pose = self.env.robot_interface.ee_pose
-        self.delta_val = delta_val
         self.path_length = path_length
         self.num_steps = num_steps
+        if delta_val is None:
+            self.delta_val = self.path_length / self.num_steps
+        else:
+            self.delta_val = delta_val
+
         self.goal_poses = self.get_goal_poses()
-        # self.action_list = self.get_action_list()
         self.goal_states = self.get_goal_states()
         self.fix_ori = fix_ori
         self.fix_pos = fix_pos

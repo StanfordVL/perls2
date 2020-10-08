@@ -92,12 +92,11 @@ class RealRobotInterface(RobotInterface):
                     -'JointTorque'
         """
         if next_type in AVAILABLE_CONTROLLERS:
-            # self.controller = self.make_controller(next_type)
             self.controlType = next_type
             self.redisClient.set(CONTROLLER_CONTROL_TYPE_KEY, next_type)
             control_config = self.config['controller']['Real'][self.controlType]
             self.redisClient.set(CONTROLLER_CONTROL_PARAMS_KEY, json.dumps(control_config))
-            print("Changing controller to {} with params: {}".format(self.controlType, control_config))
+            logging.debug("Changing controller to {} with params: {}".format(self.controlType, control_config))
 
             # Command to send
             cmd_type = "CHANGE_CONTROLLER"
