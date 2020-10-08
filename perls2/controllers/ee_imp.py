@@ -23,12 +23,12 @@ def publish_pose(pose, name):
 
 
 class EEImpController(Controller):
-    """ Class definition for End-effector Impedance Controller.
+    """ Class definition for End-effector Impedance Controller. 
 
-    End effector impedance uses PD control to reach desired end-effector
-    position and orientation.
+    End effector impedance uses PD control to reach desired end-effector 
+    position and orientation. 
 
-    Attributes:
+    Attributes: 
         input_max (float or list of float): Maximum above which an inputted action will be clipped. Can be either be
             a scalar (same value for all action dimensions), or a list (specific values for each dimension). If the
             latter, dimension should be the same as the control dimension for this controller
@@ -182,8 +182,7 @@ class EEImpController(Controller):
                 raise ValueError("invalid ori dimensions, should be quaternion.")
             else:
                 set_ori = T.quat2mat(np.array(set_ori))
-                print("set_ori\t{}".format(set_ori))
-
+                
         self.model.update()
 
         if delta is not None:
@@ -225,9 +224,11 @@ class EEImpController(Controller):
         if self.interpolator_ori is not None:
 
             self.ori_ref = np.array(self.model.ee_ori_mat) #reference is the current orientation at start
-            self.interpolator_ori.set_goal(T.mat2quat(self.goal_ori)) # goal is the clipped orientation.
+            self.interpolator_ori.set_goal(T.mat2quat(self.goal_ori)) # goal is the clipped orientation. 
             self.relative_ori = np.zeros(3) #relative orientation always starts at 0
 
+    
+    
     def run_controller(self):
 
             # TODO: check if goal has been set.
@@ -254,14 +255,14 @@ class EEImpController(Controller):
         publish_pose((self.goal_pos, T.mat2quat(self.goal_ori)), 'goal_pose')
 
         position_error = desired_pos - self.model.ee_pos
-        vel_pos_error = desired_vel_pos - self.model.ee_pos_vel
+        vel_pos_error = desired_vel_pos - self.model.ee_pos_vel 
         desired_force = (np.multiply(np.array(position_error), np.array(self.kp[0:3]))
                          + np.multiply(vel_pos_error, self.kv[0:3])) + desired_acc_pos
 
         vel_ori_error = desired_vel_ori - self.model.ee_ori_vel
         desired_torque = (np.multiply(np.array(ori_error), np.array(self.kp[3:]))
                           + np.multiply(vel_ori_error, self.kv[3:])) + desired_acc_ori
-
+        
         lambda_full, lambda_pos, lambda_ori, nullspace_matrix = opspace_matrices(self.model.mass_matrix,
                                                                                  self.model.J_full,
                                                                                  self.model.J_pos,
@@ -275,7 +276,9 @@ class EEImpController(Controller):
             desired_wrench = np.concatenate([desired_force, desired_torque])
             decoupled_wrench = np.dot(lambda_full, desired_wrench)
 
-        self.torques = np.dot(self.model.J_full.T, decoupled_wrench) + self.model.torque_compensation
+
+        self.torques = np.dot(self.model.J_full.T, decoupled_wrench) #+ self.model.torque_compensation
+        
 
         self.des_pos_log.append(self.goal_pos)
         self.des_ori_log.append(self.goal_ori)
