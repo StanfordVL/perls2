@@ -50,6 +50,7 @@ class DemoControlEnv(Env):
         obs['ee_pose'] = self.robot_interface.ee_pose
         obs['q'] = self.robot_interface.q
         obs['dq'] = self.robot_interface.dq
+        obs['rgb'] = self.sensor_interface.frames()['rgb']
 
         return obs
 

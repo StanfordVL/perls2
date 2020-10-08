@@ -44,8 +44,8 @@ class RealWorld(World):
         self.robot_interface = RealRobotInterface.create(
                                                  config=self.config,
                                                  controlType=self.config['controller']['selected_type'])
-        
-        self.sensor_interface = None #KinectCameraInterface(self.config)
+
+        self.sensor_interface = KinectCameraInterface(self.config)
 
         self.is_sim = False
 
@@ -63,7 +63,7 @@ class RealWorld(World):
     def step(self, start=None):
         """Take a step.
 
-        Args: 
+        Args:
             start (float): time.time() timestamp taken from before policy computes action.
                 This is to enforce policy frequency.
         Returns: None
@@ -71,7 +71,7 @@ class RealWorld(World):
         Takes a step forward, since this happens naturally in reality, we don't
         do anything.
         """
-        if start is None: 
+        if start is None:
             start = time.time()
         self.robot_interface.step()
 

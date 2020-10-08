@@ -83,7 +83,7 @@ class KinectROSInterface():
     HD_IMG_SIZE = (1080, 1920)
     QHD_IMG_SIZE = (540, 960)
 
-    def __init__(self, res_mode="hd"):
+    def __init__(self, res_mode="sd"):
         """ Constructor """
         self._depth = None
         self._ir = None
@@ -140,15 +140,6 @@ class KinectROSInterface():
     def ir_frame(self):
         return self._ir
 
-    @abstractmethod
-    def capture_frames(self):
-        """ Wait to get images
-
-        Returns:
-            (color,depth,ir) : set of 3 numpy array
-        """
-        raise NotImplementedError()
-
     def has_frames(self):
         """ Check if frames have been acquired """
         return self._rgb is not None and self._depth is not None
@@ -174,7 +165,6 @@ class KinectROSInterface():
     def capture_frames(self):
         """ Capture the newest frame """
         self.wait_to_receive()
-        rospy.logdebug('frame received')
         # Encode the shape of the picture into the bytes array
         # rgb = np.array(self.rgb_frame).astype('uint8')
         # rgb_bytes = rgb.tobytes()
@@ -273,7 +263,7 @@ if __name__ == '__main__':
     import argparse
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--display", help='display the rgb frame. For DEBUG only!')
+    parser.add_argument("--display", action='store_true', help='display the rgb frame. For DEBUG only!')
     args = parser.parse_args()
 
     display_image = False

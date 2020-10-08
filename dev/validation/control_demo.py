@@ -56,6 +56,7 @@ class Demo():
         self.errors = []
         self.actions = []
         self.states = []
+        self.observations = []
         self.world_type = self.env.config['world']['type']
         self.initial_pose = self.env.robot_interface.ee_pose
 
@@ -69,7 +70,7 @@ class Demo():
         fpath = "dev/validation/{}.npz".format(self.demo_name)
         np.savez(fpath, states=self.states,
                  errors=self.errors, actions=self.actions,
-                 goals=self.goal_states, allow_pickle=True)
+                 goals=self.goal_states, obs=self.observations, allow_pickle=True)
 
     def get_goal_state(self, delta):
         raise NotImplementedError
@@ -379,14 +380,13 @@ class OpSpaceDemo(Demo):
             action_kwargs = self.get_action_kwargs(action)
 
             # Step environment forward
-            self.env.step(action_kwargs, time.time())
-
+            obs, reward, done, info = self.env.step(action_kwargs, time.time())
+            self.observations.append(obs)
             self.actions.append(action)
             new_state = self.get_state()
             self.states.append(new_state)
             self.errors.append(
                 self.compute_error(goal_pose, new_state))
-
             #input("Press Enter to continue")
 
         self.env.robot_interface.disconnect()
