@@ -13,7 +13,7 @@ sawyer:
     path:
       'robot/rethink/sawyer_description/urdf/sawyer_base.urdf'
     pose:
-      [0, 0, .01]
+      [0, 0, 0.01]
     orn:
       [0, 0, 0]
     is_static:
