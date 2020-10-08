@@ -84,7 +84,6 @@ class EEImpController(Controller):
                  ):
         """ Initialize EE Impedance Controller.
 
-<<<<<<< HEAD
         Args:
             robot_model (Model): model of robot containing state and parameters.
 
@@ -116,20 +115,6 @@ class EEImpController(Controller):
 
             interpolator_pos (Interpolator): Interpolator object to be used for interpolating from the current position to
                 the goal position during each timestep between inputted actions
-=======
-        super(EEImpController, self).__init__()
-        # Logging
-        self.intera_ee_pos_log = []
-        self.intera_ee_ori_log = []
-        self.intera_ee_v_log = []
-        self.intera_ee_w_log = []
-        self.ori_error_log = []
-        self.pos_error_log = []
-        self.des_pos_log = []
-        self.des_ori_log =[]
-        self.interp_pos_log = []
-        self.interp_ori_log = []
->>>>>>> ctrl_dev_remote
 
             interpolator_ori (Interpolator): Interpolator object to be used for interpolating from the current orientation
                 to the goal orientation during each timestep between inputted actions.
@@ -256,25 +241,12 @@ class EEImpController(Controller):
             # If goal position and orientation are set.
             scaled_delta = None
 
-<<<<<<< HEAD
             self.goal_ori = C.set_goal_orientation(
                 None,
                 self.model.ee_ori_mat,
                 orientation_limit=self.orientation_limits,
                 set_ori=set_ori,
                 axis_angle=True)
-=======
-            self.goal_ori = set_goal_orientation(None,
-                                                 self.model.ee_ori_mat,
-                                                 orientation_limit=self.orientation_limits,
-                                                 set_ori=set_ori,
-                                                 axis_angle=True)
-
-            self.goal_pos = set_goal_position(None,
-                                              self.model.ee_pos,
-                                              position_limit=self.position_limits,
-                                              set_pos=set_pos)
->>>>>>> ctrl_dev_remote
 
             self.goal_pos = C.set_goal_position(
                 None,
@@ -325,13 +297,8 @@ class EEImpController(Controller):
             ori_error = C.orientation_error(desired_ori, self.model.ee_ori_mat)
         else:
             desired_ori = np.array(self.goal_ori)
-<<<<<<< HEAD
-            ori_error = C.orientation_error(desired_ori, self.model.ee_ori_mat)
-=======
-            ori_error = orientation_error(desired_ori, self.model.ee_ori_mat)
 
-        # publish_pose((self.goal_pos, T.mat2quat(self.goal_ori)), 'goal_pose')
->>>>>>> ctrl_dev_remote
+            ori_error = C.orientation_error(desired_ori, self.model.ee_ori_mat)
 
         # Calculate desired force, torque at ee using control law and error.
         position_error = desired_pos - self.model.ee_pos
