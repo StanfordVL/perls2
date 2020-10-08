@@ -23,7 +23,6 @@ import sys, os
 import perls2
 
 
-
 project = 'perls2'
 copyright = 'Stanford University 2019-2021'
 author = 'Rohun Kulkarni'
