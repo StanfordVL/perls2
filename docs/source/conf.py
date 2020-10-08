@@ -26,7 +26,7 @@ import perls2
 
 project = 'perls2'
 copyright = 'Stanford University 2019-2021'
-author = 'Rohun Kulkarni' 
+author = 'Rohun Kulkarni'
 github_doc_root = 'https://github.com/StanfordVL/perls2'
 
 # The short X.Y version
@@ -48,7 +48,8 @@ extensions = [
     'sphinx_markdown_tables',
     'sphinx.ext.autodoc',
     'sphinx.ext.mathjax',
-    'sphinx.ext.napoleon'
+    'sphinx.ext.napoleon',
+    'recommonmark'
 ]
 
 html_theme = "sphinx_rtd_theme"
