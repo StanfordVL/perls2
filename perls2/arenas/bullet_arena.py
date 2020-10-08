@@ -36,18 +36,18 @@ class BulletArena(Arena):
 
         # initialize view matrix
         self._view_matrix = pybullet.computeViewMatrix(
-                cameraEyePosition=self.camera_eye_pos,
-                cameraTargetPosition=self.camera_target_pos,
-                cameraUpVector=self.camera_up_vector)
+            cameraEyePosition=self.camera_eye_pos,
+            cameraTargetPosition=self.camera_target_pos,
+            cameraUpVector=self.camera_up_vector)
 
         self._random_view_matrix = self._view_matrix
 
         # Initialize projection matrix
         self._projection_matrix = pybullet.computeProjectionMatrixFOV(
-                fov=self.fov,
-                aspect=float(self.image_width) / float(self.image_height),
-                nearVal=self.near_plane,
-                farVal=self.far_plane)
+            fov=self.fov,
+            aspect=float(self.image_width) / float(self.image_height),
+            nearVal=self.near_plane,
+            farVal=self.far_plane)
 
         self._random_projection_matrix = self._projection_matrix
         self._randomize_on = (
@@ -92,7 +92,6 @@ class BulletArena(Arena):
                 jointIndex=i,
                 targetValue=angle,
                 physicsClientId=self.physics_id)
-
 
     def load_scene_objects(self):
         """ Load scene objects from config file.
@@ -142,7 +141,7 @@ class BulletArena(Arena):
             fileName=arm_file,
             basePosition=self.robot_cfg['arm']['pose'],
             baseOrientation=pybullet.getQuaternionFromEuler(
-                                    self.robot_cfg['arm']['orn']),
+                self.robot_cfg['arm']['orn']),
             globalScaling=1.0,
             useFixedBase=self.robot_cfg['arm']['is_static'],
             flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT | pybullet.URDF_USE_INERTIA_FROM_FILE,
@@ -151,12 +150,12 @@ class BulletArena(Arena):
         # Load Arm
         if (self.robot_cfg['base'] != 'None'):
             base_file = os.path.join(
-                    self.data_dir, self.robot_cfg['base']['path'])
+                self.data_dir, self.robot_cfg['base']['path'])
             base_id = pybullet.loadURDF(
                 fileName=base_file,
                 basePosition=self.robot_cfg['base']['pose'],
                 baseOrientation=pybullet.getQuaternionFromEuler(
-                                        self.robot_cfg['base']['orn']),
+                    self.robot_cfg['base']['orn']),
                 globalScaling=1.0,
                 useFixedBase=self.robot_cfg['base']['is_static'],
                 flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT | pybullet.URDF_USE_INERTIA_FROM_FILE,
@@ -213,15 +212,15 @@ class BulletArena(Arena):
         object_dict = self.config['object']['object_dict'][obj_key]
         obj_path = os.path.join(self.data_dir, object_dict['path'])
         obj_id = pybullet.loadURDF(
-                    obj_path,
-                    basePosition=object_dict['default_position'],
-                    baseOrientation=pybullet.getQuaternionFromEuler(
-                            object_dict['orientation']),
-                    globalScaling=object_dict['scale'],
-                    useFixedBase=object_dict['is_static'],
-                    flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
-                    physicsClientId=self.physics_id)
-        logging.debug(" Loaded object " +  str(obj_key) + " with id: " + str(obj_id))
+            obj_path,
+            basePosition=object_dict['default_position'],
+            baseOrientation=pybullet.getQuaternionFromEuler(
+                object_dict['orientation']),
+            globalScaling=object_dict['scale'],
+            useFixedBase=object_dict['is_static'],
+            flags=pybullet.URDF_USE_SELF_COLLISION_EXCLUDE_PARENT,
+            physicsClientId=self.physics_id)
+        logging.debug(" Loaded object " + str(obj_key) + " with id: " + str(obj_id))
 
         return obj_id
 
@@ -281,14 +280,15 @@ class BulletArena(Arena):
     def view_matrix_to_extrinsic(self):
         L = (np.asarray(self.camera_target_pos) -
              np.asarray(self.camera_eye_pos))
-        L = L/np.linalg.norm(L)
+        L = L / np.linalg.norm(L)
         s = np.cross(L, self.camera_up_vector)
 
-        s = s/np.linalg.norm(s)
+        s = s / np.linalg.norm(s)
         u_prime = np.cross(s, L)
         R = np.array([[s[0], s[1], s[2]],
                       [u_prime[0], u_prime[1], u_prime[2]],
                       [L[0], L[1], L[2]]])
+        return R
 
     @property
     def view_matrix(self):
@@ -300,11 +300,11 @@ class BulletArena(Arena):
     def random_view_matrix(self):
 
         random_view_matrix = pybullet.computeViewMatrix(
-                cameraEyePosition=self.randomize_param(
-                    self._rand_camera_extrin_cfg['eye_position']),
-                cameraTargetPosition=self.randomize_param(
-                    self._rand_camera_extrin_cfg['target_position']),
-                cameraUpVector=self.camera_up_vector)
+            cameraEyePosition=self.randomize_param(
+                self._rand_camera_extrin_cfg['eye_position']),
+            cameraTargetPosition=self.randomize_param(
+                self._rand_camera_extrin_cfg['target_position']),
+            cameraUpVector=self.camera_up_vector)
 
         return random_view_matrix
 
@@ -323,10 +323,10 @@ class BulletArena(Arena):
             self._rand_camera_intrin_cfg['far_plane'])
 
         random_projection_matrix = pybullet.computeProjectionMatrixFOV(
-                fov=rand_fov,
-                aspect=float(self.image_width) / float(self.image_height),
-                nearVal=rand_near_plane,
-                farVal=rand_far_plane)
+            fov=rand_fov,
+            aspect=float(self.image_width) / float(self.image_height),
+            nearVal=rand_near_plane,
+            farVal=rand_far_plane)
 
         return random_projection_matrix
 

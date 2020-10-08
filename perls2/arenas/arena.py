@@ -1,7 +1,6 @@
 """The parent class for Arenas encapsulating robots, sensors and objects.
 """
 import numpy as np
-import yaml
 import logging
 
 
@@ -76,8 +75,7 @@ class Arena:
             Note:  DOES NOT CHECK if upper bounds > lower bounds
         """
         size = np.size(upper_bound)
-        return (np.random.random((size,))*(upper_bound - lower_bound) +
-                lower_bound)
+        return (np.random.random((size,)) * (upper_bound - lower_bound) + lower_bound)
 
     def randomize_param(self, config_key):
         """ Randomize parameter according to bounds found in config file
