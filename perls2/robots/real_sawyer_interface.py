@@ -6,10 +6,11 @@ Author: Roberto Martin-Martin
 
 import numpy as np
 import logging
-
+import time
 from perls2.robots.real_robot_interface import RealRobotInterface
 from perls2.ros_interfaces.redis_interface import RobotRedisInterface
 from perls2.ros_interfaces.redis_keys import *
+from perls2.ros_interfaces.redis_values import *
 # For dumping config dict to redis
 import json
 
@@ -136,7 +137,7 @@ class RealSawyerInterface(RealRobotInterface):
         return list(self.ee_position) + list(euler_orn)
 
     @property
-    def ee_omega(self):
+    def ee_w(self):
         """
         Get the current twist velocity of end effector in the eef frame.
         :return: a list of floats for the twist velocity [vx, vy, vz,
@@ -151,7 +152,7 @@ class RealSawyerInterface(RealRobotInterface):
         :return: a list of floats for the twist velocity [vx, vy, vz,
         wx, wy, wz]
         """
-        return list(self.ee_v + self.ee_omega)
+        return list(self.ee_v + self.ee_w)
 
     @property
     def ee_force(self):
