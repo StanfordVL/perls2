@@ -259,14 +259,7 @@ class EEImpController(Controller):
             self.interpolator_pos.set_goal(self.goal_pos)
 
         if self.interpolator_ori is not None:
-<<<<<<< HEAD
             self.interpolator_ori.set_goal(T.mat2quat(self.goal_ori))
-=======
-
-            self.ori_ref = np.array(self.model.ee_ori_mat) #reference is the current orientation at start
-            self.interpolator_ori.set_goal(T.mat2quat(self.goal_ori)) # goal is the clipped orientation. 
-            self.relative_ori = np.zeros(3) #relative orientation always starts at 0
->>>>>>> ctrl_dev_remote_nuc
 
     
     
