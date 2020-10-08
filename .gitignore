@@ -8,6 +8,8 @@ _build
 *.pyc
 .DS_Store
 .pytest_cache/
+*.swp
+*.save
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

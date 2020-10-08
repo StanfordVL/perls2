@@ -211,24 +211,34 @@ class SawyerCtrlInterface(RobotInterface):
     def make_controller_from_redis(self, control_type, controller_dict):
         print("Making controller {} with params: {}".format(control_type, controller_dict))
         self.controlType = control_type
-        if control_type == EE_IMPEDANCE:
-            return EEImpController(
-                self.model,
-                interpolator_pos=self.interpolator_pos,
-                interpolator_ori=self.interpolator_ori,
-                **controller_dict)
-        elif control_type == EE_POSTURE:
-            return EEPostureController(
-                self.model,
-                interpolator_pos=self.interpolator_pos,
-                interpolator_ori=self.interpolator_ori,
-                **controller_dict)
-        elif control_type == JOINT_IMPEDANCE:
-            interp_kwargs = {'max_dx': 0.05,
-                             'ndim': 7,
-                             'controller_freq': 500,
-                             'policy_freq': 20,
-                             'ramp_ratio': 0.2}
+        if control_type == "EEImpedance":
+            interp_kwargs = {'max_dx': 0.005, 
+                             'ndim': 3, 
+                             'controller_freq': 500, 
+                             'policy_freq' : 20, 
+                             'ramp_ratio' :  0.2 }
+            self.interpolator_pos = LinearInterpolator(**interp_kwargs)
+            self.interpolator_ori = LinearOriInterpolator(**interp_kwargs)
+            return EEImpController(self.model, 
+                     interpolator_pos=self.interpolator_pos, 
+                     interpolator_ori=self.interpolator_ori, **controller_dict)
+        elif control_type == "EEPosture":
+            interp_kwargs = {'max_dx': 0.005, 
+                             'ndim': 3, 
+                             'controller_freq': 500, 
+                             'policy_freq' : 20, 
+                             'ramp_ratio' :  0.2 }
+            self.interpolator_pos = LinearInterpolator(**interp_kwargs)
+            self.interpolator_ori = LinearOriInterpolator(**interp_kwargs)
+            return EEPostureController(self.model, 
+                     interpolator_pos=self.interpolator_pos, 
+                     interpolator_ori=self.interpolator_ori, **controller_dict)
+        elif control_type =="JointImpedance":
+            interp_kwargs = {'max_dx': 0.05, 
+                             'ndim': 7, 
+                             'controller_freq': 500, 
+                             'policy_freq' : 20, 
+                             'ramp_ratio' :  0.2 }
             self.interpolator_pos = LinearInterpolator(**interp_kwargs)
             return JointImpController(
                 self.model,
