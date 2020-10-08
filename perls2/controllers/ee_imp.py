@@ -80,8 +80,7 @@ class EEImpController(Controller):
                  interpolator_pos=None,
                  interpolator_ori=None,
                  uncouple_pos_ori=False,
-                 **kwargs,
-                 ):
+                 **kwargs):
         """ Initialize EE Impedance Controller.
 
         Args:
