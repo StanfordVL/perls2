@@ -8,19 +8,18 @@ sim_params:
   time_step: 0.001 #0.004166  # 1./240.
   steps_per_action: 20 # policy to sim update ratio
   MAX_STEPS: 500
-real_params: 
-  nuc_hostname: "localhost" # Hostname for the NUC for real robot control. 
+real_params:
+  nuc_hostname: "localhost" # Hostname for the NUC for real robot control.
 
-redis: 
+redis:
   host: c3po-ctrl.stanford.edu
   port: 6379
   password: "tarsbendervisiongoddardr2d2sawyerbb8"
-   
-# redis: 
+
+# redis:
 #   host: localhost
 #   port: 6379
 
-!include table_and_bin.yaml
 # Robots are specified by types and urdf locations
 # also may include intial setup like poses and orientations
 
@@ -28,48 +27,39 @@ controller:
   selected_type: 'EEPosture' # Choose between 'EEImpedance', 'JointVelocity'
   Real:
     EEImpedance:
-      kp: [40, 40, 40, 5.0, 5.0, 3.0] #70 #50 #200 #75 #200 # P Gain for Impedance Control
+      kp: [40, 40, 40, 5.0, 5.0, 3.0]
       kv: [10.0, 10.0, 10.0, 1.0, 1.0, 1.7]
-      damping: null #1 #0.5 #1 #0.5 # Damping factor [0,1] 
+      damping: null
       input_max: [1, 1, 1, 1, 1, 1]
       input_min: [-1, -1, -1, -1, -1, -1]
       output_max: [1, 1, 1, 1, 1, 1]
       output_min: [-1, -1, -1, -1, -1, -1]
-    JointVelocity: 
+    JointVelocity:
       kv: 8.0 #0.5
       input_max: 1.0
       input_min: -1.0
       output_max: 1.0 #1.0
       output_min: -1.0 #-1.0
-    JointImpedance: 
+    JointImpedance:
       kp: [100.0, 100.0, 80.0, 80.0, 70.0, 70.0, 50.0]
       damping: 1.0
       input_max: 1.0
       input_min: -1.0
       output_max: 1.0
       output_min: -1.0
-    JointTorque: 
+    JointTorque:
       input_max: 1.0
       input_min: -1.0
       output_max: 1.0
       output_min: -1.0
     EEPosture:
-      kp: [40, 40, 40, 5.0, 5.0, 3.0] #70 #50 #200 #75 #200 # P Gain for Impedance Control
+      kp: [40, 40, 40, 5.0, 5.0, 3.0]
       kv: [10.0, 10.0, 10.0, 1.0, 1.0, 1.7]
-      damping: null #1 #0.5 #1 #0.5 # Damping factor [0,1] 
-      posture_gain: [7.0, 7.0, 7.0, 6.0, 5.0, 5.0, 5.0] # 5.0, 25.0, 25.0, 20.0, 15.0, 15.0, 15.0] #[70.0, 70.0, 70.0, 60.0, 50.0, 50.0, 50.0]
-      input_max: 1.0
+      damping: null
+      posture_gain: [7.0, 7.0, 7.0, 6.0, 5.0, 5.0, 5.0]
       input_min: -1.0
       output_max: 1.0
       output_min: -1.0
-    # EEPosture:
-    #   kp: [60.0, 60.0, 60.0, 10.0, 10.0, 10.0] #70 #50 #200 #75 #200 # P Gain for Impedance Control
-    #   damping: 1.0 #1 #0.5 #1 #0.5 # Damping factor [0,1] 
-    #   posture_gain: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] #[25.0, 25.0, 25.0, 20.0, 15.0, 15.0, 15.0] #[70.0, 70.0, 70.0, 60.0, 50.0, 50.0, 50.0]
-    #   input_max: 1.0
-    #   input_min: -1.0
-    #   output_max: 1.0
-    #   output_min: -1.0
   interpolator:
     type: 'linear'
     order: 1
@@ -85,7 +75,7 @@ sawyer:
       [0, 0, 0]
     is_static:
       True
-  base: 
+  base:
     path:
       'robot/rethink/sawyer_description/urdf/sawyer_base.urdf'
     pose:

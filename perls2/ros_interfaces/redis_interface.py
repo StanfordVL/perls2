@@ -84,13 +84,24 @@ class RobotRedisInterface(RedisInterface):
         return self._get_key_json(key)
 
     def get(self, key):
+        """Get value of redis data base given key.
+
+        Args:
+            key (str): redis key to be queried.
+
+        Returns:
+            (list or dict): Value of the key.
+
+        Notes:
+            If queried value is a robot state or model, converts to ndarray, if
+            it is a control parameter or goal, converts to dict.
+        """
         if ROBOT_STATE_KEY in key or ROBOT_MODEL_KEY in key:
             return self._get_key_ndarray(key)
         elif CONTROLLER_CONTROL_PARAMS_KEY in key or CONTROLLER_GOAL_KEY in key:
             return self._get_key_json(key)
         else:
             return self._client.get(key)
-
 
     def mset(self, key_val_dict):
         """ Set multiple keys to redis at same time.

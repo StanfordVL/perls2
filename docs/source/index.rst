@@ -7,6 +7,13 @@ perls2's Documentation
    :caption: Introduction
 
    install.md
+   quickstart.md
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Examples
+
+   simple_reach.md
 
 .. toctree::
    :maxdepth: 2
