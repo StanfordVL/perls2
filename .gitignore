@@ -1,3 +1,7 @@
 *.pyc
 __pycache__
 *.bullet
+
+docs/_build/
+docs/_static/
+docs/_templates
