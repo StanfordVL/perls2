@@ -385,7 +385,7 @@ def quat2axisangle(quat):
         quat[3] = -1.
 
     den = np.sqrt(1. - quat[3] * quat[3])
-    if math.isclose(den, 0.):
+    if np.isclose(den, 0.):
         # This is (close to) a zero degree rotation, immediately return
         return np.zeros(3)
 
@@ -710,7 +710,7 @@ def quat2axisangle(quat):
         quat[3] = -1.
 
     den = np.sqrt(1. - quat[3] * quat[3])
-    if math.isclose(den, 0.):
+    if np.isclose(den, 0.):
         # This is (close to) a zero degree rotation, immediately return
         return np.zeros(3)
 
@@ -724,7 +724,7 @@ def axisangle2quat(vec):
     angle = np.linalg.norm(vec)
 
     # handle zero-rotation case
-    if math.isclose(angle, 0.):
+    if np.isclose(angle, 0.):
         return np.array([0., 0., 0., 1.])
 
     # make sure that axis is a unit vector
