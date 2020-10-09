@@ -14,6 +14,7 @@ perls2's Documentation
    :caption: Examples
 
    simple_reach.md
+   switch_sim_real.md
 
 .. toctree::
    :maxdepth: 2
