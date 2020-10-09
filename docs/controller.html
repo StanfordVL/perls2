@@ -92,6 +92,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="simple_reach.html">Simple Reach Example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_reach.html#id1">Simple Reach Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load_objects.html">Examples: Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="switch_sim_real.html">Switching between Real and Sim Example</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API</span></p>
@@ -258,8 +259,8 @@ the base class.</p>
 
 <dl class="method">
 <dt id="perls2.controllers.joint_imp.JointImpController.run_controller">
-<code class="sig-name descname">run_controller</code><span class="sig-paren">(</span><em class="sig-param">action=None</em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.joint_imp.JointImpController.run_controller" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculate torques to acheive goal.</p>
+<code class="sig-name descname">run_controller</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.joint_imp.JointImpController.run_controller" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate torques to acheive goal state from current state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>None</strong> – </p>
@@ -284,13 +285,33 @@ the base class.</p>
 <dd><p>Controller for joint velocity</p>
 <dl class="method">
 <dt id="perls2.controllers.joint_vel.JointVelController.set_goal">
-<code class="sig-name descname">set_goal</code><span class="sig-paren">(</span><em class="sig-param">velocities</em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.joint_vel.JointVelController.set_goal" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-name descname">set_goal</code><span class="sig-paren">(</span><em class="sig-param">velocities</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.joint_vel.JointVelController.set_goal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set goal joint velocities</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>velocities</strong> (<em>list</em>) – 7f list of joint velocities to command to the robot.</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) – additional keyword arguments.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="method">
 <dt id="perls2.controllers.joint_vel.JointVelController.run_controller">
-<code class="sig-name descname">run_controller</code><span class="sig-paren">(</span><em class="sig-param">action=None</em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.joint_vel.JointVelController.run_controller" title="Permalink to this definition">¶</a></dt>
-<dd><p>Go from actions to torques</p>
+<code class="sig-name descname">run_controller</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.joint_vel.JointVelController.run_controller" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run controller to calculate torques.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>7f list of torques to command.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>torques (list)</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -416,11 +437,14 @@ action.</p>
 
 <dl class="method">
 <dt id="perls2.controllers.joint_torque.JointTorqueController.set_goal">
-<code class="sig-name descname">set_goal</code><span class="sig-paren">(</span><em class="sig-param">torques</em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.joint_torque.JointTorqueController.set_goal" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_goal</code><span class="sig-paren">(</span><em class="sig-param">torques</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.joint_torque.JointTorqueController.set_goal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set goal torques.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>torques</strong> (<em>list</em>) – 7f list of torques to command to the robot.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>torques</strong> (<em>list</em>) – 7f list of torques to command to the robot.</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) – additional keyword arguments.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>None</p>
@@ -433,8 +457,11 @@ action.</p>
 <code class="sig-name descname">run_controller</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.joint_torque.JointTorqueController.run_controller" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run controller to calculate torques.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>action</strong> (<em>list</em>) – list of torques</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>7f list of torques to command.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>torques (list)</p>
 </dd>
 </dl>
 </dd></dl>
