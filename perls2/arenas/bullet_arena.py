@@ -32,9 +32,9 @@ class BulletArena(Arena):
         super().__init__(config)
         # If a specific directory for data dir is not defined, use perls2's.
         perls2_path = os.path.dirname(perls2.__path__[0])
-        perls2_data_dir = os.path.join(perls2_path, 'data')
+        self.perls2_data_dir = os.path.join(perls2_path, 'data')
         if 'data_dir' not in self.config['data_dir']:
-            data_dir = perls2_data_dir
+            data_dir = self.perls2_data_dir
         else:
             data_dir = self.config['data_dir']
         self.data_dir = os.path.abspath(data_dir)
@@ -144,7 +144,7 @@ class BulletArena(Arena):
     def load_robot(self):
         """ Load the robot and return arm_id, base_id
         """
-        arm_file = os.path.join(self.data_dir, self.robot_cfg['arm']['path'])
+        arm_file = os.path.join(self.perls2_data_dir, self.robot_cfg['arm']['path'])
 
         arm_id = pybullet.loadURDF(
             fileName=arm_file,
