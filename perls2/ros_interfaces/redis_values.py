@@ -18,14 +18,3 @@ SET_JOINT_VELOCITIES = "set_joint_velocities"
 SET_JOINT_TORQUES = "set_joint_torques"
 IDLE = "IDLE"
 
-# Redis reads commands as bytes strings
-# compatible with python 2.7
-bSET_EE_POSE = bytes(SET_EE_POSE)
-bMOVE_EE_DELTA = bytes(MOVE_EE_DELTA)
-bSET_JOINT_DELTA = bytes(SET_JOINT_DELTA)
-bSET_JOINT_POSITIONS = bytes(SET_JOINT_POSITIONS)
-bSET_JOINT_VELOCITIES = bytes(SET_JOINT_VELOCITIES)
-bSET_JOINT_TORQUES = bytes(SET_JOINT_TORQUES)
-bIDLE = bytes(IDLE)
-bCHANGE_CONTROLLER = bytes(CHANGE_CONTROLLER)
-bRESET = bytes(RESET)
