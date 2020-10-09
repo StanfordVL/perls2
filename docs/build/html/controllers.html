@@ -1,0 +1,293 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Perls2 Controllers &mdash; perls2 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Simple Reach Example" href="simple_reach.html" />
+    <link rel="prev" title="World" href="worlds.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> perls2
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Modules</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="environments.html">Env</a></li>
+<li class="toctree-l1"><a class="reference internal" href="worlds.html">World</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Perls2 Controllers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#controllers">Controllers:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#interpolators">Interpolators:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#robot-model">Robot Model</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="simple_reach.html">Simple Reach Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_reach.html#id1">Simple Reach Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load_objects.html">Examples: Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="switch_sim_real.html">Switching between Real and Sim Example</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="env.html">Environment (Env)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="world.html">World</a></li>
+<li class="toctree-l1"><a class="reference internal" href="robot_interface.html">Robot Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="controller.html">Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_interface.html">Object Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="camera_interface.html">Camera Interface</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">perls2</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Perls2 Controllers</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/controllers.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="perls2-controllers">
+<h1>Perls2 Controllers<a class="headerlink" href="#perls2-controllers" title="Permalink to this headline">¶</a></h1>
+<p>Controllers are used to a robot’s ability to perform a task. For perls2, their inputs consist of a desired robot state and a current robot state. The outputs are control commands for the robot to acheive the desired state.</p>
+<p>For research purposes, robotic control is the action-space of robotic learning. The controller libraries exist to unify controllers across different experiments and robot configurations. They also create transparency for ease of debugging.</p>
+<p>All controllers in this use joint torque as an output control command. Because of the nature of torque control, control commands should be sent to the robot at a high frequency (&gt;100 Hz, preferably 500-1000Hz).</p>
+<div class="section" id="controllers">
+<h2>Controllers:<a class="headerlink" href="#controllers" title="Permalink to this headline">¶</a></h2>
+<p>Controller types are set in the project config yaml file with the following key
+<code class="docutils literal notranslate"><span class="pre">controller:</span> <span class="pre">selected_type:</span> <span class="pre">'EEImpedance'</span> <span class="pre">EEImpedance:</span> <span class="pre">kp:</span> <span class="pre">200</span> <span class="pre">#</span> <span class="pre">P</span> <span class="pre">Gain</span> <span class="pre">for</span> <span class="pre">Impedance</span> <span class="pre">Control</span> <span class="pre">damping:</span> <span class="pre">.8</span> <span class="pre">#</span> <span class="pre">Damping</span> <span class="pre">factor</span> <span class="pre">[0,1]</span> <span class="pre">JointVelocity:</span> <span class="pre">kp:</span> <span class="pre">0.5</span> <span class="pre">JointImpedance:</span> <span class="pre">kp:</span> <span class="pre">50</span> <span class="pre">damping:</span> <span class="pre">1</span> <span class="pre">interpolator:</span> <span class="pre">type:</span> <span class="pre">'linear'</span> <span class="pre">order:</span> <span class="pre">1</span></code></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">selected_type</span></code> determines which of the following controllers to use.</p>
+<p>*<code class="docutils literal notranslate"><span class="pre">EEImpedance</span></code> (ee_imp.py): an end effector impedance controller that takes a desired end effector state in cartesian space. Typically used for interaction and contact-rich applications.
+*Interpolators may be defined for end effector position and orientation in the controller definition. However, only end effector position interpolation is recommended at this time.</p>
+<p>*<code class="docutils literal notranslate"><span class="pre">JointImpedance</span></code> (joint_imp.py): a joint-space impedance controller that takes a desired joint position and velocity as an input in joint space. Typically used for trajectory-following and singularity avoidance.</p>
+<p>*<code class="docutils literal notranslate"><span class="pre">JointVelocity</span></code> (joint_vel.py): a joint-velocity controller that takes a desired joint velocity in joint space. Typically used for visual servoing, teleoperation.</p>
+<p>*<code class="docutils literal notranslate"><span class="pre">JointTorque</span></code> (joint_torque.py): a joint-torque controller that directly feeds joint torques through to the robot. Typically used for end-to-end learning or custom controllers applications.</p>
+<p>*<code class="docutils literal notranslate"><span class="pre">Internal</span></code> (): signal to perls2 to use native controllers. Limited to joint position controller and end effector position control via IK.</p>
+</div>
+<div class="section" id="interpolators">
+<h2>Interpolators:<a class="headerlink" href="#interpolators" title="Permalink to this headline">¶</a></h2>
+<p>Interpolators are used as controllers are only tuned/effective for small displacements from the current state. They provide intermediate desired robot states that the controller than uses to produce control commands. The controllers in perls2 are tuned to a maximum displacement of 0.1 for end effector position and orientation;  joint position, velocity and torque.</p>
+<p>The available interpolators are:
+*<code class="docutils literal notranslate"><span class="pre">linear</span></code>: provides a sequence of way points for the controller to reach as a linear function between the current robot state and desired state.
+*<code class="docutils literal notranslate"><span class="pre">None</span></code>: controller uses no interpolation (not recommended unless</p>
+</div>
+<div class="section" id="robot-model">
+<h2>Robot Model<a class="headerlink" href="#robot-model" title="Permalink to this headline">¶</a></h2>
+<p>The Model class (robot_model/model.py) captures the current state of the robot that the controller uses to output a control command. They are updated by RobotInterface objects.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="simple_reach.html" class="btn btn-neutral float-right" title="Simple Reach Example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="worlds.html" class="btn btn-neutral float-left" title="World" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Rohun Kulkarni
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
