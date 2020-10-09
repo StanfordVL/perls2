@@ -5,14 +5,36 @@ import numpy as np
 
 
 class LinearOriInterpolator(LinearInterpolator):
+    """ SLERP Interpolator for orientation.
+
+    Interpolates between previous goal commands to produce smooth trajectory.
+
+    Attributes:
+        total_steps (int): number of control steps per policy step.
+        prev_goal (list): 4f previous goal commanded to controller.
+        goal (list): 4f previous goal commanded to controller
+        fraction (float): fraction of path to interpolate between goals
+        step (int): num steps interpolated
+
+    Notes:
+        This does not interpolate between robot state and goal, but between
+        previous controller goal commands.
+
+    """
     def __init__(self, controller_freq=500, policy_freq=20, fraction=0.2, **kwargs):
-        self.prev_interp_goal = None
+        """ Initialize interpolator.
+
+        Args:
+            controller_freq (float): Frequency (Hz) of the controller
+            policy_freq (float): Frequency (Hz) of the policy model
+            fraction (float): 0 to 1 fraction of path to interpolate.
+
+        """
         self.total_steps = np.floor((float(controller_freq) / float(policy_freq)) * 0.2)
         self.prev_goal = None
         self.goal = None
         self.fraction = fraction
         self.step = 1
-        self.order = 1
 
     def set_goal(self, goal):
         """ Set goal for linear interpolator
