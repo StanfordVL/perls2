@@ -1,19 +1,16 @@
 from perls2.controllers.base_controller import Controller
-from perls2.controllers.robot_model.model import Model
 import perls2.controllers.utils.control_utils as C
 import perls2.controllers.utils.transform_utils as T
 import numpy as np
-import time
-import math
 
 
 class EEImpController(Controller):
-    """ Class definition for End-effector Impedance Controller. 
+    """ Class definition for End-effector Impedance Controller.
 
-    End effector impedance uses PD control to reach desired end-effector 
-    position and orientation. 
+    End effector impedance uses PD control to reach desired end-effector
+    position and orientation.
 
-    Attributes: 
+    Attributes:
         input_max (float or list of float): Maximum above which an inputted action will be clipped. Can be either be
             a scalar (same value for all action dimensions), or a list (specific values for each dimension). If the
             latter, dimension should be the same as the control dimension for this controller
@@ -260,8 +257,6 @@ class EEImpController(Controller):
         if self.interpolator_ori is not None:
             self.interpolator_ori.set_goal(T.mat2quat(self.goal_ori))
 
-    
-    
     def run_controller(self):
         """ Calculate torques to acheive goal.
 
@@ -303,13 +298,15 @@ class EEImpController(Controller):
 
         # Calculate desired force, torque at ee using control law and error.
         position_error = desired_pos - self.model.ee_pos
-        vel_pos_error = desired_vel_pos - self.model.ee_pos_vel 
-        desired_force = (np.multiply(np.array(position_error), np.array(self.kp[0:3]))
-                         + np.multiply(vel_pos_error, self.kv[0:3])) + desired_acc_pos
+        vel_pos_error = desired_vel_pos - self.model.ee_pos_vel
+        desired_force = (
+            np.multiply(np.array(position_error),
+                        np.array(self.kp[0:3])) + np.multiply(vel_pos_error, self.kv[0:3])) + desired_acc_pos
 
         vel_ori_error = desired_vel_ori - self.model.ee_ori_vel
-        desired_torque = (np.multiply(np.array(ori_error), np.array(self.kp[3:]))
-                          + np.multiply(vel_ori_error, self.kv[3:])) + desired_acc_ori
+        desired_torque = (
+            np.multiply(np.array(ori_error),
+                        np.array(self.kp[3:])) + np.multiply(vel_ori_error, self.kv[3:])) + desired_acc_ori
 
         # Calculate Operational Space mass matrix and nullspace.
         lambda_full, lambda_pos, lambda_ori, nullspace_matrix = \
