@@ -227,8 +227,8 @@ class SawyerCtrlInterface(RobotInterface):
             interp_kwargs = {'max_dx': 0.005,
                              'ndim': 3,
                              'controller_freq': 500,
-                             'policy_freq' : 20,
-                             'ramp_ratio' :  0.2 }
+                             'policy_freq': 20,
+                             'ramp_ratio': 0.2}
             self.interpolator_pos = LinearInterpolator(**interp_kwargs)
             self.interpolator_ori = LinearOriInterpolator(**interp_kwargs)
             return EEImpController(
@@ -239,8 +239,8 @@ class SawyerCtrlInterface(RobotInterface):
             interp_kwargs = {'max_dx': 0.005,
                              'ndim': 3,
                              'controller_freq': 500,
-                             'policy_freq' : 20,
-                             'ramp_ratio' :  0.2 }
+                             'policy_freq': 20,
+                             'ramp_ratio': 0.2}
             self.interpolator_pos = LinearInterpolator(**interp_kwargs)
             self.interpolator_ori = LinearOriInterpolator(**interp_kwargs)
             return EEPostureController(
@@ -251,8 +251,8 @@ class SawyerCtrlInterface(RobotInterface):
             interp_kwargs = {'max_dx': 0.05,
                              'ndim': 7,
                              'controller_freq': 500,
-                             'policy_freq' : 20,
-                             'ramp_ratio' :  0.2 }
+                             'policy_freq': 20,
+                             'ramp_ratio': 0.2}
             self.interpolator_pos = LinearInterpolator(**interp_kwargs)
             return JointImpController(
                 self.model,
