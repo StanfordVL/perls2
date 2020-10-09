@@ -1,0 +1,7 @@
+README.md
+setup.py
+perls2.egg-info/PKG-INFO
+perls2.egg-info/SOURCES.txt
+perls2.egg-info/dependency_links.txt
+perls2.egg-info/requires.txt
+perls2.egg-info/top_level.txt
