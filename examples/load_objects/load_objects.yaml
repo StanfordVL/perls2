@@ -92,6 +92,9 @@ controller:
       type: 'None'
 
 object:
+  # null
+  # Comment above, and uncomment the object_dict key
+  # to disable loading objects from config.
   object_dict:
     object_0:
       name:
@@ -125,11 +128,3 @@ env:
   action_space:
     low: [-0.2, -0.2, -0.2]
     high: [0.2, 0.2, 0.2]
-
-learning_parms:
-  hyperparameters:
-  learning_rate:
-
-
-vision_params:
-  segmentation:
