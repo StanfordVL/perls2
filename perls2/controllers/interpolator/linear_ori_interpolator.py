@@ -7,7 +7,7 @@ import numpy as np
 class LinearOriInterpolator(LinearInterpolator):
     def __init__(self, controller_freq=500, policy_freq=20, fraction=0.2, **kwargs):
         self.prev_interp_goal = None
-        self.total_steps = np.floor((float(controller_freq) / float(policy_freq)) *0.2)
+        self.total_steps = np.floor((float(controller_freq) / float(policy_freq)) * 0.2)
         self.prev_goal = None
         self.goal = None
         self.fraction = fraction
@@ -15,17 +15,20 @@ class LinearOriInterpolator(LinearInterpolator):
         self.order = 1
 
     def set_goal(self, goal):
+        """ Set goal for linear interpolator
+
+        Args:
+            goal (list): 4f goal orientation expressed as quaternion (absolute) in world frame.
+        """
         if (goal.shape[0] != 4):
             raise ValueError("Incorrect goal dimension for orientation interpolator.")
         # Update goal and reset interpolation step
         if self.prev_goal is None:
             self.prev_goal = np.array(goal)
-        else: 
+        else:
             self.prev_goal = goal
         self.goal = np.array(goal)
         self.step = 1
-
-
 
     def get_interpolated_goal(self):
         """ Get interpolated orientation using slerp.
@@ -35,9 +38,9 @@ class LinearOriInterpolator(LinearInterpolator):
             raise ValueError("LinearOriInterpolator: Goal has not been set yet!")
 
         if self.step <= self.total_steps:
-            interp_fraction = (self.step/self.total_steps)*self.fraction
+            interp_fraction = (self.step / self.total_steps) * self.fraction
             interp_goal = T.quat_slerp(self.prev_goal, self.goal, fraction=interp_fraction)
-            self.step+=1
+            self.step += 1
         else:
             interp_goal = self.goal
         return interp_goal
