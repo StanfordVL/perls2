@@ -17,4 +17,3 @@ SET_JOINT_POSITIONS = "set_joint_positions"
 SET_JOINT_VELOCITIES = "set_joint_velocities"
 SET_JOINT_TORQUES = "set_joint_torques"
 IDLE = "IDLE"
-
