@@ -1,4 +1,4 @@
-"""BulletSawyerExample
+"""Project template example running the environment.
 """
 from __future__ import division
 import time
