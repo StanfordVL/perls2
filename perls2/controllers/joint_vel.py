@@ -45,7 +45,15 @@ class JointVelController(Controller):
 
         self.set_goal(np.zeros(self.joint_dim))
 
-    def set_goal(self, velocities):
+    def set_goal(self, velocities, **kwargs):
+        """ Set goal joint velocities
+
+        Args:
+            velocities (list): 7f list of joint velocities to command to the robot.
+            kwargs (dict): additional keyword arguments.
+        Returns:
+            None
+        """
         self.model.update()
 
         self.goal_vel = self.scale_action(velocities)
@@ -53,15 +61,12 @@ class JointVelController(Controller):
         if self.interpolator is not None:
             self.interpolator.set_goal(self.goal_vel)
 
-    def run_controller(self, action=None):
-        # First, update goal if action is not set to none
-        # Action will be interpreted as delta value from current
-        if action is not None:
-            self.set_goal(action)
-        else:
-            self.model.update()
+    def run_controller(self):
+        """ Run controller to calculate torques.
 
-        # Next, check whether goal has been set
+        Returns:
+            torques (list): 7f list of torques to command.
+        """
         assert self.goal_vel is not None, "Error: Joint velocity goal has not been set yet!"
 
         # Only linear interpolator is currently supported
