@@ -13,6 +13,8 @@ perls2's Documentation
    :maxdepth: 1
    :caption: Modules
 
+   environments.md
+   worlds.md
    controllers.md
 
 .. toctree::
