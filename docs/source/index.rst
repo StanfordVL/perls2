@@ -11,6 +11,12 @@ perls2's Documentation
 
 .. toctree::
    :maxdepth: 1
+   :caption: Modules
+
+   controllers.md
+
+.. toctree::
+   :maxdepth: 1
    :caption: Examples
 
    simple_reach.md
