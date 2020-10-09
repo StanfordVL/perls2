@@ -42,7 +42,6 @@ class DemoControlEnv(Env):
         self.num_steps = 0
         self.world.reset()
         self.robot_interface.reset()
-        # self.sensor_interface.reset()
 
         observation = self.get_observation()
 
@@ -51,6 +50,7 @@ class DemoControlEnv(Env):
         obs['ee_pose'] = self.robot_interface.ee_pose
         obs['q'] = self.robot_interface.q
         obs['dq'] = self.robot_interface.dq
+        obs['rgb'] = self.camera_interface.frames()['rgb']
 
         return obs
 
@@ -63,8 +63,6 @@ class DemoControlEnv(Env):
 
         if (self.robot_interface.controlType == 'EEImpedance' or
            (self.robot_interface.controlType == 'EEPosture')):
-            # self.test_fn(action)
-            # self.robot_interface.move_ee_delta(action)
             if self.test_fn == 'set_ee_pose':
                 self.robot_interface.set_ee_pose(
                     **action_kw)
@@ -74,14 +72,12 @@ class DemoControlEnv(Env):
         elif self.robot_interface.controlType == 'JointVelocity':
             self.robot_interface.set_joint_velocities(**action_kw)
         elif self.robot_interface.controlType == 'JointImpedance':
-            print(self.test_fn)
             if self.test_fn == 'set_joint_delta':
                 self.robot_interface.set_joint_delta(**action_kw)
             elif self.test_fn == 'set_joint_positions':
                 self.robot_interface.set_joint_positions(**action_kw)
             else:
                 raise ValueError("invalid test function.")
-            # self.robot_interface.set_joint_positions(action)
         elif self.robot_interface.controlType == 'JointTorque':
             if self.test_fn == 'set_joint_torques':
                 self.robot_interface.set_joint_torques(**action_kw)

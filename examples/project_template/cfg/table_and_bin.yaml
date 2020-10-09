@@ -1,0 +1,22 @@
+ground:
+  path: 'scene_objects/plane/plane.urdf'
+  pose: [[0, 0, -0.9], [0, 0, 0]]
+  is_static: True
+
+# path: 'tables/table_svl/table.urdf'
+table:
+  path: 'scene_objects/table_svl/table.urdf' #'scene_objects/table_svl/table_grasp.urdf'
+  pose: [[0.6, 0, -0.05], [0, 0, 0.0]]
+  height:
+    range: [0.8, 0.8]
+  is_static: True
+
+bin:
+  path: 'scene_objects/beveled_bin/beveled_bin.urdf'
+  pose: [[0.6, 0, 0], [0, 0, 0]]
+  is_static: True
+
+ikea:
+  path: 'ikea/config/ikea.urdf'
+  pose: [[0.75, 0.3, 0.5], [1.57079, 0, -0.157079]]
+  is_static: True

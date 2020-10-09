@@ -2,8 +2,10 @@
 """
 import pybullet
 import os
+import sys
 import numpy as np
 from perls2.arenas.arena import Arena
+import perls2
 import logging
 logging.basicConfig(level=logging.INFO)
 
@@ -28,7 +30,14 @@ class BulletArena(Arena):
             None
         """
         super().__init__(config)
-        self.data_dir = os.path.abspath(self.config['data_dir'])
+        # If a specific directory for data dir is not defined, use perls2's.
+        perls2_path = os.path.dirname(perls2.__path__[0])
+        self.perls2_data_dir = os.path.join(perls2_path, 'data')
+        if 'data_dir' not in self.config['data_dir']:
+            data_dir = self.perls2_data_dir
+        else:
+            data_dir = self.config['data_dir']
+        self.data_dir = os.path.abspath(data_dir)
         self.physics_id = physics_id
         self._bodies_pbid_dict = {}
         self._objects_dict = {}
@@ -135,7 +144,7 @@ class BulletArena(Arena):
     def load_robot(self):
         """ Load the robot and return arm_id, base_id
         """
-        arm_file = os.path.join(self.data_dir, self.robot_cfg['arm']['path'])
+        arm_file = os.path.join(self.perls2_data_dir, self.robot_cfg['arm']['path'])
 
         arm_id = pybullet.loadURDF(
             fileName=arm_file,

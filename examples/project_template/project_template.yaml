@@ -1,0 +1,70 @@
+# perls2 Template Project Config
+world:
+  type: 'Bullet' # Choose from 'Bullet' or 'Real'
+  robot: 'sawyer' # Choose from 'sawyer' or 'panda'
+
+# Uncomment to use your own data directory for urdfs, objects etc.
+# data_dir: 'data'
+
+# Simulation parameters
+sim_params:
+  time_step: 0.004166  # 1./240. default for PyBullet. Changing not recommended.
+  MAX_STEPS: 500
+
+policy_freq: 20 # Frequency at which policy sends actions (Hz)
+control_freq: 500 # Frequency at which torque commands are sent to robot (Hz)
+
+# Robots are specified by types and urdf locations
+# also may include intial setup like poses and orientations
+!include cfg/sawyer.yaml
+!include cfg/panda.yaml
+
+# Some basic tables and objects pre-configured.
+!include cfg/table_and_bin.yaml
+# Specify which basic objects to include.
+scene_objects:
+  ['table', 'bin'] # Choose from ['table', 'bin']
+
+# Default camera parameters
+!include cfg/default_camera.yaml
+
+# Default controller parameters
+!include cfg/default_controllers.yaml
+
+# Add an object from the config. If data_dir not explicitly defined,
+# perls2 directory is assumed.
+# object keys must be named object_0, object_1, ...
+object:
+  object_dict:
+    object_0:
+      name:
+        '013_apple'
+      count:
+        1
+      path:
+        'objects/ycb/013_apple/google_16k/textured.urdf'
+      position: [1.5, 0, 0]
+      orientation: [0,0,0]
+      is_static: True
+      scale: 1.0
+      default_position: [0.7, 0.1, 0.03] #z  = 0.1
+  default_position: [0.7, 0.1, 0.03] #z  = 0.1
+  random: # Randomization parameters and bounds.
+    randomize: False
+    position:
+      lower:
+        [0.3, -0.2, 0.1]
+      upper:
+        [0.7, 0.2, 0.1]
+
+
+# Perception and Learning
+env:
+  observation_space:
+    low:
+      [-2.0, -2.0, -2.0]
+    high:
+      [2.0, 2.0, 2.0]
+  action_space:
+    low: [-0.2, -0.2, -0.2]
+    high: [0.2, 0.2, 0.2]

@@ -1,11 +1,6 @@
 """The parent class for Arenas encapsulating robots, sensors and objects.
 """
-import numpy as np
-import yaml
 from perls2.arenas.arena import Arena
-import pybullet
-import os
-import logging
 
 
 class RealArena(Arena):
@@ -37,6 +32,7 @@ class RealArena(Arena):
         """
         self.config = config
         self.data_dir = self.config['data_dir']
+
         # Get the robot config dict by using the name of the robot
         # as a key. The robot config yaml should be included at
         # project config file level.

@@ -1,7 +1,4 @@
 from perls2.controllers.base_controller import Controller
-from perls2.controllers.robot_model.model import Model
-import perls2.controllers.utils.control_utils as C
-import perls2.controllers.utils.transform_utils as T
 import numpy as np
 
 
@@ -80,11 +77,12 @@ class JointTorqueController(Controller):
 
         self.set_goal(np.zeros(self.joint_dim))
 
-    def set_goal(self, torques):
+    def set_goal(self, torques, **kwargs):
         """ Set goal torques.
 
         Args:
             torques (list): 7f list of torques to command to the robot.
+            kwargs (dict): additional keyword arguments.
 
         Returns:
             None
@@ -101,8 +99,8 @@ class JointTorqueController(Controller):
     def run_controller(self):
         """ Run controller to calculate torques.
 
-        Args:
-            action (list): list of torques
+        Returns:
+            torques (list): 7f list of torques to command.
         """
 
         # Next, check whether goal has been set

@@ -1,5 +1,4 @@
 import abc
-import numpy as np
 
 
 class Interpolator(object):
@@ -13,8 +12,3 @@ class Interpolator(object):
         Go from actions to torques
         """
         pass
-
-
-
-
-

@@ -1,0 +1,130 @@
+# Cfg for Example: switching between sim and real reach task
+world:
+  type: 'Bullet'
+  robot: 'sawyer'
+data_dir: 'data'
+# Simulation parameters
+sim_params:
+  time_step: 0.001 #0.004166  # 1./240.
+  MAX_STEPS: 500
+
+policy_freq: 20 # For gazebo?
+control_freq: 500 # Hz
+
+# Robots are specified by types and urdf locations
+# also may include intial setup like poses and orientations
+!include ../../cfg/sawyer.yaml
+!include ../../cfg/panda.yaml
+!include ../../cfg/table_and_bin.yaml
+goal_position:
+  lower:
+    [0.3, -0.2, 0.0]  # CHANGED
+  upper:
+    [0.5, 0.5, 0.2]   # CHANGED
+scene_objects:
+  ['table', 'bin']
+sensor:
+  camera:
+    name:
+        'camera'
+    image:
+      height: 224
+      width: 224
+    extrinsics:
+        eye_position:
+          [0.6, 0.0, 1.0]
+        target_position:
+          [0.6, 0., 0]
+        up_vector:
+          [1., 0., 1.]
+    intrinsics:
+        image_height: 1080
+        image_width: 1920
+        fov: 60
+        near_plane: 0.02
+        far_plane: 100
+    # Parameters for randomization
+    random:
+      randomize: False
+      extrinsics:
+        eye_position:
+          lower:
+            [0.6, 0., 1.75]
+          upper:
+            [0.6, 0., 1.75]
+        target_position:
+          lower:
+            [0.6, 0., 0]
+          upper:
+            [0.6, 0., 0]
+      intrinsics:
+        fov:
+          lower: 50
+          upper: 80
+        near_plane:
+          lower: 0.01
+          upper: 0.05
+        far_plane:
+          lower: 10
+          upper: 150
+
+controller:
+  selected_type: 'EEImpedance' # Choose between 'EEImpedance', 'JointVelocity'
+  Bullet:
+    EEImpedance:
+      kp: 200 # P Gain for Impedance Control
+      damping: .8 # Damping factor [0,1]
+      input_max: [1, 1, 1, 1, 1, 1]
+      input_min: [-1, -1, -1, -1, -1, -1]
+      output_max: [0.05, 0.05, 0.05, 1.57, 1.57, 1.57]
+      output_min: [-0.05, -0.05, -0.05, -1.57, -1.57, -1.57]
+    JointVelocity:
+      kp: 0.5
+    JointImpedance:
+      kp: 50
+      damping: 1
+  interpolator_pos:
+      type: 'linear'
+      order: 1
+      max_dx: 0.2
+      ramp_ratio: 0.2
+  interpolator_ori:
+      type: 'None'
+
+object:
+  # null
+  # Comment above, and uncomment the object_dict key
+  # to disable loading objects from config.
+  object_dict:
+    object_0:
+      name:
+        '013_apple'
+      count:
+        1
+      path:
+        'objects/ycb/013_apple/google_16k/textured.urdf'
+      position: [1.5, 0, 0]
+      orientation: [0,0,0]
+      is_static: True
+      scale: 1.0
+      default_position: [0.7, 0.1, 0.03] #z  = 0.1
+  default_position: [0.7, 0.1, 0.03] #z  = 0.1
+  random:
+    randomize: False
+    position:
+      lower:
+        [0.3, -0.2, 0.1]
+      upper:
+        [0.7, 0.2, 0.1]
+
+
+# Perception and Learning
+env:
+  observation_space:
+    low:
+      [-2.0, -2.0, -2.0]
+    high:
+      [2.0, 2.0, 2.0]
+  action_space:
+    low: [-0.2, -0.2, -0.2]
+    high: [0.2, 0.2, 0.2]

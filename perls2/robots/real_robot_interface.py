@@ -97,12 +97,11 @@ class RealRobotInterface(RobotInterface):
                     -'JointTorque'
         """
         if next_type in AVAILABLE_CONTROLLERS:
-            # self.controller = self.make_controller(next_type)
             self.controlType = next_type
             self.redisClient.set(CONTROLLER_CONTROL_TYPE_KEY, next_type)
             control_config = self.config['controller']['Real'][self.controlType]
             self.redisClient.set(CONTROLLER_CONTROL_PARAMS_KEY, json.dumps(control_config))
-            print("Changing controller to {} with params: {}".format(self.controlType, control_config))
+            logging.debug("Changing controller to {} with params: {}".format(self.controlType, control_config))
 
             # Command to send
             cmd_type = CHANGE_CONTROLLER
@@ -130,7 +129,7 @@ class RealRobotInterface(RobotInterface):
                 Does not check if desired joint position appropriate dims.
                 TODO: add this check.
         """
-        self.check_controller(JOINT_IMPEDANCE)
+        self._check_controller(JOINT_IMPEDANCE)
         kwargs = {'cmd_type': SET_JOINT_POSITIONS, 'delta': None, 'set_qpos': pose}
         self.set_controller_goal(**kwargs)
 
@@ -151,11 +150,11 @@ class RealRobotInterface(RobotInterface):
                 Does not check if desired joint position appropriate dims.
                 TODO: add this check.
         """
-        self.check_controller(JOINT_IMPEDANCE)
+        self._check_controller(JOINT_IMPEDANCE)
         if delta is not None:
             if isinstance(delta, np.ndarray):
                 delta = delta.tolist()
-        self.check_controller(JOINT_IMPEDANCE)
+        self._check_controller(JOINT_IMPEDANCE)
 
         kwargs['delta'] = delta
         kwargs['cmd_type'] = SET_JOINT_DELTA
@@ -180,7 +179,7 @@ class RealRobotInterface(RobotInterface):
             that dimension.
 
         """
-        self.check_controller([EE_IMPEDANCE, EE_POSTURE])
+        self._check_controller([EE_IMPEDANCE, EE_POSTURE])
         if set_ori is not None:
             if len(set_ori) != 4:
                 raise ValueError('set_ori incorrect dimensions, should be quaternion length 4')
@@ -207,7 +206,7 @@ class RealRobotInterface(RobotInterface):
         Args: des pose (7f): [x, y , z, qx, qy, qz, w]. end effector pose as position + quaternion orientation
 
         """
-        self.check_controller([EE_IMPEDANCE, EE_POSTURE])
+        self._check_controller([EE_IMPEDANCE, EE_POSTURE])
         if not isinstance(set_pos, list):
             set_pos = set_pos.tolist()
         if not isinstance(set_ori, list):

@@ -1,5 +1,4 @@
 from perls2.controllers.ee_imp import EEImpController
-from perls2.controllers.robot_model.model import Model
 import perls2.controllers.utils.control_utils as C
 import perls2.controllers.utils.transform_utils as T
 import numpy as np

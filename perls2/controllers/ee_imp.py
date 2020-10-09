@@ -1,10 +1,7 @@
 from perls2.controllers.base_controller import Controller
-from perls2.controllers.robot_model.model import Model
 import perls2.controllers.utils.control_utils as C
 import perls2.controllers.utils.transform_utils as T
 import numpy as np
-import time
-import math
 
 
 class EEImpController(Controller):
@@ -80,8 +77,7 @@ class EEImpController(Controller):
                  interpolator_pos=None,
                  interpolator_ori=None,
                  uncouple_pos_ori=False,
-                 **kwargs,
-                 ):
+                 **kwargs):
         """ Initialize EE Impedance Controller.
 
         Args:
@@ -214,8 +210,8 @@ class EEImpController(Controller):
                 raise ValueError("invalid ori dimensions, should be quaternion.")
             else:
                 set_ori = T.quat2mat(np.array(set_ori))
-
         # Update the model.
+
         self.model.update()
 
         # If using a delta. Scale delta and set position and orientation goals.
@@ -297,17 +293,20 @@ class EEImpController(Controller):
             ori_error = C.orientation_error(desired_ori, self.model.ee_ori_mat)
         else:
             desired_ori = np.array(self.goal_ori)
+
             ori_error = C.orientation_error(desired_ori, self.model.ee_ori_mat)
 
         # Calculate desired force, torque at ee using control law and error.
         position_error = desired_pos - self.model.ee_pos
         vel_pos_error = desired_vel_pos - self.model.ee_pos_vel
-        desired_force = (np.multiply(np.array(position_error), np.array(self.kp[0:3]))
-                         + np.multiply(vel_pos_error, self.kv[0:3])) + desired_acc_pos
+        desired_force = (
+            np.multiply(np.array(position_error),
+                        np.array(self.kp[0:3])) + np.multiply(vel_pos_error, self.kv[0:3])) + desired_acc_pos
 
         vel_ori_error = desired_vel_ori - self.model.ee_ori_vel
-        desired_torque = (np.multiply(np.array(ori_error), np.array(self.kp[3:]))
-                          + np.multiply(vel_ori_error, self.kv[3:])) + desired_acc_ori
+        desired_torque = (
+            np.multiply(np.array(ori_error),
+                        np.array(self.kp[3:])) + np.multiply(vel_ori_error, self.kv[3:])) + desired_acc_ori
 
         # Calculate Operational Space mass matrix and nullspace.
         lambda_full, lambda_pos, lambda_ori, nullspace_matrix = \
@@ -316,7 +315,6 @@ class EEImpController(Controller):
                                self.model.J_pos,
                                self.model.J_ori)
 
-        # Save nullspace matrix if referenced later.
         self.nullspace_matrix = nullspace_matrix
 
         # If uncoupling position and orientation use separated lambdas.
@@ -330,6 +328,7 @@ class EEImpController(Controller):
 
         # Project torques that acheive goal into task space.
         self.torques = np.dot(self.model.J_full.T, decoupled_wrench) + self.model.torque_compensation
+
         return self.torques
 
     def reset_goal(self):
