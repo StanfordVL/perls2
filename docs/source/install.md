@@ -1,5 +1,3 @@
-Install
-*********
 # Install
 PERLS2 only supports python3.6+ for the core libraries (python 2.7 is used for interfacing to robots that use ROS.)
 PERLS2 only supports ubuntu 16.04 and later. Performance on MacOS not guaranteed.
@@ -28,4 +26,5 @@ PERLS2 only supports ubuntu 16.04 and later. Performance on MacOS not guaranteed
 
         `pip install -e .`
 
-2. For projects, in the config file change the `data_dir` key to the filepath for the perls2 data folder.
+2. Run the simple reach example.
+    `python examples/simple_reach/run_simple_reach.py`
