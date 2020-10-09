@@ -6,6 +6,7 @@ perls2's Documentation
    :maxdepth: 1
    :caption: Introduction
 
+   introduction.md
    install.md
    quickstart.md
 
@@ -15,7 +16,9 @@ perls2's Documentation
 
    environments.md
    worlds.md
+   robot_interfaces.md
    controllers.md
+   real_robot_control.md
 
 .. toctree::
    :maxdepth: 1
@@ -24,6 +27,7 @@ perls2's Documentation
    simple_reach.md
    load_objects.md
    switch_sim_real.md
+   project_template.md
 
 .. toctree::
    :maxdepth: 2
@@ -36,13 +40,11 @@ perls2's Documentation
    object_interface.rst
    camera_interface.rst
 
-.. toctree::
-   :maxdepth: 1
-   :caption: Modules
 
 .. toctree::
    :maxdepth: 1
-   :caption: Miscellaneous
+   :caption: Infrastructure
+
 
 Indices and tables
 ==================

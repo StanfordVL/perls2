@@ -12,7 +12,7 @@ python perls2/examples/simple_reach/run_simple_reach.py
 See the SimpleReachExample.md for more information.
 
 ## New project with perls2
-To create a new project with perls2, look at the project templates. You can fill these in
+To create a new project with perls2, look at the project_templates. You can fill these in
 as you need to for your project.
 
 ## Run experiments with the real robot.
