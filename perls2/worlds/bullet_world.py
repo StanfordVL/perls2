@@ -107,14 +107,16 @@ class BulletWorld(World):
             controlType=self.config['controller']['selected_type'])
 
         self.control_freq = self.config['control_freq']
+        if isinstance(self.config['sensor']['camera'], dict):
+            self.has_camera = True
+            self.camera_interface = BulletCameraInterface(
+                physics_id=self._physics_id,
+                image_height=self.config['sensor']['camera']['image']['height'],
+                image_width=self.config['sensor']['camera']['image']['width'],
+                cameraEyePosition=self.config['sensor']['camera']['extrinsics']['eye_position'],
+                cameraTargetPosition=self.config['sensor']['camera']['extrinsics']['target_position'],
+                cameraUpVector=self.config['sensor']['camera']['extrinsics']['up_vector'])
 
-        self.camera_interface = BulletCameraInterface(
-            physics_id=self._physics_id,
-            image_height=self.config['sensor']['camera']['image']['height'],
-            image_width=self.config['sensor']['camera']['image']['width'],
-            cameraEyePosition=self.config['sensor']['camera']['extrinsics']['eye_position'],
-            cameraTargetPosition=self.config['sensor']['camera']['extrinsics']['target_position'],
-            cameraUpVector=self.config['sensor']['camera']['extrinsics']['up_vector'])
 
         self._load_object_interfaces()
         self.name = name
