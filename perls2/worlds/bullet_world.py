@@ -116,12 +116,14 @@ class BulletWorld(World):
                 cameraEyePosition=self.config['sensor']['camera']['extrinsics']['eye_position'],
                 cameraTargetPosition=self.config['sensor']['camera']['extrinsics']['target_position'],
                 cameraUpVector=self.config['sensor']['camera']['extrinsics']['up_vector'])
-
+        else:
+            self.has_camera = False
 
         self._load_object_interfaces()
         self.name = name
 
-        self.ctrl_steps_per_action = int((self.config['control_freq'] / float(self.config['policy_freq'] * self.config['sim_params']['time_step'])))
+        # self.ctrl_steps_per_action = int((self.config['control_freq'] / float(self.config['policy_freq'] * self.config['sim_params']['time_step'])))
+        self.ctrl_steps_per_action = int((self.config['control_freq'] / float(self.config['policy_freq'])))
         self.is_sim = True
 
         self.step_counter = 0
@@ -271,6 +273,7 @@ class BulletWorld(World):
         """
 
         # Prepare for next step by executing action
+        #print("stepping world {}".format(self.ctrl_steps_per_action))
         for exec_steps in range(self.ctrl_steps_per_action):
             self.robot_interface.step()
             pybullet.stepSimulation(physicsClientId=self._physics_id)

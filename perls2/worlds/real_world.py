@@ -47,6 +47,8 @@ class RealWorld(World):
         if isinstance(self.config['sensor']['camera'], dict):
             self.has_camera = True
             self.camera_interface = KinectCameraInterface(self.config)
+        else:
+            self.has_camera = False
 
         self.is_sim = False
 
