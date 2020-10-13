@@ -81,11 +81,9 @@ class RobotInterface(object):
             interp_ori_cfg = config['controller']['interpolator_ori']
             if interp_ori_cfg['type'] == 'linear':
                 self.interpolator_ori = LinearOriInterpolator(
-                    max_dx=interp_ori_cfg['max_dx'],
-                    ndim=3,
                     controller_freq=self.config['control_freq'],
                     policy_freq=self.config['policy_freq'],
-                    ramp_ratio=interp_ori_cfg['ramp_ratio'])
+                    fraction=interp_ori_cfg['fraction'])
 
     def update(self):
         """Update robot interface model with states for controller.
