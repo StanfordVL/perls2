@@ -7,7 +7,8 @@ ROBOT_CMD_TYPE_KEY = ROBOT_KEY + "cmd_type"
 ROBOT_ENV_CONN_KEY = ROBOT_KEY + "env_connected"
 ROBOT_CMD_TSTAMP_KEY = ROBOT_KEY + "cmd_tstamp"
 ROBOT_LAST_CMD_TSTAMP = ROBOT_KEY + "last_cmd_tstamp"
-ROBOT_SET_GRIPPER_CMD = ROBOT_KEY + "set_gripper_value"
+ROBOT_SET_GRIPPER_CMD_KEY = ROBOT_KEY + "set_gripper_value"
+ROBOT_SET_GRIPPER_CMD_TSTAMP_KEY = ROBOT_KEY + "set_gripper_cmd_tstamp"
 
 STATE_KEY = "proprio::"
 ROBOT_STATE_KEY =  ROBOT_KEY + STATE_KEY

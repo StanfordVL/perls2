@@ -209,8 +209,10 @@ class SawyerCtrlInterface(RobotInterface):
         self.controller = self.make_controller_from_redis(self.controlType, self.control_dict)
 
         self.redisClient.set(ROBOT_CMD_TSTAMP_KEY, time.time())
-        self.redisClient.set(ROBOT_SET_GRIPPER_KEY, 1.0)
+        self.redisClient.set(ROBOT_SET_GRIPPER_CMD_KEY, 0.1)
+        self.redisClient.set(ROBOT_SET_GRIPPER_CMD_TSTAMP_KEY, time.time())
         self.last_cmd_tstamp = self.get_cmd_tstamp()
+        self.last_gripper_cmd_tstamp = self.get_gripper_cmd_tstamp()
         rospy.logdebug('Control Interface initialized')
 
         # TIMING TEST ONLY
@@ -928,6 +930,7 @@ class SawyerCtrlInterface(RobotInterface):
         :param openning: a float between 0 (closed) and 1 (open).
         :return: None
         """
+
         if self._has_gripper:
             scaled_pos = value * self._gripper.MAX_POSITION
             self._gripper.set_position(scaled_pos)
@@ -948,7 +951,7 @@ class SawyerCtrlInterface(RobotInterface):
 
     @property
     def des_gripper_state(self):
-        return self.redisClient.get(ROBOT_SET_GRIPPER_KEY)
+        return float(self.redisClient.get(ROBOT_SET_GRIPPER_CMD_KEY))
 
     @property
     def controller_goal(self):
@@ -961,6 +964,9 @@ class SawyerCtrlInterface(RobotInterface):
     @controlType.setter
     def controlType(self, new_type):
         self._controlType = new_type
+
+    def get_gripper_cmd_tstamp(self):
+        return self.redisClient.get(ROBOT_SET_GRIPPER_CMD_TSTAMP_KEY)
 
     def get_cmd_tstamp(self):
         return self.redisClient.get(ROBOT_CMD_TSTAMP_KEY)
@@ -992,7 +998,20 @@ class SawyerCtrlInterface(RobotInterface):
                 self.get_controller_params())
         else:
             rospy.logwarn("Unknown command: {}".format(cmd_type))
+    
+    def check_for_new_gripper_cmd(self):
+        gripper_cmd_tstamp = self.get_cmd_tstamp()
+        if self.last_gripper_cmd_tstamp is None or (self.last_gripper_cmd_tstamp != cmd_tstamp):
+            self.last_gripper_cmd_tstamp = cmd_tstamp
+            return True
+        else:
+            return False
+
+    def process_gripper_cmd(self):
+        """Process the new gripper command by setting gripper state.
+        """
         self.set_gripper_to_value(self.des_gripper_state)
+
 
     def check_for_new_cmd(self):
         cmd_tstamp = self.get_cmd_tstamp()
@@ -1012,6 +1031,8 @@ class SawyerCtrlInterface(RobotInterface):
             if (self.env_connected == b'True'):
                 if self.check_for_new_cmd():
                     self.process_cmd(self.cmd_type)
+                if self.check_for_new_gripper_cmd():
+                    self.process_gripper_cmd()
                 self.step(start)
             else:
                 break
