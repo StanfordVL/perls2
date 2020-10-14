@@ -33,7 +33,9 @@ class RedisInterface():
                         'port': self.port}
 
         if password is not None:
-            setup_kwargs['password'] = password
+            with open(password, 'r') as pw_file:
+                pw = pw_file.read()
+                setup_kwargs['password'] = pw
 
         # Connect to redis server.
         self._client = redis.Redis(**setup_kwargs)
