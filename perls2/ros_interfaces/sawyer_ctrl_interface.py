@@ -209,6 +209,7 @@ class SawyerCtrlInterface(RobotInterface):
         self.controller = self.make_controller_from_redis(self.controlType, self.control_dict)
 
         self.redisClient.set(ROBOT_CMD_TSTAMP_KEY, time.time())
+        self.redisClient.set(ROBOT_SET_GRIPPER_KEY, 1.0)
         self.last_cmd_tstamp = self.get_cmd_tstamp()
         rospy.logdebug('Control Interface initialized')
 
@@ -219,6 +220,7 @@ class SawyerCtrlInterface(RobotInterface):
         self.controller_times = []
         self.loop_times = []
         self.cmd_end_time = []
+
 
     def make_controller_from_redis(self, control_type, controller_dict):
         print("Making controller {} with params: {}".format(control_type, controller_dict))
@@ -904,20 +906,31 @@ class SawyerCtrlInterface(RobotInterface):
         """
         self._limb.set_joint_position_speed(factor)
 
-    def open_gripper(self):
-        """Open the gripper.
-        """
-        raise NotImplementedError
-
     def close_gripper(self):
-        """Close gripper
         """
-        raise NotImplementedError
+        Close the gripper of the robot
+        :return: None
+        """
+        if self._has_gripper:
+            self._gripper.close()
+
+    def open_gripper(self):
+        """
+        Open the gripper of the robot
+        :return: None
+        """
+        if self._has_gripper:
+            self._gripper.open()
 
     def set_gripper_to_value(self, value):
-        """Set gripper to open/closed value
         """
-        raise NotImplementedError
+        Set the gripper grasping opening state
+        :param openning: a float between 0 (closed) and 1 (open).
+        :return: None
+        """
+        if self._has_gripper:
+            scaled_pos = value * self._gripper.MAX_POSITION
+            self._gripper.set_position(scaled_pos)
 
 # ### REDIS / CONTROL INTERFACE SPECIFIC ATTRIBUTES AND FUNCTIONS #############
 
@@ -932,6 +945,10 @@ class SawyerCtrlInterface(RobotInterface):
         """ Redis key identifying the type of command robot should execute
         """
         return self.redisClient.get(ROBOT_CMD_TYPE_KEY)
+
+    @property
+    def des_gripper_state(self):
+        return self.redisClient.get(ROBOT_SET_GRIPPER_KEY)
 
     @property
     def controller_goal(self):
@@ -975,6 +992,7 @@ class SawyerCtrlInterface(RobotInterface):
                 self.get_controller_params())
         else:
             rospy.logwarn("Unknown command: {}".format(cmd_type))
+        self.set_gripper_to_value(self.des_gripper_state)
 
     def check_for_new_cmd(self):
         cmd_tstamp = self.get_cmd_tstamp()
