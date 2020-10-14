@@ -85,7 +85,8 @@ class Env(gym.Env):
         # Environment access the following attributes of the world directly.
         self.arena = self.world.arena
         self.robot_interface = self.world.robot_interface
-        self.camera_interface = self.world.camera_interface
+        if self.world.has_camera:
+            self.camera_interface = self.world.camera_interface
 
         self.has_objects = isinstance(self.config['object'], dict)
 
