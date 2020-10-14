@@ -92,7 +92,12 @@ class RobotRedisInterface(RedisInterface):
             redis_dict (string): raw string value from Redis.get
         """
         # convert to string from bytearray
-        redis_dict = str(redis_dict, 'utf-8')
+        try:
+            redis_dict = redis_dict.decode()
+        except (UnicodeDecodeError, AttributeError):
+            pass
+
+        # redis_dict = str(redis_dict, 'utf-8')
         # Convert single quotations to double quotes.
         # since the keys that use dicts always have numeric values this works.
         redis_dict = redis_dict.replace("'", "\"")
