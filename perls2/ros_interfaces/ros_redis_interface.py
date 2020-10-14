@@ -31,8 +31,8 @@ def on_joint_states(msg):
         ROBOT_MODEL_MASS_MATRIX_KEY: str(np.zeros((7,7)))
     }
     redisClient.mset(robot_state)   
-    
-print("Initializign ros redis interface.")
+
+print("Initializing ros redis interface.")
 rospy.init_node("ros_redis_interface")
 _limb = iif.Limb(limb="right", synchronous_pub=False)
 
@@ -54,5 +54,5 @@ _joint_state_sub = rospy.Subscriber(
     queue_size=1,
     tcp_nodelay=True)
 
-
+print("Running ROS Redis interface.")
 rospy.spin()
