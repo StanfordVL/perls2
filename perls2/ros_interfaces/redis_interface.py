@@ -33,7 +33,9 @@ class RedisInterface():
                         'port': self.port}
 
         if password is not None:
-            setup_kwargs['password'] = password
+            with open(password, 'r') as pw_file:
+                pw = pw_file.read()
+                setup_kwargs['password'] = pw
 
         # Connect to redis server.
         self._client = redis.Redis(**setup_kwargs)
@@ -77,10 +79,45 @@ class RobotRedisInterface(RedisInterface):
             arg:
                 key (str): redis key storing json dict
         """
+        redis_json_dict = self._client.get(key)
+        json_dict = self._make_valid_json_dict(redis_json_dict)
 
-        return json.loads(self._client.get(key))
+        return json.loads(json_dict)
+
+    def _make_valid_json_dict(self, redis_dict):
+        """ Helper function to convert redis dicts to json
+
+        Redis in python 3+ converts keys from "keys": ... to
+        'keys': ...., which is not valid json. This function fixes it.
+
+        Args:
+            redis_dict (string): raw string value from Redis.get
+        """
+        # convert to string from bytearray
+        try:
+            redis_dict = redis_dict.decode()
+        except (UnicodeDecodeError, AttributeError):
+            pass
+
+        # redis_dict = str(redis_dict, 'utf-8')
+        # Convert single quotations to double quotes.
+        # since the keys that use dicts always have numeric values this works.
+        redis_dict = redis_dict.replace("'", "\"")
+        return redis_dict
+
+
 
     def get_dict(self, key):
+        """Get dict from redis
+
+        Args:
+            key (str): redis key to query.
+
+        Returns:
+            redis_dict (dict): value of redis key as a dict.
+
+        """
+
         return self._get_key_json(key)
 
     def get(self, key):

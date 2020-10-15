@@ -85,7 +85,8 @@ class Env(gym.Env):
         # Environment access the following attributes of the world directly.
         self.arena = self.world.arena
         self.robot_interface = self.world.robot_interface
-        self.camera_interface = self.world.camera_interface
+        if self.world.has_camera:
+            self.camera_interface = self.world.camera_interface
 
         self.has_objects = isinstance(self.config['object'], dict)
 
@@ -95,16 +96,29 @@ class Env(gym.Env):
 
         # Set observation space using gym spaces
         #    - Box for continuous, Discrete for discrete
-        self.observation_space = spaces.Box(
-            low=np.array(self.config['env']['observation_space']['low']),
-            high=np.array(self.config['env']['observation_space']['high']),
-            dtype=np.float32)
+        if 'env' in self.config:
+            if 'observation_space' in self.config['env']:
+                self.observation_space = spaces.Box(
+                    low=np.array(self.config['env']['observation_space']['low']),
+                    high=np.array(self.config['env']['observation_space']['high']),
+                    dtype=np.float32)
+            else:
+                self.observation_space = spaces.Box(
+                    low=np.array([0]*3),
+                    high=np.array([1]*3),
+                    dtype=np.float32)
         # Set action space using gym spaces.
-        self.action_space = spaces.Box(
-            low=np.array(self.config['env']['action_space']['low']),
-            high=np.array(self.config['env']['action_space']['high']),
-            dtype=np.float32)
-
+        if 'env' in self.config:
+            if 'action_space' in self.config['env']:
+                self.action_space = spaces.Box(
+                    low=np.array(self.config['env']['action_space']['low']),
+                    high=np.array(self.config['env']['action_space']['high']),
+                    dtype=np.float32)
+            else:
+                self.action_space = spaces.Box(
+                    low=np.array([-1.0]*3),
+                    high=np.array([1.0]*3),
+                    dtype=np.float32)
         # Real worlds use pybullet for IK and robot control.
         if (self.config['world']['type'] == 'Bullet'):
             self._physics_id = self.world._physics_id

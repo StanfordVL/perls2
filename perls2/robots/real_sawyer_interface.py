@@ -47,6 +47,7 @@ class RealSawyerInterface(RealRobotInterface):
         # setup a new one.
         self.neutral_joint_angles = self.robot_cfg['neutral_joint_angles']
         self.RESET_TIMEOUT = 15       # Wait 3 seconds for reset to complete.
+        self.GRIPPER_MAX_CLOSED = 1.0
         self.set_controller_params_from_config()
         self.connect()
 
@@ -203,11 +204,11 @@ class RealSawyerInterface(RealRobotInterface):
         Typically the order goes from base to end effector.
         """
         dq_dict = self.redisClient.get_dict(ROBOT_STATE_DQ_KEY)
-
         dq = []
-        for limb_name in self.config['sawyer']['limb_joint_names']:
-            dq.append(dq_dict[limb_name])
-
+        if isinstance(dq_dict, dict):
+            for limb_name in self.config['sawyer']['limb_joint_names']:
+                dq.append(dq_dict[limb_name])
+        dq = dq_dict
         return dq
 
     @property
@@ -278,14 +279,18 @@ class RealSawyerInterface(RealRobotInterface):
     def open_gripper(self):
         """Open Robot gripper
         """
-        raise NotImplementedError
+        self.set_gripper_to_value(0.99)
 
     def close_gripper(self):
         """ Close robot gripper.
         """
-        raise NotImplementedError
+        self.set_gripper_to_value(0.1)
 
     def set_gripper_to_value(self, value):
         """Set gripper to desired value
         """
-        raise NotImplementedError
+        if (value > 1.0 or value < 0):
+            raise ValueError("Invalid gripper value must be fraction between 0 and 1")
+
+        self.redisClient.set(ROBOT_SET_GRIPPER_CMD_KEY, (value * self.GRIPPER_MAX_CLOSED))
+        self.redisClient.set(ROBOT_SET_GRIPPER_CMD_TSTAMP_KEY, time.time())

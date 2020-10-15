@@ -13,7 +13,7 @@ real_params:
 redis:
   host: c3po-ctrl.stanford.edu
   port: 6379
-  password: "tarsbendervisiongoddardr2d2sawyerbb8"
+  password: "/home/robot/redis_pw.txt"
 
 # redis:
 #   host: localhost
@@ -158,7 +158,8 @@ controller:
       max_dx: 0.2
       ramp_ratio: 0.2
   interpolator_ori:
-      type: 'None' #'linear'
+      type: 'linear'
+      fraction: 0.2
     # max_dx: 0.01
     # ramp_ratio: 0.2
 
