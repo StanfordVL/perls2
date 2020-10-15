@@ -44,9 +44,11 @@ class RealWorld(World):
         self.robot_interface = RealRobotInterface.create(
             config=self.config,
             controlType=self.config['controller']['selected_type'])
-        if isinstance(self.config['sensor']['camera'], dict):
-            self.has_camera = True
-            self.camera_interface = KinectCameraInterface(self.config)
+
+        if 'sensor' in self.config:
+            if 'camera' in self.config['sensor']
+                self.has_camera = True
+                self.camera_interface = KinectCameraInterface(self.config)
         else:
             self.has_camera = False
 

@@ -176,7 +176,7 @@ class SawyerCtrlInterface(RobotInterface):
         rospy.loginfo('Sawyer initialization finished after {} seconds'.format(time.time() - start))
 
         # Set desired pose to initial
-        self.neutral_joint_position = [0, -1.18, 0.00, 2.18, 0.00, 0.57, 3.3161]
+        self.neutral_joint_position = self.config['sawyer']['neutral_joint_angles'] #[0, -1.18, 0.00, 2.18, 0.00, 0.57, 3.3161]
 
         self.prev_cmd = np.asarray(self.neutral_joint_position)
         self.current_cmd = self.prev_cmd
@@ -209,7 +209,11 @@ class SawyerCtrlInterface(RobotInterface):
         self.controller = self.make_controller_from_redis(self.controlType, self.control_dict)
 
         self.redisClient.set(ROBOT_CMD_TSTAMP_KEY, time.time())
+        self.redisClient.set(ROBOT_SET_GRIPPER_CMD_KEY, 0.1)
+        self.redisClient.set(ROBOT_SET_GRIPPER_CMD_TSTAMP_KEY, time.time())
         self.last_cmd_tstamp = self.get_cmd_tstamp()
+        self.last_gripper_cmd_tstamp = self.get_gripper_cmd_tstamp()
+        self.prev_gripper_state = self.des_gripper_state
         rospy.logdebug('Control Interface initialized')
 
         # TIMING TEST ONLY
@@ -219,6 +223,7 @@ class SawyerCtrlInterface(RobotInterface):
         self.controller_times = []
         self.loop_times = []
         self.cmd_end_time = []
+
 
     def make_controller_from_redis(self, control_type, controller_dict):
         print("Making controller {} with params: {}".format(control_type, controller_dict))
@@ -295,7 +300,7 @@ class SawyerCtrlInterface(RobotInterface):
         self.redisClient.set(ROBOT_RESET_COMPL_KEY, 'False')
         rospy.loginfo("Resetting to neutral")
         self.goto_q(self.neutral_joint_position, max_joint_speed_ratio=0.2)
-
+        self.set_gripper_to_value(1.0)
         self.redisClient.set(ROBOT_RESET_COMPL_KEY, 'True')
         rospy.loginfo("reset complete")
 
@@ -648,8 +653,10 @@ class SawyerCtrlInterface(RobotInterface):
         if self.action_set:
             torques = self.controller.run_controller()
             # self.set_torques([0]*7)
-            torques = np.clip(torques, -5.0, 5.0)
 
+            torques = np.clip(torques, -5.0, 5.0)
+            print("Torques {}".format(torques))
+            
             self.set_torques(torques)
 
             while (time.time() - start < LOOP_TIME):
@@ -904,20 +911,32 @@ class SawyerCtrlInterface(RobotInterface):
         """
         self._limb.set_joint_position_speed(factor)
 
-    def open_gripper(self):
-        """Open the gripper.
-        """
-        raise NotImplementedError
-
     def close_gripper(self):
-        """Close gripper
         """
-        raise NotImplementedError
+        Close the gripper of the robot
+        :return: None
+        """
+        if self._has_gripper:
+            self._gripper.close()
+
+    def open_gripper(self):
+        """
+        Open the gripper of the robot
+        :return: None
+        """
+        if self._has_gripper:
+            self._gripper.open()
 
     def set_gripper_to_value(self, value):
-        """Set gripper to open/closed value
         """
-        raise NotImplementedError
+        Set the gripper grasping opening state
+        :param openning: a float between 0 (closed) and 1 (open).
+        :return: None
+        """
+
+        if self._has_gripper:
+            scaled_pos = value * self._gripper.MAX_POSITION
+            self._gripper.set_position(scaled_pos)
 
 # ### REDIS / CONTROL INTERFACE SPECIFIC ATTRIBUTES AND FUNCTIONS #############
 
@@ -934,6 +953,10 @@ class SawyerCtrlInterface(RobotInterface):
         return self.redisClient.get(ROBOT_CMD_TYPE_KEY)
 
     @property
+    def des_gripper_state(self):
+        return float(self.redisClient.get(ROBOT_SET_GRIPPER_CMD_KEY))
+
+    @property
     def controller_goal(self):
         return self.redisClient.get(CONTROLLER_GOAL_KEY)
 
@@ -944,6 +967,9 @@ class SawyerCtrlInterface(RobotInterface):
     @controlType.setter
     def controlType(self, new_type):
         self._controlType = new_type
+
+    def get_gripper_cmd_tstamp(self):
+        return self.redisClient.get(ROBOT_SET_GRIPPER_CMD_TSTAMP_KEY)
 
     def get_cmd_tstamp(self):
         return self.redisClient.get(ROBOT_CMD_TSTAMP_KEY)
@@ -975,6 +1001,27 @@ class SawyerCtrlInterface(RobotInterface):
                 self.get_controller_params())
         else:
             rospy.logwarn("Unknown command: {}".format(cmd_type))
+    
+    def check_for_new_gripper_cmd(self):
+        gripper_cmd_tstamp = self.get_gripper_cmd_tstamp()
+        if self.last_gripper_cmd_tstamp is None or (self.last_gripper_cmd_tstamp != gripper_cmd_tstamp):
+            self.last_gripper_cmd_tstamp = gripper_cmd_tstamp
+            return True
+        else:
+            return False
+
+    def process_gripper_cmd(self):
+        """Process the new gripper command by setting gripper state.
+
+        Only send gripper command if current gripper open fraction is not
+        equal to desired gripper open fraction.
+        """
+        if self.prev_gripper_state != self.des_gripper_state:
+            self.set_gripper_to_value(self.des_gripper_state)
+            self.prev_gripper_state = self.des_gripper_state
+        else:
+            pass
+
 
     def check_for_new_cmd(self):
         cmd_tstamp = self.get_cmd_tstamp()
@@ -994,6 +1041,8 @@ class SawyerCtrlInterface(RobotInterface):
             if (self.env_connected == b'True'):
                 if self.check_for_new_cmd():
                     self.process_cmd(self.cmd_type)
+                if self.check_for_new_gripper_cmd():
+                    self.process_gripper_cmd()
                 self.step(start)
             else:
                 break

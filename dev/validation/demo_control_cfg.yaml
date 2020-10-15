@@ -13,7 +13,7 @@ real_params:
 redis:
   host: c3po-ctrl.stanford.edu
   port: 6379
-  password: "tarsbendervisiongoddardr2d2sawyerbb8"
+  password: "/home/robot/redis_pw.txt"
 
 # redis:
 #   host: localhost
