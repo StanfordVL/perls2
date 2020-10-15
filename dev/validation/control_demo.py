@@ -354,9 +354,9 @@ class OpSpaceDemo(Demo):
         self.path_length = path_length
         self.num_steps = num_steps
         if delta_val is None:
-            self.delta_val = self.path_length / self.num_steps
-        else:
-            self.delta_val = delta_val
+            if self.path_length is not None:
+                self.delta_val = self.path_length / self.num_steps
+        self.delta_val = delta_val
 
         self.goal_poses = self.get_goal_poses()
         self.goal_states = self.get_goal_states()
