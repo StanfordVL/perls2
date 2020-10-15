@@ -213,6 +213,7 @@ class SawyerCtrlInterface(RobotInterface):
         self.redisClient.set(ROBOT_SET_GRIPPER_CMD_TSTAMP_KEY, time.time())
         self.last_cmd_tstamp = self.get_cmd_tstamp()
         self.last_gripper_cmd_tstamp = self.get_gripper_cmd_tstamp()
+        self.prev_gripper_state = self.des_gripper_state
         rospy.logdebug('Control Interface initialized')
 
         # TIMING TEST ONLY
@@ -299,7 +300,7 @@ class SawyerCtrlInterface(RobotInterface):
         self.redisClient.set(ROBOT_RESET_COMPL_KEY, 'False')
         rospy.loginfo("Resetting to neutral")
         self.goto_q(self.neutral_joint_position, max_joint_speed_ratio=0.2)
-
+        self.set_gripper_to_value(1.0)
         self.redisClient.set(ROBOT_RESET_COMPL_KEY, 'True')
         rospy.loginfo("reset complete")
 
@@ -652,8 +653,10 @@ class SawyerCtrlInterface(RobotInterface):
         if self.action_set:
             torques = self.controller.run_controller()
             # self.set_torques([0]*7)
-            torques = np.clip(torques, -5.0, 5.0)
 
+            torques = np.clip(torques, -5.0, 5.0)
+            print("Torques {}".format(torques))
+            
             self.set_torques(torques)
 
             while (time.time() - start < LOOP_TIME):
@@ -1000,17 +1003,24 @@ class SawyerCtrlInterface(RobotInterface):
             rospy.logwarn("Unknown command: {}".format(cmd_type))
     
     def check_for_new_gripper_cmd(self):
-        gripper_cmd_tstamp = self.get_cmd_tstamp()
-        if self.last_gripper_cmd_tstamp is None or (self.last_gripper_cmd_tstamp != cmd_tstamp):
-            self.last_gripper_cmd_tstamp = cmd_tstamp
+        gripper_cmd_tstamp = self.get_gripper_cmd_tstamp()
+        if self.last_gripper_cmd_tstamp is None or (self.last_gripper_cmd_tstamp != gripper_cmd_tstamp):
+            self.last_gripper_cmd_tstamp = gripper_cmd_tstamp
             return True
         else:
             return False
 
     def process_gripper_cmd(self):
         """Process the new gripper command by setting gripper state.
+
+        Only send gripper command if current gripper open fraction is not
+        equal to desired gripper open fraction.
         """
-        self.set_gripper_to_value(self.des_gripper_state)
+        if self.prev_gripper_state != self.des_gripper_state:
+            self.set_gripper_to_value(self.des_gripper_state)
+            self.prev_gripper_state = self.des_gripper_state
+        else:
+            pass
 
 
     def check_for_new_cmd(self):
