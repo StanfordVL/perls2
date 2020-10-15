@@ -367,11 +367,7 @@ class BulletRobotInterface(RobotInterface):
         r_finger_index = self.get_link_id_from_name(
             self.robot_cfg['r_finger_name'])
 
-        gripper_q = self._q_full
-        gripper_q[l_finger_index] = l_finger_position
-        gripper_q[r_finger_index] = r_finger_position
-
-        gripper_des_q = [gripper_q[l_finger_index], gripper_q[r_finger_index]]
+        gripper_des_q = [l_finger_position, r_finger_position]
         gripper_indices = [l_finger_index, r_finger_index]
 
         pybullet.setJointMotorControlArray(
@@ -717,9 +713,11 @@ class BulletRobotInterface(RobotInterface):
             physicsClientId=self._physics_id)
 
         kwargs = dict()
+        kwargs['bodyIndex'] = self._arm_id
         kwargs['physicsClientId'] = self._physics_id
+        kwargs['jointIndices'] = range(len(target_joint_position))
         kwargs['controlMode'] = pybullet.POSITION_CONTROL
-        kwargs['targetPosition'] = target_joint_position
+        kwargs['targetPositions'] = target_joint_position
 
         if target_velocity is not None:
             kwargs['targetVelocities'] = target_velocity
