@@ -96,10 +96,17 @@ class Env(gym.Env):
 
         # Set observation space using gym spaces
         #    - Box for continuous, Discrete for discrete
-        self.observation_space = spaces.Box(
-            low=np.array(self.config['env']['observation_space']['low']),
-            high=np.array(self.config['env']['observation_space']['high']),
-            dtype=np.float32)
+        if 'env' in self.config:
+            if 'observation_space' in self.config['env']:
+                self.observation_space = spaces.Box(
+                    low=np.array(self.config['env']['observation_space']['low']),
+                    high=np.array(self.config['env']['observation_space']['high']),
+                    dtype=np.float32)
+            else:
+                self.observation_space = spaces.Box(
+                    low=np.array([0]*3),
+                    high=np.array([1]*3),
+                    dtype=np.float32)
         # Set action space using gym spaces.
         self.action_space = spaces.Box(
             low=np.array(self.config['env']['action_space']['low']),
