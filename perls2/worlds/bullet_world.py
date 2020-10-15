@@ -94,9 +94,19 @@ class BulletWorld(World):
         self._time_step = self.config['sim_params']['time_step']
 
         self.set_pb_physics()
+        # check if config has camera.
+        self.has_camera = False
+        if 'sensor' in self.config:
+            if 'camera' in self.config['sensor']:
+                self.has_camera = True
+
+        self.has_object = False
+        # check if config has objects.
+        if 'object' in self.config:
+            self.has_object = True
 
         # Create an arena to load robot and objects
-        self.arena = BulletArena(self.config, self._physics_id)
+        self.arena = BulletArena(self.config, self._physics_id, has_camera=self.has_camera)
 
         self.controller_dict = self.config['controller']['Bullet']
 
@@ -107,8 +117,7 @@ class BulletWorld(World):
             controlType=self.config['controller']['selected_type'])
 
         self.control_freq = self.config['control_freq']
-        if isinstance(self.config['sensor']['camera'], dict):
-            self.has_camera = True
+        if self.has_camera:
             self.camera_interface = BulletCameraInterface(
                 physics_id=self._physics_id,
                 image_height=self.config['sensor']['camera']['image']['height'],
@@ -116,8 +125,7 @@ class BulletWorld(World):
                 cameraEyePosition=self.config['sensor']['camera']['extrinsics']['eye_position'],
                 cameraTargetPosition=self.config['sensor']['camera']['extrinsics']['target_position'],
                 cameraUpVector=self.config['sensor']['camera']['extrinsics']['up_vector'])
-        else:
-            self.has_camera = False
+
 
         self._load_object_interfaces()
         self.name = name

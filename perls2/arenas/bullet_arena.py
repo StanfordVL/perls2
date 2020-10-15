@@ -17,7 +17,8 @@ class BulletArena(Arena):
 
     def __init__(self,
                  config,
-                 physics_id):
+                 physics_id,
+                 has_camera):
         """ Initialization function.
 
             Gets parameters from configuration file for managing experimental
@@ -25,6 +26,8 @@ class BulletArena(Arena):
             camera extrinsic/intrinsics, object placement.
         Args:
             config (dict): A dict with config parameters
+            physics_id (int): unique id for pybullet physics simulation.
+            has_camera (bool): if config has camera parameter.
 
         Returns:
             None
@@ -43,25 +46,26 @@ class BulletArena(Arena):
         self._bodies_pbid_dict = {}
         self._objects_dict = {}
         self.robot_type = self.config['world']['robot']
+        self.has_camera = has_camera
+        if self.has_camera:
+            # initialize view matrix
+            self._view_matrix = pybullet.computeViewMatrix(
+                cameraEyePosition=self.camera_eye_pos,
+                cameraTargetPosition=self.camera_target_pos,
+                cameraUpVector=self.camera_up_vector)
 
-        # initialize view matrix
-        self._view_matrix = pybullet.computeViewMatrix(
-            cameraEyePosition=self.camera_eye_pos,
-            cameraTargetPosition=self.camera_target_pos,
-            cameraUpVector=self.camera_up_vector)
+            self._random_view_matrix = self._view_matrix
 
-        self._random_view_matrix = self._view_matrix
+            # Initialize projection matrix
+            self._projection_matrix = pybullet.computeProjectionMatrixFOV(
+                fov=self.fov,
+                aspect=float(self.image_width) / float(self.image_height),
+                nearVal=self.near_plane,
+                farVal=self.far_plane)
 
-        # Initialize projection matrix
-        self._projection_matrix = pybullet.computeProjectionMatrixFOV(
-            fov=self.fov,
-            aspect=float(self.image_width) / float(self.image_height),
-            nearVal=self.near_plane,
-            farVal=self.far_plane)
-
-        self._random_projection_matrix = self._projection_matrix
-        self._randomize_on = (
-            self.config['sensor']['camera']['random']['randomize'])
+            self._random_projection_matrix = self._projection_matrix
+            self._randomize_on = (
+                self.config['sensor']['camera']['random']['randomize'])
 
         # Load URDFs to set up simulation environment.
         logging.debug("Bullet Arena Created")
