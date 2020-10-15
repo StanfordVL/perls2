@@ -48,6 +48,22 @@ class BulletPandaInterface(BulletRobotInterface):
     def disconnect(self):
         pass
 
+    def open_gripper(self):
+        """Open the gripper of the robot
+        """
+        if 'gripper' in self.config:
+            self.set_gripper_to_value(self.config['gripper']['open_value'])
+        else:
+            self.set_gripper_to_value(0.99)
+
+    def close_gripper(self):
+        """Open the gripper of the robot
+        """
+        if 'gripper' in self.config:
+            self.set_gripper_to_value(self.config['gripper']['close_value'])
+        else:
+            self.set_gripper_to_value(0.1)
+
     def set_gripper_to_value(self, value):
         """Open/Close the gripper of the robot to fractional value.
 
@@ -70,6 +86,7 @@ class BulletPandaInterface(BulletRobotInterface):
             r_finger_joint_limits.get('upper') - r_finger_joint_limits.get('lower'))
 
         # Determine the joint position by clipping to upper limit.
+        # This part is different from the sawyer and bullet_robot_interface implementation.
         l_finger_position = (
             l_finger_joint_limits.get('lower') + value * l_finger_joint_range)
 
@@ -82,15 +99,13 @@ class BulletPandaInterface(BulletRobotInterface):
         r_finger_index = self.get_link_id_from_name(
             self.robot_cfg['r_finger_name'])
 
-        gripper_q = self.q
-        gripper_q[l_finger_index] = l_finger_position
-        gripper_q[r_finger_index] = r_finger_position
 
-        gripper_des_q = [gripper_q[l_finger_index], gripper_q[r_finger_index]]
+        gripper_des_q = [l_finger_position, r_finger_position]
         gripper_indices = [l_finger_index, r_finger_index]
 
         pybullet.setJointMotorControlArray(
             bodyUniqueId=self._arm_id,
             jointIndices=gripper_indices,
             controlMode=pybullet.POSITION_CONTROL,
-            targetPositions=gripper_des_q)
+            targetPositions=gripper_des_q,
+            physicsClientId=self._physics_id)
