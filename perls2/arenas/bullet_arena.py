@@ -69,13 +69,16 @@ class BulletArena(Arena):
 
         # Load URDFs to set up simulation environment.
         logging.debug("Bullet Arena Created")
-        self.plane_id = self.load_urdf('ground', self.perls2_data_dir)#self.load_ground()
+        if 'ground' in self.config:
+            self.plane_id = self.load_urdf('ground', self.perls2_data_dir)#self.load_ground()
         logging.debug("ground loaded")
         (self.arm_id, self.base_id) = self.load_robot()
         logging.debug("Robot loaded")
         self.reset_robot_to_neutral()
-        self.load_scene_objects()
-        self.load_objects_from_config()
+        if 'scene_objects' in self.config:
+            self.load_scene_objects()
+        if 'object' in self.config:
+            self.load_objects_from_config()
 
     def reload(self):
         """ Reload all scene objects, objects and robots.
