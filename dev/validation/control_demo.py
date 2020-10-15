@@ -388,7 +388,7 @@ class OpSpaceDemo(Demo):
             self.errors.append(
                 self.compute_error(goal_pose, new_state))
             #input("Press Enter to continue")
-
+        self.env.robot_interface.reset()
         self.env.robot_interface.disconnect()
         if self.plot_error:
             self.plot_errors()
