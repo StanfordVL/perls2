@@ -171,6 +171,22 @@ class KinectCameraInterface(CameraInterface):
 
         return image_dict
 
+    def frames_rgb(self):
+        """Get frames from redis db.
+
+        Params:
+            None
+        Returns:
+            image_dict (dict): dict with key 'rgb' assigned to np.ndarray
+        """
+        encoded_rgb = self.redisClient.get('camera::rgb_frame')
+
+        rgb_timestamp = self.redisClient.get('camera:rgb_timestamp')
+        rgb_np = convert_encoded_frame_to_np(
+            encoded_rgb, KinectCameraInterface.RGB_DIM)
+        image_dict = {}
+        image_dict['rgb'] = rgb_np
+        return image_dict
     def disconnect(self):
         """ Set redis key to disconnect interface"""
         self.redisClient.set('camera::interface_connected', 'False')
@@ -194,7 +210,8 @@ if __name__ == '__main__':
     timing_data = []
 
     input("Press Enter to continue...")
-    for sample in range(5000):
+    #for sample in range(5000):
+    while camera.redisClient.get('camera::stream_enabled') == 'True':
         # save rgb timestamp to compare
         start = time.time()
 
@@ -203,7 +220,7 @@ if __name__ == '__main__':
                     'camera::rgb_timestamp')):
             pass
 
-            while ((time.time() - start) < 0.001):
+            while ((time.time() - start) < 0.01):
                 pass
                 # wait to make it 100Hz
                 # camera.display()
