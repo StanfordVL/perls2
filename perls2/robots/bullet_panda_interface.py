@@ -48,6 +48,14 @@ class BulletPandaInterface(BulletRobotInterface):
     def disconnect(self):
         pass
 
+    @property
+    def grasp_target_pos(self):
+        """ Special getter for panda grasp target link position.
+
+        Useful for grasping
+        """
+        return pybullet.getLinkState(self._arm_id, self.get_link_id_from_name('panda_grasptarget'))[0]
+
     def open_gripper(self):
         """Open the gripper of the robot
         """
