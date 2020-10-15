@@ -133,6 +133,7 @@ if __name__ == '__main__':
                         help="fix orientation for move_ee_delta")
     parser.add_argument('--fix_pos', action="store_true",
                         help="fix position for move_ee_delta")
+    parser.add_argument('--config_file', default='dev/validation/demo_control_cfg.yaml', help='absolute filepath for config file.')
     args = parser.parse_args()
     kwargs = vars(args)
     tester = ControllerTester(**kwargs)

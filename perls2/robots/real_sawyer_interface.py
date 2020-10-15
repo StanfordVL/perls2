@@ -204,11 +204,11 @@ class RealSawyerInterface(RealRobotInterface):
         Typically the order goes from base to end effector.
         """
         dq_dict = self.redisClient.get_dict(ROBOT_STATE_DQ_KEY)
-
         dq = []
-        for limb_name in self.config['sawyer']['limb_joint_names']:
-            dq.append(dq_dict[limb_name])
-
+        if isinstance(dq_dict, dict):
+            for limb_name in self.config['sawyer']['limb_joint_names']:
+                dq.append(dq_dict[limb_name])
+        dq = dq_dict
         return dq
 
     @property

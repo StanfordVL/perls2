@@ -32,8 +32,8 @@ class Demo():
         initial_pose (list): initial end-effector pose.
 
     """
-    def __init__(self, ctrl_type, demo_type, test_fn,  use_abs=True, **kwargs):
-        self.env = DemoControlEnv('dev/validation/demo_control_cfg.yaml',
+    def __init__(self, config_file, ctrl_type, demo_type, test_fn,  use_abs=True, **kwargs):
+        self.env = DemoControlEnv(config=config_file,
                                   use_visualizer=True,
                                   use_abs=use_abs,
                                   test_fn=test_fn,

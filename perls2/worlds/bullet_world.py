@@ -94,9 +94,19 @@ class BulletWorld(World):
         self._time_step = self.config['sim_params']['time_step']
 
         self.set_pb_physics()
+        # check if config has camera.
+        self.has_camera = False
+        if 'sensor' in self.config:
+            if 'camera' in self.config['sensor']:
+                self.has_camera = True
+
+        self.has_object = False
+        # check if config has objects.
+        if 'object' in self.config:
+            self.has_object = True
 
         # Create an arena to load robot and objects
-        self.arena = BulletArena(self.config, self._physics_id)
+        self.arena = BulletArena(self.config, self._physics_id, has_camera=self.has_camera)
 
         self.controller_dict = self.config['controller']['Bullet']
 
@@ -107,19 +117,21 @@ class BulletWorld(World):
             controlType=self.config['controller']['selected_type'])
 
         self.control_freq = self.config['control_freq']
+        if self.has_camera:
+            self.camera_interface = BulletCameraInterface(
+                physics_id=self._physics_id,
+                image_height=self.config['sensor']['camera']['image']['height'],
+                image_width=self.config['sensor']['camera']['image']['width'],
+                cameraEyePosition=self.config['sensor']['camera']['extrinsics']['eye_position'],
+                cameraTargetPosition=self.config['sensor']['camera']['extrinsics']['target_position'],
+                cameraUpVector=self.config['sensor']['camera']['extrinsics']['up_vector'])
 
-        self.camera_interface = BulletCameraInterface(
-            physics_id=self._physics_id,
-            image_height=self.config['sensor']['camera']['image']['height'],
-            image_width=self.config['sensor']['camera']['image']['width'],
-            cameraEyePosition=self.config['sensor']['camera']['extrinsics']['eye_position'],
-            cameraTargetPosition=self.config['sensor']['camera']['extrinsics']['target_position'],
-            cameraUpVector=self.config['sensor']['camera']['extrinsics']['up_vector'])
 
         self._load_object_interfaces()
         self.name = name
 
-        self.ctrl_steps_per_action = int((self.config['control_freq'] / float(self.config['policy_freq'] * self.config['sim_params']['time_step'])))
+        # self.ctrl_steps_per_action = int((self.config['control_freq'] / float(self.config['policy_freq'] * self.config['sim_params']['time_step'])))
+        self.ctrl_steps_per_action = int((self.config['control_freq'] / float(self.config['policy_freq'])))
         self.is_sim = True
 
         self.step_counter = 0
@@ -269,6 +281,7 @@ class BulletWorld(World):
         """
 
         # Prepare for next step by executing action
+        #print("stepping world {}".format(self.ctrl_steps_per_action))
         for exec_steps in range(self.ctrl_steps_per_action):
             self.robot_interface.step()
             pybullet.stepSimulation(physicsClientId=self._physics_id)

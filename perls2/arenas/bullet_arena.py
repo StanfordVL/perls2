@@ -17,7 +17,8 @@ class BulletArena(Arena):
 
     def __init__(self,
                  config,
-                 physics_id):
+                 physics_id,
+                 has_camera):
         """ Initialization function.
 
             Gets parameters from configuration file for managing experimental
@@ -25,6 +26,8 @@ class BulletArena(Arena):
             camera extrinsic/intrinsics, object placement.
         Args:
             config (dict): A dict with config parameters
+            physics_id (int): unique id for pybullet physics simulation.
+            has_camera (bool): if config has camera parameter.
 
         Returns:
             None
@@ -33,44 +36,49 @@ class BulletArena(Arena):
         # If a specific directory for data dir is not defined, use perls2's.
         perls2_path = os.path.dirname(perls2.__path__[0])
         self.perls2_data_dir = os.path.join(perls2_path, 'data')
-        if 'data_dir' not in self.config['data_dir']:
+        if 'data_dir' not in self.config:
             data_dir = self.perls2_data_dir
         else:
             data_dir = self.config['data_dir']
+
         self.data_dir = os.path.abspath(data_dir)
         self.physics_id = physics_id
         self._bodies_pbid_dict = {}
         self._objects_dict = {}
         self.robot_type = self.config['world']['robot']
+        self.has_camera = has_camera
+        if self.has_camera:
+            # initialize view matrix
+            self._view_matrix = pybullet.computeViewMatrix(
+                cameraEyePosition=self.camera_eye_pos,
+                cameraTargetPosition=self.camera_target_pos,
+                cameraUpVector=self.camera_up_vector)
 
-        # initialize view matrix
-        self._view_matrix = pybullet.computeViewMatrix(
-            cameraEyePosition=self.camera_eye_pos,
-            cameraTargetPosition=self.camera_target_pos,
-            cameraUpVector=self.camera_up_vector)
+            self._random_view_matrix = self._view_matrix
 
-        self._random_view_matrix = self._view_matrix
+            # Initialize projection matrix
+            self._projection_matrix = pybullet.computeProjectionMatrixFOV(
+                fov=self.fov,
+                aspect=float(self.image_width) / float(self.image_height),
+                nearVal=self.near_plane,
+                farVal=self.far_plane)
 
-        # Initialize projection matrix
-        self._projection_matrix = pybullet.computeProjectionMatrixFOV(
-            fov=self.fov,
-            aspect=float(self.image_width) / float(self.image_height),
-            nearVal=self.near_plane,
-            farVal=self.far_plane)
-
-        self._random_projection_matrix = self._projection_matrix
-        self._randomize_on = (
-            self.config['sensor']['camera']['random']['randomize'])
+            self._random_projection_matrix = self._projection_matrix
+            self._randomize_on = (
+                self.config['sensor']['camera']['random']['randomize'])
 
         # Load URDFs to set up simulation environment.
         logging.debug("Bullet Arena Created")
-        self.plane_id = self.load_ground()
+        if 'ground' in self.config:
+            self.plane_id = self.load_urdf('ground', self.perls2_data_dir)#self.load_ground()
         logging.debug("ground loaded")
         (self.arm_id, self.base_id) = self.load_robot()
         logging.debug("Robot loaded")
         self.reset_robot_to_neutral()
-        self.load_scene_objects()
-        self.load_objects_from_config()
+        if 'scene_objects' in self.config:
+            self.load_scene_objects()
+        if 'object' in self.config:
+            self.load_objects_from_config()
 
     def reload(self):
         """ Reload all scene objects, objects and robots.
@@ -110,7 +118,7 @@ class BulletArena(Arena):
         # Load scene objects (e.g. table, bins)
         for obj_key in self.config['scene_objects']:
             if obj_key in self.config:
-                self.scene_objects_dict[obj_key] = self.load_urdf(obj_key)
+                self.scene_objects_dict[obj_key] = self.load_urdf(obj_key, self.perls2_data_dir)
                 logging.debug(obj_key + " loaded")
 
                 for step in range(10):
@@ -158,8 +166,7 @@ class BulletArena(Arena):
         logging.info("Loaded robot" + " arm_id :" + str(arm_id))
         # Load Arm
         if (self.robot_cfg['base'] != 'None'):
-            base_file = os.path.join(
-                self.data_dir, self.robot_cfg['base']['path'])
+            base_file = os.path.join(self.perls2_data_dir, self.robot_cfg['base']['path'])
             base_id = pybullet.loadURDF(
                 fileName=base_file,
                 basePosition=self.robot_cfg['base']['pose'],
@@ -174,7 +181,7 @@ class BulletArena(Arena):
 
         return (arm_id, base_id)
 
-    def load_urdf(self, key):
+    def load_urdf(self, key, data_dir=None):
         """General function to load urdf based on key
 
         Args:
@@ -186,7 +193,10 @@ class BulletArena(Arena):
         Note: Keys must be specified at top level of config.
               Function does not traverse directory.
         """
-        path = os.path.join(self.data_dir, self.config[key]['path'])
+        if data_dir is None:
+            data_dir = self.data_dir
+
+        path = os.path.join(data_dir, self.config[key]['path'])
 
         uid = pybullet.loadURDF(
             fileName=path,
