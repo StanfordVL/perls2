@@ -176,7 +176,7 @@ class SawyerCtrlInterface(RobotInterface):
         rospy.loginfo('Sawyer initialization finished after {} seconds'.format(time.time() - start))
 
         # Set desired pose to initial
-        self.neutral_joint_position = [0, -1.18, 0.00, 2.18, 0.00, 0.57, 3.3161]
+        self.neutral_joint_position = self.config['sawyer']['neutral_joint_angles'] #[0, -1.18, 0.00, 2.18, 0.00, 0.57, 3.3161]
 
         self.prev_cmd = np.asarray(self.neutral_joint_position)
         self.current_cmd = self.prev_cmd
