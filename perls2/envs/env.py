@@ -88,11 +88,11 @@ class Env(gym.Env):
         if self.world.has_camera:
             self.camera_interface = self.world.camera_interface
 
-        self.has_objects = isinstance(self.config['object'], dict)
-
+        self.has_object = self.world.has_object
         # Currently only sim worlds support object interfaces
         if self.world.is_sim:
-            self.object_interfaces = self.world.object_interfaces
+            if self.has_object:
+                self.object_interfaces = self.world.object_interfaces
 
         # Set observation space using gym spaces
         #    - Box for continuous, Discrete for discrete
