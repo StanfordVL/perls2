@@ -279,12 +279,12 @@ class RealSawyerInterface(RealRobotInterface):
     def open_gripper(self):
         """Open Robot gripper
         """
-        self.redisClient.set(ROBOT_SET_GRIPPER_CMD, (0.99 * self.GRIPPER_MAX_CLOSED))
+        self.set_gripper_to_value(0.99)
 
     def close_gripper(self):
         """ Close robot gripper.
         """
-        self.redisClient.set(ROBOT_SET_GRIPPER_CMD, (0.1 * self.GRIPPER_MAX_CLOSED))
+        self.set_gripper_to_value(0.1)
 
     def set_gripper_to_value(self, value):
         """Set gripper to desired value
@@ -292,4 +292,5 @@ class RealSawyerInterface(RealRobotInterface):
         if (value > 1.0 or value < 0):
             raise ValueError("Invalid gripper value must be fraction between 0 and 1")
 
-        self.redisClient.set(ROBOT_SET_GRIPPER_CMD, (value * self.GRIPPER_MAX_CLOSED))
+        self.redisClient.set(ROBOT_SET_GRIPPER_CMD_KEY, (value * self.GRIPPER_MAX_CLOSED))
+        self.redisClient.set(ROBOT_SET_GRIPPER_CMD_TSTAMP_KEY, time.time())
