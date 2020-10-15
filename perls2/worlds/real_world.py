@@ -55,6 +55,7 @@ class RealWorld(World):
         self.is_sim = False
 
         self.dim_num = 0
+        self.has_object = False
 
     def reset(self):
         """Reset the environment.
