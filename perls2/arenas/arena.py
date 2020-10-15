@@ -16,7 +16,8 @@ class Arena:
     """
 
     def __init__(self,
-                 config):
+                 config,
+                 has_camera):
         """ Initialization function.
 
             Gets parameters from configuration file for managing experimental
@@ -31,7 +32,7 @@ class Arena:
         self.config = config
 
         # Load camera parameters
-        if isinstance(self.config['sensor'], dict):
+        if has_camera:
             camera_extrinsics_cfg = \
                 self.config['sensor']['camera']['extrinsics']
 
@@ -54,7 +55,7 @@ class Arena:
             self._rand_camera_extrin_cfg = (
                 self.config['sensor']['camera']['random']['extrinsics'])
 
-        if isinstance(self.config['object'], dict):
+        if 'object' in self.config:
             self._random_obj_cfg = self.config['object']['random']
 
         # Get the robot config dict by using the name of the robot

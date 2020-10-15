@@ -126,8 +126,8 @@ class BulletWorld(World):
                 cameraTargetPosition=self.config['sensor']['camera']['extrinsics']['target_position'],
                 cameraUpVector=self.config['sensor']['camera']['extrinsics']['up_vector'])
 
-
-        self._load_object_interfaces()
+        if self.has_object:
+            self._load_object_interfaces()
         self.name = name
 
         # self.ctrl_steps_per_action = int((self.config['control_freq'] / float(self.config['policy_freq'] * self.config['sim_params']['time_step'])))

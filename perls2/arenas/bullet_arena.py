@@ -32,7 +32,7 @@ class BulletArena(Arena):
         Returns:
             None
         """
-        super().__init__(config)
+        super().__init__(config, has_camera)
         # If a specific directory for data dir is not defined, use perls2's.
         perls2_path = os.path.dirname(perls2.__path__[0])
         self.perls2_data_dir = os.path.join(perls2_path, 'data')

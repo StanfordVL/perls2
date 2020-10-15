@@ -302,6 +302,7 @@ class SawyerCtrlInterface(RobotInterface):
         self.goto_q(self.neutral_joint_position, max_joint_speed_ratio=0.2)
         self.set_gripper_to_value(1.0)
         self.redisClient.set(ROBOT_RESET_COMPL_KEY, 'True')
+        self.action_set = False
         rospy.loginfo("reset complete")
 
     @property
@@ -647,7 +648,6 @@ class SawyerCtrlInterface(RobotInterface):
         Note this is different from other robot interfaces, as the Sawyer
         low-level controller takes gravity compensation into account.
         """
-
         self.update_model()
 
         if self.action_set:
@@ -655,7 +655,7 @@ class SawyerCtrlInterface(RobotInterface):
             # self.set_torques([0]*7)
 
             torques = np.clip(torques, -5.0, 5.0)
-            print("Torques {}".format(torques))
+            #print("Torques {}".format(torques))
             
             self.set_torques(torques)
 
@@ -975,6 +975,11 @@ class SawyerCtrlInterface(RobotInterface):
         return self.redisClient.get(ROBOT_CMD_TSTAMP_KEY)
 
     def process_cmd(self, cmd_type):
+        """ process command from redis
+        
+        Args:
+            cmd_type (str): byte-array string from redis cmd key
+        """
         if (cmd_type == bSET_EE_POSE):
             self.set_ee_pose(**self.controller_goal)
         elif (cmd_type == bMOVE_EE_DELTA):
