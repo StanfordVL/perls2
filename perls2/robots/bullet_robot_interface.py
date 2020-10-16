@@ -66,8 +66,6 @@ class BulletRobotInterface(RobotInterface):
         self.gripper_width = 0.99
         self.last_torques_cmd = [0] * 7
 
-        # available (tuned) controller types for this interface
-        self.available_controllers = ['EEImpedance', 'EEPosture', 'JointVelocity', 'JointImpedance', 'Native']
         self.update_model()
 
         self.controller = self.make_controller(controlType)
