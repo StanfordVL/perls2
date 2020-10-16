@@ -183,7 +183,6 @@ class BulletRobotInterface(RobotInterface):
         """
 
         ikSolver = 0
-        orientation = self.ee_orientation
 
         jointPoses = pybullet.calculateInverseKinematics(
             self._arm_id,
