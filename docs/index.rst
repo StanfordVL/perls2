@@ -22,7 +22,6 @@ quickstart.md
    source/environments.md
    source/worlds.md
    source/robot_interfaces.md
-   source/controllers.md
    source/controller_eqns.ipynb
    source/real_robot_control.md
 
