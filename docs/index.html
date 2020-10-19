@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>perls2’s Documentation &mdash; perls2 1.0 documentation</title>
+  <title>perls2: Perception and Robot Learning System &mdash; perls2 1.0 documentation</title>
   
 
   
@@ -31,13 +31,15 @@
         <script type="text/javascript" src="_static/doctools.js"></script>
         <script type="text/javascript" src="_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Introduction" href="introduction.html" /> 
+    <link rel="next" title="Env" href="source/environments.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -82,27 +84,22 @@
               
             
             
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption"><span class="caption-text">Modules</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Modules</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="environments.html">Env</a></li>
-<li class="toctree-l1"><a class="reference internal" href="worlds.html">World</a></li>
-<li class="toctree-l1"><a class="reference internal" href="robot_interfaces.html">RobotInterfaces</a></li>
-<li class="toctree-l1"><a class="reference internal" href="controllers.html">Perls2 Controllers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="real_robot_control.html">Getting started on real robots.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/environments.html">Env</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/worlds.html">World</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/robot_interfaces.html">RobotInterfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/controllers.html">Perls2 Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/controller_eqns.html">Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/real_robot_control.html">Getting started on real robots.</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Examples</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="simple_reach.html">Simple Reach Example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_reach.html#id1">Simple Reach Example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="load_objects.html">Examples: Objects</a></li>
-<li class="toctree-l1"><a class="reference internal" href="switch_sim_real.html">Switching between Real and Sim Example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="project_template.html">Project Template</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/load_objects.html">Examples: Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/switch_sim_real.html">Switching between Real and Sim Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/project_template.html">Project Template</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API</span></p>
 <ul>
@@ -158,7 +155,7 @@
     
       <li><a href="#" class="icon icon-home"></a> &raquo;</li>
         
-      <li>perls2’s Documentation</li>
+      <li>perls2: Perception and Robot Learning System</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -201,24 +198,25 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="perls2-s-documentation">
-<h1>perls2’s Documentation<a class="headerlink" href="#perls2-s-documentation" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Introduction</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
-</ul>
-</div>
+<div class="section" id="perls2-perception-and-robot-learning-system">
+<h1>perls2: Perception and Robot Learning System<a class="headerlink" href="#perls2-perception-and-robot-learning-system" title="Permalink to this headline">¶</a></h1>
+<p>Index for documentation related to perls2. perls2 is a library that connects simulators, robots, cameras, sensors and controllers for robot learning experiments. It allows for easily switching between simulated and real robot experiments, and provides access to documented and validated robot controllers in joint space and operational space.</p>
+<p>perls2
+.. toctree::
+:maxdepth: 1
+:caption: Introduction</p>
+<p>introduction.md
+install.md
+quickstart.md</p>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Modules</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="environments.html">Env</a></li>
-<li class="toctree-l1"><a class="reference internal" href="worlds.html">World</a></li>
-<li class="toctree-l1"><a class="reference internal" href="robot_interfaces.html">RobotInterfaces</a></li>
-<li class="toctree-l1"><a class="reference internal" href="controllers.html">Perls2 Controllers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="real_robot_control.html">Getting started on real robots.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/environments.html">Env</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/worlds.html">World</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/robot_interfaces.html">RobotInterfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/controllers.html">Perls2 Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/controller_eqns.html">Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/real_robot_control.html">Getting started on real robots.</a></li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
@@ -226,9 +224,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="simple_reach.html">Simple Reach Example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_reach.html#id1">Simple Reach Example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="load_objects.html">Examples: Objects</a></li>
-<li class="toctree-l1"><a class="reference internal" href="switch_sim_real.html">Switching between Real and Sim Example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="project_template.html">Project Template</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/load_objects.html">Examples: Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/switch_sim_real.html">Switching between Real and Sim Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/project_template.html">Project Template</a></li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
@@ -295,7 +293,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="introduction.html" class="btn btn-neutral float-right" title="Introduction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="source/environments.html" class="btn btn-neutral float-right" title="Env" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>
@@ -306,7 +304,7 @@
   <div role="contentinfo">
     <p>
         
-        &copy; Copyright 2020, Rohun Kulkarni
+        &copy; Copyright 2020, StanfordVL
 
     </p>
   </div>
