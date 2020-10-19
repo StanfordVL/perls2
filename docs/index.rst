@@ -8,31 +8,32 @@ Index for documentation related to perls2. perls2 is a library that connects sim
 
 perls2
 .. toctree::
-   :maxdepth: 1
-   :caption: Introduction
+:maxdepth: 1
+:caption: Introduction
 
-   introduction.md
-   install.md
-   quickstart.md
+introduction.md
+install.md
+quickstart.md
 
 .. toctree::
    :maxdepth: 1
    :caption: Modules
 
-   environments.md
-   worlds.md
-   robot_interfaces.md
-   controllers.md
-   real_robot_control.md
+   source/environments.md
+   source/worlds.md
+   source/robot_interfaces.md
+   source/controllers.md
+   source/controller_eqns.ipynb
+   source/real_robot_control.md
 
 .. toctree::
    :maxdepth: 1
    :caption: Examples
 
    simple_reach.md
-   load_objects.md
-   switch_sim_real.md
-   project_template.md
+   source/load_objects.md
+   source/switch_sim_real.md
+   source/project_template.md
 
 .. toctree::
    :maxdepth: 2

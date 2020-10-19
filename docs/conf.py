@@ -59,7 +59,7 @@ templates_path = ['docstemplates']
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
 #
-source_suffix = ['.rst', '.md']
+source_suffix = ['.rst', '.md', '.ipynb']
 # source_suffix = '.rst'
 
 # The master toctree document.
@@ -75,7 +75,7 @@ language = None
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = []
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = None
@@ -98,7 +98,7 @@ html_theme = 'sphinx_rtd_theme'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 
-html_static_path = ['docsstatic']
+html_static_path = ['source/docsstatic']
 
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.
@@ -186,6 +186,6 @@ epub_title = project
 epub_exclude_files = ['search.html']
 
 
-source_parsers = {
-    '.md': CommonMarkParser,
-}
+# source_parsers = {
+#     '.md': CommonMarkParser,
+# }
