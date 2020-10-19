@@ -35,7 +35,7 @@ var/
 .installed.cfg
 *.egg
 
-*.ipynb
+
 .ipynb_checkpoints/
 dev/logs/
 *.bullet
