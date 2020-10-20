@@ -49,6 +49,7 @@ class Demo():
         self.plot_pos = kwargs['plot_pos']
         self.plot_error = kwargs['plot_error']
         self.save_fig = kwargs['save_fig']
+        self.joint_num = kwargs['joint_num']
 
         self.save = kwargs['save']
         self.demo_name = kwargs['demo_name']
@@ -410,7 +411,6 @@ class OpSpaceDemo(Demo):
         if self.save:
             self.save_data()
 
-
     def get_action(self, goal_pose, current_pose):
         """ Return action corresponding to goal and test_fn
 
@@ -757,12 +757,13 @@ class Path():
 class SequentialJoint(Path):
     """Series of joint positions sequentially incremented/decremented by delta.
     """
-    def __init__(self, start_pose, delta_val=0.01, num_steps=30):
+    def __init__(self, start_pose, delta_val=0.01, num_steps=30, joint_num=6):
         logging.debug("Sequential Joint path")
 
         self.start_pose = start_pose
         self.delta_val = delta_val
         self.num_steps = num_steps
+        self.joint_num = joint_num
         self._deltas = self._get_deltas()
 
         self.path = []
@@ -774,36 +775,22 @@ class SequentialJoint(Path):
         """
 
         deltas = []
-        # for joint_i in range(7):
-        #
         joint_i = 1
 
         for _ in range(self.num_steps):
             delta = np.zeros(7)
-            delta[joint_i] = self.delta_val
+            delta[self.joint_num] = self.delta_val
             deltas.append(delta)
-
-           # # # add set of zeros to pause.
-           # delta= np.zeros(6)
-           # for _ in range(3):
-           #  deltas.append(delta)
 
         for _ in range(self.num_steps):
             delta = np.zeros(7)
-            #delta[-1 - joint_i] = -self.delta_val
-            #delta[joint_i] = -self.delta_val
             deltas.append(delta)
 
-        # #for joint_i in range(7):
         for _ in range(self.num_steps):
             delta = np.zeros(7)
-            #delta[-1 - joint_i] = -self.delta_val
-            delta[joint_i] = -self.delta_val
+            delta[self.joint_num] = -self.delta_val
             deltas.append(delta)
 
-           # delta= np.zeros(6)
-           # for _ in range(3):
-           #  deltas.append(delta)
         return deltas
 
     def make_path(self):

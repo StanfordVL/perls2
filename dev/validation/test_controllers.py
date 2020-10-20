@@ -121,6 +121,9 @@ if __name__ == '__main__':
                         default='x', type=str,
                         choices=['x', 'y', 'z'],
                         help='axis for demo. Position direction for Line or rotation axis for Rotation')
+    parser.add_argument('--joint_num',
+                        default=6, type=int,
+                        help='joint index to test for Joint space demos')
     parser.add_argument('--num_steps', default=50, type=int,
                         help="max steps for demo.")
     parser.add_argument('--plot_pos', action="store_true",
