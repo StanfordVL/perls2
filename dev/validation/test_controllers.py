@@ -117,6 +117,10 @@ if __name__ == '__main__':
     parser.add_argument('--delta_val',
                         default=None, type=float,
                         help="Max step size (m or rad) to take for demo.")
+    parser.add_argument('--axis',
+                        default='x', type=str,
+                        choices=['x', 'y', 'z'],
+                        help='axis for demo. Position direction for Line or rotation axis for Rotation')
     parser.add_argument('--num_steps', default=50, type=int,
                         help="max steps for demo.")
     parser.add_argument('--plot_pos', action="store_true",

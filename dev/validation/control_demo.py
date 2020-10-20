@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import perls2.controllers.utils.control_utils as C
 import perls2.controllers.utils.transform_utils as T
 
+AXIS_DIM_NUM = {'x': 0, 'y': 1, 'z': 2}
 
 class Demo():
     """Class definition for demonstration.
@@ -44,9 +45,11 @@ class Demo():
         self.demo_type = demo_type
         self.use_abs = use_abs
         self.test_fn = test_fn
+        self.axis = kwargs['axis']
         self.plot_pos = kwargs['plot_pos']
         self.plot_error = kwargs['plot_error']
         self.save_fig = kwargs['save_fig']
+
         self.save = kwargs['save']
         self.demo_name = kwargs['demo_name']
         if self.demo_name is None:
@@ -251,6 +254,12 @@ class JointSpaceDemo(Demo):
         ax_5.plot(state_5, 'r')
         ax_6.plot(state_6, 'r')
 
+        fname = self.demo_name + '_pos.png'
+        import pdb; pdb.set_trace()
+        if self.save_fig:
+            print("saving figure")
+            plt.savefig(fname)
+
         plt.show()
 
 
@@ -276,6 +285,9 @@ class JointSpaceDemo(Demo):
         e_5.plot(error_5, 'r')
         e_6.plot(error_6, 'r')
 
+        fname = self.demo_name + '_error.png'
+        if self.save_fig:
+            plt.savefig(fname)
         plt.show()
 
 class JointSpaceDeltaDemo(JointSpaceDemo):
@@ -398,6 +410,7 @@ class OpSpaceDemo(Demo):
         if self.save:
             self.save_data()
 
+
     def get_action(self, goal_pose, current_pose):
         """ Return action corresponding to goal and test_fn
 
@@ -470,13 +483,15 @@ class OpSpaceDemo(Demo):
             self.path = Line(start_pose=self.initial_pose,
                              num_pts=self.num_steps,
                              delta_val=self.delta_val,
-                             path_length=self.path_length)
+                             path_length=self.path_length,
+                             dim=AXIS_DIM_NUM[self.axis])
 
         elif self.demo_type == "Rotation":
             self.path = Rotation(
                 start_pose=self.initial_pose,
                 num_pts=self.num_steps,
-                delta_val=self.delta_val)
+                delta_val=self.delta_val,
+                dim=AXIS_DIM_NUM[self.axis])
         else:
             raise ValueError("Invalid Demo type")
 
@@ -504,13 +519,14 @@ class OpSpaceDemo(Demo):
             self.path = Line(start_pose=self.initial_pose,
                              num_pts=self.num_steps,
                              delta_val=self.delta_val,
-                             path_length=self.path_length)
-
+                             path_length=self.path_length,
+                             dim=AXIS_DIM_NUM[self.axis])
         elif self.demo_type == "Rotation":
             self.path = Rotation(
                 start_pose=self.initial_pose,
                 num_pts=self.num_steps,
-                delta_val=self.delta_val)
+                delta_val=self.delta_val,
+                dim=AXIS_DIM_NUM[self.axis])
         else:
             raise ValueError("Invalid Demo type")
 
@@ -597,6 +613,11 @@ class OpSpaceDemo(Demo):
         ax_yz.set_ylabel("z position(m)")
         ax_yz.set_ylim(bottom=0, top=2.0)
         ax_yz.set_xlim(left=-0.5, right=0.5)
+
+        fname = self.demo_name + '_pos.png'
+        if self.save_fig:
+            print("saving figure")
+            plt.savefig(fname)
         plt.show()
 
     def plot_errors(self):
@@ -643,6 +664,10 @@ class OpSpaceDemo(Demo):
         e_qz.set_ylabel("error (rad)")
         e_qz.set_xlabel("step num")
 
+        fname = self.demo_name + '_error.png'
+        if self.save_fig:
+            plt.savefig(fname)
+        plt.show()
         plt.show()
 
 def get_delta(goal_pose, current_pose):
@@ -843,7 +868,7 @@ class Line(Path):
     """Class definition for straight line in given direction.
     """
     def __init__(self, start_pose, num_pts, path_length,
-                 delta_val=None, dim=2, end_pos=None):
+                 delta_val=None, dim=0, end_pos=None):
         """ Initialize Line class
 
         Args:
