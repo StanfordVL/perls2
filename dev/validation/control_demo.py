@@ -124,7 +124,8 @@ class JointSpaceDemo(Demo):
             self.start_pos = self.get_state() #self.env.robot_interface.q
         self.delta_val = delta_val
         self.path = SequentialJoint(start_pose=self.start_pos,
-                                    delta_val=self.delta_val)
+                                    delta_val=self.delta_val,
+                                    joint_num=self.joint_num)
         self.goal_poses = self.path.path
         self.num_steps = len(self.goal_poses)
         self.step_num = 0
