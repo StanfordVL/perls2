@@ -20,10 +20,7 @@ def convert_frame_to_encoded_bytes(frame):
     """
     height = np.shape(frame)[0]
     width = np.shape(frame)[1]
-    # logging.debug('height: ' +str(height))
-    #logging.debug('width: ' + str(width))
-    #rospy.logdebug('height: ' +str(height))
-    #rospy.logdebug('width: ' + str(width))
+
     # Encode the shape of the picture into the bytes array
     frame_np = np.array(frame).astype('uint8')
     frame_bytes = frame_np.tobytes()
