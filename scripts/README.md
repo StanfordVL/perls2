@@ -60,3 +60,18 @@ ssh nuc-ctrl # substitute with real NUC name.
 cd ~/perls2/scripts/
 ./kill_ws_control.sh
 ```
+
+## Kinect Camera - WS
+
+### Description
+This script runs on the Workstation and runs the kinect2_bridge and perls2 KinectROSInterface in order to obtain images from the Xbox Kinect.
+
+* Window 1) Run kinect2bridge ros node
+* Window 2) Run perls2 KinectROSInterface
+
+### How to use
+```bash
+cd ~/perls2/scripts/
+./ws_kinect.sh
+```
+Press enter in the second window to run the Kinect ROS Interface after the ros node in window 1 has completed initialization and is launched.

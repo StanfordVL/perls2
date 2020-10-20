@@ -22,11 +22,9 @@ tmux selectp -t 0
 tmux splitw -h -p 50
 tmux selectp -t 0
 tmux splitw -v -p 50
-# tmux selectp -t 2
-# tmux selectp -t 0
-# tmux split-w -v -p 50
 
-# 3) Start up the Ros Redis Interface
+
+# 2) Run sawyer_joint_pub_rate.py
 tmux selectp -t 0
 # Connect to ROS / intera
 tmux send-keys "intera" C-m
@@ -36,10 +34,10 @@ tmux send-keys "source ~/penv/bin/activate" C-m
 tmux send-keys "cd ~/perls2" C-m
 tmux send-keys "python perls2/ros_interfaces/sawyer_joint_pub_rate.py" C-m
 
-# 4) Start up Sawyer Ctrl Interface
+# 4) Set up reset robot window.
 tmux selectp -t 1
 tmux send-keys "intera" C-m
 # Load command to reset robot. Press enter to run.
-tmux send-keys "rosrun intera_interface enable_robot.py -e" C-m
+tmux send-keys "rosrun intera_interface enable_robot.py -e"
 
 tmux attach-session -t $session
