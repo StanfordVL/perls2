@@ -12,17 +12,20 @@ One of the central goals of perls2 was to improve the consistency between experi
 
 
 ## Creation
-Robot Interfaces are automatically created based on the config file. This ensures that robots interfaces are created for the appropriate world. You can select and even switch between robots using the config file. Simply change the config key : `world:robot:` to the desired type.
+Robot Interfaces are automatically created based on the config file. This ensures that robots interfaces are created for the appropriate world. You can select and even switch between robots using the config file. Simply change the config key : `world:robot:` to the desired type (`'panda'` or `'sawyer'`)
 
 ## Interfaces available.
 Currently, the following robot interfaces are available for specific worlds.
 
 BulletWorld:
-    BulletSawyerInterface : Bullet implementation of REthink Sawyer Arm.
+
+    BulletSawyerInterface : Bullet implementation of Rethink Sawyer Arm.
+
     BulletPandaInterface: Bullet implementation of Franka Panda Arm
 
 RealWorld:
-    RealSawyerInterface: interface for communicating with real REthink Sawyer Arms.
+
+    RealSawyerInterface: interface for communicating with real Rethink Sawyer Arms.
 
 
 ## Real Robot Control

@@ -1,6 +1,3 @@
-Simple Reach Example
-====================
-
 # Simple Reach Example
 
 ## Description

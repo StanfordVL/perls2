@@ -7,13 +7,15 @@ Index for documentation related to perls2. perls2 is a library that connects sim
 
 
 perls2
-.. toctree::
-:maxdepth: 1
-:caption: Introduction
+------
 
-introduction.md
-install.md
-quickstart.md
+.. toctree::
+   :maxdepth: 1
+   :caption: Introduction
+
+   source/introduction.md
+   install.md
+   quickstart.md
 
 .. toctree::
    :maxdepth: 1
