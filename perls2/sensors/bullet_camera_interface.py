@@ -251,11 +251,13 @@ class BulletCameraInterface(SimCameraInterface):
                 physicsClientId=self._physics_id)
 
         self._projection_matrix = pybullet.computeProjectionMatrixFOV(
-                fov=FOV,
+                fov=self._fov,
                 aspect=float(self.image_width) / float(self.image_height),
-                nearVal=NEAR_PLANE,
-                farVal=FAR_PLANE,
+                nearVal=self._near,
+                farVal=self._far,
                 physicsClientId = self._physics_id)
+
+        self.K = self.get_intrinsics()
 
     @property
     def image_height(self):
