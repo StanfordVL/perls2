@@ -163,31 +163,6 @@ class SimCameraInterface(CameraInterface):
         return self._translation
 
     @property
-    def K(self):
-        return self._K
-
-    @property
-    def cx(self):
-        return self.K[0, 2]
-
-    @property
-    def cy(self):
-        return self.K[1, 2]
-
-    @property
-    def name(self):
-        """Name of the camera"""
-        return self._name
-
-    @property
-    def image_width(self):
-        return self._image_width
-
-    @property
-    def image_height(self):
-        return self._image_height
-
-    @property
     def intrinsics(self):
         """Camera intrinsics"""
         return self._intrinsics.copy()
