@@ -76,25 +76,83 @@ class BulletCameraInterface(SimCameraInterface):
             cameraUpVector=self.cameraUpVector)
 
         self._projection_matrix = pybullet.computeProjectionMatrixFOV(
-            fov=FOV,
+            fov=self._fov,
             aspect=float(image_width) / float(image_height),
-            nearVal=NEAR_PLANE,
-            farVal=FAR_PLANE)
+            nearVal=self._near,
+            farVal=self._far,
+            )
+
+
+        self._K = self.get_intrinsics()
+
         self.start()
 
     def set_projection_matrix(self, projection_matrix):
         """Set projection matrix for the camera.
         Args:
-            projection_matrix (np.ndarray): projection matrix from Pybullet.
+            projection_matrix (list): list of 16 floats for pybullet projection matrix.
         """
         self._projection_matrix = projection_matrix
 
     def set_view_matrix(self, view_matrix):
         """ Set View matrix for the camera
         Args:
-            view_matrix (np.ndarray): view matrix from pybullet.
+            view_matrix (list): list of 16 floats for pybullet view_matrix
         """
         self._view_matrix = view_matrix
+
+
+    def get_intrinsics(self):
+        """ Calculate camera intrinsic matrix.
+        """
+        # get projection matrix as 4x4
+        P = self.projection_matrix
+        w, h = self._image_width, self._image_height
+        znear, zfar = self._near, self._far
+
+        a = (2.0 * znear) / P[0, 0]
+        b = P[2, 0] * a
+        right = (a + b) / 2.0
+        left = b - right
+        c = (2.0 * znear) / P[1, 1]
+        d = P[3, 1] * c
+        top = (c + d) / 2.0
+        bottom = d - top
+        fu = w * znear / (right - left)
+        fv = h * znear / (top - bottom)
+
+        u0 = w - right * fu / znear
+        v0 = h - top * fv / znear
+        return np.array([[fu, 0, u0], [0, fv, v0], [0, 0, 1]])
+
+    def deproject(self, pixel, depth, is_world_frame=True):
+        """Deprojects a single pixel with a given depth into a 3D point.
+        Parameters
+        ----------
+        pixel :
+            2D point representing the pixel location in camera image.
+        depth :
+            Depth value at the given pixel location.
+        is_world_frame :
+            True if the 3D point is defined in the world frame, (Default value = True)
+        Returns
+        -------
+        point
+            The deprojected 3D point.
+        """
+        x, y = pixel
+        cam_x = (x - self.K[0, 2]) / self.K[0, 0] * depth
+        cam_y = (y - self.K[1, 2]) / self.K[1, 1] * depth
+        point = np.asarray([cam_x, cam_y, depth])
+
+        camera_R = -self.view_matrix[:3, :3]
+
+        camera_pos = -self.view_matrix[3, :3]
+
+        if is_world_frame:
+            point = camera_pos + np.dot(point, camera_R.T)
+
+        return point
 
     def start(self):
         """Starts the camera stream."""
