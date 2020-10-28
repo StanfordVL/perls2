@@ -213,10 +213,10 @@ class BulletCameraInterface(SimCameraInterface):
     def view_matrix(self):
         """View matrix.
         """
-        return self._view_matrix
+        return np.asarray(self._view_matrix).reshape(4,4)
 
     @property
     def projection_matrix(self):
         """Projection matrix.
         """
-        return self._projection_matrix
+        return np.asarray(self._projection_matrix).reshape(4,4)
