@@ -38,14 +38,12 @@ sensor:
         up_vector:
           [1., 0., 1.]
     intrinsics:
-        image_height: 1080
-        image_width: 1920
         fov: 60
         near_plane: 0.02
         far_plane: 100
     # Parameters for randomization
     random:
-      randomize: False
+      randomize: True
       extrinsics:
         eye_position:
           lower:

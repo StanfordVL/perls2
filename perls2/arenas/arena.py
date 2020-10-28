@@ -44,8 +44,8 @@ class Arena:
             camera_intrinsics_cfg = \
                 self.config['sensor']['camera']['intrinsics']
 
-            self.image_height = camera_intrinsics_cfg['image_height']
-            self.image_width = camera_intrinsics_cfg['image_width']
+            self.image_height = self.config['sensor']['camera']['image']['height']
+            self.image_width = self.config['sensor']['camera']['image']['width']
             self.near_plane = camera_intrinsics_cfg['near_plane']
             self.far_plane = camera_intrinsics_cfg['far_plane']
             self.fov = camera_intrinsics_cfg['fov']

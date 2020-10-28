@@ -16,8 +16,9 @@ def on_joint_states(msg):
     # Set initial redis keys
     global redisClient
     global _limb
+
     robot_state = {
-        ROBOT_STATE_TSTAMP_KEY : str(time.time()),
+        ROBOT_STATE_TSTAMP_KEY : str(msg.header.stamp),
         ROBOT_STATE_EE_POS_KEY :  str(list(_limb.endpoint_pose()['position'])), 
         ROBOT_STATE_EE_POSE_KEY: str(list(_limb.endpoint_pose()['position']) + list(_limb.endpoint_pose()['orientation'])),
         ROBOT_STATE_EE_ORN_KEY: str(list(_limb.endpoint_pose()['orientation'])),

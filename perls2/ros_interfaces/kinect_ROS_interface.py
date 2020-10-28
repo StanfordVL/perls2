@@ -13,6 +13,7 @@ logging.basicConfig(level=logging.DEBUG)
 import redis
 import time
 import struct
+from perls2.ros_interfaces.redis_keys import *
 
 
 def convert_frame_to_encoded_bytes(frame):
@@ -20,10 +21,7 @@ def convert_frame_to_encoded_bytes(frame):
     """
     height = np.shape(frame)[0]
     width = np.shape(frame)[1]
-    # logging.debug('height: ' +str(height))
-    #logging.debug('width: ' + str(width))
-    #rospy.logdebug('height: ' +str(height))
-    #rospy.logdebug('width: ' + str(width))
+
     # Encode the shape of the picture into the bytes array
     frame_np = np.array(frame).astype('uint8')
     frame_bytes = frame_np.tobytes()
@@ -149,7 +147,7 @@ class KinectROSInterface():
 
         # Just for testing out the redis part. TODO switch this out
 
-        rgb_encoded = self.redisClient.get('camera::rgb_frame')
+        rgb_encoded = self.redisClient.get(KINECT2_RGB_KEY)
         h, w = struct.unpack('>II', rgb_encoded[:8])
         image_np = np.frombuffer(
             rgb_encoded, dtype=np.uint8, offset=8).reshape(h, w, 3)
@@ -174,11 +172,11 @@ class KinectROSInterface():
         encoded_depth = convert_frame_to_encoded_bytes(self.depth_frame)
         encoded_ir = convert_frame_to_encoded_bytes(self.ir_frame)
         # set the key in redis
-        self.redisClient.set('camera::rgb_frame', encoded_rgb)
+        self.redisClient.set(KINECT2_RGB_KEY, encoded_rgb)
         self.redisClient.set(
-            'camera::rgb_timestamp', str(self._rgb_timestamp_ms))
-        self.redisClient.set('camera::depth_frame', encoded_depth)
-        self.redisClient.set('camera::ir_frame', encoded_ir)
+            KINECT2_RGB_TSTAMP_KEY, str(self._rgb_timestamp_ms))
+        self.redisClient.set(KINECT2_DEPTH_KEY, encoded_depth)
+        self.redisClient.set(KINECT2_IR_KEY, encoded_ir)
 
         return (self.rgb_frame, self.depth_frame, self.ir_frame)
 
@@ -187,9 +185,9 @@ class KinectROSInterface():
         self.wait_to_receive_rgb()
         rospy.logdebug("capture_rgb: rgb received")
         encoded_rgb = convert_frame_to_encoded_bytes(self.rgb_frame)
-        self.redisClient.set('camera::rgb_frame', encoded_rgb)
+        self.redisClient.set(KINECT2_RGB_KEY, encoded_rgb)
         self.redisClient.set(
-            'camera::rgb_timestamp', str(self._rgb_timestamp_ms))
+            KINECT2_RGB_TSTAMP_KEY, str(self._rgb_timestamp_ms))
 
     def wait_to_receive(self):
         """ Wait to receive the newest frame """
@@ -266,30 +264,28 @@ if __name__ == '__main__':
     if args.display:
         display_image = True
 
-
-
     rospy.init_node('kinect_show', log_level=rospy.DEBUG)
 
     camera = KinectROSInterface()
 
     rospy.loginfo("waiting for camera interface")
-    while(camera.redisClient.get('camera::interface_connected') != b'True'):
+    while(camera.redisClient.get(KINECT2_INTERFACE_CONN_KEY) != b'True'):
         pass
 
     rospy.loginfo("interface connected")
-    if  camera.redisClient.get('camera::invert') == 'True':
-            camera.invert = True
+    if camera.redisClient.get(KINECT2_INVERT_KEY) == 'True':
+        camera.invert = True
     else:
         camera.invert = False
-    while (camera.redisClient.get('camera::interface_connected') == b'True'):
-        if (camera.redisClient.get('camera::stream_enabled') == b'True'):
+    while (camera.redisClient.get(KINECT2_INTERFACE_CONN_KEY) == b'True'):
+        if (camera.redisClient.get(KINECT2_STREAM_ENABLED) == b'True'):
             start = time.time()
             camera.capture_frames()
             if display_image:
                 camera.display()
             while ((time.time() - start) < 0.033):
                 pass
-    if (camera.redisClient.get('camera::interface_connected') == b'False'):
+    if (camera.redisClient.get(KINECT2_INTERFACE_CONN_KEY) == b'False'):
         rospy.loginfo('Camera interface disconnected')
 
     rospy.loginfo("exiting.")

@@ -77,6 +77,10 @@ class CameraInterface(SensorInterface):
     def K(self):
         return self._K
 
+    @K.setter
+    def K(self, new_intrinsics):
+        self._K = new_intrinsics
+
     @property
     def cx(self):
         return self.K[0, 2]

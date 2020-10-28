@@ -64,3 +64,33 @@ def intrinsic_to_projection_matrix(K, height, width, near, far,
         projection_matrix = list(projection_matrix.transpose().flatten())
 
         return projection_matrix
+
+def extrinsic_to_view_matrix(rotation, translation, distance):
+    """Convert the camera extrinsics to the view matrix.
+    The function takes HZ-style rotation matrix R and translation matrix t
+    and converts them to a Bullet/OpenGL style view matrix. the derivation
+    is pretty simple if you consider x_camera = R * x_world + t.
+    Parameters
+    ----------
+    distance :
+        The distance from the camera to the focus.
+    rotation :
+    translation :
+    Returns
+    -------
+    """
+    # The camera position in the world frame.
+    camera_position = rotation.T.dot(-translation)
+
+    # The focus in the world frame.
+    focus = rotation.T.dot(np.array([0, 0, distance]) - translation)
+
+    # The up vector is the Y-axis of the camera in the world frame.
+    up_vector = rotation.T.dot(np.array([0, 1, 0]))
+
+    # Compute the view matrix.
+    view_matrix = pybullet.computeViewMatrix(
+                cameraEyePosition=camera_position,
+                cameraTargetPosition=focus,
+                cameraUpVector=up_vector)
+

@@ -38,14 +38,12 @@ sensor:
       width: 224
     extrinsics:
         eye_position:
-          [0.6, 0.0, 1.0]
+          [0.6, 0.0, 0.8]
         target_position:
           [0.6, 0., 0]
         up_vector:
           [1., 0., 1.]
     intrinsics:
-        image_height: 1080
-        image_width: 19201
         fov: 60
         near_plane: 0.02
         far_plane: 100
@@ -55,9 +53,9 @@ sensor:
       extrinsics:
         eye_position:
           lower:
-            [0.6, 0., 1.75]
+            [0.6, 0., 1.0]
           upper:
-            [0.6, 0., 1.75]
+            [0.6, 0., 1.0]
         target_position:
           lower:
             [0.6, 0., 0]
