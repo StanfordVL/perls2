@@ -41,7 +41,8 @@ class BulletCameraInterface(SimCameraInterface):
                  near=0.02,
                  far=100,
                  distance=1.0,
-                 cameraEyePosition=[0.6, 0., 1.75],
+                 fov=60,
+                 cameraEyePosition=[0.6, 0., 1.0],
                  cameraTargetPosition=[0.6, 0., 0],
                  cameraUpVector=[1., 0., 1.],
                  name='bullet_camera'):
@@ -64,6 +65,7 @@ class BulletCameraInterface(SimCameraInterface):
         self._near = near
         self._far = far
         self._distance = distance
+        self._fov = fov
         self.cameraEyePosition = cameraEyePosition
         self.cameraTargetPosition = cameraTargetPosition
         self.cameraUpVector = cameraUpVector
