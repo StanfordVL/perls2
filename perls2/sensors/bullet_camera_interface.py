@@ -232,6 +232,7 @@ class BulletCameraInterface(SimCameraInterface):
         return {
                 'rgb': image,
                 }
+
     def place(self, new_camera_pos):
         """ Places camera in new position
 
