@@ -263,7 +263,7 @@
 <h2>BulletCameraInterface<a class="headerlink" href="#bulletcamerainterface" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt>
-<em class="property">class </em><code class="sig-prename descclassname">perls2.sensors.bullet_camera_interface.</code><code class="sig-name descname">BulletCameraInterface</code><span class="sig-paren">(</span><em class="sig-param">physics_id=None, image_height=500, image_width=500, near=0.02, far=100, distance=1.0, cameraEyePosition=[0.6, 0.0, 1.75], cameraTargetPosition=[0.6, 0.0, 0], cameraUpVector=[1.0, 0.0, 1.0], name='bullet_camera'</em><span class="sig-paren">)</span></dt>
+<em class="property">class </em><code class="sig-prename descclassname">perls2.sensors.bullet_camera_interface.</code><code class="sig-name descname">BulletCameraInterface</code><span class="sig-paren">(</span><em class="sig-param">physics_id=None, image_height=500, image_width=500, near=0.02, far=100, distance=1.0, fov=60, cameraEyePosition=[0.6, 0.0, 1.0], cameraTargetPosition=[0.6, 0.0, 0], cameraUpVector=[1.0, 0.0, 1.0], name='bullet_camera'</em><span class="sig-paren">)</span></dt>
 <dd><p>” Interface for rendering camera images from PyBullet.</p>
 <dl class="attribute">
 <dt id="perls2.sensors.bullet_camera_interface.BulletCameraInterface.image_height">
@@ -388,6 +388,23 @@
 
 <dl class="method">
 <dt>
+<code class="sig-name descname">deproject</code><span class="sig-paren">(</span><em class="sig-param">pixel</em>, <em class="sig-param">depth</em>, <em class="sig-param">is_world_frame=True</em><span class="sig-paren">)</span></dt>
+<dd><p>Deprojects a single pixel with a given depth into a 3D point.
+:param pixel: 2D point representing the pixel location in camera image.
+:param depth: Depth value at the given pixel location.
+:param is_world_frame: True if the 3D point is defined in the world frame, (Default value = True)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The deprojected 3D point.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>point</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
 <code class="sig-name descname">frames</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
 <dd><p>Render the world at the current time step.
 Args: None
@@ -400,6 +417,12 @@ Args: None
 <dd><p>Render the world at the current time step.
 Args: None
 :returns: dict with rgb, depth and segmask image.</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">get_intrinsics</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p>Calculate camera intrinsic matrix.</p>
 </dd></dl>
 
 <dl class="method">
@@ -446,16 +469,16 @@ projection matrices</p>
 <dt>
 <code class="sig-name descname">set_projection_matrix</code><span class="sig-paren">(</span><em class="sig-param">projection_matrix</em><span class="sig-paren">)</span></dt>
 <dd><p>Set projection matrix for the camera.
-:param projection_matrix: projection matrix from Pybullet.
-:type projection_matrix: np.ndarray</p>
+:param projection_matrix: list of 16 floats for pybullet projection matrix.
+:type projection_matrix: list</p>
 </dd></dl>
 
 <dl class="method">
 <dt>
 <code class="sig-name descname">set_view_matrix</code><span class="sig-paren">(</span><em class="sig-param">view_matrix</em><span class="sig-paren">)</span></dt>
 <dd><p>Set View matrix for the camera
-:param view_matrix: view matrix from pybullet.
-:type view_matrix: np.ndarray</p>
+:param view_matrix: list of 16 floats for pybullet view_matrix
+:type view_matrix: list</p>
 </dd></dl>
 
 <dl class="method">
