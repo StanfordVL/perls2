@@ -1,11 +1,14 @@
 # Introduction
 
+![perls2_map](../images/perls2_map.png)
 PErception and Robotic Learning System v2
 
 perls2 provides robot software infrastructure for projects within SVL. It serves as a unified framework that connects both simulated and real robots, sensors, renders and simulation environments for performing robotics experiments.
 
 New to perls2? [Start Here](https://stanfordvl.github.io/perls2/quickstart)
 
+## Overview
+![perls2_features](../images/perls2_features.png)
 ## Why use perls2?
 
 perls2 makes it easier to run experiments on real robots. Code for running experiments is agnostic to the simulation / reality. This means that code written for simulation can be made to run on real robots, just by changing a single config key. It is also easy to switch between the different robots offered in the lab.
@@ -52,3 +55,7 @@ Intructions for each demo may be found in the README in each folder.
 `cd perls2`
 
 `python examples/simple_reach/run_simple_reach.py`
+
+
+#### Acknowledgements:
+The following icons from the Noun Project are used through out this website:
