@@ -7,11 +7,25 @@ perls2 provides robot software infrastructure for projects within SVL. It serves
 
 New to perls2? [Start Here](https://stanfordvl.github.io/perls2/quickstart)
 
-## Overview
+## Features
+perls2 makes it easier to run experiments on real robots. Code for running experiments is agnostic to the simulation / reality. This means that code written for simulation can be made to run on real robots, just by changing a single config key. It is also easy to switch between the different robots offered in the lab.
+
+### Available Robots, Cameras and Renderers
 ![perls2_features](../images/perls2_features.png)
+
+### Controllers
+perls2 offers consistent robot control between simulated and real robots through a unified torque-based library of [robot controllers](https://stanfordvl.github.io/perls2/source/controller_eqns.html#controllers-1). This makes it easy to explore different action spaces and forms for robot control. Current controllers include:
+
+* Joint Impedance
+* Operational Space Control
+* Joint Velocity
+* Joint Torque
+
+### Easily switch from sim to real.
+![perls2_switch](../images/switch.png)
+
 ## Why use perls2?
 
-perls2 makes it easier to run experiments on real robots. Code for running experiments is agnostic to the simulation / reality. This means that code written for simulation can be made to run on real robots, just by changing a single config key. It is also easy to switch between the different robots offered in the lab.
 
 Additionally, perls2 offers consistent robot control between simulated and real robots through a unified torque-based library of robot controllers. This makes it easy to explore different action spaces and forms for robot control. Current controllers include:
 
