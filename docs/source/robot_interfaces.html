@@ -214,7 +214,8 @@
 </style>
 <div class="section" id="robotinterfaces">
 <h1>RobotInterfaces<a class="headerlink" href="#robotinterfaces" title="Permalink to this headline">¶</a></h1>
-<p>Robot interfaces are used to obtain information about the robot like state and dynamics parameters, and send commands to the robot to execute. RobotInterfaces are specific to the perls2.world they inhabit. For instance, BulletRobotInterfaces can exist only in a BulletWorld.</p>
+<p><img alt="robot_types" src="../_images/robot_types_big.png" />
+Robot interfaces are used to obtain information about the robot like state and dynamics parameters, and send commands to the robot to execute. RobotInterfaces are specific to the perls2.world they inhabit. For instance, BulletRobotInterfaces can exist only in a BulletWorld.</p>
 <div class="section" id="robot-control">
 <h2>Robot Control.<a class="headerlink" href="#robot-control" title="Permalink to this headline">¶</a></h2>
 <p>perls2 uses torque-based controllers for executing robot commands. In a typical experimental set up, a learning policy will produce an action based on observations of the environment. This action is typically interpreted in the form of a robot command like moving the end_effector to some pose. The RobotInterface receives this command and sets an appropriate goal for the controller. The controller, given a model of the robot’s states and dynamics parameters will produce a set of joint torques to command to the robot.</p>

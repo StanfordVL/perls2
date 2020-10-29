@@ -1,5 +1,5 @@
 # RobotInterfaces
-
+![robot_types](../images/robot_types_big.png)
 Robot interfaces are used to obtain information about the robot like state and dynamics parameters, and send commands to the robot to execute. RobotInterfaces are specific to the perls2.world they inhabit. For instance, BulletRobotInterfaces can exist only in a BulletWorld.
 
 ## Robot Control.
