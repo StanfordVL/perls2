@@ -9,6 +9,7 @@ from abc import ABCMeta, abstractmethod
 import redis
 import time
 import struct
+from perls2.ros_interfaces.redis_keys import *
 
 
 def convert_encoded_frame_to_np(encoded_frame, dim):
@@ -87,16 +88,16 @@ class KinectCameraInterface(CameraInterface):
         self.redisClient = redis.Redis()
 
         # Set the res mode
-        self.redisClient.set('camera::res_mode', res_mode)
+        self.redisClient.set(KINECT2_RES_MODE_KEY, res_mode)
         self.config = config
         if 'invert' in self.config['sensor'].keys():
             self.redisClient.set(
-                'camera::invert', str(self.config['sensor']['invert']))
+                KINECT2_INVERT_KEY, str(self.config['sensor']['invert']))
 
         # Notify ROS Interface that camera interface is connected
-        self.redisClient.set('camera::interface_connected', 'True')
+        self.redisClient.set(KINECT2_INTERFACE_CONN_KEY, 'True')
         # Set stream as disabled at initialization.
-        self.redisClient.set('camera::stream_enabled', 'False')
+        self.redisClient.set(KINECT2_STREAM_ENABLED_KEY, 'False')
 
         self._prev_rgb_timestamp = 0
         self._prev_rgb = []
@@ -105,12 +106,12 @@ class KinectCameraInterface(CameraInterface):
     def start(self):
         """Starts the sensor stream.
         """
-        self.redisClient.set('camera::stream_enabled', 'True')
+        self.redisClient.set(KINECT2_STREAM_ENABLED_KEY, 'True')
 
     def stop(self):
         """Stop the sensor stream.
         """
-        self.redisClient.set('camera::stream_enabled', 'False')
+        self.redisClient.set(KINECT2_STREAM_ENABLED_KEY, 'False')
 
     def reset(self):
         """Reset the sensor stream
@@ -148,19 +149,18 @@ class KinectCameraInterface(CameraInterface):
 
         """
 
-        encoded_rgb = self.redisClient.get('camera::rgb_frame')
+        encoded_rgb = self.redisClient.get(KINECT2_RGB_KEY)
 
-        rgb_timestamp = self.redisClient.get('camera:rgb_timestamp')
+        rgb_timestamp = self.redisClient.get(KINECT2_RGB_TSTAMP_KEY)
 
         rgb_np = convert_encoded_frame_to_np(
             encoded_rgb, KinectCameraInterface.RGB_DIM)
 
-        #print(rgb_timestamp)
-        encoded_depth = self.redisClient.get('camera::depth_frame')
+        encoded_depth = self.redisClient.get(KINECT2_DEPTH_KEY)
         depth_np = convert_encoded_frame_to_np(
             encoded_depth, KinectCameraInterface.DEPTH_DIM)
 
-        encoded_ir = self.redisClient.get('camera::ir_frame')
+        encoded_ir = self.redisClient.get(KINECT2_IR_KEY)
         ir_np = convert_encoded_frame_to_np(
             encoded_ir, KinectCameraInterface.IR_DIM)
 
@@ -171,9 +171,25 @@ class KinectCameraInterface(CameraInterface):
 
         return image_dict
 
+    def frames_rgb(self):
+        """Get frames from redis db.
+
+        Params:
+            None
+        Returns:
+            image_dict (dict): dict with key 'rgb' assigned to np.ndarray
+        """
+        encoded_rgb = self.redisClient.get('camera::rgb_frame')
+
+        rgb_timestamp = self.redisClient.get('camera:rgb_timestamp')
+        rgb_np = convert_encoded_frame_to_np(
+            encoded_rgb, KinectCameraInterface.RGB_DIM)
+        image_dict = {}
+        image_dict['rgb'] = rgb_np
+        return image_dict
     def disconnect(self):
         """ Set redis key to disconnect interface"""
-        self.redisClient.set('camera::interface_connected', 'False')
+        self.redisClient.set(KINECT2_INTERFACE_CONN_KEY, 'False')
 
 
 if __name__ == '__main__':
@@ -185,31 +201,29 @@ if __name__ == '__main__':
     logging.info("connected to interface")
 
     # Connect the environment and enable the stream
-    camera.redisClient.set('camera::interface_connected', 'True')
-    camera.redisClient.set('camera::stream_enabled', 'True')
+    camera.redisClient.set(KINECT2_INTERFACE_CONN_KEY, 'True')
+    camera.redisClient.set(KINECT2_STREAM_ENABLED_KEY, 'True')
     logging.info("stream_enabled")
 
-    camera.prev_rgb_timestamp = camera.redisClient.get('camera::rgb_timestamp')
-    camera.prev_rgb = camera.redisClient.get('camera::rgb_frame')
+    camera.prev_rgb_timestamp = camera.redisClient.get(KINECT2_RGB_TSTAMP_KEY)
+    camera.prev_rgb = camera.redisClient.get(KINECT2_RGB_KEY)
     timing_data = []
 
     input("Press Enter to continue...")
-    for sample in range(5000):
+    #for sample in range(5000):
+    while camera.redisClient.get('camera::stream_enabled') == 'True':
         # save rgb timestamp to compare
         start = time.time()
 
-        while(
-            camera.prev_rgb_timestamp == camera.redisClient.get(
-                    'camera::rgb_timestamp')):
+        while(camera.prev_rgb_timestamp == camera.redisClient.get(KINECT2_RGB_TSTAMP_KEY)):
             pass
 
-            while ((time.time() - start) < 0.001):
+            while ((time.time() - start) < 0.01):
                 pass
                 # wait to make it 100Hz
                 # camera.display()
 
-        camera.prev_rgb_timestamp = camera.redisClient.get(
-                'camera::rgb_timestamp')
+        camera.prev_rgb_timestamp = camera.redisClient.get(KINECT2_RGB_TSTAMP_KEY)
         end = time.time()
 
         timestamp_update_ms = (end - start) * 1000
@@ -223,8 +237,8 @@ if __name__ == '__main__':
              start*1000,
              camera.prev_rgb_timestamp])
 
-    camera.redisClient.set('camera::stream_enabled', 'False')
-    camera.redisClient.set('camera::interface_connected', 'False')
+    camera.redisClient.set(KINECT2_STREAM_ENABLED_KEY, 'False')
+    camera.redisClient.set(KINECT2_INTERFACE_CONN_KEY, 'False')
     pickle_out = open("redis_timestamp_comp_pickle", 'wb')
     pickle.dump(timing_data, pickle_out)
     print("exiting.")

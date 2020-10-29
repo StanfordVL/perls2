@@ -10,7 +10,35 @@ from perls2.ros_interfaces.redis_keys import *
 from perls2.ros_interfaces.redis_values import *
 
 
-class RedisInterface():
+def bstr_to_ndarray(array_bstr):
+    """Convert bytestring array to 1d array
+    """
+    return np.fromstring(array_bstr[1:-1], dtype=np.float, sep=',')
+
+
+def convert_encoded_frame_to_np(encoded_frame, dim):
+    """Convert rgb, depth or ir bytes array to numpy
+    """
+    h, w = struct.unpack('>II', encoded_frame[:8])
+
+    frame_np = np.frombuffer(
+        encoded_frame, dtype=np.uint8, offset=8).reshape(h, w, dim)
+
+    return frame_np
+
+
+def convert_encoded_timestamp_to_np(encoded_frame, dim):
+    """Convert rgb, depth or ir bytes array to numpy
+    """
+    h, w, timestamp = struct.unpack('>IIf', encoded_frame[:8])
+
+    frame_np = np.frombuffer(
+        encoded_frame, dtype=np.uint8, offset=8).reshape(h, w, dim)
+
+    return (frame_np, timestamp)
+
+
+class RedisInterface(object):
     """
     Redis interfaces allow for unified access to redis-servers by maintaining consistent keys.
     Both control interfaces and robot interfaces use redis to communicate and key mismatch can
@@ -39,12 +67,6 @@ class RedisInterface():
 
         # Connect to redis server.
         self._client = redis.Redis(**setup_kwargs)
-
-
-def bstr_to_ndarray(array_bstr):
-    """Convert bytestring array to 1d array
-    """
-    return np.fromstring(array_bstr[1:-1], dtype=np.float, sep=',')
 
 
 class RobotRedisInterface(RedisInterface):
@@ -104,8 +126,6 @@ class RobotRedisInterface(RedisInterface):
         # since the keys that use dicts always have numeric values this works.
         redis_dict = redis_dict.replace("'", "\"")
         return redis_dict
-
-
 
     def get_dict(self, key):
         """Get dict from redis

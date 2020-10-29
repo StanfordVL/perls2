@@ -30,7 +30,7 @@ class BulletPandaInterface(BulletRobotInterface):
 
         super().__init__(physics_id, arm_id, config, controlType)
 
-        self._ee_index = self.get_link_id_from_name('panda_link7')
+        self._ee_index = self.get_link_id_from_name('panda_grasptarget')
 
         # Neutral positions
         self.limb_neutral_positions = self.robot_cfg['neutral_joint_angles']

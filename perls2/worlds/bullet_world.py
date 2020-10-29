@@ -122,6 +122,9 @@ class BulletWorld(World):
                 physics_id=self._physics_id,
                 image_height=self.config['sensor']['camera']['image']['height'],
                 image_width=self.config['sensor']['camera']['image']['width'],
+                near=self.config['sensor']['camera']['intrinsics']['near_plane'],
+                far=self.config['sensor']['camera']['intrinsics']['far_plane'],
+                fov=self.config['sensor']['camera']['intrinsics']['fov'],
                 cameraEyePosition=self.config['sensor']['camera']['extrinsics']['eye_position'],
                 cameraTargetPosition=self.config['sensor']['camera']['extrinsics']['target_position'],
                 cameraUpVector=self.config['sensor']['camera']['extrinsics']['up_vector'])
