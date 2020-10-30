@@ -107,6 +107,9 @@ class Arena:
         upper_bound = np.asarray(config_key['upper'])
         lower_bound = np.asarray(config_key['lower'])
 
+        if np.any(upper_bound < lower_bound):
+            raise ValueError("randomize_param bound error. Check config key {}".format(config_key))
+
         return self.random_vec_bounded(lower_bound, upper_bound)
 
     def randomize_obj_pos(self):
