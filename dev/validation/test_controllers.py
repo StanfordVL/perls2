@@ -1,3 +1,49 @@
+""" Test script for controllers.
+
+Creates a demo based on terminal args for various controllers. Helpful for debugging
+controllers and tuning gains. Capable of reading custom config files for projects.
+
+Args:
+    --ctrl_type (str): string identifying type of controller to test. Must be
+        valid control type name.
+    --demo_type (str): string identifying type of demo to run with controller.
+        Must be valid with control type.
+        The following demos are available for each controller:
+        EEImpedance, EEPosture:
+            - Zero, Square, Line, Rotation
+        JointImpedance, JointVelocity, JointTorque:
+            -Zero, Sequential
+    --test_fn (str): string identifying the robot interface function to execute
+        the action. Must be valid with control type.
+        The following functions are available for each controller:
+        EEImpedance, EEPosture:
+            - 'set_ee_pose', 'move_ee_delta'
+        JointImpedance:
+            - 'set_joint_positions', 'set_joint_delta'
+        JointVelocity
+            - 'set_joint_velocities
+        JointTorque:
+            - 'set_joint_torques'
+    --fix_pos (flag): only for move_ee_delta with Rotation demos. Fixes position.
+    --fix_ori (flag): only for move_ee_delta with Line, Square demos. Fixes orientation.
+    --delta_val (float): (optional) space to separate each action in the demo.
+        For "Line", "Square" demos, this is the space each point in the demo is
+        spaced from the start.
+    --path_length (float): Applicable only for "Line" and "Square" demos,
+        length of path to travel (m) for the Line, side_length (m) for square.
+        Overrides delta_val
+    --axis (str): 'x', 'y', 'z' axis about which the demo progresses the action.
+        Applicable only for "Line" or "Rotation" demos.
+    --num_steps (int): total number of steps in the demo.
+    --plot_pos (flag): Use to direct demo to plot current and goal states at
+        each step.
+    --plot_error (flag): Use to direct demo to plot error at each step.
+    --save (flag): save demo data to npz
+    --save_fig (flag): save position and error plots to png files.
+    --demo_name (str): file name to save demo data.
+
+
+"""
 
 import logging
 import argparse
@@ -19,9 +65,8 @@ DEMO_TYPES = {
     "0": "Zero",
     "1": "Sequential",
     "2": "Square",
-    "3": "Circle",
-    "4": "Line",
-    "5": "Rotation"}
+    "3": "Line",
+    "4": "Rotation"}
 
 USE_ABS = {
     "0": True,
