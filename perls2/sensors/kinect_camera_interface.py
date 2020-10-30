@@ -82,7 +82,7 @@ class KinectCameraInterface(CameraInterface):
 
     def __init__(self, config, res_mode="hd"):
         """ Set the redis parameters for the ROS interface
-        Note: Stream is initialized as disabled
+        Note: Stream is initialized as enabled
         """
         # Connect to redis
         self.redisClient = redis.Redis()
@@ -187,6 +187,7 @@ class KinectCameraInterface(CameraInterface):
         image_dict = {}
         image_dict['rgb'] = rgb_np
         return image_dict
+
     def disconnect(self):
         """ Set redis key to disconnect interface"""
         self.redisClient.set(KINECT2_INTERFACE_CONN_KEY, 'False')
