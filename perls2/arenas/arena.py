@@ -97,18 +97,23 @@ class Arena:
 
             NOTE: bounds must be defined in config file as keys 'upper' and
                 'lower'
-            NOTE: currently no checks on whether upper > lower TODO
-            NOTE: does not check if string does not exist.
-            NOTE: Does not check that dimensions of upper = lower
-            TODO: Add support for default parameters
 
         """
-
-        upper_bound = np.asarray(config_key['upper'])
-        lower_bound = np.asarray(config_key['lower'])
+        if isinstance(config_key, dict):
+            if 'upper' in config_key.keys():
+                upper_bound = np.asarray(config_key['upper'])
+            else:
+                raise KeyError("randomize_param error: 'upper' key not found in config.")
+            if 'lower' in config_key.keys():
+                lower_bound = np.asarray(config_key['lower'])
+            else:
+                raise KeyError("randomize_param error: 'lower' key not found in config.")
 
         if np.any(upper_bound < lower_bound):
             raise ValueError("randomize_param bound error. Check config key {}".format(config_key))
+
+        if len(upper_bound) != len(lower_bound):
+            raise ValueError("randomize bounds size mismatch, check config key {}".format(config_key))
 
         return self.random_vec_bounded(lower_bound, upper_bound)
 
