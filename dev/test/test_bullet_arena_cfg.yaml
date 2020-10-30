@@ -49,7 +49,7 @@ sensor:
         far_plane: 100
     # Parameters for randomization
     random:
-      randomize: False
+      randomize: True
       extrinsics:
         eye_position:
           lower:
