@@ -4,7 +4,7 @@
 import time
 import numpy as np 
 import logging 
-from pers2.utils.yaml_config import YamlConfig
+from perls2.utils.yaml_config import YamlConfig
 
 from perls2.ros_interfaces.redis_interface import RobotRedisInterface as RobotRedis
 from perls2.ros_interfaces.redis_keys import *
@@ -23,7 +23,7 @@ from perls2.controllers.robot_model.model import Model
 
 import perls2.controllers.utils.transform_utils as T
 
-class CtrlInterface(RobotInterface): 
+class CtrlInterface(object): 
     """ Abstract class definition for Control Interface.
 
     Interface creates and monitors RedisServer for new commands from RobotInterface.
@@ -36,9 +36,17 @@ class CtrlInterface(RobotInterface):
     def __init__(self,
                  config,
                  controlType):
-    """
-    Initialize robot for control. 
-    """
-    self.config = YamlConfig(config)
-    self.redisClient = Redis(**self.config['redis'])
-    self.redisClient.flushall()
+        """
+        Initialize robot for control. 
+        """
+        self.config = YamlConfig(config)
+        self.redisClient = Redis(**self.config['redis'])
+        self.redisClient.flushall()
+
+        # Timing
+        self.startTime = time.time()
+        self.endTime = time.time()
+        self.action_set = False
+
+        # Control Init
+        self.controlType = controlType

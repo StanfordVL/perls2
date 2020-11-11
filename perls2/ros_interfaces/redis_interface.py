@@ -92,7 +92,7 @@ class RedisInterface(object):
         Deletes ALL keys and values.
         """
         self._client.flushall()
-        
+
 class RobotRedisInterface(RedisInterface):
     """ Redis interface for robots.
 
@@ -204,7 +204,7 @@ class RobotRedisInterface(RedisInterface):
         """
         self._client.flushall()
 
-class PandaRedisInterface(RedisInterface)
+class PandaRedisInterface(RedisInterface):
     """ Redis interface for franka panda redis driver.
 
     Redis interface specifically for robots. This keeps keys consistent between control interfaces and robot interfaces.

@@ -1,0 +1,5 @@
+# Config for PandaCtrlInterface
+
+redis:
+  host: localhost
+  port: 6379
