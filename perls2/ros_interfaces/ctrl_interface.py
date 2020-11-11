@@ -38,4 +38,7 @@ class CtrlInterface(RobotInterface):
                  controlType):
     """
     Initialize robot for control. 
-
+    """
+    self.config = YamlConfig(config)
+    self.redisClient = Redis(**self.config['redis'])
+    self.redisClient.flushall()
