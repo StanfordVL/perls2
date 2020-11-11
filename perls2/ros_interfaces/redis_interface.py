@@ -68,7 +68,31 @@ class RedisInterface(object):
         # Connect to redis server.
         self._client = redis.Redis(**setup_kwargs)
 
+    def get(self, key): 
+        """Get a value of the redis database given key. 
+        """
+        return self._client.get(key)
+        
+    def mset(self, key_val_dict):
+        """ Set multiple keys to redis at same time.
+            All values for keys must be strings.
+        """
+        self._client.mset(key_val_dict)
 
+    def set(self, key, value):
+        """ Wrapper for redis.SET cmd
+            Args
+                key (str): key for redis database
+                value (string, bytes): redis compatible value
+        """
+        self._client.set(key, value)
+
+    def flushall(self):
+        """Wrapper for FLUSHALL redis command.
+        Deletes ALL keys and values.
+        """
+        self._client.flushall()
+        
 class RobotRedisInterface(RedisInterface):
     """ Redis interface for robots.
 
@@ -189,7 +213,4 @@ class PandaRedisInterface(RedisInterface)
     def __init__(self, host, port, password=None):
         RedisInterface.__init__(self, host, port, password)
 
-    def get(self, key): 
-        """Get a value of the redis database given key. 
-        """
-        return self._client.get(key)
+
