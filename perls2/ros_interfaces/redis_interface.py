@@ -8,7 +8,7 @@ import numpy as np
 import json
 from perls2.ros_interfaces.redis_keys import *
 from perls2.ros_interfaces.redis_values import *
-from perls2.ros_interfaces.panda_redis_keys import PandaKeys 
+from perls2.ros_interfaces.panda_redis_keys import PandaKeys
 
 def bstr_to_ndarray(array_bstr):
     """Convert bytestring array to 1d array
@@ -68,11 +68,11 @@ class RedisInterface(object):
         # Connect to redis server.
         self._client = redis.Redis(**setup_kwargs)
 
-    def get(self, key): 
-        """Get a value of the redis database given key. 
+    def get(self, key):
+        """Get a value of the redis database given key.
         """
         return self._client.get(key)
-        
+
     def mset(self, key_val_dict):
         """ Set multiple keys to redis at same time.
             All values for keys must be strings.
@@ -93,7 +93,7 @@ class RedisInterface(object):
         """
         self._client.flushall()
 
-    def mget(self, keys): 
+    def mget(self, keys):
         """MGET for redis client. Gets multiple keys at once
 
         keys (list): list of keys for redis to get.
@@ -101,7 +101,7 @@ class RedisInterface(object):
         return self._client.mget(keys)
 
     def mget_dict(self, keys):
-        """same as mget but returns key value pairs as dict. 
+        """same as mget but returns key value pairs as dict.
         """
         redis_dict = {}
         vals = self._client.mget(keys)
@@ -227,9 +227,10 @@ class PandaRedisInterface(RedisInterface):
     Redis interface specifically for robots. This keeps keys consistent between control interfaces and robot interfaces.
     """
 
-    def __init__(self, host, port, password=None):
+    def __init__(self, host, port, password=None,
+            driver_config='cfg/franka-panda.yaml'):
         RedisInterface.__init__(self, host, port, password)
-        self.keys = PandaKeys()
+        self.keys = PandaKeys(driver_config)
 
 
     def bstr_to_ndarray(self, array_bstr):
@@ -263,12 +264,12 @@ class PandaRedisInterface(RedisInterface):
         """
         return self.bstr_to_ndarray(self._client.get(key))
 
-    def set_eigen(self, key, value): 
+    def set_eigen(self, key, value):
         """Sets the key to format compatible for franka-panda eigen
         """
         if isinstance(value, np.ndarray):
             value = str(value)
-        else: 
+        else:
             raise ValueError("value should be ndarray")
 
         # remove brackets
