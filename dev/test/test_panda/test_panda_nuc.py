@@ -53,8 +53,15 @@ def test_fake_franka_panda():
     # Stop driver, check status changes.
     franka_panda.stop()
     assert(franka_panda.redisClient.get(P.DRIVER_CONN_KEY) == b"off")
-    #
+
+def test_panda_ctrl_setup():
+    # Set up fake franka panda redis driver
+    franka_panda = FakeFrankaPanda()
     franka_panda.start()
+
+    panda_ctrl = PandaCtrlInterface(config='cfg/panda_ctrl_config.yaml',
+                                    controlType='EEImpedance')
 
 if __name__ == '__main__':
     test_fake_franka_panda()
+    test_panda_ctrl_setup()
