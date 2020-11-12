@@ -40,17 +40,6 @@ class PandaCtrlInterface(CtrlInterface):
     def driver_connected(self):
         return self.redisClient.get(P.DRIVER_CONN_KEY) == P.DRIVER_CONNECTED_VALUE
 
-    def step(self, start):
-        """Update robot state and model, set torques from controller.
-        """
-        self.update_model()
-        if self.action_set:
-            self.set_torques(np.zeros(7))
-        else:
-            pass
-        #self.set_to_float()
-        self.action_set = False
-
     def update_model(self):
         """get states from redis, update model with these states.
         """
