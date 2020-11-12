@@ -229,6 +229,16 @@ class PandaRedisInterface(RedisInterface):
 
     def __init__(self, host, port, password=None,
             driver_config='cfg/franka-panda.yaml'):
+        """ Initialize redis interface for Franka Panda.
+
+        Args:
+            host (str): ip address for redis database
+            port (int): port id where redis db hosted.
+            password (str): fpath where password is stored.
+            driver_config (str): (optional) fpath for franka-panda redis driver yaml config.
+                Used to get keys for franka-panda redis driver.
+        """
+
         RedisInterface.__init__(self, host, port, password)
         self.keys = PandaKeys(driver_config)
 
