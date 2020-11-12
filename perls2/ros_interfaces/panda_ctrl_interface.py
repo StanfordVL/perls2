@@ -90,8 +90,6 @@ class PandaCtrlInterface(CtrlInterface):
                 #break
                 pass
         else:
-            print(P.DRIVER_CONN_KEY)
-            print(self.redisClient.get(P.DRIVER_CONN_KEY))
             raise ValueError("run driver first.")
 
 if __name__ == '__main__':
