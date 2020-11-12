@@ -8,6 +8,7 @@ from perls2.ros_interfaces.redis_interface import PandaRedisInterface
 from perls2.utils.yaml_config import YamlConfig
 import logging
 logging.basicConfig(level=logging.DEBUG)
+import numpy as np
 
 P = PandaKeys()
 class PandaCtrlInterface(CtrlInterface):
@@ -26,6 +27,7 @@ class PandaCtrlInterface(CtrlInterface):
         """
         super().__init__(config, controlType)
         self.redisClient = PandaRedisInterface(**self.config['redis'])
+        self.action_set = True
 
     @property
     def driver_connected(self): 
@@ -36,9 +38,11 @@ class PandaCtrlInterface(CtrlInterface):
         """
         self.update_model()
         if self.action_set: 
-            raise NotImplementedError
+            self.set_torque_cmd(np.zeros(7))
         else:
             pass
+        #self.set_to_float()
+        self.action_set = False
 
     def update_model(self):
         """get states from redis, update model with these states.
@@ -62,6 +66,17 @@ class PandaCtrlInterface(CtrlInterface):
             states[state_key] = self.redisClient.get(state_key)
 
         print(states)
+
+    def set_torque_cmd(self, torques): 
+        logging.debug("setting torque command")
+        if not isinstance(torques, np.ndarray):
+            torques = np.asarray(torques)
+        self.redisClient.set_eigen(P.TORQUE_CMD_KEY, torques)
+        self.redisClient.set(P.CONTROL_MODE_KEY, P.TORQUE_CTRL_MODE)
+        logging.debug(self.redisClient.get(P.CONTROL_MODE_KEY))
+
+    def set_to_float(self):
+        self.redisClient.set(P.CONTROL_MODE_KEY, P.FLOAT_CTRL_MODE)
 
     def run(self): 
         if self.driver_connected: 

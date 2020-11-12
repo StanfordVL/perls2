@@ -262,3 +262,15 @@ class PandaRedisInterface(RedisInterface):
                 key (str): string of key storing ndarray
         """
         return self.bstr_to_ndarray(self._client.get(key))
+
+    def set_eigen(self, key, value): 
+        """Sets the key to format compatible for franka-panda eigen
+        """
+        if isinstance(value, np.ndarray):
+            value = str(value)
+        else: 
+            raise ValueError("value should be ndarray")
+
+        # remove brackets
+        value = value[1:-1]
+        self._client.set(key, value)

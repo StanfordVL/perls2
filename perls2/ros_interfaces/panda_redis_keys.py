@@ -16,6 +16,8 @@ class PandaKeys(object):
 
 		self.TORQUE_CMD_KEY = self._get_full_key('tau_des')
 		self.CONTROL_MODE_KEY = self._get_full_key('control_mode')
+		self.TORQUE_CTRL_MODE = "torque"
+		self.FLOAT_CTRL_MODE = "floating"
 
 		self.GRIPPER_WIDTH_CMD_KEY = self._get_full_key('gripper_width_des')
 		self.GRIPPER_MODE_KEY = self._get_full_key('gripper_mode')
