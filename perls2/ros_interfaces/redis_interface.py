@@ -242,7 +242,9 @@ class PandaRedisInterface(RedisInterface):
 
         RedisInterface.__init__(self, host, port, password)
         self.keys = PandaKeys(driver_config)
+        # sleep to improve connection latencies for redis.
         time.sleep(10)
+
 
 
     def bstr_to_ndarray(self, array_bstr):
