@@ -36,6 +36,23 @@ def test_num_joints(panda_ctrl):
     panda_ctrl = panda_ctrl
     assert(panda_ctrl.num_joints == 7)
 
+
+def test_get_neutral_position(panda_ctrl):
+    """Check neutral joint position set on init. This is magic value.
+    """
+    panda_ctrl = panda_ctrl
+    assert(panda_ctrl.neutral_joint_position == \
+        [0.0, -0.524, 0.0, -2.617, 0.0, 2.094, 0.0])
+
+def test_
+def test_init(panda_ctrl):
+    """Test initialization for panda_ctrl.
+
+    Must pass before next functions will work.
+    """
+    pass
+
+# Command tests
 def test_set_torques(panda_ctrl):
     """ check set torques works for list commands
     """
@@ -59,12 +76,6 @@ def test_set_torques(panda_ctrl):
         b'0.1 0.1 0.1 0.1 0.1 0.1 0.1')
     assert(panda_ctrl.redisClient.get(P.CONTROL_MODE_KEY) ==
         bytes(P.TORQUE_CTRL_MODE, 'utf-8'))
-
-def test_init(panda_ctrl):
-    """Test initialization for panda_ctrl.
-
-    Must pass before next functions will work.
-    """
 
 def test_make_controller_from_redis(panda_ctrl, real_panda_config):
     panda_ctrl = panda_ctrl

@@ -34,7 +34,7 @@ class PandaCtrlInterface(CtrlInterface):
         self.CLIP_CMD_TORQUES = [-1.0, 1.0]
 
         self.neutral_joint_position = self.config['panda']['neutral_joint_angles']
-
+        self.update_model()
     @property
     def num_joints(self):
         return self._num_joints
