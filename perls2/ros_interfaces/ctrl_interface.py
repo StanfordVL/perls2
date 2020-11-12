@@ -2,6 +2,8 @@
 """
 
 import time
+import six
+import abc
 import numpy as np
 import logging
 from perls2.utils.yaml_config import YamlConfig
@@ -23,6 +25,7 @@ from perls2.controllers.robot_model.model import Model
 
 import perls2.controllers.utils.transform_utils as T
 
+@six.add_metaclass(abc.ABCMeta)
 class CtrlInterface(RobotInterface):
     """ Abstract class definition for Control Interface.
 
@@ -49,6 +52,12 @@ class CtrlInterface(RobotInterface):
         # Control Init
         self.controlType = controlType
         self.model = Model()
+
+    @property
+    def version(self):
+        """dict of current versions of robot SDK, gripper, and robot
+        """
+        raise NotImplementedError
 
     @property
     def name(self):
@@ -108,6 +117,16 @@ class CtrlInterface(RobotInterface):
         wx, wy, wz]
         """
         raise NotImplementedError
+
+    @property
+    def ee_w(self):
+        """
+        Get the current twist velocity of end effector in the eef frame.
+        :return: a list of floats for the twist velocity [vx, vy, vz,
+        wx, wy, wz]
+        """
+        raise NotImplementedError
+
 
     def get_ee_omega_world(self):
         """
@@ -182,6 +201,54 @@ class CtrlInterface(RobotInterface):
     @property
     def num_joints(self):
         """ Number of joints according to pybullet.
+        """
+        raise NotImplementedError
+
+    def jacobian(self):
+        """List of 7f describing joint velocities (rad/s) of the robot arm.
+
+        Ordered from base to end_effector
+        """
+        raise NotImplementedError
+
+    @property
+    def linear_jacobian(self):
+        """List of 7f describing joint velocities (rad/s) of the robot arm.
+
+        Ordered from base to end_effector
+        """
+        raise NotImplementedError
+
+    @property
+    def angular_jacobian(self):
+        """List of 7f describing joint velocities (rad/s) of the robot arm.
+
+        Ordered from base to end_effector
+        """
+        raise NotImplementedError
+
+    @property
+    def mass_matrix(self):
+        """List of 7f describing joint velocities (rad/s) of the robot arm.
+
+        Ordered from base to end_effector
+        """
+        raise NotImplementedError
+
+    def open_gripper(self):
+        """ Open robot gripper.
+        """
+        raise NotImplementedError
+
+
+    def close_gripper(self):
+        """ Close robot gripper
+        """
+        raise NotImplementedError
+
+
+    def set_gripper_to_value(self, value):
+        """ Set gripper to desired open/close value
         """
         raise NotImplementedError
 
