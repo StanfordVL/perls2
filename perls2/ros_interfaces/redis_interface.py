@@ -242,8 +242,10 @@ class PandaRedisInterface(RedisInterface):
 
         RedisInterface.__init__(self, host, port, password)
         self.keys = PandaKeys(driver_config)
-        # sleep to improve connection latencies for redis.
-        time.sleep(10)
+        # sleep to improve connection latencies for redis on tcp
+        import pdb; pdb.set_trace()
+        if (self.host !=  "127.0.0.1") and (self.host != "localhost"):
+            time.sleep(10)
 
 
 
