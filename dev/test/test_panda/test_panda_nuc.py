@@ -69,12 +69,25 @@ def test_real_panda_setup():
     """
     config = YamlConfig('dev/test/test_panda/test_panda_cfg.yaml')
     real_panda = RealPandaInterface(config=config, controlType='EEImpedance')
+
     # Test real panda connect / disconnect.
     real_panda.connect()
     assert(real_panda.redisClient.get(ROBOT_ENV_CONN_KEY) == b'True')
+
     real_panda.disconnect()
     assert(real_panda.redisClient.get(ROBOT_ENV_CONN_KEY) != b'True')
     assert(real_panda.redisClient.get(ROBOT_ENV_CONN_KEY) == b'False')
+
+    # set controller params from config.
+    config['controller']['Real']['selected_type'] = "EEImpedance"
+    real_panda.set_controller_params_from_config()
+    assert(real_panda.redisClient.get(CONTROLLER_CONTROL_TYPE_KEY) == b'EEImpedance')
+    assert(real_panda.redisClient.get(CONTROLLER_CONTROL_PARAMS_KEY) ==
+        config['controller']['Real']['EEImpedance'])
+
+
+
+
 
 
 if __name__ == '__main__':
