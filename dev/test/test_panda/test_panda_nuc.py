@@ -11,6 +11,7 @@ This script is meant to be run on the nuc, may be extended to ws.
 import redis
 import pytest
 from perls2.ros_interfaces.panda_redis_keys import PandaKeys
+from perls2.ros_interfaces.redis_keys import *
 from perls2.ros_interfaces.panda_ctrl_interface import PandaCtrlInterface
 from perls2.robots.real_panda_interface import RealPandaInterface
 
@@ -68,6 +69,12 @@ def test_real_panda_setup():
     """
     config = YamlConfig('dev/test/test_panda/test_panda_cfg.yaml')
     real_panda = RealPandaInterface(config=config, controlType='EEImpedance')
+    # Test real panda connect / disconnect.
+    real_panda.connect()
+    assert(real_panda.redisClient.get(ROBOT_ENV_CONN_KEY) == b'True')
+    real_panda.disconnect()
+    assert(real_panda.redisClient.get(ROBOT_ENV_CONN_KEY) != b'True')
+    assert(real_panda.redisClient.get(ROBOT_ENV_CONN_KEY) == b'False')
 
 
 if __name__ == '__main__':

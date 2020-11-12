@@ -61,6 +61,12 @@ class RealRobotInterface(RobotInterface):
         else:
             raise ValueError("invalid robot interface type. choose 'sawyer'")
 
+    def connect(self):
+        self.redisClient.set(ROBOT_ENV_CONN_KEY, 'True')
+
+    def disconnect(self):
+        self.redisClient.set(ROBOT_ENV_CONN_KEY, 'False')
+
     def step(self):
         """Compatability only
 
