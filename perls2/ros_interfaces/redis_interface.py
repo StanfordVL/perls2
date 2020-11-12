@@ -267,6 +267,8 @@ class PandaRedisInterface(RedisInterface):
         """
         if key in self.keys.ROBOT_STATE_KEYS:
             return self._get_key_ndarray(key)
+        elif CONTROLLER_CONTROL_PARAMS_KEY in key or CONTROLLER_GOAL_KEY in key:
+            return self._get_key_json(key)
         else:
             return self._client.get(key)
 
