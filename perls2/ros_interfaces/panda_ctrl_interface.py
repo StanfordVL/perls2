@@ -68,8 +68,17 @@ class PandaCtrlInterface(CtrlInterface):
 
         print(states)
 
-    def set_torque_cmd(self, torques):
+    def set_torques(self, torques):
+        """Set torque command to redis driver.
+
+        Args:
+            torques (list or ndarray): 7f list of joint torques to command.
+
+        """
         logging.debug("setting torque command")
+        assert len(desired_torques) == len(self.num_joints), \
+            'Input number of torque values must match the number of joints'
+
         if not isinstance(torques, np.ndarray):
             torques = np.asarray(torques)
         self.redisClient.set_eigen(P.TORQUE_CMD_KEY, torques)
