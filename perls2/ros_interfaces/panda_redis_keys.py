@@ -23,11 +23,22 @@ class PandaKeys(object):
 		self.ROBOT_STATE_Q_KEY = self._get_full_key('q')
 		self.ROBOT_STATE_DQ_KEY = self._get_full_key('dq')
 		self.ROBOT_STATE_EE_POSE_KEY = self._get_full_key('pose')
-		self.ROBOT_STATE_TAU = self._get_full_key('tau')
+		self.ROBOT_STATE_TAU_KEY = self._get_full_key('tau')
+		
+		self.ROBOT_STATE_KEYS = [
+			self.ROBOT_STATE_Q_KEY, 
+			self.ROBOT_STATE_DQ_KEY,
+			self.ROBOT_STATE_EE_POSE_KEY, 
+			self.ROBOT_STATE_TAU_KEY, 
+			]
+
 		self.DRIVER_CONN_KEY = "franka_panda::driver::status"
 
 		self.DRIVER_CONNECTED_VALUE = bytes("running", 'utf-8')
 		self.DRIVER_DISCONN_VALUE = bytes("off", 'utf-8')
+
+
+
 
 	def _get_full_key(self, key):
 		if key in self.yaml_keys.keys():

@@ -19,31 +19,60 @@ class PandaCtrlInterface(CtrlInterface):
     with the robot state for RealPandaInterface. 
 
     """
-
     def __init__(self,
                  config,
                  controlType):
         """ Initialize the control interface.
         """
-        self.config = YamlConfig(config)
+        super().__init__(config, controlType)
         self.redisClient = PandaRedisInterface(**self.config['redis'])
-    
-        # Timing
-        self.startTime = time.time()
-        self.endTime = time.time()
-        self.action_set = False
-
-        # Control Init
-        self.controlType = controlType
 
     @property
     def driver_connected(self): 
         return self.redisClient.get(P.DRIVER_CONN_KEY) == P.DRIVER_CONNECTED_VALUE
 
+    def step(self, start):
+        """Update robot state and model, set torques from controller. 
+        """
+        self.update_model()
+        if self.action_set: 
+            raise NotImplementedError
+        else:
+            pass
+
+    def update_model(self):
+        """get states from redis, update model with these states.
+        """
+        states = self._get_states_from_redis()
+        # self.model.update_states(ee_pos=np.asarray(self.ee_position),
+        #                  ee_ori=np.asarray(self.ee_orientation),
+        #                  ee_pos_vel=np.asarray(ee_v_world),
+        #                  ee_ori_vel=np.asarray(ee_w_world),
+        #                  joint_pos=np.asarray(self.q[:7]),
+        #                  joint_vel=np.asarray(self.dq[:7]),
+        #                  joint_tau=np.asarray(self.tau),
+        #                  joint_dim=7,
+        #                  torque_compensation=self.torque_compensation)
+
+    def _get_states_from_redis(self): 
+        """ Get robot states from redis.
+    `   """
+        states = {}
+        for state_key in P.ROBOT_STATE_KEYS: 
+            states[state_key] = self.redisClient.get(state_key)
+
+        print(states)
+
     def run(self): 
         if self.driver_connected: 
-
             logging.info("driver is connected.")
+
+            start = time.time()
+            if self.driver_connected:
+                self.step(start)
+            else:
+                #break
+                pass
         else:
             print(P.DRIVER_CONN_KEY)
             print(self.redisClient.get(P.DRIVER_CONN_KEY))

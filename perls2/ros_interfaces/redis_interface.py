@@ -8,7 +8,7 @@ import numpy as np
 import json
 from perls2.ros_interfaces.redis_keys import *
 from perls2.ros_interfaces.redis_values import *
-
+from perls2.ros_interfaces.panda_redis_keys import PandaKeys 
 
 def bstr_to_ndarray(array_bstr):
     """Convert bytestring array to 1d array
@@ -92,6 +92,23 @@ class RedisInterface(object):
         Deletes ALL keys and values.
         """
         self._client.flushall()
+
+    def mget(self, keys): 
+        """MGET for redis client. Gets multiple keys at once
+
+        keys (list): list of keys for redis to get.
+        """
+        return self._client.mget(keys)
+
+    def mget_dict(self, keys):
+        """same as mget but returns key value pairs as dict. 
+        """
+        redis_dict = {}
+        vals = self._client.mget(keys)
+        for (idx, value) in enumerate(vals):
+            redis_dict[keys[idx]] = value
+        return redis_dict
+
 
 class RobotRedisInterface(RedisInterface):
     """ Redis interface for robots.
@@ -212,5 +229,36 @@ class PandaRedisInterface(RedisInterface):
 
     def __init__(self, host, port, password=None):
         RedisInterface.__init__(self, host, port, password)
+        self.keys = PandaKeys()
 
 
+    def bstr_to_ndarray(self, array_bstr):
+        """Convert bytestring array to 1d array
+        """
+        return np.fromstring(array_bstr[1:-1], dtype=np.float, sep=' ')
+
+    def get(self, key):
+        """Get value of redis data base given key.
+
+        Args:
+            key (str): redis key to be queried.
+
+        Returns:
+            (list or dict): Value of the key.
+
+        Notes:
+            If queried value is a robot state or model, converts to ndarray, if
+            it is a control parameter or goal, converts to dict.
+        """
+        if key in self.keys.ROBOT_STATE_KEYS:
+            return self._get_key_ndarray(key)
+        else:
+            return self._client.get(key)
+
+    def _get_key_ndarray(self, key):
+        """Return value from desired key, converting bytestring to ndarray
+
+            Args:
+                key (str): string of key storing ndarray
+        """
+        return self.bstr_to_ndarray(self._client.get(key))

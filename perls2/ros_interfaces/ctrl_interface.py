@@ -40,8 +40,6 @@ class CtrlInterface(object):
         Initialize robot for control. 
         """
         self.config = YamlConfig(config)
-        self.redisClient = Redis(**self.config['redis'])
-        self.redisClient.flushall()
 
         # Timing
         self.startTime = time.time()
@@ -50,3 +48,4 @@ class CtrlInterface(object):
 
         # Control Init
         self.controlType = controlType
+        self.model = Model()
