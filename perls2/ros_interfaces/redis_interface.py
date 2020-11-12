@@ -1,6 +1,7 @@
 """Class definition for Redis Interface.
 """
 import redis
+import time
 # Importing hiredis speeds up redis.
 import hiredis
 import socket
@@ -241,6 +242,7 @@ class PandaRedisInterface(RedisInterface):
 
         RedisInterface.__init__(self, host, port, password)
         self.keys = PandaKeys(driver_config)
+        time.sleep(10)
 
 
     def bstr_to_ndarray(self, array_bstr):
