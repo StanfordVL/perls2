@@ -121,6 +121,28 @@ class RedisInterface(object):
 
         return json.loads(json_dict)
 
+    def _make_valid_json_dict(self, redis_dict):
+        """ Helper function to convert redis dicts to json
+
+        Redis in python 3+ converts keys from "keys": ... to
+        'keys': ...., which is not valid json. This function fixes it.
+
+        Args:
+            redis_dict (string): raw string value from Redis.get
+        """
+        # convert to string from bytearray
+        try:
+            redis_dict = redis_dict.decode()
+        except (UnicodeDecodeError, AttributeError):
+            pass
+
+        # redis_dict = str(redis_dict, 'utf-8')
+        # Convert single quotations to double quotes.
+        # since the keys that use dicts always have numeric values this works.
+        redis_dict = redis_dict.replace("'", "\"")
+        return redis_dict
+
+
 class RobotRedisInterface(RedisInterface):
     """ Redis interface for robots.
 
@@ -146,27 +168,6 @@ class RobotRedisInterface(RedisInterface):
                 key (str): string of key storing ndarray
         """
         return bstr_to_ndarray(self._client.get(key))
-
-    def _make_valid_json_dict(self, redis_dict):
-        """ Helper function to convert redis dicts to json
-
-        Redis in python 3+ converts keys from "keys": ... to
-        'keys': ...., which is not valid json. This function fixes it.
-
-        Args:
-            redis_dict (string): raw string value from Redis.get
-        """
-        # convert to string from bytearray
-        try:
-            redis_dict = redis_dict.decode()
-        except (UnicodeDecodeError, AttributeError):
-            pass
-
-        # redis_dict = str(redis_dict, 'utf-8')
-        # Convert single quotations to double quotes.
-        # since the keys that use dicts always have numeric values this works.
-        redis_dict = redis_dict.replace("'", "\"")
-        return redis_dict
 
     def get_dict(self, key):
         """Get dict from redis
