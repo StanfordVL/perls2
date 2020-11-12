@@ -28,7 +28,7 @@ class PandaCtrlInterface(CtrlInterface):
         """
         super().__init__(config, controlType)
         self.redisClient = PandaRedisInterface(**self.config['redis'])
-        self.action_set = True
+        self.action_set = False
         self._num_joints = 7
         self.CLIP_CMD_TORQUES = [-1.0, 1.0]
 
