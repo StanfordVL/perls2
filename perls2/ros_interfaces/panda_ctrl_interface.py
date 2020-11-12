@@ -37,7 +37,7 @@ class PandaCtrlInterface(CtrlInterface):
 
     @property
     def num_joints(self):
-        self._num_joints
+        return self._num_joints
 
     @property
     def driver_connected(self):
@@ -74,7 +74,7 @@ class PandaCtrlInterface(CtrlInterface):
 
         """
         logging.debug("setting torque command")
-        assert len(desired_torques) == len(self.num_joints), \
+        assert len(torques) == self.num_joints, \
             'Input number of torque values must match the number of joints'
 
         if not isinstance(torques, np.ndarray):
