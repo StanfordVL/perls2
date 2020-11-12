@@ -204,6 +204,7 @@ class CtrlInterface(RobotInterface):
         """
         raise NotImplementedError
 
+    @property
     def jacobian(self):
         """List of 7f describing joint velocities (rad/s) of the robot arm.
 
