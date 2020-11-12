@@ -229,6 +229,75 @@ class CtrlInterface(RobotInterface):
         else:
             return False
 
+    def make_controller_from_redis(self, control_type, controller_dict):
+        print("Making controller {} with params: {}".format(control_type, controller_dict))
+        self.controlType = control_type
+        if control_type == EE_IMPEDANCE:
+            interp_kwargs = {'max_dx': 0.005,
+                             'ndim': 3,
+                             'controller_freq': 500,
+                             'policy_freq': 20,
+                             'ramp_ratio': 0.2}
+            self.interpolator_pos = LinearInterpolator(**interp_kwargs)
+            self.interpolator_ori = LinearOriInterpolator(**interp_kwargs)
+            return EEImpController(
+                self.model,
+                interpolator_pos=self.interpolator_pos,
+                interpolator_ori=self.interpolator_ori, **controller_dict)
+        elif control_type == EE_POSTURE:
+            interp_kwargs = {'max_dx': 0.005,
+                             'ndim': 3,
+                             'controller_freq': 500,
+                             'policy_freq': 20,
+                             'ramp_ratio': 0.2}
+            self.interpolator_pos = LinearInterpolator(**interp_kwargs)
+            self.interpolator_ori = LinearOriInterpolator(**interp_kwargs)
+            return EEPostureController(
+                self.model,
+                interpolator_pos=self.interpolator_pos,
+                interpolator_ori=self.interpolator_ori, **controller_dict)
+        elif control_type == JOINT_IMPEDANCE:
+            interp_kwargs = {'max_dx': 0.05,
+                             'ndim': 7,
+                             'controller_freq': 500,
+                             'policy_freq': 20,
+                             'ramp_ratio': 0.2}
+            self.interpolator_pos = LinearInterpolator(**interp_kwargs)
+            return JointImpController(
+                self.model,
+                interpolator_qpos=self.interpolator_pos,
+                **controller_dict)
+        elif control_type == JOINT_TORQUE:
+            interp_kwargs = {'max_dx': 0.05,
+                             'ndim': 7,
+                             'controller_freq': 500,
+                             'policy_freq': 20,
+                             'ramp_ratio': 0.2}
+            self.interpolator_pos = LinearInterpolator(**interp_kwargs)
+            return JointTorqueController(
+                self.model,
+                interpolator=self.interpolator_pos,
+                **controller_dict)
+        elif control_type == JOINT_VELOCITY:
+            interp_kwargs = {'max_dx': 0.05,
+                             'ndim': 7,
+                             'controller_freq': 500,
+                             'policy_freq': 20,
+                             'ramp_ratio': 0.2}
+            self.interpolator_pos = LinearInterpolator(**interp_kwargs)
+            return JointVelController(
+                self.model,
+                interpolator=self.interpolator_pos,
+                **controller_dict)
+        else:
+            raise ValueError("Invalid control type.")
+
+    def get_controller_params(self):
+        return self.redisClient.get(CONTROLLER_CONTROL_PARAMS_KEY)
+
+    def get_control_type(self):
+        return self.redisClient.get(CONTROLLER_CONTROL_TYPE_KEY)
+
     def run(self):
         if (self.env_connected == b'True'):
             self.controller = self.make_controller_from_redis(self.get_control_type(), self.get_controller_params())
