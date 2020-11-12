@@ -30,7 +30,7 @@ class PandaCtrlInterface(CtrlInterface):
         self.redisClient = PandaRedisInterface(**self.config['redis'])
         self.action_set = True
         self._num_joints = 7
-        self.MAX_CMD_TORQUES = [-1.0, 1.0]
+        self.CLIP_CMD_TORQUES = [-1.0, 1.0]
 
     @property
     def num_joints(self):

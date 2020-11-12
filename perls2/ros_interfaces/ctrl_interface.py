@@ -298,6 +298,31 @@ class CtrlInterface(RobotInterface):
     def get_control_type(self):
         return self.redisClient.get(CONTROLLER_CONTROL_TYPE_KEY)
 
+########################################################################
+# Step and Loop Functions
+    def step(self, start):
+        """Update the robot state and model, set torques from controller
+
+        Note this is different from other robot interfaces, as the Sawyer
+        low-level controller takes gravity compensation into account.
+        """
+        self.update_model()
+
+        if self.action_set:
+            torques = self.controller.run_controller()
+            # self.set_torques([0]*7)
+
+            torques = np.clip(torques, self.CLIP_CMD_TORQUES[0], self.CLIP_CMD_TORQUES[1] )
+            #print("Torques {}".format(torques))
+
+            self.set_torques(torques)
+
+            while (time.time() - start < LOOP_TIME):
+                pass
+
+        else:
+            pass
+
     def run(self):
         if (self.env_connected == b'True'):
             self.controller = self.make_controller_from_redis(self.get_control_type(), self.get_controller_params())
