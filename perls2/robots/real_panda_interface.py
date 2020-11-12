@@ -35,3 +35,4 @@ class RealPandaInterface(RealRobotInterface):
         self.redisClient = PandaRedisInterface(**self.config['redis'])
 
         self.set_controller_params_from_config()
+
