@@ -29,6 +29,12 @@ class PandaCtrlInterface(CtrlInterface):
         super().__init__(config, controlType)
         self.redisClient = PandaRedisInterface(**self.config['redis'])
         self.action_set = True
+        self._num_joints = 7
+        self.MAX_CMD_TORQUES = [-1.0, 1.0]
+
+    @property
+    def num_joints(self):
+        self._num_joints
 
     @property
     def driver_connected(self):
@@ -39,7 +45,7 @@ class PandaCtrlInterface(CtrlInterface):
         """
         self.update_model()
         if self.action_set:
-            self.set_torque_cmd(np.zeros(7))
+            self.set_torques(np.zeros(7))
         else:
             pass
         #self.set_to_float()
