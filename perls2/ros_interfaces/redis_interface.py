@@ -110,6 +110,16 @@ class RedisInterface(object):
             redis_dict[keys[idx]] = value
         return redis_dict
 
+    def _get_key_json(self, key):
+        """get json value from desired key, converting it to a dict.
+
+            arg:
+                key (str): redis key storing json dict
+        """
+        redis_json_dict = self._client.get(key)
+        json_dict = self._make_valid_json_dict(redis_json_dict)
+
+        return json.loads(json_dict)
 
 class RobotRedisInterface(RedisInterface):
     """ Redis interface for robots.
@@ -136,17 +146,6 @@ class RobotRedisInterface(RedisInterface):
                 key (str): string of key storing ndarray
         """
         return bstr_to_ndarray(self._client.get(key))
-
-    def _get_key_json(self, key):
-        """get json value from desired key, converting it to a dict.
-
-            arg:
-                key (str): redis key storing json dict
-        """
-        redis_json_dict = self._client.get(key)
-        json_dict = self._make_valid_json_dict(redis_json_dict)
-
-        return json.loads(json_dict)
 
     def _make_valid_json_dict(self, redis_dict):
         """ Helper function to convert redis dicts to json
