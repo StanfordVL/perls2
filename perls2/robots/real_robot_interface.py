@@ -92,6 +92,22 @@ class RealRobotInterface(RobotInterface):
         """
         raise NotImplementedError
 
+    def set_controller_params_from_config(self):
+        """Set controller parameters from config file to redis.
+        """
+        selected_type = self.config['controller']['selected_type']
+        self.control_config = self.config['controller']['Real'][selected_type]
+
+        self.redisClient.mset({CONTROLLER_CONTROL_PARAMS_KEY: json.dumps(self.control_config),
+                               CONTROLLER_CONTROL_TYPE_KEY: selected_type})
+
+        cmd_type = CHANGE_CONTROLLER
+        control_cmd = {ROBOT_CMD_TSTAMP_KEY: time.time(), ROBOT_CMD_TYPE_KEY: cmd_type}
+
+        self.redisClient.mset(control_cmd)
+
+        logging.debug("{} Control parameters set to redis: {}".format(selected_type, self.control_config))
+
     def change_controller(self, next_type):
         """Change to a different controller type.
         Args:
