@@ -5,6 +5,7 @@ import time
 from perls2.ros_interfaces.ctrl_interface import CtrlInterface
 from perls2.ros_interfaces.panda_redis_keys import PandaKeys
 from perls2.ros_interfaces.redis_interface import PandaRedisInterface
+from perls2.robots.real_panda_interface import RealPandaInterface
 from perls2.utils.yaml_config import YamlConfig
 import logging
 logging.basicConfig(level=logging.DEBUG)

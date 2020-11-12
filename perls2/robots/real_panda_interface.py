@@ -16,7 +16,7 @@ import abc  # For abstract class definitions
 import six  # For abstract class definitions
 
 from perls2.robots.real_robot_interface import RealRobotInterface
-
+from perls2.ros_interfaces.redis_interface import PandaRedisInterface
 
 class RealPandaInterface(RealRobotInterface):
     """Abstract interface to be implemented for each real and simulated
@@ -25,4 +25,11 @@ class RealPandaInterface(RealRobotInterface):
 
     def __init__(self,
                  config,
-                 controlType='EEImpedance')
+                 controlType='EEImpedance'):
+        """Initialize the real panda interface.
+        """
+        super().__init__(controlType=controlType, config=config)
+
+        # Create redis interface specific to panda.
+        redis_config = self.config['redis']
+        self.redisClient = PandaRedisInterface(**self.config['redis'])

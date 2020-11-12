@@ -9,9 +9,10 @@ This script is meant to be run on the nuc, may be extended to ws.
 ```
 """
 import redis
-
+import pytest
 from perls2.ros_interfaces.panda_redis_keys import PandaKeys
 from perls2.ros_interfaces.panda_ctrl_interface import PandaCtrlInterface
+from perls2.robots.real_panda_interface import RealPandaInterface
 
 from perls2.ros_interfaces.redis_interface import PandaRedisInterface
 from perls2.utils.yaml_config import YamlConfig
@@ -45,23 +46,31 @@ class FakeFrankaPanda(object):
         """
         self.redisClient.set(P.ROBOT_STATE_Q_KEY, str(q))
 
-def test_fake_franka_panda():
-    franka_panda = FakeFrankaPanda()
+def test_fake_redis_driver():
+    redis_driver = FakeFrankaPanda()
     # Start driver, check status changes.
-    franka_panda.start()
-    assert(franka_panda.redisClient.get(P.DRIVER_CONN_KEY) == b"running")
+    redis_driver.start()
+    assert(redis_driver.redisClient.get(P.DRIVER_CONN_KEY) == b"running")
     # Stop driver, check status changes.
-    franka_panda.stop()
-    assert(franka_panda.redisClient.get(P.DRIVER_CONN_KEY) == b"off")
+    redis_driver.stop()
+    assert(redis_driver.redisClient.get(P.DRIVER_CONN_KEY) == b"off")
 
 def test_panda_ctrl_setup():
     # Set up fake franka panda redis driver
-    franka_panda = FakeFrankaPanda()
-    franka_panda.start()
+    redis_driver = FakeFrankaPanda()
+    redis_driver.start()
 
     panda_ctrl = PandaCtrlInterface(config='cfg/panda_ctrl_config.yaml',
                                     controlType='EEImpedance')
 
+def test_real_panda_setup():
+    """Test for Setting up real Panda Interface.
+    """
+    config = YamlConfig('dev/test/test_panda/test_panda_cfg.yaml')
+    real_panda = RealPandaInterface(config=config, controlType='EEImpedance')
+
+
 if __name__ == '__main__':
-    test_fake_franka_panda()
+    test_fake_redis_driver()
     test_panda_ctrl_setup()
+    test_real_panda_setup()

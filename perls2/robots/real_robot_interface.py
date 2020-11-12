@@ -265,3 +265,128 @@ class RealRobotInterface(RobotInterface):
             velocities = velocities.tolist()
         kwargs = {'cmd_type': SET_JOINT_VELOCITIES, "velocities": velocities}
         self.set_controller_goal(**kwargs)
+
+    @property
+    def version(self):
+        """dict of current versions of robot SDK, gripper, and robot
+        """
+        raise NotImplementedError
+
+    @property
+    def name(self):
+        """str of the name of the robot
+        """
+        raise NotImplementedError
+
+    @property
+    def ee_position(self):
+        """list of three floats [x, y, z] of the position of the
+        end-effector.
+        """
+        raise NotImplementedError
+
+    @property
+    def ee_orientation(self):
+        """list of four floats [qx, qy, qz, qw] of the orientation
+        quaternion of the end-effector.
+        """
+        raise NotImplementedError
+
+    @property
+    def ee_pose(self):
+        """list of seven floats [x, y, z, qx, qy, qz, qw] of the 6D pose
+        of the end effector.
+        """
+        raise NotImplementedError
+
+    @property
+    def ee_v(self):
+        """list of seven floats [x, y, z, qx, qy, qz, qw] of the 6D pose
+        of the end effector.
+        """
+        raise NotImplementedError
+
+    @property
+    def ee_w(self):
+        """list of seven floats [x, y, z, qx, qy, qz, qw] of the 6D pose
+        of the end effector.
+        """
+        raise NotImplementedError
+
+    @property
+    def ee_twist(self):
+        """list of seven floats [x, y, z, qx, qy, qz, qw] of the 6D pose
+        of the end effector.
+        """
+        raise NotImplementedError
+
+    @property
+    def q(self):
+        """List of 7f describing joint positions (rad) of the robot arm.
+
+        Ordered from base to end_effector
+        """
+        raise NotImplementedError
+
+    @property
+    def dq(self):
+        """List of 7f describing joint velocities (rad/s) of the robot arm.
+
+        Ordered from base to end_effector
+        """
+        raise NotImplementedError
+
+    @property
+    def tau(self):
+        """List of 7f describing joint torques (Nm)
+
+        Ordered from base to end_effector
+        """
+        raise NotImplementedError
+
+    @property
+    def jacobian(self):
+        """List of 7f describing joint velocities (rad/s) of the robot arm.
+
+        Ordered from base to end_effector
+        """
+        raise NotImplementedError
+
+    @property
+    def linear_jacobian(self):
+        """List of 7f describing joint velocities (rad/s) of the robot arm.
+
+        Ordered from base to end_effector
+        """
+        raise NotImplementedError
+
+    @property
+    def angular_jacobian(self):
+        """List of 7f describing joint velocities (rad/s) of the robot arm.
+
+        Ordered from base to end_effector
+        """
+        raise NotImplementedError
+
+    @property
+    def mass_matrix(self):
+        """List of 7f describing joint velocities (rad/s) of the robot arm.
+
+        Ordered from base to end_effector
+        """
+        raise NotImplementedError
+
+    def open_gripper(self):
+        """ Open robot gripper.
+        """
+        raise NotImplementedError
+
+    def close_gripper(self):
+        """ Close robot gripper
+        """
+        raise NotImplementedError
+
+    def set_gripper_to_value(self, value):
+        """ Set gripper to desired open/close value
+        """
+        raise NotImplementedError
