@@ -1,7 +1,15 @@
-"""
-Abstract class defining the interface to the Panda Robots.
-Author: Roberto Martin-Martin
-        Rohun Kulkarni
+"""Class defining interface to Real Panda Robots.
+
+RealPandaInterfaces provide access to robot states, and the ability to send
+commands to real Franka Panda arms.
+
+Operation:
+
+RealPandaInterfaces connect to a redis-server, and send commands to robots by
+setting keys on the redis db. These actions are interpreted by the PandaCtrlInterface
+running on the NUC, which converts these actions along with the robot state into torque
+commands. RealPandaInterfaces obtain robot proprioception by querying the redis-db.
+
 """
 
 import abc  # For abstract class definitions
@@ -16,5 +24,5 @@ class RealPandaInterface(RealRobotInterface):
     """
 
     def __init__(self,
-                 pose=None,
-                 controlType=None):
+                 config,
+                 controlType='EEImpedance')
