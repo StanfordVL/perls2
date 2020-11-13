@@ -292,3 +292,6 @@ class PandaRedisInterface(RedisInterface):
         # remove brackets
         value = value[1:-1]
         self._client.set(key, value)
+        
+    def _redis_state_to_np(state_str): 
+        return np.fromstring(state_str, dtype=np.float, sep= ' ')

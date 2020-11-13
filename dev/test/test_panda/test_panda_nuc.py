@@ -21,13 +21,32 @@ P = PandaKeys('cfg/franka-panda.yaml')
 
 from dev.test.test_panda.fake_franka_panda import FakeFrankaPanda
 
-def test_panda_ctrl_setup():
-    # Set up fake franka panda redis driver
-    redis_driver = FakeFrankaPanda()
-    redis_driver.start()
+@pytest.fixture
+def fake_driver():
+	driver = FakeFrankaPanda()
+	return driver
 
-    panda_ctrl = PandaCtrlInterface(config='cfg/panda_ctrl_config.yaml',
-                                    controlType='EEImpedance')
+@pytest.fixture
+def panda_ctrl():
+	panda_ctrl = PandaCtrlInterface(config='cfg/panda_ctrl_config.yaml', controlType=None)
+	return panda_ctrl
+
+def test_redis_state_to_np(): 
+	state_str = FakeFrankaPanda.FAKE_STATE[P.ROBOT_STATE_Q_KEY]
+	state_np = PandaRedisInterface._redis_state_to_np(state_str)
+	assert(state_np.shape == (7,))
+
+def test_redis_state_to_np_mat():
+	state_str = FakeFrankaPanda.FAKE_STATE[P.ROBOT_MODEL_MASS_MATRIX_KEY]
+	state_np = PandaRedisInterface._redis_state_to_np_mat(state_str, (7,7))
+	assert(state_np.shape == (7,7))
+
+# def test_get_states_from_redis(fake_driver, panda_ctrl)
+# 	fake_driver = fake_driver
+# 	fake_driver.set_fake_states()
+
+# 	panda_ctrl = panda_ctrl
+# 	states = panda_ctrl._get_states_from_redis()
 
 
 
