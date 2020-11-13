@@ -11,8 +11,8 @@ class PandaKeys(object):
 		"""
 		self.config = YamlConfig(config)
 		self.yaml_keys = self.config['redis']['keys']
+		self.perls2_keys = self.config['perls2_redis']
 		self.PREFIX = self.yaml_keys['prefix']
-
 
 		self.TORQUE_CMD_KEY = self._get_full_key('tau_des')
 		self.CONTROL_MODE_KEY = self._get_full_key('control_mode')
@@ -26,6 +26,10 @@ class PandaKeys(object):
 		self.ROBOT_STATE_DQ_KEY = self._get_full_key('dq')
 		self.ROBOT_STATE_EE_POSE_KEY = self._get_full_key('pose')
 		self.ROBOT_STATE_TAU_KEY = self._get_full_key('tau')
+		self.ROBOT_MODEL_MASS_MATRIX_KEY = self._get_full_key('mass_matrix')
+		self.ROBOT_MODEL_JACOBIAN_KEY = self._get_full_key('jacobian')
+		self.ROBOT_MODEL_GRAVITY_KEY = self._get_full_key('gravity')
+		self.ROBOT_MODEL_CORIOLIS_KEY = self._get_full_key('coriolis')
 		
 		self.ROBOT_STATE_KEYS = [
 			self.ROBOT_STATE_Q_KEY, 
@@ -45,6 +49,8 @@ class PandaKeys(object):
 	def _get_full_key(self, key):
 		if key in self.yaml_keys.keys():
 			return self.PREFIX + self.yaml_keys[key]
+		elif key in self.perls2_keys.keys():
+			return self.PREFIX + self.perls2_keys[key]		
 		else:
 			raise KeyError("key not found. Check default.yaml")
 
