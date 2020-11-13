@@ -34,7 +34,14 @@ class PandaCtrlInterface(CtrlInterface):
         self.CLIP_CMD_TORQUES = [-1.0, 1.0]
 
         self.neutral_joint_position = self.config['panda']['neutral_joint_angles']
-        self.update_model()
+
+        # TODO: reset to neutral position.
+        # Get state from redis
+        # Update model.
+
+    def prepare_to_run(self):
+        """ Perform steps before running CtrlInterface.
+        """
     @property
     def num_joints(self):
         return self._num_joints
@@ -64,7 +71,7 @@ class PandaCtrlInterface(CtrlInterface):
         for state_key in P.ROBOT_STATE_KEYS:
             states[state_key] = self.redisClient.get(state_key)
 
-        print(states)
+        return states
 
     def set_torques(self, torques):
         """Set torque command to redis driver.

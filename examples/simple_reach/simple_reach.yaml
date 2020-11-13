@@ -1,7 +1,7 @@
 # Cfg for Example: switching between sim and real reach task
 world:
   type: 'Bullet'
-  robot: 'sawyer'
+  robot: 'panda'
 data_dir: 'data'
 # Simulation parameters
 sim_params:

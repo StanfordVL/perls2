@@ -257,9 +257,9 @@ class CtrlInterface(RobotInterface):
     # Properties for perls2 RobotInterface
     @property
     def env_connected(self):
-        """ Flag indicating if environment and RobotInterface are connected.
+        """ Boolean flag indicating if environment and RobotInterface are connected.
         """
-        return self.redisClient.get(ROBOT_ENV_CONN_KEY)
+        return (self.redisClient.get(ROBOT_ENV_CONN_KEY) == b'True')
 
     @property
     def cmd_type(self):

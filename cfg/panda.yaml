@@ -11,9 +11,9 @@ panda:
     is_static:
       True
   base: 'None'
-  neutral_joint_angles:
-   [0., -0.3135, 0., -2.515, 0., 2.226, 0.87]
-   
+  # neutral_joint_angles:
+  #  [0., -0.3135, 0., -2.515, 0., 2.226, 0.87]
+  neutral_joint_angles: [0.0, -0.524, 0.0, -2.617, 0.0, 2.094, 0.0]
 
   limb_joint_names: [
   'panda_link0',

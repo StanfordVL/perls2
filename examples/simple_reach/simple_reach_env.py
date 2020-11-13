@@ -48,6 +48,7 @@ class SimpleReachEnv(Env):
             self.update_goal_position()
 
         self._initial_ee_orn = []
+        import pdb; pdb.set_trace()
 
     def reset(self):
         """Reset the environment.
