@@ -10,6 +10,7 @@ import json
 from perls2.ros_interfaces.redis_keys import *
 from perls2.ros_interfaces.redis_values import *
 from perls2.ros_interfaces.panda_redis_keys import PandaKeys
+import perls2.utils.redis_utils as RU 
 
 def bstr_to_ndarray(array_bstr):
     """Convert bytestring array to 1d array
@@ -292,6 +293,39 @@ class PandaRedisInterface(RedisInterface):
         # remove brackets
         value = value[1:-1]
         self._client.set(key, value)
-        
-    def _redis_state_to_np(state_str): 
-        return np.fromstring(state_str, dtype=np.float, sep= ' ')
+
+    def get_driver_states(self):
+        """Returns dict with franka driver states properly formatted. 
+        as numpy arrays.
+        """
+        redis_states = self.mget_dict(self.keys.ROBOT_STATE_KEYS)
+        np_states = {}
+        for state_key, state_str in redis_states.items():
+            # EE Pose stored as 4x4 matrix.
+            if state_key == P.ROBOT_STATE_EE_POSE_KEY:
+                np_states[state_key] = RU.franka_state_to_np_mat(state_str, (4,4))
+
+            np_states[state_key] = RU.franka_state_to_np(state_str)
+
+        return np_states 
+
+    def get_driver_state_model(self):
+        """Returns dict with franka driver states and dynamics models 
+        properly formatted as numpy arrays.
+        """
+        redis_states = self.mget_dict(self.keys.ROBOT_STATE_KEYS + self.keys.ROBOT_MODEL_KEYS)
+        np_states = {}
+        for state_key, state_str in redis_states.items():
+            # EE Pose stored as 4x4 matrix.
+            if state_key == self.keys.ROBOT_STATE_EE_POSE_KEY:
+                np_states[state_key] = RU.franka_state_to_np_mat(state_str, self.keys.EE_POSE_SHAPE)
+            elif state_key == self.keys.ROBOT_MODEL_MASS_MATRIX_KEY:
+                np_states[state_key] = RU.franka_state_to_np_mat(state_str, self.keys.MASS_MATRIX_SHAPE)
+            elif state_key == self.keys.ROBOT_MODEL_JACOBIAN_KEY:
+                np_states[state_key] = RU.franka_state_to_np_mat(state_str, self.keys.JACOBIAN_SHAPE)
+            else:
+                np_states[state_key] = RU.franka_state_to_np(state_str)
+
+        return np_states
+
+    
