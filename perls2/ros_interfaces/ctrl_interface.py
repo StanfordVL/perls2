@@ -25,6 +25,10 @@ from perls2.controllers.robot_model.model import Model
 
 import perls2.controllers.utils.transform_utils as T
 
+LOOP_LATENCY = 0.000
+LOOP_TIME = (1.0 / 500.0) - LOOP_LATENCY
+
+
 @six.add_metaclass(abc.ABCMeta)
 class CtrlInterface(RobotInterface):
     """ Abstract class definition for Control Interface.
@@ -297,6 +301,39 @@ class CtrlInterface(RobotInterface):
         else:
             return False
 
+    def process_cmd(self, cmd_type):
+        """ process command from redis
+        
+        Args:
+            cmd_type (str): byte-array string from redis cmd key
+        """
+        if (cmd_type == bSET_EE_POSE):
+            self.set_ee_pose(**self.controller_goal)
+        elif (cmd_type == bMOVE_EE_DELTA):
+            self.move_ee_delta(**self.controller_goal)
+        elif(cmd_type == bSET_JOINT_DELTA):
+            self.set_joint_delta(**self.controller_goal)
+        elif (cmd_type == bSET_JOINT_POSITIONS):
+            self.set_joint_positions(**self.controller_goal)
+        elif (cmd_type == bSET_JOINT_TORQUES):
+            self.set_joint_torques(**self.controller_goal)
+        elif (cmd_type == bSET_JOINT_VELOCITIES):
+            self.set_joint_velocities(**self.controller_goal)
+        elif(cmd_type == bRESET):
+            self.redisClient.set(ROBOT_RESET_COMPL_KEY, 'False')
+            self.reset_to_neutral()
+        elif (cmd_type == bIDLE):
+            # make sure action set if false
+            self.action_set = False
+            return
+        elif (cmd_type == bCHANGE_CONTROLLER):
+            rospy.loginfo("CHANGE CONTROLLER COMMAND RECEIVED")
+            self.controller = self.make_controller_from_redis(
+                self.get_control_type(),
+                self.get_controller_params())
+        else:
+            rospy.logwarn("Unknown command: {}".format(cmd_type))
+    
     def make_controller_from_redis(self, control_type, controller_dict):
         print("Making controller {} with params: {}".format(control_type, controller_dict))
         self.controlType = control_type
