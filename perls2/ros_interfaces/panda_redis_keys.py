@@ -38,13 +38,21 @@ class PandaKeys(object):
 			self.ROBOT_STATE_TAU_KEY, 
 			]
 
+		self.ROBOT_MODEL_KEYS = [
+			self.ROBOT_MODEL_MASS_MATRIX_KEY, 
+			self.ROBOT_MODEL_JACOBIAN_KEY, 
+			self.ROBOT_MODEL_GRAVITY_KEY, 
+			self.ROBOT_MODEL_CORIOLIS_KEY]
+
 		self.DRIVER_CONN_KEY = "franka_panda::driver::status"
 
 		self.DRIVER_CONNECTED_VALUE = bytes("running", 'utf-8')
 		self.DRIVER_DISCONN_VALUE = bytes("off", 'utf-8')
 
-
-
+		# Shapes for driver model and states. 
+		self.MASS_MATRIX_SHAPE = (7,7)
+		self.JACOBIAN_SHAPE = (6,7)
+		self.EE_POSE_SHAPE = (4,4)
 
 	def _get_full_key(self, key):
 		if key in self.yaml_keys.keys():
