@@ -61,10 +61,20 @@ redis:
     gripper_status:    "gripper::status"
 
   # Use JSON or Matlab formatting for matrices in Redis
-  use_json: false
+  use_json: true
 
   # Use Franka gripper
   use_gripper: true
+
+##############################
+# perls2 parameters for redis#
+##############################
+perls2_redis:
+  mass_matrix:          "model::mass_matrix"
+  jacobian:             "model::jacobian"
+  gravity:              "model::gravity"
+  coriolis:             "model::coriolis"
+
 
 
 ###################
@@ -74,7 +84,7 @@ redis:
 load:
 
   # Load mass [kg]
-  mass: 0.
+  mass: 0.1
 
   # Load center of mass in the flange frame [m]
   com: [0., 0., 0.]
@@ -101,7 +111,7 @@ control:
   torque_controller:
 
     # Compensate for gravity
-    compensate_gravity: false
+    compensate_gravity: true
 
     # Timeout for torque command updates [ms]
     tau_command_timeout: 100
