@@ -116,3 +116,34 @@ class Model:
 
     def update(self):
       pass
+
+    def update_state_model(self,
+                      ee_pos,
+                      ee_ori,
+                      joint_pos,
+                      joint_vel,
+                      joint_tau,
+                      J_full, 
+                      mass_matrix,
+                      joint_dim=None,
+                      torque_compensation=None, 
+                      ):
+      """Update state and model together. 
+
+      Helpful if you need to calculate the ee twist using the jacobian.
+      """
+
+      ee_twist = np.dot(J_full,joint_vel)
+      ee_pos_vel = ee_twist[0:3]
+      ee_ori_vel = ee_twist[3:]
+      self.update_states(ee_pos=ee_pos, 
+        ee_ori=ee_ori,
+        ee_pos_vel=ee_pos_vel, 
+        ee_ori_vel=ee_ori_vel, 
+        joint_vel=joint_vel,
+        joint_pos=joint_pos,
+        joint_tau=joint_tau)
+      J_pos = J_full[0:3,:]
+      J_ori = J_full[3:, :]
+      self.update_model(J_pos=J_pos, J_ori=J_ori,
+        mass_matrix=mass_matrix)

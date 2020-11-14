@@ -12,6 +12,10 @@ logging.basicConfig(level=logging.DEBUG)
 import numpy as np
 
 P = PandaKeys('cfg/franka-panda.yaml')
+
+LOOP_LATENCY = 0.000
+LOOP_TIME = (1.0 / 1000.0) - LOOP_LATENCY
+
 class PandaCtrlInterface(CtrlInterface):
     """Interface for franka-panda redis driver and perls2.RealPandaInterface.
 
@@ -21,6 +25,8 @@ class PandaCtrlInterface(CtrlInterface):
     with the robot state for RealPandaInterface.
 
     """
+
+
     def __init__(self,
                  config,
                  controlType,
@@ -50,28 +56,29 @@ class PandaCtrlInterface(CtrlInterface):
     def driver_connected(self):
         return self.redisClient.get(P.DRIVER_CONN_KEY) == P.DRIVER_CONNECTED_VALUE
 
+    def _get_update_args(self, new_states):
+        """Reformat the states so they are compatible with the Model class.
+        """
+        update_args = {
+        # ee pose is stored in a (4,4) matrix
+        'ee_pos' : new_states[P.ROBOT_STATE_EE_POSE_KEY][:,3][0:3],
+        'ee_ori': new_states[P.ROBOT_STATE_EE_POSE_KEY][0:3, 0:3],
+        'joint_pos': new_states[P.ROBOT_STATE_Q_KEY],
+        'joint_vel' :new_states[P.ROBOT_STATE_DQ_KEY],
+        'joint_tau' :new_states[P.ROBOT_STATE_TAU_KEY],
+        'J_full': new_states[P.ROBOT_MODEL_JACOBIAN_KEY],
+        'mass_matrix': new_states[P.ROBOT_MODEL_MASS_MATRIX_KEY],
+         }
+        return update_args
+
+
     def update_model(self):
         """get states from redis, update model with these states.
         """
-        states = self._get_states_from_redis()
-        # self.model.update_states(ee_pos=np.asarray(self.ee_position),
-        #                  ee_ori=np.asarray(self.ee_orientation),
-        #                  ee_pos_vel=np.asarray(ee_v_world),
-        #                  ee_ori_vel=np.asarray(ee_w_world),
-        #                  joint_pos=np.asarray(self.q[:7]),
-        #                  joint_vel=np.asarray(self.dq[:7]),
-        #                  joint_tau=np.asarray(self.tau),
-        #                  joint_dim=7,
-        #                  torque_compensation=self.torque_compensation)
+        new_states = self.redisClient.get_driver_state_model()
 
-    def _get_states_from_redis(self):
-        """ Get robot states from redis.
-    `   """
-        states = {}
-        for state_key in P.ROBOT_STATE_KEYS:
-            states[state_key] = self.redisClient.get(state_key)
+        self.model.update_state_model(**self._get_update_args(new_states))
 
-        return states
 
     def set_torques(self, torques):
         """Set torque command to redis driver.
@@ -93,6 +100,29 @@ class PandaCtrlInterface(CtrlInterface):
     def set_to_float(self):
         self.redisClient.set(P.CONTROL_MODE_KEY, P.FLOAT_CTRL_MODE)
 
+    def step(self, start):
+        """Update the robot state and model, set torques from controller
+
+        Note this is different from other robot interfaces, as the Sawyer
+        low-level controller takes gravity compensation into account.
+        """
+        self.update_model()
+
+        if self.action_set:
+            #torques = self.controller.run_controller()
+            self.set_torques([0]*7)
+
+            torques = np.clip(torques, self.CLIP_CMD_TORQUES[0], self.CLIP_CMD_TORQUES[1] )
+            print("Torques {}".format(torques))
+
+            #self.set_torques(torques)
+
+            while (time.time() - start < LOOP_TIME):
+                pass
+
+        else:
+            pass
+    
     def run(self):
         if self.driver_connected:
             logging.info("driver is connected.")

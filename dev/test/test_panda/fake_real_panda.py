@@ -2,7 +2,7 @@
 """
 
 import pytest
-from
+from perls2.utils.yaml_config import YamlConfig
 from perls2.ros_interfaces.redis_keys import *
 from perls2.robots.real_panda_interface import RealPandaInterface
 

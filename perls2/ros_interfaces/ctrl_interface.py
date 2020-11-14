@@ -307,7 +307,7 @@ class CtrlInterface(RobotInterface):
         Args:
             cmd_type (str): byte-array string from redis cmd key
         """
-        if (cmd_type == bSET_EE_POSE):
+        if (cmd_type == bytes(SET_EE_POSE,'utf-8')):
             self.set_ee_pose(**self.controller_goal)
         elif (cmd_type == bMOVE_EE_DELTA):
             self.move_ee_delta(**self.controller_goal)
