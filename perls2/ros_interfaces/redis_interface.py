@@ -302,10 +302,11 @@ class PandaRedisInterface(RedisInterface):
         np_states = {}
         for state_key, state_str in redis_states.items():
             # EE Pose stored as 4x4 matrix.
-            if state_key == P.ROBOT_STATE_EE_POSE_KEY:
+            if state_key == self.keys.ROBOT_STATE_EE_POSE_KEY:
                 np_states[state_key] = RU.franka_state_to_np_mat(state_str, (4,4))
+            else:
 
-            np_states[state_key] = RU.franka_state_to_np(state_str)
+                np_states[state_key] = RU.franka_state_to_np(state_str)
 
         return np_states 
 
@@ -322,12 +323,13 @@ class PandaRedisInterface(RedisInterface):
             elif state_key == self.keys.ROBOT_MODEL_MASS_MATRIX_KEY:
                 np_states[state_key] = RU.franka_state_to_np_mat(state_str, self.keys.MASS_MATRIX_SHAPE)
             elif state_key == self.keys.ROBOT_MODEL_JACOBIAN_KEY:
-                np_states[state_key] = RU.franka_state_to_np_mat(state_str, self.keys.JACOBIAN_SHAPE)
+                # Jacobian shape needs to be reversed because column-major
+                np_states[state_key] = RU.franka_state_to_np_mat(state_str, (self.keys.JACOBIAN_SHAPE[1], self.keys.JACOBIAN_SHAPE[0]))
             else:
                 np_states[state_key] = RU.franka_state_to_np(state_str)
 
         return np_states
-
         
     def is_env_connected(self):
-        return self.redisClient.get(ROBOT_ENV_CONN_KEY) == b'True'
+        return self._client.get(ROBOT_ENV_CONN_KEY) == b'True'
+        
