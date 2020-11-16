@@ -6,7 +6,11 @@ from perls2.ros_interfaces.ctrl_interface import CtrlInterface
 from perls2.ros_interfaces.panda_redis_keys import PandaKeys
 from perls2.ros_interfaces.redis_interface import PandaRedisInterface
 from perls2.robots.real_panda_interface import RealPandaInterface
+from perls2.ros_interfaces.redis_keys import *
 from perls2.utils.yaml_config import YamlConfig
+
+from perls2.controllers.utils import transform_utils as T
+
 import logging
 logging.basicConfig(level=logging.DEBUG)
 import numpy as np
@@ -42,6 +46,11 @@ class PandaCtrlInterface(CtrlInterface):
 
         self.neutral_joint_position = self.config['panda']['neutral_joint_angles']
 
+        self.redisClient.set(ROBOT_CMD_TSTAMP_KEY, time.time())
+        self.redisClient.set(ROBOT_SET_GRIPPER_CMD_KEY, 0.1)
+        self.redisClient.set(ROBOT_SET_GRIPPER_CMD_TSTAMP_KEY, time.time())
+        self.last_cmd_tstamp = self.get_cmd_tstamp()
+        self.last_gripper_cmd_tstamp = self.get_gripper_cmd_tstamp()
         # TODO: reset to neutral position.
         # Get state from redis
         # Update model.
@@ -61,10 +70,11 @@ class PandaCtrlInterface(CtrlInterface):
     def _get_update_args(self, new_states):
         """Reformat the states so they are compatible with the Model class.
         """
+        ee_pos, ee_ori_quat = T.mat2pose(new_states[P.ROBOT_STATE_EE_POSE_KEY])
         update_args = {
         # ee pose is stored in a (4,4) matrix
-        'ee_pos' : new_states[P.ROBOT_STATE_EE_POSE_KEY][:,3][0:3],
-        'ee_ori': new_states[P.ROBOT_STATE_EE_POSE_KEY][0:3, 0:3],
+        'ee_pos' :ee_pos,
+        'ee_ori': ee_ori_quat,
         'joint_pos': new_states[P.ROBOT_STATE_Q_KEY],
         'joint_vel' :new_states[P.ROBOT_STATE_DQ_KEY],
         'joint_tau' :new_states[P.ROBOT_STATE_TAU_KEY],
@@ -111,10 +121,10 @@ class PandaCtrlInterface(CtrlInterface):
         self.update_model()
 
         if self.action_set:
-            #torques = self.controller.run_controller()
+            torques = self.controller.run_controller()
             self.set_torques([0]*7)
 
-            torques = np.clip(torques, self.CLIP_CMD_TORQUES[0], self.CLIP_CMD_TORQUES[1] )
+            #torques = np.clip(torques, self.CLIP_CMD_TORQUES[0], self.CLIP_CMD_TORQUES[1] )
             print("Torques {}".format(torques))
 
             #self.set_torques(torques)
@@ -147,7 +157,22 @@ class PandaCtrlInterface(CtrlInterface):
         if not self.driver_connected:
             raise ValueError("franka-panda driver must be started first.")
 
+        self.update_model()
         self.wait_for_env_connect()
+        self.controller = self.make_controller_from_redis(self.get_control_type(), self.get_controller_params())        
+        
+        while True:
+            start = time.time()
+
+            if (self.redisClient.is_env_connected()):
+                if self.check_for_new_cmd():
+                    self.process_cmd(self.cmd_type)
+                # if self.check_for_new_gripper_cmd():
+                #     self.process_gripper_cmd()
+                self.step(start)
+            else:
+                break
+
 
 
 
