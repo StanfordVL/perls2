@@ -11,6 +11,7 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 import numpy as np
 
+
 P = PandaKeys('cfg/franka-panda.yaml')
 
 LOOP_LATENCY = 0.000
@@ -55,6 +56,7 @@ class PandaCtrlInterface(CtrlInterface):
     @property
     def driver_connected(self):
         return self.redisClient.get(P.DRIVER_CONN_KEY) == P.DRIVER_CONNECTED_VALUE
+    
 
     def _get_update_args(self, new_states):
         """Reformat the states so they are compatible with the Model class.
@@ -123,18 +125,31 @@ class PandaCtrlInterface(CtrlInterface):
         else:
             pass
     
-    def run(self):
-        if self.driver_connected:
-            logging.info("driver is connected.")
+    def wait_for_env_connect(self): 
+        """Blocking code that waits for perls2.RobotInterface to connect to redis.
+        
+        Allows for ctrl+c key board interrputs/
+        """
+        logging.info("Waiting for perls2.RealRobotInterface to connect to redis.")
+        try: 
+            while True: 
+                if not self.redisClient.is_env_connected():
+                    pass
+                else:
+                    break
+        except KeyboardInterrupt:
+            logging.error("Keyboard interrupt received.")
+            
+        if self.redisClient.is_env_connected():
+            logging.info("perls2.RealRobotInterface connected.")
 
-            start = time.time()
-            if self.driver_connected:
-                self.step(start)
-            else:
-                #break
-                pass
-        else:
-            raise ValueError("run driver first.")
+    def run(self):
+        if not self.driver_connected:
+            logging.error("franka-panda driver must be started first.")
+
+        self.wait_for_env_connect()
+
+
 
 if __name__ == '__main__':
     ctrl_interface = PandaCtrlInterface(
