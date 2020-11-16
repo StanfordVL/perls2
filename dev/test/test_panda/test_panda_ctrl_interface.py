@@ -157,6 +157,9 @@ def test_make_controller_from_redis(panda_ctrl_states, real_panda_config):
             assert(np.all(param == np.array(control_params[key])))
 
 
+def test_wait_for_env_connect(panda_ctrl):
+    logging.info("MANUAL TEST. SET ENV CONNECT VIA REDIS-CLI")
+    panda_ctrl.wait_for_env_connect()
 ####################################################
 # Tests requiring franka-panda.
 
