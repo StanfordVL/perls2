@@ -70,7 +70,6 @@ class Model:
                       torque_compensation=None):
 
         self.ee_pos = ee_pos
-
         if ee_ori.shape == (3, 3):
             self.ee_ori_mat = ee_ori
             self.ee_ori_quat = T.mat2quat(ee_ori)
@@ -97,7 +96,10 @@ class Model:
                 self.joint_dim = len(joint_pos)
             # Update torque_compensation accordingly
             #self.torque_compensation = np.zeros(self.joint_dim)
-        self.torque_compensation = np.asarray(torque_compensation)
+        if torque_compensation is None:
+          self.torque_compensation = np.zeros(7)
+        else:  
+          self.torque_compensation = np.asarray(torque_compensation)
 
     def update_model(self,
                      J_pos,
