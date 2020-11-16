@@ -27,4 +27,4 @@ def franka_state_to_np_mat(state_str, shape):
     Returns:
         ndarray with dims == shape
     """
-    return np.fromstring(state_str, dtype=np.float, sep= ' ').reshape(shape)  
+    return np.fromstring(state_str, dtype=np.float, sep= ' ').reshape(shape).T  
