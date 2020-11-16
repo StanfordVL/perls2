@@ -328,4 +328,6 @@ class PandaRedisInterface(RedisInterface):
 
         return np_states
 
-    
+        
+    def is_env_connected(self):
+        return self.redisClient.get(ROBOT_ENV_CONN_KEY) == b'True'
