@@ -139,15 +139,16 @@ class PandaCtrlInterface(CtrlInterface):
                     break
         except KeyboardInterrupt:
             logging.error("Keyboard interrupt received.")
-            
+
         if self.redisClient.is_env_connected():
             logging.info("perls2.RealRobotInterface connected.")
 
     def run(self):
         if not self.driver_connected:
-            logging.error("franka-panda driver must be started first.")
+            raise ValueError("franka-panda driver must be started first.")
 
         self.wait_for_env_connect()
+
 
 
 
