@@ -11,7 +11,8 @@ from perls2.ros_interfaces.redis_values import *
 from perls2.ros_interfaces.redis_interface import PandaRedisInterface
 from perls2.ros_interfaces.panda_ctrl_interface import PandaCtrlInterface
 
-
+import logging
+logging.basicConfig(level=logging.DEBUG)
 from dev.test.test_panda.fake_franka_panda import  FakeFrankaPanda
 
 P = PandaKeys('cfg/franka-panda.yaml')
@@ -149,8 +150,11 @@ def test_make_controller_from_redis(panda_ctrl_states, real_panda_config):
     assert(panda_ctrl.controlType == control_type)
     # Check each attribute of the controller.
     for key in control_params.keys():
-        param = getattr(controller, key)
-        assert(np.all(param == np.array(control_params[key])))
+        if key == 'damping':
+            pass
+        else:
+            param = getattr(controller, key)
+            assert(np.all(param == np.array(control_params[key])))
 
 
 ####################################################
