@@ -54,7 +54,12 @@ def test_get_driver_states(panda_redis, fake_driver):
 			assert(driver_states[key].shape == (7,))
 
 def test_get_driver_state_model(panda_redis, fake_driver):
-	driver_states = panda_redis.get_driver_states()
+	driver_states = panda_redis.get_driver_state_model()
+	# check all keys present. 
+	state_model_keys = P.ROBOT_STATE_KEYS + P.ROBOT_MODEL_KEYS
+	key_present = [key in driver_states.keys() for key in state_model_keys]
+	assert (np.all(key_present))
+
 	for key, state in driver_states.items():
 		if key == P.ROBOT_STATE_EE_POSE_KEY:
 			ee_pose = driver_states[P.ROBOT_STATE_EE_POSE_KEY]
@@ -69,6 +74,13 @@ def test_get_driver_state_model(panda_redis, fake_driver):
 			# check values for ee_position (last column, 1st 3 rows.)
 			ee_pos = ee_pose[0:3, 3]
 			assert np.all(np.isclose(ee_pos,[0.534449340443935, 0.0364261218566121, 0.313053490964604]))
+		elif key == P.ROBOT_MODEL_JACOBIAN_KEY:
+			jacobian = driver_states[P.ROBOT_MODEL_JACOBIAN_KEY]
+			assert (jacobian.shape == P.JACOBIAN_SHAPE)
+		elif key == P.ROBOT_MODEL_MASS_MATRIX_KEY:
+			mass_matrix = driver_states[P.ROBOT_MODEL_MASS_MATRIX_KEY]
+			assert(mass_matrix.shape == P.MASS_MATRIX_SHAPE)
+
 		else:
 			assert(driver_states[key].shape == (7,))	
 
