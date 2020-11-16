@@ -4,7 +4,7 @@ from perls2.utils.yaml_config import YamlConfig
 
 class PandaKeys(object):
 
-	def __init__(self, config='/home/robot/franka-panda/resources/default.yaml'): 
+	def __init__(self, config='cfg/franka-panda.yaml'): 
 		"""get key constants from yaml config for franka-panda. 
 		
 			config (str): fpath for the franka-panda config file.
