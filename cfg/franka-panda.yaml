@@ -61,7 +61,7 @@ redis:
     gripper_status:    "gripper::status"
 
   # Use JSON or Matlab formatting for matrices in Redis
-  use_json: true
+  use_json: false
 
   # Use Franka gripper
   use_gripper: true
