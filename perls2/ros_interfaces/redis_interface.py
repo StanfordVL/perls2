@@ -11,6 +11,8 @@ from perls2.ros_interfaces.redis_keys import *
 from perls2.ros_interfaces.redis_values import *
 from perls2.ros_interfaces.panda_redis_keys import PandaKeys
 import perls2.utils.redis_utils as RU 
+import logging
+logging.basicConfig(level=logging.INFO)
 
 def bstr_to_ndarray(array_bstr):
     """Convert bytestring array to 1d array
@@ -244,8 +246,9 @@ class PandaRedisInterface(RedisInterface):
         RedisInterface.__init__(self, host, port, password)
         self.keys = PandaKeys(driver_config)
         # sleep to improve connection latencies for redis on tcp
-        if (self.host !=  "127.0.0.1") and (self.host != "localhost"):
-            time.sleep(10)
+        # if (self.host !=  "127.0.0.1") and (self.host != "localhost"):
+        logging.info("warming up redis")
+        time.sleep(10)
 
 
 
