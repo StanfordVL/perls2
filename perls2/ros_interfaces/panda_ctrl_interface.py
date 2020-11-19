@@ -18,8 +18,6 @@ import numpy as np
 
 P = PandaKeys('cfg/franka-panda.yaml')
 
-LOOP_LATENCY = 0.000
-LOOP_TIME = (1.0 / 1000.0) - LOOP_LATENCY
 
 class PandaCtrlInterface(CtrlInterface):
     """Interface for franka-panda redis driver and perls2.RealPandaInterface.
@@ -51,6 +49,7 @@ class PandaCtrlInterface(CtrlInterface):
         self.redisClient.set(ROBOT_SET_GRIPPER_CMD_TSTAMP_KEY, time.time())
         self.last_cmd_tstamp = self.get_cmd_tstamp()
         self.last_gripper_cmd_tstamp = self.get_gripper_cmd_tstamp()
+        self.loop_times = []
         # TODO: reset to neutral position.
         # Get state from redis
         # Update model.
@@ -99,15 +98,10 @@ class PandaCtrlInterface(CtrlInterface):
             torques (list or ndarray): 7f list of joint torques to command.
 
         """
-        logging.debug("setting torque command")
-        assert len(torques) == self.num_joints, \
-            'Input number of torque values must match the number of joints'
-
-        if not isinstance(torques, np.ndarray):
-            torques = np.asarray(torques)
+        #logging.debug("setting torque command")
         self.redisClient.set_eigen(P.TORQUE_CMD_KEY, torques)
         self.redisClient.set(P.CONTROL_MODE_KEY, P.TORQUE_CTRL_MODE)
-        logging.debug(self.redisClient.get(P.CONTROL_MODE_KEY))
+        #logging.debug(self.redisClient.get(P.TORQUE_CMD_KEY))
 
     def set_to_float(self):
         self.redisClient.set(P.CONTROL_MODE_KEY, P.FLOAT_CTRL_MODE)
@@ -121,19 +115,22 @@ class PandaCtrlInterface(CtrlInterface):
         self.update_model()
 
         if self.action_set:
+            
             torques = self.controller.run_controller()
-            self.set_torques([0]*7)
-
+            
+            zero_torques = (np.random.rand(7) - 0.5)*0.00001
+            zero_torques = np.clip(zero_torques, -0.001, 0.001)
+            
+            self.set_torques(zero_torques)
+            #self.loop_times.append(time.time()-start)
             #torques = np.clip(torques, self.CLIP_CMD_TORQUES[0], self.CLIP_CMD_TORQUES[1] )
-            print("Torques {}".format(torques))
+            # print("Torques {}".format(zero_torques))
 
             #self.set_torques(torques)
 
-            while (time.time() - start < LOOP_TIME):
-                pass
-
         else:
             pass
+
     
     def wait_for_env_connect(self): 
         """Blocking code that waits for perls2.RobotInterface to connect to redis.
@@ -153,25 +150,52 @@ class PandaCtrlInterface(CtrlInterface):
         if self.redisClient.is_env_connected():
             logging.info("perls2.RealRobotInterface connected.")
 
+    def set_dummy_torque_redis(self):
+        zero_torques = (np.random.rand(7) - 0.5)*0.00001
+        zero_torques = np.clip(zero_torques, -0.001, 0.001)
+        
+        self.set_torques(zero_torques)
+
+    def warm_up_driver(self):
+        logging.info("warming up driver...setting to float")
+        logging.info("setting torque command key to  very small random values.")
+        
+        self.set_to_float()
+        assert(self.redisClient.get(P.CONTROL_MODE_KEY).decode() == P.FLOAT_CTRL_MODE)
+
+        for _ in range(1000):
+            zero_torques = (np.random.rand(7) - 0.5)*0.00001
+            zero_torques = np.clip(zero_torques, -0.001, 0.001)
+            
+            self.redisClient.set_eigen(P.TORQUE_CMD_KEY, zero_torques)
+
+
+
     def run(self):
         if not self.driver_connected:
             raise ValueError("franka-panda driver must be started first.")
+        
+        self.warm_up_driver()
 
         self.update_model()
         self.wait_for_env_connect()
         self.controller = self.make_controller_from_redis(self.get_control_type(), self.get_controller_params())        
-        
-        while True:
-            start = time.time()
 
-            if (self.redisClient.is_env_connected()):
-                if self.check_for_new_cmd():
-                    self.process_cmd(self.cmd_type)
-                # if self.check_for_new_gripper_cmd():
-                #     self.process_gripper_cmd()
-                self.step(start)
-            else:
-                break
+        try:    
+            while True:
+                start = time.time()
+
+                if (self.redisClient.is_env_connected()):
+                    if self.check_for_new_cmd():
+                        self.process_cmd(self.cmd_type)
+                    # if self.check_for_new_gripper_cmd():
+                    #     self.process_gripper_cmd()
+                    self.step(start)
+                else:
+                    break
+        except KeyboardInterrupt:
+            np.savez('dev/test/loop_times.npz', loop=self.loop_times, allow_pickle=True)
+
 
 
 
