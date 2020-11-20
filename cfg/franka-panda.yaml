@@ -64,7 +64,7 @@ redis:
   use_json: false
 
   # Use Franka gripper
-  use_gripper: true
+  use_gripper: false
 
 ##############################
 # perls2 parameters for redis#
@@ -114,7 +114,8 @@ control:
     compensate_gravity: true
 
     # Timeout for torque command updates [ms]
-    tau_command_timeout: 100
+    tau_command_timeout: 12
+
 
   # Joint space controller parameters
   joint_space_controller:
