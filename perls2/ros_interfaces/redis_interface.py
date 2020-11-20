@@ -248,7 +248,7 @@ class PandaRedisInterface(RedisInterface):
         # sleep to improve connection latencies for redis on tcp
         # if (self.host !=  "127.0.0.1") and (self.host != "localhost"):
         logging.info("warming up redis")
-        time.sleep(10)
+        time.sleep(3)
 
 
 
