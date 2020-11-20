@@ -54,7 +54,7 @@ class Model:
         self.J_full = None
         self.mass_matrix = None
         self.offset_mass_matrix = offset_mass_matrix
-        self.mass_matrix_offset_val = [0.05, 0.05, 0.05]
+        self.mass_matrix_offset_val = [0.1, 0.1, 0.1]
         self.torque_compensation = None
         self.nullspace = None
         self._compile_jit_functions()
