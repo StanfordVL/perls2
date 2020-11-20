@@ -118,15 +118,7 @@ class PandaCtrlInterface(CtrlInterface):
             
             torques = self.controller.run_controller()
             
-            zero_torques = (np.random.rand(7) - 0.5)*0.00001
-            zero_torques = np.clip(zero_torques, -0.001, 0.001)
-            
-            self.set_torques(zero_torques)
-            #self.loop_times.append(time.time()-start)
-            #torques = np.clip(torques, self.CLIP_CMD_TORQUES[0], self.CLIP_CMD_TORQUES[1] )
-            # print("Torques {}".format(zero_torques))
-
-            #self.set_torques(torques)
+            self.set_torques(np.clip(torques, -2.5, 2.5))
 
         else:
             pass
@@ -180,7 +172,7 @@ class PandaCtrlInterface(CtrlInterface):
         self.update_model()
         self.wait_for_env_connect()
         self.controller = self.make_controller_from_redis(self.get_control_type(), self.get_controller_params())        
-
+        logging.info("Beginning control loop")
         try:    
             while True:
                 start = time.time()
@@ -191,6 +183,7 @@ class PandaCtrlInterface(CtrlInterface):
                     # if self.check_for_new_gripper_cmd():
                     #     self.process_gripper_cmd()
                     self.step(start)
+
                 else:
                     break
         except KeyboardInterrupt:
