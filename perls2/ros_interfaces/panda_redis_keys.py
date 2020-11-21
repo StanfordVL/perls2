@@ -18,7 +18,9 @@ class PandaKeys(object):
 		self.CONTROL_MODE_KEY = self._get_full_key('control_mode')
 		self.TORQUE_CTRL_MODE = "torque"
 		self.FLOAT_CTRL_MODE = "floating"
-
+		self.RESET_CTRL_MODE = "reset"
+		self.IDLE_CTRL_MODE = "idle"
+		
 		self.GRIPPER_WIDTH_CMD_KEY = self._get_full_key('gripper_width_des')
 		self.GRIPPER_MODE_KEY = self._get_full_key('gripper_mode')
 
@@ -30,6 +32,7 @@ class PandaKeys(object):
 		self.ROBOT_MODEL_JACOBIAN_KEY = self._get_full_key('jacobian')
 		self.ROBOT_MODEL_GRAVITY_KEY = self._get_full_key('gravity')
 		self.ROBOT_MODEL_CORIOLIS_KEY = self._get_full_key('coriolis')
+
 		
 		self.ROBOT_STATE_KEYS = [
 			self.ROBOT_STATE_Q_KEY, 

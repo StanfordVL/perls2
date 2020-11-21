@@ -5,7 +5,6 @@ import time
 from perls2.ros_interfaces.ctrl_interface import CtrlInterface
 from perls2.ros_interfaces.panda_redis_keys import PandaKeys
 from perls2.ros_interfaces.redis_interface import PandaRedisInterface
-from perls2.robots.real_panda_interface import RealPandaInterface
 from perls2.ros_interfaces.redis_keys import *
 from perls2.utils.yaml_config import YamlConfig
 
@@ -89,6 +88,20 @@ class PandaCtrlInterface(CtrlInterface):
         new_states = self.redisClient.get_driver_state_model()
 
         self.model.update_state_model(**self._get_update_args(new_states))
+
+    def reset_to_neutral(self): 
+        """Signal driver to reset to neutral joint positions.
+        
+        Waits for control mode from panda to be set to idle, then
+        notifies Real Panda Interface by setting reset complete flag.
+
+        Blocking.
+        """
+        start_time = time.time()
+        self.redisClient.set(P.CONTROL_MODE_KEY, P.RESET_CTRL_MODE)
+        while (self.redisClient.get(P.CONTROL_MODE_KEY).decode() != P.IDLE_CTRL_MODE):
+            time.sleep(1)
+        self.redisClient.set(ROBOT_RESET_COMPL_KEY, 'True')
 
 
     def set_torques(self, torques):

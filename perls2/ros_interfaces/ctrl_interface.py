@@ -55,7 +55,7 @@ class CtrlInterface(RobotInterface):
 
         # Control Init
         self.controlType = controlType
-        self.model = Model()
+        self.model = Model(offset_mass_matrix=True)
 
     @property
     def version(self):
@@ -307,36 +307,35 @@ class CtrlInterface(RobotInterface):
         Args:
             cmd_type (str): byte-array string from redis cmd key
         """
-        if (cmd_type == bytes(SET_EE_POSE,'utf-8')):
+        if (cmd_type.decode() == SET_EE_POSE):
             self.set_ee_pose(**self.controller_goal)
-        elif (cmd_type == bMOVE_EE_DELTA):
-            self.move_ee_delta(**self.controller_goal)
-        elif(cmd_type == bSET_JOINT_DELTA):
-            self.set_joint_delta(**self.controller_goal)
-        elif (cmd_type == bSET_JOINT_POSITIONS):
-            self.set_joint_positions(**self.controller_goal)
-        elif (cmd_type == bSET_JOINT_TORQUES):
-            self.set_joint_torques(**self.controller_goal)
-        elif (cmd_type == bSET_JOINT_VELOCITIES):
-            self.set_joint_velocities(**self.controller_goal)
-        elif(cmd_type == bRESET):
+        # elif (cmd_type == bytes(MOVE_EE_DELTA,'utf-8')):
+        #     self.move_ee_delta(**self.controller_goal)
+        # elif(cmd_type == bSET_JOINT_DELTA):
+        #     self.set_joint_delta(**self.controller_goal)
+        # elif (cmd_type == bSET_JOINT_POSITIONS):
+        #     self.set_joint_positions(**self.controller_goal)
+        # elif (cmd_type == bSET_JOINT_TORQUES):
+        #     self.set_joint_torques(**self.controller_goal)
+        # elif (cmd_type == bSET_JOINT_VELOCITIES):
+        #     self.set_joint_velocities(**self.controller_goal)
+        elif(cmd_type.decode() == RESET):
             self.redisClient.set(ROBOT_RESET_COMPL_KEY, 'False')
             self.reset_to_neutral()
-        elif (cmd_type == bIDLE):
-            # make sure action set if false
-            self.action_set = False
-            return
-        elif (cmd_type == bCHANGE_CONTROLLER):
-            rospy.loginfo("CHANGE CONTROLLER COMMAND RECEIVED")
+        # elif (cmd_type == bIDLE):
+        #     # make sure action set if false
+        #     self.action_set = False
+        #     return
+        elif (cmd_type.decode() == CHANGE_CONTROLLER):
+            logging.info("CHANGE CONTROLLER COMMAND RECEIVED")
             self.controller = self.make_controller_from_redis(
                 self.get_control_type(),
                 self.get_controller_params())
         else:
-            rospy.logwarn("Unknown command: {}".format(cmd_type))
+            logging.warn("Unknown command: {}".format(cmd_type))
     
     def make_controller_from_redis(self, control_type, controller_dict):
         print("Making controller {} with params: {}".format(control_type, controller_dict))
-        self.controlType = control_type
         if control_type == EE_IMPEDANCE:
             interp_kwargs = {'max_dx': 0.005,
                              'ndim': 3,
@@ -345,7 +344,7 @@ class CtrlInterface(RobotInterface):
                              'ramp_ratio': 0.2}
             self.interpolator_pos = LinearInterpolator(**interp_kwargs)
             self.interpolator_ori = LinearOriInterpolator(**interp_kwargs)
-            return EEImpController(
+            controller = EEImpController(
                 self.model,
                 interpolator_pos=self.interpolator_pos,
                 interpolator_ori=self.interpolator_ori, **controller_dict)
@@ -357,7 +356,7 @@ class CtrlInterface(RobotInterface):
                              'ramp_ratio': 0.2}
             self.interpolator_pos = LinearInterpolator(**interp_kwargs)
             self.interpolator_ori = LinearOriInterpolator(**interp_kwargs)
-            return EEPostureController(
+            controller = EEPostureController(
                 self.model,
                 interpolator_pos=self.interpolator_pos,
                 interpolator_ori=self.interpolator_ori, **controller_dict)
@@ -368,7 +367,7 @@ class CtrlInterface(RobotInterface):
                              'policy_freq': 20,
                              'ramp_ratio': 0.2}
             self.interpolator_pos = LinearInterpolator(**interp_kwargs)
-            return JointImpController(
+            controller =  JointImpController(
                 self.model,
                 interpolator_qpos=self.interpolator_pos,
                 **controller_dict)
@@ -379,7 +378,7 @@ class CtrlInterface(RobotInterface):
                              'policy_freq': 20,
                              'ramp_ratio': 0.2}
             self.interpolator_pos = LinearInterpolator(**interp_kwargs)
-            return JointTorqueController(
+            controller =  JointTorqueController(
                 self.model,
                 interpolator=self.interpolator_pos,
                 **controller_dict)
@@ -390,18 +389,20 @@ class CtrlInterface(RobotInterface):
                              'policy_freq': 20,
                              'ramp_ratio': 0.2}
             self.interpolator_pos = LinearInterpolator(**interp_kwargs)
-            return JointVelController(
+            controller =  JointVelController(
                 self.model,
                 interpolator=self.interpolator_pos,
                 **controller_dict)
         else:
             raise ValueError("Invalid control type.")
+        self.controlType = control_type
+        return controller
 
     def get_controller_params(self):
         return self.redisClient.get(CONTROLLER_CONTROL_PARAMS_KEY)
 
     def get_control_type(self):
-        return self.redisClient.get(CONTROLLER_CONTROL_TYPE_KEY)
+        return self.redisClient.get(CONTROLLER_CONTROL_TYPE_KEY).decode()
 
 ########################################################################
 # Step and Loop Functions
@@ -438,8 +439,8 @@ class CtrlInterface(RobotInterface):
             if (self.env_connected == b'True'):
                 if self.check_for_new_cmd():
                     self.process_cmd(self.cmd_type)
-                if self.check_for_new_gripper_cmd():
-                    self.process_gripper_cmd()
+                # if self.check_for_new_gripper_cmd():
+                #     self.process_gripper_cmd()
                 self.step(start)
             else:
                 break
