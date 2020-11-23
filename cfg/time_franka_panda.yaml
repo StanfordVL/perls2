@@ -116,6 +116,8 @@ control:
     # Timeout for torque command updates [ms]
     tau_command_timeout: 12
 
+    # print timeouts -  for testing only!
+    print_timeouts: true 
 
   # Joint space controller parameters
   joint_space_controller:

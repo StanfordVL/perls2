@@ -5,7 +5,6 @@ import time
 from perls2.ros_interfaces.ctrl_interface import CtrlInterface
 from perls2.ros_interfaces.panda_redis_keys import PandaKeys
 from perls2.ros_interfaces.redis_interface import PandaRedisInterface
-from perls2.robots.real_panda_interface import RealPandaInterface
 from perls2.ros_interfaces.redis_keys import *
 from perls2.utils.yaml_config import YamlConfig
 
@@ -90,6 +89,20 @@ class PandaCtrlInterface(CtrlInterface):
 
         self.model.update_state_model(**self._get_update_args(new_states))
 
+    def reset_to_neutral(self): 
+        """Signal driver to reset to neutral joint positions.
+        
+        Waits for control mode from panda to be set to idle, then
+        notifies Real Panda Interface by setting reset complete flag.
+
+        Blocking.
+        """
+        start_time = time.time()
+        self.redisClient.set(P.CONTROL_MODE_KEY, P.RESET_CTRL_MODE)
+        while (self.redisClient.get(P.CONTROL_MODE_KEY).decode() != P.IDLE_CTRL_MODE):
+            time.sleep(1)
+        self.redisClient.set(ROBOT_RESET_COMPL_KEY, 'True')
+
 
     def set_torques(self, torques):
         """Set torque command to redis driver.
@@ -118,15 +131,7 @@ class PandaCtrlInterface(CtrlInterface):
             
             torques = self.controller.run_controller()
             
-            zero_torques = (np.random.rand(7) - 0.5)*0.00001
-            zero_torques = np.clip(zero_torques, -0.001, 0.001)
-            
-            self.set_torques(zero_torques)
-            #self.loop_times.append(time.time()-start)
-            #torques = np.clip(torques, self.CLIP_CMD_TORQUES[0], self.CLIP_CMD_TORQUES[1] )
-            # print("Torques {}".format(zero_torques))
-
-            #self.set_torques(torques)
+            self.set_torques(np.clip(torques, -2.5, 2.5))
 
         else:
             pass
@@ -180,7 +185,7 @@ class PandaCtrlInterface(CtrlInterface):
         self.update_model()
         self.wait_for_env_connect()
         self.controller = self.make_controller_from_redis(self.get_control_type(), self.get_controller_params())        
-
+        logging.info("Beginning control loop")
         try:    
             while True:
                 start = time.time()
@@ -191,6 +196,7 @@ class PandaCtrlInterface(CtrlInterface):
                     # if self.check_for_new_gripper_cmd():
                     #     self.process_gripper_cmd()
                     self.step(start)
+
                 else:
                     break
         except KeyboardInterrupt:

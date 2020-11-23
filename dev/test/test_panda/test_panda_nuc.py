@@ -11,7 +11,7 @@ This script is meant to be run on the nuc, may be extended to ws.
 import redis
 import pytest
 import numpy as np 
-
+import time
 from perls2.ros_interfaces.panda_redis_keys import PandaKeys
 from perls2.ros_interfaces.redis_keys import *
 from perls2.ros_interfaces.redis_values import * 
@@ -74,28 +74,12 @@ def test_update_model(fake_driver, panda_ctrl):
 def test_step(fake_driver, panda_ctrl, real_panda):
 	fake_driver.set_fake_state()
 	# Set up command to maintain ee_pose.
-	panda_ctrl.make_ctrl_controller_from_redis()
 	panda_ctrl.update_model()
+	panda_ctrl.controller = panda_ctrl.make_controller_from_redis(panda_ctrl.get_control_type(), panda_ctrl.get_controller_params())
+
 	curr_ee_pos = panda_ctrl.model.ee_pos 
 	curr_ee_ori = panda_ctrl.model.ee_ori_quat
-	real_panda.set_control
+
 	real_panda.set_ee_pose(set_pos=curr_ee_pos, set_ori=curr_ee_ori)
 	panda_ctrl.process_cmd(bytes(SET_EE_POSE, 'utf-8'))
-	panda_ctrl.step()
-
-
-# def test_get_states_from_redis(fake_driver, panda_ctrl)
-# 	fake_driver = fake_driver
-# 	fake_driver.set_fake_states()
-
-# 	panda_ctrl = panda_ctrl
-# 	states = panda_ctrl._get_states_from_redis()
-
-
-
-
-
-if __name__ == '__main__':
-    test_fake_redis_driver()
-    test_panda_ctrl_setup()
-    test_real_panda_setup()
+	panda_ctrl.step(time.time())
