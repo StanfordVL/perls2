@@ -3,6 +3,7 @@
 from perls2.utils.yaml_config import YamlConfig
 from perls2.ros_interfaces.redis_interface import PandaRedisInterface
 from perls2.ros_interfaces.panda_redis_keys import PandaKeys
+import pytest
 P = PandaKeys('cfg/franka-panda.yaml')
 
 
@@ -75,3 +76,18 @@ class FakeFrankaPanda(object):
 
         self.redisClient.mset(self.FAKE_STATE)
 
+######################### TESTING #######################################3
+@pytest.fixture()
+def driver():
+    return FakeFrankaPanda()
+
+def test_start(driver):
+    driver.start()
+    assert(driver.redisClient.get(P.DRIVER_CONN_KEY).decode() == P.DRIVER_CONNECTED_VALUE.decode())
+
+def test_set_fake_state(driver):
+    driver.set_fake_state()
+    assert(driver.redisClient._client.get(P.ROBOT_STATE_Q_KEY).decode() == \
+        FakeFrankaPanda.FAKE_STATE[P.ROBOT_STATE_Q_KEY])
+    assert(driver.redisClient._client.get(P.ROBOT_STATE_EE_POSE_KEY).decode() == \
+        FakeFrankaPanda.FAKE_STATE[P.ROBOT_STATE_EE_POSE_KEY])
