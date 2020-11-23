@@ -30,6 +30,16 @@ def real_panda_config():
     config = YamlConfig('dev/test/test_panda/test_panda_cfg.yaml')
     return config
 
+def test_init_with_config_dict():
+    """test initialization with config as dict. 
+    """
+    config = YamlConfig('cfg/panda_ctrl_config.yaml')
+    try:
+        panda = PandaCtrlInterface(config=config, controlType='EEImpedance')
+    except TypeError:
+        raise pytest.fail("PandaCtrlInterface init with config dict failed")
+
+
 def test_action_set_false_on_init(panda_ctrl):
     """ safety test: action_set flag is false on init.
     """
@@ -55,7 +65,7 @@ def test_set_torques(panda_ctrl):
     """ check set torques works for list commands
     """
     panda_ctrl = panda_ctrl
-    panda_ctrl.set_torques([0, 0, 0, 0, 0, 0, 0])
+    panda_ctrl.set_torques(np.array([0, 0, 0, 0, 0, 0, 0]))
 
     # Check torques set to proper format, control mode
     # set to torque mode.
@@ -63,10 +73,6 @@ def test_set_torques(panda_ctrl):
         b"0 0 0 0 0 0 0")
     assert(panda_ctrl.redisClient.get(P.CONTROL_MODE_KEY) ==
         bytes(P.TORQUE_CTRL_MODE, 'utf-8'))
-
-    # incorrect torques dim results in error.
-    with pytest.raises(AssertionError):
-        panda_ctrl.set_torques([0, 0, 0])
 
     # torques accepted as ndarray.
     panda_ctrl.set_torques(np.asarray([0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1]))
@@ -157,9 +163,9 @@ def test_make_controller_from_redis(panda_ctrl_states, real_panda_config):
             assert(np.all(param == np.array(control_params[key])))
 
 
-def test_wait_for_env_connect(panda_ctrl):
-    logging.info("MANUAL TEST. SET ENV CONNECT VIA REDIS-CLI")
-    panda_ctrl.wait_for_env_connect()
+# def test_wait_for_env_connect(panda_ctrl):
+#     logging.info("MANUAL TEST. SET ENV CONNECT VIA REDIS-CLI")
+#     panda_ctrl.wait_for_env_connect()
     
 ####################################################
 # Tests requiring franka-panda.
