@@ -11,6 +11,8 @@ redis:
 #policy_freq : 10 # Hz
 policy_freq: 20 # For gazebo?
 control_freq: 500 # Hz
+sim_params:
+  MAX_STEPS: 500
 
 !include ../../../cfg/panda.yaml
 

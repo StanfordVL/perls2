@@ -58,6 +58,10 @@ class RealRobotInterface(RobotInterface):
             from perls2.robots.real_sawyer_interface import RealSawyerInterface
             return RealSawyerInterface(
                 config=config, controlType=controlType)
+        if (config['world']['robot'] == 'panda'):
+            from perls2.robots.real_panda_interface import RealPandaInterface 
+            return RealPandaInterface(
+                config=config, controlType=controlType)
         else:
             raise ValueError("invalid robot interface type. choose 'sawyer'")
 

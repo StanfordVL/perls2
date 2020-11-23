@@ -257,7 +257,7 @@ class JointSpaceDemo(Demo):
         ax_6.plot(state_6, 'r')
 
         fname = self.demo_name + '_pos.png'
-        import pdb; pdb.set_trace()
+
         if self.save_fig:
             print("saving figure")
             plt.savefig(fname)
@@ -386,6 +386,9 @@ class OpSpaceDemo(Demo):
 
         logging.debug("EE Pose initial:\n{}\n".format(self.env.robot_interface.ee_pose))
         logging.info("--------")
+        input("Press Enter to start sending commands.")
+        if self.env.world.is_sim == False:
+            self.env.robot_interface.connect()
         # Execute actions based on goal poses
         for i, goal_pose in enumerate(self.goal_poses):
 

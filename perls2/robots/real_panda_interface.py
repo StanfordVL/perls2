@@ -14,7 +14,8 @@ commands. RealPandaInterfaces obtain robot proprioception by querying the redis-
 
 import abc  # For abstract class definitions
 import six  # For abstract class definitions
-import time 
+import time
+import numpy as np
 from perls2.robots.real_robot_interface import RealRobotInterface
 from perls2.ros_interfaces.redis_interface import PandaRedisInterface
 from perls2.ros_interfaces.redis_keys import *
@@ -67,7 +68,7 @@ class RealPandaInterface(RealRobotInterface):
     def _get_state_from_redis(self):
         driver_states = self.redisClient.get_driver_state_model()
         self._ee_position, self._ee_orientation = T.mat2pose(driver_states[P.ROBOT_STATE_EE_POSE_KEY])
-        self._ee_pose = driver_states[P.ROBOT_STATE_EE_POSE_KEY]
+        self._ee_pose = np.hstack((self._ee_position, self._ee_orientation))
         self._ee_twist = T.calc_twist(driver_states[P.ROBOT_MODEL_JACOBIAN_KEY], driver_states[P.ROBOT_STATE_DQ_KEY])
         self._ee_v = self._ee_twist[:3]
         self._ee_w = self._ee_twist[3:]
@@ -85,6 +86,7 @@ class RealPandaInterface(RealRobotInterface):
         """list of three floats [x, y, z] of the position of the
         end-effector.
         """
+        self._get_state_from_redis()
         return self._ee_position
 
     @property
@@ -92,6 +94,7 @@ class RealPandaInterface(RealRobotInterface):
         """list of four floats [qx, qy, qz, qw] of the orientation
         quaternion of the end-effector.
         """
+        self._get_state_from_redis()
         return self._ee_orientation
 
     @property
@@ -99,6 +102,7 @@ class RealPandaInterface(RealRobotInterface):
         """list of seven floats [x, y, z, qx, qy, qz, qw] of the 6D pose
         of the end effector.
         """
+        self._get_state_from_redis()
         return self._ee_pose
 
     @property
@@ -128,6 +132,7 @@ class RealPandaInterface(RealRobotInterface):
 
         Ordered from base to end_effector
         """
+        self._get_state_from_redis()
         return self._q
 
     @property
@@ -136,6 +141,7 @@ class RealPandaInterface(RealRobotInterface):
 
         Ordered from base to end_effector
         """
+        self._get_state_from_redis()
         return self._dq
 
     @property
