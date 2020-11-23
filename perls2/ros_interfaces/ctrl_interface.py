@@ -46,7 +46,10 @@ class CtrlInterface(RobotInterface):
         """
         Initialize robot for control.
         """
-        self.config = YamlConfig(config)
+        try:
+            self.config = YamlConfig(config)
+        except TypeError: 
+            self.config = config
 
         # Timing
         self.startTime = time.time()
