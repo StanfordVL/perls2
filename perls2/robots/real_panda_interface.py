@@ -19,8 +19,9 @@ from perls2.robots.real_robot_interface import RealRobotInterface
 from perls2.ros_interfaces.redis_interface import PandaRedisInterface
 from perls2.ros_interfaces.redis_keys import *
 from perls2.ros_interfaces.redis_values import * 
+from perls2.ros_interfaces.panda_redis_keys import PandaKeys
 import perls2.controllers.utils.transform_utils as T  
-from perls2.panda_redis_keys import PandaKeys
+
 P = PandaKeys()
 
 class RealPandaInterface(RealRobotInterface):
@@ -42,6 +43,9 @@ class RealPandaInterface(RealRobotInterface):
         self.RESET_TIMEOUT = 10
         self.set_controller_params_from_config()
 
+    def step(self):
+        self._get_state_from_redis()
+        
     def reset(self):
         reset_cmd = {ROBOT_CMD_TSTAMP_KEY: time.time(),
                      ROBOT_CMD_TYPE_KEY: RESET}
@@ -58,9 +62,10 @@ class RealPandaInterface(RealRobotInterface):
             print("reset successful")
         else:
             print("reset failed")
+        self._get_state_from_redis()
 
     def _get_state_from_redis(self):
-        driver_states = self.redisClient.get_driver_states()
+        driver_states = self.redisClient.get_driver_state_model()
         self._ee_position, self._ee_orientation = T.mat2pose(driver_states[P.ROBOT_STATE_EE_POSE_KEY])
         self._ee_pose = driver_states[P.ROBOT_STATE_EE_POSE_KEY]
         self._ee_twist = T.calc_twist(driver_states[P.ROBOT_MODEL_JACOBIAN_KEY], driver_states[P.ROBOT_STATE_DQ_KEY])
