@@ -320,6 +320,7 @@ class CtrlInterface(RobotInterface):
         # elif (cmd_type == bSET_JOINT_VELOCITIES):
         #     self.set_joint_velocities(**self.controller_goal)
         elif(cmd_type.decode() == RESET):
+            logging.info("RESET Command received.")
             self.redisClient.set(ROBOT_RESET_COMPL_KEY, 'False')
             self.reset_to_neutral()
         # elif (cmd_type == bIDLE):

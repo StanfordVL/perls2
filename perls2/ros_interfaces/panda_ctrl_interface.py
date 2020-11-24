@@ -99,12 +99,13 @@ class PandaCtrlInterface(CtrlInterface):
         """
         start_time = time.time()
         # set command torques to zero in case we resume torque control after reset.
-        self.redisClient.set_eigen(P.TORQUE_CMD_KEY, np.zeros(6))
+        self.redisClient.set_eigen(P.TORQUE_CMD_KEY, np.zeros(7))
+
         self.redisClient.set(P.CONTROL_MODE_KEY, P.RESET_CTRL_MODE)
         while (self.redisClient.get(P.CONTROL_MODE_KEY).decode() != P.IDLE_CTRL_MODE):
             time.sleep(1)
         self.redisClient.set(ROBOT_RESET_COMPL_KEY, 'True')
-
+        self.action_set = False
 
     def set_torques(self, torques):
         """Set torque command to redis driver.
