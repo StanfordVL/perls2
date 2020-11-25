@@ -10,7 +10,7 @@ redis:
   password: '/home/robot/.redis_conf/goddard_pass.txt'
 #policy_freq : 10 # Hz
 policy_freq: 20 # For gazebo?
-control_freq: 500 # Hz
+control_freq: 1000 # Hz
 sim_params:
   MAX_STEPS: 500
 
@@ -20,8 +20,8 @@ controller:
   selected_type: 'EEImpedance' # Choose between 'EEImpedance', 'JointVelocity'
   Real:
     EEImpedance:
-      kp:  [60, 60, 60, 40.0, 40.0, 40.0] #70 #50 #200 #75 #200 # P Gain for Impedance Control
-      kv: [10.0, 10.0, 10.0, 2.0, 2.0, 2.0]
+      kp:  [60, 60, 60, 60.0, 60.0, 60.0] #70 #50 #200 #75 #200 # P Gain for Impedance Control
+      kv: [10.0, 10.0, 10.0, 10.0, 10.0, 10.0]
       damping: 1.0 #1 #0.5 #1 #0.5 # Damping factor [0,1]
       input_max: 1.0
       input_min: -1.0
