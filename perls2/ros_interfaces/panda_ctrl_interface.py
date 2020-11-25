@@ -48,6 +48,7 @@ class PandaCtrlInterface(CtrlInterface):
         self.redisClient.set(ROBOT_SET_GRIPPER_CMD_TSTAMP_KEY, time.time())
         self.last_cmd_tstamp = self.get_cmd_tstamp()
         self.last_gripper_cmd_tstamp = self.get_gripper_cmd_tstamp()
+        self.prev_gripper_state = self.des_gripper_state
         self.loop_times = []
         # TODO: reset to neutral position.
         # Get state from redis
@@ -248,8 +249,8 @@ class PandaCtrlInterface(CtrlInterface):
                 if (self.redisClient.is_env_connected()):
                     if self.check_for_new_cmd():
                         self.process_cmd(self.cmd_type)
-                    # if self.check_for_new_gripper_cmd():
-                    #     self.process_gripper_cmd()
+                    if self.check_for_new_gripper_cmd():
+                        self.process_gripper_cmd()
                     self.step(start)
 
                 else:
