@@ -312,8 +312,8 @@ class CtrlInterface(RobotInterface):
         """
         if (cmd_type.decode() == SET_EE_POSE):
             self.set_ee_pose(**self.controller_goal)
-        # elif (cmd_type == bytes(MOVE_EE_DELTA,'utf-8')):
-        #     self.move_ee_delta(**self.controller_goal)
+        elif (cmd_type.decode() == MOVE_EE_DELTA):
+            self.move_ee_delta(**self.controller_goal)
         # elif(cmd_type == bSET_JOINT_DELTA):
         #     self.set_joint_delta(**self.controller_goal)
         # elif (cmd_type == bSET_JOINT_POSITIONS):
@@ -326,6 +326,7 @@ class CtrlInterface(RobotInterface):
             logging.info("RESET Command received.")
             self.redisClient.set(ROBOT_RESET_COMPL_KEY, 'False')
             self.reset_to_neutral()
+            self.action_set = False
         # elif (cmd_type == bIDLE):
         #     # make sure action set if false
         #     self.action_set = False
