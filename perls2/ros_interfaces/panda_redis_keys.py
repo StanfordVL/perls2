@@ -22,6 +22,8 @@ class PandaKeys(object):
 		self.IDLE_CTRL_MODE = "idle"
 		
 		self.GRIPPER_WIDTH_CMD_KEY = self._get_full_key('gripper_width_des')
+		self.GRIPPER_SPEED_CMD_KEY = "franka_panda::gripper::control::speed"
+		self.GRIPPER_FORCE_CMD_KEY = "franka_panda::gripper::control::force"
 		self.GRIPPER_MODE_KEY = self._get_full_key('gripper_mode')
 
 		self.ROBOT_STATE_Q_KEY = self._get_full_key('q')

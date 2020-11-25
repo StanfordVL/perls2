@@ -42,6 +42,7 @@ class RealPandaInterface(RealRobotInterface):
         self.redisClient = PandaRedisInterface(**self.config['redis'])
         self._get_state_from_redis()
         self.RESET_TIMEOUT = 10
+        self.GRIPPER_MAX_VALUE = 0.0857
         self.set_controller_params_from_config()
 
     def step(self):
@@ -193,8 +194,11 @@ class RealPandaInterface(RealRobotInterface):
         """ Close robot gripper
         """
         raise NotImplementedError
-
     def set_gripper_to_value(self, value):
-        """ Set gripper to desired open/close value
+        """Set gripper to desired value
         """
-        raise NotImplementedError
+        if (value > 1.0 or value < 0):
+            raise ValueError("Invalid gripper value must be fraction between 0 and 1")
+
+        self.redisClient.set(ROBOT_SET_GRIPPER_CMD_KEY, value*self.GRIPPER_MAX_VALUE)
+        self.redisClient.set(ROBOT_SET_GRIPPER_CMD_TSTAMP_KEY, time.time())

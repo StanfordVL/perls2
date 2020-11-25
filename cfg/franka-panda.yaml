@@ -64,7 +64,7 @@ redis:
   use_json: false
 
   # Use Franka gripper
-  use_gripper: false
+  use_gripper: true
 
 ##############################
 # perls2 parameters for redis#

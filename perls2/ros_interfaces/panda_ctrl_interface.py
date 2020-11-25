@@ -107,6 +107,7 @@ class PandaCtrlInterface(CtrlInterface):
         self.redisClient.set(ROBOT_RESET_COMPL_KEY, 'True')
         self.action_set = False
 
+
     def set_torques(self, torques):
         """Set torque command to redis driver.
 
@@ -121,6 +122,31 @@ class PandaCtrlInterface(CtrlInterface):
 
     def set_to_float(self):
         self.redisClient.set(P.CONTROL_MODE_KEY, P.FLOAT_CTRL_MODE)
+
+    def close_gripper(self):
+        """
+        Close the gripper of the robot
+        :return: None
+        """
+        raise NotImplementedError
+
+    def open_gripper(self):
+        """
+        Open the gripper of the robot
+        :return: None
+        """
+        raise NotImplementedError
+
+    def set_gripper_to_value(self, value):
+        """
+        Set the gripper grasping opening state
+        :param openning: a float between 0 (closed) and 1 (open).
+        :return: None
+        """
+
+        self.redisClient.set(P.GRIPPER_WIDTH_CMD_KEY, value)
+
+        self.redisClient.set(P.GRIPPER_MODE_KEY, "move")
 
     def step(self, start):
         """Update the robot state and model, set torques from controller
@@ -139,7 +165,33 @@ class PandaCtrlInterface(CtrlInterface):
         else:
             pass
 
+    def get_gripper_cmd_tstamp(self):
+        return self.redisClient.get(ROBOT_SET_GRIPPER_CMD_TSTAMP_KEY)
+
+    @property
+    def des_gripper_state(self):
+        return float(self.redisClient.get(ROBOT_SET_GRIPPER_CMD_KEY))
     
+    def check_for_new_gripper_cmd(self):
+        gripper_cmd_tstamp = self.get_gripper_cmd_tstamp()
+        if self.last_gripper_cmd_tstamp is None or (self.last_gripper_cmd_tstamp != gripper_cmd_tstamp):
+            self.last_gripper_cmd_tstamp = gripper_cmd_tstamp
+            return True
+        else:
+            return False
+
+    def process_gripper_cmd(self):
+        """Process the new gripper command by setting gripper state.
+
+        Only send gripper command if current gripper open fraction is not
+        equal to desired gripper open fraction.
+        """
+        if self.prev_gripper_state != self.des_gripper_state:
+            self.set_gripper_to_value(self.des_gripper_state)
+            self.prev_gripper_state = self.des_gripper_state
+        else:
+            pass
+
     def wait_for_env_connect(self): 
         """Blocking code that waits for perls2.RobotInterface to connect to redis.
         
@@ -171,7 +223,7 @@ class PandaCtrlInterface(CtrlInterface):
         self.set_to_float()
         assert(self.redisClient.get(P.CONTROL_MODE_KEY).decode() == P.FLOAT_CTRL_MODE)
 
-        for _ in range(1000):
+        for _ in range(5000):
             zero_torques = (np.random.rand(7) - 0.5)*0.00001
             zero_torques = np.clip(zero_torques, -0.001, 0.001)
             
