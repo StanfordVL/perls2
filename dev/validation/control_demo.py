@@ -376,6 +376,7 @@ class OpSpaceDemo(Demo):
         self.goal_states = self.get_goal_states()
         self.fix_ori = fix_ori
         self.fix_pos = fix_pos
+        self.env.robot_interface.reset()
 
     def run(self):
         """Run the demo. Execute actions in sequence and calculate error.
