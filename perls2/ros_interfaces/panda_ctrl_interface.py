@@ -13,7 +13,7 @@ from perls2.controllers.utils import transform_utils as T
 import logging
 logging.basicConfig(level=logging.DEBUG)
 import numpy as np
-
+import json
 
 P = PandaKeys('cfg/franka-panda.yaml')
 
@@ -50,9 +50,15 @@ class PandaCtrlInterface(CtrlInterface):
         self.last_gripper_cmd_tstamp = self.get_gripper_cmd_tstamp()
         self.prev_gripper_state = self.des_gripper_state
         self.loop_times = []
+        self.torque_calc_time = -1
+        self.zero_torques = np.zeros(7)
         # TODO: reset to neutral position.
         # Get state from redis
         # Update model.
+        self.start_tstamp = []
+        self.update_model_tstamp = []
+        self.set_torques_tstamp = []
+        self.end_tstamp = []
 
     def prepare_to_run(self):
         """ Perform steps before running CtrlInterface.
@@ -118,7 +124,12 @@ class PandaCtrlInterface(CtrlInterface):
         """
         #logging.debug("setting torque command")
         self.redisClient.set_eigen(P.TORQUE_CMD_KEY, torques)
-        self.redisClient.set(P.CONTROL_MODE_KEY, P.TORQUE_CTRL_MODE)
+        # start = time.time() * 1000
+        tstamp = time.time()*1000.0
+        self.redisClient.mset({P.CONTROL_MODE_KEY: P.TORQUE_CTRL_MODE, 
+            "franka::control::tstamp": "{}".format(tstamp)})
+        # if (time.time()*1000 - start) > 5: 
+        #     logging.error("mset command took > 5ms")
         #logging.debug(self.redisClient.get(P.TORQUE_CMD_KEY))
 
     def set_to_float(self):
@@ -155,13 +166,15 @@ class PandaCtrlInterface(CtrlInterface):
         Note this is different from other robot interfaces, as the Sawyer
         low-level controller takes gravity compensation into account.
         """
+
         self.update_model()
 
         if self.action_set:
-            
+            # TODO: remove timing code below
             torques = self.controller.run_controller()
-            
-            self.set_torques(np.clip(torques, -2.5, 2.5))
+            self.set_dummy_torque_redis()
+
+            #self.set_torques(np.clip(torques, -1.5, 1.5))
 
         else:
             pass
@@ -217,6 +230,9 @@ class PandaCtrlInterface(CtrlInterface):
         
         self.set_torques(zero_torques)
 
+    def set_zero_torques_redis(self):
+        self.set_torques(self.zero_torques)
+
     def warm_up_driver(self):
         logging.info("warming up driver...setting to float")
         logging.info("setting torque command key to  very small random values.")
@@ -252,12 +268,44 @@ class PandaCtrlInterface(CtrlInterface):
                     if self.check_for_new_gripper_cmd():
                         self.process_gripper_cmd()
                     self.step(start)
+                    self.start_tstamp.append(start)
+                    self.end_tstamp.append(time.time())
 
                 else:
                     break
-        except KeyboardInterrupt:
-            np.savez('dev/test/loop_times.npz', loop=self.loop_times, allow_pickle=True)
 
+        except KeyboardInterrupt:
+            pass
+        np.savez('dev/test/panda_timestamps.npz', start=self.start_tstamp, end=self.end_tstamp, update_model=self.update_model_tstamp, 
+            set_torques=self.set_torques_tstamp, allow_pickle=True)
+
+
+    def run_dummy(self):
+        logging.info("Running contrl interface in dummy mode.")
+        if not self.driver_connected:
+            raise ValueError("franka-panda driver must be started first.")
+
+        self.warm_up_driver()
+        self.update_model()
+
+        self.default_control_type = self.config['controller']['selected_type']
+        self.default_params = self.config['controller']['Real'][self.default_control_type]
+        self.redisClient.set(CONTROLLER_CONTROL_TYPE_KEY, self.default_control_type)
+        self.redisClient.set(CONTROLLER_CONTROL_PARAMS_KEY, json.dumps(self.default_params))
+
+        self.controller = self.make_controller_from_redis(self.get_control_type(), self.get_controller_params())    
+       
+        logging.info("Beginning dummy control loop")
+
+        try:    
+            while True:
+                start = time.time()
+                self.set_dummy_torque_redis()    
+                while ((time.time() - start) < 0.001):
+                    pass
+
+        except KeyboardInterrupt:
+            pass
 
 
 
@@ -266,4 +314,4 @@ class PandaCtrlInterface(CtrlInterface):
 if __name__ == '__main__':
     ctrl_interface = PandaCtrlInterface(
         config='cfg/panda_ctrl_config.yaml', controlType=None)
-    ctrl_interface.run()
+    ctrl_interface.run_dummy()
