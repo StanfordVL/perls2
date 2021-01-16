@@ -3,7 +3,7 @@
 import time
 
 from perls2.ros_interfaces.ctrl_interface import CtrlInterface
-from perls2.ros_interfaces.panda_redis_keys import PandaKeys
+import perls2.ros_interfaces.panda_redis_keys as P 
 from perls2.ros_interfaces.redis_interface import PandaRedisInterface
 from perls2.ros_interfaces.redis_keys import *
 from perls2.utils.yaml_config import YamlConfig
@@ -15,7 +15,7 @@ logging.basicConfig(level=logging.DEBUG)
 import numpy as np
 import json
 
-P = PandaKeys('cfg/franka-panda.yaml')
+
 
 
 class PandaCtrlInterface(CtrlInterface):

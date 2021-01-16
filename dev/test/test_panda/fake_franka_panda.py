@@ -2,9 +2,8 @@
 """
 from perls2.utils.yaml_config import YamlConfig
 from perls2.ros_interfaces.redis_interface import PandaRedisInterface
-from perls2.ros_interfaces.panda_redis_keys import PandaKeys
+import perls2.ros_interfaces.panda_redis_keys as P
 import pytest
-P = PandaKeys('cfg/franka-panda.yaml')
 
 
 class FakeFrankaPanda(object):

@@ -9,7 +9,7 @@ import numpy as np
 import json
 from perls2.ros_interfaces.redis_keys import *
 from perls2.ros_interfaces.redis_values import *
-from perls2.ros_interfaces.panda_redis_keys import PandaKeys
+import perls2.ros_interfaces.panda_redis_keys as P
 import perls2.utils.redis_utils as RU 
 import logging
 logging.basicConfig(level=logging.INFO)
@@ -244,7 +244,6 @@ class PandaRedisInterface(RedisInterface):
         """
 
         RedisInterface.__init__(self, host, port, password)
-        self.keys = PandaKeys(driver_config)
         # sleep to improve connection latencies for redis on tcp
         # if (self.host !=  "127.0.0.1") and (self.host != "localhost"):
         logging.info("warming up redis")
@@ -270,7 +269,7 @@ class PandaRedisInterface(RedisInterface):
             If queried value is a robot state or model, converts to ndarray, if
             it is a control parameter or goal, converts to dict.
         """
-        if key in self.keys.ROBOT_STATE_KEYS:
+        if key in P.ROBOT_STATE_KEYS:
             return self._get_key_ndarray(key)
         elif CONTROLLER_CONTROL_PARAMS_KEY in key or CONTROLLER_GOAL_KEY in key:
             return self._get_key_json(key)
@@ -301,11 +300,11 @@ class PandaRedisInterface(RedisInterface):
         """Returns dict with franka driver states properly formatted. 
         as numpy arrays.
         """
-        redis_states = self.mget_dict(self.keys.ROBOT_STATE_KEYS)
+        redis_states = self.mget_dict(P.ROBOT_STATE_KEYS)
         np_states = {}
         for state_key, state_str in redis_states.items():
             # EE Pose stored as 4x4 matrix.
-            if state_key == self.keys.ROBOT_STATE_EE_POSE_KEY:
+            if state_key == P.ROBOT_STATE_EE_POSE_KEY:
                 np_states[state_key] = RU.franka_state_to_np_mat(state_str, (4,4))
             else:
 
@@ -317,17 +316,17 @@ class PandaRedisInterface(RedisInterface):
         """Returns dict with franka driver states and dynamics models 
         properly formatted as numpy arrays.
         """
-        redis_states = self.mget_dict(self.keys.ROBOT_STATE_KEYS + self.keys.ROBOT_MODEL_KEYS)
+        redis_states = self.mget_dict(P.ROBOT_STATE_KEYS + P.ROBOT_MODEL_KEYS)
         np_states = {}
         for state_key, state_str in redis_states.items():
             # EE Pose stored as 4x4 matrix.
-            if state_key == self.keys.ROBOT_STATE_EE_POSE_KEY:
-                np_states[state_key] = RU.franka_state_to_np_mat(state_str, self.keys.EE_POSE_SHAPE)
-            elif state_key == self.keys.ROBOT_MODEL_MASS_MATRIX_KEY:
-                np_states[state_key] = RU.franka_state_to_np_mat(state_str, self.keys.MASS_MATRIX_SHAPE)
-            elif state_key == self.keys.ROBOT_MODEL_JACOBIAN_KEY:
+            if state_key == P.ROBOT_STATE_EE_POSE_KEY:
+                np_states[state_key] = RU.franka_state_to_np_mat(state_str, P.EE_POSE_SHAPE)
+            elif state_key == P.ROBOT_MODEL_MASS_MATRIX_KEY:
+                np_states[state_key] = RU.franka_state_to_np_mat(state_str, P.MASS_MATRIX_SHAPE)
+            elif state_key == P.ROBOT_MODEL_JACOBIAN_KEY:
                 # Jacobian shape needs to be reversed because column-major
-                np_states[state_key] = RU.franka_state_to_np_mat(state_str, (self.keys.JACOBIAN_SHAPE[1], self.keys.JACOBIAN_SHAPE[0]))
+                np_states[state_key] = RU.franka_state_to_np_mat(state_str, (P.JACOBIAN_SHAPE[1], P.JACOBIAN_SHAPE[0]))
             else:
                 np_states[state_key] = RU.franka_state_to_np(state_str)
 

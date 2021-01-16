@@ -5,7 +5,7 @@ import numpy as np
 
 from perls2.utils.yaml_config import YamlConfig
 
-from perls2.ros_interfaces.panda_redis_keys import PandaKeys
+import perls2.ros_interfaces.panda_redis_keys as P
 from perls2.ros_interfaces.redis_keys import *
 from perls2.ros_interfaces.redis_values import *
 from perls2.ros_interfaces.redis_interface import PandaRedisInterface
@@ -14,8 +14,6 @@ from perls2.ros_interfaces.panda_ctrl_interface import PandaCtrlInterface
 import logging
 logging.basicConfig(level=logging.DEBUG)
 from dev.test.test_panda.fake_franka_panda import  FakeFrankaPanda
-
-P = PandaKeys('cfg/franka-panda.yaml')
 
 @pytest.fixture
 def panda_ctrl():

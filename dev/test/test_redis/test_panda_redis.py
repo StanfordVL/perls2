@@ -7,10 +7,9 @@ import numpy as np
 from perls2.ros_interfaces.redis_interface import PandaRedisInterface
 from perls2.ros_interfaces.redis_keys import *
 from perls2.ros_interfaces.redis_values import *
-from perls2.ros_interfaces.panda_redis_keys import PandaKeys
+import perls2.ros_interfaces.panda_redis_keys as P
 from dev.test.test_panda.fake_franka_panda import FakeFrankaPanda
 
-P = PandaKeys('cfg/franka-panda.yaml')
 
 
 @pytest.fixture
