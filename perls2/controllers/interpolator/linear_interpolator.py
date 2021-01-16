@@ -43,7 +43,6 @@ class LinearInterpolator(Interpolator):
             goal = np.asarray(goal)
 
         if len(goal) != self.dim:
-            # print("Requested goal: {}".format(goal))
             raise ValueError("LinearInterpolator: Input size wrong for goal; needs to be {}!".format(self.dim))
 
         # Set initial goal for smoothing.
@@ -76,7 +75,6 @@ class LinearInterpolator(Interpolator):
             # Check if dx is greater than max value; if it is; clamp and notify user
             if np.any(abs(dx) > self.max_dx):
                 dx = np.clip(dx, -self.max_dx, self.max_dx)
-                # print("LinearInterpolator: WARNING: Requested interpolation exceeds max speed; clamping to {}.".format(self.max_dx))
 
             interp_goal = self.prev_goal + np.multiply(self.step_num + 1, dx)
             self.step_num += 1
