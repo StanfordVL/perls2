@@ -64,8 +64,9 @@ class RealWorld(World):
             The observation.
         """
         # reload robot to restore body after any collisions
-        self.robot_interface.reset()
-
+        #self.robot_interface.reset()
+        pass 
+        
     def step(self, start=None):
         """Take a step.
 
