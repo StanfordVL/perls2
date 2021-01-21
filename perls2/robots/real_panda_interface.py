@@ -22,6 +22,8 @@ from perls2.ros_interfaces.redis_keys import *
 from perls2.ros_interfaces.redis_values import * 
 from perls2.ros_interfaces.panda_redis_keys import PandaKeys
 import perls2.controllers.utils.transform_utils as T  
+import logging
+logger = logging.getLogger(__name__)
 
 P = PandaKeys()
 
@@ -40,47 +42,58 @@ class RealPandaInterface(RealRobotInterface):
         # Create redis interface specific to panda.
         redis_config = self.config['redis']
         self.redisClient = PandaRedisInterface(**self.config['redis'])
+        self.last_redis_update = None
         self._get_state_from_redis()
         self.RESET_TIMEOUT = 10
         self.GRIPPER_MAX_VALUE = 0.0857
+        self.MAX_REDIS_STALE_TIME = 0.005 # time in s (20Hz) after which to update redis states.
+
         self.set_controller_params_from_config()
+
 
     def step(self):
         self._get_state_from_redis()
         
     def reset(self):
+        logger.info("Resetting Panda Robot. Confirm on driver.")
         reset_cmd = {ROBOT_CMD_TSTAMP_KEY: time.time(),
                      ROBOT_CMD_TYPE_KEY: RESET}
         
         self.redisClient.mset(reset_cmd)
         # Wait for reset to be read by contrl interface.
-        time.sleep(5)
+        time.sleep(self.RESET_TIMEOUT)
         start = time.time()
 
         while (self.redisClient.get(ROBOT_RESET_COMPL_KEY) != b'True' and (time.time() - start < self.RESET_TIMEOUT)):
             time.sleep(0.01)
 
         if (self.redisClient.get(ROBOT_RESET_COMPL_KEY) == b'True'):
-            print("reset successful")
+            logger.info("reset successful")
         else:
-            print("reset failed")
+            logger.info("reset failed")
         self._get_state_from_redis()
 
     def _get_state_from_redis(self):
-        driver_states = self.redisClient.get_driver_state_model()
-        self._ee_position, self._ee_orientation = T.mat2pose(driver_states[P.ROBOT_STATE_EE_POSE_KEY])
-        self._ee_pose = np.hstack((self._ee_position, self._ee_orientation))
-        self._ee_twist = T.calc_twist(driver_states[P.ROBOT_MODEL_JACOBIAN_KEY], driver_states[P.ROBOT_STATE_DQ_KEY])
-        self._ee_v = self._ee_twist[:3]
-        self._ee_w = self._ee_twist[3:]
-        self._q = driver_states[P.ROBOT_STATE_Q_KEY]
-        self._dq = driver_states[P.ROBOT_STATE_DQ_KEY]
-        self._tau = driver_states[P.ROBOT_STATE_TAU_KEY]
-        self._jacobian = driver_states[P.ROBOT_MODEL_JACOBIAN_KEY]
-        self._linear_jacobian = self._jacobian[:3, :]
-        self._angular_jacobian = self._jacobian[3:, :]
-        self._mass_matrix = driver_states[P.ROBOT_MODEL_MASS_MATRIX_KEY]
-        self._gravity = driver_states[P.ROBOT_MODEL_GRAVITY_KEY]
+        """ Get states from redis and update all relevant attributes. 
+
+        """
+        if self.last_redis_update is None or (time.time() - self.last_redis_update > self.REDIS_STALE_TIME):
+            driver_states = self.redisClient.get_driver_state_model()
+            self._ee_position, self._ee_orientation = T.mat2pose(driver_states[P.ROBOT_STATE_EE_POSE_KEY])
+            self._ee_pose = np.hstack((self._ee_position, self._ee_orientation))
+            self._ee_twist = T.calc_twist(driver_states[P.ROBOT_MODEL_JACOBIAN_KEY], driver_states[P.ROBOT_STATE_DQ_KEY])
+            self._ee_v = self._ee_twist[:3]
+            self._ee_w = self._ee_twist[3:]
+            self._q = driver_states[P.ROBOT_STATE_Q_KEY]
+            self._dq = driver_states[P.ROBOT_STATE_DQ_KEY]
+            self._tau = driver_states[P.ROBOT_STATE_TAU_KEY]
+            self._jacobian = driver_states[P.ROBOT_MODEL_JACOBIAN_KEY]
+            self._linear_jacobian = self._jacobian[:3, :]
+            self._angular_jacobian = self._jacobian[3:, :]
+            self._mass_matrix = driver_states[P.ROBOT_MODEL_MASS_MATRIX_KEY]
+            self._gravity = driver_states[P.ROBOT_MODEL_GRAVITY_KEY]
+        else: 
+            pass
 
     @property
     def ee_position(self):
