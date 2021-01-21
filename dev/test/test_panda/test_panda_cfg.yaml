@@ -20,8 +20,8 @@ controller:
   selected_type: 'EEImpedance' # Choose between 'EEImpedance', 'JointVelocity'
   Real:
     EEImpedance:
-      kp:  [60, 60, 60, 60.0, 60.0, 60.0] #70 #50 #200 #75 #200 # P Gain for Impedance Control
-      kv: [10.0, 10.0, 10.0, 10.0, 10.0, 10.0]
+      kp:  [100, 100, 100, 60.0, 60.0, 60.0] #70 #50 #200 #75 #200 # P Gain for Impedance Control
+      kv: [20.0, 20.0, 20.0, 10.0, 10.0, 10.0]
       damping: 1.0 #1 #0.5 #1 #0.5 # Damping factor [0,1]
       input_max: 1.0
       input_min: -1.0
