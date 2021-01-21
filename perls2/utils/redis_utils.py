@@ -28,3 +28,15 @@ def franka_state_to_np_mat(state_str, shape):
         ndarray with dims == shape
     """
     return np.fromstring(state_str, dtype=np.float, sep= ' ').reshape(shape).T  
+
+def ndarray_to_eigen_str(value):
+    """Sets the key to format compatible for franka-panda eigen
+    """
+    if isinstance(value, np.ndarray):
+        value = str(value)
+    else:
+        raise ValueError("value should be ndarray")
+
+    # remove brackets
+    value = value[1:-1]
+    return value
