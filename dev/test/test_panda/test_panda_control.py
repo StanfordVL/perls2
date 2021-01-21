@@ -2,11 +2,10 @@
 """
 from perls2.ros_interfaces.panda_ctrl_interface import PandaCtrlInterface
 from dev.test.test_panda.fake_real_panda import FakePandaInterface
-from perls2.ros_interfaces.panda_redis_keys import PandaKeys
+import perls2.ros_interfaces.panda_redis_keys as P
 import perls2.controllers.utils.transform_utils as T 
 import numpy as np
 
-P = PandaKeys()
 
 real_panda = FakePandaInterface()
 real_panda.connect()

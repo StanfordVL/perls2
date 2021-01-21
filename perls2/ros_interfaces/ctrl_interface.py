@@ -314,14 +314,14 @@ class CtrlInterface(RobotInterface):
             self.set_ee_pose(**self.controller_goal)
         elif (cmd_type.decode() == MOVE_EE_DELTA):
             self.move_ee_delta(**self.controller_goal)
-        # elif(cmd_type == bSET_JOINT_DELTA):
-        #     self.set_joint_delta(**self.controller_goal)
-        # elif (cmd_type == bSET_JOINT_POSITIONS):
-        #     self.set_joint_positions(**self.controller_goal)
-        # elif (cmd_type == bSET_JOINT_TORQUES):
-        #     self.set_joint_torques(**self.controller_goal)
-        # elif (cmd_type == bSET_JOINT_VELOCITIES):
-        #     self.set_joint_velocities(**self.controller_goal)
+        elif(cmd_type.decode() == SET_JOINT_DELTA):
+            self.set_joint_delta(**self.controller_goal)
+        elif (cmd_type.decode() == SET_JOINT_POSITIONS):
+            self.set_joint_positions(**self.controller_goal)
+        elif (cmd_type.decode() == SET_JOINT_TORQUES):
+            self.set_joint_torques(**self.controller_goal)
+        elif (cmd_type.decode() == SET_JOINT_VELOCITIES):
+            self.set_joint_velocities(**self.controller_goal)
         elif(cmd_type.decode() == RESET):
             logging.info("RESET Command received.")
             self.redisClient.set(ROBOT_RESET_COMPL_KEY, 'False')

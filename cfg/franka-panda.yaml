@@ -74,6 +74,7 @@ perls2_redis:
   jacobian:             "model::jacobian"
   gravity:              "model::gravity"
   coriolis:             "model::coriolis"
+  password:             "/home/robot/.redis_conf/goddard_pass.txt" # Directory containing password for Redis AUTH
 
 
 
@@ -114,7 +115,7 @@ control:
     compensate_gravity: true
 
     # Timeout for torque command updates [ms]
-    tau_command_timeout: 12
+    tau_command_timeout: 20
 
 
   # Joint space controller parameters

@@ -12,7 +12,6 @@ import redis
 import pytest
 import numpy as np 
 import time
-from perls2.ros_interfaces.panda_redis_keys import PandaKeys
 from perls2.ros_interfaces.redis_keys import *
 from perls2.ros_interfaces.redis_values import * 
 from perls2.ros_interfaces.panda_ctrl_interface import PandaCtrlInterface
@@ -20,7 +19,6 @@ from perls2.robots.real_panda_interface import RealPandaInterface
 
 from perls2.ros_interfaces.redis_interface import PandaRedisInterface
 from perls2.utils.yaml_config import YamlConfig
-P = PandaKeys('cfg/franka-panda.yaml')
 
 from dev.test.test_panda.fake_franka_panda import FakeFrankaPanda
 from dev.test.test_panda.fake_real_panda import FakePandaInterface

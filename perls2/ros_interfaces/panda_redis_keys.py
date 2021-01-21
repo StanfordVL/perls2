@@ -1,75 +1,65 @@
 """Constant keys for franka-panda redis driver. 
 """
-from perls2.utils.yaml_config import YamlConfig 
+DRIVER_PREFIX = "franka_panda::"
 
-class PandaKeys(object):
+## Read by driver: 
 
-	def __init__(self, config='cfg/franka-panda.yaml'): 
-		"""get key constants from yaml config for franka-panda. 
-		
-			config (str): fpath for the franka-panda config file.
-		"""
-		self.config = YamlConfig(config)
-		self.yaml_keys = self.config['redis']['keys']
-		self.perls2_keys = self.config['perls2_redis']
-		self.PREFIX = self.yaml_keys['prefix']
+# Control Mode Keys
+CONTROL_MODE_KEY = DRIVER_PREFIX + "control::mode"
 
-		self.TORQUE_CMD_KEY = self._get_full_key('tau_des')
-		self.CONTROL_MODE_KEY = self._get_full_key('control_mode')
-		self.TORQUE_CTRL_MODE = "torque"
-		self.FLOAT_CTRL_MODE = "floating"
-		self.RESET_CTRL_MODE = "reset"
-		self.IDLE_CTRL_MODE = "idle"
-		
-		self.GRIPPER_WIDTH_CMD_KEY = self._get_full_key('gripper_width_des')
-		self.GRIPPER_SPEED_CMD_KEY = "franka_panda::gripper::control::speed"
-		self.GRIPPER_FORCE_CMD_KEY = "franka_panda::gripper::control::force"
-		self.GRIPPER_MODE_KEY = self._get_full_key('gripper_mode')
+# Control Mode Values
+TORQUE_CTRL_MODE = "torque"
+FLOAT_CTRL_MODE = "floating"
+RESET_CTRL_MODE = "reset"
+IDLE_CTRL_MODE = "idle"
 
-		self.ROBOT_STATE_Q_KEY = self._get_full_key('q')
-		self.ROBOT_STATE_DQ_KEY = self._get_full_key('dq')
-		self.ROBOT_STATE_EE_POSE_KEY = self._get_full_key('pose')
-		self.ROBOT_STATE_TAU_KEY = self._get_full_key('tau')
-		self.ROBOT_MODEL_MASS_MATRIX_KEY = self._get_full_key('mass_matrix')
-		self.ROBOT_MODEL_JACOBIAN_KEY = self._get_full_key('jacobian')
-		self.ROBOT_MODEL_GRAVITY_KEY = self._get_full_key('gravity')
-		self.ROBOT_MODEL_CORIOLIS_KEY = self._get_full_key('coriolis')
+# Gripper Keys:
+GRIPPER_MODE_KEY = DRIVER_PREFIX + "gripper::control::mode"
+GRIPPER_WIDTH_CMD_KEY = DRIVER_PREFIX + "gripper::control::width"
+GRIPPER_SPEED_CMD_KEY = DRIVER_PREFIX + "gripper::control::speed"
+GRIPPER_FORCE_CMD_KEY = DRIVER_PREFIX + "gripper::control::force"
 
-		
-		self.ROBOT_STATE_KEYS = [
-			self.ROBOT_STATE_Q_KEY, 
-			self.ROBOT_STATE_DQ_KEY,
-			self.ROBOT_STATE_EE_POSE_KEY, 
-			self.ROBOT_STATE_TAU_KEY, 
+# Torque cmd key: 
+TORQUE_CMD_KEY = DRIVER_PREFIX + "control::tau"
+## Set by driver: 
+
+# Driver connection status key (if driver is running.)
+DRIVER_CONN_KEY = DRIVER_PREFIX + "driver::status"
+
+# Driver connection status values
+DRIVER_CONNECTED_VALUE = bytes("running", 'utf-8')
+DRIVER_DISCONN_VALUE = bytes("off", 'utf-8')
+
+# Robot state keys:
+ROBOT_STATE_Q_KEY = DRIVER_PREFIX + "sensor::q"
+ROBOT_STATE_DQ_KEY = DRIVER_PREFIX + "sensor::dq"
+ROBOT_STATE_EE_POSE_KEY = DRIVER_PREFIX + "sensor::pose"
+ROBOT_STATE_TAU_KEY = DRIVER_PREFIX + "sensor::tau"
+
+ROBOT_MODEL_MASS_MATRIX_KEY = DRIVER_PREFIX + "model::mass_matrix"
+ROBOT_MODEL_JACOBIAN_KEY = DRIVER_PREFIX + "model::jacobian"
+ROBOT_MODEL_GRAVITY_KEY = DRIVER_PREFIX + "model::gravity"
+ROBOT_MODEL_CORIOLIS_KEY = DRIVER_PREFIX + "model::coriolis"
+
+# Gripper state keys: 
+GRIPPER_WIDTH_KEY = DRIVER_PREFIX + "gripper::sensor::width"
+GRIPPER_MAX_WIDTH_KEY = DRIVER_PREFIX + "gripper::model::max_width"
+GRIPPER_STATUS_KEY = DRIVER_PREFIX + "gripper::status"
+
+## Convenience defines
+ROBOT_STATE_KEYS = [
+			ROBOT_STATE_Q_KEY, 
+			ROBOT_STATE_DQ_KEY,
+			ROBOT_STATE_EE_POSE_KEY, 
+			ROBOT_STATE_TAU_KEY, 
 			]
 
-		self.ROBOT_MODEL_KEYS = [
-			self.ROBOT_MODEL_MASS_MATRIX_KEY, 
-			self.ROBOT_MODEL_JACOBIAN_KEY, 
-			self.ROBOT_MODEL_GRAVITY_KEY, 
-			self.ROBOT_MODEL_CORIOLIS_KEY]
+ROBOT_MODEL_KEYS = [
+	ROBOT_MODEL_MASS_MATRIX_KEY, 
+	ROBOT_MODEL_JACOBIAN_KEY, 
+	ROBOT_MODEL_GRAVITY_KEY, 
+	ROBOT_MODEL_CORIOLIS_KEY]
 
-		self.DRIVER_CONN_KEY = "franka_panda::driver::status"
-
-		self.DRIVER_CONNECTED_VALUE = bytes("running", 'utf-8')
-		self.DRIVER_DISCONN_VALUE = bytes("off", 'utf-8')
-
-		# Shapes for driver model and states. 
-		self.MASS_MATRIX_SHAPE = (7,7)
-		self.JACOBIAN_SHAPE = (6,7)
-		self.EE_POSE_SHAPE = (4,4)
-
-	def _get_full_key(self, key):
-		if key in self.yaml_keys.keys():
-			return self.PREFIX + self.yaml_keys[key]
-		elif key in self.perls2_keys.keys():
-			return self.PREFIX + self.perls2_keys[key]		
-		else:
-			raise KeyError("key not found. Check default.yaml")
-
-
-if __name__ == '__main__':
-	keys = PandaKeys()
-	assert(keys.TORQUE_CMD_KEY == "franka_panda::control::tau")
-	assert(keys.CONTROL_MODE_KEY == "franka_panda::control::mode")
-	assert(keys.ROBOT_STATE_Q_KEY == "franka_panda::sensor::q")
+MASS_MATRIX_SHAPE = (7,7)
+JACOBIAN_SHAPE = (6,7)
+EE_POSE_SHAPE = (4,4)

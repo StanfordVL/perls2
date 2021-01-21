@@ -20,12 +20,11 @@ from perls2.robots.real_robot_interface import RealRobotInterface
 from perls2.ros_interfaces.redis_interface import PandaRedisInterface
 from perls2.ros_interfaces.redis_keys import *
 from perls2.ros_interfaces.redis_values import * 
-from perls2.ros_interfaces.panda_redis_keys import PandaKeys
+import perls2.ros_interfaces.panda_redis_keys as P
 import perls2.controllers.utils.transform_utils as T  
 import logging
 logger = logging.getLogger(__name__)
 
-P = PandaKeys()
 
 class RealPandaInterface(RealRobotInterface):
     """Abstract interface to be implemented for each real and simulated
