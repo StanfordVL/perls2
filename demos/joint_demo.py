@@ -7,7 +7,7 @@ from demo import Demo
 import numpy as np
 import logging
 logger = logging.getLogger(__name__)
-import time 
+import time
 
 MAX_JOINT_DELTA = 0.005
 
@@ -30,26 +30,28 @@ class JointSpaceDemo(Demo):
             joint position in the demo.
         kwargs (dict): catch all other keyword arguments.
     """
-    def __init__(self, 
-                 ctrl_type, 
-                 demo_type, 
+    def __init__(self,
+                 ctrl_type,
+                 demo_type,
                  config_file="demo_control_cfg.yaml",
-                 delta_val=0.005, num_steps=30, 
+                 delta_val=0.005, num_steps=30,
                  test_fn='set_joint_delta',
                  **kwargs):
         """ Initial Joint Space demo and calculate joint trajectory to take.
-        
+
         Args:
-            config_file (str): filepath of the config file for the environment. 
+            config_file (str): filepath of the config file for the environment.
 
         """
         super().__init__(ctrl_type=ctrl_type,
                          demo_type=demo_type,
                          test_fn=test_fn, **kwargs)
-        
+
         self.env = JointDemoEnv(config=config_file,
                                 use_visualizer=True,
-                                name=None)
+                                name=None,
+                                test_fn=self.test_fn,
+                                ctrl_type=self.ctrl_type)
 
         self.joint_num = kwargs['joint_num']
 
@@ -58,26 +60,26 @@ class JointSpaceDemo(Demo):
             self.init_joint_state = [0]*7;
         else:
             self.init_joint_state = self.get_state()
-        
+
         if (delta_val > MAX_JOINT_DELTA):
             logger.warn("Specified joint delta_val exceeds limit, clipping to {} rad".format(MAX_JOINT_DELTA))
             delta_val = MAX_JOINT_DELTA
 
-        self.delta_val = delta_val 
+        self.delta_val = delta_val
         self.num_steps = num_steps
 
         self.path = SequentialJoint(start_pose=self.init_joint_state,
                                     delta_val=self.delta_val,
-                                    joint_num=self.joint_num, 
+                                    joint_num=self.joint_num,
                                     num_steps=self.num_steps)
-        
+
         self.goal_poses = self.path.path
 
 
         self.step_num = 0
 
         self.connect_and_reset_robot()
-    
+
     def get_state(self):
         if self.ctrl_type == "JointTorque":
             return self.env.robot_interface.tau[:7]
@@ -110,7 +112,6 @@ class JointSpaceDemo(Demo):
             self.states.append(new_state)
             self.errors.append(
                 self.compute_error(goal_pose, new_state))
-            #logger.debug("Errors:\t{}".format(self.errors[-1]))
 
         logger.debug("Final (actual) joint pose \n{}".format(self.env.robot_interface.q))
 
@@ -138,7 +139,7 @@ class JointSpaceDemo(Demo):
             action_kwargs['set_qpos'] = None
         if self.test_fn == "set_joint_positions":
             action_kwargs['delta'] = None
-            action_kwargs['pose'] = action
+            action_kwargs['set_qpos'] = action
         if self.test_fn == "set_joint_torques":
             action_kwargs['torques'] = action
         if self.test_fn == "set_joint_velocities":
@@ -158,14 +159,9 @@ class JointSpaceDemo(Demo):
         """
         if self.test_fn == "set_joint_delta":
             action = np.subtract(goal_state, current_state)
-        elif self.test_fn == "set_joint_positions":
-            action = goal_state
-        elif self.test_fn == "set_joint_torques":
-            action = goal_state
-        elif self.test_fn == "set_joint_velocities":
-            action = goal_state
         else:
-            raise ValueError("Invalid test function")
+            action = goal_state
+
 
         return action
 
@@ -253,7 +249,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description="Test controllers and measure errors.")
     parser.add_argument('--ctrl_type',
-                        default=None,
+                        default="JointImpedance",
                         help='Type of controller to test')
     parser.add_argument('--demo_type',
                         default=None,

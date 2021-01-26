@@ -2,11 +2,39 @@
 """
 import numpy as np
 import logging
+import perls2.controllers.utils.transform_utils as T
 logger = logging.getLogger(__name__)
+
+def apply_delta(pose, delta):
+    """ Applies delta to pose to obtain new 7f pose.
+    Args: pose (7f): x, y, z, qx, qy, qz, w . Position and quaternion
+          delta (6f): dx, dy, dz, ax, ay, az. delta position and axis-angle
+
+    """
+    if len(delta) != 6:
+        raise ValueError("delta should be [x, y, z, ax, ay, az]. Orientation should be axis-angle")
+    if len(pose) != 7:
+        raise ValueError("pose should be [x, y, z, qx, qy, qz, w] Orientation should be quaternion.")
+    pos = pose[:3]
+    dpos = delta[:3]
+
+    # Get current orientation and delta as matrices to apply 3d rotation.
+    ori_mat = T.quat2mat(pose[3:])
+    delta_quat = T.axisangle2quat(delta[3:])
+    delta_mat = T.quat2mat(delta_quat)
+    new_ori = np.dot(delta_mat.T, ori_mat)
+
+    # convert new orientation to quaternion.
+    new_ori_quat = T.mat2quat(new_ori)
+
+    # add dpos to current position.
+    new_pos = np.add(pos, dpos)
+
+    return np.hstack((new_pos, new_ori_quat))
 
 class Path(object):
     """A path is a sequence of goal states for the robot to achieve that
-    follow a specified pattern. 
+    follow a specified pattern.
 
     The path may be either in joint space or in cartesian space as end-effector
     poses.
@@ -28,20 +56,20 @@ class Path(object):
         """
         self.path = [self.start_pose]
 
-        for delta in self._deltas:
-            new_pose = np.add(self.path[-1], delta)
+        for delta in self.deltas:
+            new_pose = apply_delta(self.path[-1], delta)
             self.path.append(new_pose)
 
 
 class SequentialJoint(Path):
-    """ Series of joint positions in which a single joint is gradually incremented, 
-    held at desired position, and then gradually decremented back to intial state. 
+    """ Series of joint positions in which a single joint is gradually incremented,
+    held at desired position, and then gradually decremented back to intial state.
 
     i.e.(Move a single joint back and forth)
 
-    Attributes: 
+    Attributes:
         start_pose (list): initial joint states
-        delta_val (double): amount to increment/decrement 
+        delta_val (double): amount to increment/decrement
 
     """
     def __init__(self, start_pose, delta_val=0.001, num_steps=30, joint_num=0):
@@ -51,7 +79,7 @@ class SequentialJoint(Path):
         self.delta_val = delta_val
         self.num_steps = num_steps
         self.joint_num = joint_num
-        self._deltas = self._get_deltas()
+        self.deltas = self._get_deltas()
 
         self.path = []
         self.make_path()
@@ -92,16 +120,16 @@ class SequentialJoint(Path):
 
         self.path = [self.start_pose]
 
-        for delta in self._deltas:
-            new_pose = np.add(self.path[-1], delta)
+        for delta in self.deltas:
+            new_pose = apply_delta(self.path[-1], delta)
             self.path.append(new_pose)
 
 
 class Line(Path):
     """Class definition for straight line in given direction.
     """
-    def __init__(self, start_pose, num_pts, path_length,
-                 delta_val=None, dim=0, end_pos=None):
+    def __init__(self, start_pose, num_pts,
+                 delta_val, dim=0):
         """ Initialize Line class
 
         Args:
@@ -116,22 +144,21 @@ class Line(Path):
         """
         self.start_pose = start_pose
         self.num_pts = num_pts
-        self.path_length = path_length
-        if delta_val is None:
-            delta_val = np.divide(self.path_length, self.num_pts)
         self.delta_val = delta_val
         self.dim = dim
-        self._deltas = []
-        self.get_deltas()
+        self.deltas = self.get_line_deltas()
         self.path = []
         self.make_path()
 
-    def get_deltas(self):
+    def get_line_deltas(self):
+        """Return list of 6f poses where dim_num=delta_val, all other dims are 0.
 
+        Poses are specified as [x, y, z, qx, qy, qz, w] with orientation as quaternion
+        """
         delta = np.zeros(6)
         delta[self.dim] = self.delta_val
-        self._deltas = [delta]*self.num_pts
-        # self._deltas[0] = np.zeros(7)
+        return [delta]* self.num_pts
+
 
 class Square(Path):
     """Class def for square path.
@@ -158,60 +185,63 @@ class Square(Path):
         self.start_pose = start_pose
         self.num_pts = side_num_pts
         self.delta_val = delta_val
-        self._deltas = []
-        self.get_deltas()
+        self.deltas = []
+        self.make_square_deltas()
         self.path = []
         self.make_path()
 
-    def get_deltas(self):
+    def make_square_deltas(self):
         """ Get a series of steps from current position that produce
         a square shape. Travel starts with bottom side in positive direction,
         then proceeds clockwise (left, top, right.)
 
         """
-        self._deltas = [[0, 0, 0, 0, 0, 0]]
+        self.deltas = [np.zeros(6)]
+        delta_x = np.array([self.delta_val, 0.0, 0.0, 0.0, 0.0, 0.0])
+        delta_y = np.array([0.0, self.delta_val, 0.0, 0.0, 0.0, 0.0])
         # Bottom side.
         for pt in range(self.num_pts):
-            self._deltas.append([self.delta_val, 0.0, 0.0, 0.0, 0.0, 0.0])
+            self.deltas.append(delta_x)
         # Left Side
         for pt in range(self.num_pts):
-            self._deltas.append([0.0, -self.delta_val, 0.0, 0.0, 0.0, 0.0])
+            self.deltas.append(-delta_y)
         # Top side
         for pt in range(self.num_pts):
-            self._deltas.append([-self.delta_val, 0.0, 0.0, 0.0, 0.0, 0.0])
+            self.deltas.append(-delta_x)
         # Right side
         for pt in range(self.num_pts):
-            self._deltas.append([0.0, self.delta_val, 0.0, 0.0, 0.0, 0.0])
+            self.deltas.append(delta_y)
 
 
 class Rotation(Path):
     """ Class definition for path that rotating end effector in place.
     Start and end orientation should be in euler angles.
     """
-    def __init__(self, start_pose, num_pts,
-                 rotation_rad=np.pi/4, delta_val=None, dim=2, end_ori=None):
+    def __init__(self, start_pose, num_pts=100,
+                 delta_val=np.pi/400, dim=2):
         logger.debug("Making Rotation Path")
         self.start_pose = start_pose
-        self.end_ori = end_ori
         self.num_pts = num_pts
-        self.rotation_rad = rotation_rad
-        if delta_val is None:
-            if num_pts == 0:
-                delta_val = 0
-            else:
-                delta_val = np.divide(rotation_rad, num_pts)
         self.dim = dim
         self.delta_val = delta_val
-        self.get_deltas()
+        self.deltas = self.get_rotation_deltas()
         self.path = []
         self.make_path()
 
-    def get_deltas(self):
-        """Convert euler angle rotation with magnitude delta in the direction
-        specified by dim.
+    def get_rotation_deltas(self):
+        """Get set of deltas applying axis-angle rotation about specified axis.
         """
-        delta = np.zeros(3)
-        delta[self.dim] = self.delta_val
-        # pad with position deltas= 0
-        delta = np.hstack(([0, 0, 0], delta))
-        self._deltas = [delta]*self.num_pts
+        delta = np.zeros(6)
+        delta[self.dim + 3] = self.delta_val
+        return [delta]*self.num_pts
+
+    def make_path(self):
+        """Create path by sequentially adding deltas to initial state
+        """
+        self.path = [self.start_pose]
+
+        for delta in self.deltas:
+            new_pose = apply_delta(self.path[-1], delta)
+            self.path.append(new_pose)
+
+
