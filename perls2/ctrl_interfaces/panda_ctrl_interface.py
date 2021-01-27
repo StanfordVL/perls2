@@ -2,7 +2,7 @@
 """
 import time
 
-from perls2.ros_interfaces.ctrl_interface import CtrlInterface
+from perls2.ctrl_interfaces.ctrl_interface import CtrlInterface
 import perls2.redis_interfaces.panda_redis_keys as P
 from perls2.redis_interfaces.redis_interface import PandaRedisInterface
 from perls2.redis_interfaces.redis_keys import *

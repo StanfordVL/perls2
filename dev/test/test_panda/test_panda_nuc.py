@@ -14,7 +14,7 @@ import numpy as np
 import time
 from perls2.redis_interfaces.redis_keys import *
 from perls2.redis_interfaces.redis_values import *
-from perls2.ros_interfaces.panda_ctrl_interface import PandaCtrlInterface
+from perls2.ctrl_interfaces.panda_ctrl_interface import PandaCtrlInterface
 from perls2.robots.real_panda_interface import RealPandaInterface
 
 from perls2.redis_interfaces.redis_interface import PandaRedisInterface

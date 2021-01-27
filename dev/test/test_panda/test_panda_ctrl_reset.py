@@ -1,6 +1,6 @@
 """ Test script for panda_ctrl_interface reset.
 """
-from perls2.ros_interfaces.panda_ctrl_interface import PandaCtrlInterface
+from perls2.ctrl_interfaces.panda_ctrl_interface import PandaCtrlInterface
 from dev.test.test_panda.fake_real_panda import FakePandaInterface
 import perls2.redis_interfaces.panda_redis_keys as P
 import perls2.controllers.utils.transform_utils as T

@@ -1,10 +1,10 @@
-"""Script to time panda ctrl interface. 
+"""Script to time panda ctrl interface.
 
-Runs set torques commands for very small values. 
-Consecutive set_torque commands must be different or the 
-driver will register them as stale. 
+Runs set torques commands for very small values.
+Consecutive set_torque commands must be different or the
+driver will register them as stale.
 """
-from perls2.ros_interfaces.panda_ctrl_interface import PandaCtrlInterface
+from perls2.ctrl_interfaces.panda_ctrl_interface import PandaCtrlInterface
 import numpy as np
 import timeit
 
@@ -20,10 +20,10 @@ print("Setting random torques.")
 
 
 try:
-	while True: 
+	while True:
 		zero_torques = (np.random.rand(7) - 0.5)*0.00001
 		panda_ctrl.set_torques(zero_torques)
-		# if type_switch: 
+		# if type_switch:
 		# 	panda_ctrl.set_torques(zero_torques_pos)
 		# else:
 		# 	panda_ctrl.set_torques(zero_torques_neg)

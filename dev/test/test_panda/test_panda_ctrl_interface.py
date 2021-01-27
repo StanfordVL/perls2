@@ -9,7 +9,7 @@ import perls2.redis_interfaces.panda_redis_keys as P
 from perls2.redis_interfaces.redis_keys import *
 from perls2.redis_interfaces.redis_values import *
 from perls2.redis_interfaces.redis_interface import PandaRedisInterface
-from perls2.ros_interfaces.panda_ctrl_interface import PandaCtrlInterface
+from perls2.ctrl_interfaces.panda_ctrl_interface import PandaCtrlInterface
 
 import logging
 logging.basicConfig(level=logging.DEBUG)
