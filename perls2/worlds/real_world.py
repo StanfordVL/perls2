@@ -43,7 +43,7 @@ class RealWorld(World):
 
         self.robot_interface = RealRobotInterface.create(
             config=self.config,
-            controlType=self.config['controller']['selected_type'])
+            controlType=self.config['world']['controlType'])
 
         if 'sensor' in self.config:
             if 'camera' in self.config['sensor']:

@@ -67,9 +67,10 @@ class RobotInterface(object):
         self.interpolator_pos = None
         self.interpolator_ori = None
         self.robot_type = self.config['world']['robot']
+        self.controller_cfg = self.config[self.robot_type + "_controller"]
 
         # Make position interpolator from config
-        interp_pos_cfg = self.config['controller']['interpolator_pos']
+        interp_pos_cfg = self.controller_cfg['interpolator_pos']
         if interp_pos_cfg['type'] == 'linear':
             self.interpolator_pos = LinearInterpolator(
                 max_dx=interp_pos_cfg['max_dx'],
@@ -78,7 +79,7 @@ class RobotInterface(object):
                 policy_freq=self.config['policy_freq'],
                 ramp_ratio=interp_pos_cfg['ramp_ratio'])
         # Make orientation interpolator from config.
-        interp_ori_cfg = self.config['controller']['interpolator_ori']
+        interp_ori_cfg = self.controller_cfg['interpolator_ori']
         if interp_ori_cfg['type'] == 'linear':
             self.interpolator_ori = LinearOriInterpolator(
                 controller_freq=self.config['control_freq'],
@@ -100,7 +101,7 @@ class RobotInterface(object):
         if control_type == "Internal":
             return "Internal"
         world_name = self.config['world']['type']
-        controller_dict = self.config['controller'][world_name][control_type]
+        controller_dict = self.controller_cfg[world_name][control_type]
         if control_type == "EEImpedance":
             return EEImpController(
                 self.model,
