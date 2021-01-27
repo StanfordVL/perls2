@@ -274,6 +274,9 @@ class GravityCompDemo(JointSpaceDemo):
     def print_demo_info(self):
         print("\n\t Running Gravity compensation demo")
 
+    def get_action(self, goal_state, current_state):
+        return np.zeros(7)
+
 
 class JointImpDemoSeq(SingleJointDemo):
     def __init__(self,
