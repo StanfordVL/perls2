@@ -9,7 +9,7 @@
 from perls2.utils.yaml_config import YamlConfig
 from perls2.robots.real_panda_interface import RealPandaInterface
 from perls2.redis_interfaces.redis_keys import *
-from dev.test.test_panda.fake_franka_panda import FakePandaDriver
+from dev.test.test_panda.fake_panda_driver import FakePandaDriver
 import pytest
 
 @pytest.fixture()

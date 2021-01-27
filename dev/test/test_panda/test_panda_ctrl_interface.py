@@ -13,7 +13,7 @@ from perls2.ctrl_interfaces.panda_ctrl_interface import PandaCtrlInterface
 
 import logging
 logging.basicConfig(level=logging.DEBUG)
-from dev.test.test_panda.fake_franka_panda import  FakePandaDriver
+from dev.test.test_panda.fake_panda_driver import  FakePandaDriver
 
 @pytest.fixture
 def panda_ctrl():
