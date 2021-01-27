@@ -39,30 +39,6 @@ def compute_error(goal_state, new_state):
     return np.hstack((pos_error, ori_error))
 
 
-def get_delta(goal_pose, current_pose):
-    """Get delta between goal pose and current_pose.
-
-    Args: goal_pose (list): 7f pose [x, y, z, qx, qy, qz, w] . Position and quaternion of goal pose.
-          current_pose (list): 7f Position and quaternion of current pose.
-
-    Returns: delta (list) 6f [dx, dy, dz, ax, ay, az] delta position and delta orientation
-        as axis-angle.
-    """
-
-    if len(goal_pose) != 7:
-        raise ValueError("Goal pose incorrect dimension should be 7f")
-    if len(current_pose) !=7:
-        raise ValueError("Current pose incorrect dimension, should be 7f")
-
-    dpos = np.subtract(goal_pose[:3], current_pose[:3])
-    goal_mat = T.quat2mat(goal_pose[3:])
-    current_mat = T.quat2mat(current_pose[3:])
-    delta_mat_T = np.dot(goal_mat, current_mat.T)
-    delta_quat = T.mat2quat(np.transpose(delta_mat_T))
-    delta_aa = T.quat2axisangle(delta_quat)
-
-    return np.hstack((dpos, delta_aa)).tolist()
-
 class OpSpaceDemo(Demo):
     """Operational space demo for testing EEImpedance and EEPosture control.
 
@@ -188,16 +164,6 @@ class OpSpaceDemo(Demo):
             raise ValueError("invalid test fn")
         return action
 
-    def print_demo_banner(self):
-        print("\n**************************************************************************************")
-        print("\n***********************   perls2 Controller Demo    **********************************")
-
-    def print_demo_info(self):
-        print("\n\t Running {} demo \n\t with control type {}. \
-            \n\t Test function {}".format(
-            self.ctrl_type, self.demo_type, self.test_fn))
-
-
     def run(self):
         """Run the demo. Execute actions in sequence and calculate error.
         """
@@ -218,27 +184,35 @@ class OpSpaceDemo(Demo):
         if self.save:
             self.save_data()
 
-    def step_through_demo(self):
-        for i, goal_pose in enumerate(self.goal_poses):
-
-            # Get action corresponding to test_fn and goal pose
-            action= self.get_action(goal_pose, self.get_state())
-            action_kwargs = self.get_action_kwargs(action)
-
-            # Step environment forward
-            obs, reward, done, info = self.env.step(action_kwargs, time.time())
-            self.observations.append(obs)
-            self.actions.append(action)
-            new_state = self.get_state()
-            self.states.append(new_state)
-            self.errors.append(
-                get_delta(goal_pose, new_state))
-
     def get_action_list(self):
         if (self.test_fn == "move_ee_delta"):
             return self.path.deltas
         elif (self.test_fn == "set_ee_pose"):
             return self.path.path
+
+    def get_delta(self, goal_pose, current_pose):
+        """Get delta between goal pose and current_pose.
+
+        Args: goal_pose (list): 7f pose [x, y, z, qx, qy, qz, w] . Position and quaternion of goal pose.
+              current_pose (list): 7f Position and quaternion of current pose.
+
+        Returns: delta (list) 6f [dx, dy, dz, ax, ay, az] delta position and delta orientation
+            as axis-angle.
+        """
+
+        if len(goal_pose) != 7:
+            raise ValueError("Goal pose incorrect dimension should be 7f")
+        if len(current_pose) !=7:
+            raise ValueError("Current pose incorrect dimension, should be 7f")
+
+        dpos = np.subtract(goal_pose[:3], current_pose[:3])
+        goal_mat = T.quat2mat(goal_pose[3:])
+        current_mat = T.quat2mat(current_pose[3:])
+        delta_mat_T = np.dot(goal_mat, current_mat.T)
+        delta_quat = T.mat2quat(np.transpose(delta_mat_T))
+        delta_aa = T.quat2axisangle(delta_quat)
+
+        return np.hstack((dpos, delta_aa)).tolist()
 
     def plot_sequence_arrows(self, axes, x, y, color):
         """Plot a sequence of arrows given a list of x y points.
@@ -474,13 +448,31 @@ class OpSpaceLineXYZDemo(OpSpaceLineDemo):
             self.save_data()
 
 
-    def reset_log(self):
-        """Reset states, actions and observation logs between demos.
-        """
-        self.states = []
-        self.errors = []
-        self.actions = []
-        self.observations = []
+class OpSpaceFixedPoseDemo(OpSpaceLineDemo):
+    """OpSpace Demo for maintaining initial ee pose.
+    """
+    def __init__(self,
+                 ctrl_type="EEImpedance",
+                 test_fn="move_ee_delta",
+                 config_file="demo_control_cfg.yaml",
+                 num_steps=100, **kwargs):
+
+        super().__init__(
+            ctrl_type=ctrl_type,
+            test_fn=test_fn,
+            config_file=config_file,
+            axis='x',
+            path_length=None,
+            delta_val=0.0,
+            num_steps=num_steps, **kwargs)
+
+    def print_demo_info(self):
+        print("\n\t Running OSC fixed ee-pose demo \n\t with control type {}. \
+            \n\t Test function {}".format(
+            self.ctrl_type, self.demo_type, self.test_fn))
+        print("Robot will hold initial end-effector pose:\n\t {}".format(self.initial_pose))
+
+
 
 class OpSpaceSquareDemo(OpSpaceDemo):
     """OpSpace Demo for square path in xy plane.

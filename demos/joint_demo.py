@@ -2,14 +2,20 @@
 """
 
 from demo_envs import JointDemoEnv
-from demo_path import SequentialJoint
+from demo_path import RampSingleJoint
 from demo import Demo
 import numpy as np
 import logging
 logger = logging.getLogger(__name__)
 import time
 
+import matplotlib.pyplot as plt
+# hide verbose matplotlib logging
+mpl_logger = logging.getLogger('matplotlib')
+mpl_logger.setLevel(logging.WARNING)
+
 MAX_JOINT_DELTA = 0.005
+NUM_JOINTS = 6
 
 class JointSpaceDemo(Demo):
 
@@ -53,36 +59,12 @@ class JointSpaceDemo(Demo):
                                 test_fn=self.test_fn,
                                 ctrl_type=self.ctrl_type)
 
-        self.joint_num = kwargs['joint_num']
-
-        # Joint torque requires edge case to not include gravity comp.
-        if ctrl_type == "JointTorque":
-            self.init_joint_state = [0]*7;
-        else:
-            self.init_joint_state = self.get_state()
-
-        if (delta_val > MAX_JOINT_DELTA):
-            logger.warn("Specified joint delta_val exceeds limit, clipping to {} rad".format(MAX_JOINT_DELTA))
-            delta_val = MAX_JOINT_DELTA
-
-        self.delta_val = delta_val
+        self.delta_val = self.clip_delta(delta_val)
         self.num_steps = num_steps
-
-        self.path = SequentialJoint(start_pose=self.init_joint_state,
-                                    delta_val=self.delta_val,
-                                    joint_num=self.joint_num,
-                                    num_steps=self.num_steps)
-
-        self.goal_poses = self.path.path
-
-
-        self.step_num = 0
-
-        self.connect_and_reset_robot()
 
     def get_state(self):
         if self.ctrl_type == "JointTorque":
-            return self.env.robot_interface.tau[:7]
+            return np.subtract(self.env.robot_interface.tau[:7], self.env.robot_interface.gravity_vector)
         elif self.ctrl_type == "JointImpedance":
             return self.env.robot_interface.q[:7]
         elif self.ctrl_type == "JointVelocity":
@@ -90,37 +72,10 @@ class JointSpaceDemo(Demo):
         else:
             raise ValueError("Invalid ctrl type.")
 
-    def run(self):
-        """Run the demo. Execute actions in sequence and calculate error.
+    def get_delta(self, goal_pose, current_pose):
+        """Get delta between joint space poses.
         """
-        logger.info("Running {} demo \n with control type {}.\n Test \
-            function {} on Joint Num {}".format(self.demo_type, self.ctrl_type,  self.test_fn, self.joint_num))
-
-        logger.debug("Initial joint pose \n{}".format(self.env.robot_interface.q))
-
-        input("Press enter to confirm and begin running demo.")
-
-        for i, goal_pose in enumerate(self.goal_poses):
-            action = self.get_action(goal_pose, self.get_state())
-            action_kwargs = self.get_action_kwargs(action)
-            logger.debug("Action for joint num {} \t{}".format(self.joint_num, action[self.joint_num]))
-
-            self.env.step(action_kwargs, time.time())
-            self.actions.append(action)
-            new_state = self.get_state()
-
-            self.states.append(new_state)
-            self.errors.append(
-                self.compute_error(goal_pose, new_state))
-
-        logger.debug("Final (actual) joint pose \n{}".format(self.env.robot_interface.q))
-
-        self.env.robot_interface.reset()
-        self.env.robot_interface.disconnect()
-        if self.plot_error:
-            self.plot_errors()
-        if self.plot_pos:
-            self.plot_positions()
+        return np.subtract(goal_pose, current_pose)
 
     def get_action_kwargs(self, action):
         """
@@ -243,6 +198,140 @@ class JointSpaceDemo(Demo):
             plt.savefig(fname)
         plt.show()
 
+    def clip_delta(self, delta_val):
+        """Clip delta value to max, preserving sign.
+        """
+        return delta_val
+
+
+class SingleJointDemo(JointSpaceDemo):
+    """Joint Space demonstration for a single joint.
+    """
+    def __init__(self,
+                 config_file="demo_control_cfg.yaml",
+                 delta_val=0.005, num_steps=30,
+                 test_fn='set_joint_delta',
+                 joint_num=6,
+                 **kwargs):
+        super().__init__(ctrl_type="JointImpedance",
+                         demo_type="SingleJoint",
+                         config_file=config_file,
+                         delta_val=delta_val,
+                         num_steps=num_steps,
+                         test_fn=test_fn,
+                         **kwargs)
+
+        self.joint_num = joint_num
+        self.connect_and_reset_robot()
+        self.init_joint_state = self.get_state()
+
+        self.path = RampSingleJoint(start_pose=self.init_joint_state,
+                                    delta_val=self.delta_val,
+                                    joint_num=self.joint_num,
+                                    num_steps=self.num_steps)
+
+        self.goal_poses = self.path.path
+
+        self.step_num = 0
+
+    def clip_delta(self, delta_val):
+        """Clip delta to max value for joint impedance control.
+
+        """
+        if (np.abs(delta_val) > MAX_JOINT_DELTA):
+            logger.warn("Specified joint delta_val exceeds limit, clipping to {} rad".format(MAX_JOINT_DELTA))
+            delta_val = np.sign(delta_val) * MAX_JOINT_DELTA
+        return delta_val
+
+
+class GravityCompDemo(JointSpaceDemo):
+    """Gravity Compensation to demonstrate "floating" arm.
+    """
+    def __init__(self,
+                 config_file="demo_control_cfg.yaml",
+                 num_steps=100,
+                 **kwargs):
+
+        super().__init__(ctrl_type="JointTorque",
+                         demo_type="GravityCompensation",
+                         config_file=config_file,
+                         delta_val=0.0,
+                         num_steps=num_steps,
+                         test_fn="set_joint_torques",
+                         **kwargs)
+
+        self.connect_and_reset_robot()
+        self.init_joint_state = np.zeros(7)
+        self.path = RampSingleJoint(start_pose=self.init_joint_state,
+                                    delta_val=self.delta_val,
+                                    joint_num=0,
+                                    num_steps=self.num_steps)
+
+        self.goal_poses = self.path.path
+
+        self.step_num = 0
+
+    def print_demo_info(self):
+        print("\n\t Running Gravity compensation demo")
+
+
+class JointImpDemoSeq(SingleJointDemo):
+    def __init__(self,
+             config_file="demo_control_cfg.yaml",
+             delta_val=0.005, num_steps=30,
+             test_fn='set_joint_delta',
+             **kwargs):
+        super().__init__(config_file=config_file,
+                         delta_val=delta_val,
+                         num_steps=num_steps,
+                         test_fn=test_fn,**kwargs)
+
+    def print_demo_info(self):
+        print("\n\tRunning Joint Impedance demo for all joints \n with test_function: {}".format(self.test_fn))
+        print("Robot will perform 6 demonstrations: \n Moving joints 0-6 (base to end-effector) individually. \nRobot will reset before continuing to next demo.")
+
+
+    def run_single_joint_demo(self, joint_num):
+        self.reset_log()
+        self.joint_num = joint_num
+        self.path = RampSingleJoint(start_pose=self.init_joint_state,
+                                    delta_val=self.delta_val,
+                                    joint_num=self.joint_num,
+                                    num_steps=self.num_steps)
+        self.goal_poses = self.path.path
+        self.step_num = 0
+
+        print("------------------------")
+        print("Running Joint Impedance Demo on joint num {} \n \
+            \nTest function {}".format(
+            self.joint_num, self.ctrl_type,  self.test_fn))
+        logger.debug("EE Pose initial:\n{}\n".format(self.env.robot_interface.ee_pose))
+        print("--------")
+        input("Press Enter to start sending commands.")
+        self.step_through_demo()
+        self.env.robot_interface.reset()
+        if self.plot_error:
+            self.plot_errors()
+        if self.plot_pos:
+            self.plot_positions()
+
+        if self.save:
+            self.save_data()
+
+    def run(self):
+        """Run the demo. Execute actions in sequence and calculate error.
+        """
+        self.print_demo_banner()
+        self.print_demo_info()
+
+        # Run joint impedance demos for each joint
+        for joint_index in range(NUM_JOINTS+1):
+            self.run_single_joint_demo(joint_index)
+
+        print("Demo complete...disconnecting robot.")
+        self.env.robot_interface.disconnect()
+
+
 if __name__ == '__main__':
     import argparse
 
@@ -280,5 +369,5 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     kwargs = vars(args)
-    demo = JointSpaceDemo(**kwargs)
+    demo = SingleJointDemo(**kwargs)
     demo.run()

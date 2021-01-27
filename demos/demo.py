@@ -4,6 +4,8 @@ from demo_control_env import DemoControlEnv
 import numpy as np
 import time
 from datetime import datetime
+import logging
+logger = logging.getLogger(__name__)
 
 class Demo(object):
     """Abstract class definition for demonstration.
@@ -27,10 +29,10 @@ class Demo(object):
         initial_pose (list): initial end-effector pose.
 
     """
-    def __init__(self, 
-                 ctrl_type, 
-                 demo_type, 
-                 test_fn, 
+    def __init__(self,
+                 ctrl_type,
+                 demo_type,
+                 test_fn,
                  config_file="demo_control_cfg.yaml",
                  **kwargs):
         self.ctrl_type = ctrl_type
@@ -62,7 +64,7 @@ class Demo(object):
     @property
     def world_type(self):
         return self.env.config['world']['type']
-    
+
     def get_action_list(self):
         raise NotImplementedError
 
@@ -85,6 +87,59 @@ class Demo(object):
             self.env.robot_interface.connect()
 
         self.env.robot_interface.reset()
+
+    def print_demo_banner(self):
+        print("\n**************************************************************************************")
+        print("\n***********************   perls2 Controller Demo    **********************************")
+
+    def print_demo_info(self):
+        print("\n\t Running {} demo \n\t with control type {}. \
+            \n\t Test function {}".format(
+            self.ctrl_type, self.demo_type, self.test_fn))
+
+    def run(self):
+        """Run the demo. Execute actions in sequence and calculate error.
+        """
+        self.print_demo_banner()
+        self.print_demo_info()
+        logger.debug("EE Pose initial:\n{}\n".format(self.env.robot_interface.ee_pose))
+        print("--------")
+        input("Press Enter to start sending commands.")
+        self.step_through_demo()
+        self.env.robot_interface.reset()
+        self.env.robot_interface.disconnect()
+
+        if self.plot_error:
+            self.plot_errors()
+        if self.plot_pos:
+            self.plot_positions()
+
+        if self.save:
+            self.save_data()
+
+    def step_through_demo(self):
+        for i, goal_pose in enumerate(self.goal_poses):
+
+            # Get action corresponding to test_fn and goal pose
+            action= self.get_action(goal_pose, self.get_state())
+            action_kwargs = self.get_action_kwargs(action)
+
+            # Step environment forward
+            obs, reward, done, info = self.env.step(action_kwargs, time.time())
+            self.observations.append(obs)
+            self.actions.append(action)
+            new_state = self.get_state()
+            self.states.append(new_state)
+            self.errors.append(
+                self.get_delta(goal_pose, new_state))
+
+    def reset_log(self):
+        """Reset states, actions and observation logs between demos.
+        """
+        self.states = []
+        self.errors = []
+        self.actions = []
+        self.observations = []
 
     # def make_demo(**kwargs):
     #     """Factory method for making the write demo per params.
