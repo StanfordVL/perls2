@@ -88,7 +88,7 @@ class RealRobotInterface(RobotInterface):
     def set_control_params(self):
         """Set the control parameters key on redis
         """
-        control_config = self.config['controller']['Real'][self.control_type]
+        control_config = self.controller_cfg['Real'][self.control_type]
         self.redisClient.set(CONTROLLER_CONTROL_PARAMS_KEY, json.dumps(control_config))
 
     def reset(self):
@@ -99,8 +99,8 @@ class RealRobotInterface(RobotInterface):
     def set_controller_params_from_config(self):
         """Set controller parameters from config file to redis.
         """
-        selected_type = self.config['controller']['selected_type']
-        self.control_config = self.config['controller']['Real'][selected_type]
+        selected_type = self.config['world']['controlType']
+        self.control_config = self.controller_cfg['Real'][selected_type]
 
         self.redisClient.mset({CONTROLLER_CONTROL_PARAMS_KEY: json.dumps(self.control_config),
                                CONTROLLER_CONTROL_TYPE_KEY: selected_type})
@@ -125,7 +125,7 @@ class RealRobotInterface(RobotInterface):
         if next_type in AVAILABLE_CONTROLLERS:
             self.controlType = next_type
             self.redisClient.set(CONTROLLER_CONTROL_TYPE_KEY, next_type)
-            control_config = self.config['controller']['Real'][self.controlType]
+            control_config = self.controller_cfg['Real'][self.controlType]
             self.redisClient.set(CONTROLLER_CONTROL_PARAMS_KEY, json.dumps(control_config))
             logging.debug("Changing controller to {} with params: {}".format(self.controlType, control_config))
 
