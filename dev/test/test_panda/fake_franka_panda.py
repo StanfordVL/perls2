@@ -6,7 +6,7 @@ import perls2.redis_interfaces.panda_redis_keys as P
 import pytest
 
 
-class FakeFrankaPanda(object):
+class FakePandaDriver(object):
     """Class for faking panda redis driver.
 
     Sets fake values for redis, mocking franka-panda.
@@ -35,6 +35,7 @@ class FakeFrankaPanda(object):
         "franka_panda::gripper::control::grasp_tol": "0.02 0.02\n",
         "franka_panda::model::inertia_ee": "{\"I_com_flat\":[0.0010000000474974513,0.0024999999441206455,0.0017000000225380063,0.0,0.0,0.0],\"com\":[-0.009999999776482582,0.0,0.029999999329447746],\"mass\":0.8500000238418579}",
     }
+
     def __init__(self):
         self.driver_config = YamlConfig('cfg/franka-panda.yaml')
         # some renaming for the panda redis interface.
@@ -78,7 +79,7 @@ class FakeFrankaPanda(object):
 ######################### TESTING #######################################3
 @pytest.fixture()
 def driver():
-    return FakeFrankaPanda()
+    return FakePandaDriver()
 
 def test_start(driver):
     driver.start()
@@ -87,6 +88,6 @@ def test_start(driver):
 def test_set_fake_state(driver):
     driver.set_fake_state()
     assert(driver.redisClient._client.get(P.ROBOT_STATE_Q_KEY).decode() == \
-        FakeFrankaPanda.FAKE_STATE[P.ROBOT_STATE_Q_KEY])
+        FakePandaDriver.FAKE_STATE[P.ROBOT_STATE_Q_KEY])
     assert(driver.redisClient._client.get(P.ROBOT_STATE_EE_POSE_KEY).decode() == \
-        FakeFrankaPanda.FAKE_STATE[P.ROBOT_STATE_EE_POSE_KEY])
+        FakePandaDriver.FAKE_STATE[P.ROBOT_STATE_EE_POSE_KEY])

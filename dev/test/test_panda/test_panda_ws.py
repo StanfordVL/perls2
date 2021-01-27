@@ -17,12 +17,12 @@ from perls2.robots.real_panda_interface import RealPandaInterface
 from perls2.ctrl_interfaces.panda_ctrl_interface import PandaCtrlInterface
 from perls2.redis_interfaces.redis_keys import *
 
-from dev.test.test_panda.fake_franka_panda import FakeFrankaPanda
+from dev.test.test_panda.fake_franka_panda import FakePandaDriver
 
 
 @pytest.fixture()
 def real_panda():
-    driver = FakeFrankaPanda()
+    driver = FakePandaDriver()
     driver.set_fake_state()
     config = YamlConfig('dev/test/test_panda/test_panda_cfg.yaml')
     config['redis']['host'] = "127.0.0.1"

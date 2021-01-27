@@ -20,12 +20,12 @@ from perls2.robots.real_panda_interface import RealPandaInterface
 from perls2.redis_interfaces.redis_interface import PandaRedisInterface
 from perls2.utils.yaml_config import YamlConfig
 
-from dev.test.test_panda.fake_franka_panda import FakeFrankaPanda
+from dev.test.test_panda.fake_franka_panda import FakePandaDriver
 from dev.test.test_panda.fake_real_panda import FakePandaInterface
 
 @pytest.fixture
 def fake_driver():
-	driver = FakeFrankaPanda()
+	driver = FakePandaDriver()
 	return driver
 
 @pytest.fixture

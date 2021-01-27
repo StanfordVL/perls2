@@ -9,12 +9,12 @@
 from perls2.utils.yaml_config import YamlConfig
 from perls2.robots.real_panda_interface import RealPandaInterface
 from perls2.redis_interfaces.redis_keys import *
-from dev.test.test_panda.fake_franka_panda import FakeFrankaPanda
+from dev.test.test_panda.fake_franka_panda import FakePandaDriver
 import pytest
 
 @pytest.fixture()
 def driver():
-    driver = FakeFrankaPanda()
+    driver = FakePandaDriver()
     driver.set_fake_state()
     return driver
 

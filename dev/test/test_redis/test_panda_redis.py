@@ -8,7 +8,7 @@ from perls2.redis_interfaces.redis_interface import PandaRedisInterface
 from perls2.redis_interfaces.redis_keys import *
 from perls2.redis_interfaces.redis_values import *
 import perls2.redis_interfaces.panda_redis_keys as P
-from dev.test.test_panda.fake_franka_panda import FakeFrankaPanda
+from dev.test.test_panda.fake_franka_panda import FakePandaDriver
 
 
 
@@ -19,7 +19,7 @@ def panda_redis():
 
 @pytest.fixture
 def fake_driver():
-	fake_driver = FakeFrankaPanda()
+	fake_driver = FakePandaDriver()
 	fake_driver.set_fake_state()
 	return fake_driver
 

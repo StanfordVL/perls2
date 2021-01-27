@@ -13,7 +13,7 @@ from perls2.ctrl_interfaces.panda_ctrl_interface import PandaCtrlInterface
 
 import logging
 logging.basicConfig(level=logging.DEBUG)
-from dev.test.test_panda.fake_franka_panda import  FakeFrankaPanda
+from dev.test.test_panda.fake_franka_panda import  FakePandaDriver
 
 @pytest.fixture
 def panda_ctrl():
@@ -170,14 +170,14 @@ def test_make_controller_from_redis(panda_ctrl_states, real_panda_config):
 
 # @pytest.fixture
 # def redis_driver():
-#     driver = FakeFrankaPanda()
+#     driver = FakePandaDriver()
 #     return driver
 
 # @pytest.fixture
 # def driver_fake_states():
 #     """Driver set up with fake states initialized
 #     """
-#     driver = FakeFrankaPanda()
+#     driver = FakePandaDriver()
 #     states = {
 #     "q": "0.0 -0.524 0.0 -2.617 0.0 2.094 0.0",
 #     "dq": "0.01 0.01 0.01 0.01 0.01 0.01 0.01",
