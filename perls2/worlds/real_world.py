@@ -2,7 +2,6 @@
 """
 
 import abc
-import pybullet
 import time
 from perls2.worlds.world import World
 from perls2.worlds.bullet_world import BulletWorld
