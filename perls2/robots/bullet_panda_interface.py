@@ -23,7 +23,7 @@ class BulletPandaInterface(BulletRobotInterface):
     def __init__(self,
                  physics_id,
                  arm_id,
-                 config=None,
+                 config,
                  controlType='EEImp'):
 
         self.data_dir = config['data_dir']

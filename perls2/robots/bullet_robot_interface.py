@@ -27,7 +27,7 @@ class BulletRobotInterface(RobotInterface):
     def __init__(self,
                  physics_id,
                  arm_id,
-                 config=None,
+                 config,
                  controlType='JointVelocity'):
         """
         Initialize variables
@@ -40,7 +40,7 @@ class BulletRobotInterface(RobotInterface):
                 -'EEimp' : end_effector impedance control.
                 -'JointVelocity': Joint Velocity Control
         """
-        super().__init__(controlType, config)
+        super().__init__(config=config, controlType=controlType)
         self._physics_id = physics_id
         self._arm_id = arm_id
         self._link_id_dict = self.get_link_dict()
