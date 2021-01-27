@@ -17,6 +17,9 @@ You may modify the robot and world types in this config file as needed.
 
 
 OpSpace Demos:
+    * Hold EE Pose: Maintain initial end-effector pose using EEImpedance or EEPosture controller.
+        Provides indication of cartesian stiffness.
+        `python run_osc_fixed_demo.py`
     * Line (x/y/z): Move end-effector in a straight line using EEImpedance or EEPosture controller, while
         maintaining orientation.
         `python run_osc_line_demo.py`
@@ -27,12 +30,11 @@ OpSpace Demos:
 
 
 JointSpace Demos:
-    * SequentialJoint : Individually rotate each joint using JointImpedance controller. Resets robot
+    * Gravity Compensation : set robot to gravity compensation mode using JointTorque controller.
+        `python run_gc_demo.py`
+    * Sequential Joint : Individually rotate each joint using JointImpedance controller. Resets robot
         after each joint test.
         `python run_jointimp_demo.py`
-
-
-
 
 
 ### Command-line specifications
@@ -73,7 +75,7 @@ Joint space demos provide a demonstration of controller behavior for the followi
 To run a joint space demo, use the run_joint_space_demo.py script. This demo rotates an individiually
 specified joint using the controller and robot interface command specified.
 
-### Command-line specifications
+### Command-line specifications for Joint Space Demos
 You can specify the following command-line arguments:
 
     --ctrl_type (str): Controller type for the demo. Choose from: "JointImpedance", "JointVelocity" or "JointTorque"

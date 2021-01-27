@@ -61,7 +61,7 @@ class Path(object):
             self.path.append(new_pose)
 
 
-class SequentialJoint(Path):
+class RampSingleJoint(Path):
     """ Series of joint positions in which a single joint is gradually incremented,
     held at desired position, and then gradually decremented back to intial state.
 
@@ -74,7 +74,6 @@ class SequentialJoint(Path):
     """
     def __init__(self, start_pose, delta_val=0.001, num_steps=30, joint_num=0):
         logger.info("Sequential Joint path")
-
         self.start_pose = start_pose
         self.delta_val = delta_val
         self.num_steps = num_steps
@@ -121,7 +120,7 @@ class SequentialJoint(Path):
         self.path = [self.start_pose]
 
         for delta in self.deltas:
-            new_pose = apply_delta(self.path[-1], delta)
+            new_pose = np.add(self.path[-1], delta)
             self.path.append(new_pose)
 
 
