@@ -7,10 +7,10 @@ import hiredis
 import socket
 import numpy as np
 import json
-from perls2.ros_interfaces.redis_keys import *
-from perls2.ros_interfaces.redis_values import *
-import perls2.ros_interfaces.panda_redis_keys as P
-import perls2.utils.redis_utils as RU 
+from perls2.redis_interfaces.redis_keys import *
+from perls2.redis_interfaces.redis_values import *
+import perls2.redis_interfaces.panda_redis_keys as P
+import perls2.utils.redis_utils as RU
 import logging
 logging.basicConfig(level=logging.INFO)
 
@@ -297,7 +297,7 @@ class PandaRedisInterface(RedisInterface):
         self._client.set(key, value)
 
     def get_driver_states(self):
-        """Returns dict with franka driver states properly formatted. 
+        """Returns dict with franka driver states properly formatted.
         as numpy arrays.
         """
         redis_states = self.mget_dict(P.ROBOT_STATE_KEYS)
@@ -310,10 +310,10 @@ class PandaRedisInterface(RedisInterface):
 
                 np_states[state_key] = RU.franka_state_to_np(state_str)
 
-        return np_states 
+        return np_states
 
     def get_driver_state_model(self):
-        """Returns dict with franka driver states and dynamics models 
+        """Returns dict with franka driver states and dynamics models
         properly formatted as numpy arrays.
         """
         redis_states = self.mget_dict(P.ROBOT_STATE_KEYS + P.ROBOT_MODEL_KEYS)
@@ -331,7 +331,6 @@ class PandaRedisInterface(RedisInterface):
                 np_states[state_key] = RU.franka_state_to_np(state_str)
 
         return np_states
-        
+
     def is_env_connected(self):
         return self._client.get(ROBOT_ENV_CONN_KEY) == b'True'
-        

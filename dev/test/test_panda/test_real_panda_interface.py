@@ -8,7 +8,7 @@
 """
 from perls2.utils.yaml_config import YamlConfig
 from perls2.robots.real_panda_interface import RealPandaInterface
-from perls2.ros_interfaces.redis_keys import *
+from perls2.redis_interfaces.redis_keys import *
 from dev.test.test_panda.fake_franka_panda import FakeFrankaPanda
 import pytest
 
@@ -26,7 +26,7 @@ def driver():
 
 @pytest.fixture()
 def real_panda():
-    config = YamlConfig('dev/test/test_panda/test_panda_cfg.yaml')    
+    config = YamlConfig('dev/test/test_panda/test_panda_cfg.yaml')
     config['redis']['host'] = "127.0.0.1"
     config['redis']['port'] = 6379
     config['redis']['password'] = None

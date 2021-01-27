@@ -1,8 +1,8 @@
 """Class to mimic franka-panda redis driver.
 """
 from perls2.utils.yaml_config import YamlConfig
-from perls2.ros_interfaces.redis_interface import PandaRedisInterface
-import perls2.ros_interfaces.panda_redis_keys as P
+from perls2.redis_interfaces.redis_interface import PandaRedisInterface
+import perls2.redis_interfaces.panda_redis_keys as P
 import pytest
 
 
@@ -12,19 +12,19 @@ class FakeFrankaPanda(object):
     Sets fake values for redis, mocking franka-panda.
     """
     FAKE_STATE = {
-        P.DRIVER_CONN_KEY : P.DRIVER_CONNECTED_VALUE, 
+        P.DRIVER_CONN_KEY : P.DRIVER_CONNECTED_VALUE,
         P.ROBOT_STATE_Q_KEY: "0.153399527304672 -0.0228098171871691 -0.0856113330690632 -2.13645188983878 0.000673128167293589 2.11842455338582 2.61612591026992",
         P.ROBOT_MODEL_CORIOLIS_KEY : "7.77772210829083e-07 -1.5204640511763e-06 8.42576906897586e-07 -1.0812855712552e-06 -7.18757666207027e-08 -2.71478306345705e-07 1.80225862506108e-09",
-        P.CONTROL_MODE_KEY: P.TORQUE_CTRL_MODE, 
+        P.CONTROL_MODE_KEY: P.TORQUE_CTRL_MODE,
         "franka_panda::sensor::dtau": "-28.4223251342773 -37.3109169006348 134.719436645508 -11.3944501876831 -1.251708984375 33.213264465332 -119.295654296875",
-        "franka_panda::control::tau": "0.0001 0.0001 0.0001 0.0001 0.0001 0.0001 0.0001", 
-        "franka_panda::control::pose": "1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1", 
+        "franka_panda::control::tau": "0.0001 0.0001 0.0001 0.0001 0.0001 0.0001 0.0001",
+        "franka_panda::control::pose": "1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1",
         "franka_panda::sensor::tau" : "-0.349489659070969 -29.2690124511719 0.170498847961426 22.5394229888916 0.614682018756866 2.68961238861084 0.410876989364624",
         "franka_panda::sensor::dq" : "0.000125559134503359 0.000990025413722996 -0.000505009065291245 0.0027716119003343 0.00193538339277136 0.075633681715534 1.03529999095642",
         "franka_panda::gripper::control::width": "0.0805487",
         "franka_panda::sensor::pose" : "-0.191278464901784 -0.981519220155279 -0.00364914124110978 0 -0.98151560931327 0.191292227149249 -0.00389093920386819 0 0.00451717093778475 0.00283749084128745 -0.999985771805002 0 0.534449340443935 0.0364261218566121 0.313053490964604 1",
         "franka_panda::gripper::control::force": "0",
-        "franka_panda::gripper::status": "off", 
+        "franka_panda::gripper::status": "off",
         "franka_panda::control::status": "running",
         "franka_panda::gripper::model::max_width": "0.0805658",
         "franka_panda::model::jacobian": "-0.0364261218566121 0.534449340443935 0 0 0 1 -0.0197122840892743 -0.0030477989899048 -0.53373934800645 -0.152798616765289 0.988257346400529 0 -0.0363471325252235 0.53386071813922 0.00104151399259117 -0.0225400147376614 -0.00348500629550397 0.999739867398888 0.337024510725762 0.0219889104042853 0.460390546029072 0.0677582709121419 -0.997699861353456 -0.00195022519003353 -0.00902050122648396 0.133508259078352 0.000338086126741867 0.85416294415736 0.0590199327787439 -0.516645248079592 0.209521735234418 0.0139310161853758 0.0889872407518848 0.0674112095558713 -0.997722078208546 -0.00252655525070112 -1.0842021724855e-19 1.0842021724855e-19 0 0.00451717093778475 0.00283749084128745 -0.999985771805002",
@@ -68,7 +68,7 @@ class FakeFrankaPanda(object):
              P.ROBOT_STATE_TAU_KEY : states["tau"]}
              )
 
-    def set_fake_state(self): 
+    def set_fake_state(self):
         """Set redis database to predefined fake state taken from real
         franka driver
         """

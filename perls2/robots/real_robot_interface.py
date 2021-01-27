@@ -13,10 +13,10 @@ import numpy as np
 import logging
 import json
 import time
-from perls2.ros_interfaces.redis_keys import *
-from perls2.ros_interfaces.redis_values import *
+from perls2.redis_interfaces.redis_keys import *
+from perls2.redis_interfaces.redis_values import *
 import perls2.controllers.utils.transform_utils as T
-from perls2.ros_interfaces.redis_interface import RobotRedisInterface
+from perls2.redis_interfaces.redis_interface import RobotRedisInterface
 AVAILABLE_CONTROLLERS = [EE_IMPEDANCE,
                          EE_POSTURE,
                          JOINT_VELOCITY,
@@ -59,7 +59,7 @@ class RealRobotInterface(RobotInterface):
             return RealSawyerInterface(
                 config=config, controlType=controlType)
         if (config['world']['robot'] == 'panda'):
-            from perls2.robots.real_panda_interface import RealPandaInterface 
+            from perls2.robots.real_panda_interface import RealPandaInterface
             return RealPandaInterface(
                 config=config, controlType=controlType)
         else:

@@ -17,11 +17,11 @@ import six  # For abstract class definitions
 import time
 import numpy as np
 from perls2.robots.real_robot_interface import RealRobotInterface
-from perls2.ros_interfaces.redis_interface import PandaRedisInterface
-from perls2.ros_interfaces.redis_keys import *
-from perls2.ros_interfaces.redis_values import * 
-import perls2.ros_interfaces.panda_redis_keys as P
-import perls2.controllers.utils.transform_utils as T  
+from perls2.redis_interfaces.redis_interface import PandaRedisInterface
+from perls2.redis_interfaces.redis_keys import *
+from perls2.redis_interfaces.redis_values import *
+import perls2.redis_interfaces.panda_redis_keys as P
+import perls2.controllers.utils.transform_utils as T
 import logging
 logger = logging.getLogger(__name__)
 
@@ -52,12 +52,12 @@ class RealPandaInterface(RealRobotInterface):
 
     def step(self):
         self._get_state_from_redis()
-        
+
     def reset(self):
         logger.info("Resetting Panda Robot. Confirm on driver.")
         reset_cmd = {ROBOT_CMD_TSTAMP_KEY: time.time(),
                      ROBOT_CMD_TYPE_KEY: RESET}
-        
+
         self.redisClient.mset(reset_cmd)
         # Wait for reset to be read by contrl interface.
         time.sleep(self.RESET_TIMEOUT)
@@ -73,7 +73,7 @@ class RealPandaInterface(RealRobotInterface):
         self._get_state_from_redis()
 
     def _get_state_from_redis(self):
-        """ Get states from redis and update all relevant attributes. 
+        """ Get states from redis and update all relevant attributes.
 
         """
         if self.last_redis_update is None or (time.time() - self.last_redis_update > self.REDIS_STALE_TIME):
@@ -91,7 +91,7 @@ class RealPandaInterface(RealRobotInterface):
             self._angular_jacobian = self._jacobian[3:, :]
             self._mass_matrix = driver_states[P.ROBOT_MODEL_MASS_MATRIX_KEY]
             self._gravity = driver_states[P.ROBOT_MODEL_GRAVITY_KEY]
-        else: 
+        else:
             pass
 
     @property

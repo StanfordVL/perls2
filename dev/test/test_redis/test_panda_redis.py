@@ -1,13 +1,13 @@
-"""Test script for panda specific redis interface. 
+"""Test script for panda specific redis interface.
 """
 
 import pytest
 import redis
 import numpy as np
-from perls2.ros_interfaces.redis_interface import PandaRedisInterface
-from perls2.ros_interfaces.redis_keys import *
-from perls2.ros_interfaces.redis_values import *
-import perls2.ros_interfaces.panda_redis_keys as P
+from perls2.redis_interfaces.redis_interface import PandaRedisInterface
+from perls2.redis_interfaces.redis_keys import *
+from perls2.redis_interfaces.redis_values import *
+import perls2.redis_interfaces.panda_redis_keys as P
 from dev.test.test_panda.fake_franka_panda import FakeFrankaPanda
 
 
@@ -27,7 +27,7 @@ def test_env_connected(panda_redis):
 	 panda_redis._client.set(ROBOT_ENV_CONN_KEY, 'True')
 	 assert(panda_redis.is_env_connected())
 
-	 # test other values than true. 
+	 # test other values than true.
 	 panda_redis._client.set(ROBOT_ENV_CONN_KEY, 'NOT TRUE')
 	 assert(panda_redis.is_env_connected() == False)
 
@@ -54,7 +54,7 @@ def test_get_driver_states(panda_redis, fake_driver):
 
 def test_get_driver_state_model(panda_redis, fake_driver):
 	driver_states = panda_redis.get_driver_state_model()
-	# check all keys present. 
+	# check all keys present.
 	state_model_keys = P.ROBOT_STATE_KEYS + P.ROBOT_MODEL_KEYS
 	key_present = [key in driver_states.keys() for key in state_model_keys]
 	assert (np.all(key_present))
@@ -81,5 +81,5 @@ def test_get_driver_state_model(panda_redis, fake_driver):
 			assert(mass_matrix.shape == P.MASS_MATRIX_SHAPE)
 
 		else:
-			assert(driver_states[key].shape == (7,))	
+			assert(driver_states[key].shape == (7,))
 

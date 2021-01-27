@@ -2,8 +2,8 @@
 """
 from perls2.ros_interfaces.panda_ctrl_interface import PandaCtrlInterface
 from dev.test.test_panda.fake_real_panda import FakePandaInterface
-import perls2.ros_interfaces.panda_redis_keys as P
-import perls2.controllers.utils.transform_utils as T 
+import perls2.redis_interfaces.panda_redis_keys as P
+import perls2.controllers.utils.transform_utils as T
 import numpy as np
 
 real_panda = FakePandaInterface()
@@ -11,7 +11,7 @@ real_panda.connect()
 
 real_panda.reset()
 
-# # Get initial robot state from driver. 
+# # Get initial robot state from driver.
 # init_states = real_panda.redisClient.get_driver_states()
 # init_ee_pose = init_states[P.ROBOT_STATE_EE_POSE_KEY]
 # ee_pos, ee_ori_quat = T.mat2pose(init_ee_pose)

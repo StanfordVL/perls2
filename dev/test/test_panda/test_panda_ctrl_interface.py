@@ -5,10 +5,10 @@ import numpy as np
 
 from perls2.utils.yaml_config import YamlConfig
 
-import perls2.ros_interfaces.panda_redis_keys as P
-from perls2.ros_interfaces.redis_keys import *
-from perls2.ros_interfaces.redis_values import *
-from perls2.ros_interfaces.redis_interface import PandaRedisInterface
+import perls2.redis_interfaces.panda_redis_keys as P
+from perls2.redis_interfaces.redis_keys import *
+from perls2.redis_interfaces.redis_values import *
+from perls2.redis_interfaces.redis_interface import PandaRedisInterface
 from perls2.ros_interfaces.panda_ctrl_interface import PandaCtrlInterface
 
 import logging
@@ -29,7 +29,7 @@ def real_panda_config():
     return config
 
 def test_init_with_config_dict():
-    """test initialization with config as dict. 
+    """test initialization with config as dict.
     """
     config = YamlConfig('cfg/panda_ctrl_config.yaml')
     try:
@@ -164,7 +164,7 @@ def test_make_controller_from_redis(panda_ctrl_states, real_panda_config):
 # def test_wait_for_env_connect(panda_ctrl):
 #     logging.info("MANUAL TEST. SET ENV CONNECT VIA REDIS-CLI")
 #     panda_ctrl.wait_for_env_connect()
-    
+
 ####################################################
 # Tests requiring franka-panda.
 

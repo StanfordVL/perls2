@@ -8,9 +8,9 @@ import numpy as np
 import logging
 from perls2.utils.yaml_config import YamlConfig
 
-from perls2.ros_interfaces.redis_interface import RobotRedisInterface as RobotRedis
-from perls2.ros_interfaces.redis_keys import *
-from perls2.ros_interfaces.redis_values import *
+from perls2.redis_interfaces.redis_interface import RobotRedisInterface as RobotRedis
+from perls2.redis_interfaces.redis_keys import *
+from perls2.redis_interfaces.redis_values import *
 # Robot Interface and Controller Imports
 from perls2.robots.robot_interface import RobotInterface
 from perls2.controllers.ee_imp import EEImpController
@@ -48,7 +48,7 @@ class CtrlInterface(RobotInterface):
         """
         try:
             self.config = YamlConfig(config)
-        except TypeError: 
+        except TypeError:
             self.config = config
 
         # Timing
@@ -306,7 +306,7 @@ class CtrlInterface(RobotInterface):
 
     def process_cmd(self, cmd_type):
         """ process command from redis
-        
+
         Args:
             cmd_type (str): byte-array string from redis cmd key
         """
@@ -338,7 +338,7 @@ class CtrlInterface(RobotInterface):
                 self.get_controller_params())
         else:
             logging.warn("Unknown command: {}".format(cmd_type))
-    
+
     def make_controller_from_redis(self, control_type, controller_dict):
         print("Making controller {} with params: {}".format(control_type, controller_dict))
         if control_type == EE_IMPEDANCE:

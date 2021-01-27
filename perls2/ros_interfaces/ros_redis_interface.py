@@ -3,10 +3,10 @@ from sensor_msgs.msg import JointState
 import redis
 import hiredis
 from perls2.utils.yaml_config import YamlConfig
-from perls2.ros_interfaces.redis_interface import RobotRedisInterface as RobotRedis
-from perls2.ros_interfaces.redis_keys import * 
+from perls2.redis_interfaces.redis_interface import RobotRedisInterface as RobotRedis
+from perls2.redis_interfaces.redis_keys import *
 import json
-import numpy as np        
+import numpy as np
 try:
     import intera_interface as iif
 except ImportError:
@@ -19,10 +19,10 @@ def on_joint_states(msg):
 
     robot_state = {
         ROBOT_STATE_TSTAMP_KEY : str(msg.header.stamp),
-        ROBOT_STATE_EE_POS_KEY :  str(list(_limb.endpoint_pose()['position'])), 
+        ROBOT_STATE_EE_POS_KEY :  str(list(_limb.endpoint_pose()['position'])),
         ROBOT_STATE_EE_POSE_KEY: str(list(_limb.endpoint_pose()['position']) + list(_limb.endpoint_pose()['orientation'])),
         ROBOT_STATE_EE_ORN_KEY: str(list(_limb.endpoint_pose()['orientation'])),
-        ROBOT_STATE_EE_V_KEY: str(list(_limb.endpoint_velocity()['linear'])), 
+        ROBOT_STATE_EE_V_KEY: str(list(_limb.endpoint_velocity()['linear'])),
         ROBOT_STATE_Q_KEY: str( _limb.joint_ordered_angles()),
         ROBOT_STATE_DQ_KEY: json.dumps(_limb.joint_velocities()),
         ROBOT_STATE_TAU_KEY: json.dumps(_limb.joint_efforts()),
@@ -31,7 +31,7 @@ def on_joint_states(msg):
         ROBOT_MODEL_A_JACOBIAN_KEY: str(np.zeros((3,6))),
         ROBOT_MODEL_MASS_MATRIX_KEY: str(np.zeros((7,7)))
     }
-    redisClient.mset(robot_state)   
+    redisClient.mset(robot_state)
 
 print("Initializing ros redis interface.")
 rospy.init_node("ros_redis_interface")
