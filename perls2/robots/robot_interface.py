@@ -90,13 +90,11 @@ class RobotInterface(object):
         """
         raise NotImplementedError
 
-    def make_controller(self, control_type, **kwargs):
+    def make_controller(self, control_type):
         """Returns a new controller type based on specs.
 
         Args:
             control_type (str) : name of the control type.
-            kwargs:  dependent on type of controller to modify those
-                found in the config file.
         """
 
         if control_type == "Internal":
