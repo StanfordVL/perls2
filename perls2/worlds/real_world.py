@@ -4,7 +4,6 @@
 import abc
 import time
 from perls2.worlds.world import World
-from perls2.worlds.bullet_world import BulletWorld
 from perls2.arenas.real_arena import RealArena
 from perls2.robots.real_robot_interface import RealRobotInterface
 from perls2.sensors.kinect_camera_interface import KinectCameraInterface
