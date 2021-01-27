@@ -1,6 +1,5 @@
 """Class definition for demonstration.
 """
-from demo_control_env import DemoControlEnv
 import numpy as np
 import time
 from datetime import datetime
