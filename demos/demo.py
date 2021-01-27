@@ -6,6 +6,8 @@ from datetime import datetime
 import logging
 logger = logging.getLogger(__name__)
 
+import json
+
 class Demo(object):
     """Abstract class definition for demonstration.
     Demonstrations step an environment according to a series of actions
@@ -35,7 +37,7 @@ class Demo(object):
                  config_file="demo_control_cfg.yaml",
                  **kwargs):
         self.ctrl_type = ctrl_type
-
+        self.config_file = config_file
         self.demo_type = demo_type
         self.test_fn = test_fn
 
@@ -89,12 +91,18 @@ class Demo(object):
 
     def print_demo_banner(self):
         print("\n**************************************************************************************")
-        print("\n***********************   perls2 Controller Demo    **********************************")
+        print("***********************   perls2 Controller Demo    ************************************")
+        self.print_controller_params()
 
     def print_demo_info(self):
         print("\n\t Running {} demo \n\t with control type {}. \
             \n\t Test function {}".format(
             self.ctrl_type, self.demo_type, self.test_fn))
+
+    def print_controller_params(self):
+        print("\n Config loaded from: {}\n".format(self.config_file))
+        print("\n {} Controller parameters:\n {}\n".format(self.ctrl_type,
+            json.dumps(self.env.robot_interface.controller_cfg[self.world_type][self.ctrl_type], indent=4)))
 
     def run(self):
         """Run the demo. Execute actions in sequence and calculate error.
