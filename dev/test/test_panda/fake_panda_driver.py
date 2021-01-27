@@ -1,7 +1,8 @@
 """Class to mimic franka-panda redis driver.
 """
 from perls2.utils.yaml_config import YamlConfig
-from perls2.redis_interfaces.redis_interface import PandaRedisInterface
+import redis
+import hiredis
 import perls2.redis_interfaces.panda_redis_keys as P
 import pytest
 
@@ -39,10 +40,15 @@ class FakePandaDriver(object):
     def __init__(self):
         self.driver_config = YamlConfig('cfg/franka-panda.yaml')
         # some renaming for the panda redis interface.
-        redis_config = {"host": self.driver_config['redis']['ip'],
-                        "port": self.driver_config['redis']['port'],
-                        "driver_config":'cfg/franka-panda.yaml' }
-        self.redisClient = PandaRedisInterface(**redis_config)
+        redis_kwargs = {"host": self.driver_config['redis']['ip'],
+                        "port": self.driver_config['redis']['port']}
+
+        if 'password' in self.driver_config['redis'].keys():
+            with open(password, 'r') as pw_file:
+                pw = pw_file.read()
+                redis_kwargs['password'] = pw
+
+        self.redisClient = redis.Redis(**redis_kwargs)
 
 
     def start(self):
