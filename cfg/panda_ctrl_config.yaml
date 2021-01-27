@@ -1,9 +1,6 @@
 # Config for PandaCtrlInterface
 
-redis:
-  host: 172.16.0.1
-  port: 6379
-  password: '/home/robot/.redis_conf/goddard_pass.txt'
+!include ../cfg/redis_nuc.yaml
 
 panda:
   # taken from franka-panda/examples/opspace/python/opspace_control.py
