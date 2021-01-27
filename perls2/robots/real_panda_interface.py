@@ -197,6 +197,14 @@ class RealPandaInterface(RealRobotInterface):
         """
         return self._mass_matrix
 
+    @property
+    def gravity_vector(self):
+        """list of three floats [x, y, z] of the position of the
+        end-effector.
+        """
+        self._get_state_from_redis()
+        return self._gravity
+
     def open_gripper(self):
         """ Open robot gripper.
         """
