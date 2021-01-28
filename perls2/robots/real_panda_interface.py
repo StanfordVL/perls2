@@ -48,6 +48,7 @@ class RealPandaInterface(RealRobotInterface):
         self.MAX_REDIS_STALE_TIME = 0.005 # time in s (20Hz) after which to update redis states.
 
         self.set_controller_params_from_config()
+        self.connect()
 
 
     def step(self):
