@@ -22,7 +22,7 @@ scene_objects:
   'None'
 
 # Controller config for each robot
-!include ../cfg/default_panda_controller.yaml
+!include demo_panda_controller.yaml
 !include ../cfg/default_sawyer_controller.yaml
 
 # Perception and Learning
