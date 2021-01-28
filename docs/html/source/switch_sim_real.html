@@ -1,0 +1,309 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Switching between Real and Sim Example &mdash; perls2 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Project Template" href="project_template.html" />
+    <link rel="prev" title="Examples: Objects" href="load_objects.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> perls2
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="environments.html">Environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="worlds.html">World</a></li>
+<li class="toctree-l1"><a class="reference internal" href="robot_interfaces.html">RobotInterfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="controller_eqns.html">Controllers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../simple_reach.html">Simple Reach Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load_objects.html">Examples: Objects</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Switching between Real and Sim Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#run-file">Run file:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#environment-file">Environment file:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#config-file">Config file:</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="project_template.html">Project Template</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../env.html">Environment (Env)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../world.html">World</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../robot_interface.html">Robot Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../controller.html">Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../object_interface.html">Object Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../camera_interface.html">Camera Interface</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Real Robot Control</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="panda_setup.html">Franka Panda Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="panda_nuc_setup.html">Set up NUC (Control PC) for the Franka Panda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="panda_ws_setup.html">Set up workstation for Franka Panda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="panda_instructions.html">Using the Franka Panda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sawyer_instructions.html">Using the Rethink Sawyer Arm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demos.html">Controller Demos</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">perls2</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Switching between Real and Sim Example</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/source/switch_sim_real.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="switching-between-real-and-sim-example">
+<h1>Switching between Real and Sim Example<a class="headerlink" href="#switching-between-real-and-sim-example" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>The Switching between Real and Sim example is meant to demonstrate how to share logic between real and simulated experiments. A reach task is performed in pybullet that uses the object interface. A reach task for a randomly generated position is performed on the real robot. Both examples use the Sawyer Robots.</p>
+<p>There are three files worth looking at for this demo:</p>
+<ul class="simple">
+<li><p>Run file: run_switch_sim_real.py</p></li>
+<li><p>Environment file: switch_sim_real_env.py</p></li>
+<li><p>Config file: simple_reach.yaml</p></li>
+</ul>
+<p>To run this demo in sim, go to the configuration file and set the <code class="docutils literal notranslate"><span class="pre">world:type</span></code> key to ‘Bullet’.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>`python run_switch_sim_real.py`
+</pre></div>
+</div>
+<p>To run this demo in real, change the <code class="docutils literal notranslate"><span class="pre">world:type</span></code> key from ‘Bullet’ to ‘Real’. Then check the wiki for instructions about running the real Sawyer robot. Set up those terminals and then in another terminal run
+<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">run_switch_sim_real.py</span></code></p>
+</div>
+<div class="section" id="run-file">
+<h2>Run file:<a class="headerlink" href="#run-file" title="Permalink to this headline">¶</a></h2>
+<p>The run file is almost identical to the simple_reach example. The only change is the constructing the environment. The same analytical policy is used for <code class="docutils literal notranslate"><span class="pre">get_action</span></code>.</p>
+</div>
+<div class="section" id="environment-file">
+<h2>Environment file:<a class="headerlink" href="#environment-file" title="Permalink to this headline">¶</a></h2>
+<p>The Environment file is also similar to the simple_reach example. To wrap code for simulation/real, we use the <code class="docutils literal notranslate"><span class="pre">self.world.is_sim</span></code> flag. In simulation, our goal position is determined by the pose of the object, obtained from the <code class="docutils literal notranslate"><span class="pre">object_interface</span></code>. In reality, our goal position is randomly generated within some bounds set in the configuration file.</p>
+</div>
+<div class="section" id="config-file">
+<h2>Config file:<a class="headerlink" href="#config-file" title="Permalink to this headline">¶</a></h2>
+<p>The key configuration parameter in this example is <code class="docutils literal notranslate"><span class="pre">world:type</span></code>. To change from a Bullet world to real change this from ‘Bullet’ to ‘Real’.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">goal_position</span></code> key is a user defined parameter that limits the range of the randomly generated goal position for the real experiment.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="project_template.html" class="btn btn-neutral float-right" title="Project Template" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="load_objects.html" class="btn btn-neutral float-left" title="Examples: Objects" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, StanfordVL
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
