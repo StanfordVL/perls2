@@ -261,8 +261,6 @@ class RealRobotInterface(RobotInterface):
                         self.set_controller_goal(**kwargs)
 
         """
-        logging.debug("cmd_type {}".format(cmd_type))
-
         control_cmd = {ROBOT_CMD_TSTAMP_KEY: time.time(),
                        ROBOT_CMD_TYPE_KEY: cmd_type,
                        CONTROLLER_GOAL_KEY: json.dumps(kwargs)}
