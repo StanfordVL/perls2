@@ -1,4 +1,4 @@
-# Real Robot Control
+# Using the Rethink Sawyer Arm
 
 One of the main goals of perls2 is to make it easier to work with real robots. Currently SVL has two types of robotic arms, the Rethink Sawyer Arm and the Franka Emika Panda.
 

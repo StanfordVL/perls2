@@ -25,7 +25,7 @@ perls2
    source/worlds.md
    source/robot_interfaces.md
    source/controller_eqns.ipynb
-   source/real_robot_control.md
+
 
 .. toctree::
    :maxdepth: 1
@@ -51,6 +51,18 @@ perls2
 .. toctree::
    :maxdepth: 1
    :caption: Infrastructure
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Real Robot Control
+
+   source/panda_setup.md
+   source/panda_nuc_setup.md
+   source/panda_ws_setup.md
+   source/panda_instructions.md
+   source/sawyer_instructions.md
+   source/demos.md
+
 
 
 Indices and tables
