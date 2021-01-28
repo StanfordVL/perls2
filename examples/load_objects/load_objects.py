@@ -6,7 +6,7 @@ from perls2.envs.env import Env
 
 class LoadObjectEnv(Env):
     def __init__(self,
-                 cfg_path='load_objects.yaml',
+                 cfg_path='examples/load_objects/load_objects.yaml',
                  use_visualizer=True,
                  name=None):
         """Initialize.

@@ -4,7 +4,6 @@ from __future__ import division
 
 import time
 import math
-import pybullet
 import numpy as np
 from perls2.utils.yaml_config import YamlConfig
 
@@ -38,17 +37,22 @@ class SimpleReachEnv(Env):
         """
         super().__init__(cfg_path, use_visualizer, name)
 
-        self.goal_position = [0, 0, 0]
-
         # for sim we are tracking an object, increase goal position to be above
         # the actual position of the object.
-        self.object_interface = self.world.object_interfaces['013_apple']
 
         if (self.world.is_sim):
+            self.object_interface = self.world.object_interfaces['013_apple']
             self.update_goal_position()
 
         self._initial_ee_orn = []
-        import pdb; pdb.set_trace()
+        self.robot_interface.reset()
+        self.reset_position = self.robot_interface.ee_position
+
+        # For randomizing goal position in real world cases. 
+        self.goal_upper_bound = np.add(self.reset_position, [0.1, 0.0, 0])
+        self.goal_lower_bound = np.add(self.reset_position, [-0.1, -0.0, 0])
+
+        self._initial_ee_orn = self.robot_interface.ee_orientation
 
     def reset(self):
         """Reset the environment.
@@ -60,9 +64,6 @@ class SimpleReachEnv(Env):
         Returns:
             The observation.
         """
-
-        logging.info(
-            "Environment reset - physicsClient: " + str(self._physics_id))
         self.episode_num += 1
         self.num_steps = 0
         self.world.reset()
@@ -80,11 +81,16 @@ class SimpleReachEnv(Env):
                 self.arena.projection_matrix)
             self.world.wait_until_stable()
         else:
-            self.goal_position = self.arena.goal_position
-
+            self.goal_position = self.arena.random_vec_bounded(
+                lower_bound=self.goal_lower_bound, upper_bound=self.goal_upper_bound)
+            print("Current pose: {}".format(self.robot_interface.ee_pose))
+            print("New Goal Position:\n\t {}\n".format(self.goal_position))
+            print("Goal orientation :\n\t {}\n".format(self._initial_ee_orn))
+        input("Press enter to continue.")
         observation = self.get_observation()
 
         return observation
+
 
     def step(self, action, start=None):
         """Take a step.
@@ -133,9 +139,13 @@ class SimpleReachEnv(Env):
             self.update_goal_position()
 
         current_ee_pose = self.robot_interface.ee_pose
-        camera_img = self.camera_interface.frames()
-        delta = (self.goal_position - current_ee_pose[0:3])
-        observation = (delta, current_ee_pose, camera_img.get('image'))
+        delta = self.goal_position - self.robot_interface.ee_position
+        
+        if (self.world.is_sim):
+            camera_img = self.camera_interface.frames()
+            observation = (delta, current_ee_pose, camera_img.get('image'))
+        else: 
+            observation = (delta, current_ee_pose, None)        
         return observation
 
     def update_goal_position(self):
@@ -152,34 +162,9 @@ class SimpleReachEnv(Env):
     def _exec_action(self, action):
         """Applies the given action to the simulation.
         """
-
-        if self.world.is_sim:
-            next_position = np.clip(
-                list(action + self.robot_interface.ee_position),
-                [-100, -1, 0.20], [100, 100, 10])
-
-        else:
-            next_position = self.robot_interface.ee_pose[0:3] + action
-
-            logging.debug(
-                'Currente ee pose: ' + str(self.robot_interface.ee_pose[0:3]))
-            logging.debug(
-                'dist_to_goal      ' + str(self._get_dist_to_goal()))
-
-            lower_bound = self.config['goal_position']['lower']
-            upper_bound = self.config['goal_position']['upper']
-
-            next_position = np.clip(
-                next_position, lower_bound, upper_bound)
-
-            logging.debug(
-                'Next position: ' + str(next_position))
-
-        # self.robot_interface.set_ee_pose(list(next_position) +
-        #                                 [0, 0.952846, 0, 0.303454])
-        delta = np.hstack((action, [0, 0, 0]))
-        hold_ori = np.array([0, 0.952846, 0, 0.303454])
-        self.robot_interface.move_ee_delta(delta=delta, set_ori=hold_ori)
+        
+        action = np.hstack((action, np.zeros(3)))
+        self.robot_interface.move_ee_delta(delta=action, set_ori=self._initial_ee_orn)
 
     def _check_termination(self):
         """ Query state of environment to check termination condition
@@ -192,7 +177,7 @@ class SimpleReachEnv(Env):
             Returns: bool if episode has terminated or not.
         """
         # radius for convergence
-        convergence_radius = 0.1
+        convergence_radius = 0.01
 
         abs_dist = self._get_dist_to_goal()
         if (abs_dist < convergence_radius):
@@ -200,16 +185,17 @@ class SimpleReachEnv(Env):
             return True
         if (self.num_steps > self.MAX_STEPS):
             logging.debug("done - max steps reached")
+            logging.debug("final delta to goal \t{}".format(abs_dist))
             return True
         else:
             return False
 
     def _get_dist_to_goal(self):
-        if (self.world.is_sim):
-            current_ee_pos = np.asarray(self.robot_interface.ee_position)
-            abs_dist = np.linalg.norm(self.goal_position - current_ee_pos)
 
-            return abs_dist
+        current_ee_pos = np.asarray(self.robot_interface.ee_position)
+        abs_dist = np.linalg.norm(self.goal_position - current_ee_pos)
+
+        return abs_dist
 
     def visualize(self, observation, action):
         """Visualize the action - that is,

@@ -28,10 +28,10 @@ def get_action(observation):
 
   """
     # Get components from observations
-    step = 0.05
+    step = 1.0
     delta = observation
     action = step * delta/np.linalg.norm(delta)
-    return delta
+    return action
     #return action
 
 
@@ -43,7 +43,7 @@ image_list = []
 pose_list = []
 action_list = []
 
-for ep_num in range(10):
+for ep_num in range(3):
     logging.debug('episode ' + str(ep_num-1) + ' complete...pausing...')
     # Wait for real robots to show episode is complete
     if not env.world.is_sim:
@@ -71,8 +71,9 @@ for ep_num in range(10):
             step += 1
         done = termination
 
+env.robot_interface.reset()
 # In the real robot we have to use a ROS interface. Disconnect the interface
 # after completing the experiment.
 if (not env.world.is_sim):
+
     env.robot_interface.disconnect()
-    env.sensor_interface.disconnect()
