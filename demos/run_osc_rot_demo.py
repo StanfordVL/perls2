@@ -7,6 +7,8 @@ import argparse
 
 parser = argparse.ArgumentParser(
     description="Run OpSpace Line Demo in XYZ directions")
+parser.add_argument('--world', default=None, help='World type for the demo, uses config file if not specified', choices=['Bullet', 'Real'])
+
 parser.add_argument('--ctrl_type',
                     default="EEImpedance",
                     help='Type of controller to test',

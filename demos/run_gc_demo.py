@@ -8,7 +8,8 @@ import argparse
 
 parser = argparse.ArgumentParser(
     description="Test controllers and measure errors.")
-
+parser.add_argument('--world', default=None, 
+     help='World type for the demo, uses config file if not specified', choices=['Bullet', 'Real'])
 parser.add_argument('--num_steps', default=500, type=int,
                     help="max steps for demo.")
 parser.add_argument('--plot_pos', action="store_true",

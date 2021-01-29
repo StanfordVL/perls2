@@ -5,6 +5,8 @@ import argparse
 
 parser = argparse.ArgumentParser(
     description="Test controllers and measure errors.")
+parser.add_argument('--world', default=None, help='World type for the demo, uses config file if not specified', choices=['Bullet', 'Real'])
+
 parser.add_argument('--delta_val',
                     default=0.01, type=float,
                     help="Max step size (m or rad) to take for demo.")

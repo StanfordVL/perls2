@@ -42,6 +42,9 @@ class Demo(object):
         # Overwrite config file controlType
         self.config = YamlConfig(self.config_file)
         self.config['world']['controlType'] = self.ctrl_type
+        # Use command line argument over the config spec. 
+        if kwargs['world'] is not None: 
+            self.config['world']['type'] = kwargs['world']
 
         self.demo_type = demo_type
         self.test_fn = test_fn
