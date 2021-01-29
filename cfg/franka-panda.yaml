@@ -19,9 +19,7 @@ robot:
 # Redis parameters #
 ####################
 
-redis:
-  ip: "127.0.0.1"
-  port: 6379
+!include redis_nuc.yaml
 
   # Redis keys
   keys:
