@@ -1,6 +1,6 @@
 # Cfg for Example: switching between sim and real reach task
 world:
-  type: 'Real'
+  type: 'Bullet'
   robot: 'panda'
   controlType: "EEImpedance"
 data_dir: 'data'
