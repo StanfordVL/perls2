@@ -7,7 +7,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 import json
-
+from perls2.utils.yaml_config import YamlConfig
 class Demo(object):
     """Abstract class definition for demonstration.
     Demonstrations step an environment according to a series of actions
@@ -38,6 +38,11 @@ class Demo(object):
                  **kwargs):
         self.ctrl_type = ctrl_type
         self.config_file = config_file
+
+        # Overwrite config file controlType
+        self.config = YamlConfig(self.config_file)
+        self.config['world']['controlType'] = self.ctrl_type
+
         self.demo_type = demo_type
         self.test_fn = test_fn
 

@@ -3,7 +3,6 @@
 
 from demo_envs import JointDemoEnv
 from demo_path import RampSingleJoint
-from perls2.utils.yaml_config import YamlConfig
 from demo import Demo
 import numpy as np
 import logging
@@ -54,11 +53,7 @@ class JointSpaceDemo(Demo):
                          demo_type=demo_type,
                          test_fn=test_fn, **kwargs)
 
-        # Overwrite config file controlType
-        config = YamlConfig(config_file)
-        config['world']['controlType'] = self.ctrl_type
-
-        self.env = JointDemoEnv(config=config,
+        self.env = JointDemoEnv(config=self.config,
                                 use_visualizer=True,
                                 name=None,
                                 test_fn=self.test_fn,

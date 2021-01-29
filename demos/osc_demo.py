@@ -89,7 +89,7 @@ class OpSpaceDemo(Demo):
                          config_file=config_file,
                          **kwargs)
 
-        self.env = OpSpaceDemoEnv(config=config_file,
+        self.env = OpSpaceDemoEnv(config=self.config,
                                   use_visualizer=True,
                                   name=None,
                                   test_fn=self.test_fn,
