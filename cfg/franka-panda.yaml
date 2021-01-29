@@ -19,7 +19,9 @@ robot:
 # Redis parameters #
 ####################
 
-!include redis_nuc.yaml
+redis:
+  ip: "127.0.0.1"
+  port: 6379
 
   # Redis keys
   keys:
@@ -72,7 +74,7 @@ perls2_redis:
   jacobian:             "model::jacobian"
   gravity:              "model::gravity"
   coriolis:             "model::coriolis"
-  password:             "/home/robot/.redis_conf/goddard_pass.txt" # Directory containing password for Redis AUTH
+  password:             "/home/robot/.redis/redis_passfile.txt" # Directory containing password for Redis AUTH
 
 
 
