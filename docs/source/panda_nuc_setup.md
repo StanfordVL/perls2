@@ -28,7 +28,7 @@ The default setting slow down the CPU frequency for power conservation. We want 
 5. Install redis.
     `sudo apt-get install redis-server`
 
-6. Install the [franka-panda-iprl driver.](https://github.com/StanfordVL/franka-panda-iprl/blob/main/README.md) This is used by perls2 as a redis-wrapper for libfranka. Please note that this version of the driver has been modified specifically to work with perls2.
+6. Install the [franka-panda-iprl driver.](https://github.com/StanfordVL/franka-panda-iprl/) This is used by perls2 as a redis-wrapper for libfranka. Please note that this version of the driver has been modified specifically to work with perls2.
 
 ### Secure your redis server
 Because redis-server process requests very quickly, it is critical to secure your redis-server by setting a password. It's best to set a very long, randomly generated password.
