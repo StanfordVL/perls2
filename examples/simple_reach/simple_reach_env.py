@@ -36,22 +36,16 @@ class SimpleReachEnv(Env):
             this
         """
         super().__init__(cfg_path, use_visualizer, name)
+        self.goal_position = self.robot_interface.ee_position
 
         # for sim we are tracking an object, increase goal position to be above
         # the actual position of the object.
 
-        if (self.world.is_sim):
-            self.object_interface = self.world.object_interfaces['013_apple']
-            self.update_goal_position()
+        self.object_interface = self.world.object_interfaces['013_apple']
+        self.update_goal_position()
 
-        self._initial_ee_orn = []
         self.robot_interface.reset()
         self.reset_position = self.robot_interface.ee_position
-
-        # For randomizing goal position in real world cases. 
-        self.goal_upper_bound = np.add(self.reset_position, [0.1, 0.0, 0])
-        self.goal_lower_bound = np.add(self.reset_position, [-0.1, -0.0, 0])
-
         self._initial_ee_orn = self.robot_interface.ee_orientation
 
     def reset(self):
@@ -69,28 +63,25 @@ class SimpleReachEnv(Env):
         self.world.reset()
         self.robot_interface.reset()
         self._initial_ee_orn = self.robot_interface.ee_orientation
-        if (self.world.is_sim):
-            if self.config['object']['random']['randomize']:
-                self.object_interface.place(self.arena.randomize_obj_pos())
-            else:
-                self.object_interface.place(
-                    self.config['object']['object_dict']['object_0']['default_position'])
 
-            self.camera_interface.set_view_matrix(self.arena.view_matrix)
-            self.camera_interface.set_projection_matrix(
-                self.arena.projection_matrix)
-            self.world.wait_until_stable()
+        # Randomize object placement in sim,
+        if self.config['object']['random']['randomize']:
+            self.object_interface.place(self.arena.randomize_obj_pos())
         else:
-            self.goal_position = self.arena.random_vec_bounded(
-                lower_bound=self.goal_lower_bound, upper_bound=self.goal_upper_bound)
-            print("Current pose: {}".format(self.robot_interface.ee_pose))
-            print("New Goal Position:\n\t {}\n".format(self.goal_position))
-            print("Goal orientation :\n\t {}\n".format(self._initial_ee_orn))
-        input("Press enter to continue.")
+            self.object_interface.place(
+                self.config['object']['object_dict']['object_0']['default_position'])
+
+        # Randomize camera intrinsics / extrinsics
+        self.camera_interface.set_view_matrix(self.arena.view_matrix)
+        self.camera_interface.set_projection_matrix(
+            self.arena.projection_matrix)
+
+        # Step simulation until object has reached stable position.
+        self.world.wait_until_stable()
+
         observation = self.get_observation()
 
         return observation
-
 
     def step(self, action, start=None):
         """Take a step.
@@ -108,7 +99,7 @@ class SimpleReachEnv(Env):
         action = np.clip(action, self.action_space.low, self.action_space.high)
         self._exec_action(action)
         self.world.step(start)
-        self.num_steps = self.num_steps+1
+        self.num_steps = self.num_steps + 1
 
         termination = self._check_termination()
 
@@ -135,17 +126,14 @@ class SimpleReachEnv(Env):
         """To avoid dealing with collisions, we want the robot to reach
         for a target above the object position in simulation.
         """
-        if(self.world.is_sim):
-            self.update_goal_position()
+        self.update_goal_position()
 
         current_ee_pose = self.robot_interface.ee_pose
         delta = self.goal_position - self.robot_interface.ee_position
-        
-        if (self.world.is_sim):
-            camera_img = self.camera_interface.frames()
-            observation = (delta, current_ee_pose, camera_img.get('image'))
-        else: 
-            observation = (delta, current_ee_pose, None)        
+
+        camera_img = self.camera_interface.frames()
+        observation = (delta, current_ee_pose, camera_img.get('image'))
+
         return observation
 
     def update_goal_position(self):
@@ -162,7 +150,7 @@ class SimpleReachEnv(Env):
     def _exec_action(self, action):
         """Applies the given action to the simulation.
         """
-        
+
         action = np.hstack((action, np.zeros(3)))
         self.robot_interface.move_ee_delta(delta=action, set_ori=self._initial_ee_orn)
 
@@ -177,7 +165,7 @@ class SimpleReachEnv(Env):
             Returns: bool if episode has terminated or not.
         """
         # radius for convergence
-        convergence_radius = 0.01
+        convergence_radius = 0.1
 
         abs_dist = self._get_dist_to_goal()
         if (abs_dist < convergence_radius):

@@ -1,7 +1,7 @@
 # Cfg for Example: switching between sim and real reach task
 world:
   type: 'Bullet'
-  robot: 'panda'
+  robot: 'sawyer'
   controlType: "EEImpedance"
 data_dir: 'data'
 # Simulation parameters
@@ -87,7 +87,7 @@ object:
       default_position: [0.7, 0.1, 0.03] #z  = 0.1
   default_position: [0.7, 0.1, 0.03] #z  = 0.1
   random:
-    randomize: False
+    randomize: True
     position:
       lower:
         [0.3, -0.2, 0.1]
