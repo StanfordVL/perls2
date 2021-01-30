@@ -123,7 +123,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#important-notes">Important notes:</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#setting-up-the-nuc">Setting up the NUC</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#secure-your-redis-server">Secure your redis server</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#verify-perls2-setup-by-running-pandactrlinterface">Verify perls2 setup by running PandaCtrlInterface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verify-perls2-nuc-setup-by-running-pandactrlinterface">Verify perls2 NUC setup by running PandaCtrlInterface</a></li>
 </ul>
 </li>
 </ul>
@@ -239,16 +239,14 @@
 </div>
 <div class="section" id="setting-up-the-nuc">
 <h2>Setting up the NUC<a class="headerlink" href="#setting-up-the-nuc" title="Permalink to this headline">¶</a></h2>
-<ol class="simple">
-<li><p>Set up the Ubuntu 16.04 with RT-PREEMPT Kernel by following the <a class="reference external" href="https://frankaemika.github.io/docs/installation_linux.html#setting-up-the-real-time-kernel">instructions here</a> on frankaemika.</p></li>
-<li><p>Follow the <a class="reference external" href="https://frankaemika.github.io/docs/getting_started.html#control-network-configuration">instructions here</a> to set up the Franka Panda Arm and Network. There is no need to install libfranka just yet, the driver will do this later. It’s best to use a high bandwith network switch to connect the workstation, the FCI and the NUC to a local network.</p></li>
-<li><p>Disable cpu power scaling using cpufrequtils by following the <a class="reference external" href="https://frankaemika.github.io/docs/troubleshooting.html#disabling-cpu-frequency-scaling">instructions here</a></p></li>
-</ol>
-<p>The default setting slow down the CPU frequency for power conservation. We want our control loop to run as fast as possible to maintain a high frequency for torque control.</p>
-<ol class="simple">
+<ol>
+<li><p><a class="reference external" href="https://frankaemika.github.io/docs/installation_linux.html#setting-up-the-real-time-kernel">Set up the Ubuntu 16.04 with RT-PREEMPT Kernel</a></p></li>
+<li><p><a class="reference external" href="https://frankaemika.github.io/docs/getting_started.html#control-network-configuration">Set up the Franka Panda Arm and Network.</a> There is no need to install libfranka just yet, the driver will do this later. It’s best to use a high bandwith network switch to connect the workstation, the FCI and the NUC to a local network.</p></li>
+<li><p><a class="reference external" href="https://frankaemika.github.io/docs/troubleshooting.html#disabling-cpu-frequency-scaling">Disable cpu power scaling</a> using cpufrequtils by following the [instructions here] The default setting slow down the CPU frequency for power conservation. We want our control loop to run as fast as possible to maintain a high frequency for torque control.</p></li>
 <li><p><a class="reference internal" href="introduction.html#installing"><span class="std std-ref">Clone and install perls2</span></a></p></li>
-<li><p>Install redis.
-<code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">redis-server</span></code></p></li>
+<li><p>Install redis.</p>
+<p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">redis-server</span></code></p>
+</li>
 <li><p>Install the <a class="reference external" href="https://github.com/StanfordVL/franka-panda-iprl/">franka-panda-iprl driver.</a> This is used by perls2 as a redis-wrapper for libfranka. Please note that this version of the driver has been modified specifically to work with perls2.</p></li>
 </ol>
 <div class="section" id="secure-your-redis-server">
@@ -262,13 +260,13 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="p">:</span>
     <span class="n">host</span><span class="p">:</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span>
     <span class="n">port</span><span class="p">:</span> <span class="mi">6379</span>
-    <span class="n">password</span><span class="p">:</span> <span class="s1">&#39;/home/user/.hidden_redis/redis_passfile.txt&#39;</span>
+    <span class="n">password</span><span class="p">:</span> <span class="s1">&#39;/home/user/.hidden/redis_passfile.txt&#39;</span>
 </pre></div>
 </div>
 </li>
 <li><p>Modify the perls2/cfg/franka-panda.yaml by changing the value of the <code class="docutils literal notranslate"><span class="pre">password</span></code> key just as you did for perls2.</p></li>
 <li><p>Run your redis-server with the conf file you’ve copied from perls2. If you don’t use the conf file, your redis-server will not be secured.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">-</span><span class="n">server</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">redis</span><span class="o">.</span><span class="n">conf</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">-</span><span class="n">server</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/.</span><span class="n">hidden</span><span class="o">/</span><span class="n">redis</span><span class="o">.</span><span class="n">conf</span>
 </pre></div>
 </div>
 </li>
@@ -296,16 +294,16 @@ For example:</p>
 </li>
 </ol>
 </div>
-<div class="section" id="verify-perls2-setup-by-running-pandactrlinterface">
-<h3>Verify perls2 setup by running PandaCtrlInterface<a class="headerlink" href="#verify-perls2-setup-by-running-pandactrlinterface" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="verify-perls2-nuc-setup-by-running-pandactrlinterface">
+<h3>Verify perls2 NUC setup by running PandaCtrlInterface<a class="headerlink" href="#verify-perls2-nuc-setup-by-running-pandactrlinterface" title="Permalink to this headline">¶</a></h3>
 <ol>
 <li><p>Start the redis-server</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">-</span><span class="n">server</span> <span class="n">redis</span><span class="o">.</span><span class="n">conf</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">-</span><span class="n">server</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/.</span><span class="n">hidden</span><span class="o">/</span><span class="n">redis</span><span class="o">.</span><span class="n">conf</span>
 </pre></div>
 </div>
 </li>
 <li><p>In the Desk app, unlock the robot. The lights at the base of the robot should be white.</p></li>
-<li><p>Pull the E-Stop so the lights are blue.</p></li>
+<li><p>Pull the user-stop so the lights are blue.</p></li>
 <li><p>Start the franka-panda driver using the perl2 config.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">franka</span><span class="o">-</span><span class="n">panda</span><span class="o">-</span><span class="n">iprl</span><span class="o">/</span><span class="nb">bin</span>
 <span class="o">./</span><span class="n">franka</span><span class="o">-</span><span class="n">panda</span><span class="o">-</span><span class="n">iprl</span> <span class="o">~/</span><span class="n">perls2</span><span class="o">/</span><span class="n">cfg</span><span class="o">/</span><span class="n">franka</span><span class="o">-</span><span class="n">panda</span><span class="o">.</span><span class="n">yaml</span>

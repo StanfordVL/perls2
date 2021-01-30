@@ -16,6 +16,10 @@ perls2 provides scripts and wrappers for libfranka to perform torque control on 
 
 3. Run a demo by following the [instructions here](panda_instructions.md) to use the Franka Panda with perls2. The Gravity Compensation demo is a good place to start.
 
+    ```
+    python demos/run_gc_demo.py --Real
+    ```
+You can try [other demos](demos.md) with the command line argument --Real as above.
 
 
 
