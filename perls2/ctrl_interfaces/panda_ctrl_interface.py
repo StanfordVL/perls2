@@ -1,22 +1,23 @@
 """Control interface for Panda
 """
 import time
-
+import numpy as np
+import json
 from perls2.ctrl_interfaces.ctrl_interface import CtrlInterface
 import perls2.redis_interfaces.panda_redis_keys as P
 from perls2.redis_interfaces.redis_interface import PandaRedisInterface
-from perls2.redis_interfaces.redis_keys import *
-from perls2.utils.yaml_config import YamlConfig
-
+import perls2.redis_interfaces.redis_keys as R
 from perls2.controllers.utils import transform_utils as T
 import perls2.utils.redis_utils as RU
 import logging
 logging.basicConfig(level=logging.DEBUG)
-import numpy as np
-import json
+
 
 ENV_CHECK_COUNT = 100   # how often we check if workstation is connected.
 LOOP_TIME_REPORT_COUNT = 1000
+MAX_TORQUE = 1.5        # Clip torque commands before sending to driver.
+MIN_TORQUE = -1.5
+
 
 class PandaCtrlInterface(CtrlInterface):
     """Interface for franka-panda redis driver and perls2.RealPandaInterface.
@@ -27,7 +28,6 @@ class PandaCtrlInterface(CtrlInterface):
     with the robot state for RealPandaInterface.
 
     """
-
 
     def __init__(self,
                  config,
@@ -43,9 +43,9 @@ class PandaCtrlInterface(CtrlInterface):
 
         self.neutral_joint_position = self.config['panda']['neutral_joint_angles']
 
-        self.redisClient.set(ROBOT_CMD_TSTAMP_KEY, time.time())
-        self.redisClient.set(ROBOT_SET_GRIPPER_CMD_KEY, 0.1)
-        self.redisClient.set(ROBOT_SET_GRIPPER_CMD_TSTAMP_KEY, time.time())
+        self.redisClient.set(R.ROBOT_CMD_TSTAMP_KEY, time.time())
+        self.redisClient.set(R.ROBOT_SET_GRIPPER_CMD_KEY, 0.1)
+        self.redisClient.set(R.ROBOT_SET_GRIPPER_CMD_TSTAMP_KEY, time.time())
         self.last_cmd_tstamp = self.get_cmd_tstamp()
         self.last_gripper_cmd_tstamp = self.get_gripper_cmd_tstamp()
         self.prev_gripper_state = self.des_gripper_state
@@ -71,23 +71,22 @@ class PandaCtrlInterface(CtrlInterface):
     def driver_connected(self):
         return self.redisClient.get(P.DRIVER_CONN_KEY) == P.DRIVER_CONNECTED_VALUE
 
-
     def _get_update_args(self, new_states):
         """Reformat the states so they are compatible with the Model class.
         """
+
+        # ee pose is stored in a (4,4) matrix
         ee_pos, ee_ori_quat = T.mat2pose(new_states[P.ROBOT_STATE_EE_POSE_KEY])
         update_args = {
-        # ee pose is stored in a (4,4) matrix
-        'ee_pos' :ee_pos,
-        'ee_ori': ee_ori_quat,
-        'joint_pos': new_states[P.ROBOT_STATE_Q_KEY],
-        'joint_vel' :new_states[P.ROBOT_STATE_DQ_KEY],
-        'joint_tau' :new_states[P.ROBOT_STATE_TAU_KEY],
-        'J_full': new_states[P.ROBOT_MODEL_JACOBIAN_KEY],
-        'mass_matrix': new_states[P.ROBOT_MODEL_MASS_MATRIX_KEY],
-         }
-        return update_args
 
+            'ee_pos': ee_pos,
+            'ee_ori': ee_ori_quat,
+            'joint_pos': new_states[P.ROBOT_STATE_Q_KEY],
+            'joint_vel': new_states[P.ROBOT_STATE_DQ_KEY],
+            'joint_tau': new_states[P.ROBOT_STATE_TAU_KEY],
+            'J_full': new_states[P.ROBOT_MODEL_JACOBIAN_KEY],
+            'mass_matrix': new_states[P.ROBOT_MODEL_MASS_MATRIX_KEY]}
+        return update_args
 
     def update_model(self):
         """get states from redis, update model with these states.
@@ -104,16 +103,14 @@ class PandaCtrlInterface(CtrlInterface):
 
         Blocking.
         """
-        start_time = time.time()
         # set command torques to zero in case we resume torque control after reset.
         self.redisClient.set_eigen(P.TORQUE_CMD_KEY, np.zeros(7))
 
         self.redisClient.set(P.CONTROL_MODE_KEY, P.RESET_CTRL_MODE)
         while (self.redisClient.get(P.CONTROL_MODE_KEY).decode() != P.IDLE_CTRL_MODE):
             time.sleep(1)
-        self.redisClient.set(ROBOT_RESET_COMPL_KEY, 'True')
+        self.redisClient.set(R.ROBOT_RESET_COMPL_KEY, 'True')
         self.action_set = False
-
 
     def set_torques(self, torques):
         """Set torque command to redis driver.
@@ -122,15 +119,10 @@ class PandaCtrlInterface(CtrlInterface):
             torques (list or ndarray): 7f list of joint torques to command.
 
         """
-        #logging.debug("setting torque command")
         torque_cmd_str = RU.ndarray_to_eigen_str(torques)
-        # start = time.time() * 1000
         self.redisClient.mset({
             P.TORQUE_CMD_KEY: torque_cmd_str,
             P.CONTROL_MODE_KEY: P.TORQUE_CTRL_MODE})
-        # if (time.time()*1000 - start) > 5:
-        #     logging.error("mset command took > 5ms")
-        #logging.debug(self.redisClient.get(P.TORQUE_CMD_KEY))
 
     def set_to_float(self):
         self.redisClient.set(P.CONTROL_MODE_KEY, P.FLOAT_CTRL_MODE)
@@ -170,21 +162,17 @@ class PandaCtrlInterface(CtrlInterface):
         self.update_model()
 
         if self.action_set:
-            # TODO: remove timing code below
             torques = self.controller.run_controller()
-            #logging.info("{}".format(torques))
-            #self.set_dummy_torque_redis()
-            self.set_torques(np.clip(torques, -1.5, 1.5))
-
+            self.set_torques(np.clip(torques, MIN_TORQUE, MAX_TORQUE))
         else:
             pass
 
     def get_gripper_cmd_tstamp(self):
-        return self.redisClient.get(ROBOT_SET_GRIPPER_CMD_TSTAMP_KEY)
+        return self.redisClient.get(R.ROBOT_SET_GRIPPER_CMD_TSTAMP_KEY)
 
     @property
     def des_gripper_state(self):
-        return float(self.redisClient.get(ROBOT_SET_GRIPPER_CMD_KEY))
+        return float(self.redisClient.get(R.ROBOT_SET_GRIPPER_CMD_KEY))
 
     def check_for_new_gripper_cmd(self):
         gripper_cmd_tstamp = self.get_gripper_cmd_tstamp()
@@ -225,18 +213,33 @@ class PandaCtrlInterface(CtrlInterface):
             logging.info("perls2.RealRobotInterface connected.")
 
     def set_dummy_torque_redis(self):
-        zero_torques = (np.random.rand(7) - 0.5)*0.00001
+        """Set random very small nonzero torque to redis.
+
+        Used to test sending torque commands and measuring latency in
+        communicating with the driver.
+        """
+        zero_torques = (np.random.rand(7) - 0.5) * 0.00001
         zero_torques = np.clip(zero_torques, -0.001, 0.001)
 
         self.set_torques(zero_torques)
 
     def set_zero_torques_redis(self):
+        """Set zero torque command to driver.
+        """
         self.set_torques(self.zero_torques)
 
     def check_driver_float(self):
+        """Confirm driver is in floating mode.
+        """
         return self.redisClient.get(P.CONTROL_MODE_KEY).decode() == P.FLOAT_CTRL_MODE
 
     def warm_up_driver(self):
+        """Send many zero commands to redis to reduce latencies.
+
+        Redis latency spikes tend to occur in the beginning of driver operation.
+        This is a bit of a hack to try and query the database many times and
+        hopefully get over any intialization slow down.
+        """
         logging.info("warming up driver...setting to float")
         logging.info("setting torque command key to  very small random values.")
 
@@ -244,7 +247,7 @@ class PandaCtrlInterface(CtrlInterface):
         assert(self.check_driver_float())
 
         for _ in range(5000):
-            zero_torques = (np.random.rand(7) - 0.5)*0.00001
+            zero_torques = (np.random.rand(7) - 0.5) * 0.00001
             zero_torques = np.clip(zero_torques, -0.001, 0.001)
 
             self.redisClient.set_eigen(P.TORQUE_CMD_KEY, zero_torques)
@@ -252,10 +255,10 @@ class PandaCtrlInterface(CtrlInterface):
     def get_cmd_data(self):
         """Get robot and gripper command using mget.
         """
-        cmd_data = self.redisClient.mget_dict([ROBOT_CMD_TSTAMP_KEY,
-                                     ROBOT_CMD_TYPE_KEY,
-                                     ROBOT_SET_GRIPPER_CMD_TSTAMP_KEY,
-                                     ROBOT_SET_GRIPPER_CMD_KEY])
+        cmd_data = self.redisClient.mget_dict([R.ROBOT_CMD_TSTAMP_KEY,
+                                               R.ROBOT_CMD_TYPE_KEY,
+                                               R.ROBOT_SET_GRIPPER_CMD_TSTAMP_KEY,
+                                               R.ROBOT_SET_GRIPPER_CMD_KEY])
 
         return cmd_data
 
@@ -263,14 +266,14 @@ class PandaCtrlInterface(CtrlInterface):
         """Process command data by checking if new command.
         """
         # Process new robot command.
-        if self.last_cmd_tstamp is None or (self.last_cmd_tstamp != cmd_data[ROBOT_CMD_TSTAMP_KEY]):
-            self.last_cmd_tstamp = cmd_data[ROBOT_CMD_TSTAMP_KEY]
-            self.process_cmd(cmd_data[ROBOT_CMD_TYPE_KEY])
+        if self.last_cmd_tstamp is None or (self.last_cmd_tstamp != cmd_data[R.ROBOT_CMD_TSTAMP_KEY]):
+            self.last_cmd_tstamp = cmd_data[R.ROBOT_CMD_TSTAMP_KEY]
+            self.process_cmd(cmd_data[R.ROBOT_CMD_TYPE_KEY])
 
         # Process new gripper command.
-        if self.last_gripper_cmd_tstamp is None or (self.last_gripper_cmd_tstamp != cmd_data[ROBOT_SET_GRIPPER_CMD_TSTAMP_KEY]):
-            self.last_gripper_cmd_tstamp = cmd_data[ROBOT_SET_GRIPPER_CMD_TSTAMP_KEY]
-            self.process_gripper_cmd(cmd_data[ROBOT_SET_GRIPPER_CMD_KEY])
+        if self.last_gripper_cmd_tstamp is None or (self.last_gripper_cmd_tstamp != cmd_data[R.ROBOT_SET_GRIPPER_CMD_TSTAMP_KEY]):
+            self.last_gripper_cmd_tstamp = cmd_data[R.ROBOT_SET_GRIPPER_CMD_TSTAMP_KEY]
+            self.process_gripper_cmd(cmd_data[R.ROBOT_SET_GRIPPER_CMD_KEY])
 
     def check_env_connection(self, loop_count):
         """ Check if workstation is connected every few loops. (Control loops should run on order of ms)
@@ -282,6 +285,11 @@ class PandaCtrlInterface(CtrlInterface):
             return True
 
     def run(self):
+        """Run main control loop for ctrl interface.
+
+        Grab and process new commands from redis, update the model
+        and send torques to the libfranka driver.
+        """
         if not self.driver_connected:
             raise ValueError("franka-panda driver must be started first.")
 
@@ -299,24 +307,24 @@ class PandaCtrlInterface(CtrlInterface):
                 if (self.check_env_connection(self.loop_count)):
                     self.process_cmd_data(self.get_cmd_data())
                     self.step(start)
-                    # self.start_tstamp.append(start)
+
                     while ((time.time() - start) < 0.001):
                         pass
-                    # self.end_tstamp.append(time.time())
-                    self.loop_count+=1
-                    # if (self.loop_count % LOOP_TIME_REPORT_COUNT == 0):
-                    #     print("loop time {} s".format(self.end_tstamp[-1] - self.start_tstamp[-1]))
+
+                    self.loop_count += 1
 
                 else:
                     break
 
         except KeyboardInterrupt:
             pass
-        # np.savez('dev/test/panda_timestamps.npz', start=self.start_tstamp, end=self.end_tstamp, update_model=self.update_model_tstamp,
-        #     set_torques=self.set_torques_tstamp, allow_pickle=True)
-
 
     def run_dummy(self):
+        """ Run control loop in dummy mode.
+
+        Helpful for testing driver <-> ctrl_interface.
+        Sends very small dummy torques to measure driver latency.
+        """
         logging.info("Running contrl interface in dummy mode.")
         if not self.driver_connected:
             raise ValueError("franka-panda driver must be started first.")
@@ -326,8 +334,8 @@ class PandaCtrlInterface(CtrlInterface):
 
         self.default_control_type = self.config['controller']['selected_type']
         self.default_params = self.config['controller']['Real'][self.default_control_type]
-        self.redisClient.set(CONTROLLER_CONTROL_TYPE_KEY, self.default_control_type)
-        self.redisClient.set(CONTROLLER_CONTROL_PARAMS_KEY, json.dumps(self.default_params))
+        self.redisClient.set(R.CONTROLLER_CONTROL_TYPE_KEY, self.default_control_type)
+        self.redisClient.set(R.CONTROLLER_CONTROL_PARAMS_KEY, json.dumps(self.default_params))
 
         self.controller = self.make_controller_from_redis(self.get_control_type(), self.get_controller_params())
 
@@ -342,9 +350,6 @@ class PandaCtrlInterface(CtrlInterface):
 
         except KeyboardInterrupt:
             pass
-
-
-
 
 
 if __name__ == '__main__':
