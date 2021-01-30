@@ -90,9 +90,11 @@
 <li class="toctree-l1"><a class="reference internal" href="source/introduction.html">Introduction</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Install</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#on-ubuntu-16-04">On Ubuntu 16.04</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation-for-real-robot-control">Installation for Real Robot Control</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/panda_setup.html">Franka Panda Setup</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Modules</span></p>
 <ul>
@@ -123,6 +125,7 @@
 <li class="toctree-l1"><a class="reference internal" href="source/panda_nuc_setup.html">Set up NUC (Control PC) for the Franka Panda</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/panda_ws_setup.html">Set up workstation for Franka Panda</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/panda_instructions.html">Using the Franka Panda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/redis.html">Redis Help</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/sawyer_instructions.html">Using the Rethink Sawyer Arm</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/demos.html">Controller Demos</a></li>
 </ul>
@@ -230,7 +233,7 @@ PERLS2 only supports ubuntu 16.04 and later. Performance on MacOS not guaranteed
 <p><code class="docutils literal notranslate"><span class="pre">virtualenv</span> <span class="pre">-p</span> <span class="pre">python3.6</span> <span class="pre">perls2env</span></code></p>
 </li>
 <li><p>Source your virtual environment e.g.</p>
-<p><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">perls2env/bin/activate</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">~/perls2env/bin/activate</span></code></p>
 </li>
 <li><p>Go to the perls2 directory and install requirements</p>
 <p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~/perls2</span></code></p>
@@ -244,9 +247,15 @@ PERLS2 only supports ubuntu 16.04 and later. Performance on MacOS not guaranteed
 </li>
 </ol>
 </li>
-<li><p>Run the simple reach example.
+<li><p>Run the simple reach example in sim
 <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">examples/simple_reach/run_simple_reach.py</span></code></p></li>
 </ol>
+</div>
+<div class="section" id="installation-for-real-robot-control">
+<h2>Installation for Real Robot Control<a class="headerlink" href="#installation-for-real-robot-control" title="Permalink to this headline">¶</a></h2>
+<p>Getting perls2 to work with real robots requires a few extra steps to set up the control pc (NUC) and workstations. See the instructions below:</p>
+<p><a class="reference internal" href="source/panda_setup.html"><span class="doc">Set up instructions for Franka Panda</span></a></p>
+<p><a class="reference internal" href="source/sawyer_instructions.html"><span class="doc">Set up instructions for Rethink Sawyer</span></a></p>
 </div>
 </div>
 

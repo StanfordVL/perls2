@@ -13,7 +13,7 @@ PERLS2 only supports ubuntu 16.04 and later. Performance on MacOS not guaranteed
 
     3. Source your virtual environment e.g.
 
-        `source perls2env/bin/activate`
+        `source ~/perls2env/bin/activate`
 
     4. Go to the perls2 directory and install requirements
 
@@ -26,5 +26,12 @@ PERLS2 only supports ubuntu 16.04 and later. Performance on MacOS not guaranteed
 
         `pip install -e .`
 
-2. Run the simple reach example.
+2. Run the simple reach example in sim
     `python examples/simple_reach/run_simple_reach.py`
+
+## Installation for Real Robot Control
+Getting perls2 to work with real robots requires a few extra steps to set up the control pc (NUC) and workstations. See the instructions below:
+
+[Set up instructions for Franka Panda](source/panda_setup.md)
+
+[Set up instructions for Rethink Sawyer](source/sawyer_instructions.md)

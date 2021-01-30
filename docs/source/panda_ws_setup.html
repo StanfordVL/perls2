@@ -90,6 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="panda_setup.html">Franka Panda Setup</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Modules</span></p>
 <ul>
@@ -120,9 +121,11 @@
 <li class="toctree-l1"><a class="reference internal" href="panda_nuc_setup.html">Set up NUC (Control PC) for the Franka Panda</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Set up workstation for Franka Panda</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation-and-setup">Installation and setup</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="panda_instructions.html">Using the Franka Panda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="redis.html">Redis Help</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sawyer_instructions.html">Using the Rethink Sawyer Arm</a></li>
 <li class="toctree-l1"><a class="reference internal" href="demos.html">Controller Demos</a></li>
 </ul>
@@ -219,6 +222,25 @@
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <p>The Workstation hosts the perls2 environment and sends robot commands to the NUC via the redis-server. The redis-server is connected via TCP.</p>
+</div>
+<div class="section" id="installation-and-setup">
+<h2>Installation and setup<a class="headerlink" href="#installation-and-setup" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>Install redis</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">redis</span><span class="o">-</span><span class="n">server</span>
+</pre></div>
+</div>
+<ol>
+<li><p>Clone and install <a class="reference external" href="https://gitub.com/StanfordVL/perls2">perls2</a></p></li>
+<li><p>Copy the redis_passfile.txt from the nuc to your workstation.</p></li>
+<li><p>Modify the perls2/cfg/redis.yaml <code class="docutils literal notranslate"><span class="pre">password</span></code> key to the filepath for your redis-passfile.</p></li>
+<li><p>Follow the steps <a class="reference internal" href="panda_instructions.html"><span class="doc">here</span></a> for using the Franka Panda, and run the Gravity Compensation demo.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">perls2</span><span class="o">/</span><span class="n">demos</span><span class="o">/</span><span class="n">run_gc_demo</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">Real</span>
+</pre></div>
+</div>
+</li>
+</ol>
 </div>
 </div>
 

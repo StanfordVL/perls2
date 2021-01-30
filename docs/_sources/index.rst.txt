@@ -16,6 +16,7 @@ perls2
    source/introduction.md
    install.md
    quickstart.md
+   source/panda_setup.md
 
 .. toctree::
    :maxdepth: 1
@@ -60,6 +61,7 @@ perls2
    source/panda_nuc_setup.md
    source/panda_ws_setup.md
    source/panda_instructions.md
+   source/redis.md
    source/sawyer_instructions.md
    source/demos.md
 
