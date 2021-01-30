@@ -22,9 +22,6 @@ control_freq: 500 # Hz
 !include reach_panda_controller.yaml
 !include ../../cfg/default_sawyer_controller.yaml
 
-!include ../../cfg/redis.yaml
-
-
 scene_objects:
   ['table', 'bin']
 
