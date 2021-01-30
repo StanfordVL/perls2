@@ -70,6 +70,7 @@ You can see the valid command line args for a demo with:
 
 The parameters general to all demos are listed here:
 
+    --world     (str): world type to run the demo. Overrides config file ('Real' or 'Bullet')
     --ctrl_type (str): Controller type for the demo.
     --demo_type (str): Type of demo to perform.
     --test_fn (str): RobotInterface function environment will use to perform actions. Specific to controller type.
