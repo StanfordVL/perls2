@@ -5,7 +5,7 @@ perls2 provides robot software infrastructure for projects within SVL. It serves
 
 The design document describes the goals, specifications and milestones for perls2 development. 
 
-[Read the docs](stanfordvl.github.io/perls2/)
+[Read the docs](https://stanfordvl.github.io/perls2/)
 
 [Design Document](https://docs.google.com/document/d/1JJA4TpnnS4lhWyXyyhaU3PcngXAHG2iap1pUcpQy9wY/edit)
 
