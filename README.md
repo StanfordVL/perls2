@@ -16,6 +16,14 @@ New to perls2? [Start Here](https://github.com/StanfordVL/perls2/wiki/Start-Here
 ## Installing
 PERLS2 only supports python3.6 for the core libraries (python 2.7 is used for interfacing to robots that use ROS.)
 PERLS2 only supports ubuntu 16.04 and later.
+
+### Installing python 3.6
+```
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt-get update
+sudo apt-get install python3.6
+```
+
 ### On Ubuntu 16.04
 1. Clone and install PERLs repo
     1. Clone repo: 
