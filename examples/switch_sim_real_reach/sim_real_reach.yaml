@@ -1,0 +1,115 @@
+# Cfg file for SimpleReachEnv
+world:
+  type: 'Real'
+  robot: 'panda'
+  controlType: 'EEImpedance'
+data_dir: '../../data'
+# Simulation parameters
+sim_params:
+  time_step: 0.001 #0.004166  # 1./240.
+  steps_per_action: 20 # policy to sim update ratio
+  MAX_STEPS: 500
+
+policy_freq: 20 # For gazebo?
+control_freq: 500 # Hz
+
+# If set up has Kinect camera
+real_camera: False
+
+# Robots are specified by types and urdf locations
+# also may include intial setup like poses and orientations
+!include ../../cfg/sawyer.yaml
+!include ../../cfg/panda.yaml
+!include ../../cfg/table_and_bin.yaml
+
+# Default controllers for each robot.
+!include ../../cfg/default_panda_controller.yaml
+!include ../../cfg/default_sawyer_controller.yaml
+
+!include ../../cfg/redis.yaml
+
+goal_position:
+  lower:
+    [0.3, -0.2, 0.0]  # CHANGED
+  upper:
+    [0.5, 0.5, 0.1]   # CHANGED
+
+sensor:
+  camera:
+    name:
+        'camera'
+    image:
+      height: 224
+      width: 224
+    extrinsics:
+        eye_position:
+          [0.6, 0.0, 1.0]
+        target_position:
+          [0.6, 0., 0]
+        up_vector:
+          [1., 0., 1.]
+    intrinsics:
+        image_height: 1080
+        image_width: 1920
+        fov: 60
+        near_plane: 0.02
+        far_plane: 100
+    # Parameters for randomization
+    random:
+      randomize: False
+      extrinsics:
+        eye_position:
+          lower:
+            [0.6, 0., 1.75]
+          upper:
+            [0.6, 0., 1.75]
+        target_position:
+          lower:
+            [0.6, 0., 0]
+          upper:
+            [0.6, 0., 0]
+      intrinsics:
+        fov:
+          lower: 50
+          upper: 80
+        near_plane:
+          lower: 0.01
+          upper: 0.05
+        far_plane:
+          lower: 10
+          upper: 150
+
+object:
+  count:
+    1
+  path:
+    'objects/ycb/013_apple/google_16k/textured.urdf'
+  pose: [[1.5, 0, 0], [0,0,0]]
+  is_static: True
+  default_position: [0.7, 0.1, 0.03] #z  = 0.1
+  random:
+    randomize: False
+    position:
+      lower:
+        [0.3, -0.2, 0.1]
+      upper:
+        [0.7, 0.2, 0.1]
+
+# Perception and Learning
+env:
+  observation_space:
+    low:
+      [-2.0, -2.0, -2.0]
+    high:
+      [2.0, 2.0, 2.0]
+  action_space:
+    low: [-0.2, -0.2, -0.2]
+    high: [0.2, 0.2, 0.2]
+
+learning_parms:
+  hyperparameters:
+  learning_rate:
+
+
+vision_params:
+  segmentation:

@@ -9,7 +9,7 @@ from abc import ABCMeta, abstractmethod
 import redis
 import time
 import struct
-from perls2.ros_interfaces.redis_keys import *
+from perls2.redis_interfaces.redis_keys import *
 
 
 def convert_encoded_frame_to_np(encoded_frame, dim):

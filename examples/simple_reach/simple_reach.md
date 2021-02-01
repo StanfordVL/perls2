@@ -4,7 +4,8 @@ Simple Reach Example
 # Simple Reach Example
 
 ## Description
-The simple reach example is meant to demonstrate the basic components of a PERLS2 project. It also shows how perls2 streamlines getting a simulation with a robot up and running. This example only uses PyBullet.
+The simple reach example is meant to demonstrate the basic components of a PERLS2 project. It also shows how perls2 streamlines getting a simulation with a robot up and running. **This example only uses PyBullet.** To see an example for real robots, see
+the switch_sim_real example.
 
 There are three files worth examining for this demo:
 * Config file: simple_reach.yaml

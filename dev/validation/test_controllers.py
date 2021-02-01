@@ -1,12 +1,9 @@
 
+from control_demo import Demo
 import logging
 import argparse
-
-from control_demo import Demo
-
-logging.basicConfig(level=logging.INFO)
-mpl_logger = logging.getLogger('matplotlib')
-mpl_logger.setLevel(logging.WARNING)
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 CONTROL_TYPES = {
     "1": "EEImpedance",
@@ -141,6 +138,7 @@ if __name__ == '__main__':
     parser.add_argument('--fix_pos', action="store_true",
                         help="fix position for move_ee_delta")
     parser.add_argument('--config_file', default='dev/validation/demo_control_cfg.yaml', help='absolute filepath for config file.')
+    parser.add_argument('--cycles', type=int, default=1, help="num times to cycle path (only for square)")
     args = parser.parse_args()
     kwargs = vars(args)
     tester = ControllerTester(**kwargs)

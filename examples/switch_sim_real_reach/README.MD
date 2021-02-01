@@ -1,7 +1,25 @@
 # Switching between Real and Sim Example
 
 ## Description
-The Switching between Real and Sim example is meant to demonstrate how to share logic between real and simulated experiments. A reach task is performed in pybullet that uses the object interface. A reach task for a randomly generated position is performed on the real robot. Both examples use the Sawyer Robots.
+The Switching between Real and Sim example is meant to demonstrate how to share logic between real and simulated experiments.
+
+In Pybullet, the robot reaches towards an object using the object's position provided by the object_interface.
+
+Since we don't have ground truth object poses for the real world, for Real world testing, we randomly generate a pose for the robot to reach.
+
+## Important notes for Real Testing:
+This example assumes the real robot has been set up according to instructions on the [perls2 website](https://stanfordvl.github.io/perls2)
+
+It also assumes the Kinect Camera Interface is available with ROS. If this is not the case, change the config file (sim_real_reach.yaml) from
+    ```
+    real_camera: True
+    ```
+    to
+    ```
+    real_camera: False
+    ```
+
+## Walkthrough
 
 There are three files worth looking at for this demo:
 * Run file: run_switch_sim_real.py

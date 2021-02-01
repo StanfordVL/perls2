@@ -54,9 +54,22 @@ class Model:
         self.J_full = None
         self.mass_matrix = None
         self.offset_mass_matrix = offset_mass_matrix
-        self.mass_matrix_offset_val = [0.05, 0.05, 0.05]
+        self.mass_matrix_offset_val = [0.1, 0.1, 0.1]
         self.torque_compensation = None
         self.nullspace = None
+        self._compile_jit_functions()
+
+    def _compile_jit_functions(self):
+        dummy_mat = np.eye(3)
+        dummy_quat = np.zeros(4)
+        dummy_quat[-1] = 1.
+        T.mat2quat(dummy_mat)
+        T.quat2mat(dummy_quat)
+        dummy_J = np.zeros((6,7))
+        dummy_dq = np.zeros(7)
+        T.calc_twist(dummy_J, dummy_dq)
+
+        
 
     def update_states(self,
                       ee_pos,
@@ -70,7 +83,6 @@ class Model:
                       torque_compensation=None):
 
         self.ee_pos = ee_pos
-
         if ee_ori.shape == (3, 3):
             self.ee_ori_mat = ee_ori
             self.ee_ori_quat = T.mat2quat(ee_ori)
@@ -97,7 +109,10 @@ class Model:
                 self.joint_dim = len(joint_pos)
             # Update torque_compensation accordingly
             #self.torque_compensation = np.zeros(self.joint_dim)
-        self.torque_compensation = np.asarray(torque_compensation)
+        if torque_compensation is None:
+          self.torque_compensation = np.zeros(7)
+        else:  
+          self.torque_compensation = np.asarray(torque_compensation)
 
     def update_model(self,
                      J_pos,
@@ -116,3 +131,34 @@ class Model:
 
     def update(self):
       pass
+
+    def update_state_model(self,
+                      ee_pos,
+                      ee_ori,
+                      joint_pos,
+                      joint_vel,
+                      joint_tau,
+                      J_full, 
+                      mass_matrix,
+                      joint_dim=None,
+                      torque_compensation=None, 
+                      ):
+      """Update state and model together. 
+
+      Helpful if you need to calculate the ee twist using the jacobian.
+      """
+
+      ee_twist = T.calc_twist(J_full, joint_vel)
+      ee_pos_vel = ee_twist[0:3]
+      ee_ori_vel = ee_twist[3:]
+      self.update_states(ee_pos=ee_pos, 
+        ee_ori=ee_ori,
+        ee_pos_vel=ee_pos_vel, 
+        ee_ori_vel=ee_ori_vel, 
+        joint_vel=joint_vel,
+        joint_pos=joint_pos,
+        joint_tau=joint_tau)
+      J_pos = J_full[0:3,:]
+      J_ori = J_full[3:, :]
+      self.update_model(J_pos=J_pos, J_ori=J_ori,
+        mass_matrix=mass_matrix)

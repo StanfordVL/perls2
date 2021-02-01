@@ -13,10 +13,10 @@ import numpy as np
 import logging
 import json
 import time
-from perls2.ros_interfaces.redis_keys import *
-from perls2.ros_interfaces.redis_values import *
+from perls2.redis_interfaces.redis_keys import *
+from perls2.redis_interfaces.redis_values import *
 import perls2.controllers.utils.transform_utils as T
-from perls2.ros_interfaces.redis_interface import RobotRedisInterface
+from perls2.redis_interfaces.redis_interface import RobotRedisInterface
 AVAILABLE_CONTROLLERS = [EE_IMPEDANCE,
                          EE_POSTURE,
                          JOINT_VELOCITY,
@@ -58,8 +58,18 @@ class RealRobotInterface(RobotInterface):
             from perls2.robots.real_sawyer_interface import RealSawyerInterface
             return RealSawyerInterface(
                 config=config, controlType=controlType)
+        if (config['world']['robot'] == 'panda'):
+            from perls2.robots.real_panda_interface import RealPandaInterface
+            return RealPandaInterface(
+                config=config, controlType=controlType)
         else:
             raise ValueError("invalid robot interface type. choose 'sawyer'")
+
+    def connect(self):
+        self.redisClient.set(ROBOT_ENV_CONN_KEY, 'True')
+
+    def disconnect(self):
+        self.redisClient.set(ROBOT_ENV_CONN_KEY, 'False')
 
     def step(self):
         """Compatability only
@@ -78,13 +88,29 @@ class RealRobotInterface(RobotInterface):
     def set_control_params(self):
         """Set the control parameters key on redis
         """
-        control_config = self.config['controller']['Real'][self.control_type]
+        control_config = self.controller_cfg['Real'][self.control_type]
         self.redisClient.set(CONTROLLER_CONTROL_PARAMS_KEY, json.dumps(control_config))
 
     def reset(self):
         """ Reset robot to neutral positions.
         """
         raise NotImplementedError
+
+    def set_controller_params_from_config(self):
+        """Set controller parameters from config file to redis.
+        """
+        selected_type = self.config['world']['controlType']
+        self.control_config = self.controller_cfg['Real'][selected_type]
+
+        self.redisClient.mset({CONTROLLER_CONTROL_PARAMS_KEY: json.dumps(self.control_config),
+                               CONTROLLER_CONTROL_TYPE_KEY: selected_type})
+
+        cmd_type = CHANGE_CONTROLLER
+        control_cmd = {ROBOT_CMD_TSTAMP_KEY: time.time(), ROBOT_CMD_TYPE_KEY: cmd_type}
+
+        self.redisClient.mset(control_cmd)
+
+        logging.debug("{} Control parameters set to redis: {}".format(selected_type, self.control_config))
 
     def change_controller(self, next_type):
         """Change to a different controller type.
@@ -99,7 +125,7 @@ class RealRobotInterface(RobotInterface):
         if next_type in AVAILABLE_CONTROLLERS:
             self.controlType = next_type
             self.redisClient.set(CONTROLLER_CONTROL_TYPE_KEY, next_type)
-            control_config = self.config['controller']['Real'][self.controlType]
+            control_config = self.controller_cfg['Real'][self.controlType]
             self.redisClient.set(CONTROLLER_CONTROL_PARAMS_KEY, json.dumps(control_config))
             logging.debug("Changing controller to {} with params: {}".format(self.controlType, control_config))
 
@@ -235,8 +261,6 @@ class RealRobotInterface(RobotInterface):
                         self.set_controller_goal(**kwargs)
 
         """
-        logging.debug("cmd_type {}".format(cmd_type))
-
         control_cmd = {ROBOT_CMD_TSTAMP_KEY: time.time(),
                        ROBOT_CMD_TYPE_KEY: cmd_type,
                        CONTROLLER_GOAL_KEY: json.dumps(kwargs)}
@@ -265,3 +289,128 @@ class RealRobotInterface(RobotInterface):
             velocities = velocities.tolist()
         kwargs = {'cmd_type': SET_JOINT_VELOCITIES, "velocities": velocities}
         self.set_controller_goal(**kwargs)
+
+    @property
+    def version(self):
+        """dict of current versions of robot SDK, gripper, and robot
+        """
+        raise NotImplementedError
+
+    @property
+    def name(self):
+        """str of the name of the robot
+        """
+        raise NotImplementedError
+
+    @property
+    def ee_position(self):
+        """list of three floats [x, y, z] of the position of the
+        end-effector.
+        """
+        raise NotImplementedError
+
+    @property
+    def ee_orientation(self):
+        """list of four floats [qx, qy, qz, qw] of the orientation
+        quaternion of the end-effector.
+        """
+        raise NotImplementedError
+
+    @property
+    def ee_pose(self):
+        """list of seven floats [x, y, z, qx, qy, qz, qw] of the 6D pose
+        of the end effector.
+        """
+        raise NotImplementedError
+
+    @property
+    def ee_v(self):
+        """list of seven floats [x, y, z, qx, qy, qz, qw] of the 6D pose
+        of the end effector.
+        """
+        raise NotImplementedError
+
+    @property
+    def ee_w(self):
+        """list of seven floats [x, y, z, qx, qy, qz, qw] of the 6D pose
+        of the end effector.
+        """
+        raise NotImplementedError
+
+    @property
+    def ee_twist(self):
+        """list of seven floats [x, y, z, qx, qy, qz, qw] of the 6D pose
+        of the end effector.
+        """
+        raise NotImplementedError
+
+    @property
+    def q(self):
+        """List of 7f describing joint positions (rad) of the robot arm.
+
+        Ordered from base to end_effector
+        """
+        raise NotImplementedError
+
+    @property
+    def dq(self):
+        """List of 7f describing joint velocities (rad/s) of the robot arm.
+
+        Ordered from base to end_effector
+        """
+        raise NotImplementedError
+
+    @property
+    def tau(self):
+        """List of 7f describing joint torques (Nm)
+
+        Ordered from base to end_effector
+        """
+        raise NotImplementedError
+
+    @property
+    def jacobian(self):
+        """List of 7f describing joint velocities (rad/s) of the robot arm.
+
+        Ordered from base to end_effector
+        """
+        raise NotImplementedError
+
+    @property
+    def linear_jacobian(self):
+        """List of 7f describing joint velocities (rad/s) of the robot arm.
+
+        Ordered from base to end_effector
+        """
+        raise NotImplementedError
+
+    @property
+    def angular_jacobian(self):
+        """List of 7f describing joint velocities (rad/s) of the robot arm.
+
+        Ordered from base to end_effector
+        """
+        raise NotImplementedError
+
+    @property
+    def mass_matrix(self):
+        """List of 7f describing joint velocities (rad/s) of the robot arm.
+
+        Ordered from base to end_effector
+        """
+        raise NotImplementedError
+
+    def open_gripper(self):
+        """ Open robot gripper.
+        """
+        raise NotImplementedError
+
+    def close_gripper(self):
+        """ Close robot gripper
+        """
+        raise NotImplementedError
+
+    def set_gripper_to_value(self, value):
+        """ Set gripper to desired open/close value
+        """
+        raise NotImplementedError

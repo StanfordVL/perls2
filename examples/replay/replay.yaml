@@ -16,6 +16,11 @@ sim_params:
 !include ../../cfg/sawyer.yaml
 !include ../../cfg/panda.yaml
 !include ../../cfg/table_and_bin.yaml
+
+# Default controllers for each robot.
+!include ../../cfg/default_panda_controller.yaml
+!include ../../cfg/default_sawyer_controller.yaml
+
 goal_position:
   lower:
     [0.3, -0.2, 0.0]  # CHANGED

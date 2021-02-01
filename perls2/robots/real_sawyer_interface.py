@@ -8,9 +8,9 @@ import numpy as np
 import logging
 import time
 from perls2.robots.real_robot_interface import RealRobotInterface
-from perls2.ros_interfaces.redis_interface import RobotRedisInterface
-from perls2.ros_interfaces.redis_keys import *
-from perls2.ros_interfaces.redis_values import *
+from perls2.redis_interfaces.redis_interface import RobotRedisInterface
+from perls2.redis_interfaces.redis_keys import *
+from perls2.redis_interfaces.redis_values import *
 # For dumping config dict to redis
 import json
 

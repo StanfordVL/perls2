@@ -93,7 +93,7 @@ You're almost there! This is where you run your perls2 environment to perform yo
 
 2. Run your perls2 script. For example, run the gravity-compensation demo:
 
-    `cd ~/perls2; python demos/run_gc_demo.py --Real`
+    `cd ~/perls2; python demos/run_gc_demo.py --world=Real`
 
 
 

@@ -27,9 +27,9 @@ import logging
 import pybullet as pb
 from perls2.utils.yaml_config import YamlConfig
 import json
-from perls2.ros_interfaces.redis_interface import RobotRedisInterface as RobotRedis
-from perls2.ros_interfaces.redis_keys import *
-from perls2.ros_interfaces.redis_values import *
+from perls2.redis_interfaces.redis_interface import RobotRedisInterface as RobotRedis
+from perls2.redis_interfaces.redis_keys import *
+from perls2.redis_interfaces.redis_values import *
 import perls2.controllers.utils.transform_utils as T
 
 LOOP_LATENCY = 0.000
@@ -656,7 +656,7 @@ class SawyerCtrlInterface(RobotInterface):
 
             torques = np.clip(torques, -5.0, 5.0)
             #print("Torques {}".format(torques))
-            
+
             self.set_torques(torques)
 
             while (time.time() - start < LOOP_TIME):
@@ -976,7 +976,7 @@ class SawyerCtrlInterface(RobotInterface):
 
     def process_cmd(self, cmd_type):
         """ process command from redis
-        
+
         Args:
             cmd_type (str): byte-array string from redis cmd key
         """
@@ -1006,7 +1006,7 @@ class SawyerCtrlInterface(RobotInterface):
                 self.get_controller_params())
         else:
             rospy.logwarn("Unknown command: {}".format(cmd_type))
-    
+
     def check_for_new_gripper_cmd(self):
         gripper_cmd_tstamp = self.get_gripper_cmd_tstamp()
         if self.last_gripper_cmd_tstamp is None or (self.last_gripper_cmd_tstamp != gripper_cmd_tstamp):

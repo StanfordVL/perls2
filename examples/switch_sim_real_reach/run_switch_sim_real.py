@@ -2,16 +2,12 @@
 """
 from __future__ import division
 
-from switch_sim_real_env import SwitchSimRealEnv
-import perls2.utils.exp_save as saver
-import numpy as np
-import gym
-import logging
-logging.basicConfig(level=logging.DEBUG)
-import os
-import sys
-
 import time
+from switch_sim_real_env import SwitchSimRealEnv
+import numpy as np
+
+import logging
+logging.basicConfig(level=logging.INFO)
 
 
 def get_action(observation):
@@ -29,13 +25,12 @@ def get_action(observation):
 
     """
     # Get components from observations
-    step = 0.05
     delta = observation
-    action = step * delta / np.linalg.norm(delta)
+    action = delta / np.linalg.norm(delta)
     return action
 
 
-env = SwitchSimRealEnv('./simple_reach.yaml', True, None)
+env = SwitchSimRealEnv('examples/switch_sim_real_reach/sim_real_reach.yaml', True, None)
 
 # Lists for saving demonstrations
 training_list = []
@@ -54,22 +49,21 @@ for ep_num in range(10):
     done = False
     while done is False:
         action = get_action(observation[0])
-        start = time.time()
-        observation, reward, termination, info = env.step(action)
 
-        step_record = (action, observation, reward,  termination)
+        # For real robot experiments, we want the policy to send
+        # robot commands at 20Hz. Adding the time at each policy
+        # loop helps perls2 enforce this frequency
+
+        observation, reward, termination, info = env.step(action, start=time.time())
+
+        step_record = (action, observation, reward, termination)
 
         # Add observations-actions to demonstration lists.
         pose_list.append(observation[1])
         image_list.append(observation[2])
         action_list.append(action)
 
-        # enforce policy frequency by waiting
-        while ((time.time() - start) < 0.05):
-            pass
         step += 1
-        #saver.save_image(observation[2],  ep_num, step, folder_path='output', invert=False)
-        logging.debug("step taken" + str(step))
         done = termination
 # In the real robot we have to use a ROS interface. Disconnect the interface
 # after completing the experiment.

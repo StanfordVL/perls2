@@ -2,6 +2,7 @@
 world:
   type: 'Bullet'
   robot: 'sawyer'
+  controlType: "EEImpedance"
 data_dir: 'data'
 # Simulation parameters
 sim_params:
@@ -16,13 +17,14 @@ control_freq: 500 # Hz
 !include ../../cfg/sawyer.yaml
 !include ../../cfg/panda.yaml
 !include ../../cfg/table_and_bin.yaml
-goal_position:
-  lower:
-    [0.3, -0.2, 0.0]  # CHANGED
-  upper:
-    [0.5, 0.5, 0.2]   # CHANGED
+
+# Default controllers for each robot.
+!include reach_panda_controller.yaml
+!include ../../cfg/default_sawyer_controller.yaml
+
 scene_objects:
   ['table', 'bin']
+
 sensor:
   camera:
     name:
@@ -66,29 +68,6 @@ sensor:
           lower: 10
           upper: 150
 
-controller:
-  selected_type: 'EEImpedance' # Choose between 'EEImpedance', 'JointVelocity'
-  Bullet:
-    EEImpedance:
-      kp: 200 # P Gain for Impedance Control
-      damping: .8 # Damping factor [0,1]
-      input_max: [1, 1, 1, 1, 1, 1]
-      input_min: [-1, -1, -1, -1, -1, -1]
-      output_max: [0.05, 0.05, 0.05, 1.57, 1.57, 1.57]
-      output_min: [-0.05, -0.05, -0.05, -1.57, -1.57, -1.57]
-    JointVelocity:
-      kp: 0.5
-    JointImpedance:
-      kp: 50
-      damping: 1
-  interpolator_pos:
-      type: 'linear'
-      order: 1
-      max_dx: 0.2
-      ramp_ratio: 0.2
-  interpolator_ori:
-      type: 'None'
-
 object:
   object_dict:
     object_0:
@@ -105,7 +84,7 @@ object:
       default_position: [0.7, 0.1, 0.03] #z  = 0.1
   default_position: [0.7, 0.1, 0.03] #z  = 0.1
   random:
-    randomize: False
+    randomize: True
     position:
       lower:
         [0.3, -0.2, 0.1]
@@ -121,8 +100,8 @@ env:
     high:
       [2.0, 2.0, 2.0]
   action_space:
-    low: [-0.2, -0.2, -0.2]
-    high: [0.2, 0.2, 0.2]
+    low: [-1.0, -1.0, -1.0]
+    high: [1.0, 1.0, 1.0]
 
 learning_parms:
   hyperparameters:

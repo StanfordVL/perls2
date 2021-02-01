@@ -484,7 +484,13 @@ def quat2mat(quaternion):
         ]
     )
 
-
+@numba.jit(nopython=True, cache=True)
+def calc_twist(jacobian, dq):
+    """Calculate the twist (ee velocity and angular velocity)
+    from jacobian and joint velocity. 
+    """
+    return np.dot(jacobian, dq)
+    
 def pose_in_A_to_pose_in_B(pose_A, pose_A_in_B):
     """
     Converts a homogenous matrix corresponding to a point C in frame A

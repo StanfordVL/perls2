@@ -47,8 +47,8 @@ class RobotInterface(object):
     """
 
     def __init__(self,
-                 controlType,
-                 config=None):
+                 config,
+                 controlType=None):
         """
         Initialize variables.
 
@@ -59,50 +59,49 @@ class RobotInterface(object):
             control_type (str): Type of controller for robot to use
                 e.g. IK, OSC, Joint Velocity.
         """
+        self.config = config
         self.controlType = controlType
         self.action_set = False
         self.model = Model()
-        self.config = config
+
         self.interpolator_pos = None
         self.interpolator_ori = None
+        self.robot_type = self.config['world']['robot']
+        self.controller_cfg = self.config[self.robot_type + "_controller"]
 
-        # Create interpolator and controller from confi.
-        if config is not None:
-            # Make position interpolator from config
-            interp_pos_cfg = config['controller']['interpolator_pos']
-            if interp_pos_cfg['type'] == 'linear':
-                self.interpolator_pos = LinearInterpolator(
-                    max_dx=interp_pos_cfg['max_dx'],
-                    ndim=3,
-                    controller_freq=self.config['control_freq'],
-                    policy_freq=self.config['policy_freq'],
-                    ramp_ratio=interp_pos_cfg['ramp_ratio'])
-            # Make orientation interpolator from config.
-            interp_ori_cfg = config['controller']['interpolator_ori']
-            if interp_ori_cfg['type'] == 'linear':
-                self.interpolator_ori = LinearOriInterpolator(
-                    controller_freq=self.config['control_freq'],
-                    policy_freq=self.config['policy_freq'],
-                    fraction=interp_ori_cfg['fraction'])
+        # Make position interpolator from config
+        interp_pos_cfg = self.controller_cfg['interpolator_pos']
+        if interp_pos_cfg['type'] == 'linear':
+            self.interpolator_pos = LinearInterpolator(
+                max_dx=interp_pos_cfg['max_dx'],
+                ndim=3,
+                controller_freq=self.config['control_freq'],
+                policy_freq=self.config['policy_freq'],
+                ramp_ratio=interp_pos_cfg['ramp_ratio'])
+        # Make orientation interpolator from config.
+        interp_ori_cfg = self.controller_cfg['interpolator_ori']
+        if interp_ori_cfg['type'] == 'linear':
+            self.interpolator_ori = LinearOriInterpolator(
+                controller_freq=self.config['control_freq'],
+                policy_freq=self.config['policy_freq'],
+                fraction=interp_ori_cfg['fraction'])
 
     def update(self):
         """Update robot interface model with states for controller.
         """
         raise NotImplementedError
 
-    def make_controller(self, control_type, **kwargs):
+    def make_controller(self, control_type):
         """Returns a new controller type based on specs.
 
         Args:
             control_type (str) : name of the control type.
-            kwargs:  dependent on type of controller to modify those
-                found in the config file.
         """
 
         if control_type == "Internal":
             return "Internal"
         world_name = self.config['world']['type']
-        controller_dict = self.config['controller'][world_name][control_type]
+        controller_dict = self.controller_cfg[world_name][control_type]
         if control_type == "EEImpedance":
             return EEImpController(
                 self.model,

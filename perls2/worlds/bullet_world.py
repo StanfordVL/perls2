@@ -108,13 +108,11 @@ class BulletWorld(World):
         # Create an arena to load robot and objects
         self.arena = BulletArena(self.config, self._physics_id, has_camera=self.has_camera)
 
-        self.controller_dict = self.config['controller']['Bullet']
-
         self.robot_interface = BulletRobotInterface.create(
             config=self.config,
             physics_id=self._physics_id,
             arm_id=self.arena.arm_id,
-            controlType=self.config['controller']['selected_type'])
+            controlType=self.config['world']['controlType'])
 
         self.control_freq = self.config['control_freq']
         if self.has_camera:

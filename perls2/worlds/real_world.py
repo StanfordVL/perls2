@@ -2,10 +2,8 @@
 """
 
 import abc
-import pybullet
 import time
 from perls2.worlds.world import World
-from perls2.worlds.bullet_world import BulletWorld
 from perls2.arenas.real_arena import RealArena
 from perls2.robots.real_robot_interface import RealRobotInterface
 from perls2.sensors.kinect_camera_interface import KinectCameraInterface
@@ -43,7 +41,7 @@ class RealWorld(World):
 
         self.robot_interface = RealRobotInterface.create(
             config=self.config,
-            controlType=self.config['controller']['selected_type'])
+            controlType=self.config['world']['controlType'])
 
         if 'sensor' in self.config:
             if 'camera' in self.config['sensor']:
@@ -64,8 +62,9 @@ class RealWorld(World):
             The observation.
         """
         # reload robot to restore body after any collisions
-        self.robot_interface.reset()
-
+        #self.robot_interface.reset()
+        pass 
+        
     def step(self, start=None):
         """Take a step.
 
