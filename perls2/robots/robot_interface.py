@@ -171,6 +171,11 @@ class RobotInterface(object):
                 self.set_torques(torques)
 
 
+    def reset(self):
+        """Reset robot to neutral joint state.
+        """
+        raise NotImplementedError
+    
     def set_controller_goal(self, **kwargs):
         """Update model and set the goal for controller.
 
