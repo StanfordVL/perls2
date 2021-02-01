@@ -5,13 +5,11 @@ perls2 provides robot software infrastructure for projects within SVL. It serves
 
 The design document describes the goals, specifications and milestones for perls2 development. 
 
-[Read the docs](https://stanfordvl.github.io/perls2/)
+[Website and Read the docs](https://stanfordvl.github.io/perls2/)
 
 [Design Document](https://docs.google.com/document/d/1JJA4TpnnS4lhWyXyyhaU3PcngXAHG2iap1pUcpQy9wY/edit)
 
-Visit [the wiki](https://github.com/StanfordVL/perls2/wiki) for detailed tutorials and explanations 
-
-New to perls2? [Start Here](https://github.com/StanfordVL/perls2/wiki/Start-Here-(Intro))
+New to perls2? [Start Here](https://stanfordvl.github.io/perls2/source/introduction.html)
 
 ## Installing
 PERLS2 only supports python3.6 for the core libraries (python 2.7 is used for interfacing to robots that use ROS.)
@@ -45,7 +43,8 @@ sudo apt-get install python3.6
     5. Install perls2 
         
         `pip install -e .`
-## Run PERL demos
+
+## Run an example
 Check out the examples in the `examples` folder [Overview](https://github.com/StanfordVL/perls2/tree/master/examples)
 
 Intructions for each demo may be found in the README in each folder.
@@ -54,7 +53,9 @@ Intructions for each demo may be found in the README in each folder.
 
 `python examples/simple_reach/run_simple_reach.py`
 
+## Setup for real robot control
+Instructions for setting up perls2 with real robot control are specific to machine and robot type. 
 
-
-
+[Setup instructions for Franka Panda](https://stanfordvl.github.io/perls2/source/panda_setup.html)
+[Setup instructions for Rethink Sawyer](https://stanfordvl.github.io/perls2/source/sawyer_instructions.html)
 
