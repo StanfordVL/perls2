@@ -17,12 +17,6 @@ You may modify the robot and world types in this config file as needed.
 
 
 ### OpSpace Demos:
-* **Hold EE Pose:**
-
-    Maintain initial end-effector pose using EEImpedance or EEPosture controller.
-    Provides indication of cartesian stiffness.
-
-    `python run_osc_fixed_demo.py`
 
 * **Line (x/y/z):**
 
