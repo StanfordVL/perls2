@@ -316,12 +316,6 @@ compute torques.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="perls2.robots.robot_interface.RobotInterface.step">
-<code class="sig-name descname">step</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.step" title="Permalink to this definition">¶</a></dt>
-<dd><p>Update the robot state and model, set torques from controller.</p>
-</dd></dl>
-
-<dl class="py method">
 <dt id="perls2.robots.robot_interface.RobotInterface.change_controller">
 <code class="sig-name descname">change_controller</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">next_type</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.change_controller" title="Permalink to this definition">¶</a></dt>
 <dd><p>Change to a different controller type.</p>
@@ -359,6 +353,12 @@ Choose from:
 <dd class="field-odd"><p><strong>control_type</strong> (<em>str</em>) – name of the control type.</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.robot_interface.RobotInterface.step">
+<code class="sig-name descname">step</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the robot state and model, set torques from controller.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1249,18 +1249,12 @@ commands.</p>
 <em class="property">class </em><code class="sig-prename descclassname">perls2.robots.real_robot_interface.</code><code class="sig-name descname">RealRobotInterface</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span></em>, <em class="sig-param"><span class="n">controlType</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.real_robot_interface.RealRobotInterface" title="Permalink to this definition">¶</a></dt>
 <dd><p>Abstract interface to be implemented for each real and simulated
 robot.</p>
-<dl class="py method">
-<dt id="perls2.robots.real_robot_interface.RealRobotInterface.connect">
-<code class="sig-name descname">connect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.real_robot_interface.RealRobotInterface.connect" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<p>..automethod:: disconnect</p>
 </dd></dl>
 
 </div>
 <div class="section" id="realsawyerinterface">
 <h2>RealSawyerInterface<a class="headerlink" href="#realsawyerinterface" title="Permalink to this headline">¶</a></h2>
-<p>Extends RealRobotInterface for REthink Sawyer Arms</p>
+<p>Extends RealRobotInterface for REthink SawyerArms</p>
 <dl class="py class">
 <dt id="perls2.robots.real_sawyer_interface.RealSawyerInterface">
 <em class="property">class </em><code class="sig-prename descclassname">perls2.robots.real_sawyer_interface.</code><code class="sig-name descname">RealSawyerInterface</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span></em>, <em class="sig-param"><span class="n">use_safenet</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">use_moveit</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">controlType</span><span class="o">=</span><span class="default_value">'EEImpedance'</span></em>, <em class="sig-param"><span class="n">node_name</span><span class="o">=</span><span class="default_value">'sawyer_interface'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.real_sawyer_interface.RealSawyerInterface" title="Permalink to this definition">¶</a></dt>
@@ -1271,14 +1265,7 @@ robot.</p>
 </div>
 <div class="section" id="realpandainterface">
 <h2>RealPandaInterface<a class="headerlink" href="#realpandainterface" title="Permalink to this headline">¶</a></h2>
-<p>Extends RealRobot Interface for Franka Panda Arms</p>
-<dl class="py class">
-<dt id="perls2.robots.real_panda_interface.RealPandaInterface">
-<em class="property">class </em><code class="sig-prename descclassname">perls2.robots.real_panda_interface.</code><code class="sig-name descname">RealPandaInterface</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span></em>, <em class="sig-param"><span class="n">controlType</span><span class="o">=</span><span class="default_value">'EEImpedance'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.real_panda_interface.RealPandaInterface" title="Permalink to this definition">¶</a></dt>
-<dd><p>Abstract interface to be implemented for each real and simulated
-robot.</p>
-</dd></dl>
-
+<p>Coming soon.</p>
 </div>
 </div>
 
