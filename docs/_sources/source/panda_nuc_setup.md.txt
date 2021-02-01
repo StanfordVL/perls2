@@ -23,11 +23,17 @@ To ensure consistent control loop timing, it is important that no other processe
 
 4. [Clone and install perls2](introduction.md#installing)
 
-5. Install redis.
+5. In perls2, checkout the `panda_dev` branch
+
+    ```
+    git checkout panda_dev
+    ```
+
+6. Install redis.
 
     `sudo apt-get install redis-server`
 
-6. Install the [franka-panda-iprl driver.](https://github.com/StanfordVL/franka-panda-iprl/) This is used by perls2 as a redis-wrapper for libfranka. Please note that this version of the driver has been modified specifically to work with perls2.
+7. Install the [franka-panda-iprl driver.](https://github.com/StanfordVL/franka-panda-iprl/) This is used by perls2 as a redis-wrapper for libfranka. Please note that this version of the driver has been modified specifically to work with perls2.
 
 ### Secure your redis server
 Because redis-server process requests very quickly, it is critical to secure your redis-server by setting a password. It's best to set a very long, randomly generated password.

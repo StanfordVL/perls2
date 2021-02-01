@@ -244,6 +244,11 @@
 <li><p><a class="reference external" href="https://frankaemika.github.io/docs/getting_started.html#control-network-configuration">Set up the Franka Panda Arm and Network.</a> There is no need to install libfranka just yet, the driver will do this later. It’s best to use a high bandwith network switch to connect the workstation, the FCI and the NUC to a local network.</p></li>
 <li><p><a class="reference external" href="https://frankaemika.github.io/docs/troubleshooting.html#disabling-cpu-frequency-scaling">Disable cpu power scaling</a> using cpufrequtils by following the [instructions here] The default setting slow down the CPU frequency for power conservation. We want our control loop to run as fast as possible to maintain a high frequency for torque control.</p></li>
 <li><p><a class="reference internal" href="introduction.html#installing"><span class="std std-ref">Clone and install perls2</span></a></p></li>
+<li><p>In perls2, checkout the <code class="docutils literal notranslate"><span class="pre">panda_dev</span></code> branch</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="n">panda_dev</span>
+</pre></div>
+</div>
+</li>
 <li><p>Install redis.</p>
 <p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">redis-server</span></code></p>
 </li>
