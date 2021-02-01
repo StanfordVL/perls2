@@ -10,11 +10,11 @@ RobotInterface
 
 .. autoclass:: perls2.robots.robot_interface.RobotInterface
 
+    .. automethod:: step
     .. automethod:: change_controller
     .. automethod:: update
     .. automethod:: update_model
     .. automethod:: make_controller
-    .. automethod:: step
     .. automethod:: set_controller_goal
     .. automethod:: move_ee_delta
     .. automethod:: set_ee_pose
@@ -69,12 +69,17 @@ Extends RobotInterface for Real Robots.
 
 .. autoclass:: perls2.robots.real_robot_interface.RealRobotInterface
 
+    ..automethod:: connect
+    ..automethod:: disconnect
+
 RealSawyerInterface
 -------------------
-Extends RealRobotInterface for REthink SawyerArms
+Extends RealRobotInterface for REthink Sawyer Arms
 
 .. autoclass:: perls2.robots.real_sawyer_interface.RealSawyerInterface
 
 RealPandaInterface
 ------------------
-Coming soon.
+Extends RealRobot Interface for Franka Panda Arms
+
+.. autoclass:: perls2.robots.real_panda_interface.RealPandaInterface

@@ -52,9 +52,18 @@ Because redis-server process requests very quickly, it is critical to secure you
         password: '/home/user/.hidden/redis_passfile.txt'
     ```
 
-5. Modify the perls2/cfg/franka-panda.yaml by changing the value of the `password` key just as you did for perls2.
+5. Modify the perls2/cfg/franka-panda.yaml by changing the value of the `perls2_redis: password` key just as you did for perls2.
 
-6. Run your redis-server with the conf file you've copied from perls2. If you don't use the conf file, your redis-server will not be secured.
+    ```
+    perls2_redis:
+      mass_matrix:          "model::mass_matrix"
+      jacobian:             "model::jacobian"
+      gravity:              "model::gravity"
+      coriolis:             "model::coriolis"
+      password:             "/home/robot/.redis/redis_passfile.txt"
+    ```
+
+6. Run your redis-server with the conf file you've copied from perls2. If you don't provide the path to the conf file as an argument, your redis-server will not be secured.
 
     ```
     redis-server /path/to/.hidden/redis.conf

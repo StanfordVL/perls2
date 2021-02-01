@@ -17,5 +17,5 @@ sudo apt-get install redis-server
 
 5. Follow the steps [here](panda_instructions.md) for using the Franka Panda, and run the Gravity Compensation demo.
     ```
-    python perls2/demos/run_gc_demo.py --Real
+    python perls2/demos/run_gc_demo.py --world=Real
     ```

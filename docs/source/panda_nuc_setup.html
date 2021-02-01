@@ -26,12 +26,12 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -269,8 +269,17 @@
 </pre></div>
 </div>
 </li>
-<li><p>Modify the perls2/cfg/franka-panda.yaml by changing the value of the <code class="docutils literal notranslate"><span class="pre">password</span></code> key just as you did for perls2.</p></li>
-<li><p>Run your redis-server with the conf file you’ve copied from perls2. If you don’t use the conf file, your redis-server will not be secured.</p>
+<li><p>Modify the perls2/cfg/franka-panda.yaml by changing the value of the <code class="docutils literal notranslate"><span class="pre">perls2_redis:</span> <span class="pre">password</span></code> key just as you did for perls2.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">perls2_redis</span><span class="p">:</span>
+  <span class="n">mass_matrix</span><span class="p">:</span>          <span class="s2">&quot;model::mass_matrix&quot;</span>
+  <span class="n">jacobian</span><span class="p">:</span>             <span class="s2">&quot;model::jacobian&quot;</span>
+  <span class="n">gravity</span><span class="p">:</span>              <span class="s2">&quot;model::gravity&quot;</span>
+  <span class="n">coriolis</span><span class="p">:</span>             <span class="s2">&quot;model::coriolis&quot;</span>
+  <span class="n">password</span><span class="p">:</span>             <span class="s2">&quot;/home/robot/.redis/redis_passfile.txt&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Run your redis-server with the conf file you’ve copied from perls2. If you don’t provide the path to the conf file as an argument, your redis-server will not be secured.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">-</span><span class="n">server</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/.</span><span class="n">hidden</span><span class="o">/</span><span class="n">redis</span><span class="o">.</span><span class="n">conf</span>
 </pre></div>
 </div>

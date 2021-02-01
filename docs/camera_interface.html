@@ -26,12 +26,12 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
@@ -222,41 +222,41 @@
 <p>Camera interfaces allow for images to be obtained by either real or simulated cameras (rendering).</p>
 <div class="section" id="camerainterface">
 <h2>CameraInterface<a class="headerlink" href="#camerainterface" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="perls2.sensors.camera_interface.CameraInterface">
-<em class="property">class </em><code class="sig-prename descclassname">perls2.sensors.camera_interface.</code><code class="sig-name descname">CameraInterface</code><span class="sig-paren">(</span><em class="sig-param">image_height</em>, <em class="sig-param">image_width</em>, <em class="sig-param">intrinsics</em>, <em class="sig-param">extrinsics=None</em>, <em class="sig-param">distortion=array([0.</em>, <em class="sig-param">0.</em>, <em class="sig-param">0.</em>, <em class="sig-param">0.</em>, <em class="sig-param">0.])</em>, <em class="sig-param">name='camera'</em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.sensors.camera_interface.CameraInterface" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">perls2.sensors.camera_interface.</code><code class="sig-name descname">CameraInterface</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image_height</span></em>, <em class="sig-param"><span class="n">image_width</span></em>, <em class="sig-param"><span class="n">intrinsics</span></em>, <em class="sig-param"><span class="n">extrinsics</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">distortion</span><span class="o">=</span><span class="default_value">array([0.0, 0.0, 0.0, 0.0, 0.0])</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">'camera'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.sensors.camera_interface.CameraInterface" title="Permalink to this definition">¶</a></dt>
 <dd><p>Abstract interface to be implemented for a sensor</p>
-<dl class="method">
+<dl class="py method">
 <dt id="perls2.sensors.camera_interface.CameraInterface.distortion">
 <em class="property">property </em><code class="sig-name descname">distortion</code><a class="headerlink" href="#perls2.sensors.camera_interface.CameraInterface.distortion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Camera distortion coefficients</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="perls2.sensors.camera_interface.CameraInterface.intrinsics">
 <em class="property">property </em><code class="sig-name descname">intrinsics</code><a class="headerlink" href="#perls2.sensors.camera_interface.CameraInterface.intrinsics" title="Permalink to this definition">¶</a></dt>
 <dd><p>Camera intrinsics</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="perls2.sensors.camera_interface.CameraInterface.name">
 <em class="property">property </em><code class="sig-name descname">name</code><a class="headerlink" href="#perls2.sensors.camera_interface.CameraInterface.name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Name of the camera</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="perls2.sensors.camera_interface.CameraInterface.reset">
 <code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.sensors.camera_interface.CameraInterface.reset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Restarts the sensor stream.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="perls2.sensors.camera_interface.CameraInterface.start">
 <code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.sensors.camera_interface.CameraInterface.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Starts the sensor stream.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="perls2.sensors.camera_interface.CameraInterface.stop">
 <code class="sig-name descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.sensors.camera_interface.CameraInterface.stop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stops the sensor stream.</p>
@@ -272,13 +272,13 @@
 </div>
 <div class="section" id="bulletcamerainterface">
 <h2>BulletCameraInterface<a class="headerlink" href="#bulletcamerainterface" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt>
-<em class="property">class </em><code class="sig-prename descclassname">perls2.sensors.bullet_camera_interface.</code><code class="sig-name descname">BulletCameraInterface</code><span class="sig-paren">(</span><em class="sig-param">physics_id=None, image_height=500, image_width=500, near=0.02, far=100, distance=1.0, fov=60, cameraEyePosition=[0.6, 0.0, 1.0], cameraTargetPosition=[0.6, 0.0, 0], cameraUpVector=[1.0, 0.0, 1.0], name='bullet_camera'</em><span class="sig-paren">)</span></dt>
+<em class="property">class </em><code class="sig-prename descclassname">perls2.sensors.bullet_camera_interface.</code><code class="sig-name descname">BulletCameraInterface</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">physics_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_height</span><span class="o">=</span><span class="default_value">500</span></em>, <em class="sig-param"><span class="n">image_width</span><span class="o">=</span><span class="default_value">500</span></em>, <em class="sig-param"><span class="n">near</span><span class="o">=</span><span class="default_value">0.02</span></em>, <em class="sig-param"><span class="n">far</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">distance</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">fov</span><span class="o">=</span><span class="default_value">60</span></em>, <em class="sig-param"><span class="n">cameraEyePosition</span><span class="o">=</span><span class="default_value">[0.6, 0.0, 1.0]</span></em>, <em class="sig-param"><span class="n">cameraTargetPosition</span><span class="o">=</span><span class="default_value">[0.6, 0.0, 0]</span></em>, <em class="sig-param"><span class="n">cameraUpVector</span><span class="o">=</span><span class="default_value">[1.0, 0.0, 1.0]</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">'bullet_camera'</span></em><span class="sig-paren">)</span></dt>
 <dd><p>” Interface for rendering camera images from PyBullet.</p>
-<dl class="attribute">
-<dt id="perls2.sensors.bullet_camera_interface.BulletCameraInterface.image_height">
-<code class="sig-name descname">image_height</code><a class="headerlink" href="#perls2.sensors.bullet_camera_interface.BulletCameraInterface.image_height" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">image_height</code></dt>
 <dd><p>Height of the image in pixels.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -287,9 +287,9 @@
 </dl>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="perls2.sensors.bullet_camera_interface.BulletCameraInterface.image_width">
-<code class="sig-name descname">image_width</code><a class="headerlink" href="#perls2.sensors.bullet_camera_interface.BulletCameraInterface.image_width" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">image_width</code></dt>
 <dd><p>Width of the image in pixels.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -298,9 +298,9 @@
 </dl>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="perls2.sensors.bullet_camera_interface.BulletCameraInterface.near">
-<code class="sig-name descname">near</code><a class="headerlink" href="#perls2.sensors.bullet_camera_interface.BulletCameraInterface.near" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">near</code></dt>
 <dd><p>The distance to the near plane.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -309,9 +309,9 @@
 </dl>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="perls2.sensors.bullet_camera_interface.BulletCameraInterface.far">
-<code class="sig-name descname">far</code><a class="headerlink" href="#perls2.sensors.bullet_camera_interface.BulletCameraInterface.far" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">far</code></dt>
 <dd><p>The distance to the far plane.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -320,9 +320,9 @@
 </dl>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="perls2.sensors.bullet_camera_interface.BulletCameraInterface.distance">
-<code class="sig-name descname">distance</code><a class="headerlink" href="#perls2.sensors.bullet_camera_interface.BulletCameraInterface.distance" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">distance</code></dt>
 <dd><p>The distance from the camera to the object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -331,9 +331,9 @@
 </dl>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="perls2.sensors.bullet_camera_interface.BulletCameraInterface.cameraEyePosition">
-<code class="sig-name descname">cameraEyePosition</code><a class="headerlink" href="#perls2.sensors.bullet_camera_interface.BulletCameraInterface.cameraEyePosition" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">cameraEyePosition</code></dt>
 <dd><p>3f xyz position of camera in world frame.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -342,9 +342,9 @@
 </dl>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="perls2.sensors.bullet_camera_interface.BulletCameraInterface.cameraTargetPosition">
-<code class="sig-name descname">cameraTargetPosition</code><a class="headerlink" href="#perls2.sensors.bullet_camera_interface.BulletCameraInterface.cameraTargetPosition" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">cameraTargetPosition</code></dt>
 <dd><p>3f xyz position of camera target in world frame.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -353,9 +353,9 @@
 </dl>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="perls2.sensors.bullet_camera_interface.BulletCameraInterface.cameraUpVectory">
-<code class="sig-name descname">cameraUpVectory</code><a class="headerlink" href="#perls2.sensors.bullet_camera_interface.BulletCameraInterface.cameraUpVectory" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">cameraUpVectory</code></dt>
 <dd><p>3f vector describing camera up direction.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -364,9 +364,9 @@
 </dl>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="perls2.sensors.bullet_camera_interface.BulletCameraInterface.view_matrix">
-<code class="sig-name descname">view_matrix</code><a class="headerlink" href="#perls2.sensors.bullet_camera_interface.BulletCameraInterface.view_matrix" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">view_matrix</code></dt>
 <dd><p>View matrix</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -375,9 +375,9 @@
 </dl>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="perls2.sensors.bullet_camera_interface.BulletCameraInterface.projection_matrix">
-<code class="sig-name descname">projection_matrix</code><a class="headerlink" href="#perls2.sensors.bullet_camera_interface.BulletCameraInterface.projection_matrix" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">projection_matrix</code></dt>
 <dd><p>projection matrix.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -386,9 +386,9 @@
 </dl>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="perls2.sensors.bullet_camera_interface.BulletCameraInterface.name">
-<code class="sig-name descname">name</code><a class="headerlink" href="#perls2.sensors.bullet_camera_interface.BulletCameraInterface.name" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">name</code></dt>
 <dd><p>string identifying name of camera.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -397,9 +397,9 @@
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt>
-<code class="sig-name descname">deproject</code><span class="sig-paren">(</span><em class="sig-param">pixel</em>, <em class="sig-param">depth</em>, <em class="sig-param">is_world_frame=True</em><span class="sig-paren">)</span></dt>
+<code class="sig-name descname">deproject</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pixel</span></em>, <em class="sig-param"><span class="n">depth</span></em>, <em class="sig-param"><span class="n">is_world_frame</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span></dt>
 <dd><p>Deprojects a single pixel with a given depth into a 3D point.
 :param pixel: 2D point representing the pixel location in camera image.
 :param depth: Depth value at the given pixel location.
@@ -414,7 +414,7 @@
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt>
 <code class="sig-name descname">frames</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
 <dd><p>Render the world at the current time step.
@@ -422,7 +422,7 @@ Args: None
 :returns: dict with rgb, depth and segmask image.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt>
 <code class="sig-name descname">frames_rgb</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
 <dd><p>Render the world at the current time step.
@@ -430,27 +430,27 @@ Args: None
 :returns: dict with rgb, depth and segmask image.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt>
 <code class="sig-name descname">get_intrinsics</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
 <dd><p>Calculate camera intrinsic matrix.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt>
 <em class="property">property </em><code class="sig-name descname">image_height</code></dt>
 <dd><p>Height of rendered image.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt>
 <em class="property">property </em><code class="sig-name descname">image_width</code></dt>
 <dd><p>Width of rendered image.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt>
-<code class="sig-name descname">place</code><span class="sig-paren">(</span><em class="sig-param">new_camera_pos</em><span class="sig-paren">)</span></dt>
+<code class="sig-name descname">place</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_camera_pos</span></em><span class="sig-paren">)</span></dt>
 <dd><p>Places camera in new position</p>
 <p>Modifies cameraEyePosition property and adjusts view and
 projection matrices</p>
@@ -462,43 +462,43 @@ projection matrices</p>
 <p>Returns: None</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt>
 <em class="property">property </em><code class="sig-name descname">projection_matrix</code></dt>
 <dd><p>Projection matrix.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt>
-<code class="sig-name descname">set_physics_id</code><span class="sig-paren">(</span><em class="sig-param">physics_id</em><span class="sig-paren">)</span></dt>
+<code class="sig-name descname">set_physics_id</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">physics_id</span></em><span class="sig-paren">)</span></dt>
 <dd><p>Set unique physics client id
 :param physics_id: new physics id to set.
 :type physics_id: int</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt>
-<code class="sig-name descname">set_projection_matrix</code><span class="sig-paren">(</span><em class="sig-param">projection_matrix</em><span class="sig-paren">)</span></dt>
+<code class="sig-name descname">set_projection_matrix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">projection_matrix</span></em><span class="sig-paren">)</span></dt>
 <dd><p>Set projection matrix for the camera.
 :param projection_matrix: list of 16 floats for pybullet projection matrix.
 :type projection_matrix: list</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt>
-<code class="sig-name descname">set_view_matrix</code><span class="sig-paren">(</span><em class="sig-param">view_matrix</em><span class="sig-paren">)</span></dt>
+<code class="sig-name descname">set_view_matrix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">view_matrix</span></em><span class="sig-paren">)</span></dt>
 <dd><p>Set View matrix for the camera
 :param view_matrix: list of 16 floats for pybullet view_matrix
 :type view_matrix: list</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt>
 <code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
 <dd><p>Starts the camera stream.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt>
 <code class="sig-name descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
 <dd><p>Stops the sensor stream.</p>
@@ -509,7 +509,7 @@ projection matrices</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt>
 <em class="property">property </em><code class="sig-name descname">view_matrix</code></dt>
 <dd><p>View matrix.</p>
