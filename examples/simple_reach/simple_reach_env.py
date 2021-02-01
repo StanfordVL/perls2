@@ -6,9 +6,7 @@ import time
 import math
 import numpy as np
 from perls2.utils.yaml_config import YamlConfig
-
 from perls2.envs.env import Env
-
 import gym.spaces as spaces
 import logging
 

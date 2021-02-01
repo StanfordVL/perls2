@@ -39,7 +39,7 @@ class JointSpaceDemo(Demo):
     def __init__(self,
                  ctrl_type,
                  demo_type,
-                 config_file="demo_control_cfg.yaml",
+                 config_file="demos/demo_control_cfg.yaml",
                  delta_val=0.005, num_steps=30,
                  test_fn='set_joint_delta',
                  **kwargs):
@@ -208,7 +208,7 @@ class SingleJointDemo(JointSpaceDemo):
     """Joint Space demonstration for a single joint.
     """
     def __init__(self,
-                 config_file="demo_control_cfg.yaml",
+                 config_file="demos/demo_control_cfg.yaml",
                  delta_val=0.005, num_steps=30,
                  test_fn='set_joint_delta',
                  joint_num=6,
@@ -248,7 +248,7 @@ class GravityCompDemo(JointSpaceDemo):
     """Gravity Compensation to demonstrate "floating" arm.
     """
     def __init__(self,
-                 config_file="demo_control_cfg.yaml",
+                 config_file="demos/demo_control_cfg.yaml",
                  num_steps=100,
                  **kwargs):
 
@@ -280,7 +280,7 @@ class GravityCompDemo(JointSpaceDemo):
 
 class JointImpDemoSeq(SingleJointDemo):
     def __init__(self,
-             config_file="demo_control_cfg.yaml",
+             config_file="demos/demo_control_cfg.yaml",
              delta_val=0.005, num_steps=30,
              test_fn='set_joint_delta',
              **kwargs):

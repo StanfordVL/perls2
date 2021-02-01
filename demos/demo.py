@@ -34,7 +34,7 @@ class Demo(object):
                  ctrl_type,
                  demo_type,
                  test_fn,
-                 config_file="demo_control_cfg.yaml",
+                 config_file="demos/demo_control_cfg.yaml",
                  **kwargs):
         self.ctrl_type = ctrl_type
         self.config_file = config_file

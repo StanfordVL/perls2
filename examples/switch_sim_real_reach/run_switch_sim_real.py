@@ -30,7 +30,7 @@ def get_action(observation):
     return action
 
 
-env = SwitchSimRealEnv('./sim_real_reach.yaml', True, None)
+env = SwitchSimRealEnv('examples/switch_sim_real_reach/sim_real_reach.yaml', True, None)
 
 # Lists for saving demonstrations
 training_list = []

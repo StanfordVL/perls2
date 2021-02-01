@@ -1,6 +1,5 @@
 import time
 import math
-import pybullet
 import numpy as np
 from perls2.utils.yaml_config import YamlConfig
 import logging
@@ -53,8 +52,8 @@ class SwitchSimRealEnv(Env):
         self._initial_ee_orn = self.robot_interface.ee_orientation
 
         # For randomizing goal position in real world cases.
-        self.goal_upper_bound = np.add(self.reset_position, [0.1, 0.0, 0])
-        self.goal_lower_bound = np.add(self.reset_position, [-0.1, -0.0, 0])
+        self.goal_upper_bound = np.add(self.reset_position, [0.2, 0.0, 0])
+        self.goal_lower_bound = np.add(self.reset_position, [0.1, -0.0, 0])
 
     def reset(self):
         """Reset the environment.
@@ -208,7 +207,7 @@ class SwitchSimRealEnv(Env):
             print("Done - success!")
             return True
         if (self.num_steps > self.MAX_STEPS):
-            print("Done - max steps reached.")
+            print("Done - max steps reached.\n Final dist to goal \t{}".format(abs_dist))
             return True
         else:
             return False

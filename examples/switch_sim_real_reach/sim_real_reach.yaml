@@ -1,13 +1,20 @@
 # Cfg file for SimpleReachEnv
 world:
   type: 'Real'
-  robot: 'sawyer'
+  robot: 'panda'
+  controlType: 'EEImpedance'
 data_dir: '../../data'
 # Simulation parameters
 sim_params:
   time_step: 0.001 #0.004166  # 1./240.
   steps_per_action: 20 # policy to sim update ratio
-  MAX_STEPS: 10
+  MAX_STEPS: 500
+
+policy_freq: 20 # For gazebo?
+control_freq: 500 # Hz
+
+# If set up has Kinect camera
+real_camera: False
 
 # Robots are specified by types and urdf locations
 # also may include intial setup like poses and orientations
