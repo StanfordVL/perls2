@@ -1,0 +1,349 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Controller Demos &mdash; perls2 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Using the Rethink Sawyer Arm" href="sawyer_instructions.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> perls2
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="panda_setup.html">Franka Panda Setup</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="environments.html">Environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="worlds.html">World</a></li>
+<li class="toctree-l1"><a class="reference internal" href="robot_interfaces.html">RobotInterfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="controller_eqns.html">Controllers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../simple_reach.html">Simple Reach Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load_objects.html">Examples: Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="switch_sim_real.html">Switching between Real and Sim Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="project_template.html">Project Template</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../env.html">Environment (Env)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../world.html">World</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../robot_interface.html">Robot Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../controller.html">Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../object_interface.html">Object Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../camera_interface.html">Camera Interface</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Real Robot Control</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="panda_setup.html">Franka Panda Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="panda_nuc_setup.html">Set up NUC (Control PC) for the Franka Panda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="panda_ws_setup.html">Set up workstation for Franka Panda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="panda_instructions.html">Using the Franka Panda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="redis.html">Redis Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sawyer_instructions.html">Using the Rethink Sawyer Arm</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Controller Demos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#quickstart">Quickstart:</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#opspace-demos">OpSpace Demos:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#jointspace-demos">JointSpace Demos:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#command-line-specifications">Command-line specifications</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">perls2</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Controller Demos</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/source/demos.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="controller-demos">
+<h1>Controller Demos<a class="headerlink" href="#controller-demos" title="Permalink to this headline">¶</a></h1>
+<p>The Demos module provides scripts to demonstrate and validate perls2 controller performance.
+Each demo creates a perls2.env and can be used to test perls2 controllers for several
+different trajectories and robot interface commands. They can be configured in the command line and
+can also be used to run on custom configuration files. This is helpful when debugging controller
+behavior vs policy behavior.</p>
+<p>Demos are organized into the two action spaces: OpSpace (Operational Space Control) and Joint Space</p>
+<div class="section" id="quickstart">
+<h2>Quickstart:<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h2>
+<p>The following demos may be run out-of-the-box to verify perls2 controller performance.</p>
+<p>The default config file for all demos is found in <code class="docutils literal notranslate"><span class="pre">perls2/demos/demo_control_cfg.yaml</span></code>.
+You may modify the robot and world types in this config file as needed.</p>
+<div class="section" id="opspace-demos">
+<h3>OpSpace Demos:<a class="headerlink" href="#opspace-demos" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p><strong>Line (x/y/z):</strong></p>
+<p>Move end-effector in a straight line using EEImpedance or EEPosture controller, while maintaining orientation.</p>
+<p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">run_osc_line_demo.py</span></code></p>
+</li>
+<li><p><strong>Square :</strong></p>
+<p>Move end-effector in a square shape in the XY plane, while maintaining orientation.</p>
+<p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">run_osc_square_demo.py</span></code></p>
+</li>
+<li><p><strong>Rotation (x/y/z):</strong></p>
+<p>Rotate end-effector about initial ee-frame axis a fixed amount while maintaining position.</p>
+<p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">run_osc_rot_demo.py</span></code></p>
+</li>
+</ul>
+</div>
+<div class="section" id="jointspace-demos">
+<h3>JointSpace Demos:<a class="headerlink" href="#jointspace-demos" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p><strong>Gravity Compensation :</strong>
+set robot to gravity compensation mode using JointTorque controller.</p>
+<p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">run_gc_demo.py</span></code></p>
+</li>
+<li><p><strong>Sequential Joint :</strong></p>
+<p>Individually rotate each joint using JointImpedance controller. Resets robot
+after each joint test.</p>
+<p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">run_jointimp_demo.py</span></code></p>
+</li>
+</ul>
+</div>
+<div class="section" id="command-line-specifications">
+<h3>Command-line specifications<a class="headerlink" href="#command-line-specifications" title="Permalink to this headline">¶</a></h3>
+<p>Demonstrations may be customized with several command-line arguments. This is helpful in tuning gains,
+or verifying a controller or robot is working properly.</p>
+<p>You can specify the following command-line arguments for all demos. These arguments have different meanings based on the type of demo, so it’s best to check documentation for the specific demo type.</p>
+<p>For example, you can’t run a JointSpace Demo with an EEImpedance controller.</p>
+<p>You can see the valid command line args for a demo with:
+<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">run_&lt;demo_name&gt;.py</span> <span class="pre">-h</span></code></p>
+<p>The parameters general to all demos are listed here:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">world</span>     <span class="p">(</span><span class="nb">str</span><span class="p">):</span> <span class="n">world</span> <span class="nb">type</span> <span class="n">to</span> <span class="n">run</span> <span class="n">the</span> <span class="n">demo</span><span class="o">.</span> <span class="n">Overrides</span> <span class="n">config</span> <span class="n">file</span> <span class="p">(</span><span class="s1">&#39;Real&#39;</span> <span class="ow">or</span> <span class="s1">&#39;Bullet&#39;</span><span class="p">)</span>
+<span class="o">--</span><span class="n">ctrl_type</span> <span class="p">(</span><span class="nb">str</span><span class="p">):</span> <span class="n">Controller</span> <span class="nb">type</span> <span class="k">for</span> <span class="n">the</span> <span class="n">demo</span><span class="o">.</span>
+<span class="o">--</span><span class="n">demo_type</span> <span class="p">(</span><span class="nb">str</span><span class="p">):</span> <span class="n">Type</span> <span class="n">of</span> <span class="n">demo</span> <span class="n">to</span> <span class="n">perform</span><span class="o">.</span>
+<span class="o">--</span><span class="n">test_fn</span> <span class="p">(</span><span class="nb">str</span><span class="p">):</span> <span class="n">RobotInterface</span> <span class="n">function</span> <span class="n">environment</span> <span class="n">will</span> <span class="n">use</span> <span class="n">to</span> <span class="n">perform</span> <span class="n">actions</span><span class="o">.</span> <span class="n">Specific</span> <span class="n">to</span> <span class="n">controller</span> <span class="nb">type</span><span class="o">.</span>
+<span class="o">--</span><span class="n">delta_val</span> <span class="p">(</span><span class="nb">float</span><span class="p">):</span> <span class="n">Step</span> <span class="n">size</span> <span class="n">between</span> <span class="n">consecutive</span> <span class="n">steps</span> <span class="ow">in</span> <span class="n">demo</span><span class="o">.</span> <span class="n">Best</span> <span class="n">to</span> <span class="n">keep</span> <span class="n">small</span> <span class="p">(</span><span class="o">~</span><span class="mf">0.001</span><span class="p">)</span>
+<span class="o">--</span><span class="n">num_steps</span> <span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="p">:</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">steps</span> <span class="n">to</span> <span class="n">perform</span> <span class="ow">in</span> <span class="n">demonstration</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>The following optional command line arguments are also available:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">plot_pos</span> <span class="p">(</span><span class="n">flag</span><span class="p">):</span> <span class="n">Plot</span> <span class="n">actualrobot</span> <span class="n">states</span> <span class="n">vs</span> <span class="n">goal</span> <span class="n">joint</span> <span class="n">state</span> <span class="n">at</span> <span class="n">each</span> <span class="n">step</span> <span class="n">using</span> <span class="n">matplotlib</span>
+<span class="o">--</span><span class="n">plot_error</span> <span class="p">(</span><span class="n">flag</span><span class="p">):</span> <span class="n">Plot</span> <span class="n">error</span> <span class="n">at</span> <span class="n">each</span> <span class="n">step</span> <span class="n">using</span> <span class="n">matplotlib</span>
+<span class="o">--</span><span class="n">save_fig</span> <span class="p">(</span><span class="n">flag</span><span class="p">):</span> <span class="n">save</span> <span class="n">position</span> <span class="ow">and</span> <span class="n">error</span> <span class="n">plots</span> <span class="k">as</span> <span class="n">png</span><span class="o">.</span>
+<span class="o">--</span><span class="n">config_file</span> <span class="p">(</span><span class="nb">str</span><span class="p">):</span> <span class="n">config</span> <span class="n">file</span> <span class="n">to</span> <span class="n">use</span> <span class="k">for</span> <span class="n">controller</span> <span class="n">gains</span> <span class="ow">and</span> <span class="n">parameters</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="sawyer_instructions.html" class="btn btn-neutral float-left" title="Using the Rethink Sawyer Arm" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, StanfordVL
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

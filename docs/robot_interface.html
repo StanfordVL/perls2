@@ -1,0 +1,1328 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Robot Interfaces &mdash; perls2 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Controller" href="controller.html" />
+    <link rel="prev" title="World" href="world.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> perls2
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="source/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/panda_setup.html">Franka Panda Setup</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="source/environments.html">Environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/worlds.html">World</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/robot_interfaces.html">RobotInterfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/controller_eqns.html">Controllers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="simple_reach.html">Simple Reach Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/load_objects.html">Examples: Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/switch_sim_real.html">Switching between Real and Sim Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/project_template.html">Project Template</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="env.html">Environment (Env)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="world.html">World</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Robot Interfaces</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#robotinterface">RobotInterface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bulletrobotinterface">BulletRobotInterface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bulletsawyerinterface">BulletSawyerInterface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bulletpandainterface">BulletPandaInterface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#realrobotinterface">RealRobotInterface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#realsawyerinterface">RealSawyerInterface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#realpandainterface">RealPandaInterface</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="controller.html">Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_interface.html">Object Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="camera_interface.html">Camera Interface</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Real Robot Control</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="source/panda_setup.html">Franka Panda Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/panda_nuc_setup.html">Set up NUC (Control PC) for the Franka Panda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/panda_ws_setup.html">Set up workstation for Franka Panda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/panda_instructions.html">Using the Franka Panda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/redis.html">Redis Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/sawyer_instructions.html">Using the Rethink Sawyer Arm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/demos.html">Controller Demos</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">perls2</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Robot Interfaces</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/robot_interface.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="robot-interfaces">
+<h1>Robot Interfaces<a class="headerlink" href="#robot-interfaces" title="Permalink to this headline">¶</a></h1>
+<p>Interface for obtaining robot state and sending robot control commands.
+RobotInterfaces are specific to the world they inhabit, as well as the
+type of robot. They contain Controllers for converting desired goal states
+to a set of joint torques.</p>
+<div class="section" id="robotinterface">
+<h2>RobotInterface<a class="headerlink" href="#robotinterface" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="perls2.robots.robot_interface.RobotInterface">
+<em class="property">class </em><code class="sig-prename descclassname">perls2.robots.robot_interface.</code><code class="sig-name descname">RobotInterface</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span></em>, <em class="sig-param"><span class="n">controlType</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract interface to be implemented for each real and simulated
+robot.</p>
+<dl class="py attribute">
+<dt id="perls2.robots.robot_interface.RobotInterface.action_set">
+<code class="sig-name descname">action_set</code><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.action_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>flag describing if action for controller has been
+set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="perls2.robots.robot_interface.RobotInterface.config">
+<code class="sig-name descname">config</code><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary describing robot parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="perls2.robots.robot_interface.RobotInterface.control_type">
+<code class="sig-name descname">control_type</code><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.control_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type of controller for robot to use
+e.g. “EEImpedance”, “JointVelocity”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="perls2.robots.robot_interface.RobotInterface.interpolator_pos">
+<code class="sig-name descname">interpolator_pos</code><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.interpolator_pos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interpolator for ee/joint position</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>perls2.interpolator.linear_interpolator</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="perls2.robots.robot_interface.RobotInterface.interpolator_ori">
+<code class="sig-name descname">interpolator_ori</code><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.interpolator_ori" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interpolator for ee orientation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>perls2.interpolator.linear_interpolator</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="perls2.robots.robot_interface.RobotInterface.model">
+<code class="sig-name descname">model</code><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>a model of the robot state as defined by tq_control.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Model</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="perls2.robots.robot_interface.RobotInterface.controller">
+<code class="sig-name descname">controller</code><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.controller" title="Permalink to this definition">¶</a></dt>
+<dd><p>tq_control object that takes robot states and
+compute torques.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="controller.html#perls2.controllers.base_controller.Controller" title="perls2.controllers.base_controller.Controller">Controller</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.robot_interface.RobotInterface.change_controller">
+<code class="sig-name descname">change_controller</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">next_type</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.change_controller" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change to a different controller type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>next_type</strong> (<em>str</em>) – keyword for desired control type.
+Choose from:
+-‘EEImpedance’
+-‘EEPosture’
+-‘JointVelocity’
+-‘JointImpedance’
+-‘JointTorque’</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.robot_interface.RobotInterface.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update robot interface model with states for controller.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.robot_interface.RobotInterface.update_model">
+<code class="sig-name descname">update_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.update_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update robot model with states and dynamics.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.robot_interface.RobotInterface.make_controller">
+<code class="sig-name descname">make_controller</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">control_type</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.make_controller" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a new controller type based on specs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>control_type</strong> (<em>str</em>) – name of the control type.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.robot_interface.RobotInterface.step">
+<code class="sig-name descname">step</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the robot state and model, set torques from controller.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.robot_interface.RobotInterface.set_controller_goal">
+<code class="sig-name descname">set_controller_goal</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.set_controller_goal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update model and set the goal for controller.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kwargs</strong> (<em>dict</em>) – arguments specific to controller for setting goal.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.robot_interface.RobotInterface.move_ee_delta">
+<code class="sig-name descname">move_ee_delta</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">delta</span></em>, <em class="sig-param"><span class="n">set_pos</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">set_ori</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.move_ee_delta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use controller to move end effector by some delta.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>delta</strong> (<em>6f</em>) – delta position (dx, dy, dz) concatenated with delta orientation.
+Orientation change is specified as an axis angle rotation from previous
+orientation.</p></li>
+<li><p><strong>set_pos</strong> (<em>3f</em>) – end effector position to maintain while changing orientation.
+[x, y, z]. If not None, the delta for position is ignored.</p></li>
+<li><p><strong>set_ori</strong> (<em>4f</em>) – end effector orientation to maintain while changing orientation
+as a quaternion [qx, qy, qz, w]. If not None, any delta for orientation is ignored.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>To fix position or orientation, it is better to specify using the kwargs than
+to use a 0 for the corresponding delta. This prevents any error from accumulating in
+that dimension.</p>
+<p class="rubric">Examples</p>
+<p>Specify delta holding fixed orientation::
+self.robot_interface.move_ee_delta([0.1, 0, 0, 0, 0, 0], set_pos=None, set_ori=[0, 0, 0, 1])</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.robot_interface.RobotInterface.set_ee_pose">
+<code class="sig-name descname">set_ee_pose</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">set_pos</span></em>, <em class="sig-param"><span class="n">set_ori</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.set_ee_pose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use controller to set end effector pose.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>set_pos</strong> (<em>list</em>) – 3f [x, y , z] desired absolute ee position
+in world frame.</p></li>
+<li><p><strong>set_ori</strong> (<em>list</em>) – 4f [qx, qy, qz, w] desired absolute ee orientation
+in world frame.</p></li>
+<li><p><strong>**kwargs</strong> (<em>dict</em>) – used to catch all other arguments.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p>Notes: Only for use with EEImpedance and EEPosture controller.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.robot_interface.RobotInterface.set_joint_positions">
+<code class="sig-name descname">set_joint_positions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">set_qpos</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.set_joint_positions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use controller to set new joint positions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>set_qpos</strong> – 7f absolute joint positions (rad)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p>Notes: Only for use with Joint Impedance Controller</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.robot_interface.RobotInterface.set_joint_delta">
+<code class="sig-name descname">set_joint_delta</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">delta</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.set_joint_delta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use controller to set new joint position with a delta.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>delta</strong> (<em>ndarray</em>) – 7f delta joint position (rad) from current
+joint position.</p>
+</dd>
+</dl>
+<p>Returns: None</p>
+<dl class="simple">
+<dt>Notes: Only for use with JointImpedance controller.</dt><dd><p>Does not check for exceeding maximum joint limits. (TODO)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.robot_interface.RobotInterface.set_joint_velocities">
+<code class="sig-name descname">set_joint_velocities</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">velocities</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.set_joint_velocities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use controller to set joint velocity of the robot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>velocities</strong> (<em>list</em>) – 7f desired joint velocities (rad/s) for each joint.</p></li>
+<li><p><strong>0 is the base</strong> (<em>Joint</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns: None.</p>
+<p>Notes: Only for use with JointVelocity controller.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.robot_interface.RobotInterface.set_joint_torques">
+<code class="sig-name descname">set_joint_torques</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">torques</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.set_joint_torques" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set joint torques to new joint torques.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>torques</strong> (<em>list</em>) – 7f list of toruqes to command.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Only for use with Joint Torque Controlle</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.robot_interface.RobotInterface.open_gripper">
+<em class="property">abstract </em><code class="sig-name descname">open_gripper</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.open_gripper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open robot gripper.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.robot_interface.RobotInterface.close_gripper">
+<em class="property">abstract </em><code class="sig-name descname">close_gripper</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.close_gripper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close robot gripper</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.robot_interface.RobotInterface.set_gripper_to_value">
+<em class="property">abstract </em><code class="sig-name descname">set_gripper_to_value</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.set_gripper_to_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set gripper to desired open/close value</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.robot_interface.RobotInterface.name">
+<em class="property">abstract property </em><code class="sig-name descname">name</code><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>str of the name of the robot</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.robot_interface.RobotInterface.ee_pose">
+<em class="property">abstract property </em><code class="sig-name descname">ee_pose</code><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.ee_pose" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of seven floats [x, y, z, qx, qy, qz, qw] of the 6D pose
+of the end effector.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.robot_interface.RobotInterface.ee_position">
+<em class="property">abstract property </em><code class="sig-name descname">ee_position</code><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.ee_position" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of three floats [x, y, z] of the position of the
+end-effector.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.robot_interface.RobotInterface.ee_orientation">
+<em class="property">abstract property </em><code class="sig-name descname">ee_orientation</code><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.ee_orientation" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of four floats [qx, qy, qz, qw] of the orientation
+quaternion of the end-effector.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.robot_interface.RobotInterface.ee_v">
+<em class="property">abstract property </em><code class="sig-name descname">ee_v</code><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.ee_v" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of seven floats [x, y, z, qx, qy, qz, qw] of the 6D pose
+of the end effector.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.robot_interface.RobotInterface.ee_w">
+<em class="property">abstract property </em><code class="sig-name descname">ee_w</code><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.ee_w" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of seven floats [x, y, z, qx, qy, qz, qw] of the 6D pose
+of the end effector.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.robot_interface.RobotInterface.ee_twist">
+<em class="property">abstract property </em><code class="sig-name descname">ee_twist</code><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.ee_twist" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of seven floats [x, y, z, qx, qy, qz, qw] of the 6D pose
+of the end effector.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.robot_interface.RobotInterface.q">
+<em class="property">abstract property </em><code class="sig-name descname">q</code><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.q" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of 7f describing joint positions (rad) of the robot arm.</p>
+<p>Ordered from base to end_effector</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.robot_interface.RobotInterface.dq">
+<em class="property">abstract property </em><code class="sig-name descname">dq</code><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.dq" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of 7f describing joint velocities (rad/s) of the robot arm.</p>
+<p>Ordered from base to end_effector</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.robot_interface.RobotInterface.jacobian">
+<em class="property">abstract property </em><code class="sig-name descname">jacobian</code><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.jacobian" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of 7f describing joint velocities (rad/s) of the robot arm.</p>
+<p>Ordered from base to end_effector</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.robot_interface.RobotInterface.linear_jacobian">
+<em class="property">abstract property </em><code class="sig-name descname">linear_jacobian</code><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.linear_jacobian" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of 7f describing joint velocities (rad/s) of the robot arm.</p>
+<p>Ordered from base to end_effector</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.robot_interface.RobotInterface.angular_jacobian">
+<em class="property">abstract property </em><code class="sig-name descname">angular_jacobian</code><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.angular_jacobian" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of 7f describing joint velocities (rad/s) of the robot arm.</p>
+<p>Ordered from base to end_effector</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.robot_interface.RobotInterface.mass_matrix">
+<em class="property">abstract property </em><code class="sig-name descname">mass_matrix</code><a class="headerlink" href="#perls2.robots.robot_interface.RobotInterface.mass_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of 7f describing joint velocities (rad/s) of the robot arm.</p>
+<p>Ordered from base to end_effector</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="bulletrobotinterface">
+<h2>BulletRobotInterface<a class="headerlink" href="#bulletrobotinterface" title="Permalink to this headline">¶</a></h2>
+<p>Extends RobotInterface functionality for BulletWorlds to be used
+wity PyBullet. Connects to pybullet physics engine to obtain
+robot state and dynamics parameters as well as execute torque control.</p>
+<dl class="py class">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface">
+<em class="property">class </em><code class="sig-prename descclassname">perls2.robots.bullet_robot_interface.</code><code class="sig-name descname">BulletRobotInterface</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">physics_id</span></em>, <em class="sig-param"><span class="n">arm_id</span></em>, <em class="sig-param"><span class="n">config</span></em>, <em class="sig-param"><span class="n">controlType</span><span class="o">=</span><span class="default_value">'JointVelocity'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract class that extends RobotInterface for BulletWorlds.</p>
+<dl class="py attribute">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.physics_id">
+<code class="sig-name descname">physics_id</code><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.physics_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>id for PyBullet physics client.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.arm_id">
+<code class="sig-name descname">arm_id</code><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.arm_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>id for robot arm in PyBullet. Returned by pb.loadURDF</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.config">
+<code class="sig-name descname">config</code><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.config" title="Permalink to this definition">¶</a></dt>
+<dd><p>config parameters for the perls2 env.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.robot_cfg">
+<code class="sig-name descname">robot_cfg</code><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.robot_cfg" title="Permalink to this definition">¶</a></dt>
+<dd><p>config parameters specific to the robot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.N_q">
+<em class="property">property </em><code class="sig-name descname">N_q</code><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.N_q" title="Permalink to this definition">¶</a></dt>
+<dd><p>Joint space gravity vector.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.N_x">
+<em class="property">property </em><code class="sig-name descname">N_x</code><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.N_x" title="Permalink to this definition">¶</a></dt>
+<dd><p>get combined gravity, coriolis and centrifigual terms
+in op space</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.angular_jacobian">
+<em class="property">property </em><code class="sig-name descname">angular_jacobian</code><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.angular_jacobian" title="Permalink to this definition">¶</a></dt>
+<dd><p>The angular jacobian rdot= J_r*qdot</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.close_gripper">
+<code class="sig-name descname">close_gripper</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.close_gripper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close the gripper of the robot</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.create">
+<code class="sig-name descname">create</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">physics_id</span></em>, <em class="sig-param"><span class="n">arm_id</span></em>, <em class="sig-param"><span class="n">controlType</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Factory for creating robot interfaces based on type</p>
+<p>Creates a Bullet Sawyer or Panda Interface.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> (<em>dict</em>) – config dictionary specifying robot type</p></li>
+<li><p><strong>physics_id</strong> (<em>int</em>) – unique id for identifying pybullet sim</p></li>
+<li><p><strong>arm_id</strong> (<em>int</em>) – unique id for identifying robot urdf from the arena</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Only Rethink Sawyer Robots are currently supported</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.dof">
+<em class="property">property </em><code class="sig-name descname">dof</code><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.dof" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of degrees of freedom of robot.
+Note: this may not be the same as number of “free” joints according to
+pybullet. Pybullet counts prismatic joints in gripper.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.dq">
+<em class="property">property </em><code class="sig-name descname">dq</code><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.dq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the joint velocities of the robot arm.
+:return: a list of joint velocities in radian/s ordered by
+indices from small to large.
+Typically the order goes from base to end effector.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.ee_orientation">
+<em class="property">property </em><code class="sig-name descname">ee_orientation</code><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.ee_orientation" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of four floats [qx, qy, qz, qw] of the orientation
+quaternion of the end-effector.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.ee_pose">
+<em class="property">property </em><code class="sig-name descname">ee_pose</code><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.ee_pose" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of seven floats [x, y, z, qx, qy, qz, qw] of the 6D pose
+of the end effector.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.ee_position">
+<em class="property">property </em><code class="sig-name descname">ee_position</code><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.ee_position" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of three floats [x, y, z] of the position of the
+end-effector.</p>
+<p>Updates every call. Does not store property.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.ee_twist">
+<em class="property">property </em><code class="sig-name descname">ee_twist</code><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.ee_twist" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of seven floats [x, y, z, qx, qy, qz, qw] of the 6D pose
+of the end effector.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.ee_v">
+<em class="property">property </em><code class="sig-name descname">ee_v</code><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.ee_v" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of seven floats [x, y, z, qx, qy, qz, qw] of the 6D pose
+of the end effector.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.ee_w">
+<em class="property">property </em><code class="sig-name descname">ee_w</code><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.ee_w" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of seven floats [x, y, z, qx, qy, qz, qw] of the 6D pose
+of the end effector.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.getMotorJointStates">
+<code class="sig-name descname">getMotorJointStates</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.getMotorJointStates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get joint states at each motor.</p>
+<p>Pybullet model includes extra joints not relevant for robot control.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple of lists of</dt><dd><p>joint positions, velocities and torques.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>joint_positions, joint velocities, joint_torques (tuple)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.get_dof">
+<code class="sig-name descname">get_dof</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.get_dof" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return number of free joints according to pybullet</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.get_joint_limit">
+<code class="sig-name descname">get_joint_limit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">joint_ind</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.get_joint_limit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the limit of the joint.</p>
+<p>These limits are specified by the URDF.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>joint_uid</strong> – A tuple of the body Unique ID and the joint index.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A dictionary of lower, upper, effort and velocity.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>limit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.get_joint_limits">
+<code class="sig-name descname">get_joint_limits</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.get_joint_limits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of all joint limits</p>
+<p>Args: Non
+Returns: list of joint limit dictionaries</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.get_joint_max_forces">
+<code class="sig-name descname">get_joint_max_forces</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.get_joint_max_forces" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the max velocities for each not fixed joint.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.get_joint_max_velocities">
+<code class="sig-name descname">get_joint_max_velocities</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.get_joint_max_velocities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the max velocities for each not fixed joint.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.get_link_dict">
+<code class="sig-name descname">get_link_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.get_link_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a dictionary between link id and link name
+Dictionary keys are link_name : link_id</p>
+<dl class="simple">
+<dt>Notes: Each link is connnected by a joint to its parent, so</dt><dd><p>num links = num joints</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.get_link_id_from_name">
+<code class="sig-name descname">get_link_id_from_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">link_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.get_link_id_from_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get link id from name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>link_name</strong> (<em>str</em>) – name of link in urdf file</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>index of the link in urdf file.</dt><dd><p>OR -1 if not found.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>link_id (int)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.get_link_name">
+<code class="sig-name descname">get_link_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">link_uid</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.get_link_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the name of the link. (joint)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>link_uid</strong> – A tuple of the body Unique ID and the link index.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>The name of the link.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.gravity_vector">
+<em class="property">property </em><code class="sig-name descname">gravity_vector</code><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.gravity_vector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the gravity vector at the current joint state.</p>
+<p>Pybullet does not currently expose the gravity vector so we compute it
+using inverse dynamics.</p>
+<p>Args : None
+:returns: num_joints x 1 list of gravity torques on each joint.
+:rtype: gravity_torques  (list)</p>
+<p>Notes: to ignore coriolis forces we set the object velocities to zero.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.gripper_dq">
+<em class="property">property </em><code class="sig-name descname">gripper_dq</code><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.gripper_dq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gripper joint velocities as a tuple</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.gripper_q">
+<em class="property">property </em><code class="sig-name descname">gripper_q</code><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.gripper_q" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gripper joint angles as a tuple.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.inverse_kinematics">
+<code class="sig-name descname">inverse_kinematics</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">position</span></em>, <em class="sig-param"><span class="n">orientation</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.inverse_kinematics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate inverse kinematics to get joint angles for a pose.</p>
+<p>Use pybullet’s internal IK solver.
+To be used with a joint-space controller.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>position</strong> (<em>list 3f</em>) – [x, y, z] of desired ee position</p></li>
+<li><p><strong>orientation</strong> (<em>list 4f</em>) – [qx, qy, qz, w] for desired ee orientation as quaternion.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>joint positions that solve IK in radians.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>jointPoses (list 7f)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.jacobian">
+<em class="property">property </em><code class="sig-name descname">jacobian</code><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.jacobian" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate the jacobian for the end effector position at current
+joint state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>translational jacobian ((dof), (dof), (dof))</dt><dd><p>and angular jacobian  ((dof), (dof), (dof))</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>jacobian tuple(mat3x, mat3x)</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>localPosition: point on the specified link to compute the jacobian for, in
+link coordinates around its center of mass. by default we assume we want it
+around ee center of mass.</p>
+<dl class="simple">
+<dt>TODO: Verify this jacobian cdis what we want or if ee position is further from</dt><dd><p>com.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.last_torques">
+<em class="property">property </em><code class="sig-name descname">last_torques</code><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.last_torques" title="Permalink to this definition">¶</a></dt>
+<dd><p>Last torques commanded to the robot.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.linear_jacobian">
+<em class="property">property </em><code class="sig-name descname">linear_jacobian</code><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.linear_jacobian" title="Permalink to this definition">¶</a></dt>
+<dd><p>The linear jacobian x_dot = J_t*q_dot</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.mass_matrix">
+<em class="property">property </em><code class="sig-name descname">mass_matrix</code><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.mass_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute the system inertia given its joint positions. Uses
+rbdl Composite Rigid Body Algorithm.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.motor_joint_accelerations">
+<em class="property">property </em><code class="sig-name descname">motor_joint_accelerations</code><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.motor_joint_accelerations" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the motor joint positions for “each DoF” according to pybullet.</p>
+<p>Note: fixed joints have 0 degrees of freedoms.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.motor_joint_positions">
+<em class="property">property </em><code class="sig-name descname">motor_joint_positions</code><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.motor_joint_positions" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the motor joint positions for “each DoF” according to pybullet.</p>
+<p>Note: fixed joints have 0 degrees of freedoms.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.motor_joint_velocities">
+<em class="property">property </em><code class="sig-name descname">motor_joint_velocities</code><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.motor_joint_velocities" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the motor joint positions for “each DoF” according to pybullet.</p>
+<p>Note: fixed joints have 0 degrees of freedoms.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.name">
+<em class="property">property </em><code class="sig-name descname">name</code><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>str of the name of the robot</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.num_joints">
+<em class="property">property </em><code class="sig-name descname">num_joints</code><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.num_joints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns number of joints from pybullet.getNumJoints</p>
+<dl class="simple">
+<dt>Note: This likely not to be the same as the degrees of freedom.</dt><dd><p>PB can sometimes be difficult requiring the correct number of joints for IK</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.open_gripper">
+<code class="sig-name descname">open_gripper</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.open_gripper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open the gripper of the robot</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.q">
+<em class="property">property </em><code class="sig-name descname">q</code><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.q" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the joint configuration of the robot arm.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.reset">
+<code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset the robot and move to rest pose.</p>
+<p>Args: None</p>
+<p>Returns: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.rotation_matrix">
+<em class="property">property </em><code class="sig-name descname">rotation_matrix</code><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.rotation_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return rotation matrix from quaternion as 9x1 array</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.set_ee_pose_position_control">
+<code class="sig-name descname">set_ee_pose_position_control</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target_position</span></em>, <em class="sig-param"><span class="n">target_orientation</span></em>, <em class="sig-param"><span class="n">target_velocity</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">max_velocity</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">max_force</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">position_gain</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">velocity_gain</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.set_ee_pose_position_control" title="Permalink to this definition">¶</a></dt>
+<dd><p>Position control of a joint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target_position</strong> (<em>3f</em>) – The target ee position in xyz</p></li>
+<li><p><strong>target_velocity</strong> (<em>xf</em>) – The target joint velocity. (Default value = None)</p></li>
+<li><p><strong>max_velocity</strong> – The maximal joint velocity. (Default value = None)</p></li>
+<li><p><strong>max_force</strong> – The maximal joint force. (Default value = None)</p></li>
+<li><p><strong>position_gain</strong> – The position gain. (Default value = None)</p></li>
+<li><p><strong>velocity_gain</strong> – The velocity gain. (Default value = None)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.set_gripper_to_value">
+<code class="sig-name descname">set_gripper_to_value</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.set_gripper_to_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open/Close the gripper of the robot to fractional value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>float</em>) – gripper “open” fraction. 0.0 = Closed, 1.0 = Open.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.set_joints_pos_vel">
+<code class="sig-name descname">set_joints_pos_vel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">joint_pos</span></em>, <em class="sig-param"><span class="n">joint_vel</span><span class="o">=</span><span class="default_value">[0, 0, 0, 0, 0, 0, 0]</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.set_joints_pos_vel" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Manualy reset joints to positions and velocities.</dt><dd><dl class="simple">
+<dt>Args:</dt><dd><p>joint_pos (list 7f): list of desired joint positions
+joint_vel (list 7f): list of desired joint velocities</p>
+</dd>
+<dt>Returns:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>Note: breaks physics only to be used for IK, Mass Matrix and Jacobians</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.set_joints_position_control">
+<code class="sig-name descname">set_joints_position_control</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target_positions</span></em>, <em class="sig-param"><span class="n">joint_inds</span><span class="o">=</span><span class="default_value">range(0, 9)</span></em>, <em class="sig-param"><span class="n">target_velocities</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">max_velocities</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">max_forces</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">position_gains</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">velocity_gains</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.set_joints_position_control" title="Permalink to this definition">¶</a></dt>
+<dd><p>Position control of a list of joints of a body.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self.arm_id</strong> – The body unique ID.</p></li>
+<li><p><strong>joint_inds</strong> – The list of joint indices.</p></li>
+<li><p><strong>target_positions</strong> – The list of target joint positions.</p></li>
+<li><p><strong>target_velocities</strong> – The list of of target joint velocities. (Default value = None)</p></li>
+<li><p><strong>max_velocities</strong> – The list of maximal joint velocities. (Default value = None)</p></li>
+<li><p><strong>max_forces</strong> – The list of maximal joint forces. (Default value = None)</p></li>
+<li><p><strong>position_gains</strong> – The list of position gains. (Default value = None)</p></li>
+<li><p><strong>velocity_gains</strong> – The list of velocity gains. (Default value = None)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.set_joints_to_neutral_positions">
+<code class="sig-name descname">set_joints_to_neutral_positions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.set_joints_to_neutral_positions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set joints on robot to neutral positions as specified by the config file.</p>
+<dl class="simple">
+<dt>Note: Breaks physics by forcibly setting the joint state. To be used only at</dt><dd><p>reset of episode.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.set_q_pb">
+<code class="sig-name descname">set_q_pb</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">qd</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.set_q_pb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the joint configuration of the robot arm.
+:param qd: list of desired joint position
+:type qd: list</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.set_torques">
+<code class="sig-name descname">set_torques</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">joint_torques</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.set_torques" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set torques to the motor. Useful for keeping torques constant through
+multiple simulation steps.</p>
+<p>Args: joint_torques (list): list of joint torques with dimensions (num_joints,)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.state_dict">
+<em class="property">property </em><code class="sig-name descname">state_dict</code><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.state_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dictionary containing the robot state,
+useful for controllers</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.tau">
+<em class="property">property </em><code class="sig-name descname">tau</code><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.tau" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of 7f describing joint torques (Nm)</p>
+<p>Ordered from base to end_effector</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.update_model">
+<code class="sig-name descname">update_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.update_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update model for controller with robot state and dynamics.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_robot_interface.BulletRobotInterface.version">
+<em class="property">abstract </em><code class="sig-name descname">version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.bullet_robot_interface.BulletRobotInterface.version" title="Permalink to this definition">¶</a></dt>
+<dd><p>dict of current versions of robot SDK, gripper, and robot</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="bulletsawyerinterface">
+<h2>BulletSawyerInterface<a class="headerlink" href="#bulletsawyerinterface" title="Permalink to this headline">¶</a></h2>
+<p>Extends BulletRobotInterface for functionality specific to Rethink Sawyer Arms.</p>
+<dl class="py class">
+<dt id="perls2.robots.bullet_sawyer_interface.BulletSawyerInterface">
+<em class="property">class </em><code class="sig-prename descclassname">perls2.robots.bullet_sawyer_interface.</code><code class="sig-name descname">BulletSawyerInterface</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">physics_id</span></em>, <em class="sig-param"><span class="n">arm_id</span></em>, <em class="sig-param"><span class="n">config</span></em>, <em class="sig-param"><span class="n">controlType</span><span class="o">=</span><span class="default_value">'JointVelocity'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.bullet_sawyer_interface.BulletSawyerInterface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for Sawyer Robot Interface in Pybullet. This class provides the
+functionsfor information about the state of the robot as well as sending
+commands.</p>
+<dl class="py method">
+<dt id="perls2.robots.bullet_sawyer_interface.BulletSawyerInterface.q">
+<em class="property">property </em><code class="sig-name descname">q</code><a class="headerlink" href="#perls2.robots.bullet_sawyer_interface.BulletSawyerInterface.q" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the joint configuration of the robot arm.
+:param None:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list of joint positions in radians ordered by
+from small to large.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_sawyer_interface.BulletSawyerInterface.start">
+<code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.bullet_sawyer_interface.BulletSawyerInterface.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start the robot</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="perls2.robots.bullet_sawyer_interface.BulletSawyerInterface.version">
+<em class="property">property </em><code class="sig-name descname">version</code><a class="headerlink" href="#perls2.robots.bullet_sawyer_interface.BulletSawyerInterface.version" title="Permalink to this definition">¶</a></dt>
+<dd><p>dict of current versions of robot SDK, gripper, and robot</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="bulletpandainterface">
+<h2>BulletPandaInterface<a class="headerlink" href="#bulletpandainterface" title="Permalink to this headline">¶</a></h2>
+<p>Extends BulletRobotInterface for functionality specific to Franka Panda arms.</p>
+<dl class="py class">
+<dt id="perls2.robots.bullet_panda_interface.BulletPandaInterface">
+<em class="property">class </em><code class="sig-prename descclassname">perls2.robots.bullet_panda_interface.</code><code class="sig-name descname">BulletPandaInterface</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">physics_id</span></em>, <em class="sig-param"><span class="n">arm_id</span></em>, <em class="sig-param"><span class="n">config</span></em>, <em class="sig-param"><span class="n">controlType</span><span class="o">=</span><span class="default_value">'EEImp'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.bullet_panda_interface.BulletPandaInterface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for Panda Robot Interface in Pybullet. This class provides the
+functions for information about the state of the robot as well as sending
+commands.</p>
+<dl class="py attribute">
+<dt id="perls2.robots.bullet_panda_interface.BulletPandaInterface.physics_id">
+<code class="sig-name descname">physics_id</code><a class="headerlink" href="#perls2.robots.bullet_panda_interface.BulletPandaInterface.physics_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>unique identifer for pybullet sim.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="perls2.robots.bullet_panda_interface.BulletPandaInterface.arm_id">
+<code class="sig-name descname">arm_id</code><a class="headerlink" href="#perls2.robots.bullet_panda_interface.BulletPandaInterface.arm_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>unique identifier produced by pybullet to id robot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="perls2.robots.bullet_panda_interface.BulletPandaInterface.config">
+<code class="sig-name descname">config</code><a class="headerlink" href="#perls2.robots.bullet_panda_interface.BulletPandaInterface.config" title="Permalink to this definition">¶</a></dt>
+<dd><p>dictionary with configuration params for robot</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="perls2.robots.bullet_panda_interface.BulletPandaInterface.controlType">
+<code class="sig-name descname">controlType</code><a class="headerlink" href="#perls2.robots.bullet_panda_interface.BulletPandaInterface.controlType" title="Permalink to this definition">¶</a></dt>
+<dd><p>id for controlType (‘osc’, ‘joint_space’)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="perls2.robots.bullet_panda_interface.BulletPandaInterface.limb_neutral_positiosn">
+<code class="sig-name descname">limb_neutral_positiosn</code><a class="headerlink" href="#perls2.robots.bullet_panda_interface.BulletPandaInterface.limb_neutral_positiosn" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of joint angles for default</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="realrobotinterface">
+<h2>RealRobotInterface<a class="headerlink" href="#realrobotinterface" title="Permalink to this headline">¶</a></h2>
+<p>Extends RobotInterface for Real Robots.</p>
+<dl class="py class">
+<dt id="perls2.robots.real_robot_interface.RealRobotInterface">
+<em class="property">class </em><code class="sig-prename descclassname">perls2.robots.real_robot_interface.</code><code class="sig-name descname">RealRobotInterface</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span></em>, <em class="sig-param"><span class="n">controlType</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.real_robot_interface.RealRobotInterface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract interface to be implemented for each real and simulated
+robot.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="realsawyerinterface">
+<h2>RealSawyerInterface<a class="headerlink" href="#realsawyerinterface" title="Permalink to this headline">¶</a></h2>
+<p>Extends RealRobotInterface for REthink SawyerArms</p>
+<dl class="py class">
+<dt id="perls2.robots.real_sawyer_interface.RealSawyerInterface">
+<em class="property">class </em><code class="sig-prename descclassname">perls2.robots.real_sawyer_interface.</code><code class="sig-name descname">RealSawyerInterface</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span></em>, <em class="sig-param"><span class="n">use_safenet</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">use_moveit</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">controlType</span><span class="o">=</span><span class="default_value">'EEImpedance'</span></em>, <em class="sig-param"><span class="n">node_name</span><span class="o">=</span><span class="default_value">'sawyer_interface'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.robots.real_sawyer_interface.RealSawyerInterface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract interface to be implemented for each real and simulated
+robot.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="realpandainterface">
+<h2>RealPandaInterface<a class="headerlink" href="#realpandainterface" title="Permalink to this headline">¶</a></h2>
+<p>Coming soon.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="controller.html" class="btn btn-neutral float-right" title="Controller" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="world.html" class="btn btn-neutral float-left" title="World" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, StanfordVL
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

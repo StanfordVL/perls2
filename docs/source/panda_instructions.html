@@ -1,0 +1,378 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Using the Franka Panda &mdash; perls2 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Redis Help" href="redis.html" />
+    <link rel="prev" title="Set up workstation for Franka Panda" href="panda_ws_setup.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> perls2
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="panda_setup.html">Franka Panda Setup</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="environments.html">Environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="worlds.html">World</a></li>
+<li class="toctree-l1"><a class="reference internal" href="robot_interfaces.html">RobotInterfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="controller_eqns.html">Controllers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../simple_reach.html">Simple Reach Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load_objects.html">Examples: Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="switch_sim_real.html">Switching between Real and Sim Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="project_template.html">Project Template</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../env.html">Environment (Env)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../world.html">World</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../robot_interface.html">Robot Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../controller.html">Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../object_interface.html">Object Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../camera_interface.html">Camera Interface</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Real Robot Control</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="panda_setup.html">Franka Panda Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="panda_nuc_setup.html">Set up NUC (Control PC) for the Franka Panda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="panda_ws_setup.html">Set up workstation for Franka Panda</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Using the Franka Panda</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#important-notes-about-using-franka-panda-arms">Important notes about using Franka Panda Arms.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#instructions-for-using-the-franka-panda-arms">Instructions for using the Franka Panda Arms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#terminal-1-redis-server">Terminal 1: redis-server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#terminal-2-redis-cli">Terminal 2: redis-cli</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#terminal-3-franka-panda-iprl-driver">Terminal 3: franka-panda-iprl driver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#terminal-4-perls2-pandactrlinterface">Terminal 4: perls2.PandaCtrlInterface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#terminal-5-your-perls2-script">Terminal 5: Your perls2 script</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="redis.html">Redis Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sawyer_instructions.html">Using the Rethink Sawyer Arm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demos.html">Controller Demos</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">perls2</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Using the Franka Panda</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/source/panda_instructions.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="using-the-franka-panda">
+<h1>Using the Franka Panda<a class="headerlink" href="#using-the-franka-panda" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Using the Franka Panda arm with torque control requires a consistent control loop frequency for sending torque commands to the arm. In order to acheive this, a separate machine with an RT Kernel is connected to the Franka’s FCI. This machine, typically an Intel NUC, is dedicated to running only the processes necessary for torque control. A separate machine, referred to as the workstation, is used to host the perls2 environment for the experiment.</p>
+<p>perls2 provides scripts and wrappers for libfranka to perform torque control on the NUC. A Redis server is used for interprocess communication for perls2 and the libfranka driver, as well as for communication between the NUC and the workstation. See the README in perls2/redis_interfaces for more information.</p>
+</div>
+<div class="section" id="important-notes-about-using-franka-panda-arms">
+<h2>Important notes about using Franka Panda Arms.<a class="headerlink" href="#important-notes-about-using-franka-panda-arms" title="Permalink to this headline">¶</a></h2>
+<ol>
+<li><p><strong>Have the E-STOP in hand.</strong></p>
+<p>Performing torque control with robots can pose a risk to both the user and the robot. It is important to take precautions and keep the E-STOP in hand when performing robot experiments.</p>
+</li>
+<li><p><strong>Flush redis before starting the driver.</strong></p>
+<p>The redis-server contains many flags used to operate the robot arm. It’s best to regularly flush the redis server with the FLUSHALL redis-cli command before starting
+the driver. This prevents any stale commands from triggering the PandaCtrlInterface to start running.</p>
+</li>
+<li><p><strong>Use redis-cli</strong></p>
+<p>It’s a good idea to get familiar with some basic commands in redis-cli. This allows you to get a human-readable print out of the robot’s state and commands being sent.</p>
+</li>
+<li><p><strong>Confirm resets on the driver.</strong></p>
+<p>When the driver receives a reset command, it requires the user confirm by pressing Enter before it resets the robot. This is because the joint space controller performing the reset does not perform collision checking, and makes sure you have a hand on the E-STOP.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="instructions-for-using-the-franka-panda-arms">
+<h2>Instructions for using the Franka Panda Arms<a class="headerlink" href="#instructions-for-using-the-franka-panda-arms" title="Permalink to this headline">¶</a></h2>
+<p>After following instructions to setup the NUC and workstation, the Franka Arms may be operated entirely from the workstation.</p>
+<ol class="simple">
+<li><p>Turn on the FCI control box. The base lights of the Franka should be Yellow indicating the joints are locked.</p></li>
+<li><p>Open a browser and go the Franka Desk App (usually <code class="docutils literal notranslate"><span class="pre">https://&lt;fci-ip&gt;</span></code> or <a class="reference external" href="https://172.16.0.2">https://172.16.0.2</a>). Unlock the Franka Arm. You should hear a series of clicks.</p></li>
+<li><p>Confirm that the Franka is unlocked by verifying the base lights are White (IDLE) mode. You should be able to move the robot by pinching the buttons above the base.</p></li>
+</ol>
+<p>Now set up the following terminals:</p>
+<div class="section" id="terminal-1-redis-server">
+<h3>Terminal 1: redis-server<a class="headerlink" href="#terminal-1-redis-server" title="Permalink to this headline">¶</a></h3>
+<ol>
+<li><p>ssh into the NUC</p></li>
+<li><p>Run the redis server with your perls2 configuration.</p>
+<p><code class="docutils literal notranslate"><span class="pre">redis-server</span> <span class="pre">redis.conf</span></code></p>
+</li>
+</ol>
+</div>
+<div class="section" id="terminal-2-redis-cli">
+<h3>Terminal 2: redis-cli<a class="headerlink" href="#terminal-2-redis-cli" title="Permalink to this headline">¶</a></h3>
+<ol>
+<li><p>(Don’t ssh into the NUC, this process should run on the workstation)</p></li>
+<li><p>Start the redis-client using the host ip for the NUC and the port set in the redis.conf file. This should also be in the perls2 config when you set up the Workstaiton.</p>
+<p><code class="docutils literal notranslate"><span class="pre">redis-cli</span> <span class="pre">-h</span> <span class="pre">&lt;NUC</span> <span class="pre">Local</span> <span class="pre">IP&gt;</span> <span class="pre">-p</span> <span class="pre">&lt;port&gt;</span></code></p>
+</li>
+<li><p>Authenticate to the redis-server with the password from the redis_passfile.txt on
+the workstation.</p>
+<p><code class="docutils literal notranslate"><span class="pre">AUTH</span> <span class="pre">&lt;your-very-long-password&gt;</span></code></p>
+</li>
+</ol>
+</div>
+<div class="section" id="terminal-3-franka-panda-iprl-driver">
+<h3>Terminal 3: franka-panda-iprl driver<a class="headerlink" href="#terminal-3-franka-panda-iprl-driver" title="Permalink to this headline">¶</a></h3>
+<ol>
+<li><p>Unlock the robot activity stop so that the base lights are Blue</p></li>
+<li><p>ssh into the NUC</p></li>
+<li><p>In the redis-cli terminal, flush the redis-server.</p>
+<p><code class="docutils literal notranslate"><span class="pre">&gt;</span> <span class="pre">flushall</span></code></p>
+</li>
+<li><p>Run the franka-panda-iprl driver with the perls2 config</p>
+<p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~/franka-panda-iprl/bin</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">./franka-panda-driver</span> <span class="pre">~/perls2/cfg/franka-panda.yaml</span></code></p>
+</li>
+</ol>
+</div>
+<div class="section" id="terminal-4-perls2-pandactrlinterface">
+<h3>Terminal 4: perls2.PandaCtrlInterface<a class="headerlink" href="#terminal-4-perls2-pandactrlinterface" title="Permalink to this headline">¶</a></h3>
+<ol>
+<li><p>ssh into the NUC</p></li>
+<li><p>source the perls2 virtual environment</p></li>
+<li><p>Run the Panda Ctrl Interface</p>
+<p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~/perls2</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">perls2/ctrl_interfaces/panda_ctrl_interface.py</span></code></p>
+</li>
+</ol>
+</div>
+<div class="section" id="terminal-5-your-perls2-script">
+<h3>Terminal 5: Your perls2 script<a class="headerlink" href="#terminal-5-your-perls2-script" title="Permalink to this headline">¶</a></h3>
+<p>You’re almost there! This is where you run your perls2 environment to perform your robot experiment.</p>
+<ol>
+<li><p>Source the perls2 virtual environment.</p></li>
+<li><p>Run your perls2 script. For example, run the gravity-compensation demo:</p>
+<p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~/perls2;</span> <span class="pre">python</span> <span class="pre">demos/run_gc_demo.py</span> <span class="pre">--world=Real</span></code></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="redis.html" class="btn btn-neutral float-right" title="Redis Help" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="panda_ws_setup.html" class="btn btn-neutral float-left" title="Set up workstation for Franka Panda" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, StanfordVL
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

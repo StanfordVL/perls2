@@ -1,0 +1,346 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Environments &mdash; perls2 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="World" href="worlds.html" />
+    <link rel="prev" title="Franka Panda Setup" href="panda_setup.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> perls2
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="panda_setup.html">Franka Panda Setup</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Modules</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Environments</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#hierarchy">Hierarchy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#attributes">Attributes:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#public-methods">Public methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#notes">Notes:</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="worlds.html">World</a></li>
+<li class="toctree-l1"><a class="reference internal" href="robot_interfaces.html">RobotInterfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="controller_eqns.html">Controllers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../simple_reach.html">Simple Reach Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load_objects.html">Examples: Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="switch_sim_real.html">Switching between Real and Sim Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="project_template.html">Project Template</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../env.html">Environment (Env)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../world.html">World</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../robot_interface.html">Robot Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../controller.html">Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../object_interface.html">Object Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../camera_interface.html">Camera Interface</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Real Robot Control</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="panda_setup.html">Franka Panda Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="panda_nuc_setup.html">Set up NUC (Control PC) for the Franka Panda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="panda_ws_setup.html">Set up workstation for Franka Panda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="panda_instructions.html">Using the Franka Panda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="redis.html">Redis Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sawyer_instructions.html">Using the Rethink Sawyer Arm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demos.html">Controller Demos</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">perls2</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Environments</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/source/environments.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="environments">
+<h1>Environments<a class="headerlink" href="#environments" title="Permalink to this headline">¶</a></h1>
+<p>Environments are used to encompass all aspects for a robot learning experiment. They contain a perls2.World, which provides an interface to a simulation (even the real world one we live in). Environments also contain definitions for tasks, and other necessary parameters for reinforcement learning pipelines.</p>
+<p>These include:</p>
+<ul class="simple">
+<li><p>observations</p></li>
+<li><p>rewards</p></li>
+<li><p>termination conditions</p></li>
+<li><p>action definitions.</p></li>
+</ul>
+<p><img alt="env_overview" src="../_images/perls2_infra.png" /></p>
+<p>The env.step() function defines how the environment executes changes from a policy action. It produces observations for the environment state resulting from this action.</p>
+<p>These conventions are adopted from openAI.gym and widely used in robot learning.</p>
+<div class="section" id="hierarchy">
+<h2>Hierarchy<a class="headerlink" href="#hierarchy" title="Permalink to this headline">¶</a></h2>
+<p>Users define their own environment class by inheriting the abstract Environment (env.py). All perls2 environments use the OpenAI gym.Env as a superclass.</p>
+</div>
+<div class="section" id="attributes">
+<h2>Attributes:<a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h2>
+<p>-<strong>config</strong>: dict</p>
+<p>Config files contain parameters to create an arena, robot interface, sensor interface and object interface.
+They also contain specs for learning, simulation and experiment setup.</p>
+<p>-<strong>world</strong>: World</p>
+<p>Object describing the simulation or reality in which contains an arena, robot interface, sensor interface and object interface.
+The world does not contain any information about observations, actions or task descriptions.
+To streamline the setup of the experiment, worlds are typically generated from the configuration file using the <code class="docutils literal notranslate"><span class="pre">world_factory</span></code>.
+This ensures that the appropriate robot, sensor and object interfaces are quickly generated. The enclosing Env is given direct
+access to the world’s attributes. i.e.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>      <span class="n">env</span><span class="o">.</span><span class="n">robot_interface</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">robot_interface</span>
+</pre></div>
+</div>
+<p>-<strong>arena</strong>: Arena
+Manages the sim by loading models (in both sim/real envs) and for
+simulations, randomizing objects and sensors parameters</p>
+<p>-<strong>robot_interface</strong>: RobotInterface
+Communicates with robots and executes robot commands.</p>
+<p>-<strong>sensor_interface</strong>: SensorInterface
+Retrieves sensor info and executes changes to params</p>
+<p>-<strong>object_interface</strong>: ObjectInterface
+Only for Sim environments– retrieves object info and excecutes
+changes to params</p>
+</div>
+<div class="section" id="public-methods">
+<h2>Public methods<a class="headerlink" href="#public-methods" title="Permalink to this headline">¶</a></h2>
+<p>(similar to openAI gym)</p>
+<p>-step:
+Step env forward and return observation, reward, termination, info.
+Not typically user-defined but may be modified.</p>
+<p>-reset:
+Reset env to initial setting and return observation at initial state.
+Some aspects such as randomization are user-defined</p>
+</div>
+<div class="section" id="notes">
+<h2>Notes:<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h2>
+<p>Arenas and interfaces are, by default, initialized specific to the World of the env i.e. BulletWorld creates a BulletArena and Bullet_Robot/Sensor/Object_Interfaces.</p>
+<p>For any env, users need to set the following methods:</p>
+<p>-reset:
+Define aspects reset environment after episode completion. This may include randomization of objects or camera intrinsics or extrinsics
+-get_observation:
+Define the observation returned by env upon reset, step
+-rewardFunction:
+Compute the reward received by the agent given current state of
+the environment
+-exec_action:
+Define how action received by agent should be executed.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="worlds.html" class="btn btn-neutral float-right" title="World" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="panda_setup.html" class="btn btn-neutral float-left" title="Franka Panda Setup" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, StanfordVL
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
