@@ -8,7 +8,6 @@ import numpy as np
 import logging
 from perls2.utils.yaml_config import YamlConfig
 
-from perls2.redis_interfaces.redis_interface import RobotRedisInterface as RobotRedis
 from perls2.redis_interfaces.redis_keys import *
 from perls2.redis_interfaces.redis_values import *
 # Robot Interface and Controller Imports
@@ -22,8 +21,6 @@ from perls2.controllers.interpolator.linear_interpolator import LinearInterpolat
 from perls2.controllers.interpolator.linear_ori_interpolator import LinearOriInterpolator
 from perls2.controllers.robot_model.model import Model
 
-
-import perls2.controllers.utils.transform_utils as T
 
 LOOP_LATENCY = 0.000
 LOOP_TIME = (1.0 / 500.0) - LOOP_LATENCY
