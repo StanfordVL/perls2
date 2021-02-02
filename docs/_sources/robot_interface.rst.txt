@@ -39,6 +39,7 @@ RobotInterface
     .. autoproperty:: angular_jacobian
     .. autoproperty:: mass_matrix
 
+
 BulletRobotInterface
 --------------------
 Extends RobotInterface functionality for BulletWorlds to be used
@@ -46,7 +47,8 @@ wity PyBullet. Connects to pybullet physics engine to obtain
 robot state and dynamics parameters as well as execute torque control.
 
 .. autoclass:: perls2.robots.bullet_robot_interface.BulletRobotInterface
-    :members:
+
+
 
 
 BulletSawyerInterface
@@ -54,7 +56,6 @@ BulletSawyerInterface
 Extends BulletRobotInterface for functionality specific to Rethink Sawyer Arms.
 
 .. autoclass:: perls2.robots.bullet_sawyer_interface.BulletSawyerInterface
-    :members:
 
 
 BulletPandaInterface
@@ -67,10 +68,10 @@ RealRobotInterface
 ------------------
 Extends RobotInterface for Real Robots.
 
-.. autoclass:: perls2.robots.real_robot_interface.RealRobotInterface
+.. autoclass::perls2.robots.real_robot_interface.RealRobotInterface
 
-    ..automethod:: connect
-    ..automethod:: disconnect
+    .. automethod:: connect
+    .. automethod:: disconnect
 
 RealSawyerInterface
 -------------------
