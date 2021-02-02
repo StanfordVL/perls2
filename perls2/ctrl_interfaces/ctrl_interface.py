@@ -332,6 +332,17 @@ class CtrlInterface(RobotInterface):
             logging.warn("Unknown command: {}".format(cmd_type))
 
     def make_controller_from_redis(self, control_type, controller_dict):
+        """ Make controller given args obtained from redis. 
+
+        Args: 
+            control_type (str): type of controller. Must match redis string literal.
+            controller_dict (dict): kwargs for constructing the controller. 
+
+        Returns:
+            controller (Controller): appropriate perls2.controllers Controller given
+                the kwargs.
+                
+        """
         print("Making controller {} with params: {}".format(control_type, controller_dict))
         if control_type == R.EE_IMPEDANCE:
             interp_kwargs = {'max_dx': 0.005,
