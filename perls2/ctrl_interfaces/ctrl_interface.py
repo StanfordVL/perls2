@@ -323,10 +323,6 @@ class CtrlInterface(RobotInterface):
             self.redisClient.set(R.ROBOT_RESET_COMPL_KEY, 'False')
             self.reset_to_neutral()
             self.action_set = False
-        # elif (cmd_type == bIDLE):
-        #     # make sure action set if false
-        #     self.action_set = False
-        #     return
         elif (cmd_type.decode() == R.CHANGE_CONTROLLER):
             logging.info("CHANGE CONTROLLER COMMAND RECEIVED")
             self.controller = self.make_controller_from_redis(
@@ -417,11 +413,7 @@ class CtrlInterface(RobotInterface):
 
         if self.action_set:
             torques = self.controller.run_controller()
-            # self.set_torques([0]*7)
-
             torques = np.clip(torques, self.CLIP_CMD_TORQUES[0], self.CLIP_CMD_TORQUES[1] )
-            #print("Torques {}".format(torques))
-
             self.set_torques(torques)
 
             while (time.time() - start < LOOP_TIME):
@@ -440,8 +432,6 @@ class CtrlInterface(RobotInterface):
             if (self.env_connected == b'True'):
                 if self.check_for_new_cmd():
                     self.process_cmd(self.cmd_type)
-                # if self.check_for_new_gripper_cmd():
-                #     self.process_gripper_cmd()
                 self.step(start)
             else:
                 break
