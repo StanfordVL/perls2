@@ -8,8 +8,7 @@ import numpy as np
 import logging
 from perls2.utils.yaml_config import YamlConfig
 
-from perls2.redis_interfaces.redis_keys import *
-from perls2.redis_interfaces.redis_values import *
+import perls2.redis_interfaces.redis_keys as R 
 # Robot Interface and Controller Imports
 from perls2.robots.robot_interface import RobotInterface
 from perls2.controllers.ee_imp import EEImpController
@@ -263,21 +262,21 @@ class CtrlInterface(RobotInterface):
     def env_connected(self):
         """ Boolean flag indicating if environment and RobotInterface are connected.
         """
-        return (self.redisClient.get(ROBOT_ENV_CONN_KEY) == b'True')
+        return (self.redisClient.get(R.ROBOT_ENV_CONN_KEY) == b'True')
 
     @property
     def cmd_type(self):
         """ Redis key identifying the type of command robot should execute
         """
-        return self.redisClient.get(ROBOT_CMD_TYPE_KEY)
+        return self.redisClient.get(R.ROBOT_CMD_TYPE_KEY)
 
     @property
     def des_gripper_state(self):
-        return float(self.redisClient.get(ROBOT_SET_GRIPPER_CMD_KEY))
+        return float(self.redisClient.get(R.ROBOT_SET_GRIPPER_CMD_KEY))
 
     @property
     def controller_goal(self):
-        return self.redisClient.get(CONTROLLER_GOAL_KEY)
+        return self.redisClient.get(R.CONTROLLER_GOAL_KEY)
 
     @property
     def controlType(self):
@@ -288,10 +287,10 @@ class CtrlInterface(RobotInterface):
         self._controlType = new_type
 
     def get_gripper_cmd_tstamp(self):
-        return self.redisClient.get(ROBOT_SET_GRIPPER_CMD_TSTAMP_KEY)
+        return self.redisClient.get(R.ROBOT_SET_GRIPPER_CMD_TSTAMP_KEY)
 
     def get_cmd_tstamp(self):
-        return self.redisClient.get(ROBOT_CMD_TSTAMP_KEY)
+        return self.redisClient.get(R.ROBOT_CMD_TSTAMP_KEY)
 
     def check_for_new_cmd(self):
         cmd_tstamp = self.get_cmd_tstamp()
@@ -307,28 +306,28 @@ class CtrlInterface(RobotInterface):
         Args:
             cmd_type (str): byte-array string from redis cmd key
         """
-        if (cmd_type.decode() == SET_EE_POSE):
+        if (cmd_type.decode() == R.SET_EE_POSE):
             self.set_ee_pose(**self.controller_goal)
-        elif (cmd_type.decode() == MOVE_EE_DELTA):
+        elif (cmd_type.decode() == R.MOVE_EE_DELTA):
             self.move_ee_delta(**self.controller_goal)
-        elif(cmd_type.decode() == SET_JOINT_DELTA):
+        elif(cmd_type.decode() == R.SET_JOINT_DELTA):
             self.set_joint_delta(**self.controller_goal)
-        elif (cmd_type.decode() == SET_JOINT_POSITIONS):
+        elif (cmd_type.decode() == R.SET_JOINT_POSITIONS):
             self.set_joint_positions(**self.controller_goal)
-        elif (cmd_type.decode() == SET_JOINT_TORQUES):
+        elif (cmd_type.decode() == R.SET_JOINT_TORQUES):
             self.set_joint_torques(**self.controller_goal)
-        elif (cmd_type.decode() == SET_JOINT_VELOCITIES):
+        elif (cmd_type.decode() == R.SET_JOINT_VELOCITIES):
             self.set_joint_velocities(**self.controller_goal)
-        elif(cmd_type.decode() == RESET):
+        elif(cmd_type.decode() == R.RESET):
             logging.info("RESET Command received.")
-            self.redisClient.set(ROBOT_RESET_COMPL_KEY, 'False')
+            self.redisClient.set(R.ROBOT_RESET_COMPL_KEY, 'False')
             self.reset_to_neutral()
             self.action_set = False
         # elif (cmd_type == bIDLE):
         #     # make sure action set if false
         #     self.action_set = False
         #     return
-        elif (cmd_type.decode() == CHANGE_CONTROLLER):
+        elif (cmd_type.decode() == R.CHANGE_CONTROLLER):
             logging.info("CHANGE CONTROLLER COMMAND RECEIVED")
             self.controller = self.make_controller_from_redis(
                 self.get_control_type(),
@@ -338,7 +337,7 @@ class CtrlInterface(RobotInterface):
 
     def make_controller_from_redis(self, control_type, controller_dict):
         print("Making controller {} with params: {}".format(control_type, controller_dict))
-        if control_type == EE_IMPEDANCE:
+        if control_type == R.EE_IMPEDANCE:
             interp_kwargs = {'max_dx': 0.005,
                              'ndim': 3,
                              'controller_freq': 500,
@@ -350,7 +349,7 @@ class CtrlInterface(RobotInterface):
                 self.model,
                 interpolator_pos=self.interpolator_pos,
                 interpolator_ori=self.interpolator_ori, **controller_dict)
-        elif control_type == EE_POSTURE:
+        elif control_type == R.EE_POSTURE:
             interp_kwargs = {'max_dx': 0.005,
                              'ndim': 3,
                              'controller_freq': 500,
@@ -362,7 +361,7 @@ class CtrlInterface(RobotInterface):
                 self.model,
                 interpolator_pos=self.interpolator_pos,
                 interpolator_ori=self.interpolator_ori, **controller_dict)
-        elif control_type == JOINT_IMPEDANCE:
+        elif control_type == R.JOINT_IMPEDANCE:
             interp_kwargs = {'max_dx': 0.05,
                              'ndim': 7,
                              'controller_freq': 500,
@@ -373,7 +372,7 @@ class CtrlInterface(RobotInterface):
                 self.model,
                 interpolator_qpos=self.interpolator_pos,
                 **controller_dict)
-        elif control_type == JOINT_TORQUE:
+        elif control_type == R.JOINT_TORQUE:
             interp_kwargs = {'max_dx': 0.05,
                              'ndim': 7,
                              'controller_freq': 500,
@@ -384,7 +383,7 @@ class CtrlInterface(RobotInterface):
                 self.model,
                 interpolator=self.interpolator_pos,
                 **controller_dict)
-        elif control_type == JOINT_VELOCITY:
+        elif control_type == R.JOINT_VELOCITY:
             interp_kwargs = {'max_dx': 0.05,
                              'ndim': 7,
                              'controller_freq': 500,
@@ -401,10 +400,10 @@ class CtrlInterface(RobotInterface):
         return controller
 
     def get_controller_params(self):
-        return self.redisClient.get(CONTROLLER_CONTROL_PARAMS_KEY)
+        return self.redisClient.get(R.CONTROLLER_CONTROL_PARAMS_KEY)
 
     def get_control_type(self):
-        return self.redisClient.get(CONTROLLER_CONTROL_TYPE_KEY).decode()
+        return self.redisClient.get(R.CONTROLLER_CONTROL_TYPE_KEY).decode()
 
 ########################################################################
 # Step and Loop Functions
