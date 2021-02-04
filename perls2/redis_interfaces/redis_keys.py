@@ -4,6 +4,7 @@ ROBOT_KEY = "robot::"
 
 # Robot command keys
 ROBOT_RESET_COMPL_KEY = ROBOT_KEY + "reset_complete"
+ROBOT_RESET_Q_KEY = ROBOT_KEY + "reset_q"
 ROBOT_CMD_TYPE_KEY = ROBOT_KEY + "cmd_type"
 ROBOT_ENV_CONN_KEY = ROBOT_KEY + "env_connected"
 ROBOT_CMD_TSTAMP_KEY = ROBOT_KEY + "cmd_tstamp"

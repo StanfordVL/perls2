@@ -46,6 +46,9 @@ GRIPPER_WIDTH_KEY = DRIVER_PREFIX + "gripper::sensor::width"
 GRIPPER_MAX_WIDTH_KEY = DRIVER_PREFIX + "gripper::model::max_width"
 GRIPPER_STATUS_KEY = DRIVER_PREFIX + "gripper::status"
 
+# Reset neutral joint angle key: 
+RESET_Q_KEY = DRIVER_PREFIX + "control::reset_q"
+
 ## Convenience defines
 ROBOT_STATE_KEYS = [
 			ROBOT_STATE_Q_KEY, 

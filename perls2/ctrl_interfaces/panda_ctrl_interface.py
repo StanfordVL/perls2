@@ -41,7 +41,10 @@ class PandaCtrlInterface(CtrlInterface):
         self._num_joints = 7
         self.CLIP_CMD_TORQUES = [-1.0, 1.0]
 
-        self.neutral_joint_position = self.config['panda']['neutral_joint_angles']
+        # Set default reset joint angle for driver and workstation key
+        self.neutral_joint_angles = np.array(self.config['panda']['neutral_joint_angles'])
+        self.redisClient.set_reset_q(P.RESET_Q_KEY, self.neutral_joint_angles)
+        self.redisClient.set_reset_q(R.ROBOT_RESET_Q_KEY, self.neutral_joint_angles)
 
         self.redisClient.set(R.ROBOT_CMD_TSTAMP_KEY, time.time())
         self.redisClient.set(R.ROBOT_SET_GRIPPER_CMD_KEY, 0.1)
@@ -95,6 +98,15 @@ class PandaCtrlInterface(CtrlInterface):
 
         self.model.update_state_model(**self._get_update_args(new_states))
 
+    def _update_reset_angles(self):
+        """Update and set neutral joint positions from WS
+
+        TODO: add check for joint limits.
+        """
+        # Update neutral joint positions from workstation. 
+        self.neutral_joint_angles = self.redisClient.get_reset_q()
+        self.redisClient.set_reset_q(P.RESET_Q_KEY, self.neutral_joint_angles)
+
     def reset_to_neutral(self):
         """Signal driver to reset to neutral joint positions.
 
@@ -105,8 +117,12 @@ class PandaCtrlInterface(CtrlInterface):
         """
         # set command torques to zero in case we resume torque control after reset.
         self.redisClient.set_eigen(P.TORQUE_CMD_KEY, np.zeros(7))
-
+        
+        # Get neutral joint angles from workstation.
+        self._update_reset_angles()
         self.redisClient.set(P.CONTROL_MODE_KEY, P.RESET_CTRL_MODE)
+
+        # Wait for reset to complete.
         while (self.redisClient.get(P.CONTROL_MODE_KEY).decode() != P.IDLE_CTRL_MODE):
             time.sleep(1)
         self.redisClient.set(R.ROBOT_RESET_COMPL_KEY, 'True')
