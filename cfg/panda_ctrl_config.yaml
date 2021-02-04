@@ -5,7 +5,7 @@
 panda:
   # taken from franka-panda/examples/opspace/python/opspace_control.py
   #np.array([0., -np.pi/6., 0., -5./6. * np.pi, 0., 2./3. * np.pi, 0.])
-  neutral_joint_angles: [0.0, -0.524, 0.0, -2.617, 0.0, 2.094, 0.0]
+  neutral_joint_angles: [0.0, -0.524, 0.0, -2.617, 0.0, 2.094, 0.1]
 
 controller:
   selected_type: 'EEImpedance' # Choose between 'EEImpedance', 'JointVelocity'

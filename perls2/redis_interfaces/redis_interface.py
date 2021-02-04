@@ -250,7 +250,8 @@ class PandaRedisInterface(RedisInterface):
         logging.info("warming up redis")
         time.sleep(3)
 
-
+    def get_eigen(self, key):
+        return np.fromstring(self.get(key), dtype=np.float, sep=' ')
 
     def bstr_to_ndarray(self, array_bstr):
         """Convert bytestring array to 1d array
@@ -278,6 +279,14 @@ class PandaRedisInterface(RedisInterface):
             return self._client.get(key)
 
     def _get_key_ndarray(self, key):
+        """Return value from desired key, converting bytestring to ndarray
+
+            Args:
+                key (str): string of key storing ndarray
+        """
+        return self.bstr_to_ndarray(self._client.get(key))
+
+    def get_key_ndarray(self, key):
         """Return value from desired key, converting bytestring to ndarray
 
             Args:
@@ -335,3 +344,9 @@ class PandaRedisInterface(RedisInterface):
 
     def is_env_connected(self):
         return self._client.get(ROBOT_ENV_CONN_KEY) == b'True'
+
+    def set_reset_q(self, key, q):
+        self.set_eigen(key, q)
+
+    def get_reset_q(self):
+        return self.get_eigen(ROBOT_RESET_Q_KEY)

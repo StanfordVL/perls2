@@ -46,7 +46,8 @@ class RealPandaInterface(RealRobotInterface):
         self.RESET_TIMEOUT = 10
         self.GRIPPER_MAX_VALUE = 0.0857
         self.MAX_REDIS_STALE_TIME = 0.005 # time in s (20Hz) after which to update redis states.
-
+        self.neutral_joint_angles = np.array(self.config['panda']['neutral_joint_angles'])
+        self.redisClient.set_reset_q(ROBOT_RESET_Q_KEY, self.neutral_joint_angles)
         self.set_controller_params_from_config()
         self.connect()
 
@@ -56,6 +57,7 @@ class RealPandaInterface(RealRobotInterface):
 
     def reset(self):
         logger.info("Resetting Panda Robot. Confirm on driver.")
+        self.redisClient.set_reset_q(ROBOT_RESET_Q_KEY, self.neutral_joint_angles)        
         reset_cmd = {ROBOT_CMD_TSTAMP_KEY: time.time(),
                      ROBOT_CMD_TYPE_KEY: RESET}
 
