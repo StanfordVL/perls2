@@ -40,3 +40,17 @@ def ndarray_to_eigen_str(value):
     # remove brackets
     value = value[1:-1]
     return value
+
+######### redis utility functions for images #################
+def convert_frame_to_encoded_bytes(frame):
+    """Convert rgb, depth or ir frame to bytes array with encoded dim
+    """
+    height = np.shape(frame)[0]
+    width = np.shape(frame)[1]
+
+    # Encode the shape of the picture into the bytes array
+    frame_np = np.array(frame).astype('uint8')
+    frame_bytes = frame_np.tobytes()
+    frame_shape = struct.pack('>II', height, width)
+    encoded_frame = frame_shape + frame_bytes
+    return encoded_frame
