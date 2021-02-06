@@ -54,6 +54,7 @@ KINECT2_INTERFACE_CONN_KEY = KINECT2_KEY + 'interface_connected'
 ROS_ENV_CONN_SUFF = "::env_connected"
 ROS_RGB_SUFF = "::rgb_frame"
 ROS_RGB_TSTAMP_SUFF = "::rgb_timestamp"
+ROS_DEPTH_SUFF = "::depth_frame"
 
 # Flag values
 TRUE = "True"

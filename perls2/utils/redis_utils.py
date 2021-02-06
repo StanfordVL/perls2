@@ -2,7 +2,7 @@
 """
 
 import numpy as np
-
+import struct 
 ######## Franka-Panda redis utils 3#####################3
 
 def franka_state_to_np(state_str):
@@ -54,3 +54,13 @@ def convert_frame_to_encoded_bytes(frame):
     frame_shape = struct.pack('>II', height, width)
     encoded_frame = frame_shape + frame_bytes
     return encoded_frame
+
+def convert_encoded_frame_to_np(encoded_frame, dim):
+    """Convert rgb, depth or ir bytes array to numpy
+    """
+    h, w = struct.unpack('>II', encoded_frame[:8])
+
+    frame_np = np.frombuffer(
+        encoded_frame, dtype=np.uint8, offset=8).reshape(h, w, dim)
+
+    return frame_np
