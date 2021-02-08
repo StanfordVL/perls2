@@ -32,29 +32,74 @@ class RosCameraInterface(object):
         self.redisClient = RedisInterface(host="127.0.0.1", port=6379)
         self.redisClient.set(self.name + R.ROS_ENV_CONN_SUFF, R.TRUE)
 
-
-    def frames_rgb(self):
-        """Get rgb frames from redis database. 
+    def _get_rgb_frame(self):
+        """Get rgb frame as a numpy array.
         """
         encoded_rgb = self.redisClient.get(self.RGB_KEY)
-        rgb_timestamp = self.redisClient.get(self.RGB_TSTAMP_KEY)
 
         rgb_np = RU.convert_encoded_frame_to_np(
             encoded_rgb, RosCameraInterface.RGB_DIM)
+
+        return rgb_np
+
+    def _get_rgb_tstamp(self):
+        """Get rgb tstamp as a string
+        """
+        return self.redisClient.get(self.RGB_TSTAMP_KEY)
+    
+    def frames_rgb(self):
+        """Get rgb frames from redis database. 
+        """
         image_dict = {}
-        image_dict['rgb'] = rgb_np
-        image_dict['rgb_tstamp'] = rgb_timestamp
+        image_dict['rgb'] = self._get_rgb_tstamp()
+        image_dict['rgb_tstamp'] = self._get_rgb_timestamp
         return image_dict
+
+    def _get_depth_frame(self):
+        """Return depth frame as a numpy array. 
+        """
+        encoded_depth = self.redisClient.get(self.DEPTH_KEY)
+        depth_np = RU.convert_encoded_frame_to_np(
+        encoded_depth, RosCameraInterface.DEPTH_DIM)
+
+        return depth_np
 
     def frames_depth(self):
         """Get depth frames from redis database. 
         """
-        encoded_depth = self.redisClient.get(self.DEPTH_KEY)
-        depth_np = RU.convert_encoded_frame_to_np(
-            encoded_depth, RosCameraInterface.DEPTH_DIM)
+
         image_dict = {}
-        image_dict['depth'] = depth_np
+        image_dict['depth'] = self._get_depth_frame()
         return image_dict
+
+    def frames(self):
+        """Return dict with rgb and depth images. 
+
+        Returns: 
+            dictionary containing ndarray of frames as values. 
+
+        Keys: 'rgb' : ndarray of rgb frame
+              'depth': ndarray of depth frame
+              'rgb_tstamp': timestamp of rgb frame from ROS msg.
+
+        """
+        images_raw = self.redisClient.mget_dict(
+            [self.RGB_KEY, 
+             self.RGB_TSTAMP_KEY,
+             self.DEPTH_KEY])
+
+        rgb_raw = images_raw[self.RGB_KEY]
+        rgb_tstamp = images_raw[self.RGB_TSTAMP_KEY]
+        depth_raw = images_raw[self.DEPTH_KEY]
+
+        image_dict = {}
+        image_dict['depth'] = RU.convert_encoded_frame_to_np(
+        depth_raw, RosCameraInterface.DEPTH_DIM)
+        image_dict['rgb'] = RU.convert_encoded_frame_to_np(
+            rgb_raw, RosCameraInterface.RGB_DIM)
+        image_dict['rgb_tstamp'] = rgb_tstamp
+
+        return image_dict 
 
     def reset(self):
         pass
@@ -62,15 +107,19 @@ class RosCameraInterface(object):
 if __name__ == '__main__':
     import cv2
     import time
-    camera_interface = RosCameraInterface('sr300')
+    import numpy as np
+
+    sr300 = RosCameraInterface('sr300')
+    ds435 = RosCameraInterface('ds435')
     try: 
-        for i in range(10000):
-            #frame = camera_interface.frames_rgb()
-            frame = camera_interface.frames_depth()
-            # print(rgb_frame['rgb_tstamp'])
-            # time.sleep(1)
-            cv2.imshow('rgb', frame['depth'])
-            cv2.waitKey(1000)
+        for i in range(5):
+            sr300_frames = sr300.frames()
+            ds435_frames = ds435.frames()
+
+            cv2.imshow('sr300 rgb', np.hstack((sr300_frames['rgb'], ds435_frames['rgb'])))
+
+            #cv2.imshow('ds435 rgb', ds435_frames['rgb'])
+            cv2.waitKey(0)
             cv2.destroyAllWindows()
 
     except KeyboardInterrupt:
