@@ -48,7 +48,7 @@ class LinearOriInterpolator(LinearInterpolator):
         if self.prev_goal is None:
             self.prev_goal = np.array(goal)
         else:
-            self.prev_goal = goal
+            self.prev_goal = self.goal
         self.goal = np.array(goal)
         self.step = 1
 
