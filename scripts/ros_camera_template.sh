@@ -48,7 +48,7 @@ tmux split-w -v -p 50
 # 1) Start ros
 tmux selectp -t 0
 tmux send-keys "$SOURCE_ROS_CMD" C-m
-tmux send-keys "roscore"
+tmux send-keys "roscore" C-m
 
 # 2) Start redis-server
 tmux selectp -t 1
