@@ -232,9 +232,25 @@
 </pre></div>
 </div>
 <ol>
-<li><p>Clone and install <a class="reference external" href="https://gitub.com/StanfordVL/perls2">perls2</a></p></li>
+<li><p>Clone perls2 and checkout the <code class="docutils literal notranslate"><span class="pre">panda_dev</span></code> branch</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">StanfordVL</span><span class="o">/</span><span class="n">perls2</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="o">~/</span><span class="n">perls2</span>
+<span class="n">git</span> <span class="n">checkout</span> <span class="n">panda_dev</span>
+</pre></div>
+</div>
+</li>
+<li><p><a class="reference internal" href="introduction.html#installing"><span class="std std-ref">Install perls2</span></a></p></li>
 <li><p>Copy the redis_passfile.txt from the nuc to your workstation.</p></li>
-<li><p>Modify the perls2/cfg/redis.yaml <code class="docutils literal notranslate"><span class="pre">password</span></code> key to the filepath for your redis-passfile.</p></li>
+<li><p>Modify the perls2/cfg/redis.yaml with the following:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Redis-server hosted by NUC for </span>
+<span class="n">redis</span><span class="p">:</span>
+  <span class="n">host</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">IP</span> <span class="n">address</span> <span class="n">of</span> <span class="n">the</span> <span class="n">NUC</span><span class="o">&gt;</span>
+  <span class="n">port</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">port</span> <span class="n">number</span> <span class="n">redis</span><span class="o">-</span><span class="n">server</span> <span class="ow">is</span> <span class="n">hosted</span> <span class="n">on</span><span class="o">&gt;</span>		
+  <span class="n">password</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">path</span> <span class="n">to</span> <span class="n">redis_passfile</span><span class="o">.</span><span class="n">txt</span><span class="o">&gt;</span> 
+</pre></div>
+</div>
+<ol>
 <li><p>Follow the steps <a class="reference internal" href="panda_instructions.html"><span class="doc">here</span></a> for using the Franka Panda, and run the Gravity Compensation demo.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">perls2</span><span class="o">/</span><span class="n">demos</span><span class="o">/</span><span class="n">run_gc_demo</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">world</span><span class="o">=</span><span class="n">Real</span>
 </pre></div>
