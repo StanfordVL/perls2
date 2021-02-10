@@ -13,11 +13,11 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 # import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
+import sys, os
+sys.path.insert(0, os.path.abspath('.'))
 import sphinx_rtd_theme
 from recommonmark.parser import CommonMarkParser
-import sys, os
+# import sys, os
 import perls2
 
 # -- Project information -----------------------------------------------------
