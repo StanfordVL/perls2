@@ -198,15 +198,15 @@ class PandaCtrlInterface(CtrlInterface):
         else:
             return False
 
-    def process_gripper_cmd(self):
+    def process_gripper_cmd(self, cmd_data):
         """Process the new gripper command by setting gripper state.
 
         Only send gripper command if current gripper open fraction is not
         equal to desired gripper open fraction.
         """
-        if self.prev_gripper_state != self.des_gripper_state:
-            self.set_gripper_to_value(self.des_gripper_state)
-            self.prev_gripper_state = self.des_gripper_state
+        if self.prev_gripper_state != cmd_data:
+            self.set_gripper_to_value(cmd_data)
+            self.prev_gripper_state = cmd_data
         else:
             pass
 
