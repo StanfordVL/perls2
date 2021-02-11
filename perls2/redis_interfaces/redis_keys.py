@@ -50,6 +50,16 @@ KINECT2_INVERT_KEY = KINECT2_KEY + 'invert'
 KINECT2_STREAM_ENABLED_KEY = KINECT2_KEY + 'stream_enabled'
 KINECT2_INTERFACE_CONN_KEY = KINECT2_KEY + 'interface_connected'
 
+# ROS Camera suffixes
+ROS_ENV_CONN_SUFF = "::env_connected"
+ROS_RGB_SUFF = "::rgb_frame"
+ROS_RGB_TSTAMP_SUFF = "::rgb_timestamp"
+ROS_DEPTH_SUFF = "::depth_frame"
+
+# Flag values
+TRUE = "True"
+FALSE = "False"
+
 """ References to create uniformity for setting redis values.
 """
 # Controller types
