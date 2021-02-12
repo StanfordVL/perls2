@@ -72,7 +72,7 @@ class PandaCtrlInterface(CtrlInterface):
 
     @property
     def driver_connected(self):
-        return self.redisClient.get(P.DRIVER_CONN_KEY) == P.DRIVER_CONNECTED_VALUE
+        return self.redisClient.get(P.DRIVER_CONN_KEY).decode() == P.DRIVER_CONNECTED_VALUE
 
     def _get_update_args(self, new_states):
         """Reformat the states so they are compatible with the Model class.
