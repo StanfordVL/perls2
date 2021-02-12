@@ -1,6 +1,7 @@
 """Control interface for Panda
 """
 import sys
+import os
 import socket
 import signal   # Catch interrupts from bash scripts
 import time
@@ -38,10 +39,16 @@ class PandaCtrlInterface(CtrlInterface):
 
     def __init__(self,
                  config,
-                 controlType):
+                 controlType, 
+                 redis_passfile=None):
         """ Initialize the control interface.
         """
         super().__init__(config, controlType)
+        
+        # overwrite config passfile if given as argument.
+        if redis_passfile is not None:
+            self.config['redis']['password'] = redis_passfile
+
         self.redisClient = PandaRedisInterface(**self.config['redis'])
         self.action_set = False
         self._num_joints = 7
@@ -388,11 +395,12 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Run Control Interface for Franka Panda')
     parser.add_argument('--dummy', action="store_true", help="Run Control Interface in dummy mode, sending very small torques to driver only.")
     parser.add_argument('--config', default='cfg/panda_ctrl_config.yaml', help="panda control yaml config filepath")
+    parser.add_argument('--redis_passfile', default='local/perls2_local_ctrl_pc/redis_passfile.txt', help="filepath for redis password")
     args = parser.parse_args()
     kwargs = vars(args)
 
     ctrl_interface = PandaCtrlInterface(
-        config=kwargs['config'], controlType=None)
+        config=kwargs['config'], controlType=None, redis_passfile=kwargs['redis_passfile'])
 
     if (kwargs['dummy']):
         ctrl_interface.run_dummy()
