@@ -38,8 +38,7 @@ class PandaCtrlInterface(CtrlInterface):
 
     def __init__(self,
                  config,
-                 controlType,
-                 driver_config='cfg/franka-panda.yaml'):
+                 controlType):
         """ Initialize the control interface.
         """
         super().__init__(config, controlType)
@@ -389,12 +388,11 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Run Control Interface for Franka Panda')
     parser.add_argument('--dummy', action="store_true", help="Run Control Interface in dummy mode, sending very small torques to driver only.")
     parser.add_argument('--config', default='cfg/panda_ctrl_config.yaml', help="panda control yaml config filepath")
-    parser.add_argument('--driver_config', default='cfg/franka-panda.yaml', help="franka-panda-iprl driver config filepath")
     args = parser.parse_args()
     kwargs = vars(args)
 
     ctrl_interface = PandaCtrlInterface(
-        config=kwargs['config'], controlType=None, driver_config=kwargs['driver_config'])
+        config=kwargs['config'], controlType=None)
 
     if (kwargs['dummy']):
         ctrl_interface.run_dummy()
