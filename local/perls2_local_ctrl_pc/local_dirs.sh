@@ -6,4 +6,6 @@ export PERLS2_DIR="$HOME/perls2"
 # Directory for franka-panda-iprl repo
 export DRIVER_DIR="$HOME/franka-panda-iprl"
 # Path to redis conf file.
-export REDIS_CONF="$HOME/goddard_redis.conf"
+export REDIS_CONF="redis.conf"
+# Path to redis pass file
+export REDIS_PASS="redis_passfile.txt"

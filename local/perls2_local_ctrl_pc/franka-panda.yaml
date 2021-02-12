@@ -74,7 +74,7 @@ perls2_redis:
   jacobian:             "model::jacobian"
   gravity:              "model::gravity"
   coriolis:             "model::coriolis"
-  password:             "/home/robot/.redis/redis_passfile.txt" # Directory containing password for Redis AUTH
+  password:             "redis_passfile.txt" # Directory containing password for Redis AUTH
   reset_q_key:          "control::reset_q"
 
 
