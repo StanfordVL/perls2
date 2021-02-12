@@ -9,7 +9,7 @@ where:
     ./start_control_pc.sh -i iam-space -u iam-lab -p 12345678 -d ~/Documents/franka-interface -r 1 -s 0
     "
 p2_dir=$PWD    
-perls2_local_dir="${p2_dir}/local/perls2_local"
+perls2_local_dir="${p2_dir}/local/perls2_local_ctrl_pc"
 
 while getopts ':h:d:' option; do
     case "${option}" in
@@ -85,10 +85,11 @@ source "$LOCAL_PERLS2_VARS"
 
 DRIVER_CFG="${perls2_local_dir}/franka-panda.yaml"
 PANDACTRL_CFG="${perls2_local_dir}/panda_ctrl_config.yaml"
+REDIS_PASSFILE="${perls2_local_dir}/${REDIS_PASS}"
 
 START_DRIVER_CMD="./franka_panda_driver $DRIVER_CFG"
-START_REDIS_CMD="redis-server $REDIS_CONF"
-START_PANDACTRL_CMD="python perls2/ctrl_interfaces/panda_ctrl_interface.py --config=${PANDACTRL_CFG}"
+START_REDIS_CMD="redis-server ${perls2_local_dir}/$REDIS_CONF"
+START_PANDACTRL_CMD="python perls2/ctrl_interfaces/panda_ctrl_interface.py --config=${PANDACTRL_CFG} --redis_passfile=${REDIS_PASSFILE}"
 
 # Start redis-server
 killall "redis-server"
