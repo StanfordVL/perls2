@@ -8,8 +8,8 @@ where:
     ./start_control_pc.sh -i iam-space
     ./start_control_pc.sh -i iam-space -u iam-lab -p 12345678 -d ~/Documents/franka-interface -r 1 -s 0
     "
-
-perls2_local_dir="local/perls2_local"
+p2_dir=$PWD    
+perls2_local_dir="${p2_dir}/local/perls2_local"
 
 while getopts ':h:d:' option; do
     case "${option}" in
@@ -83,7 +83,7 @@ LOCAL_PERLS2_VARS="${perls2_local_dir}/local_dirs.sh"
 echo "Sourcing local machine config from $LOCAL_PERLS2_VARS"
 source "$LOCAL_PERLS2_VARS"
 
-DRIVER_CFG="${PERLS2_DIR}/cfg/franka-panda.yaml"
+DRIVER_CFG="${perls2_local_dir}/franka-panda.yaml"
 START_DRIVER_CMD="./franka_panda_driver $DRIVER_CFG"
 START_REDIS_CMD="redis-server $REDIS_CONF"
 START_PANDACTRL_CMD="python perls2/ctrl_interfaces/panda_ctrl_interface.py"
