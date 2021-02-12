@@ -1,11 +1,15 @@
 """Control interface for Panda
 """
+import sys
+import socket
+import signal   # Catch interrupts from bash scripts
 import time
 import numpy as np
 import json
 from perls2.ctrl_interfaces.ctrl_interface import CtrlInterface
 import perls2.redis_interfaces.panda_redis_keys as P
 from perls2.redis_interfaces.redis_interface import PandaRedisInterface
+import redis.exceptions.ConnectionError as RedisConnectionError
 import perls2.redis_interfaces.redis_keys as R
 from perls2.controllers.utils import transform_utils as T
 import perls2.utils.redis_utils as RU
@@ -18,6 +22,9 @@ LOOP_TIME_REPORT_COUNT = 1000
 MAX_TORQUE = 1.5        # Clip torque commands before sending to driver.
 MIN_TORQUE = -1.5
 
+def keyboardInterruptHandler(signal, frame):
+    print("KeyboardInterrupt: Exiting Panda Ctrl Interface".format(signal))
+    sys.exit(0)
 
 class PandaCtrlInterface(CtrlInterface):
     """Interface for franka-panda redis driver and perls2.RealPandaInterface.
@@ -81,7 +88,6 @@ class PandaCtrlInterface(CtrlInterface):
         # ee pose is stored in a (4,4) matrix
         ee_pos, ee_ori_quat = T.mat2pose(new_states[P.ROBOT_STATE_EE_POSE_KEY])
         update_args = {
-
             'ee_pos': ee_pos,
             'ee_ori': ee_ori_quat,
             'joint_pos': new_states[P.ROBOT_STATE_Q_KEY],
@@ -216,14 +222,11 @@ class PandaCtrlInterface(CtrlInterface):
         Allows for ctrl+c key board interrputs/
         """
         logging.info("Waiting for perls2.RealRobotInterface to connect to redis.")
-        try:
-            while True:
-                if not self.redisClient.is_env_connected():
-                    pass
-                else:
-                    break
-        except KeyboardInterrupt:
-            logging.error("Keyboard interrupt received.")
+        while True:
+            if not self.redisClient.is_env_connected():
+                pass
+            else:
+                break
 
         if self.redisClient.is_env_connected():
             logging.info("perls2.RealRobotInterface connected.")
@@ -306,20 +309,28 @@ class PandaCtrlInterface(CtrlInterface):
         Grab and process new commands from redis, update the model
         and send torques to the libfranka driver.
         """
-        if not self.driver_connected:
-            raise ValueError("franka-panda driver must be started first.")
-
-        self.warm_up_driver()
-
-        self.update_model()
-        self.wait_for_env_connect()
-        self.controller = self.make_controller_from_redis(self.get_control_type(), self.get_controller_params())
-        logging.info("Beginning control loop")
-        self.loop_count = 0
+        signal.signal(signal.SIGINT, keyboardInterruptHandler)
         try:
+            if not self.driver_connected:
+                raise ValueError("franka-panda driver must be started first.")
+
+            self.warm_up_driver()
+            self.update_model()
+            logging.info("Waiting for perls2.RealRobotInterface to connect to redis.")
+            while True:
+                if not self.redisClient.is_env_connected():
+                    pass
+                else:
+                    break
+
+            if self.redisClient.is_env_connected():
+                logging.info("perls2.RealRobotInterface connected.")
+
+            self.controller = self.make_controller_from_redis(self.get_control_type(), self.get_controller_params())
+            logging.info("Beginning control loop")
+            self.loop_count = 0
             while True:
                 start = time.time()
-
                 if (self.check_env_connection(self.loop_count)):
                     self.process_cmd_data(self.get_cmd_data())
                     self.step(start)
@@ -331,9 +342,13 @@ class PandaCtrlInterface(CtrlInterface):
 
                 else:
                     break
+    
+        except (RedisConnectionError):
+            print("Connection error: redis-server disconnected. ")
+        finally: 
+            print("Shutting down perls.PandaCtrlInterface")
 
-        except KeyboardInterrupt:
-            pass
+
 
     def run_dummy(self):
         """ Run control loop in dummy mode.
