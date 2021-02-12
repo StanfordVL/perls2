@@ -84,9 +84,11 @@ echo "Sourcing local machine config from $LOCAL_PERLS2_VARS"
 source "$LOCAL_PERLS2_VARS"
 
 DRIVER_CFG="${perls2_local_dir}/franka-panda.yaml"
+PANDACTRL_CFG="${perls2_local_dir}/panda_ctrl_config.yaml"
+
 START_DRIVER_CMD="./franka_panda_driver $DRIVER_CFG"
 START_REDIS_CMD="redis-server $REDIS_CONF"
-START_PANDACTRL_CMD="python perls2/ctrl_interfaces/panda_ctrl_interface.py"
+START_PANDACTRL_CMD="python perls2/ctrl_interfaces/panda_ctrl_interface.py --config=${PANDACTRL_CFG}"
 
 # Start redis-server
 killall "redis-server"
