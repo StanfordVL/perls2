@@ -9,7 +9,7 @@ import json
 from perls2.ctrl_interfaces.ctrl_interface import CtrlInterface
 import perls2.redis_interfaces.panda_redis_keys as P
 from perls2.redis_interfaces.redis_interface import PandaRedisInterface
-import redis.exceptions.ConnectionError as RedisConnectionError
+from redis.exceptions import ConnectionError as RedisConnectionError
 import perls2.redis_interfaces.redis_keys as R
 from perls2.controllers.utils import transform_utils as T
 import perls2.utils.redis_utils as RU
