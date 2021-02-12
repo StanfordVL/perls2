@@ -9,7 +9,7 @@ where:
     ./start_control_pc.sh -i iam-space -u iam-lab -p 12345678 -d ~/Documents/franka-interface -r 1 -s 0
     "
 
-perls2_local_dir="$HOME/perls2_local"
+perls2_local_dir="local/perls2_local"
 
 while getopts ':h:d:' option; do
     case "${option}" in
