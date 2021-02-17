@@ -21,19 +21,31 @@ To ensure consistent control loop timing, it is important that no other processe
 
 3. [Disable cpu power scaling](https://frankaemika.github.io/docs/troubleshooting.html#disabling-cpu-frequency-scaling) using cpufrequtils by following the [instructions here] The default setting slow down the CPU frequency for power conservation. We want our control loop to run as fast as possible to maintain a high frequency for torque control.
 
-4. [Clone and install perls2](introduction.md#installing)
 
-5. In perls2, checkout the `panda_dev` branch
-
+4. Clone perls2 and checkout the `panda_dev` branch
     ```
+    git clone https://github.com/StanfordVL/perls2.git
+    cd ~/perls2
     git checkout panda_dev
     ```
+5. [Install perls2](introduction.md#installing)
 
 6. Install redis.
 
     `sudo apt-get install redis-server`
 
 7. Install the [franka-panda-iprl driver.](https://github.com/StanfordVL/franka-panda-iprl/) This is used by perls2 as a redis-wrapper for libfranka. Please note that this version of the driver has been modified specifically to work with perls2.
+
+8. Modify the franka-panda-iprl driver config found in `perls2/cfg/franka-panda.yaml` to contain your robot's IP address as shown here: 
+
+```
+####################
+# Robot parameters #
+####################
+
+robot:
+  ip: "172.16.0.2"  # substitute with your Franka's Master Controller ip here. 
+```
 
 ### Secure your redis server
 Because redis-server process requests very quickly, it is critical to secure your redis-server by setting a password. It's best to set a very long, randomly generated password.
@@ -96,7 +108,7 @@ Because redis-server process requests very quickly, it is critical to secure you
 ### Verify perls2 NUC setup by running PandaCtrlInterface
 1. Start the redis-server
 
-    ```
+    ```bash
     redis-server /path/to/.hidden/redis.conf
     ```
 
@@ -106,7 +118,7 @@ Because redis-server process requests very quickly, it is critical to secure you
 
 4. Start the franka-panda driver using the perl2 config.
 
-    ```
+    ```bash
     cd franka-panda-iprl/bin
     ./franka-panda-iprl ~/perls2/cfg/franka-panda.yaml
     ```
@@ -114,7 +126,7 @@ Because redis-server process requests very quickly, it is critical to secure you
 
 6. Run the Panda Control Interface
 
-    ```
+    ```bash
     cd ~/perls2
     python perls2/ctrl_interfaces/panda_ctrl_interface.py
     ```
