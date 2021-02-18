@@ -280,13 +280,11 @@ Input password to control-pc.
 </li>
 <li><p><a class="reference internal" href="introduction.html#installing"><span class="std std-ref">Install perls2</span></a></p></li>
 <li><p>Copy the redis_passfile.txt from the <code class="docutils literal notranslate"><span class="pre">perls2_local_control_pc</span></code> directory on your Control PC to your workstation (preferably outside the perls2 directory.)</p></li>
-<li><p>Modify the perls2/cfg/redis.yaml with the following:</p></li>
+<li><p>If necessary, modify the perls2/cfg/redis.yaml with the ip address of the control pc on the local network:</p></li>
 </ol>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span># Redis-server hosted by NUC for Robot Control
-redis:
-  host: &lt;IP address of the NUC&gt;
-  port: &lt;port number redis-server is hosted on&gt;		
-  password: &lt;path to redis_passfile.txt&gt; 
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Redis-server hosted by NUC for Robot Control</span>
+<span class="n">redis</span><span class="p">:</span>
+  <span class="n">host</span><span class="p">:</span> <span class="p">[</span><span class="n">Local</span> <span class="n">ip</span> <span class="n">address</span> <span class="n">of</span> <span class="n">the</span> <span class="n">NUC</span><span class="p">]</span> 
 </pre></div>
 </div>
 <p>For example:</p>
@@ -294,7 +292,7 @@ redis:
 <span class="nt">redis</span><span class="p">:</span>
   <span class="nt">host</span><span class="p">:</span> <span class="s">&quot;172.16.0.1&quot;</span>
   <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">6379</span>
-  <span class="nt">password</span><span class="p">:</span> <span class="s">&quot;home/user/redis_passfile.txt&quot;</span>
+  <span class="nt">password</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
 </pre></div>
 </div>
 <ol>

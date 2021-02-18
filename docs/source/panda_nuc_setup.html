@@ -123,7 +123,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#important-notes">Important notes:</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#setting-up-the-nuc">Setting up the NUC</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#set-up-local-directory-for-the-control-pc">Set up local directory for the Control PC</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#secure-your-redis-server">Secure your redis server</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bind-your-redis-server">Bind your redis server</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#modify-config-for-driver">Modify config for driver:</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#set-up-for-bash-scripting">Set up for bash scripting</a></li>
 </ul>
@@ -280,66 +280,49 @@ cp -r local/perls2_local_control_pc ~/
 <p>This folder contains the following files:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">redis.conf</span></code>              : config file used by redis-server.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">redis_passfile.txt</span></code>      : password to authenticate clients to redis-server</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">redis_passfile.txt</span></code>      : (deprecated) password to authenticate clients to redis-server</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">redis_nuc.yaml</span></code>          : yaml config used by perls2 to connect to redis-server</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">franka-panda.yaml</span></code>       : config used by franka-panda-iprl driver.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">panda_ctrl_config.yaml</span></code>  : default config used by perls2 panda control interface.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">local_dir.sh</span></code>            : bash script to help find local perls2 and driver install</p></li>
 </ul>
-<div class="section" id="secure-your-redis-server">
-<h4>Secure your redis server<a class="headerlink" href="#secure-your-redis-server" title="Permalink to this headline">¶</a></h4>
-<p>Because redis-server process requests very quickly, it is critical to secure your redis-server by setting a password. It’s best to set a very long, randomly generated password.</p>
+<div class="section" id="bind-your-redis-server">
+<h4>Bind your redis server<a class="headerlink" href="#bind-your-redis-server" title="Permalink to this headline">¶</a></h4>
+<p>Binding the redis-server ensures that it only allows connections from certain ip addresses. This allows us to secure the redis-server for a local network.</p>
+<ol class="simple">
+<li><p>Determine the control PC’s local ip address. If you followed the instructions on the Franka website, it should be 172.16.0.1. Otherwise use ifconfig.
+Note the inet addr  for the <strong>local</strong> network, likely ‘eno1’. For example:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ifconfig
+eno1      Link encap:Ethernet  HWaddr <span class="m">94</span>:c6:91:aa:91:80  
+          inet addr:172.16.0.1  Bcast:172.16.0.255  Mask:255.255.255.0
+</pre></div>
+</div>
 <ol>
-<li><p>Using your favorite text editer, open the <code class="docutils literal notranslate"><span class="pre">redis.conf</span></code> file found in the local directory you just copied. This conf file contains the redis-server password, so we don’t want it online.</p>
+<li><p>Using your favorite text editor, open the <code class="docutils literal notranslate"><span class="pre">redis.conf</span></code> file found in the local directory you just copied.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/perls2_local_control_pc
 nano redis.conf
 </pre></div>
 </div>
 </li>
-<li><p>Edit the line 309 <code class="docutils literal notranslate"><span class="pre">requirepass</span> <span class="pre">foobared</span></code> and substitute <code class="docutils literal notranslate"><span class="pre">foobared</span></code> with your password.</p></li>
-<li><p>Open redis_passfile.txt from perls2 to a hidden folder in your home directory. Change the text to the password you entered in the redis.conf.</p></li>
-<li><p>Run your redis-server with the conf file you’ve copied from perls2. If you don’t provide the path to the conf file as an argument, your redis-server will not be secured.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/perls2_local_control_pc
-redis-server redis.conf
-</pre></div>
-</div>
-</li>
-<li><p>Verify that your redis-server is secured by opening <a class="reference internal" href="redis.html"><span class="doc">redis-cli</span></a> in another terminal</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>redis-cli -h host_ip -p port_num
-</pre></div>
-</div>
-<p>For example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>redis-cli -h <span class="m">127</span>.0.0.1 -p <span class="m">6379</span>
-</pre></div>
-</div>
-</li>
-<li><p>Running any command in redis-cli should respond with a message ‘AUTH Required’:
-For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">keys</span> <span class="o">*</span>
-<span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="n">AUTH</span> <span class="n">Required</span>
-</pre></div>
-</div>
-</li>
-<li><p>You can enter a password for redis-cli by using AUTH followed by the password you set in the conf file.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">AUTH</span> <span class="n">your</span><span class="o">-</span><span class="n">password</span>
-<span class="n">OK</span>
-</pre></div>
-</div>
-</li>
+<li><p>Edit the line 68 <code class="docutils literal notranslate"><span class="pre">bind</span> <span class="pre">127.0.0.1</span> <span class="pre">172.16.0.1</span></code> and replace the “172.16.0.1” with your control pc ip address if needed. Make sure you have a space between the two addresses, and don’t delete the “127.0.0.1”.</p></li>
 </ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Examples:</span>
+<span class="c1"># bind 127.0.0.1 [Control PC Local IP]</span>
+<span class="n">bind</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span> <span class="mf">172.16</span><span class="o">.</span><span class="mf">0.1</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="modify-config-for-driver">
 <h4>Modify config for driver:<a class="headerlink" href="#modify-config-for-driver" title="Permalink to this headline">¶</a></h4>
-<ol class="simple">
-<li><p>Open the <code class="docutils literal notranslate"><span class="pre">franka-panda.yaml</span></code> config file in a text-editor.</p></li>
-</ol>
+<ol>
+<li><p>Open the <code class="docutils literal notranslate"><span class="pre">franka-panda.yaml</span></code> config file in a text-editor.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/perls2_local_control_pc
 nano franka-panda.yaml
 </pre></div>
 </div>
-<ol class="simple">
-<li><p>Edit the <code class="docutils literal notranslate"><span class="pre">robot_ip</span></code> key to the ip address of the Franka Master Controller</p></li>
-</ol>
+</li>
+<li><p>Edit the <code class="docutils literal notranslate"><span class="pre">robot_ip</span></code> key to the ip address of the Franka Master Controller</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1">####################</span>
 <span class="c1"># Robot parameters #</span>
 <span class="c1">####################</span>
@@ -348,20 +331,20 @@ nano franka-panda.yaml
   <span class="nt">ip</span><span class="p">:</span> <span class="s">&quot;172.16.0.2&quot;</span>
 </pre></div>
 </div>
+</li>
+</ol>
 </div>
 <div class="section" id="set-up-for-bash-scripting">
 <h4>Set up for bash scripting<a class="headerlink" href="#set-up-for-bash-scripting" title="Permalink to this headline">¶</a></h4>
 <p>Configuring the <code class="docutils literal notranslate"><span class="pre">local_dirs.sh</span></code> file makes it convenient to start the robot by using bash scripts.</p>
-<ol class="simple">
-<li><p>In the perls2_local_control_pc directory, open the local_dirs.sh file.</p></li>
-</ol>
+<ol>
+<li><p>In the perls2_local_control_pc directory, open the local_dirs.sh file.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/perls2_local_control_pc
 nano local_dirs.sh
 </pre></div>
 </div>
-<ol class="simple">
-<li><p>Edit following variables in the script with directories and file locations specific to your pc.</p></li>
-</ol>
+</li>
+<li><p>Edit following variables in the script with directories and file locations specific to your pc. If you set up everything in your home directory, you shouldn’t have to modify anything.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 <span class="c1"># Command to source virtualenv environment with perls2 installed</span>
 <span class="nb">export</span> <span class="nv">SOURCE_ENV_CMD</span><span class="o">=</span><span class="s2">&quot;source ~/p2env/bin/activate&quot;</span>
@@ -369,20 +352,15 @@ nano local_dirs.sh
 <span class="nb">export</span> <span class="nv">PERLS2_DIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/perls2&quot;</span>
 <span class="c1"># Directory for franka-panda-iprl repo</span>
 <span class="nb">export</span> <span class="nv">DRIVER_DIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/franka-panda-iprl&quot;</span>
-<span class="c1">########################################################</span>
-<span class="c1"># Only edit below if you want to use a different redis conf or store your password in a directory outside perls2_local_control_pc</span>
-<span class="c1"># Path to redis conf file.</span>
-<span class="nb">export</span> <span class="nv">REDIS_CONF</span><span class="o">=</span><span class="s2">&quot;redis.conf&quot;</span>
-<span class="c1"># Path to redis pass file</span>
-<span class="nb">export</span> <span class="nv">REDIS_PASS</span><span class="o">=</span><span class="s2">&quot;redis_passfile.txt&quot;</span>  
 </pre></div>
 </div>
-<ol class="simple">
-<li><p>Make the file executable with:</p></li>
-</ol>
+</li>
+<li><p>Make the file executable with:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod a+x local_dirs.sh
 </pre></div>
 </div>
+</li>
+</ol>
 </div>
 </div>
 <div class="section" id="verify-perls2-nuc-setup-using-bash-scripts">
@@ -395,7 +373,7 @@ nano local_dirs.sh
 </pre></div>
 </div>
 </li>
-<li><p>Run the <code class="docutils literal notranslate"><span class="pre">start_panda_control.sh</span></code> script passing the local directory folder as an argument:</p>
+<li><p>Run the <code class="docutils literal notranslate"><span class="pre">start_panda_control.sh</span></code> script passing the path to the <code class="docutils literal notranslate"><span class="pre">perls2_local_control_pc</span></code> folder you copied as an argument:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./scripts/start_panda_control.sh ~/perls2_local_control_pc
 </pre></div>
 </div>
