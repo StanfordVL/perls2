@@ -395,7 +395,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Run Control Interface for Franka Panda')
     parser.add_argument('--dummy', action="store_true", help="Run Control Interface in dummy mode, sending very small torques to driver only.")
     parser.add_argument('--config', default='cfg/panda_ctrl_config.yaml', help="panda control yaml config filepath")
-    parser.add_argument('--redis_passfile', default='local/perls2_local_ctrl_pc/redis_passfile.txt', help="filepath for redis password")
+    parser.add_argument('--redis_passfile', default=None, help="filepath for redis password")
     args = parser.parse_args()
     kwargs = vars(args)
 
