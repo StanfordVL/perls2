@@ -1,22 +1,26 @@
 #!/bin/bash
 
-usage="$(basename "$0") [-h] [-i xxx.xxx.xxx.xxx] -- Start control PC from workstation
+usage="$(basename "$0") [path to perls2_control_pc directory] [-h] -- Start control PC from workstation
 where:
     -h show this help text
-    -d Path to to perls2_local folder (default ~/perls2_local)
-    
-    ./start_control_pc.sh -i iam-space
-    ./start_control_pc.sh -i iam-space -u iam-lab -p 12345678 -d ~/Documents/franka-interface -r 1 -s 0
-    "
-p2_dir=$PWD    
-perls2_local_dir="${p2_dir}/local/perls2_local_ctrl_pc"
 
-while getopts ':h:d:' option; do
+    ./start_panda_control.sh ~/perls2_local_control_pc
+    "
+if [ "$#" -ne 2 ] 
+then
+    perls2_local_dir=$1
+else
+    echo "No local directory specified ... using perls2/local/perls2_local_control_pc"
+    p2_dir=$pwd
+    perls2_local_dir="${p2_dir}local/perls2_local_ctrl_pc"  
+fi
+  
+
+
+while getopts ':h' option; do
     case "${option}" in
         h) echo "$usage"
            exit
-           ;;
-        d) perls2_local_dir=$OPTARG
            ;;
         :) printf "missing argument for -%s\n" "$OPTARG" >&2
            echo "$usage" >&2
@@ -81,6 +85,10 @@ trap cleanup SIGINT
 
 LOCAL_PERLS2_VARS="${perls2_local_dir}/local_dirs.sh"
 echo "Sourcing local machine config from $LOCAL_PERLS2_VARS"
+if [ ! -f $LOCAL_PERLS2_VARS ]; then
+    echo "Local config folder not found...exiting"
+    exit
+fi
 source "$LOCAL_PERLS2_VARS"
 
 DRIVER_CFG="${perls2_local_dir}/franka-panda.yaml"
@@ -99,7 +107,7 @@ eval "${START_REDIS_CMD} &"
 REDIS_PID=$!
 sleep 2
 
-# Start franka-panda-iprl driver
+# # Start franka-panda-iprl driver
 echo "${DRIVER_DIR}"
 cd ${DRIVER_DIR}"/bin/"
 eval "$START_DRIVER_CMD &"
@@ -114,5 +122,5 @@ eval "$START_PANDACTRL_CMD &"
 PANDACTRL_PID=$!
 echo "PANDA CONTROL PID $PANDACTRL_PID"
 
-# idle waiting for abort from user
+# # idle waiting for abort from user
 read -r -d '' _ </dev/tty
