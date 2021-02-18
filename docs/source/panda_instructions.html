@@ -259,66 +259,19 @@ the driver. This prevents any stale commands from triggering the PandaCtrlInterf
 <li><p>Move to the perls2 repo directory, and run the <code class="docutils literal notranslate"><span class="pre">start_panda_control.sh</span></code> with the path to the <code class="docutils literal notranslate"><span class="pre">perls2_local_control_pc</span></code> as an argument. If you don’t supply an path, the script will use the folder found in the <code class="docutils literal notranslate"><span class="pre">local</span></code> directory in the perls2 repo.</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/perls2
-
-Now <span class="nb">set</span> up the following terminals:
-
-
-<span class="c1">#### Terminal 1: redis-server</span>
-<span class="m">1</span>. ssh into the NUC
-
-<span class="m">2</span>. Run the redis server with your perls2 configuration.
-
-    <span class="sb">`</span>redis-server redis.conf<span class="sb">`</span>
-
-<span class="c1">#### Terminal 2: redis-cli</span>
-<span class="m">1</span>. <span class="o">(</span>Don<span class="s1">&#39;t ssh into the NUC, this process should run on the workstation)</span>
-
-<span class="s1">2. Start the redis-client using the host ip for the NUC and the port set in the redis.conf file. This should also be in the perls2 config when you set up the Workstaiton.</span>
-
-<span class="s1">    `redis-cli -h &lt;NUC Local IP&gt; -p &lt;port&gt;`</span>
-
-<span class="s1">3. Authenticate to the redis-server with the password from the redis_passfile.txt on</span>
-<span class="s1">the workstation.</span>
-
-<span class="s1">    `AUTH &lt;your-very-long-password&gt;`</span>
-
-
-<span class="s1">#### Terminal 3: franka-panda-iprl driver</span>
-<span class="s1">1. Unlock the robot activity stop so that the base lights are Blue</span>
-
-<span class="s1">2. ssh into the NUC</span>
-
-<span class="s1">3. In the redis-cli terminal, flush the redis-server.</span>
-
-<span class="s1">    `&gt; flushall`</span>
-
-<span class="s1">4. Run the franka-panda-iprl driver with the perls2 config</span>
-
-<span class="s1">    `cd ~/franka-panda-iprl/bin`</span>
-
-<span class="s1">    `./franka-panda-driver ~/perls2/cfg/franka-panda.yaml`</span>
-
-<span class="s1">#### Terminal 4: perls2.PandaCtrlInterface</span>
-<span class="s1">1. ssh into the NUC</span>
-
-<span class="s1">2. source the perls2 virtual environment</span>
-
-<span class="s1">3. Run the Panda Ctrl Interface</span>
-
-<span class="s1">    `cd ~/perls2`</span>
-
-<span class="s1">    `python perls2/ctrl_interfaces/panda_ctrl_interface.py`</span>
-
-<span class="s1">#### Terminal 5: Your perls2 script</span>
-<span class="s1">You&#39;</span>re almost there! This is where you run your perls2 environment to perform your robot experiment.
-
-<span class="m">1</span>. Source the perls2 virtual environment.
-
-<span class="m">2</span>. Run your perls2 script. For example, run the gravity-compensation demo:
-
-    <span class="sb">`</span><span class="nb">cd</span> ~/perls2<span class="p">;</span> python demos/run_gc_demo.py --world<span class="o">=</span>Real<span class="sb">`</span>
+./scripts/start_panda_control.sh ~/perls2_local_control_pc
 </pre></div>
 </div>
+<ol>
+<li><p>Open another terminal and source your perls2 environment. You can now run your perls2 script.</p></li>
+<li><p>Run your perls2 script. For example, run the gravity-compensation demo:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> ~/p2env/bin/activate
+<span class="nb">cd</span> ~/perls2<span class="p">;</span> 
+python demos/run_gc_demo.py --world<span class="o">=</span>Real
+</pre></div>
+</div>
+</li>
+</ol>
 </div>
 </div>
 

@@ -160,7 +160,7 @@ chmod a+x local_dirs.sh
     ```
 4. Run the `start_panda_control.sh` script passing the local directory folder as an argument: 
     ```bash
-    ./scripts/start_panda_control.sh -d ~/perls2_local_control_pc
+    ./scripts/start_panda_control.sh ~/perls2_local_control_pc
     ```
 5. You should see the message:
     `Waiting for perls2.RobotInterface to connect`
