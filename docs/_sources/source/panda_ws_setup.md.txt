@@ -53,7 +53,8 @@ The Workstation hosts the perls2 environment and sends robot commands to the NUC
   redis:
     host: [Local ip address of the NUC] 
   ```  
-  For example:
+  
+For example:
   ```yaml
   # Redis-server hosted by NUC for Robot Control
   redis:
@@ -62,7 +63,8 @@ The Workstation hosts the perls2 environment and sends robot commands to the NUC
     password: null
   ```  
 
-6. Follow the steps [here](panda_instructions.md) for using the Franka Panda, and run the Gravity Compensation demo.
+## Test out a demo
+1. Follow the steps [here](panda_instructions.md) for using the Franka Panda, and run the Gravity Compensation demo.
     ```
     python perls2/demos/run_gc_demo.py --world=Real
     ```
