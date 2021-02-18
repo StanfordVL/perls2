@@ -1,0 +1,7 @@
+# Redis config for perls2 installation on this machine. 
+
+# Redis-server hosted by NUC for 
+redis:
+  host: 172.16.0.1
+  port: 6379
+  password: '/home/robot/.redis/redis_passfile.txt'
