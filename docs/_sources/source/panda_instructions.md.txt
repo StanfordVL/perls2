@@ -30,12 +30,22 @@ perls2 provides scripts and wrappers for libfranka to perform torque control on 
 ## Instructions for using the Franka Panda Arms
 After following instructions to setup the NUC and workstation, the Franka Arms may be operated entirely from the workstation.
 
-1. Turn on the FCI control box. The base lights of the Franka should be Yellow indicating the joints are locked.
+1. Turn on the Franka Master Control box. The base lights of the Franka should be Yellow indicating the joints are locked.
 
 2. Open a browser and go the Franka Desk App (usually `https://<fci-ip>` or [https://172.16.0.2](https://172.16.0.2)). Unlock the Franka Arm. You should hear a series of clicks.
 
 3. Confirm that the Franka is unlocked by verifying the base lights are White (IDLE) mode. You should be able to move the robot by pinching the buttons above the base.
 
+4. Pull the user-stop so that the lights at the base of the Franka are blue. 
+
+5. Open a terminal and ssh into the control pc (NUC).
+      ```bash
+      ssh [control-pc-username]@[control-pc-ip]
+      ```
+6. Move to the perls2 repo directory, and run the `start_panda_control.sh` with the path to the `perls2_local_control_pc` as an argument. If you don't supply an path, the script will use the folder found in the `local` directory in the perls2 repo.
+
+```bash
+cd ~/perls2
 
 Now set up the following terminals:
 

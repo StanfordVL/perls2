@@ -234,10 +234,10 @@
 <p><img alt="panda_infra" src="../_images/perls2_franka_simple.png" /></p>
 <p>perls2 uses three machines to communicate with the Franka Panda. These machines are connected in a local network. They consist of the:</p>
 <ol>
-<li><p><strong>FCI</strong>: This is the main control box that comes with the Franka Panda.</p></li>
+<li><p><strong>Franka Master Controller</strong>: This is the main control box that comes with the Franka Panda.</p></li>
 <li><p><strong>Workstation (WS)</strong>: The workstation hosting the perls2 environment and running any scripts to perform  the robot experiment.</p></li>
-<li><p><strong>Intel NUC (NUC)</strong> or other computer with RT-PREEMPT Kernel:</p>
-<p>Using the Franka Panda arm with torque control requires a consistent control loop frequency for sending torque commands to the arm. In order to acheive this, a separate machine with an RT Kernel sends torques to the FCI. This machine, typically an Intel NUC, is dedicated to running only the processes necessary for torque control.</p>
+<li><p><strong>Control PC (NUC)</strong> or other computer with RT-PREEMPT Kernel: Typically an Intel NUC, is dedicated to running only the processes necessary for torque control.</p>
+<p>Using the Franka Panda arm with torque control requires a consistent control loop frequency for sending torque commands to the arm. In order to acheive this, a separate machine with an RT Kernel sends torques to the Master Controller.</p>
 <p>The following processes run on the NUC:</p>
 <ol class="simple">
 <li><p><strong>redis-server</strong>: An in-memory database used by perls2 for interprocess communication. Hosted on the NUC and communicated with via tcp. Allows the <code class="docutils literal notranslate"><span class="pre">perls2.PandaCtrlInterface</span></code> to bridge the <code class="docutils literal notranslate"><span class="pre">perls2.Env</span></code> on the WS with <code class="docutils literal notranslate"><span class="pre">libfranka</span></code>. See the <a class="reference internal" href="redis.html"><span class="doc">Redis Help</span></a> for more on Redis and perls2.</p></li>

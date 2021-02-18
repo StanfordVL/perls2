@@ -121,6 +121,7 @@
 <li class="toctree-l1"><a class="reference internal" href="panda_nuc_setup.html">Set up NUC (Control PC) for the Franka Panda</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Set up workstation for Franka Panda</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-ssh-key-to-control-pc">Setting up SSH Key to Control PC</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#installation-and-setup">Installation and setup</a></li>
 </ul>
 </li>
@@ -223,6 +224,44 @@
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <p>The Workstation hosts the perls2 environment and sends robot commands to the NUC via the redis-server. The redis-server is connected via TCP.</p>
 </div>
+<div class="section" id="setting-up-ssh-key-to-control-pc">
+<h2>Setting up SSH Key to Control PC<a class="headerlink" href="#setting-up-ssh-key-to-control-pc" title="Permalink to this headline">¶</a></h2>
+<p>(Instructions copied from <a class="reference external" href="https://github.com/HARPLab/gastronomy/tree/master/manipulation">HARPLAB gastronomy</a>)</p>
+<ol>
+<li><p>Generate an ssh key by executing the following commands or reading the <a class="reference external" href="https://help.github.com/en/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">instructions here</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh-keygen -t rsa -b <span class="m">4096</span> -C <span class="s2">&quot;workstation name&quot;</span>
+<span class="o">[</span>Press enter<span class="o">]</span>
+<span class="o">[</span>Press enter<span class="o">]</span>
+<span class="o">[</span>Press enter<span class="o">]</span>
+<span class="nb">eval</span> <span class="s2">&quot;</span><span class="k">$(</span>ssh-agent -s<span class="k">)</span><span class="s2">&quot;</span>
+ssh-add ~/.ssh/id_rsa
+</pre></div>
+</div>
+</li>
+<li><p>Upload your public ssh key to the control pc.</p>
+<ol>
+<li><p>In a new terminal, ssh to the control PC.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh <span class="o">[</span>control-pc-username<span class="o">]</span>@<span class="o">[</span>control-pc-ip<span class="o">]</span>
+Input password to control-pc.
+</pre></div>
+</div>
+</li>
+<li><p>Use your favorite text editor to open the authorized_keys file.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vim ~/.ssh/authorized_keys
+</pre></div>
+</div>
+</li>
+<li><p>In a separate terminal on your Workstation PC, use your favorite text editor to open your id_rsa.pub file.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vim ~/.ssh/id_rsa.pub
+</pre></div>
+</div>
+</li>
+<li><p>Copy the contents from your id_rsa.pub file to a new line on the authorized_keys file on the Control PC. Then save.</p></li>
+<li><p>Open a new terminal and try sshing to the control PC and it should no longer require a password.</p></li>
+</ol>
+</li>
+</ol>
+</div>
 <div class="section" id="installation-and-setup">
 <h2>Installation and setup<a class="headerlink" href="#installation-and-setup" title="Permalink to this headline">¶</a></h2>
 <ol class="simple">
@@ -240,14 +279,22 @@
 </div>
 </li>
 <li><p><a class="reference internal" href="introduction.html#installing"><span class="std std-ref">Install perls2</span></a></p></li>
-<li><p>Copy the redis_passfile.txt from the nuc to your workstation.</p></li>
+<li><p>Copy the redis_passfile.txt from the <code class="docutils literal notranslate"><span class="pre">perls2_local_control_pc</span></code> directory on your Control PC to your workstation (preferably outside the perls2 directory.)</p></li>
 <li><p>Modify the perls2/cfg/redis.yaml with the following:</p></li>
 </ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Redis-server hosted by NUC for </span>
-<span class="n">redis</span><span class="p">:</span>
-  <span class="n">host</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">IP</span> <span class="n">address</span> <span class="n">of</span> <span class="n">the</span> <span class="n">NUC</span><span class="o">&gt;</span>
-  <span class="n">port</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">port</span> <span class="n">number</span> <span class="n">redis</span><span class="o">-</span><span class="n">server</span> <span class="ow">is</span> <span class="n">hosted</span> <span class="n">on</span><span class="o">&gt;</span>		
-  <span class="n">password</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">path</span> <span class="n">to</span> <span class="n">redis_passfile</span><span class="o">.</span><span class="n">txt</span><span class="o">&gt;</span> 
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span># Redis-server hosted by NUC for Robot Control
+redis:
+  host: &lt;IP address of the NUC&gt;
+  port: &lt;port number redis-server is hosted on&gt;		
+  password: &lt;path to redis_passfile.txt&gt; 
+</pre></div>
+</div>
+<p>For example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Redis-server hosted by NUC for Robot Control</span>
+<span class="nt">redis</span><span class="p">:</span>
+  <span class="nt">host</span><span class="p">:</span> <span class="s">&quot;172.16.0.1&quot;</span>
+  <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">6379</span>
+  <span class="nt">password</span><span class="p">:</span> <span class="s">&quot;home/user/redis_passfile.txt&quot;</span>
 </pre></div>
 </div>
 <ol>
