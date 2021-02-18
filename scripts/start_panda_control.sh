@@ -4,15 +4,16 @@ usage="$(basename "$0") [path to perls2_control_pc directory] [-h] -- Start cont
 where:
     -h show this help text
 
+    ./start_panda_control.sh
     ./start_panda_control.sh ~/perls2_local_control_pc
     "
-if [ "$#" -ne 2 ] 
+if [ "$#" -eq 2 ] 
 then
     perls2_local_dir=$1
 else
-    echo "No local directory specified ... using perls2/local/perls2_local_control_pc"
-    p2_dir=$pwd
-    perls2_local_dir="${p2_dir}local/perls2_local_ctrl_pc"  
+    echo "No local directory specified ... using ${PWD}/perls2_local_control_pc"
+    p2_dir=$PWD
+    perls2_local_dir="${p2_dir}/local/perls2_local_control_pc"  
 fi
   
 
@@ -106,21 +107,30 @@ echo "Starting redis-server"
 eval "${START_REDIS_CMD} &"
 REDIS_PID=$!
 sleep 2
-
+echo "#######################################"
 # # Start franka-panda-iprl driver
-echo "${DRIVER_DIR}"
-cd ${DRIVER_DIR}"/bin/"
-eval "$START_DRIVER_CMD &"
-DRIVER_PID=$! 
-sleep 2
+if [ ! -d ${DRIVER_DIR} ]
+then
+  echo "Driver directory not found. ${DRIVER_DIR}"
+  echo "Check DRIVER_DIR in ${perls2_local_dir}/local_dirs.sh"
+  exit
+else
+  echo "Starting franka-panda-iprl driver ..."
+  echo "Loading driver config from $DRIVER_CFG"
+  cd ${DRIVER_DIR}"/bin/"
+  eval "$START_DRIVER_CMD &"
+  DRIVER_PID=$! 
+  sleep 2
+fi
 
+echo "#######################################"
+echo "Starting perls2.PandaCtrlInterface..."
 # Start Panda Ctrl Interface
 cd ~
 eval "$SOURCE_ENV_CMD" 
 cd "${PERLS2_DIR}"
 eval "$START_PANDACTRL_CMD &"
 PANDACTRL_PID=$!
-echo "PANDA CONTROL PID $PANDACTRL_PID"
 
 # # idle waiting for abort from user
 read -r -d '' _ </dev/tty
