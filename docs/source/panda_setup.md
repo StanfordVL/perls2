@@ -9,13 +9,13 @@ This page contains instructions for setting up the Franka Panda arm with perls2.
 
 perls2 uses three machines to communicate with the Franka Panda. These machines are connected in a local network. They consist of the: 
 
-1. **FCI**: This is the main control box that comes with the Franka Panda. 
+1. **Franka Master Controller**: This is the main control box that comes with the Franka Panda. 
 
 3. **Workstation (WS)**: The workstation hosting the perls2 environment and running any scripts to perform  the robot experiment.
 
-2. **Intel NUC (NUC)** or other computer with RT-PREEMPT Kernel: 
+2. **Control PC (NUC)** or other computer with RT-PREEMPT Kernel: Typically an Intel NUC, is dedicated to running only the processes necessary for torque control. 
 
-	Using the Franka Panda arm with torque control requires a consistent control loop frequency for sending torque commands to the arm. In order to acheive this, a separate machine with an RT Kernel sends torques to the FCI. This machine, typically an Intel NUC, is dedicated to running only the processes necessary for torque control. 
+	Using the Franka Panda arm with torque control requires a consistent control loop frequency for sending torque commands to the arm. In order to acheive this, a separate machine with an RT Kernel sends torques to the Master Controller. 
 
 	The following processes run on the NUC: 
 

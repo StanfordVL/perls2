@@ -33,9 +33,9 @@ The Workstation hosts the perls2 environment and sends robot commands to the NUC
 
 ## Installation and setup
 1. Install redis
-```
-sudo apt-get install redis-server
-```
+    ```
+    sudo apt-get install redis-server
+    ```
 
 2. Clone perls2 and checkout the `panda_dev` branch
     ```
@@ -45,19 +45,26 @@ sudo apt-get install redis-server
     ```
 3. [Install perls2](introduction.md#installing)
 
-4. Copy the redis_passfile.txt from the nuc to your workstation.
+4. Copy the redis_passfile.txt from the `perls2_local_control_pc` directory on your Control PC to your workstation (preferably outside the perls2 directory.)
 
-5. Modify the perls2/cfg/redis.yaml with the following: 
-```
-# Redis-server hosted by NUC for 
-redis:
-  host: <IP address of the NUC>
-  port: <port number redis-server is hosted on>		
-  password: <path to redis_passfile.txt> 
-```  
+5. If necessary, modify the perls2/cfg/redis.yaml with the ip address of the control pc on the local network: 
+  ```
+  # Redis-server hosted by NUC for Robot Control
+  redis:
+    host: [Local ip address of the NUC] 
+  ```  
+  
+For example:
+  ```yaml
+  # Redis-server hosted by NUC for Robot Control
+  redis:
+    host: "172.16.0.1"
+    port: 6379
+    password: null
+  ```  
 
-
-6. Follow the steps [here](panda_instructions.md) for using the Franka Panda, and run the Gravity Compensation demo.
+## Test out a demo
+1. Follow the steps [here](panda_instructions.md) for using the Franka Panda, and run the Gravity Compensation demo.
     ```
     python perls2/demos/run_gc_demo.py --world=Real
     ```

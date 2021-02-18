@@ -23,7 +23,7 @@ To ensure consistent control loop timing, it is important that no other processe
 
 
 4. Clone perls2 and checkout the `panda_dev` branch
-    ```
+    ```bash
     git clone https://github.com/StanfordVL/perls2.git
     cd ~/perls2
     git checkout panda_dev
@@ -36,104 +36,109 @@ To ensure consistent control loop timing, it is important that no other processe
 
 7. Install the [franka-panda-iprl driver.](https://github.com/StanfordVL/franka-panda-iprl/) This is used by perls2 as a redis-wrapper for libfranka. Please note that this version of the driver has been modified specifically to work with perls2.
 
-8. Modify the franka-panda-iprl driver config found in `perls2/cfg/franka-panda.yaml` to contain your robot's IP address as shown here: 
+### Set up local directory for the Control PC
+Setting up the control PC requires certain config specific to the machine. These include the redis-server password and the ip of the Franka Arm. To ensure these configs do not get overwritten when updating perls2, it's best to place them in a separate directory. This also makes it easier to use bash scripts to start the robot. 
 
-```
-####################
-# Robot parameters #
-####################
-
-robot:
-  ip: "172.16.0.2"  # substitute with your Franka's Master Controller ip here. 
-```
-
-### Secure your redis server
-Because redis-server process requests very quickly, it is critical to secure your redis-server by setting a password. It's best to set a very long, randomly generated password.
-
-1. Copy the redis.conf file found in perls2/redis_interfaces/redis.conf to the NUC's home directory. This conf file contains the redis-server password, so we don't want it online.
-
-2. Edit the line "requirepass foobared" to "requirepass < your_password_here > ".
-
-3. Copy the redis_passfile.txt from perls2 to a hidden folder in your home directory. Change the text to the password you entered in the redis.conf
-
-4. Modify the perls2/cfg/redis_nuc.yaml file by changing the value of the `password` key to the filepath of your redis_passfile.txt. E.g.
-    ```
-    redis:
-        host: 127.0.0.1
-        port: 6379
-        password: '/home/user/.hidden/redis_passfile.txt'
-    ```
-
-5. Modify the perls2/cfg/franka-panda.yaml by changing the value of the `perls2_redis: password` key just as you did for perls2.
-
-    ```
-    perls2_redis:
-      mass_matrix:          "model::mass_matrix"
-      jacobian:             "model::jacobian"
-      gravity:              "model::gravity"
-      coriolis:             "model::coriolis"
-      password:             "/home/robot/.redis/redis_passfile.txt"
-    ```
-
-6. Run your redis-server with the conf file you've copied from perls2. If you don't provide the path to the conf file as an argument, your redis-server will not be secured.
-
-    ```
-    redis-server /path/to/.hidden/redis.conf
-    ```
-7. Verify that your redis-server is secured by opening [redis-cli](redis.md) in another terminal
-
-    ```
-    redis-cli -h <host_ip> -p <port>
-    ```
-    For example:
-
-    ```
-    redis-cli -h 127.0.0.1 -p 6379
-    ```
-8. Running any command in redis-cli should respond with a message 'AUTH Required':
-    For example:
-
-    ```
-    > keys *
-    (error) AUTH Required
-    ```
-
-9. You can enter a password for redis-cli by using AUTH followed by the password you set in the conf file.
-
-    ```
-    > AUTH your-password
-    OK
-    ```
-
-### Verify perls2 NUC setup by running PandaCtrlInterface
-1. Start the redis-server
-
+1. Copy the `perls2_local_control_pc` directory to your home directory or somewhere outside the main perls2 repo. 
     ```bash
-    redis-server /path/to/.hidden/redis.conf
+    cd ~/perls2;
+    cp -r local/perls2_local_control_pc ~/
     ```
-
-2. In the Desk app, unlock the robot. The lights at the base of the robot should be white.
-
-3. Pull the user-stop so the lights are blue.
-
-4. Start the franka-panda driver using the perl2 config.
-
+2. Move to the newly copied local directory;
     ```bash
-    cd franka-panda-iprl/bin
-    ./franka-panda-iprl ~/perls2/cfg/franka-panda.yaml
+    cd ~/perls2_local_control_pc
     ```
-5. Open another terminal and source the perls2 environment.
+This folder contains the following files: 
 
-6. Run the Panda Control Interface
+* `redis.conf`              : config file used by redis-server.
+* `redis_passfile.txt`      : (deprecated) password to authenticate clients to redis-server
+* `redis_nuc.yaml`          : yaml config used by perls2 to connect to redis-server
+* `franka-panda.yaml`       : config used by franka-panda-iprl driver.
+* `panda_ctrl_config.yaml`  : default config used by perls2 panda control interface.
+* `local_dir.sh`            : bash script to help find local perls2 and driver install 
 
+
+#### Bind your redis server
+Binding the redis-server ensures that it only allows connections from certain ip addresses. This allows us to secure the redis-server for a local network.
+
+1. Determine the control PC's local ip address. If you followed the instructions on the Franka website, it should be 172.16.0.1. Otherwise use ifconfig. 
+Note the inet addr  for the **local** network, likely 'eno1'. For example:
+```bash
+$ ifconfig
+eno1      Link encap:Ethernet  HWaddr 94:c6:91:aa:91:80  
+          inet addr:172.16.0.1  Bcast:172.16.0.255  Mask:255.255.255.0
+```
+
+
+2. Using your favorite text editor, open the `redis.conf` file found in the local directory you just copied.
+    ```bash
+    cd ~/perls2_local_control_pc
+    nano redis.conf
+    ```
+
+3. Edit the line 68 `bind 127.0.0.1 172.16.0.1` and replace the "172.16.0.1" with your control pc ip address if needed. Make sure you have a space between the two addresses, and don't delete the "127.0.0.1".
+```
+# Examples:
+# bind 127.0.0.1 [Control PC Local IP]
+bind 127.0.0.1 172.16.0.1
+```
+
+#### Modify config for driver: 
+1. Open the `franka-panda.yaml` config file in a text-editor. 
+    ```bash
+    cd ~/perls2_local_control_pc
+    nano franka-panda.yaml
+    ```
+
+2. Edit the `robot_ip` key to the ip address of the Franka Master Controller
+    ```yaml
+    ####################
+    # Robot parameters #
+    ####################
+
+    robot:
+      ip: "172.16.0.2"
+    ```
+
+#### Set up for bash scripting
+Configuring the `local_dirs.sh` file makes it convenient to start the robot by using bash scripts. 
+
+1. In the perls2_local_control_pc directory, open the local_dirs.sh file. 
+    ```bash
+    cd ~/perls2_local_control_pc
+    nano local_dirs.sh
+    ```
+
+2. Edit following variables in the script with directories and file locations specific to your pc. If you set up everything in your home directory, you shouldn't have to modify anything.
+    ```bash
+    #!/bin/bash
+    # Command to source virtualenv environment with perls2 installed
+    export SOURCE_ENV_CMD="source ~/p2env/bin/activate"
+    # Directory for perls2 repo
+    export PERLS2_DIR="$HOME/perls2"
+    # Directory for franka-panda-iprl repo
+    export DRIVER_DIR="$HOME/franka-panda-iprl"
+    ```
+
+3. Make the file executable with: 
+    ```bash
+    chmod a+x local_dirs.sh
+    ```
+
+### Verify perls2 NUC setup using bash scripts:
+1. In the Desk app, unlock the robot. The lights at the base of the robot should be white.
+
+2. Pull the user-stop so the lights are blue. 
+
+3. Move to the perls2 directory. 
     ```bash
     cd ~/perls2
-    python perls2/ctrl_interfaces/panda_ctrl_interface.py
     ```
-
-7. You should see the message:
+4. Run the `start_panda_control.sh` script passing the path to the `perls2_local_control_pc` folder you copied as an argument: 
+    ```bash
+    ./scripts/start_panda_control.sh ~/perls2_local_control_pc
+    ```
+5. You should see the message:
     `Waiting for perls2.RobotInterface to connect`
 
-8. Exit the Ctrl Interface with `Ctrl + C`
-
-9. Exit the Driver with `Ctrl + C`
+6. Exit the Ctrl Interface with `Ctrl+C`
