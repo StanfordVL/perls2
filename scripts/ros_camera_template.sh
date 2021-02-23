@@ -25,10 +25,10 @@ SOURCE_ROS_CMD="source /opt/ros/kinetic/setup.sh"
 LAUNCH_CMD="roslaunch ~/RobotTeleop/RobotTeleop/rs_multiple_devices.launch"
 
 # Source python 2.7 environment with perls2
-SOURCE_P27_CMD="source ~/p27env/bin/activate"
+SOURCE_P27_CMD="source ~/p27env2/bin/activate"
 
 # Directory for perls2 install
-PERLS2_DIR="~/p27perls2"
+PERLS2_DIR="~/perls2"
 
 # Launch redis-server (conf optional)
 REDIS_CONF=""
