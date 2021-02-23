@@ -1,11 +1,16 @@
 """Control interface for Panda
 """
+import sys
+import os
+import socket
+import signal   # Catch interrupts from bash scripts
 import time
 import numpy as np
 import json
 from perls2.ctrl_interfaces.ctrl_interface import CtrlInterface
 import perls2.redis_interfaces.panda_redis_keys as P
 from perls2.redis_interfaces.redis_interface import PandaRedisInterface
+from redis.exceptions import ConnectionError as RedisConnectionError
 import perls2.redis_interfaces.redis_keys as R
 from perls2.controllers.utils import transform_utils as T
 import perls2.utils.redis_utils as RU
@@ -18,6 +23,9 @@ LOOP_TIME_REPORT_COUNT = 1000
 MAX_TORQUE = 1.5        # Clip torque commands before sending to driver.
 MIN_TORQUE = -1.5
 
+def keyboardInterruptHandler(signal, frame):
+    print("KeyboardInterrupt: Exiting Panda Ctrl Interface".format(signal))
+    sys.exit(0)
 
 class PandaCtrlInterface(CtrlInterface):
     """Interface for franka-panda redis driver and perls2.RealPandaInterface.
@@ -31,11 +39,16 @@ class PandaCtrlInterface(CtrlInterface):
 
     def __init__(self,
                  config,
-                 controlType,
-                 driver_config='cfg/franka-panda.yaml'):
+                 controlType, 
+                 redis_passfile=None):
         """ Initialize the control interface.
         """
         super().__init__(config, controlType)
+        
+        # overwrite config passfile if given as argument.
+        if redis_passfile is not None:
+            self.config['redis']['password'] = redis_passfile
+
         self.redisClient = PandaRedisInterface(**self.config['redis'])
         self.action_set = False
         self._num_joints = 7
@@ -72,7 +85,7 @@ class PandaCtrlInterface(CtrlInterface):
 
     @property
     def driver_connected(self):
-        return self.redisClient.get(P.DRIVER_CONN_KEY) == P.DRIVER_CONNECTED_VALUE
+        return self.redisClient.get(P.DRIVER_CONN_KEY).decode() == P.DRIVER_CONNECTED_VALUE
 
     def _get_update_args(self, new_states):
         """Reformat the states so they are compatible with the Model class.
@@ -81,7 +94,6 @@ class PandaCtrlInterface(CtrlInterface):
         # ee pose is stored in a (4,4) matrix
         ee_pos, ee_ori_quat = T.mat2pose(new_states[P.ROBOT_STATE_EE_POSE_KEY])
         update_args = {
-
             'ee_pos': ee_pos,
             'ee_ori': ee_ori_quat,
             'joint_pos': new_states[P.ROBOT_STATE_Q_KEY],
@@ -198,15 +210,15 @@ class PandaCtrlInterface(CtrlInterface):
         else:
             return False
 
-    def process_gripper_cmd(self):
+    def process_gripper_cmd(self, cmd_data):
         """Process the new gripper command by setting gripper state.
 
         Only send gripper command if current gripper open fraction is not
         equal to desired gripper open fraction.
         """
-        if self.prev_gripper_state != self.des_gripper_state:
-            self.set_gripper_to_value(self.des_gripper_state)
-            self.prev_gripper_state = self.des_gripper_state
+        if self.prev_gripper_state != cmd_data:
+            self.set_gripper_to_value(cmd_data)
+            self.prev_gripper_state = cmd_data
         else:
             pass
 
@@ -216,14 +228,11 @@ class PandaCtrlInterface(CtrlInterface):
         Allows for ctrl+c key board interrputs/
         """
         logging.info("Waiting for perls2.RealRobotInterface to connect to redis.")
-        try:
-            while True:
-                if not self.redisClient.is_env_connected():
-                    pass
-                else:
-                    break
-        except KeyboardInterrupt:
-            logging.error("Keyboard interrupt received.")
+        while True:
+            if not self.redisClient.is_env_connected():
+                pass
+            else:
+                break
 
         if self.redisClient.is_env_connected():
             logging.info("perls2.RealRobotInterface connected.")
@@ -306,20 +315,28 @@ class PandaCtrlInterface(CtrlInterface):
         Grab and process new commands from redis, update the model
         and send torques to the libfranka driver.
         """
-        if not self.driver_connected:
-            raise ValueError("franka-panda driver must be started first.")
-
-        self.warm_up_driver()
-
-        self.update_model()
-        self.wait_for_env_connect()
-        self.controller = self.make_controller_from_redis(self.get_control_type(), self.get_controller_params())
-        logging.info("Beginning control loop")
-        self.loop_count = 0
+        signal.signal(signal.SIGINT, keyboardInterruptHandler)
         try:
+            if not self.driver_connected:
+                raise ValueError("franka-panda driver must be started first.")
+
+            self.warm_up_driver()
+            self.update_model()
+            logging.info("Waiting for perls2.RealRobotInterface to connect to redis.")
+            while True:
+                if not self.redisClient.is_env_connected():
+                    pass
+                else:
+                    break
+
+            if self.redisClient.is_env_connected():
+                logging.info("perls2.RealRobotInterface connected.")
+
+            self.controller = self.make_controller_from_redis(self.get_control_type(), self.get_controller_params())
+            logging.info("Beginning control loop")
+            self.loop_count = 0
             while True:
                 start = time.time()
-
                 if (self.check_env_connection(self.loop_count)):
                     self.process_cmd_data(self.get_cmd_data())
                     self.step(start)
@@ -331,9 +348,13 @@ class PandaCtrlInterface(CtrlInterface):
 
                 else:
                     break
+    
+        except (RedisConnectionError):
+            print("Connection error: redis-server disconnected. ")
+        finally: 
+            print("Shutting down perls.PandaCtrlInterface")
 
-        except KeyboardInterrupt:
-            pass
+
 
     def run_dummy(self):
         """ Run control loop in dummy mode.
@@ -368,15 +389,18 @@ class PandaCtrlInterface(CtrlInterface):
             pass
 
 
+
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description='Run Control Interface for Franka Panda')
     parser.add_argument('--dummy', action="store_true", help="Run Control Interface in dummy mode, sending very small torques to driver only.")
+    parser.add_argument('--config', default='cfg/panda_ctrl_config.yaml', help="panda control yaml config filepath")
+    parser.add_argument('--redis_passfile', default=None, help="filepath for redis password")
     args = parser.parse_args()
     kwargs = vars(args)
 
     ctrl_interface = PandaCtrlInterface(
-        config='cfg/panda_ctrl_config.yaml', controlType=None)
+        config=kwargs['config'], controlType=None, redis_passfile=kwargs['redis_passfile'])
 
     if (kwargs['dummy']):
         ctrl_interface.run_dummy()

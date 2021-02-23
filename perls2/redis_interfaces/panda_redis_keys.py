@@ -27,8 +27,8 @@ TORQUE_CMD_KEY = DRIVER_PREFIX + "control::tau"
 DRIVER_CONN_KEY = DRIVER_PREFIX + "driver::status"
 
 # Driver connection status values
-# DRIVER_CONNECTED_VALUE = bytes("running", 'utf-8')
-# DRIVER_DISCONN_VALUE = bytes("off", 'utf-8')
+DRIVER_CONNECTED_VALUE = "running"
+DRIVER_DISCONN_VALUE = "off"
 
 # Robot state keys:
 ROBOT_STATE_Q_KEY = DRIVER_PREFIX + "sensor::q"

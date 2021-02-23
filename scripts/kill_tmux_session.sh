@@ -13,9 +13,6 @@ _tmux_send_keys_all_panes_() {
   done
 }
 
-
-
-
 _tmux_send_keys_all_panes_ 
 
 tmux kill-session -t $session
