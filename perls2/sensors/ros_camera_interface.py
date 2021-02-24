@@ -108,19 +108,51 @@ if __name__ == '__main__':
     import cv2
     import time
     import numpy as np
+    import argparse
 
-    sr300 = RosCameraInterface('sr300')
-    ds435 = RosCameraInterface('ds435')
+    parser = argparse.ArgumentParser(description='Test ROS Camera Interface')
+    parser.add_argument('cameras', metavar='camera1', nargs='+',
+                        help='list of camera rostopic names to test.')
+
+    args = parser.parse_args()
+
+    camera_interfaces = {}
+    for camera_name in args.cameras:
+        camera_interfaces[camera_name] = RosCameraInterface(camera_name)
+
     try: 
         for i in range(5):
-            sr300_frames = sr300.frames()
-            ds435_frames = ds435.frames()
+            all_frames = {}
+            combined_frames = None
+            for camera_name, camera in camera_interfaces.items():
+                frame = camera.frames()
+                all_frames[camera_name] = frame
+                if combined_frames is None:
+                    combined_frames = frame['rgb']
+                else: 
+                    combined_frames = np.hstack((combined_frames, frame['rgb']))
 
-            cv2.imshow('sr300 rgb', np.hstack((sr300_frames['rgb'], ds435_frames['rgb'])))
+            cv2.imshow('RGB Images: {}'.format(camera_interfaces.keys()), combined_frames)
 
             #cv2.imshow('ds435 rgb', ds435_frames['rgb'])
             cv2.waitKey(0)
             cv2.destroyAllWindows()
 
     except KeyboardInterrupt:
-        pass
+        pass           
+
+    # sr300 = RosCameraInterface('sr300')
+    # ds435 = RosCameraInterface('ds435')
+    # try: 
+    #     for i in range(5):
+    #         sr300_frames = sr300.frames()
+    #         ds435_frames = ds435.frames()
+
+    #         cv2.imshow('sr300 rgb', np.hstack((sr300_frames['rgb'], ds435_frames['rgb'])))
+
+    #         #cv2.imshow('ds435 rgb', ds435_frames['rgb'])
+    #         cv2.waitKey(0)
+    #         cv2.destroyAllWindows()
+
+    # except KeyboardInterrupt:
+    #     pass
