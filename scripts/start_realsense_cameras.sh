@@ -110,5 +110,5 @@ tmux send-keys "$SOURCE_ROS_CMD" C-m
 tmux send-keys "$SOURCE_P27_CMD" C-m
 # Run the ros redis interface
 tmux send-keys "cd ${PERLS2_DIR}" C-m
-tmux send-keys "python perls2/ros_interfaces/ros_redis_pub.py" C-m
+tmux send-keys "python perls2/ros_interfaces/ros_redis_pub.py ${perls2_local_dir}/ros_sensors.yaml" C-m
 tmux attach-session -t $session
