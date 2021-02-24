@@ -24,13 +24,13 @@ where:
     ./start_ros_cameras.sh
     ./start_ros_cameras.sh ~/perls2_local_ws
     "
-if [ "$#" -eq 2 ] 
+if [ "$#" -eq 1 ] 
 then
     perls2_local_dir=$1
 else
-    echo "No local directory specified ... using ${PWD}/local/perls2_local_ws"
-    p2_dir=$PWD
-    perls2_local_dir="${p2_dir}/local/perls2_local_ws"  
+    echo "No local directory specified ... using ${HOME}/local/perls2_local_ws"
+    p2_dir=$HOME
+    perls2_local_dir="${p2_dir}/perls2_local_ws"  
 fi
   
 
@@ -81,13 +81,15 @@ tmux split-w -v -p 50
 tmux selectp -t 0
 tmux send-keys "$SOURCE_ROS_CMD" C-m
 tmux send-keys "roscore" C-m
+sleep 1
 
 # 2) Start redis-server
 tmux selectp -t 1
 tmux send-keys "killall redis-server" C-m
+sleep 1
 tmux send-keys "cd $perls2_local_dir" C-m
 tmux send-keys "$START_REDIS_CMD" C-m
-
+sleep 1
 
 # 2) Start up Camera Ros Nodes
 tmux selectp -t 2
