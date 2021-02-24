@@ -39,12 +39,12 @@ with ros-kinetic, but it should be forward compatible.
     ```bash
     source ~/p27env/bin/activate
     cd ~/perls2
-    pip install -r p27requirements.txt
+    pip install -r p27_requirements.txt
     pip install -e .
     ```
 
 6. Install necessary ros packages for your camera. See manufacturer for details. 
-    * Set up for realsense cameras
+    * [Set up for realsense cameras](https://github.com/IntelRealSense/realsense-ros)
     * Set up for kinect2 cameras. 
 
 ### Set up local folder
@@ -166,7 +166,7 @@ the cameras before running your main perls2 project environment.
     ```
 
     This will open a tmux window with the following processes: 
-    
+
         1) (Top Left) roscore
         2) (Bottom Left) redis-server
         3) (Top Right) Camera ROS Nodes from launch file
