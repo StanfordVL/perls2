@@ -65,6 +65,12 @@ perls2
    source/sawyer_instructions.md
    source/demos.md
 
+.. toctree::
+   :maxdepth: 1
+   :caption: Real Cameras
+
+   source/real_cameras.md
+
 
 
 Indices and tables
