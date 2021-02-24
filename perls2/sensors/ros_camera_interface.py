@@ -105,7 +105,7 @@ class RosCameraInterface(object):
         pass
 
 if __name__ == '__main__':
-    import cv2
+    import matplotlib.pyplot as plt
     import time
     import numpy as np
     import argparse
@@ -132,11 +132,8 @@ if __name__ == '__main__':
                 else: 
                     combined_frames = np.hstack((combined_frames, frame['rgb']))
 
-            cv2.imshow('RGB Images: {}'.format(camera_interfaces.keys()), combined_frames)
-
-            #cv2.imshow('ds435 rgb', ds435_frames['rgb'])
-            cv2.waitKey(0)
-            cv2.destroyAllWindows()
+            plt.imshow(combined_frames)
+            plt.show()
 
     except KeyboardInterrupt:
         pass           
