@@ -1,0 +1,6 @@
+gym<=0.16.0
+numpy<=1.16.6
+pyyaml==5.4.1
+rospkg
+redis==3.5.3
+hiredis==1.1.0
