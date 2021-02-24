@@ -13,3 +13,5 @@ rgb_topics:
 depth_topics:
   ['/ds435/depth/image_rect_raw',
    '/sr300/depth/image_rect_raw']
+
+invert: true

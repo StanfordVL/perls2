@@ -20,10 +20,16 @@ class RosRedisPublisher(object):
     """Class to publish rostopics to redis on callback.
     """
     def __init__(self, 
-                 config_file='cfg/ros_sensors.yaml'):
+                 config_file='cfg/ros_sensors.yaml', 
+                 invert=True):
         """Initialize publisher
         """
         self.config = YamlConfig(config_file)
+        # Override default invert flag with config setting.
+        if 'invert' in self.config:
+            self.invert = self.config['invert']
+        else: 
+            self.invert = invert
         redis_kwargs = self.config['workstation_redis']
         self.redisClient = RedisInterface(**redis_kwargs)
 
@@ -53,6 +59,8 @@ class RosRedisPublisher(object):
         rgb = CvBridge().imgmsg_to_cv2(data, 'bgr8')
         rgb_timestamp_ms = np.asarray((data.header.stamp.secs * 1000) +
                                             (data.header.stamp.nsecs / 1000000))
+        if self.invert:
+            rgb = cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)
         
         encoded_rgb = RU.convert_frame_to_encoded_bytes(rgb)
         RGB_KEY = name + R.ROS_RGB_SUFF
