@@ -12,57 +12,34 @@ from perls2.utils.yaml_config import YamlConfig
 from types import MethodType
 
 
-
-
 def get_name_from_topic(topic_str):
     return topic_str[1:].split("/")[0]
 
-class RosRedisPubFactory(object):
-    """Generate Ros Redis publisher based on config
-    """
-    def __init__(self, 
-                 config):
-        self.config = YamlConfig(config)
-        self.pub = RosRedisPublisher(host="127.0.0.1", port=6379)
-        self.rgb_topics = self.config['rgb_topics'] 
-
-    def make_rgb_callbacks(self):
-        """Make callback functions for rgb imagesfrom config
-        """
-        for topic in self.rgb_topics:
-            # name device is always first in topic.
-            name = get_name_from_topic(topic)
-            setattr(self.pub, '{}_rgb_cb'.format(name), self.make_rgb_callback(name))
-    
-    def make_rgb_subscribers(self):
-        for topic in self.rgb_topics:
-            name = get_name_from_topic(topic) 
-            self.rgb_subscribers[name] = self.make_rgb_subscriber(name, topic)
 
 class RosRedisPublisher(object):
     """Class to publish rostopics to redis on callback.
     """
     def __init__(self, 
-                 host,
-                 port, 
-                 password=None,
                  config_file='cfg/ros_sensors.yaml'):
         """Initialize publisher
         """
-        self.redisClient = RedisInterface(host=host, port=port, password=password)
         self.config = YamlConfig(config_file)
+        redis_kwargs = self.config['workstation_redis']
+        self.redisClient = RedisInterface(**redis_kwargs)
+
         self.rgb_topics = self.config['rgb_topics']
         self.depth_topics = self.config['depth_topics']
         self.rgb_callbacks = {}
         self.rgb_subscribers = {}
         self.depth_callbacks = {}
         self.msg_callbacks = {}
-    
+        self.run()
+
     def run(self):
         """Run main loop to publish images to redis-server
         """
         rospy.init_node("redis_publisher_node", log_level=rospy.DEBUG)
-        self.make_from_config('cfg/ros_sensors.yaml')
+        self.make_subscribers()
         rospy.spin()
 
     def depth_callback(self, data, name):
@@ -84,8 +61,7 @@ class RosRedisPublisher(object):
         self.redisClient.set(RGB_KEY, encoded_rgb)
         self.redisClient.set(
             RGB_TSTAMP_KEY, str(rgb_timestamp_ms))
-
-        # return rgb_callback         
+      
 
     def make_rgb_subscribers(self):
         for topic in self.rgb_topics:
@@ -117,16 +93,16 @@ class RosRedisPublisher(object):
         )
         return depth_subscriber
 
-    def make_from_config(self, config_file):
-        self.config = YamlConfig(config_file)
-        # self.make_rgb_callbacks()
+    def make_subscribers(self):
         self.make_rgb_subscribers()
         self.make_depth_subscribers()
 
 
 if __name__ == '__main__':
-    pub = RosRedisPublisher("127.0.0.1", port=6379)
-    
-    pub.make_from_config('cfg/ros_sensors.yaml')
+    import argparse
+    parser = argparse.ArgumentParser(description='Publish ROS msgs to redis')
+    parser.add_argument('config', metavar='config_filepath', default='local/perls2_local_ws/ros_sensors.yaml')
+    args = parser.parse_args()
 
-    pub.run()
+
+    pub = RosRedisPublisher(args.config)
