@@ -10,6 +10,9 @@
 # Window 4: perls2 RosRedisPublisher in python2.7 environment.
 
 # To kill: 
+# (within tmux -session): [Ctrl + B :] kill-session
+
+# To kill outside: 
 # tmux kill-session -t ros_cameras
 # To kill redis (sometimes it keeps running)
 # sudo killall redis-server
@@ -22,17 +25,17 @@ session="ros_cameras"
 ROS_DIR="~/ros_ws"
 SOURCE_ROS_CMD="source /opt/ros/kinetic/setup.sh"
 #roslaunch command for cameras
-LAUNCH_CMD="roslaunch ~/RobotTeleop/RobotTeleop/rs_multiple_devices.launch"
+LAUNCH_CMD="roslaunch ~/RobotTeleop/RobotTeleop/rs_multiple_devices.launch --wait"
 
 # Source python 2.7 environment with perls2
-SOURCE_P27_CMD="source ~/p27env2/bin/activate"
+SOURCE_P27_CMD="source ~/p27env/bin/activate"
 
 # Directory for perls2 install
 PERLS2_DIR="~/perls2"
 
 # Launch redis-server (conf optional)
 REDIS_CONF=""
-START_REDIS_CMD="redis-server $REDIS_CONF"
+START_REDIS_CMD="redis-server"
 ###################################################################################
 
 tmux start-server
