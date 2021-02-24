@@ -39,7 +39,7 @@ with ros-kinetic, but it should be forward compatible.
     ```bash
     source ~/p27env/bin/activate
     cd ~/perls2
-    pip install -r p27requirements.txt
+    pip install -r p27_requirements.txt
     pip install -e .
     ```
 
