@@ -140,19 +140,3 @@ if __name__ == '__main__':
 
     except KeyboardInterrupt:
         pass           
-
-    # sr300 = RosCameraInterface('sr300')
-    # ds435 = RosCameraInterface('ds435')
-    # try: 
-    #     for i in range(5):
-    #         sr300_frames = sr300.frames()
-    #         ds435_frames = ds435.frames()
-
-    #         cv2.imshow('sr300 rgb', np.hstack((sr300_frames['rgb'], ds435_frames['rgb'])))
-
-    #         #cv2.imshow('ds435 rgb', ds435_frames['rgb'])
-    #         cv2.waitKey(0)
-    #         cv2.destroyAllWindows()
-
-    # except KeyboardInterrupt:
-    #     pass
