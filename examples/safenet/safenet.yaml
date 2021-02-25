@@ -1,0 +1,6 @@
+# Config file for safenet
+
+safenet: 
+  use_safenet: False
+  lower: null
+  upper: null
