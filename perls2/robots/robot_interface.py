@@ -86,10 +86,42 @@ class RobotInterface(object):
                 policy_freq=self.config['policy_freq'],
                 fraction=interp_ori_cfg['fraction'])
 
+        # Safenet position limits
+
+
+        self.use_safenet = False
+        self.safenet_ee_pos_lower = None
+        self.safenet_ee_pos_upper = None
+
+        if 'safenet' in self.config:
+            if self.config['safenet']['use_safenet']:
+                self.use_safenet = True
+                self.safenet_ee_pos_lower = self.config['safenet']['lower']
+                self.safenet_ee_pos_upper = self.config['safenet']['upper'] 
+
+
     def update(self):
         """Update robot interface model with states for controller.
         """
         raise NotImplementedError
+
+    def set_safenet_boundaries(self, lower, upper):
+        """Set position limits for existing controller.
+
+        Controller will clip all end-effector goals to these limits.
+
+        Args:
+            lower (ndarray): 3f lower boundary position limits for EE
+            upper (ndarray): 3f upper boundary position limits for EE
+
+        Return: 
+            None
+        """
+        assert (np.all(lower <= upper))
+        self.safenet_ee_pos_upper = upper
+        self.safenet_ee_pos_lower = lower
+        self.use_safenet = True
+        self.controller.position_limits = np.array([lower, upper])
 
     def make_controller(self, control_type):
         """Returns a new controller type based on specs.
@@ -102,6 +134,12 @@ class RobotInterface(object):
             return "Internal"
         world_name = self.config['world']['type']
         controller_dict = self.controller_cfg[world_name][control_type]
+        
+        if self.use_safenet: 
+            pos_limits = np.array([self.safenet_ee_pos_lower, self.safenet_ee_pos_upper])
+        else: 
+            pos_limits = None
+
         if control_type == "EEImpedance":
             return EEImpController(
                 self.model,
@@ -109,7 +147,8 @@ class RobotInterface(object):
                 damping=controller_dict['damping'],
                 interpolator_pos=self.interpolator_pos,
                 interpolator_ori=self.interpolator_ori,
-                control_freq=self.config['control_freq'])
+                control_freq=self.config['control_freq'], 
+                position_limits=pos_limits)
         elif control_type == "EEPosture":
             return EEPostureController(
                 self.model,
