@@ -123,7 +123,10 @@ class EEImpController(Controller):
         self.output_min = np.array(output_min)
 
         # limits
-        self.position_limits = position_limits
+        if position_limits is not None:
+            self.position_limits = np.array(position_limits)
+        else:
+            self.position_limits = position_limits
         self.orientation_limits = orientation_limits
 
         # kp kv
