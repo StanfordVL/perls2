@@ -2,6 +2,7 @@
 """
 from perls2.envs.env import Env
 import numpy as np
+import pybullet as pb
 
 
 class SafenetEnv(Env):
