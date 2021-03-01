@@ -1,7 +1,7 @@
 # perls2 Template Project Config
 world:
   type: 'Bullet' # Choose from 'Bullet' or 'Real'
-  robot: 'sawyer' # Choose from 'sawyer' or 'panda'
+  robot: 'panda' # Choose from 'sawyer' or 'panda'
   controlType: "EEImpedance" # Choose from "EEImpedance", "EEPosture", "JointImpedance", "JointVelocity" or "Joint Torque"
 
 # Uncomment to use your own data directory for urdfs, objects etc.
@@ -10,18 +10,20 @@ data_dir: 'data'
 # Simulation parameters
 sim_params:
   time_step: 0.004166  # 1./240. default for PyBullet. Changing not recommended.
-  MAX_STEPS: 100
+  MAX_STEPS: 50
 
 policy_freq: 20 # Frequency at which policy sends actions (Hz)
 control_freq: 500 # Frequency at which torque commands are sent to robot (Hz)
 
 # Robots are specified by types and urdf locations
 # also may include intial setup like poses and orientations
-!include cfg/sawyer.yaml
-!include cfg/panda.yaml
+# Robots are specified by types and urdf locations
+# also may include intial setup like poses and orientations
+!include ../../cfg/sawyer.yaml
+!include ../../cfg/panda.yaml
+!include ../../cfg/table_and_bin.yaml
+!include ../../cfg/redis.yaml
 
-# Some basic tables and objects pre-configured.
-!include cfg/table_and_bin.yaml
 # Specify which basic objects to include.
 scene_objects:
   ['table', 'bin'] # Choose from ['table', 'bin']
