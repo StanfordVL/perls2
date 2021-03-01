@@ -5,16 +5,18 @@ import time
 from safenet_env import SafenetEnv
 import logging
 import numpy as np
+import pybullet as pb
 from demos.demo_path import Line
+
 # logging.basicConfig(level=logging.DEBUG)
 
 DELTA_STEP_SIZE = 0.015
-PATH_LENGTH = 0.15
+PATH_LENGTH = 0.35
 NUM_STEPS = int(PATH_LENGTH / DELTA_STEP_SIZE)
 BOUNDARY_TOL = 0.01
 # Length of boundary box from intial pose
-UPPER_LIMIT_DELTA = 0.1
-LOWER_LIMIT_DELTA = -0.05
+UPPER_LIMIT_DELTA = [0.15]*3
+LOWER_LIMIT_DELTA = [-0.05]*3
 
 
 def get_next_action(curr_pose, path, step_num):
@@ -34,41 +36,68 @@ def exceeds_boundaries(goal, upper, lower, tol):
 
 env = SafenetEnv('safenet_example.yaml', True, "SafenetEnv")
 
+pb_id = 0
+# Get pybullet id for visualization.
+if env.world.is_sim:
+    pb_id = env.world.physics_id
 step = 0
 observation = env.reset()
 initial_ee_pos = observation['ee_position']
 
+# You can set safenet boundaries via config or by function call. 
+
+
 if env.robot_interface.use_safenet:
+    # Config dict 'safenet' loaded by default
     upper_limit = env.robot_interface.safenet_ee_pos_upper
     lower_limit = env.robot_interface.safenet_ee_pos_lower
 else:
-    upper_limit = np.add(initial_ee_pos, [UPPER_LIMIT_DELTA]*3)
-    lower_limit = np.add(initial_ee_pos, [LOWER_LIMIT_DELTA]*3)
+    # Set boundary using function call.
+    upper_limit = np.add(initial_ee_pos, UPPER_LIMIT_DELTA)
+    lower_limit = np.add(initial_ee_pos, LOWER_LIMIT_DELTA)
     env.robot_interface.set_safenet_boundaries(lower_limit, upper_limit)
+
+# Get current safenet boundaries
+(upper, lower) = env.robot_interface.get_safenet_limits()
 
 print("#############################################")
 print("Safenet Example")
 print("Current ee position: \t{}".format(initial_ee_pos))
-print("Safenet upper limit: \t{}".format(env.robot_interface.safenet_ee_pos_upper))
-print("Safenet lower limit: \t{}".format(env.robot_interface.safenet_ee_pos_lower))
+print("Safenet upper limit: \t{}".format(upper))
+print("Safenet lower limit: \t{}".format(lower))
 print("#############################################")
 
-axis_names = ["X", "Y", "Z"]
+# Visualize safenet box.
+if env.world.is_sim:
+    env.visualize_boundaries()
+axis_names = ["X", "-X", "Y", "-Y", "Z", "-Z"]
 for axis_num, axis in enumerate(axis_names):
     input("Press Enter to begin")
 
     env.reset()
     step_num = 0
+    # Go in opposite direction for each axis.
+    if axis_num not in [1, 3, 5]:
+        delta_val = -DELTA_STEP_SIZE
+    else:
+        delta_val = DELTA_STEP_SIZE
+
     path = Line(env.robot_interface.ee_pose, 
                 num_pts=NUM_STEPS, 
-                delta_val=DELTA_STEP_SIZE, 
+                delta_val=delta_val, 
                 dim=axis_num)
+    
+    if env.world.is_sim:
+        # Add a marker to visualize path in pybullet
+        goal_marker_id = pb.addUserDebugLine(path.path[0][:3], path.path[-1][:3], [0, 0.5, 0.5], lineWidth=5.0, physicsClientId=env.world.physics_id)
+    
     done = False
     goal_exceeds_boundary = False
     print("Stepping forward along {} axis".format(axis))
     while not done and step_num < NUM_STEPS:
         start = time.time()
         action = get_next_action(observation['ee_position'], path.path, step_num)
+
 
         # Alert if goal exceeds boundary box set by safenet.
         if exceeds_boundaries(path.path[step_num][:3], 
@@ -89,6 +118,9 @@ for axis_num, axis in enumerate(axis_names):
             print("Safenet boundary exceeded!")
 
         done = termination
+
+    if env.world.is_sim:
+        pb.removeUserDebugItem(goal_marker_id, physicsClientId=env.world.physics_id)
 
 env.reset()
 # In the real robot we have to use a ROS interface. Disconnect the interface

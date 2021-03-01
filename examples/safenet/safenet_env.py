@@ -20,6 +20,46 @@ class SafenetEnv(Env):
         super().__init__(cfg_path, use_visualizer, name)
         self.robot_interface.reset()
         self.init_ori = self.robot_interface.ee_orientation
+        self.boundary_color = [1, 0, 0] # Red for safenet boundary box.
+
+
+    def _draw_boundary_line(self, c1, c2):
+        pb.addUserDebugLine(c1, c2, self.boundary_color, self.world.physics_id)
+
+    def visualize_boundaries(self):
+        """Add visualization to pb sim for safenet boundary.
+        """
+        if self.world.is_sim:
+            if self.robot_interface.use_safenet:
+                (upper, lower) = self.robot_interface.get_safenet_limits()
+                if (upper is not None) and (lower is not None):
+                    corners = {}
+                    corners['000'] = lower
+                    corners['100'] = [upper[0], lower[1], lower[2]]
+                    corners['110'] = [upper[0], upper[1], lower[2]]
+                    corners['010'] = [lower[0], upper[1], lower[2]]
+                    corners['001'] = [lower[0], lower[1], upper[2]]
+                    corners['011'] = [lower[0], upper[1], upper[2]]
+                    corners['111'] = upper
+                    corners['101'] = [upper[0], lower[1], upper[2]]
+
+                    self._draw_boundary_line(corners['000'], corners['100'])
+                    self._draw_boundary_line(corners['100'], corners['110'])
+                    self._draw_boundary_line(corners['110'], corners['010'])
+                    self._draw_boundary_line(corners['010'], corners['000'])
+
+                    self._draw_boundary_line(corners['000'], corners['001'])
+                    self._draw_boundary_line(corners['001'], corners['011'])
+                    self._draw_boundary_line(corners['011'], corners['010'])
+
+                    self._draw_boundary_line(corners['011'], corners['111'])
+                    self._draw_boundary_line(corners['111'], corners['101'])
+                    self._draw_boundary_line(corners['101'], corners['001'])
+                    
+                    self._draw_boundary_line(corners['111'], corners['110'])
+                    self._draw_boundary_line(corners['101'], corners['100'])
+
+
 
     def get_observation(self):
         """Get observation of current env state
