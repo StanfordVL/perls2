@@ -123,6 +123,12 @@ class RobotInterface(object):
         self.use_safenet = True
         self.controller.position_limits = np.array([lower, upper])
 
+    def get_safenet_limits(self):
+        """Return safenet boundary limits as tuple
+        """
+        return (self.safenet_ee_pos_lower, self.safenet_ee_pos_upper)
+    
+
     def make_controller(self, control_type):
         """Returns a new controller type based on specs.
 
