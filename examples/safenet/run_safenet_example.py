@@ -7,7 +7,6 @@ import logging
 import numpy as np
 import pybullet as pb
 from demos.demo_path import Line
-import threading
 
 # Step size between each action
 DELTA_STEP_SIZE = 0.015 # [m]
