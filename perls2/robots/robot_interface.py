@@ -92,13 +92,11 @@ class RobotInterface(object):
         self.use_safenet = False
         self.safenet_ee_pos_lower = None
         self.safenet_ee_pos_upper = None
-
+        self.controller = None
         if 'safenet' in self.config:
             if self.config['safenet']['use_safenet']:
-                self.use_safenet = True
-                self.safenet_ee_pos_lower = self.config['safenet']['lower']
-                self.safenet_ee_pos_upper = self.config['safenet']['upper'] 
-
+                self.set_safenet_boundaries(
+                    self.config['safenet']['lower'], self.config['safenet']['upper'])
 
     def update(self):
         """Update robot interface model with states for controller.
@@ -121,7 +119,8 @@ class RobotInterface(object):
         self.safenet_ee_pos_upper = upper
         self.safenet_ee_pos_lower = lower
         self.use_safenet = True
-        self.controller.position_limits = np.array([lower, upper])
+        if self.controller is not None:
+            self.controller.position_limits = np.array([lower, upper])
 
     def get_safenet_limits(self):
         """Return safenet boundary limits as tuple
