@@ -245,8 +245,7 @@ class RealRobotInterface(RobotInterface):
             raise ValueError("delta cannot be none.")
 
         kwargs = {'cmd_type': MOVE_EE_DELTA, 'delta': delta, 'set_pos': set_pos, 'set_ori': set_ori}
-        
-        print(kwargs)
+
         self.set_controller_goal(**kwargs)
 
     def set_ee_pose(self, set_pos, set_ori, **kwargs):
