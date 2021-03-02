@@ -8,15 +8,19 @@ import numpy as np
 import pybullet as pb
 from demos.demo_path import Line
 
-# logging.basicConfig(level=logging.DEBUG)
+# Step size between each action
+DELTA_STEP_SIZE = 0.015 # [m]
 
-DELTA_STEP_SIZE = 0.015
-PATH_LENGTH = 0.35
+# Length path travels in one direction
+PATH_LENGTH = 0.35 # [m]
 NUM_STEPS = int(PATH_LENGTH / DELTA_STEP_SIZE)
-BOUNDARY_TOL = 0.01
+
+# Tolerance to alert for safenet.
+BOUNDARY_TOL = 0.01 # [m]
+
 # Length of boundary box from intial pose
-UPPER_LIMIT_DELTA = [0.15]*3
-LOWER_LIMIT_DELTA = [-0.05]*3
+UPPER_LIMIT_DELTA = [0.15]*3  # x, y, z [m]
+LOWER_LIMIT_DELTA = [-0.1]*3 # x, y, z, [m]
 
 
 def get_next_action(curr_pose, path, step_num):
@@ -70,22 +74,24 @@ print("#############################################")
 # Visualize safenet box.
 if env.world.is_sim:
     env.visualize_boundaries()
-axis_names = ["X", "-X", "Y", "-Y", "Z", "-Z"]
+axis_names = ["X", "Y", "Z", "-X", "-Y", "-Z"]
 for axis_num, axis in enumerate(axis_names):
     input("Press Enter to begin")
 
     env.reset()
     step_num = 0
     # Go in opposite direction for each axis.
-    if axis_num not in [1, 3, 5]:
+    if axis_num > 2:
         delta_val = -DELTA_STEP_SIZE
+        print("Stepping backward along {} axis".format(axis[1]))
     else:
         delta_val = DELTA_STEP_SIZE
+        print("Stepping forward along {} axis".format(axis))
 
     path = Line(env.robot_interface.ee_pose, 
                 num_pts=NUM_STEPS, 
                 delta_val=delta_val, 
-                dim=axis_num)
+                dim=axis_num % 3)
     
     if env.world.is_sim:
         # Add a marker to visualize path in pybullet
@@ -93,11 +99,10 @@ for axis_num, axis in enumerate(axis_names):
     
     done = False
     goal_exceeds_boundary = False
-    print("Stepping forward along {} axis".format(axis))
+
     while not done and step_num < NUM_STEPS:
         start = time.time()
         action = get_next_action(observation['ee_position'], path.path, step_num)
-
 
         # Alert if goal exceeds boundary box set by safenet.
         if exceeds_boundaries(path.path[step_num][:3], 
@@ -121,7 +126,7 @@ for axis_num, axis in enumerate(axis_names):
 
     if env.world.is_sim:
         pb.removeUserDebugItem(goal_marker_id, physicsClientId=env.world.physics_id)
-
+input("press enter to finish")
 env.reset()
 # In the real robot we have to use a ROS interface. Disconnect the interface
 # after completing the experiment.
