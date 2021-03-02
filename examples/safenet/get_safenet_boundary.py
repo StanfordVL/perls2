@@ -1,23 +1,33 @@
 """Script to get Safenet bounds
 """
 
-from perls2.envs.env import Env
+from safenet_env import SafenetEnv
+from perls2.utils.yaml_config import YamlConfig
 import numpy as np
 import pybullet as pb
 import threading 
 
-class SafenetBoundaryEnv(Env):
+class SafenetBoundaryEnv(SafenetEnv):
     def __init__(self,
-             cfg_path='safenet_example.yaml',
+             config='safenet_example.yaml',
              use_visualizer=True,
-             name="SafenetBoundaryEnv"):
+             name="SafenetBoundaryEnv", 
+             world_type=None, 
+             safenet_config=None):
         """Initialize the environment.
 
         Set up any variables that are necessary for the environment and your task.
         """
-        super().__init__(cfg_path, use_visualizer, name)
-        self.robot_interface.reset()
-        self.init_ori = self.robot_interface.ee_orientation
+        self.config = YamlConfig(config)
+        # Override world param in config file if arg passed. 
+        if world_type is not None: 
+            self.config['world']['type'] = world_type
+        if safenet_config is not None:
+            self.config['safenet'] = safenet_config['safenet'] 
+
+        super().__init__(self.config, use_visualizer, name)
+        if self.world.is_sim:
+            self.visualize_boundaries()
 
         # Set to gravity compensation mode. 
         self.robot_interface.change_controller('JointTorque')
@@ -69,51 +79,58 @@ if __name__ == '__main__':
     import argparse
     import threading
     import concurrent.futures
+    import json
+    import yaml
 
-    def step_env(env):
-        """Step env in parallel thread.
-        """
-        env.step(np.zeros(7))
+    parser = argparse.ArgumentParser(
+        prog='get_safenet_boundary',
+        description="Manually set Safenet Boundaries")
+    parser.add_argument('output_fname', nargs='?', default='output/safenet.yaml', help='filepath to write safenet yaml config')
+    args = parser.parse_args()
 
-    parser = argparse.ArgumentParser(description="Manually set Safenet Boundaries")
     print("#############################")
     print("SafeNet Boundary Script")
     
-    env = SafenetBoundaryEnv()
+    env = SafenetBoundaryEnv(world_type='Real')
     print("Robot set to gravity compensation mode.")
     print("Move robot end-effector to max or min position indicated.")
 
-    boundary_names = ["Minimum X", "Maximum X", "Minimum Y", "Maximum Y", "Minimum Z"]
+    boundary_names = ["MIN X", "MAX X", "MIN Y", "MAX Y", "MIN Z", "MAX Z"]
     boundaries = {}
-    for (bound_index, boundary) in enumerate(boundary_names):
+    for (index, boundary) in enumerate(boundary_names):
         env.step(np.zeros(7))
-        # Start a thread to step environment
-        if env.world.is_sim:
-            pb_thread = threading.Thread(target=step_env, args=env)
-            pb_thread.start()
-
-        print("Move end-effector to {} position".format(boundary_names[bound_index]))
+        print("Move end-effector to {} position".format(boundary_names[index]))
         collecting = True
         while collecting:
-            input("Press enter to save end-effector position: ")
-            ee_position = env.robot_interface.ee_position
+            input("Press [Enter] to save end-effector position for {}: ".format(boundary_names[index]))
+            ee_position = env.robot_interface.ee_position.tolist()
             print("Boundary position is: {}".format(ee_position))
-            response = input("Press [y] to confirm or [n] to resample.")
+            response = input("Press [y] to confirm or [n] to resample.\n")
             if response in ['n', 'N']:
                 pass
             elif response in ['y', 'Y']:
                 print("position saved.")
-                boundaries[boundary_names[boundary_index]] = ee_position
+                boundaries[boundary_names[index]] = ee_position
                 collecting = False
             else: 
-                print("Invalid selection. ")
+                print("Invalid selection. Choose from [y] or [n]")
 
-    pb_thread.join()
     print("Boundary data collected: ")
     print(boundaries)
 
-    if not env.world.is_sim: 
-        env.robot_interface.disconnect()
+    yaml_fname = args.output_fname
+    with open(yaml_fname, 'w') as f:
+        safenet_yaml = {'safenet' : {}}
+        #safenet_yaml = YamlConfig('safenet.yaml')
+        safenet_yaml['safenet']['use_safenet'] = True
+        safenet_yaml['safenet']['upper'] = [boundaries['MAX X'][0], boundaries['MAX Y'][1], boundaries['MAX Z'][2]]
+        safenet_yaml['safenet']['lower'] = [boundaries['MIN X'][0], boundaries['MIN Y'][1], boundaries['MIN Z'][2]]
+
+        yaml.dump(safenet_yaml, f, allow_unicode=True)
+
+    pb_env = SafenetBoundaryEnv(world_type='Bullet', safenet_config=YamlConfig(yaml_fname))
+    input("Boundaries visualized. Press Enter to exit.")
+
 
 
 
