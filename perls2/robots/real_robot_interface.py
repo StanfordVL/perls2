@@ -104,17 +104,18 @@ class RealRobotInterface(RobotInterface):
         Controller will clip all end-effector goals to these limits.
 
         Args:
-            lower (ndarray): 3f lower boundary position limits for EE
-            upper (ndarray): 3f upper boundary position limits for EE
+            lower (list): 3f lower boundary position limits for EE
+            upper (list): 3f upper boundary position limits for EE
 
         Return: 
             None
         """
         assert (np.all(lower <= upper))
-        self.safenet_ee_pos_upper = upper.tolist()
-        self.safenet_ee_pos_lower = lower.tolist()
+        self.safenet_ee_pos_upper = upper
+        self.safenet_ee_pos_lower = lower
         self.use_safenet = True
-        self.set_controller_params_from_config()
+        if self.controller is not None:
+            self.set_controller_params_from_config()
 
     def set_controller_params_from_config(self):
         """Set controller parameters from config file to redis.

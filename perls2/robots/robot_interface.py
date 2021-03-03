@@ -109,15 +109,15 @@ class RobotInterface(object):
         Controller will clip all end-effector goals to these limits.
 
         Args:
-            lower (ndarray): 3f lower boundary position limits for EE
-            upper (ndarray): 3f upper boundary position limits for EE
+            lower (list): 3f lower boundary position limits for EE
+            upper (list): 3f upper boundary position limits for EE
 
         Return: 
             None
         """
         assert (np.all(lower <= upper))
-        self.safenet_ee_pos_upper = upper
-        self.safenet_ee_pos_lower = lower
+        self.safenet_ee_pos_upper = np.asarray(upper)
+        self.safenet_ee_pos_lower = np.asarray(lower)
         self.use_safenet = True
         if self.controller is not None:
             self.controller.position_limits = np.array([lower, upper])
