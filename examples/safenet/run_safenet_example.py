@@ -9,10 +9,10 @@ import pybullet as pb
 from demos.demo_path import Line
 
 # Step size between each action
-DELTA_STEP_SIZE = 0.015 # [m]
+DELTA_STEP_SIZE = 0.001 # [m]
 
 # Length path travels in one direction
-PATH_LENGTH = 0.35 # [m]
+PATH_LENGTH = 0.3 # [m]
 NUM_STEPS = int(PATH_LENGTH / DELTA_STEP_SIZE)
 
 # Tolerance to alert for safenet.
@@ -34,8 +34,19 @@ def get_next_action(curr_pose, path, step_num):
 def exceeds_boundaries(goal, upper, lower, tol):
     """Determine if waypoint goal exceeds safenet boundaries.
     """
-    return (np.any(np.subtract(goal, upper) > 0.01) 
-        or np.any(np.subtract(lower, goal) > 0.01))
+    return np.any(goal > upper) or np.any(goal < lower)
+    # dims = ["x", "y", "z"]
+    # bounds = ["upper", "lower"]
+    # bounds_exceeded = false
+    # for j, bound in enumerate(bounds):
+    #     for i, dim in enumerate(dims):
+    #         if bound == "upper":
+    #             delta = np.subtract(goal[i], upper[i])
+    #         if bound == "lower":
+    #             delta = np.subtract(lower[i], upper[i])
+    #         if np.subtract(goal[i],upper[i]) > 0.01
+    #             print("{} {} exceeded by {}".format(dims[i], ))
+
 
 
 env = SafenetEnv('safenet_example.yaml', True, "SafenetEnv")
@@ -57,12 +68,12 @@ if env.robot_interface.use_safenet:
     lower_limit = env.robot_interface.safenet_ee_pos_lower
 else:
     # Set boundary using function call.
-    upper_limit = np.add(initial_ee_pos, UPPER_LIMIT_DELTA)
-    lower_limit = np.add(initial_ee_pos, LOWER_LIMIT_DELTA)
+    upper_limit = np.add(initial_ee_pos, UPPER_LIMIT_DELTA).tolist()
+    lower_limit = np.add(initial_ee_pos, LOWER_LIMIT_DELTA).tolist()
     env.robot_interface.set_safenet_boundaries(lower_limit, upper_limit)
 
 # Get current safenet boundaries
-(upper, lower) = env.robot_interface.get_safenet_limits()
+(lower, upper) = env.robot_interface.get_safenet_limits()
 
 print("#############################################")
 print("Safenet Example")
@@ -75,13 +86,14 @@ print("#############################################")
 if env.world.is_sim:
     env.visualize_boundaries()
 axis_names = ["X", "Y", "Z", "-X", "-Y", "-Z"]
+
 for axis_num, axis in enumerate(axis_names):
     input("Press Enter to begin")
 
     env.reset()
     step_num = 0
     # Go in opposite direction for each axis.
-    if axis_num > 2:
+    if axis in ["-X", "-Y", "-Z"]:
         delta_val = -DELTA_STEP_SIZE
         print("Stepping backward along {} axis".format(axis[1]))
     else:
@@ -95,7 +107,7 @@ for axis_num, axis in enumerate(axis_names):
     
     if env.world.is_sim:
         # Add a marker to visualize path in pybullet
-        goal_marker_id = pb.addUserDebugLine(path.path[0][:3], path.path[-1][:3], [0, 0.5, 0.5], lineWidth=5.0, physicsClientId=env.world.physics_id)
+        goal_marker_id = pb.addUserDebugLine(path.path[0][:3], path.path[-1][:3], [0, 0, 1.0], lineWidth=5.0, physicsClientId=env.world.physics_id)
     
     done = False
     goal_exceeds_boundary = False
@@ -109,26 +121,27 @@ for axis_num, axis in enumerate(axis_names):
                               env.robot_interface.safenet_ee_pos_upper,
                               env.robot_interface.safenet_ee_pos_lower, BOUNDARY_TOL):
             goal_exceeds_boundary = True
-            print("Waypoint goal exceeds safenet boundary \t {}".format(path.path[step_num][:3]))
-        
+            if not env.world.is_sim:
+                print("Waypoint goal exceeds safenet boundary \t {}".format(path.path[step_num][:3]))
+
         step_num += 1
         observation, reward, termination, info = env.step(action, start=start)
         
-        if goal_exceeds_boundary:
-            if not exceeds_boundaries(observation['ee_position'], upper_limit, lower_limit, BOUNDARY_TOL) :
+        if goal_exceeds_boundary and not env.world.is_sim:
+            if not exceeds_boundaries(observation['ee_position'], upper_limit, lower_limit) :
                 print("EE still within boundary\t{}".format(observation['ee_position']))
 
         # Alert if the ee_position exceeds safenet boundary.
-        if exceeds_boundaries(observation['ee_position'], upper_limit, lower_limit, BOUNDARY_TOL) :
+        if exceeds_boundaries(observation['ee_position'], upper_limit, lower_limit) :
             print("Safenet boundary exceeded!")
+            print(env.robot_interface.ee_position)
 
         done = termination
 
-    if env.world.is_sim:
-        pb.removeUserDebugItem(goal_marker_id, physicsClientId=env.world.physics_id)
 input("press enter to finish")
 env.reset()
-# In the real robot we have to use a ROS interface. Disconnect the interface
+
+# In the real robot we have to use a CtrlInterface. Disconnect the interface
 # after completing the experiment.
 if (not env.world.is_sim):
     env.robot_interface.disconnect()

@@ -10,7 +10,7 @@ data_dir: 'data'
 # Simulation parameters
 sim_params:
   time_step: 0.004166  # 1./240. default for PyBullet. Changing not recommended.
-  MAX_STEPS: 50
+  MAX_STEPS: 200
 
 policy_freq: 20 # Frequency at which policy sends actions (Hz)
 control_freq: 500 # Frequency at which torque commands are sent to robot (Hz)
@@ -33,41 +33,11 @@ scene_objects:
 
 
 # Default controllers for each robot.
-!include ../../cfg/default_panda_controller.yaml
-!include ../../cfg/default_sawyer_controller.yaml
+!include cfg/default_panda_controller.yaml
+!include cfg/default_sawyer_controller.yaml
 
 # Add safenet
 !include safenet.yaml
-
-# Add an object from the config. If data_dir not explicitly defined,
-# perls2 directory is assumed.
-# object keys must be named object_0, object_1, ...
-
-# You can disable loading objects from config by commenting out the entire 
-# object dict. 
-# object:
-#   object_dict:
-#     object_0:
-#       name:
-#         '013_apple'
-#       count:
-#         1
-#       path:
-#         'objects/ycb/013_apple/google_16k/textured.urdf'
-#       position: [1.5, 0, 0]
-#       orientation: [0,0,0]
-#       is_static: True
-#       scale: 1.0
-#       default_position: [0.7, 0.1, 0.03] #z  = 0.1
-#   default_position: [0.7, 0.1, 0.03] #z  = 0.1
-#   random: # Randomization parameters and bounds.
-#     randomize: False
-#     position:
-#       lower:
-#         [0.3, -0.2, 0.1]
-#       upper:
-#         [0.7, 0.2, 0.1]
-
 
 # Perception and Learning
 env:

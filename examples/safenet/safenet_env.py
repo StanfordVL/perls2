@@ -60,6 +60,8 @@ class SafenetEnv(Env):
                     self._draw_boundary_line(corners['101'], corners['100'])
 
 
+    def visualize_controller_goal(self):
+        pb.addUserDebugLine(self.robot_interface.ee_position, self.robot_interface.controller.goal_pos, [0, 1, 0], lineWidth=2.0)
 
     def get_observation(self):
         """Get observation of current env state
@@ -154,6 +156,8 @@ class SafenetEnv(Env):
         """
         action = np.clip(action, self.action_space.low, self.action_space.high)
         self._exec_action(action)
+        if self.world.is_sim:
+            self.visualize_controller_goal()
         self.world.step(start)
         self.num_steps = self.num_steps + 1
 
