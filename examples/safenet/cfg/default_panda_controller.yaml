@@ -3,14 +3,13 @@
 panda_controller:
   Real:
     EEImpedance:
-      kp:  [100, 100, 100, 60.0, 60.0, 60.0]    # P Gain for Impedance Control
-      kv: [20.0, 20.0, 20.0, 10.0, 10.0, 10.0]  # D Gain for Impedance Control
-      damping: 1.0 # Damping factor [0,1]
-      # Scaling for delta actions
+      kp:  [100, 100, 100, 60.0, 60.0, 60.0] #70 #50 #200 #75 #200 # P Gain for Impedance Control
+      kv: [20.0, 20.0, 20.0, 10.0, 10.0, 10.0]
+      damping: 1.0 #1 #0.5 #1 #0.5 # Damping factor [0,1]
       input_max: 1.0
       input_min: -1.0
-      output_max: 0.01
-      output_min: -0.01
+      output_max: 1.0
+      output_min: -1.0
     JointVelocity:
       kv: 10.0 #0.5
       input_max: 1.0
@@ -31,16 +30,15 @@ panda_controller:
       output_max: 5.0
       output_min: -5.0
     EEPosture:
-      kp:  [100, 100, 100, 60.0, 60.0, 60.0]      # P Gain for Impedance Control
-      kv: [20.0, 20.0, 20.0, 10.0, 10.0, 10.0]    # D Gain for Impedance Control
-      damping: 1.0  # Damping factor [0,1]
-      posture_gain: [5.0, 5.0, 5.0, 4.0, 3.0, 3.0, 3.0]  # Gain for nullspace posture error
-      posture:  [0.0, -0.524, 0.0, -2.617, 0.0, 2.094, 0.1] # Posture to hold.
-      # Scaling for delta actions
+      kp:  [100, 100, 100, 60.0, 60.0, 60.0] #70 #50 #200 #75 #200 # P Gain for Impedance Control
+      kv: [20.0, 20.0, 20.0, 10.0, 10.0, 10.0]
+      damping: 1.0 #1 #0.5 #1 #0.5 # Damping factor [0,1]
+      posture_gain: [5.0, 5.0, 5.0, 4.0, 3.0, 3.0, 3.0]  #[7.0, 7.0, 7.0, 6.0, 5.0, 5.0, 5.0] #0.7
+      posture:  [0.0, -0.524, 0.0, -2.617, 0.0, 2.094, 0.1]
       input_max: 1.0
       input_min: -1.0
-      output_max: 0.01
-      output_min: -0.01
+      output_max: 1.0
+      output_min: -1.0
   interpolator_pos:
       type: 'linear'
       order: 1
@@ -51,14 +49,13 @@ panda_controller:
       fraction: 0.2
   Bullet:
     EEImpedance:
-      kp:  [100, 100, 100, 60.0, 60.0, 60.0]    # P Gain for Impedance Control
-      kv: [20.0, 20.0, 20.0, 10.0, 10.0, 10.0]  # D Gain for Impedance Control
-      damping: 1.0 # Damping factor [0,1]
-      # Scaling for delta actions
+      kp:  [100, 100, 100, 60.0, 60.0, 60.0] #70 #50 #200 #75 #200 # P Gain for Impedance Control
+      kv: [30.0, 30.0, 30.0, 10.0, 10.0, 10.0]
+      damping: 1.0 #1 #0.5 #1 #0.5 # Damping factor [0,1]
       input_max: 1.0
       input_min: -1.0
-      output_max: 0.01
-      output_min: -0.01
+      output_max: 1.0
+      output_min: -1.0
     JointVelocity:
       kv: 10.0 #0.5
       input_max: 1.0
@@ -79,16 +76,15 @@ panda_controller:
       output_max: 5.0
       output_min: -5.0
     EEPosture:
-      kp:  [100, 100, 100, 60.0, 60.0, 60.0]      # P Gain for Impedance Control
-      kv: [20.0, 20.0, 20.0, 10.0, 10.0, 10.0]    # D Gain for Impedance Control
-      damping: 1.0  # Damping factor [0,1]
-      posture_gain: [5.0, 5.0, 5.0, 4.0, 3.0, 3.0, 3.0]  # Gain for nullspace posture error
-      posture:  [0.0, -0.524, 0.0, -2.617, 0.0, 2.094, 0.1] # Posture to hold.
-      # Scaling for delta actions
+      kp:  [100, 100, 100, 60.0, 60.0, 60.0] #70 #50 #200 #75 #200 # P Gain for Impedance Control
+      kv: [20.0, 20.0, 20.0, 10.0, 10.0, 10.0]
+      damping: 1.0 #1 #0.5 #1 #0.5 # Damping factor [0,1]
+      posture_gain: [5.0, 5.0, 5.0, 4.0, 3.0, 3.0, 3.0]  #[7.0, 7.0, 7.0, 6.0, 5.0, 5.0, 5.0] #0.7
+      posture: [0.0, -0.524, 0.0, -2.617, 0.0, 2.094, 0.1]
       input_max: 1.0
       input_min: -1.0
-      output_max: 0.01
-      output_min: -0.01
+      output_max: 1.0
+      output_min: -1.0
   interpolator_pos:
       type: 'linear'
       order: 1

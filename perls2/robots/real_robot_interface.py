@@ -89,6 +89,8 @@ class RealRobotInterface(RobotInterface):
         """Set the control parameters key on redis
         """
         control_config = self.controller_cfg['Real'][self.control_type]
+        if self.use_safenet:
+            control_config['position_limits'] =  np.array([self.safenet_ee_pos_lower, self.safenet_ee_pos_upper])
         self.redisClient.set(CONTROLLER_CONTROL_PARAMS_KEY, json.dumps(control_config))
 
     def reset(self):
@@ -96,12 +98,32 @@ class RealRobotInterface(RobotInterface):
         """
         raise NotImplementedError
 
+    def set_safenet_boundaries(self, lower, upper):
+        """Set position limits for existing controller.
+
+        Controller will clip all end-effector goals to these limits.
+
+        Args:
+            lower (list): 3f lower boundary position limits for EE
+            upper (list): 3f upper boundary position limits for EE
+
+        Return: 
+            None
+        """
+        assert (np.all(lower <= upper))
+        self.safenet_ee_pos_upper = upper
+        self.safenet_ee_pos_lower = lower
+        self.use_safenet = True
+        if self.controller is not None:
+            self.set_controller_params_from_config()
+
     def set_controller_params_from_config(self):
         """Set controller parameters from config file to redis.
         """
         selected_type = self.config['world']['controlType']
         self.control_config = self.controller_cfg['Real'][selected_type]
-
+        if self.use_safenet:
+            self.control_config['position_limits'] =  [self.safenet_ee_pos_lower, self.safenet_ee_pos_upper]
         self.redisClient.mset({CONTROLLER_CONTROL_PARAMS_KEY: json.dumps(self.control_config),
                                CONTROLLER_CONTROL_TYPE_KEY: selected_type})
 
@@ -224,6 +246,7 @@ class RealRobotInterface(RobotInterface):
             raise ValueError("delta cannot be none.")
 
         kwargs = {'cmd_type': MOVE_EE_DELTA, 'delta': delta, 'set_pos': set_pos, 'set_ori': set_ori}
+
         self.set_controller_goal(**kwargs)
 
     def set_ee_pose(self, set_pos, set_ori, **kwargs):

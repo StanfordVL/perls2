@@ -1,0 +1,43 @@
+# Camera parameters.
+sensor:
+  camera:
+    name:
+        'camera'
+    image:
+      height: 224
+      width: 224
+    extrinsics:
+        eye_position:
+          [0.6, 0.0, 1.0]
+        target_position:
+          [0.6, 0., 0]
+        up_vector:
+          [1., 0., 1.]
+    intrinsics:
+        fov: 60
+        near_plane: 0.02
+        far_plane: 100
+    # Parameters for randomization
+    random:
+      randomize: False
+      extrinsics:
+        eye_position:
+          lower:
+            [0.6, 0., 1.75]
+          upper:
+            [0.6, 0., 1.75]
+        target_position:
+          lower:
+            [0.6, 0., 0]
+          upper:
+            [0.6, 0., 0]
+      intrinsics:
+        fov:
+          lower: 50
+          upper: 80
+        near_plane:
+          lower: 0.01
+          upper: 0.05
+        far_plane:
+          lower: 10
+          upper: 150
