@@ -178,7 +178,29 @@ the cameras before running your main perls2 project environment.
 If you close out of the terminal, the tmux session will continue to run. If this happens, use the kill script in new terminal: 
     ```bash
     cd ~/perls2
-    ./scripts/kill_tmux_session.sh ros_cameras
+    ./scripts/kill_tmux_session.sh rs_cameras
+    ``` 
+
+### Starting any ROS Camera: 
+You can start any in the same manner given the appropriate roslaunch command. 
+
+1. Follow manufacturer instructions to install rospackage for your camera. 
+Note the roslaunch command used to start the camera node. It's usually in the form of: 
+
+    ```bash 
+    roslaunch camera_pkg camera.launch
+    roslaunch camera.launch
+    ```
+2. Run the `start_ros_camera.sh` script supplying the launch command as a string: 
+    ```bash
+    cd ~/perls2
+    ./scripts/start_ros_camera.sh/ ~/perls2_local_ws \"roslaunch camera_pkg camera.launch\"
+    ```
+3. To kill the script, in the tmux terminal run the tmux command using `[Ctrl+b+:] kill-session`.
+If you close out of the terminal, the tmux session will continue to run. If this happens, use the kill script in new terminal: 
+    ```bash
+    cd ~/perls2
+    ./scripts/kill_tmux_session.sh ros_camera
     ``` 
 
 ### Create camera interface in your perls2 project:

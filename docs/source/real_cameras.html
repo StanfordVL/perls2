@@ -134,6 +134,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#starting-realsense-cameras">Starting RealSense cameras:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#starting-any-ros-camera">Starting any ROS Camera:</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#create-camera-interface-in-your-perls2-project">Create camera interface in your perls2 project:</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#obtain-frames">Obtain Frames:</a></li>
 </ul>
@@ -408,7 +409,33 @@ the cameras before running your main perls2 project environment.</p>
 <li><p>To kill the script, in the tmux terminal run the tmux command using <code class="docutils literal notranslate"><span class="pre">[Ctrl+b+:]</span> <span class="pre">kill-session</span></code>.
 If you close out of the terminal, the tmux session will continue to run. If this happens, use the kill script in new terminal:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/perls2
-./scripts/kill_tmux_session.sh ros_cameras
+./scripts/kill_tmux_session.sh rs_cameras
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="starting-any-ros-camera">
+<h3>Starting any ROS Camera:<a class="headerlink" href="#starting-any-ros-camera" title="Permalink to this headline">¶</a></h3>
+<p>You can start any in the same manner given the appropriate roslaunch command.</p>
+<ol>
+<li><p>Follow manufacturer instructions to install rospackage for your camera.
+Note the roslaunch command used to start the camera node. It’s usually in the form of:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>roslaunch camera_pkg camera.launch
+roslaunch camera.launch
+</pre></div>
+</div>
+</li>
+<li><p>Run the <code class="docutils literal notranslate"><span class="pre">start_ros_camera.sh</span></code> script supplying the launch command as a string:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/perls2
+./scripts/start_ros_camera.sh/ ~/perls2_local_ws <span class="se">\&quot;</span>roslaunch camera_pkg camera.launch<span class="se">\&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p>To kill the script, in the tmux terminal run the tmux command using <code class="docutils literal notranslate"><span class="pre">[Ctrl+b+:]</span> <span class="pre">kill-session</span></code>.
+If you close out of the terminal, the tmux session will continue to run. If this happens, use the kill script in new terminal:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/perls2
+./scripts/kill_tmux_session.sh ros_camera
 </pre></div>
 </div>
 </li>
