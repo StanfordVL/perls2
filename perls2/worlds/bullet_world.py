@@ -301,6 +301,43 @@ class BulletWorld(World):
         """
         pass
 
+    def _draw_boundary_line(self, c1, c2):
+        """Helper function to add debug line between two points.
+        """
+        pybullet.addUserDebugLine(c1, c2, [1, 0, 0], self.physics_id)
+
+    def visualize_safenet_boundaries(self):
+        """Add visualization to pb sim for safenet boundary.
+        """
+        if self.robot_interface.use_safenet:
+            (upper, lower) = self.robot_interface.get_safenet_limits()
+            if (upper is not None) and (lower is not None):
+                corners = {}
+                corners['000'] = lower
+                corners['100'] = [upper[0], lower[1], lower[2]]
+                corners['110'] = [upper[0], upper[1], lower[2]]
+                corners['010'] = [lower[0], upper[1], lower[2]]
+                corners['001'] = [lower[0], lower[1], upper[2]]
+                corners['011'] = [lower[0], upper[1], upper[2]]
+                corners['111'] = upper
+                corners['101'] = [upper[0], lower[1], upper[2]]
+
+                self._draw_boundary_line(corners['000'], corners['100'])
+                self._draw_boundary_line(corners['100'], corners['110'])
+                self._draw_boundary_line(corners['110'], corners['010'])
+                self._draw_boundary_line(corners['010'], corners['000'])
+
+                self._draw_boundary_line(corners['000'], corners['001'])
+                self._draw_boundary_line(corners['001'], corners['011'])
+                self._draw_boundary_line(corners['011'], corners['010'])
+
+                self._draw_boundary_line(corners['011'], corners['111'])
+                self._draw_boundary_line(corners['111'], corners['101'])
+                self._draw_boundary_line(corners['101'], corners['001'])
+                
+                self._draw_boundary_line(corners['111'], corners['110'])
+                self._draw_boundary_line(corners['101'], corners['100'])
+
     def wait_until_stable(self,
                           linear_velocity_threshold=0.005,
                           angular_velocity_threshold=0.005,
