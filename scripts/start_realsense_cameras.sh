@@ -13,11 +13,11 @@
 # (within tmux -session): [Ctrl + B :] kill-session
 
 # To kill outside: 
-# tmux kill-session -t ros_cameras
+# tmux kill-session -t rs_camera
 # To kill redis (sometimes it keeps running)
 # sudo killall redis-server
 
-usage="$(basename "$0") [path to perls2_local_ws directory] [-h] -- Start ROS Cameras
+usage="$(basename "$0") [path to perls2_local_ws directory] [-h] -- Start RealSenseCamera
 where:
     -h show this help text
 
@@ -28,9 +28,9 @@ if [ "$#" -eq 1 ]
 then
     perls2_local_dir=$1
 else
-    echo "No local directory specified ... using ${HOME}/local/perls2_local_ws"
     p2_dir=$HOME
     perls2_local_dir="${p2_dir}/perls2_local_ws"  
+    echo "No local directory specified ... using ${perls2_local_dir}"
 fi
   
 
@@ -52,7 +52,7 @@ while getopts ':h' option; do
 done
 shift $((OPTIND -1))
 
-session="ros_cameras"
+session="rs_camera"
 tmux start-server
 tmux new-session -d -s $session
 ##############################################################################
