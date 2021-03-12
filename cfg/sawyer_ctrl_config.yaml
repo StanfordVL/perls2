@@ -12,9 +12,8 @@ real_params:
   nuc_hostname: "localhost" # Hostname for the NUC for real robot control.
 
 redis:
-  host: c3po-ctrl.stanford.edu
+  host: 127.0.0.1
   port: 6379
-  password: "/home/robot/redis_pw.txt"
 
 # redis:
 #   host: localhost
