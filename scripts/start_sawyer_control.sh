@@ -76,6 +76,8 @@ tmux selectp -t 0
 tmux splitw -h -p 50
 tmux selectp -t 0
 tmux splitw -v -p 50
+tmux selectp -t 2
+tmux split-w -v -p 50
 # tmux selectp -t 2
 # tmux selectp -t 0
 # tmux split-w -v -p 50
@@ -96,8 +98,18 @@ tmux send-keys "${SOURCE_P27ENV_CMD}" C-m
 tmux send-keys "cd ${PERLS2_DIR}" C-m
 tmux send-keys "python perls2/ros_interfaces/ros_redis_interface.py" C-m
 
-# 4) Start up Sawyer Ctrl Interface
+# 2) Run sawyer_joint_pub_rate.py
 tmux selectp -t 2
+# Connect to ROS / intera
+tmux send-keys "${SOURCE_INTERA_CMD}" C-m
+# Source perls python 2.7 virtual environment
+tmux send-keys "${SOURCE_P27ENV_CMD}" C-m
+# Run sawyer joint rate publisher node.
+tmux send-keys "cd ${PERLS2_DIR}" C-m
+tmux send-keys "python perls2/ros_interfaces/sawyer_joint_pub_rate.py" C-m
+
+# 4) Start up Sawyer Ctrl Interface
+tmux selectp -t 3
 tmux send-keys "${SOURCE_INTERA_CMD}" C-m
 # Source perls python 2.7 virtual environment
 tmux send-keys "${SOURCE_P27ENV_CMD}" C-m
@@ -105,3 +117,4 @@ tmux send-keys "cd ${PERLS2_DIR}" C-m
 tmux send-keys "python perls2/ros_interfaces/sawyer_ctrl_interface.py" C-m
 
 tmux attach-session -t $session
+
