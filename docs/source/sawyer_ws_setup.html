@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Environments &mdash; perls2 1.0 documentation</title>
+  <title>Setup workstation for Rethink Sawyer &mdash; perls2 1.0 documentation</title>
   
 
   
@@ -39,8 +39,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="World" href="worlds.html" />
-    <link rel="prev" title="Franka Panda Setup" href="panda_setup.html" /> 
+    <link rel="next" title="Using the Rethink Sawyer Arm" href="sawyer_instructions.html" />
+    <link rel="prev" title="Sawyer NUC Setup" href="sawyer_nuc_setup.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -93,14 +93,8 @@
 <li class="toctree-l1"><a class="reference internal" href="panda_setup.html">Franka Panda Setup</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Modules</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Environments</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#hierarchy">Hierarchy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#attributes">Attributes:</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#public-methods">Public methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#notes">Notes:</a></li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="environments.html">Environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="worlds.html">World</a></li>
 <li class="toctree-l1"><a class="reference internal" href="robot_interfaces.html">RobotInterfaces</a></li>
 <li class="toctree-l1"><a class="reference internal" href="controller_eqns.html">Controllers</a></li>
@@ -122,7 +116,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../camera_interface.html">Camera Interface</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Real Robot Control</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="panda_setup.html">Franka Panda Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="panda_nuc_setup.html">Set up NUC (Control PC) for the Franka Panda</a></li>
 <li class="toctree-l1"><a class="reference internal" href="panda_ws_setup.html">Set up workstation for Franka Panda</a></li>
@@ -133,7 +127,13 @@
 <li class="toctree-l1"><a class="reference internal" href="sawyer_nuc_setup.html#ros-ws-directory">ROS WS directory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sawyer_nuc_setup.html#command-to-source-ros">Command to source ROS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sawyer_nuc_setup.html#source-python-2-7-environment">Source python 2.7 environment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sawyer_ws_setup.html">Setup workstation for Rethink Sawyer</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Setup workstation for Rethink Sawyer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-ssh-key-to-control-pc">Setting up SSH Key to Control PC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation-and-setup">Installation and setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test-out-a-demo">Test out a demo</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="sawyer_instructions.html">Using the Rethink Sawyer Arm</a></li>
 <li class="toctree-l1"><a class="reference internal" href="redis.html">Redis Help</a></li>
 <li class="toctree-l1"><a class="reference internal" href="demos.html">Controller Demos</a></li>
@@ -187,13 +187,13 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Environments</li>
+      <li>Setup workstation for Rethink Sawyer</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/source/environments.md.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/source/sawyer_ws_setup.md.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -230,71 +230,92 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="environments">
-<h1>Environments<a class="headerlink" href="#environments" title="Permalink to this headline">¶</a></h1>
-<p>Environments are used to encompass all aspects for a robot learning experiment. They contain a perls2.World, which provides an interface to a simulation (even the real world one we live in). Environments also contain definitions for tasks, and other necessary parameters for reinforcement learning pipelines.</p>
-<p>These include:</p>
-<ul class="simple">
-<li><p>observations</p></li>
-<li><p>rewards</p></li>
-<li><p>termination conditions</p></li>
-<li><p>action definitions.</p></li>
-</ul>
-<p><img alt="env_overview" src="../_images/perls2_infra.png" /></p>
-<p>The env.step() function defines how the environment executes changes from a policy action. It produces observations for the environment state resulting from this action.</p>
-<p>These conventions are adopted from openAI.gym and widely used in robot learning.</p>
-<div class="section" id="hierarchy">
-<h2>Hierarchy<a class="headerlink" href="#hierarchy" title="Permalink to this headline">¶</a></h2>
-<p>Users define their own environment class by inheriting the abstract Environment (env.py). All perls2 environments use the OpenAI gym.Env as a superclass.</p>
+<div class="section" id="setup-workstation-for-rethink-sawyer">
+<h1>Setup workstation for Rethink Sawyer<a class="headerlink" href="#setup-workstation-for-rethink-sawyer" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>The Workstation hosts the perls2 environment and sends robot commands to the NUC via the redis-server. The redis-server is connected via TCP.</p>
 </div>
-<div class="section" id="attributes">
-<h2>Attributes:<a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h2>
-<p>-<strong>config</strong>: dict</p>
-<p>Config files contain parameters to create an arena, robot interface, sensor interface and object interface.
-They also contain specs for learning, simulation and experiment setup.</p>
-<p>-<strong>world</strong>: World</p>
-<p>Object describing the simulation or reality in which contains an arena, robot interface, sensor interface and object interface.
-The world does not contain any information about observations, actions or task descriptions.
-To streamline the setup of the experiment, worlds are typically generated from the configuration file using the <code class="docutils literal notranslate"><span class="pre">world_factory</span></code>.
-This ensures that the appropriate robot, sensor and object interfaces are quickly generated. The enclosing Env is given direct
-access to the world’s attributes. i.e.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>      <span class="n">env</span><span class="o">.</span><span class="n">robot_interface</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">robot_interface</span>
+<div class="section" id="setting-up-ssh-key-to-control-pc">
+<h2>Setting up SSH Key to Control PC<a class="headerlink" href="#setting-up-ssh-key-to-control-pc" title="Permalink to this headline">¶</a></h2>
+<p>(Instructions copied from <a class="reference external" href="https://github.com/HARPLab/gastronomy/tree/master/manipulation">HARPLAB gastronomy</a>)</p>
+<ol>
+<li><p>Generate an ssh key by executing the following commands or reading the <a class="reference external" href="https://help.github.com/en/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">instructions here</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh-keygen -t rsa -b <span class="m">4096</span> -C <span class="s2">&quot;workstation name&quot;</span>
+<span class="o">[</span>Press enter<span class="o">]</span>
+<span class="o">[</span>Press enter<span class="o">]</span>
+<span class="o">[</span>Press enter<span class="o">]</span>
+<span class="nb">eval</span> <span class="s2">&quot;</span><span class="k">$(</span>ssh-agent -s<span class="k">)</span><span class="s2">&quot;</span>
+ssh-add ~/.ssh/id_rsa
 </pre></div>
 </div>
-<p>-<strong>arena</strong>: Arena
-Manages the sim by loading models (in both sim/real envs) and for
-simulations, randomizing objects and sensors parameters</p>
-<p>-<strong>robot_interface</strong>: RobotInterface
-Communicates with robots and executes robot commands.</p>
-<p>-<strong>sensor_interface</strong>: SensorInterface
-Retrieves sensor info and executes changes to params</p>
-<p>-<strong>object_interface</strong>: ObjectInterface
-Only for Sim environments– retrieves object info and excecutes
-changes to params</p>
+</li>
+<li><p>Upload your public ssh key to the control pc.</p>
+<ol>
+<li><p>In a new terminal, ssh to the control PC.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh <span class="o">[</span>control-pc-username<span class="o">]</span>@<span class="o">[</span>control-pc-ip<span class="o">]</span>
+Input password to control-pc.
+</pre></div>
 </div>
-<div class="section" id="public-methods">
-<h2>Public methods<a class="headerlink" href="#public-methods" title="Permalink to this headline">¶</a></h2>
-<p>(similar to openAI gym)</p>
-<p>-step:
-Step env forward and return observation, reward, termination, info.
-Not typically user-defined but may be modified.</p>
-<p>-reset:
-Reset env to initial setting and return observation at initial state.
-Some aspects such as randomization are user-defined</p>
+</li>
+<li><p>Use your favorite text editor to open the authorized_keys file.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vim ~/.ssh/authorized_keys
+</pre></div>
 </div>
-<div class="section" id="notes">
-<h2>Notes:<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h2>
-<p>Arenas and interfaces are, by default, initialized specific to the World of the env i.e. BulletWorld creates a BulletArena and Bullet_Robot/Sensor/Object_Interfaces.</p>
-<p>For any env, users need to set the following methods:</p>
-<p>-reset:
-Define aspects reset environment after episode completion. This may include randomization of objects or camera intrinsics or extrinsics
--get_observation:
-Define the observation returned by env upon reset, step
--rewardFunction:
-Compute the reward received by the agent given current state of
-the environment
--exec_action:
-Define how action received by agent should be executed.</p>
+</li>
+<li><p>In a separate terminal on your Workstation PC, use your favorite text editor to open your id_rsa.pub file.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vim ~/.ssh/id_rsa.pub
+</pre></div>
+</div>
+</li>
+<li><p>Copy the contents from your id_rsa.pub file to a new line on the authorized_keys file on the Control PC. Then save.</p></li>
+<li><p>Open a new terminal and try sshing to the control PC and it should no longer require a password.</p></li>
+</ol>
+</li>
+</ol>
+</div>
+<div class="section" id="installation-and-setup">
+<h2>Installation and setup<a class="headerlink" href="#installation-and-setup" title="Permalink to this headline">¶</a></h2>
+<ol>
+<li><p>Install redis</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">redis</span><span class="o">-</span><span class="n">server</span>
+</pre></div>
+</div>
+</li>
+<li><p>Clone perls2 and checkout the <code class="docutils literal notranslate"><span class="pre">panda_dev</span></code> branch</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">StanfordVL</span><span class="o">/</span><span class="n">perls2</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="o">~/</span><span class="n">perls2</span>
+<span class="n">git</span> <span class="n">checkout</span> <span class="n">panda_dev</span>
+</pre></div>
+</div>
+</li>
+<li><p><a class="reference internal" href="introduction.html#installing"><span class="std std-ref">Install perls2</span></a></p></li>
+<li><p>Copy the redis_passfile.txt from the <code class="docutils literal notranslate"><span class="pre">perls2_local_control_pc</span></code> directory on your Control PC to your workstation (preferably outside the perls2 directory.)</p></li>
+<li><p>If necessary, modify the perls2/cfg/redis.yaml with the ip address of the control pc on the local network:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Redis-server hosted by NUC for Robot Control</span>
+<span class="n">redis</span><span class="p">:</span>
+  <span class="n">host</span><span class="p">:</span> <span class="p">[</span><span class="n">Local</span> <span class="n">ip</span> <span class="n">address</span> <span class="n">of</span> <span class="n">the</span> <span class="n">NUC</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>For example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Redis-server hosted by NUC for Robot Control</span>
+<span class="nt">redis</span><span class="p">:</span>
+  <span class="nt">host</span><span class="p">:</span> <span class="s">&quot;172.16.0.1&quot;</span>
+  <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">6379</span>
+  <span class="nt">password</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="test-out-a-demo">
+<h2>Test out a demo<a class="headerlink" href="#test-out-a-demo" title="Permalink to this headline">¶</a></h2>
+<ol>
+<li><p>Follow the steps <a class="reference internal" href="panda_instructions.html"><span class="doc">here</span></a> for using the Franka Panda, and run the Gravity Compensation demo.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">perls2</span><span class="o">/</span><span class="n">demos</span><span class="o">/</span><span class="n">run_gc_demo</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">world</span><span class="o">=</span><span class="n">Real</span>
+</pre></div>
+</div>
+</li>
+</ol>
 </div>
 </div>
 
@@ -306,10 +327,10 @@ Define how action received by agent should be executed.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="worlds.html" class="btn btn-neutral float-right" title="World" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="sawyer_instructions.html" class="btn btn-neutral float-right" title="Using the Rethink Sawyer Arm" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="panda_setup.html" class="btn btn-neutral float-left" title="Franka Panda Setup" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="sawyer_nuc_setup.html" class="btn btn-neutral float-left" title="Sawyer NUC Setup" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

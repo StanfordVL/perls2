@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Environments &mdash; perls2 1.0 documentation</title>
+  <title>Rethink Sawyer Setup &mdash; perls2 1.0 documentation</title>
   
 
   
@@ -39,8 +39,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="World" href="worlds.html" />
-    <link rel="prev" title="Franka Panda Setup" href="panda_setup.html" /> 
+    <link rel="next" title="Sawyer NUC Setup" href="sawyer_nuc_setup.html" />
+    <link rel="prev" title="Using the Franka Panda" href="panda_instructions.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -93,14 +93,8 @@
 <li class="toctree-l1"><a class="reference internal" href="panda_setup.html">Franka Panda Setup</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Modules</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Environments</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#hierarchy">Hierarchy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#attributes">Attributes:</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#public-methods">Public methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#notes">Notes:</a></li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="environments.html">Environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="worlds.html">World</a></li>
 <li class="toctree-l1"><a class="reference internal" href="robot_interfaces.html">RobotInterfaces</a></li>
 <li class="toctree-l1"><a class="reference internal" href="controller_eqns.html">Controllers</a></li>
@@ -122,12 +116,19 @@
 <li class="toctree-l1"><a class="reference internal" href="../camera_interface.html">Camera Interface</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Real Robot Control</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="panda_setup.html">Franka Panda Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="panda_nuc_setup.html">Set up NUC (Control PC) for the Franka Panda</a></li>
 <li class="toctree-l1"><a class="reference internal" href="panda_ws_setup.html">Set up workstation for Franka Panda</a></li>
 <li class="toctree-l1"><a class="reference internal" href="panda_instructions.html">Using the Franka Panda</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sawyer_setup.html">Rethink Sawyer Setup</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Rethink Sawyer Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#perls2-rethink-sawyer-infrastructure">perls2 + Rethink Sawyer Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#set-static-ip-for-a-computer-robot">Set Static IP for a computer / robot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#set-static-ip-for-sawyer">Set Static IP for Sawyer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#find-mac-addr-for-sawyer">Find MAC addr for Sawyer</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="sawyer_nuc_setup.html">Sawyer NUC Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sawyer_nuc_setup.html#description">Description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sawyer_nuc_setup.html#ros-ws-directory">ROS WS directory</a></li>
@@ -187,13 +188,13 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Environments</li>
+      <li>Rethink Sawyer Setup</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/source/environments.md.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/source/sawyer_setup.md.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -230,71 +231,69 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="environments">
-<h1>Environments<a class="headerlink" href="#environments" title="Permalink to this headline">¶</a></h1>
-<p>Environments are used to encompass all aspects for a robot learning experiment. They contain a perls2.World, which provides an interface to a simulation (even the real world one we live in). Environments also contain definitions for tasks, and other necessary parameters for reinforcement learning pipelines.</p>
-<p>These include:</p>
-<ul class="simple">
-<li><p>observations</p></li>
-<li><p>rewards</p></li>
-<li><p>termination conditions</p></li>
-<li><p>action definitions.</p></li>
-</ul>
-<p><img alt="env_overview" src="../_images/perls2_infra.png" /></p>
-<p>The env.step() function defines how the environment executes changes from a policy action. It produces observations for the environment state resulting from this action.</p>
-<p>These conventions are adopted from openAI.gym and widely used in robot learning.</p>
-<div class="section" id="hierarchy">
-<h2>Hierarchy<a class="headerlink" href="#hierarchy" title="Permalink to this headline">¶</a></h2>
-<p>Users define their own environment class by inheriting the abstract Environment (env.py). All perls2 environments use the OpenAI gym.Env as a superclass.</p>
+<div class="section" id="rethink-sawyer-setup">
+<h1>Rethink Sawyer Setup<a class="headerlink" href="#rethink-sawyer-setup" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>This page contains instructions for setting up the Rethink Sawyer arm with perls2.</p>
 </div>
-<div class="section" id="attributes">
-<h2>Attributes:<a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h2>
-<p>-<strong>config</strong>: dict</p>
-<p>Config files contain parameters to create an arena, robot interface, sensor interface and object interface.
-They also contain specs for learning, simulation and experiment setup.</p>
-<p>-<strong>world</strong>: World</p>
-<p>Object describing the simulation or reality in which contains an arena, robot interface, sensor interface and object interface.
-The world does not contain any information about observations, actions or task descriptions.
-To streamline the setup of the experiment, worlds are typically generated from the configuration file using the <code class="docutils literal notranslate"><span class="pre">world_factory</span></code>.
-This ensures that the appropriate robot, sensor and object interfaces are quickly generated. The enclosing Env is given direct
-access to the world’s attributes. i.e.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>      <span class="n">env</span><span class="o">.</span><span class="n">robot_interface</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">robot_interface</span>
+<div class="section" id="perls2-rethink-sawyer-infrastructure">
+<h2>perls2 + Rethink Sawyer Infrastructure<a class="headerlink" href="#perls2-rethink-sawyer-infrastructure" title="Permalink to this headline">¶</a></h2>
+<p>To use the Rethink Sawyer arms, we have to use ROS-kinetic. Unfortunately ROS-kinetic only works with python 2.7, which has been outdated for some time. To overcome this limitation, we use Redis, an in-memory database to communicate between the process running on the workstation and the process sending torque commands the sawyer that runs on the NUC.</p>
+<p><img alt="sawyer_ros_redis" src="../_images/perls2_ros_redis.png" /></p>
+<p>perls2 uses three machines to communicate with the Franka Panda. These machines are connected in a local network. They consist of the:</p>
+<ol>
+<li><p><strong>Sawyer Computer</strong>: This is the main control box that comes with the Franka Panda.</p></li>
+<li><p><strong>Workstation (WS)</strong>: The workstation hosting the perls2 environment and running any scripts to perform  the robot experiment.</p></li>
+<li><p><strong>Control PC (NUC)</strong> or other computer with RT-PREEMPT Kernel: Typically an Intel NUC, is dedicated to running only the processes necessary for torque control.</p>
+<p>Using the Rethink Sawyer arm with torque control requires a consistent control loop frequency for sending torque commands to the arm. In order to acheive this, a separate machine with an RT Kernel sends torques to the Master Controller.</p>
+<p>The following processes run on the NUC:</p>
+<ol class="simple">
+<li><p><strong>redis-server</strong>: An in-memory database used by perls2 for interprocess communication. Hosted on the NUC and communicated with via tcp. Allows the <code class="docutils literal notranslate"><span class="pre">perls2.SawyerCtrlInterface</span></code> to bridge the <code class="docutils literal notranslate"><span class="pre">perls2.Env</span></code> on the WS with <code class="docutils literal notranslate"><span class="pre">intera</span></code>. See the <a class="reference internal" href="redis.html"><span class="doc">Redis Help</span></a> for more on Redis and perls2.</p></li>
+<li><p><strong>ROSRedisPublisher</strong>: Ros node that updates redis with robot state from intera.</p></li>
+<li><p><strong>perls2 SawyerCtrlInterface</strong>: Process that implements the robot controller.</p>
+<ul class="simple">
+<li><p>Robot commands and controller params are obtained from the WS.</p></li>
+<li><p>Robot state is obtained from the franka-panda-iprl driver.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">SaywerCtrlInterface</span></code> uses these to    calculate the torques required to acheive desired robot state, and send them as a ROS JointCommand msg.</p></li>
+</ul>
+</li>
+<li><p><strong>JointStatePublisherRate node</strong> Node that commands Sawyer to publish its joint state at maximum 800 Hz instead of default 500 Hz.</p></li>
+</ol>
+</li>
+</ol>
+</div>
+<div class="section" id="set-static-ip-for-a-computer-robot">
+<h2>Set Static IP for a computer / robot<a class="headerlink" href="#set-static-ip-for-a-computer-robot" title="Permalink to this headline">¶</a></h2>
+<p>To set static IP for robots / computer:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">IP</span> <span class="n">address</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">static</span><span class="o">-</span><span class="n">IP</span><span class="o">&gt;</span>
+<span class="n">Gateway</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">routing</span><span class="o">-</span><span class="n">gateway</span><span class="o">&gt;</span>
+<span class="n">Netmask</span><span class="p">:</span> <span class="mf">255.255</span><span class="o">.</span><span class="mf">254.0</span>
+<span class="n">DNS</span> <span class="n">nameservers</span><span class="p">:</span> <span class="mf">171.64</span><span class="o">.</span><span class="mf">1.234</span><span class="p">,</span> <span class="mf">171.67</span><span class="o">.</span><span class="mf">1.234</span>
 </pre></div>
 </div>
-<p>-<strong>arena</strong>: Arena
-Manages the sim by loading models (in both sim/real envs) and for
-simulations, randomizing objects and sensors parameters</p>
-<p>-<strong>robot_interface</strong>: RobotInterface
-Communicates with robots and executes robot commands.</p>
-<p>-<strong>sensor_interface</strong>: SensorInterface
-Retrieves sensor info and executes changes to params</p>
-<p>-<strong>object_interface</strong>: ObjectInterface
-Only for Sim environments– retrieves object info and excecutes
-changes to params</p>
+<p>Find gateway address with <code class="docutils literal notranslate"><span class="pre">netstat</span> <span class="pre">-r</span> <span class="pre">-n</span></code>. As of March 20, 2018, all computers in Gates 119 have network gateway address <code class="docutils literal notranslate"><span class="pre">172.24.68.1</span></code>.</p>
 </div>
-<div class="section" id="public-methods">
-<h2>Public methods<a class="headerlink" href="#public-methods" title="Permalink to this headline">¶</a></h2>
-<p>(similar to openAI gym)</p>
-<p>-step:
-Step env forward and return observation, reward, termination, info.
-Not typically user-defined but may be modified.</p>
-<p>-reset:
-Reset env to initial setting and return observation at initial state.
-Some aspects such as randomization are user-defined</p>
+<div class="section" id="set-static-ip-for-sawyer">
+<h2>Set Static IP for Sawyer<a class="headerlink" href="#set-static-ip-for-sawyer" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>Connect a keyboard to Sawyer.</p></li>
+<li><p>While booting up the Sawyer, repeatedly press <code class="docutils literal notranslate"><span class="pre">Ctrl+F</span></code> until you see the field service menu (FSM).</p></li>
+<li><p>Configure the network address with the information above.</p></li>
+<li><p>Use ROS_IP naming convention.</p></li>
+<li><p>Reboot into InteraSDK</p></li>
+</ol>
 </div>
-<div class="section" id="notes">
-<h2>Notes:<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h2>
-<p>Arenas and interfaces are, by default, initialized specific to the World of the env i.e. BulletWorld creates a BulletArena and Bullet_Robot/Sensor/Object_Interfaces.</p>
-<p>For any env, users need to set the following methods:</p>
-<p>-reset:
-Define aspects reset environment after episode completion. This may include randomization of objects or camera intrinsics or extrinsics
--get_observation:
-Define the observation returned by env upon reset, step
--rewardFunction:
-Compute the reward received by the agent given current state of
-the environment
--exec_action:
-Define how action received by agent should be executed.</p>
+<div class="section" id="find-mac-addr-for-sawyer">
+<h2>Find MAC addr for Sawyer<a class="headerlink" href="#find-mac-addr-for-sawyer" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>Go to FSM</p></li>
+<li><p>Plug in a USB driver</p></li>
+<li><p>Export log</p></li>
+<li><p>Open up the log in a computer</p></li>
+<li><p>Navigate to <code class="docutils literal notranslate"><span class="pre">system/upstart/network-interface-net0.log</span></code></p></li>
+<li><p>MAC addr is the string after <code class="docutils literal notranslate"><span class="pre">Listening</span> <span class="pre">on</span> <span class="pre">...</span></code></p></li>
+</ol>
 </div>
 </div>
 
@@ -306,10 +305,10 @@ Define how action received by agent should be executed.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="worlds.html" class="btn btn-neutral float-right" title="World" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="sawyer_nuc_setup.html" class="btn btn-neutral float-right" title="Sawyer NUC Setup" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="panda_setup.html" class="btn btn-neutral float-left" title="Franka Panda Setup" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="panda_instructions.html" class="btn btn-neutral float-left" title="Using the Franka Panda" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

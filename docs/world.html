@@ -26,12 +26,12 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
@@ -126,8 +126,15 @@
 <li class="toctree-l1"><a class="reference internal" href="source/panda_nuc_setup.html">Set up NUC (Control PC) for the Franka Panda</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/panda_ws_setup.html">Set up workstation for Franka Panda</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/panda_instructions.html">Using the Franka Panda</a></li>
-<li class="toctree-l1"><a class="reference internal" href="source/redis.html">Redis Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/sawyer_setup.html">Rethink Sawyer Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/sawyer_nuc_setup.html">Sawyer NUC Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/sawyer_nuc_setup.html#description">Description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/sawyer_nuc_setup.html#ros-ws-directory">ROS WS directory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/sawyer_nuc_setup.html#command-to-source-ros">Command to source ROS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/sawyer_nuc_setup.html#source-python-2-7-environment">Source python 2.7 environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/sawyer_ws_setup.html">Setup workstation for Rethink Sawyer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/sawyer_instructions.html">Using the Rethink Sawyer Arm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/redis.html">Redis Help</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/demos.html">Controller Demos</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Real Cameras</span></p>
@@ -230,14 +237,14 @@ ObjectInterfaces, Arenas and SensorInterfaces. They do not include experimental 
 and reward functions.</p>
 <div class="section" id="id1">
 <h2>World<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
+<dl class="class">
 <dt id="perls2.worlds.world.World">
-<em class="property">class </em><code class="sig-prename descclassname">perls2.worlds.world.</code><code class="sig-name descname">World</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cfg_path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.worlds.world.World" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">perls2.worlds.world.</code><code class="sig-name descname">World</code><span class="sig-paren">(</span><em class="sig-param">cfg_path</em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.worlds.world.World" title="Permalink to this definition">¶</a></dt>
 <dd><p>Abstract base class for Worlds.</p>
 <p>A World encompasses all necessary components for managing an experiment in
 simulation or reality. Worlds generate the appropriate robot, sensor and
 object interfaces based on the configuration file.</p>
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.worlds.world.World.config">
 <code class="sig-name descname">config</code><a class="headerlink" href="#perls2.worlds.world.World.config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Config files contain parameters to create an arena,
@@ -250,7 +257,7 @@ contain specs for learning, simulation and experiment setup.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.worlds.world.World.arena">
 <code class="sig-name descname">arena</code><a class="headerlink" href="#perls2.worlds.world.World.arena" title="Permalink to this definition">¶</a></dt>
 <dd><p>Manages the sim by loading models for real and sim
@@ -262,7 +269,7 @@ and for simulations, randomizing objects and sensors parameters</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.worlds.world.World.robot_interface">
 <code class="sig-name descname">robot_interface</code><a class="headerlink" href="#perls2.worlds.world.World.robot_interface" title="Permalink to this definition">¶</a></dt>
 <dd><p>Communicates with robots and executes
@@ -274,7 +281,7 @@ robot commands.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.worlds.world.World.sensor_interface">
 <code class="sig-name descname">sensor_interface</code><a class="headerlink" href="#perls2.worlds.world.World.sensor_interface" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves sensor info and executes
@@ -286,7 +293,7 @@ changes to params</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.worlds.world.World.is_sim">
 <code class="sig-name descname">is_sim</code><a class="headerlink" href="#perls2.worlds.world.World.is_sim" title="Permalink to this definition">¶</a></dt>
 <dd><p>Flag that is true if world is simulation.</p>
@@ -297,7 +304,7 @@ changes to params</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="perls2.worlds.world.World.reset">
 <em class="property">abstract </em><code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.worlds.world.World.reset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reset the world to initial state.</p>
@@ -308,9 +315,9 @@ changes to params</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="perls2.worlds.world.World.step">
-<em class="property">abstract </em><code class="sig-name descname">step</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">start</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.worlds.world.World.step" title="Permalink to this definition">¶</a></dt>
+<em class="property">abstract </em><code class="sig-name descname">step</code><span class="sig-paren">(</span><em class="sig-param">start=None</em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.worlds.world.World.step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Step simulation forward.</p>
 </dd></dl>
 
@@ -319,12 +326,12 @@ changes to params</p>
 </div>
 <div class="section" id="bulletworld">
 <h2>BulletWorld<a class="headerlink" href="#bulletworld" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
+<dl class="class">
 <dt id="perls2.worlds.bullet_world.BulletWorld">
-<em class="property">class </em><code class="sig-prename descclassname">perls2.worlds.bullet_world.</code><code class="sig-name descname">BulletWorld</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span></em>, <em class="sig-param"><span class="n">use_visualizer</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.worlds.bullet_world.BulletWorld" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">perls2.worlds.bullet_world.</code><code class="sig-name descname">BulletWorld</code><span class="sig-paren">(</span><em class="sig-param">config</em>, <em class="sig-param">use_visualizer=False</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.worlds.bullet_world.BulletWorld" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class for PyBullet worlds.</p>
 <p>A BulletWorld will automatically create instances of BulletRobot,    BulletCamera and BulletObjectInterfaces based on the config file.</p>
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.worlds.bullet_world.BulletWorld.arena">
 <code class="sig-name descname">arena</code><a class="headerlink" href="#perls2.worlds.bullet_world.BulletWorld.arena" title="Permalink to this definition">¶</a></dt>
 <dd><p>Manages the sim by loading models, and for simulations,
@@ -336,7 +343,7 @@ randomizing objects and sensors params.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.worlds.bullet_world.BulletWorld.robot_interface">
 <code class="sig-name descname">robot_interface</code><a class="headerlink" href="#perls2.worlds.bullet_world.BulletWorld.robot_interface" title="Permalink to this definition">¶</a></dt>
 <dd><p>Communicates with robots and
@@ -348,7 +355,7 @@ executes robot commands.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.worlds.bullet_world.BulletWorld.camera_interface">
 <code class="sig-name descname">camera_interface</code><a class="headerlink" href="#perls2.worlds.bullet_world.BulletWorld.camera_interface" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves camera images and
@@ -360,7 +367,7 @@ executes changes to params (e.g. intrinsics/extrinsics)</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.worlds.bullet_world.BulletWorld.object_interfaces">
 <code class="sig-name descname">object_interfaces</code><a class="headerlink" href="#perls2.worlds.bullet_world.BulletWorld.object_interfaces" title="Permalink to this definition">¶</a></dt>
 <dd><p>A dictionary of perls2.BulletObjectInterfaces currently in the simulation.
@@ -372,7 +379,7 @@ Keys are string unique identifying names for the object.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.worlds.bullet_world.BulletWorld.physics_id">
 <code class="sig-name descname">physics_id</code><a class="headerlink" href="#perls2.worlds.bullet_world.BulletWorld.physics_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unique id identifying physics client for Pybullet.
@@ -385,7 +392,7 @@ simulations.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.worlds.bullet_world.BulletWorld.time_step">
 <code class="sig-name descname">time_step</code><a class="headerlink" href="#perls2.worlds.bullet_world.BulletWorld.time_step" title="Permalink to this definition">¶</a></dt>
 <dd><p>float
@@ -393,7 +400,7 @@ Float defining timestep to increment Pybullet simulation during
 pybullet.stepSimulation() calls. Set in config file</p>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.worlds.bullet_world.BulletWorld.MAX_STEPS">
 <code class="sig-name descname">MAX_STEPS</code><a class="headerlink" href="#perls2.worlds.bullet_world.BulletWorld.MAX_STEPS" title="Permalink to this definition">¶</a></dt>
 <dd><p>int
@@ -401,16 +408,16 @@ Constant for maximum number of steps before terminating epsiode.
 Set in config file</p>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.worlds.bullet_world.BulletWorld.name">
 <code class="sig-name descname">name</code><a class="headerlink" href="#perls2.worlds.bullet_world.BulletWorld.name" title="Permalink to this definition">¶</a></dt>
 <dd><p>str
 A name to describe the world (e.g. training or testing)</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="perls2.worlds.bullet_world.BulletWorld.add_object">
-<code class="sig-name descname">add_object</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">pose</span></em>, <em class="sig-param"><span class="n">scale</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">is_static</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.worlds.bullet_world.BulletWorld.add_object" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_object</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">name</em>, <em class="sig-param">pose</em>, <em class="sig-param">scale=1.0</em>, <em class="sig-param">is_static=False</em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.worlds.bullet_world.BulletWorld.add_object" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add object to world explicitly.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -434,7 +441,7 @@ orientation as quaternion.</p></li>
 <p>objI = self.add_object(‘objects/ycb/013_apple/google_16k/textured.urdf’, ‘013_apple’, [0, 0, 0, 0, 0, 0, 1], 1.0,)</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="perls2.worlds.bullet_world.BulletWorld.reboot">
 <code class="sig-name descname">reboot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.worlds.bullet_world.BulletWorld.reboot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reboot pybullet simulation by clearing all objects, urdfs and
@@ -443,22 +450,22 @@ resetting sim state.</p>
 and deterministic applications.</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="perls2.worlds.bullet_world.BulletWorld.reconnect">
 <code class="sig-name descname">reconnect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.worlds.bullet_world.BulletWorld.reconnect" title="Permalink to this definition">¶</a></dt>
 <dd><p>Disconnects and reconnects to new physics engine</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="perls2.worlds.bullet_world.BulletWorld.remove_object">
-<code class="sig-name descname">remove_object</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.worlds.bullet_world.BulletWorld.remove_object" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">remove_object</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.worlds.bullet_world.BulletWorld.remove_object" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove object from world.
 :param name: name of the object as stored in objects dictionary.
 :type name: str</p>
 <p>Notes: Removes object from arena as well as objects dictionary.</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="perls2.worlds.bullet_world.BulletWorld.reset">
 <code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.worlds.bullet_world.BulletWorld.reset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reset the world.</p>
@@ -472,15 +479,15 @@ defined by derived class. But all derived reset functions share
 these steps.</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="perls2.worlds.bullet_world.BulletWorld.set_pb_physics">
 <code class="sig-name descname">set_pb_physics</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.worlds.bullet_world.BulletWorld.set_pb_physics" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set physics parameters for pybullet simulation.</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="perls2.worlds.bullet_world.BulletWorld.set_state">
-<code class="sig-name descname">set_state</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filepath</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.worlds.bullet_world.BulletWorld.set_state" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_state</code><span class="sig-paren">(</span><em class="sig-param">filepath</em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.worlds.bullet_world.BulletWorld.set_state" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set simulation to .bullet path found in filepath</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -498,9 +505,9 @@ in the same order. Therefore it is only recommended to use with the same
 world / config, rather than trying to load an empty world.</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="perls2.worlds.bullet_world.BulletWorld.step">
-<code class="sig-name descname">step</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">start</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.worlds.bullet_world.BulletWorld.step" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">step</code><span class="sig-paren">(</span><em class="sig-param">start=None</em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.worlds.bullet_world.BulletWorld.step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Step the world(simulation) forward.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -514,9 +521,9 @@ world / config, rather than trying to load an empty world.</p>
 to ensure smoothness when for collisions</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="perls2.worlds.bullet_world.BulletWorld.visualize">
-<code class="sig-name descname">visualize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">observation</span></em>, <em class="sig-param"><span class="n">action</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.worlds.bullet_world.BulletWorld.visualize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">visualize</code><span class="sig-paren">(</span><em class="sig-param">observation</em>, <em class="sig-param">action</em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.worlds.bullet_world.BulletWorld.visualize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Visualize the action.</p>
 <p>Add visual markers to the world (in case of sim)
 or execute some movements (in case of real) to
@@ -531,9 +538,15 @@ indicate the action about to be performed.</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
+<dt id="perls2.worlds.bullet_world.BulletWorld.visualize_safenet_boundaries">
+<code class="sig-name descname">visualize_safenet_boundaries</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.worlds.bullet_world.BulletWorld.visualize_safenet_boundaries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add visualization to pb sim for safenet boundary.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="perls2.worlds.bullet_world.BulletWorld.wait_until_stable">
-<code class="sig-name descname">wait_until_stable</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">linear_velocity_threshold</span><span class="o">=</span><span class="default_value">0.005</span></em>, <em class="sig-param"><span class="n">angular_velocity_threshold</span><span class="o">=</span><span class="default_value">0.005</span></em>, <em class="sig-param"><span class="n">check_after_steps</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">min_stable_steps</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">max_steps</span><span class="o">=</span><span class="default_value">30000</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.worlds.bullet_world.BulletWorld.wait_until_stable" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">wait_until_stable</code><span class="sig-paren">(</span><em class="sig-param">linear_velocity_threshold=0.005</em>, <em class="sig-param">angular_velocity_threshold=0.005</em>, <em class="sig-param">check_after_steps=100</em>, <em class="sig-param">min_stable_steps=100</em>, <em class="sig-param">max_steps=30000</em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.worlds.bullet_world.BulletWorld.wait_until_stable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wait until the objects are stable.</p>
 <p>Blocking code that checks if object linear and angular velocity are
 within respectives thresholds of 0.</p>
@@ -565,12 +578,12 @@ before exiting</p></li>
 </div>
 <div class="section" id="realworld">
 <h2>RealWorld<a class="headerlink" href="#realworld" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
+<dl class="class">
 <dt id="perls2.worlds.real_world.RealWorld">
-<em class="property">class </em><code class="sig-prename descclassname">perls2.worlds.real_world.</code><code class="sig-name descname">RealWorld</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">use_visualizer</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">'DefaultEnv'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.worlds.real_world.RealWorld" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">perls2.worlds.real_world.</code><code class="sig-name descname">RealWorld</code><span class="sig-paren">(</span><em class="sig-param">config=None</em>, <em class="sig-param">use_visualizer=False</em>, <em class="sig-param">name='DefaultEnv'</em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.worlds.real_world.RealWorld" title="Permalink to this definition">¶</a></dt>
 <dd><p>Typically, an env will have one robot with one camera as well as
 logic to have the robot execute a particular task.</p>
-<dl class="py method">
+<dl class="method">
 <dt id="perls2.worlds.real_world.RealWorld.reset">
 <code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.worlds.real_world.RealWorld.reset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reset the environment.</p>
@@ -581,9 +594,9 @@ logic to have the robot execute a particular task.</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="perls2.worlds.real_world.RealWorld.step">
-<code class="sig-name descname">step</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">start</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.worlds.real_world.RealWorld.step" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">step</code><span class="sig-paren">(</span><em class="sig-param">start=None</em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.worlds.real_world.RealWorld.step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Take a step.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

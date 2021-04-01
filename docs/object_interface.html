@@ -26,12 +26,12 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
@@ -125,8 +125,15 @@
 <li class="toctree-l1"><a class="reference internal" href="source/panda_nuc_setup.html">Set up NUC (Control PC) for the Franka Panda</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/panda_ws_setup.html">Set up workstation for Franka Panda</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/panda_instructions.html">Using the Franka Panda</a></li>
-<li class="toctree-l1"><a class="reference internal" href="source/redis.html">Redis Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/sawyer_setup.html">Rethink Sawyer Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/sawyer_nuc_setup.html">Sawyer NUC Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/sawyer_nuc_setup.html#description">Description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/sawyer_nuc_setup.html#ros-ws-directory">ROS WS directory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/sawyer_nuc_setup.html#command-to-source-ros">Command to source ROS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/sawyer_nuc_setup.html#source-python-2-7-environment">Source python 2.7 environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/sawyer_ws_setup.html">Setup workstation for Rethink Sawyer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/sawyer_instructions.html">Using the Rethink Sawyer Arm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/redis.html">Redis Help</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/demos.html">Controller Demos</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Real Cameras</span></p>
@@ -226,7 +233,7 @@
 <p>Object Interfaces for PyBullet simulations. They provide a convenient way to obtain object states and move objects in a simulation.</p>
 <div class="section" id="objectinterface">
 <h2>ObjectInterface<a class="headerlink" href="#objectinterface" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
+<dl class="class">
 <dt>
 <em class="property">class </em><code class="sig-prename descclassname">perls2.objects.object_interface.</code><code class="sig-name descname">ObjectInterface</code></dt>
 <dd><p>Abstract interface to be implemented for each real and simulated
@@ -236,13 +243,13 @@ robot.</p>
 </div>
 <div class="section" id="bulletobjectinterface">
 <h2>BulletObjectInterface<a class="headerlink" href="#bulletobjectinterface" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
+<dl class="class">
 <dt>
-<em class="property">class </em><code class="sig-prename descclassname">perls2.objects.bullet_object_interface.</code><code class="sig-name descname">BulletObjectInterface</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">physics_id</span></em>, <em class="sig-param"><span class="n">obj_id</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">'object'</span></em><span class="sig-paren">)</span></dt>
+<em class="property">class </em><code class="sig-prename descclassname">perls2.objects.bullet_object_interface.</code><code class="sig-name descname">BulletObjectInterface</code><span class="sig-paren">(</span><em class="sig-param">physics_id</em>, <em class="sig-param">obj_id</em>, <em class="sig-param">name='object'</em><span class="sig-paren">)</span></dt>
 <dd><p>Interface to objects in Pybullet.</p>
-<dl class="py attribute">
-<dt>
-<code class="sig-name descname">physics_id</code></dt>
+<dl class="attribute">
+<dt id="perls2.objects.bullet_object_interface.BulletObjectInterface.physics_id">
+<code class="sig-name descname">physics_id</code><a class="headerlink" href="#perls2.objects.bullet_object_interface.BulletObjectInterface.physics_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>physicsClientId from Pybullet</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -251,9 +258,9 @@ robot.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
-<dt>
-<code class="sig-name descname">obj_id</code></dt>
+<dl class="attribute">
+<dt id="perls2.objects.bullet_object_interface.BulletObjectInterface.obj_id">
+<code class="sig-name descname">obj_id</code><a class="headerlink" href="#perls2.objects.bullet_object_interface.BulletObjectInterface.obj_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>bodyId from Bullet loadURDF</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -262,9 +269,9 @@ robot.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
-<dt>
-<code class="sig-name descname">name</code></dt>
+<dl class="attribute">
+<dt id="perls2.objects.bullet_object_interface.BulletObjectInterface.name">
+<code class="sig-name descname">name</code><a class="headerlink" href="#perls2.objects.bullet_object_interface.BulletObjectInterface.name" title="Permalink to this definition">¶</a></dt>
 <dd><p>identifer for the object, best to keep unique.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -273,9 +280,9 @@ robot.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
-<dt>
-<code class="sig-name descname">position</code></dt>
+<dl class="attribute">
+<dt id="perls2.objects.bullet_object_interface.BulletObjectInterface.position">
+<code class="sig-name descname">position</code><a class="headerlink" href="#perls2.objects.bullet_object_interface.BulletObjectInterface.position" title="Permalink to this definition">¶</a></dt>
 <dd><p>xyz position in world space</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -284,9 +291,9 @@ robot.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
-<dt>
-<code class="sig-name descname">pose</code></dt>
+<dl class="attribute">
+<dt id="perls2.objects.bullet_object_interface.BulletObjectInterface.pose">
+<code class="sig-name descname">pose</code><a class="headerlink" href="#perls2.objects.bullet_object_interface.BulletObjectInterface.pose" title="Permalink to this definition">¶</a></dt>
 <dd><p>x,y,z,qx,qy,qz,w pose of the object in world frame.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -295,9 +302,9 @@ robot.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
-<dt>
-<code class="sig-name descname">linear_velocity</code></dt>
+<dl class="attribute">
+<dt id="perls2.objects.bullet_object_interface.BulletObjectInterface.linear_velocity">
+<code class="sig-name descname">linear_velocity</code><a class="headerlink" href="#perls2.objects.bullet_object_interface.BulletObjectInterface.linear_velocity" title="Permalink to this definition">¶</a></dt>
 <dd><p>linear vel. of object in world frame.
 xdot, ydot, zdot</p>
 <dl class="field-list simple">
@@ -307,9 +314,9 @@ xdot, ydot, zdot</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
-<dt>
-<code class="sig-name descname">angular_velocity</code></dt>
+<dl class="attribute">
+<dt id="perls2.objects.bullet_object_interface.BulletObjectInterface.angular_velocity">
+<code class="sig-name descname">angular_velocity</code><a class="headerlink" href="#perls2.objects.bullet_object_interface.BulletObjectInterface.angular_velocity" title="Permalink to this definition">¶</a></dt>
 <dd><p>ang. vel. of object in world frame.
 wx, wy, wz.</p>
 <dl class="field-list simple">
@@ -319,7 +326,7 @@ wx, wy, wz.</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt>
 <em class="property">property </em><code class="sig-name descname">angular_velocity</code></dt>
 <dd><p>Get the angular velocity of the body.</p>
@@ -330,7 +337,7 @@ wx, wy, wz.</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt>
 <em class="property">property </em><code class="sig-name descname">linear_velocity</code></dt>
 <dd><p>Get the lienar velocity of the body.</p>
@@ -347,15 +354,15 @@ wx, wy, wz.</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt>
 <em class="property">property </em><code class="sig-name descname">orientation</code></dt>
 <dd><p>Orientation of object in world frame expressed as quaternion.</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt>
-<code class="sig-name descname">place</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_object_pos</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">new_object_orn</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span></dt>
+<code class="sig-name descname">place</code><span class="sig-paren">(</span><em class="sig-param">new_object_pos=None</em>, <em class="sig-param">new_object_orn=None</em><span class="sig-paren">)</span></dt>
 <dd><p>Places object in new position and orientation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -371,29 +378,29 @@ If new_object_orn is None, maintains original orientation.
 If both are None, does nothing.</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt>
 <em class="property">property </em><code class="sig-name descname">pose</code></dt>
 <dd><p>Pose of object in world frame. Expressed as list 7f position + quaternion.</p>
 <p>[x, y, z, qx, qy, qz, w]</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt>
 <em class="property">property </em><code class="sig-name descname">position</code></dt>
 <dd><p>Get position of object in world frame.</p>
 <p>Returns numpy array</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt>
 <code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
 <dd><p>Reset object to last placed pose.</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt>
-<code class="sig-name descname">set_angular_velocity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">des_angular_vel</span></em><span class="sig-paren">)</span></dt>
+<code class="sig-name descname">set_angular_velocity</code><span class="sig-paren">(</span><em class="sig-param">des_angular_vel</em><span class="sig-paren">)</span></dt>
 <dd><p>Set linear velocity of object. Breaks physics</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -402,15 +409,15 @@ If both are None, does nothing.</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt>
-<code class="sig-name descname">set_linear_velocity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">des_linear_vel</span></em><span class="sig-paren">)</span></dt>
+<code class="sig-name descname">set_linear_velocity</code><span class="sig-paren">(</span><em class="sig-param">des_linear_vel</em><span class="sig-paren">)</span></dt>
 <dd><p>Set linear velocity of object. Breaks physics</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt>
-<code class="sig-name descname">set_orientation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">des_ori</span></em><span class="sig-paren">)</span></dt>
+<code class="sig-name descname">set_orientation</code><span class="sig-paren">(</span><em class="sig-param">des_ori</em><span class="sig-paren">)</span></dt>
 <dd><p>Set position of object in world frame.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -423,9 +430,9 @@ If both are None, does nothing.</p>
 <p>Note: does not check for collisions</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt>
-<code class="sig-name descname">set_pose</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">des_pose</span></em><span class="sig-paren">)</span></dt>
+<code class="sig-name descname">set_pose</code><span class="sig-paren">(</span><em class="sig-param">des_pose</em><span class="sig-paren">)</span></dt>
 <dd><p>Set pose of object in world frame.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -438,9 +445,9 @@ If both are None, does nothing.</p>
 <p>Note: does not check for collisions</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt>
-<code class="sig-name descname">set_position</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">des_position</span></em><span class="sig-paren">)</span></dt>
+<code class="sig-name descname">set_position</code><span class="sig-paren">(</span><em class="sig-param">des_position</em><span class="sig-paren">)</span></dt>
 <dd><p>Set position of object in world frame.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

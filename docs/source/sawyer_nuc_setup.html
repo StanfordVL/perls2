@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Set up NUC (Control PC) for the Franka Panda &mdash; perls2 1.0 documentation</title>
+  <title>Sawyer NUC Setup &mdash; perls2 1.0 documentation</title>
   
 
   
@@ -39,8 +39,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Set up workstation for Franka Panda" href="panda_ws_setup.html" />
-    <link rel="prev" title="Camera Interface" href="../camera_interface.html" /> 
+    <link rel="next" title="Setup workstation for Rethink Sawyer" href="sawyer_ws_setup.html" />
+    <link rel="prev" title="Rethink Sawyer Setup" href="sawyer_setup.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -118,29 +118,26 @@
 <p class="caption"><span class="caption-text">Real Robot Control</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="panda_setup.html">Franka Panda Setup</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Set up NUC (Control PC) for the Franka Panda</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#description">Description</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#important-notes">Important notes:</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#setting-up-the-nuc">Setting up the NUC</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#set-up-local-directory-for-the-control-pc">Set up local directory for the Control PC</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#bind-your-redis-server">Bind your redis server</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#modify-config-for-driver">Modify config for driver:</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#set-up-for-bash-scripting">Set up for bash scripting</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#verify-perls2-nuc-setup-using-bash-scripts">Verify perls2 NUC setup using bash scripts:</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="panda_nuc_setup.html">Set up NUC (Control PC) for the Franka Panda</a></li>
 <li class="toctree-l1"><a class="reference internal" href="panda_ws_setup.html">Set up workstation for Franka Panda</a></li>
 <li class="toctree-l1"><a class="reference internal" href="panda_instructions.html">Using the Franka Panda</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sawyer_setup.html">Rethink Sawyer Setup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sawyer_nuc_setup.html">Sawyer NUC Setup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sawyer_nuc_setup.html#description">Description</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sawyer_nuc_setup.html#ros-ws-directory">ROS WS directory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sawyer_nuc_setup.html#command-to-source-ros">Command to source ROS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sawyer_nuc_setup.html#source-python-2-7-environment">Source python 2.7 environment</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Sawyer NUC Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#description">Description</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#important-notes">Important notes:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-the-nuc">Setting up the NUC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#bind-your-redis-server">Bind your redis server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-up-for-bash-scripting">Set up for bash scripting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#ros-ws-directory">ROS WS directory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#command-to-source-ros">Command to source ROS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#source-python-2-7-environment">Source python 2.7 environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#verify-perls2-nuc-setup-using-bash-scripts">Verify perls2 NUC setup using bash scripts:</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="sawyer_ws_setup.html">Setup workstation for Rethink Sawyer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sawyer_instructions.html">Using the Rethink Sawyer Arm</a></li>
 <li class="toctree-l1"><a class="reference internal" href="redis.html">Redis Help</a></li>
@@ -195,13 +192,13 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Set up NUC (Control PC) for the Franka Panda</li>
+      <li>Sawyer NUC Setup</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/source/panda_nuc_setup.md.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/source/sawyer_nuc_setup.md.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -238,27 +235,40 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="set-up-nuc-control-pc-for-the-franka-panda">
-<h1>Set up NUC (Control PC) for the Franka Panda<a class="headerlink" href="#set-up-nuc-control-pc-for-the-franka-panda" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="description">
-<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
-<p>The NUC or Control PC runs three processes to control the Franka Panda arm.</p>
-<ol class="simple">
-<li><p>franka-panda-iprl driver : A wrapper for libfranka that gets torque commands from redis and updates the redis-server with robot states.</p></li>
-<li><p>perls2.PandaCtrlInterface: A process that grabs robot commands from the perls2 environment hosted on the workstation, and robot states from the franka-panda-iprl driver. This process implements the controller and calculates the torques necessary to acheive the desired robot states, setting the torque command to redis.</p></li>
-<li><p>redis-server : A redis server is used to communicate between the franka-panda-iprl redis driver (a wrapper for libfranka) and the perls2.PandaCtrlInterface</p></li>
-</ol>
+<div class="section" id="sawyer-nuc-setup">
+<h1>Sawyer NUC Setup<a class="headerlink" href="#sawyer-nuc-setup" title="Permalink to this headline">¶</a></h1>
 </div>
+<div class="section" id="description">
+<h1>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h1>
+<p>The NUC or control PC runs the following processes to control the Rethink Sawyer Arm</p>
+<ol class="simple">
+<li><p><strong>redis-server</strong>: An in-memory database used by perls2 for interprocess communication. Hosted on the NUC and communicated with via tcp. Allows the <code class="docutils literal notranslate"><span class="pre">perls2.SawyerCtrlInterface</span></code> to bridge the <code class="docutils literal notranslate"><span class="pre">perls2.Env</span></code> on the WS with <code class="docutils literal notranslate"><span class="pre">intera</span></code>. See the <a class="reference internal" href="redis.html"><span class="doc">Redis Help</span></a> for more on Redis and perls2.</p></li>
+<li><p><strong>ROSRedisPublisher</strong>: Ros node that updates redis with robot state from intera.</p></li>
+<li><p><strong>perls2 SawyerCtrlInterface</strong>: Process that implements the robot controller.</p>
+<ul class="simple">
+<li><p>Robot commands and controller params are obtained from the WS.</p></li>
+<li><p>Robot state is obtained from the franka-panda-iprl driver.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">SaywerCtrlInterface</span></code> uses these to    calculate the torques required to acheive desired robot state, and send them as a ROS JointCommand msg.</p></li>
+</ul>
+</li>
+<li><p><strong>JointStatePublisherRate node</strong> Node that commands Sawyer to publish its joint state at maximum 800 Hz instead of default 500 Hz.</p></li>
+</ol>
 <div class="section" id="important-notes">
 <h2>Important notes:<a class="headerlink" href="#important-notes" title="Permalink to this headline">¶</a></h2>
 <p>To ensure consistent control loop timing, it is important that no other processes be running on the NUC. This includes internet browsers or text editors. After initial set up, the NUC should be accessed only by ssh from the workstation.</p>
 </div>
 <div class="section" id="setting-up-the-nuc">
 <h2>Setting up the NUC<a class="headerlink" href="#setting-up-the-nuc" title="Permalink to this headline">¶</a></h2>
+<p>Some of these instructions use the Franka website, but they still apply for REthink Sawyer</p>
 <ol>
 <li><p><a class="reference external" href="https://frankaemika.github.io/docs/installation_linux.html#setting-up-the-real-time-kernel">Set up the Ubuntu 16.04 with RT-PREEMPT Kernel</a></p></li>
-<li><p><a class="reference external" href="https://frankaemika.github.io/docs/getting_started.html#control-network-configuration">Set up the Franka Panda Arm and Network.</a> There is no need to install libfranka just yet, the driver will do this later. It’s best to use a high bandwith network switch to connect the workstation, the FCI and the NUC to a local network.</p></li>
 <li><p><a class="reference external" href="https://frankaemika.github.io/docs/troubleshooting.html#disabling-cpu-frequency-scaling">Disable cpu power scaling</a> using cpufrequtils by following the [instructions here] The default setting slow down the CPU frequency for power conservation. We want our control loop to run as fast as possible to maintain a high frequency for torque control.</p></li>
+<li><p>Install dependencies
+<code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> </code></p></li>
+<li><p>Install ROS Kinetic
+http://wiki.ros.org/kinetic/Installation/Ubuntu</p></li>
+<li><p>Install Rethink Robotics Intera SDK
+http://sdk.rethinkrobotics.com/intera/Workstation_Setup</p></li>
 <li><p>Clone perls2 and checkout the <code class="docutils literal notranslate"><span class="pre">panda_dev</span></code> branch</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/StanfordVL/perls2.git
 <span class="nb">cd</span> ~/perls2
@@ -270,42 +280,16 @@ git checkout panda_dev
 <li><p>Install redis.</p>
 <p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">redis-server</span></code></p>
 </li>
-<li><p>Install the <a class="reference external" href="https://github.com/StanfordVL/franka-panda-iprl/">franka-panda-iprl driver.</a> This is used by perls2 as a redis-wrapper for libfranka. Please note that this version of the driver has been modified specifically to work with perls2.</p></li>
 </ol>
-<div class="section" id="set-up-local-directory-for-the-control-pc">
-<h3>Set up local directory for the Control PC<a class="headerlink" href="#set-up-local-directory-for-the-control-pc" title="Permalink to this headline">¶</a></h3>
-<p>Setting up the control PC requires certain config specific to the machine. These include the redis-server password and the ip of the Franka Arm. To ensure these configs do not get overwritten when updating perls2, it’s best to place them in a separate directory. This also makes it easier to use bash scripts to start the robot.</p>
-<ol>
-<li><p>Copy the <code class="docutils literal notranslate"><span class="pre">perls2_local_control_pc</span></code> directory to your home directory or somewhere outside the main perls2 repo.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/perls2<span class="p">;</span>
-cp -r local/perls2_local_control_pc ~/
-</pre></div>
-</div>
-</li>
-<li><p>Move to the newly copied local directory;</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/perls2_local_control_pc
-</pre></div>
-</div>
-</li>
-</ol>
-<p>This folder contains the following files:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">redis.conf</span></code>              : config file used by redis-server.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">redis_passfile.txt</span></code>      : (deprecated) password to authenticate clients to redis-server</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">redis_nuc.yaml</span></code>          : yaml config used by perls2 to connect to redis-server</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">franka-panda.yaml</span></code>       : config used by franka-panda-iprl driver.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">panda_ctrl_config.yaml</span></code>  : default config used by perls2 panda control interface.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">local_dir.sh</span></code>            : bash script to help find local perls2 and driver install</p></li>
-</ul>
 <div class="section" id="bind-your-redis-server">
-<h4>Bind your redis server<a class="headerlink" href="#bind-your-redis-server" title="Permalink to this headline">¶</a></h4>
+<h3>Bind your redis server<a class="headerlink" href="#bind-your-redis-server" title="Permalink to this headline">¶</a></h3>
 <p>Binding the redis-server ensures that it only allows connections from certain ip addresses. This allows us to secure the redis-server for a local network.</p>
 <ol class="simple">
 <li><p>Determine the control PC’s local ip address. If you followed the instructions on the Franka website, it should be 172.16.0.1. Otherwise use ifconfig.
 Note the inet addr  for the <strong>local</strong> network, likely ‘eno1’. For example:</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ifconfig
-eno1      Link encap:Ethernet  HWaddr <span class="m">94</span>:c6:91:aa:91:80  
+eno1      Link encap:Ethernet  HWaddr <span class="m">94</span>:c6:91:aa:91:80
           inet addr:172.16.0.1  Bcast:172.16.0.255  Mask:255.255.255.0
 </pre></div>
 </div>
@@ -316,37 +300,10 @@ nano redis.conf
 </pre></div>
 </div>
 </li>
-<li><p>Edit the line 68 <code class="docutils literal notranslate"><span class="pre">bind</span> <span class="pre">127.0.0.1</span> <span class="pre">172.16.0.1</span></code> and replace the “172.16.0.1” with your control pc ip address if needed. Make sure you have a space between the two addresses, and don’t delete the “127.0.0.1”.</p></li>
-</ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Examples:</span>
-<span class="c1"># bind 127.0.0.1 [Control PC Local IP]</span>
-<span class="n">bind</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span> <span class="mf">172.16</span><span class="o">.</span><span class="mf">0.1</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="modify-config-for-driver">
-<h4>Modify config for driver:<a class="headerlink" href="#modify-config-for-driver" title="Permalink to this headline">¶</a></h4>
-<ol>
-<li><p>Open the <code class="docutils literal notranslate"><span class="pre">franka-panda.yaml</span></code> config file in a text-editor.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/perls2_local_control_pc
-nano franka-panda.yaml
-</pre></div>
-</div>
-</li>
-<li><p>Edit the <code class="docutils literal notranslate"><span class="pre">robot_ip</span></code> key to the ip address of the Franka Master Controller</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1">####################</span>
-<span class="c1"># Robot parameters #</span>
-<span class="c1">####################</span>
-
-<span class="nt">robot</span><span class="p">:</span>
-  <span class="nt">ip</span><span class="p">:</span> <span class="s">&quot;172.16.0.2&quot;</span>
-</pre></div>
-</div>
-</li>
 </ol>
 </div>
 <div class="section" id="set-up-for-bash-scripting">
-<h4>Set up for bash scripting<a class="headerlink" href="#set-up-for-bash-scripting" title="Permalink to this headline">¶</a></h4>
+<h3>Set up for bash scripting<a class="headerlink" href="#set-up-for-bash-scripting" title="Permalink to this headline">¶</a></h3>
 <p>Configuring the <code class="docutils literal notranslate"><span class="pre">local_dirs.sh</span></code> file makes it convenient to start the robot by using bash scripts.</p>
 <ol>
 <li><p>In the perls2_local_control_pc directory, open the local_dirs.sh file.</p>
@@ -356,44 +313,54 @@ nano local_dirs.sh
 </div>
 </li>
 <li><p>Edit following variables in the script with directories and file locations specific to your pc. If you set up everything in your home directory, you shouldn’t have to modify anything.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
-<span class="c1"># Command to source virtualenv environment with perls2 installed</span>
-<span class="nb">export</span> <span class="nv">SOURCE_ENV_CMD</span><span class="o">=</span><span class="s2">&quot;source ~/p2env/bin/activate&quot;</span>
-<span class="c1"># Directory for perls2 repo</span>
-<span class="nb">export</span> <span class="nv">PERLS2_DIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/perls2&quot;</span>
-<span class="c1"># Directory for franka-panda-iprl repo</span>
-<span class="nb">export</span> <span class="nv">DRIVER_DIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/franka-panda-iprl&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 </li>
+</ol>
+<p>############## Rethink Sawyer ##########################</p>
+</div>
+</div>
+</div>
+<div class="section" id="ros-ws-directory">
+<h1>ROS WS directory<a class="headerlink" href="#ros-ws-directory" title="Permalink to this headline">¶</a></h1>
+<p>export ROS_DIR=”$HOME/ros_ws”</p>
+</div>
+<div class="section" id="command-to-source-ros">
+<h1>Command to source ROS<a class="headerlink" href="#command-to-source-ros" title="Permalink to this headline">¶</a></h1>
+<p>export SOURCE_ROS_CMD=”source /opt/ros/kinetic/setup.bash”
+export SOURCE_INTERA_CMD=”cd ${ROS_DIR}; ./intera.sh”</p>
+</div>
+<div class="section" id="source-python-2-7-environment">
+<h1>Source python 2.7 environment<a class="headerlink" href="#source-python-2-7-environment" title="Permalink to this headline">¶</a></h1>
+<p>export SOURCE_P27ENV_CMD=”source ~/p27env/bin/activate”</p>
+<p>########################################################
+```</p>
+<ol>
 <li><p>Make the file executable with:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod a+x local_dirs.sh
 </pre></div>
 </div>
 </li>
 </ol>
-</div>
-</div>
 <div class="section" id="verify-perls2-nuc-setup-using-bash-scripts">
-<h3>Verify perls2 NUC setup using bash scripts:<a class="headerlink" href="#verify-perls2-nuc-setup-using-bash-scripts" title="Permalink to this headline">¶</a></h3>
+<h2>Verify perls2 NUC setup using bash scripts:<a class="headerlink" href="#verify-perls2-nuc-setup-using-bash-scripts" title="Permalink to this headline">¶</a></h2>
 <ol>
-<li><p>In the Desk app, unlock the robot. The lights at the base of the robot should be white.</p></li>
-<li><p>Pull the user-stop so the lights are blue.</p></li>
+<li><p>Turn on the Sawyer by pressing the power button on the computer attached to the Sawyer. After some time the eyes should appear and then disappear and the robot arm should move slightly.</p></li>
 <li><p>Move to the perls2 directory.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/perls2
 </pre></div>
 </div>
 </li>
 <li><p>Run the <code class="docutils literal notranslate"><span class="pre">start_panda_control.sh</span></code> script passing the path to the <code class="docutils literal notranslate"><span class="pre">perls2_local_control_pc</span></code> folder you copied as an argument:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./scripts/start_panda_control.sh ~/perls2_local_control_pc
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./scripts/start_sawyer_control.sh ~/perls2_local_control_pc
 </pre></div>
 </div>
 </li>
-<li><p>You should see the message:
+<li><p>The robot arm should reset to a neutral position and you should see the message:
 <code class="docutils literal notranslate"><span class="pre">Waiting</span> <span class="pre">for</span> <span class="pre">perls2.RobotInterface</span> <span class="pre">to</span> <span class="pre">connect</span></code></p></li>
-<li><p>Exit the Ctrl Interface with <code class="docutils literal notranslate"><span class="pre">Ctrl+C</span></code></p></li>
+<li><p>Exit the Ctrl Interface with <code class="docutils literal notranslate"><span class="pre">[Ctrl</span> <span class="pre">+</span> <span class="pre">B</span> <span class="pre">:]</span> <span class="pre">kill-session</span></code></p></li>
 </ol>
-</div>
 </div>
 </div>
 
@@ -405,10 +372,10 @@ nano local_dirs.sh
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="panda_ws_setup.html" class="btn btn-neutral float-right" title="Set up workstation for Franka Panda" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="sawyer_ws_setup.html" class="btn btn-neutral float-right" title="Setup workstation for Rethink Sawyer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../camera_interface.html" class="btn btn-neutral float-left" title="Camera Interface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="sawyer_setup.html" class="btn btn-neutral float-left" title="Rethink Sawyer Setup" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

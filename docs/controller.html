@@ -26,12 +26,12 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
@@ -129,8 +129,15 @@
 <li class="toctree-l1"><a class="reference internal" href="source/panda_nuc_setup.html">Set up NUC (Control PC) for the Franka Panda</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/panda_ws_setup.html">Set up workstation for Franka Panda</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/panda_instructions.html">Using the Franka Panda</a></li>
-<li class="toctree-l1"><a class="reference internal" href="source/redis.html">Redis Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/sawyer_setup.html">Rethink Sawyer Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/sawyer_nuc_setup.html">Sawyer NUC Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/sawyer_nuc_setup.html#description">Description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/sawyer_nuc_setup.html#ros-ws-directory">ROS WS directory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/sawyer_nuc_setup.html#command-to-source-ros">Command to source ROS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/sawyer_nuc_setup.html#source-python-2-7-environment">Source python 2.7 environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/sawyer_ws_setup.html">Setup workstation for Rethink Sawyer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/sawyer_instructions.html">Using the Rethink Sawyer Arm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/redis.html">Redis Help</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/demos.html">Controller Demos</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Real Cameras</span></p>
@@ -235,19 +242,19 @@ properities, though specific controllers may extend and / or override the defaul
 the base class.</p>
 <div class="section" id="base-controller">
 <h2>Base Controller<a class="headerlink" href="#base-controller" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
+<dl class="class">
 <dt id="perls2.controllers.base_controller.Controller">
 <em class="property">class </em><code class="sig-prename descclassname">perls2.controllers.base_controller.</code><code class="sig-name descname">Controller</code><a class="headerlink" href="#perls2.controllers.base_controller.Controller" title="Permalink to this definition">¶</a></dt>
 <dd><p>General controller interface.</p>
-<dl class="py method">
+<dl class="method">
 <dt id="perls2.controllers.base_controller.Controller.run_controller">
-<em class="property">abstract </em><code class="sig-name descname">run_controller</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">action</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.base_controller.Controller.run_controller" title="Permalink to this definition">¶</a></dt>
+<em class="property">abstract </em><code class="sig-name descname">run_controller</code><span class="sig-paren">(</span><em class="sig-param">action</em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.base_controller.Controller.run_controller" title="Permalink to this definition">¶</a></dt>
 <dd><p>Go from actions to torques</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="perls2.controllers.base_controller.Controller.scale_action">
-<code class="sig-name descname">scale_action</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">action</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.base_controller.Controller.scale_action" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">scale_action</code><span class="sig-paren">(</span><em class="sig-param">action</em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.base_controller.Controller.scale_action" title="Permalink to this definition">¶</a></dt>
 <dd><p>Scale the action based on max and min of action</p>
 </dd></dl>
 
@@ -256,13 +263,13 @@ the base class.</p>
 </div>
 <div class="section" id="joint-impedance-controller">
 <h2>Joint Impedance Controller<a class="headerlink" href="#joint-impedance-controller" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
+<dl class="class">
 <dt id="perls2.controllers.joint_imp.JointImpController">
-<em class="property">class </em><code class="sig-prename descclassname">perls2.controllers.joint_imp.</code><code class="sig-name descname">JointImpController</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">robot_model</span></em>, <em class="sig-param"><span class="n">input_max</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">input_min</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">output_max</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">output_min</span><span class="o">=</span><span class="default_value">- 1.0</span></em>, <em class="sig-param"><span class="n">kp</span><span class="o">=</span><span class="default_value">50</span></em>, <em class="sig-param"><span class="n">kv</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">damping</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">control_freq</span><span class="o">=</span><span class="default_value">20</span></em>, <em class="sig-param"><span class="n">qpos_limits</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">interpolator_qpos</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.joint_imp.JointImpController" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">perls2.controllers.joint_imp.</code><code class="sig-name descname">JointImpController</code><span class="sig-paren">(</span><em class="sig-param">robot_model</em>, <em class="sig-param">input_max=1</em>, <em class="sig-param">input_min=-1</em>, <em class="sig-param">output_max=1.0</em>, <em class="sig-param">output_min=-1.0</em>, <em class="sig-param">kp=50</em>, <em class="sig-param">kv=None</em>, <em class="sig-param">damping=1</em>, <em class="sig-param">control_freq=20</em>, <em class="sig-param">qpos_limits=None</em>, <em class="sig-param">interpolator_qpos=None</em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.joint_imp.JointImpController" title="Permalink to this definition">¶</a></dt>
 <dd><p>Controller for joint impedance</p>
-<dl class="py method">
+<dl class="method">
 <dt id="perls2.controllers.joint_imp.JointImpController.set_goal">
-<code class="sig-name descname">set_goal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">delta</span></em>, <em class="sig-param"><span class="n">set_qpos</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.joint_imp.JointImpController.set_goal" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_goal</code><span class="sig-paren">(</span><em class="sig-param">delta</em>, <em class="sig-param">set_qpos=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.joint_imp.JointImpController.set_goal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set goal for controller.
 :param delta: (7f) list of deltas from current joint positions
 :type delta: list
@@ -282,7 +289,7 @@ the base class.</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="perls2.controllers.joint_imp.JointImpController.run_controller">
 <code class="sig-name descname">run_controller</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.joint_imp.JointImpController.run_controller" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate torques to acheive goal state from current state.</p>
@@ -304,13 +311,13 @@ the base class.</p>
 </div>
 <div class="section" id="joint-velocity-controller">
 <h2>Joint Velocity Controller<a class="headerlink" href="#joint-velocity-controller" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
+<dl class="class">
 <dt id="perls2.controllers.joint_vel.JointVelController">
-<em class="property">class </em><code class="sig-prename descclassname">perls2.controllers.joint_vel.</code><code class="sig-name descname">JointVelController</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">robot_model</span></em>, <em class="sig-param"><span class="n">input_max</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">input_min</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">output_max</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">output_min</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">kv</span><span class="o">=</span><span class="default_value">4.0</span></em>, <em class="sig-param"><span class="n">control_freq</span><span class="o">=</span><span class="default_value">20</span></em>, <em class="sig-param"><span class="n">interpolator</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.joint_vel.JointVelController" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">perls2.controllers.joint_vel.</code><code class="sig-name descname">JointVelController</code><span class="sig-paren">(</span><em class="sig-param">robot_model</em>, <em class="sig-param">input_max=1</em>, <em class="sig-param">input_min=-1</em>, <em class="sig-param">output_max=1</em>, <em class="sig-param">output_min=-1</em>, <em class="sig-param">kv=4.0</em>, <em class="sig-param">control_freq=20</em>, <em class="sig-param">interpolator=None</em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.joint_vel.JointVelController" title="Permalink to this definition">¶</a></dt>
 <dd><p>Controller for joint velocity</p>
-<dl class="py method">
+<dl class="method">
 <dt id="perls2.controllers.joint_vel.JointVelController.set_goal">
-<code class="sig-name descname">set_goal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">velocities</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.joint_vel.JointVelController.set_goal" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_goal</code><span class="sig-paren">(</span><em class="sig-param">velocities</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.joint_vel.JointVelController.set_goal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set goal joint velocities</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -325,7 +332,7 @@ the base class.</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="perls2.controllers.joint_vel.JointVelController.run_controller">
 <code class="sig-name descname">run_controller</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.joint_vel.JointVelController.run_controller" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run controller to calculate torques.</p>
@@ -344,11 +351,11 @@ the base class.</p>
 </div>
 <div class="section" id="joint-torque-controller">
 <h2>Joint Torque Controller<a class="headerlink" href="#joint-torque-controller" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
+<dl class="class">
 <dt id="perls2.controllers.joint_torque.JointTorqueController">
-<em class="property">class </em><code class="sig-prename descclassname">perls2.controllers.joint_torque.</code><code class="sig-name descname">JointTorqueController</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">robot_model</span></em>, <em class="sig-param"><span class="n">input_max</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">input_min</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">output_max</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">output_min</span><span class="o">=</span><span class="default_value">- 1.0</span></em>, <em class="sig-param"><span class="n">control_freq</span><span class="o">=</span><span class="default_value">20</span></em>, <em class="sig-param"><span class="n">interpolator</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.joint_torque.JointTorqueController" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">perls2.controllers.joint_torque.</code><code class="sig-name descname">JointTorqueController</code><span class="sig-paren">(</span><em class="sig-param">robot_model</em>, <em class="sig-param">input_max=1</em>, <em class="sig-param">input_min=-1</em>, <em class="sig-param">output_max=1.0</em>, <em class="sig-param">output_min=-1.0</em>, <em class="sig-param">control_freq=20</em>, <em class="sig-param">interpolator=None</em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.joint_torque.JointTorqueController" title="Permalink to this definition">¶</a></dt>
 <dd><p>Controller for joint torque</p>
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.joint_torque.JointTorqueController.robot_model">
 <code class="sig-name descname">robot_model</code><a class="headerlink" href="#perls2.controllers.joint_torque.JointTorqueController.robot_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>model of robot containing state and parameters.</p>
@@ -359,7 +366,7 @@ the base class.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.joint_torque.JointTorqueController.input_max">
 <code class="sig-name descname">input_max</code><a class="headerlink" href="#perls2.controllers.joint_torque.JointTorqueController.input_max" title="Permalink to this definition">¶</a></dt>
 <dd><p>Maximum above which an inputted action will be clipped.</p>
@@ -370,7 +377,7 @@ the base class.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.joint_torque.JointTorqueController.input_min">
 <code class="sig-name descname">input_min</code><a class="headerlink" href="#perls2.controllers.joint_torque.JointTorqueController.input_min" title="Permalink to this definition">¶</a></dt>
 <dd><p>Minimum below which an inputted action will be clipped.</p>
@@ -381,7 +388,7 @@ the base class.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.joint_torque.JointTorqueController.output_max">
 <code class="sig-name descname">output_max</code><a class="headerlink" href="#perls2.controllers.joint_torque.JointTorqueController.output_max" title="Permalink to this definition">¶</a></dt>
 <dd><p>Maximum which defines upper end of scaling range when scaling an input
@@ -393,7 +400,7 @@ action.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.joint_torque.JointTorqueController.output_min">
 <code class="sig-name descname">output_min</code><a class="headerlink" href="#perls2.controllers.joint_torque.JointTorqueController.output_min" title="Permalink to this definition">¶</a></dt>
 <dd><p>Minimum which defines lower end of scaling range when scaling an input
@@ -405,7 +412,7 @@ action.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.joint_torque.JointTorqueController.interpolator">
 <code class="sig-name descname">interpolator</code><a class="headerlink" href="#perls2.controllers.joint_torque.JointTorqueController.interpolator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Interpolator object to be used for interpolating between consecutive goals..</p>
@@ -416,7 +423,7 @@ action.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.joint_torque.JointTorqueController.goal_torque">
 <code class="sig-name descname">goal_torque</code><a class="headerlink" href="#perls2.controllers.joint_torque.JointTorqueController.goal_torque" title="Permalink to this definition">¶</a></dt>
 <dd><p>goal torques for controller.</p>
@@ -427,7 +434,7 @@ action.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.joint_torque.JointTorqueController.current_torque">
 <code class="sig-name descname">current_torque</code><a class="headerlink" href="#perls2.controllers.joint_torque.JointTorqueController.current_torque" title="Permalink to this definition">¶</a></dt>
 <dd><p>current torque being outputted.</p>
@@ -438,7 +445,7 @@ action.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.joint_torque.JointTorqueController.joint_dim">
 <code class="sig-name descname">joint_dim</code><a class="headerlink" href="#perls2.controllers.joint_torque.JointTorqueController.joint_dim" title="Permalink to this definition">¶</a></dt>
 <dd><p>number of joints in the arm (usually 7.)</p>
@@ -449,7 +456,7 @@ action.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.joint_torque.JointTorqueController.torques">
 <code class="sig-name descname">torques</code><a class="headerlink" href="#perls2.controllers.joint_torque.JointTorqueController.torques" title="Permalink to this definition">¶</a></dt>
 <dd><p>7f list of torques.</p>
@@ -460,9 +467,9 @@ action.</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="perls2.controllers.joint_torque.JointTorqueController.set_goal">
-<code class="sig-name descname">set_goal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">torques</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.joint_torque.JointTorqueController.set_goal" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_goal</code><span class="sig-paren">(</span><em class="sig-param">torques</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.joint_torque.JointTorqueController.set_goal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set goal torques.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -477,7 +484,7 @@ action.</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="perls2.controllers.joint_torque.JointTorqueController.run_controller">
 <code class="sig-name descname">run_controller</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.joint_torque.JointTorqueController.run_controller" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run controller to calculate torques.</p>
@@ -496,13 +503,13 @@ action.</p>
 </div>
 <div class="section" id="eeimpedance-controller">
 <h2>EEImpedance Controller<a class="headerlink" href="#eeimpedance-controller" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
+<dl class="class">
 <dt id="perls2.controllers.ee_imp.EEImpController">
-<em class="property">class </em><code class="sig-prename descclassname">perls2.controllers.ee_imp.</code><code class="sig-name descname">EEImpController</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">robot_model</span></em>, <em class="sig-param"><span class="n">input_max</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">input_min</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">output_max</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">output_min</span><span class="o">=</span><span class="default_value">- 1.0</span></em>, <em class="sig-param"><span class="n">kp</span><span class="o">=</span><span class="default_value">50</span></em>, <em class="sig-param"><span class="n">kv</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">damping</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">control_freq</span><span class="o">=</span><span class="default_value">20</span></em>, <em class="sig-param"><span class="n">position_limits</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">orientation_limits</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">interpolator_pos</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">interpolator_ori</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">uncouple_pos_ori</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.ee_imp.EEImpController" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">perls2.controllers.ee_imp.</code><code class="sig-name descname">EEImpController</code><span class="sig-paren">(</span><em class="sig-param">robot_model</em>, <em class="sig-param">input_max=1</em>, <em class="sig-param">input_min=-1</em>, <em class="sig-param">output_max=1.0</em>, <em class="sig-param">output_min=-1.0</em>, <em class="sig-param">kp=50</em>, <em class="sig-param">kv=None</em>, <em class="sig-param">damping=1</em>, <em class="sig-param">control_freq=20</em>, <em class="sig-param">position_limits=None</em>, <em class="sig-param">orientation_limits=None</em>, <em class="sig-param">interpolator_pos=None</em>, <em class="sig-param">interpolator_ori=None</em>, <em class="sig-param">uncouple_pos_ori=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.ee_imp.EEImpController" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class definition for End-effector Impedance Controller.</p>
 <p>End effector impedance uses PD control to reach desired end-effector
 position and orientation.</p>
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.ee_imp.EEImpController.input_max">
 <code class="sig-name descname">input_max</code><a class="headerlink" href="#perls2.controllers.ee_imp.EEImpController.input_max" title="Permalink to this definition">¶</a></dt>
 <dd><p>Maximum above which an inputted action will be clipped. Can be either be
@@ -515,7 +522,7 @@ latter, dimension should be the same as the control dimension for this controlle
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.ee_imp.EEImpController.input_min">
 <code class="sig-name descname">input_min</code><a class="headerlink" href="#perls2.controllers.ee_imp.EEImpController.input_min" title="Permalink to this definition">¶</a></dt>
 <dd><p>Minimum below which an inputted action will be clipped. Can be either be
@@ -528,7 +535,7 @@ latter, dimension should be the same as the control dimension for this controlle
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.ee_imp.EEImpController.output_max">
 <code class="sig-name descname">output_max</code><a class="headerlink" href="#perls2.controllers.ee_imp.EEImpController.output_max" title="Permalink to this definition">¶</a></dt>
 <dd><p>Maximum which defines upper end of scaling range when scaling an input
@@ -541,7 +548,7 @@ each dimension). If the latter, dimension should be the same as the control dime
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.ee_imp.EEImpController.output_min">
 <code class="sig-name descname">output_min</code><a class="headerlink" href="#perls2.controllers.ee_imp.EEImpController.output_min" title="Permalink to this definition">¶</a></dt>
 <dd><p>Minimum which defines upper end of scaling range when scaling an input
@@ -554,7 +561,7 @@ each dimension). If the latter, dimension should be the same as the control dime
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.ee_imp.EEImpController.kp">
 <code class="sig-name descname">kp</code><a class="headerlink" href="#perls2.controllers.ee_imp.EEImpController.kp" title="Permalink to this definition">¶</a></dt>
 <dd><p>positional gain for determining desired torques based upon the pos / ori errors.
@@ -566,7 +573,7 @@ Can be either be a scalar (same value for all action dims), or a list (specific 
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.ee_imp.EEImpController.kv">
 <code class="sig-name descname">kv</code><a class="headerlink" href="#perls2.controllers.ee_imp.EEImpController.kv" title="Permalink to this definition">¶</a></dt>
 <dd><p>velocity gain for determining desired torques based on vel / ang vel errors.
@@ -579,7 +586,7 @@ If kv is defined, damping is ignored.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.ee_imp.EEImpController.damping">
 <code class="sig-name descname">damping</code><a class="headerlink" href="#perls2.controllers.ee_imp.EEImpController.damping" title="Permalink to this definition">¶</a></dt>
 <dd><p>used in conjunction with kp to determine the velocity gain for determining
@@ -591,7 +598,7 @@ desired torques based upon the pos / ori errors. If kv is defined, damping is ig
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.ee_imp.EEImpController.policy_freq">
 <code class="sig-name descname">policy_freq</code><a class="headerlink" href="#perls2.controllers.ee_imp.EEImpController.policy_freq" title="Permalink to this definition">¶</a></dt>
 <dd><p>Frequency at which actions from the robot policy are fed into this controller</p>
@@ -602,7 +609,7 @@ desired torques based upon the pos / ori errors. If kv is defined, damping is ig
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.ee_imp.EEImpController.position_limits">
 <code class="sig-name descname">position_limits</code><a class="headerlink" href="#perls2.controllers.ee_imp.EEImpController.position_limits" title="Permalink to this definition">¶</a></dt>
 <dd><p>Limits (m) below and above which the magnitude
@@ -615,7 +622,7 @@ cartesian dims), or a 2-list of list (specific min/max values for each dim)</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.ee_imp.EEImpController.orientation_limits">
 <code class="sig-name descname">orientation_limits</code><a class="headerlink" href="#perls2.controllers.ee_imp.EEImpController.orientation_limits" title="Permalink to this definition">¶</a></dt>
 <dd><p>[Lower_bounds, upper_bounds]. Limits (rad) below and above which the
@@ -628,7 +635,7 @@ magnitude of a calculated goal eef orientation will be clipped. Can be either be
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.ee_imp.EEImpController.interpolator_pos">
 <code class="sig-name descname">interpolator_pos</code><a class="headerlink" href="#perls2.controllers.ee_imp.EEImpController.interpolator_pos" title="Permalink to this definition">¶</a></dt>
 <dd><p>Interpolator object to be used for interpolating from the current position to
@@ -640,7 +647,7 @@ the goal position during each timestep between inputted actions</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.ee_imp.EEImpController.interpolator_ori">
 <code class="sig-name descname">interpolator_ori</code><a class="headerlink" href="#perls2.controllers.ee_imp.EEImpController.interpolator_ori" title="Permalink to this definition">¶</a></dt>
 <dd><p>Interpolator object to be used for interpolating from the current orientation
@@ -652,7 +659,7 @@ to the goal orientation during each timestep between inputted actions</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.ee_imp.EEImpController.control_ori">
 <code class="sig-name descname">control_ori</code><a class="headerlink" href="#perls2.controllers.ee_imp.EEImpController.control_ori" title="Permalink to this definition">¶</a></dt>
 <dd><p>Whether inputted actions will control both pos and ori or exclusively pos</p>
@@ -663,7 +670,7 @@ to the goal orientation during each timestep between inputted actions</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.ee_imp.EEImpController.uncouple_pos_ori">
 <code class="sig-name descname">uncouple_pos_ori</code><a class="headerlink" href="#perls2.controllers.ee_imp.EEImpController.uncouple_pos_ori" title="Permalink to this definition">¶</a></dt>
 <dd><p>Whether to decouple torques meant to control pos and torques meant to control ori</p>
@@ -674,16 +681,16 @@ to the goal orientation during each timestep between inputted actions</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt>
-<code class="sig-name descname">\*\*kwargs</code></dt>
+<code class="sig-name descname">**kwargs</code></dt>
 <dd><p>Does nothing; placeholder to “sink” any additional arguments so that instantiating this controller
 via an argument dict that has additional extraneous arguments won’t raise an error</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="perls2.controllers.ee_imp.EEImpController.set_goal">
-<code class="sig-name descname">set_goal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">delta</span></em>, <em class="sig-param"><span class="n">set_pos</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">set_ori</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.ee_imp.EEImpController.set_goal" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_goal</code><span class="sig-paren">(</span><em class="sig-param">delta</em>, <em class="sig-param">set_pos=None</em>, <em class="sig-param">set_ori=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.ee_imp.EEImpController.set_goal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set goal for controller.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -709,7 +716,7 @@ world frame. Only used if delta is None.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="perls2.controllers.ee_imp.EEImpController.run_controller">
 <code class="sig-name descname">run_controller</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.ee_imp.EEImpController.run_controller" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate torques to acheive goal.</p>
@@ -736,13 +743,13 @@ world frame. Only used if delta is None.</p></li>
 </div>
 <div class="section" id="eeposture-controller">
 <h2>EEPosture Controller<a class="headerlink" href="#eeposture-controller" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
+<dl class="class">
 <dt id="perls2.controllers.ee_posture.EEPostureController">
-<em class="property">class </em><code class="sig-prename descclassname">perls2.controllers.ee_posture.</code><code class="sig-name descname">EEPostureController</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">robot_model</span></em>, <em class="sig-param"><span class="n">input_max</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">input_min</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">output_max</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">output_min</span><span class="o">=</span><span class="default_value">- 1.0</span></em>, <em class="sig-param"><span class="n">kp</span><span class="o">=</span><span class="default_value">50</span></em>, <em class="sig-param"><span class="n">kv</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">damping</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">posture_gain</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">posture</span><span class="o">=</span><span class="default_value">[0, - 1.18, 0.0, 2.18, 0.0, 0.57, 3.3161]</span></em>, <em class="sig-param"><span class="n">policy_freq</span><span class="o">=</span><span class="default_value">20</span></em>, <em class="sig-param"><span class="n">control_freq</span><span class="o">=</span><span class="default_value">500</span></em>, <em class="sig-param"><span class="n">position_limits</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">orientation_limits</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">interpolator_pos</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">interpolator_ori</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">uncouple_pos_ori</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.ee_posture.EEPostureController" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">perls2.controllers.ee_posture.</code><code class="sig-name descname">EEPostureController</code><span class="sig-paren">(</span><em class="sig-param">robot_model, input_max=1, input_min=-1, output_max=1.0, output_min=-1.0, kp=50, kv=None, damping=1, posture_gain=0, posture=[0, -1.18, 0.0, 2.18, 0.0, 0.57, 3.3161], policy_freq=20, control_freq=500, position_limits=None, orientation_limits=None, interpolator_pos=None, interpolator_ori=None, uncouple_pos_ori=False, **kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.ee_posture.EEPostureController" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class definition for End-effector Impedance Controller.</p>
 <p>End effector impedance uses PD control to reach desired end-effector
 position and orientation, torques are projected to nullspace to maintain posture.</p>
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.ee_posture.EEPostureController.input_max">
 <code class="sig-name descname">input_max</code><a class="headerlink" href="#perls2.controllers.ee_posture.EEPostureController.input_max" title="Permalink to this definition">¶</a></dt>
 <dd><p>Maximum above which an inputted action will be clipped. Can be either be
@@ -755,7 +762,7 @@ latter, dimension should be the same as the control dimension for this controlle
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.ee_posture.EEPostureController.input_min">
 <code class="sig-name descname">input_min</code><a class="headerlink" href="#perls2.controllers.ee_posture.EEPostureController.input_min" title="Permalink to this definition">¶</a></dt>
 <dd><p>Minimum below which an inputted action will be clipped. Can be either be
@@ -768,7 +775,7 @@ latter, dimension should be the same as the control dimension for this controlle
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.ee_posture.EEPostureController.output_max">
 <code class="sig-name descname">output_max</code><a class="headerlink" href="#perls2.controllers.ee_posture.EEPostureController.output_max" title="Permalink to this definition">¶</a></dt>
 <dd><p>Maximum which defines upper end of scaling range when scaling an input
@@ -781,7 +788,7 @@ each dimension). If the latter, dimension should be the same as the control dime
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.ee_posture.EEPostureController.output_min">
 <code class="sig-name descname">output_min</code><a class="headerlink" href="#perls2.controllers.ee_posture.EEPostureController.output_min" title="Permalink to this definition">¶</a></dt>
 <dd><p>Minimum which defines upper end of scaling range when scaling an input
@@ -794,7 +801,7 @@ each dimension). If the latter, dimension should be the same as the control dime
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.ee_posture.EEPostureController.kp">
 <code class="sig-name descname">kp</code><a class="headerlink" href="#perls2.controllers.ee_posture.EEPostureController.kp" title="Permalink to this definition">¶</a></dt>
 <dd><p>positional gain for determining desired torques based upon the pos / ori errors.
@@ -806,7 +813,7 @@ Can be either be a scalar (same value for all action dims), or a list (specific 
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.ee_posture.EEPostureController.kv">
 <code class="sig-name descname">kv</code><a class="headerlink" href="#perls2.controllers.ee_posture.EEPostureController.kv" title="Permalink to this definition">¶</a></dt>
 <dd><p>velocity gain for determining desired torques based on vel / ang vel errors.
@@ -819,7 +826,7 @@ If kv is defined, damping is ignored.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.ee_posture.EEPostureController.damping">
 <code class="sig-name descname">damping</code><a class="headerlink" href="#perls2.controllers.ee_posture.EEPostureController.damping" title="Permalink to this definition">¶</a></dt>
 <dd><p>used in conjunction with kp to determine the velocity gain for determining
@@ -831,7 +838,7 @@ desired torques based upon the pos / ori errors. If kv is defined, damping is ig
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.ee_posture.EEPostureController.posture_gain">
 <code class="sig-name descname">posture_gain</code><a class="headerlink" href="#perls2.controllers.ee_posture.EEPostureController.posture_gain" title="Permalink to this definition">¶</a></dt>
 <dd><p>gains for determining torques to maintiain desired joint posture.</p>
@@ -842,7 +849,7 @@ desired torques based upon the pos / ori errors. If kv is defined, damping is ig
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.ee_posture.EEPostureController.posture">
 <code class="sig-name descname">posture</code><a class="headerlink" href="#perls2.controllers.ee_posture.EEPostureController.posture" title="Permalink to this definition">¶</a></dt>
 <dd><p>7f joint positions for desired nullspace posture to maintain.</p>
@@ -853,7 +860,7 @@ desired torques based upon the pos / ori errors. If kv is defined, damping is ig
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.ee_posture.EEPostureController.control_freq">
 <code class="sig-name descname">control_freq</code><a class="headerlink" href="#perls2.controllers.ee_posture.EEPostureController.control_freq" title="Permalink to this definition">¶</a></dt>
 <dd><p>frequency at which controller sends to robot.</p>
@@ -864,7 +871,7 @@ desired torques based upon the pos / ori errors. If kv is defined, damping is ig
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.ee_posture.EEPostureController.position_limits">
 <code class="sig-name descname">position_limits</code><a class="headerlink" href="#perls2.controllers.ee_posture.EEPostureController.position_limits" title="Permalink to this definition">¶</a></dt>
 <dd><p>Limits (m) below and above which the magnitude
@@ -877,7 +884,7 @@ cartesian dims), or a 2-list of list (specific min/max values for each dim)</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.ee_posture.EEPostureController.orientation_limits">
 <code class="sig-name descname">orientation_limits</code><a class="headerlink" href="#perls2.controllers.ee_posture.EEPostureController.orientation_limits" title="Permalink to this definition">¶</a></dt>
 <dd><p>[Lower_bounds, upper_bounds]. Limits (rad) below and above which the
@@ -890,7 +897,7 @@ magnitude of a calculated goal eef orientation will be clipped. Can be either be
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.ee_posture.EEPostureController.interpolator_pos">
 <code class="sig-name descname">interpolator_pos</code><a class="headerlink" href="#perls2.controllers.ee_posture.EEPostureController.interpolator_pos" title="Permalink to this definition">¶</a></dt>
 <dd><p>Interpolator object to be used for interpolating from the current position to
@@ -902,7 +909,7 @@ the goal position during each timestep between inputted actions</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.ee_posture.EEPostureController.interpolator_ori">
 <code class="sig-name descname">interpolator_ori</code><a class="headerlink" href="#perls2.controllers.ee_posture.EEPostureController.interpolator_ori" title="Permalink to this definition">¶</a></dt>
 <dd><p>Interpolator object to be used for interpolating from the current orientation
@@ -914,7 +921,7 @@ to the goal orientation during each timestep between inputted actions</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.ee_posture.EEPostureController.control_ori">
 <code class="sig-name descname">control_ori</code><a class="headerlink" href="#perls2.controllers.ee_posture.EEPostureController.control_ori" title="Permalink to this definition">¶</a></dt>
 <dd><p>Whether inputted actions will control both pos and ori or exclusively pos</p>
@@ -925,7 +932,7 @@ to the goal orientation during each timestep between inputted actions</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="perls2.controllers.ee_posture.EEPostureController.uncouple_pos_ori">
 <code class="sig-name descname">uncouple_pos_ori</code><a class="headerlink" href="#perls2.controllers.ee_posture.EEPostureController.uncouple_pos_ori" title="Permalink to this definition">¶</a></dt>
 <dd><p>Whether to decouple torques meant to control pos and torques meant to control ori</p>
@@ -936,16 +943,16 @@ to the goal orientation during each timestep between inputted actions</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt>
-<code class="sig-name descname">\*\*kwargs</code></dt>
+<code class="sig-name descname">**kwargs</code></dt>
 <dd><p>Does nothing; placeholder to “sink” any additional arguments so that instantiating this controller
 via an argument dict that has additional extraneous arguments won’t raise an error</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="perls2.controllers.ee_posture.EEPostureController.set_goal">
-<code class="sig-name descname">set_goal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">delta</span></em>, <em class="sig-param"><span class="n">set_pos</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">set_ori</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.ee_posture.EEPostureController.set_goal" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_goal</code><span class="sig-paren">(</span><em class="sig-param">delta</em>, <em class="sig-param">set_pos=None</em>, <em class="sig-param">set_ori=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.ee_posture.EEPostureController.set_goal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set goal for controller.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -971,7 +978,7 @@ world frame. Only used if delta is None.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="perls2.controllers.ee_posture.EEPostureController.run_controller">
 <code class="sig-name descname">run_controller</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#perls2.controllers.ee_posture.EEPostureController.run_controller" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run controller to calculate torques to acheive desired pose.</p>

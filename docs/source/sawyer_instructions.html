@@ -26,12 +26,12 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -39,8 +39,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Controller Demos" href="demos.html" />
-    <link rel="prev" title="Redis Help" href="redis.html" /> 
+    <link rel="next" title="Redis Help" href="redis.html" />
+    <link rel="prev" title="Setup workstation for Rethink Sawyer" href="sawyer_ws_setup.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -121,7 +121,13 @@
 <li class="toctree-l1"><a class="reference internal" href="panda_nuc_setup.html">Set up NUC (Control PC) for the Franka Panda</a></li>
 <li class="toctree-l1"><a class="reference internal" href="panda_ws_setup.html">Set up workstation for Franka Panda</a></li>
 <li class="toctree-l1"><a class="reference internal" href="panda_instructions.html">Using the Franka Panda</a></li>
-<li class="toctree-l1"><a class="reference internal" href="redis.html">Redis Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sawyer_setup.html">Rethink Sawyer Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sawyer_nuc_setup.html">Sawyer NUC Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sawyer_nuc_setup.html#description">Description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sawyer_nuc_setup.html#ros-ws-directory">ROS WS directory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sawyer_nuc_setup.html#command-to-source-ros">Command to source ROS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sawyer_nuc_setup.html#source-python-2-7-environment">Source python 2.7 environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sawyer_ws_setup.html">Setup workstation for Rethink Sawyer</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Using the Rethink Sawyer Arm</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#using-real-robots">Using Real Robots</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#instructions-for-using-the-sawyer-arms">Instructions for using the Sawyer Arms.</a></li>
@@ -131,6 +137,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#rethink-sawyer-infrastructure">Rethink Sawyer Infrastructure</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="redis.html">Redis Help</a></li>
 <li class="toctree-l1"><a class="reference internal" href="demos.html">Controller Demos</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Real Cameras</span></p>
@@ -247,22 +254,18 @@
 <li><p>Run the following commands:</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>    <span class="nb">cd</span> ~/perls2<span class="p">;</span>
-    ./scripts/nuc_control.sh
+    ./scripts/start_sawyer_control.sh ~/perls2_local_control_pc
 </pre></div>
 </div>
 <p>The robot should move to the reset position.</p>
 <ol class="simple">
 <li><p>Open a new terminal.</p></li>
-<li><p>Run the following commands:</p></li>
+<li><p>Source your perls2 env and run your code!
+For example, run the Gravity Compensation demo.</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>    <span class="nb">cd</span> ~/perls2
-    ./scripts/ws_control.sh
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="n">python</span> <span class="n">perls2</span><span class="o">/</span><span class="n">demos</span><span class="o">/</span><span class="n">run_gc_demo</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">world</span><span class="o">=</span><span class="n">Real</span>
 </pre></div>
 </div>
-<ol class="simple">
-<li><p>Open a new terminal.</p></li>
-<li><p>Source your perls2 env and run your code!</p></li>
-</ol>
 </div>
 </div>
 <div class="section" id="torque-control">
@@ -284,10 +287,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="demos.html" class="btn btn-neutral float-right" title="Controller Demos" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="redis.html" class="btn btn-neutral float-right" title="Redis Help" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="redis.html" class="btn btn-neutral float-left" title="Redis Help" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="sawyer_ws_setup.html" class="btn btn-neutral float-left" title="Setup workstation for Rethink Sawyer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

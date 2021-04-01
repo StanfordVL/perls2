@@ -1,0 +1,111 @@
+# Sawyer NUC Setup
+
+# Description
+The NUC or control PC runs the following processes to control the Rethink Sawyer Arm
+
+1. **redis-server**: An in-memory database used by perls2 for interprocess communication. Hosted on the NUC and communicated with via tcp. Allows the `perls2.SawyerCtrlInterface` to bridge the `perls2.Env` on the WS with `intera`. See the [Redis Help](redis.md) for more on Redis and perls2.
+
+2. **ROSRedisPublisher**: Ros node that updates redis with robot state from intera.
+
+3. **perls2 SawyerCtrlInterface**: Process that implements the robot controller.
+    * Robot commands and controller params are obtained from the WS.
+    * Robot state is obtained from the franka-panda-iprl driver.
+    * The `SaywerCtrlInterface` uses these to    calculate the torques required to acheive desired robot state, and send them as a ROS JointCommand msg.
+
+4. **JointStatePublisherRate node** Node that commands Sawyer to publish its joint state at maximum 800 Hz instead of default 500 Hz.
+
+
+## Important notes:
+To ensure consistent control loop timing, it is important that no other processes be running on the NUC. This includes internet browsers or text editors. After initial set up, the NUC should be accessed only by ssh from the workstation.
+
+## Setting up the NUC
+Some of these instructions use the Franka website, but they still apply for REthink Sawyer
+
+1. [Set up the Ubuntu 16.04 with RT-PREEMPT Kernel](https://frankaemika.github.io/docs/installation_linux.html#setting-up-the-real-time-kernel)
+
+2. [Disable cpu power scaling](https://frankaemika.github.io/docs/troubleshooting.html#disabling-cpu-frequency-scaling) using cpufrequtils by following the [instructions here] The default setting slow down the CPU frequency for power conservation. We want our control loop to run as fast as possible to maintain a high frequency for torque control.
+
+3. Install dependencies
+`sudo apt-get install `
+
+4. Install ROS Kinetic
+http://wiki.ros.org/kinetic/Installation/Ubuntu
+
+5. Install Rethink Robotics Intera SDK
+http://sdk.rethinkrobotics.com/intera/Workstation_Setup
+
+6. Clone perls2 and checkout the `panda_dev` branch
+    ```bash
+    git clone https://github.com/StanfordVL/perls2.git
+    cd ~/perls2
+    git checkout panda_dev
+    ```
+7. [Install perls2](introduction.md#installing)
+
+8. Install redis.
+
+    `sudo apt-get install redis-server`
+
+#### Bind your redis server
+Binding the redis-server ensures that it only allows connections from certain ip addresses. This allows us to secure the redis-server for a local network.
+
+1. Determine the control PC's local ip address. If you followed the instructions on the Franka website, it should be 172.16.0.1. Otherwise use ifconfig.
+Note the inet addr  for the **local** network, likely 'eno1'. For example:
+```bash
+$ ifconfig
+eno1      Link encap:Ethernet  HWaddr 94:c6:91:aa:91:80
+          inet addr:172.16.0.1  Bcast:172.16.0.255  Mask:255.255.255.0
+```
+
+
+2. Using your favorite text editor, open the `redis.conf` file found in the local directory you just copied.
+    ```bash
+    cd ~/perls2_local_control_pc
+    nano redis.conf
+    ```
+
+#### Set up for bash scripting
+Configuring the `local_dirs.sh` file makes it convenient to start the robot by using bash scripts.
+
+1. In the perls2_local_control_pc directory, open the local_dirs.sh file.
+    ```bash
+    cd ~/perls2_local_control_pc
+    nano local_dirs.sh
+    ```
+
+2. Edit following variables in the script with directories and file locations specific to your pc. If you set up everything in your home directory, you shouldn't have to modify anything.
+    ```bash
+############## Rethink Sawyer ##########################
+# ROS WS directory
+export ROS_DIR="$HOME/ros_ws"
+
+# Command to source ROS
+export SOURCE_ROS_CMD="source /opt/ros/kinetic/setup.bash"
+export SOURCE_INTERA_CMD="cd ${ROS_DIR}; ./intera.sh"
+
+# Source python 2.7 environment
+export SOURCE_P27ENV_CMD="source ~/p27env/bin/activate"
+
+########################################################
+    ```
+
+3. Make the file executable with:
+    ```bash
+    chmod a+x local_dirs.sh
+    ```
+
+### Verify perls2 NUC setup using bash scripts:
+1. Turn on the Sawyer by pressing the power button on the computer attached to the Sawyer. After some time the eyes should appear and then disappear and the robot arm should move slightly.
+
+3. Move to the perls2 directory.
+    ```bash
+    cd ~/perls2
+    ```
+4. Run the `start_panda_control.sh` script passing the path to the `perls2_local_control_pc` folder you copied as an argument:
+    ```bash
+    ./scripts/start_sawyer_control.sh ~/perls2_local_control_pc
+    ```
+5. The robot arm should reset to a neutral position and you should see the message:
+    `Waiting for perls2.RobotInterface to connect`
+
+6. Exit the Ctrl Interface with `[Ctrl + B :] kill-session`

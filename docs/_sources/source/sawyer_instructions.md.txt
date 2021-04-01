@@ -20,20 +20,16 @@ From the workstation:
 4. Run the following commands:
 ```bash
     cd ~/perls2;
-    ./scripts/nuc_control.sh
+    ./scripts/start_sawyer_control.sh ~/perls2_local_control_pc
 ```
 The robot should move to the reset position.
 
-5. Open a new terminal.
-6. Run the following commands:
-```bash
-    cd ~/perls2
-    ./scripts/ws_control.sh
-```
-
 7. Open a new terminal.
 8. Source your perls2 env and run your code!
-
+For example, run the Gravity Compensation demo.
+```python
+    python perls2/demos/run_gc_demo.py --world=Real
+```
 ## Torque control.
 
 Torque control for real robots requires fast control frequencies (500Hz - 1kHz) for stability. Because of this, we use a separate computer other than the work station for sending these torque commands to the robot. This computer (a NUC) has nothing else running, which reduces latency for the control loop.
