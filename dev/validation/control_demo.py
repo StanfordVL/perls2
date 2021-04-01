@@ -1,15 +1,24 @@
 from demo_control_env import DemoControlEnv
 import numpy as np
 import time
-import logging
+
+
 from datetime import datetime
 import argparse
+
 import matplotlib.pyplot as plt
+import logging
+mpl_logger = logging.getLogger('matplotlib')
+mpl_logger.setLevel(logging.WARNING)
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 import perls2.controllers.utils.control_utils as C
 import perls2.controllers.utils.transform_utils as T
 
 AXIS_DIM_NUM = {'x': 0, 'y': 1, 'z': 2}
+MAX_JOINT_DELTA = 0.005
 
 class Demo():
     """Class definition for demonstration.
@@ -64,6 +73,11 @@ class Demo():
         self.world_type = self.env.config['world']['type']
         self.initial_pose = self.env.robot_interface.ee_pose
 
+        if self.env.world.is_sim == False:
+            logger.info("connecting perls2 Robot Interface to redis")
+            self.env.robot_interface.connect()
+        self.env.robot_interface.reset()
+
     def get_action_list(self):
         raise NotImplementedError
 
@@ -110,7 +124,7 @@ class JointSpaceDemo(Demo):
             this delta to current joint position.
     """
     def __init__(self, ctrl_type, demo_type, use_abs=False,
-                 delta_val=0.05, num_steps=10, test_fn='set_joint_delta',
+                 delta_val=0.05, num_steps=30, test_fn='set_joint_delta',
                  **kwargs):
         super().__init__(ctrl_type=ctrl_type,
                          demo_type=demo_type,
@@ -122,7 +136,12 @@ class JointSpaceDemo(Demo):
             self.start_pos = [0, 0, 0, 0, 0, 0, 0]
         else:
             self.start_pos = self.get_state() #self.env.robot_interface.q
-        self.delta_val = delta_val
+        
+        if (delta_val > MAX_JOINT_DELTA):
+            logger.warn("Specified joint delta_val exceeds limit, clipping to {} rad".format(MAX_JOINT_DELTA))
+            delta_val = MAX_JOINT_DELTA
+
+        self.delta_val = delta_val 
         self.path = SequentialJoint(start_pose=self.start_pos,
                                     delta_val=self.delta_val,
                                     joint_num=self.joint_num)
@@ -143,14 +162,17 @@ class JointSpaceDemo(Demo):
     def run(self):
         """Run the demo. Execute actions in sequence and calculate error.
         """
-        logging.info("Running {} demo \n with control type {}.\n Test \
-            function {}".format(self.ctrl_type, self.demo_type, self.test_fn))
+        logger.info("Running {} demo \n with control type {}.\n Test \
+            function {} on Joint Num {}".format(self.demo_type, self.ctrl_type,  self.test_fn, self.joint_num))
 
-        logging.debug("Joint Pose initial{}".format(self.env.robot_interface.q))
+        logger.debug("Initial joint pose \n{}".format(self.env.robot_interface.q))
+
+
         for i, goal_pose in enumerate(self.goal_poses):
             action = self.get_action(goal_pose, self.get_state())
             action_kwargs = self.get_action_kwargs(action)
-            logging.debug("Action:\t{}".format(action))
+            logger.debug("Action for joint num {} \t{}".format(self.joint_num, action[self.joint_num]))
+
             self.env.step(action_kwargs, time.time())
             self.actions.append(action)
             new_state = self.get_state()
@@ -158,8 +180,11 @@ class JointSpaceDemo(Demo):
             self.states.append(new_state)
             self.errors.append(
                 self.compute_error(goal_pose, new_state))
-            logging.debug("Errors:\t{}".format(self.errors[-1]))
+            #logger.debug("Errors:\t{}".format(self.errors[-1]))
 
+        logger.debug("Final (actual) joint pose \n{}".format(self.env.robot_interface.q))
+
+        self.env.robot_interface.reset()
         self.env.robot_interface.disconnect()
         if self.plot_error:
             self.plot_errors()
@@ -257,7 +282,7 @@ class JointSpaceDemo(Demo):
         ax_6.plot(state_6, 'r')
 
         fname = self.demo_name + '_pos.png'
-        import pdb; pdb.set_trace()
+
         if self.save_fig:
             print("saving figure")
             plt.savefig(fname)
@@ -355,7 +380,7 @@ class OpSpaceDemo(Demo):
     """
     def __init__(self, ctrl_type, demo_type, use_abs=False,
                  path_length=0.15, delta_val=None, num_steps=50, test_fn='set_ee_pose',
-                 fix_ori=True, fix_pos=False, **kwargs):
+                 fix_ori=True, fix_pos=False, cycles=1,**kwargs):
         """
         ctrl_type (str): string identifying type of controller:
             EEPosture, EEImpedance, JointImpedance, JointTorque
@@ -364,6 +389,7 @@ class OpSpaceDemo(Demo):
         """
         super().__init__(ctrl_type=ctrl_type, demo_type=demo_type, use_abs=use_abs,
                          test_fn=test_fn, **kwargs)
+
         self.initial_pose = self.env.robot_interface.ee_pose
         self.path_length = path_length
         self.num_steps = num_steps
@@ -372,20 +398,26 @@ class OpSpaceDemo(Demo):
                 self.delta_val = self.path_length / self.num_steps
         self.delta_val = delta_val
 
-        self.goal_poses = self.get_goal_poses()
-        self.goal_states = self.get_goal_states()
+        self.goal_poses= self.get_goal_poses(cycles)
+        self.goal_states = self.get_goal_states(cycles)
+
+
         self.fix_ori = fix_ori
         self.fix_pos = fix_pos
+
 
     def run(self):
         """Run the demo. Execute actions in sequence and calculate error.
         """
-        logging.info("Running {} demo \nwith control type {}. \
+        logger.info("Running {} demo \nwith control type {}. \
             \nTest function {}".format(
             self.ctrl_type, self.demo_type, self.test_fn))
 
-        logging.debug("EE Pose initial:\n{}\n".format(self.env.robot_interface.ee_pose))
-        logging.info("--------")
+        logger.debug("EE Pose initial:\n{}\n".format(self.env.robot_interface.ee_pose))
+        logger.info("--------")
+        input("Press Enter to start sending commands.")
+        # if self.env.world.is_sim == False:
+        #     self.env.robot_interface.connect()
         # Execute actions based on goal poses
         for i, goal_pose in enumerate(self.goal_poses):
 
@@ -504,8 +536,11 @@ class OpSpaceDemo(Demo):
             raise ValueError("Invalid test_fn")
         return action_list
 
-    def get_goal_poses(self):
+    def get_goal_poses(self, repeat=1):
         """ Get a list of absolute end_effector states
+
+        Args:
+            repeat (int): optional argument for square paths to repeat. 
         """
         if self.demo_type == "Zero":
             self.path = Line(start_pose=self.initial_pose,
@@ -516,6 +551,8 @@ class OpSpaceDemo(Demo):
             self.path = Square(start_pose=self.initial_pose,
                                side_num_pts=int(self.num_steps/4),
                                delta_val=self.delta_val)
+            # repeat path only for square
+
         elif self.demo_type == "Line":
             self.path = Line(start_pose=self.initial_pose,
                              num_pts=self.num_steps,
@@ -532,9 +569,12 @@ class OpSpaceDemo(Demo):
             raise ValueError("Invalid Demo type")
 
         goal_poses = self.path.path
+        # repeat path only for square
+        if self.demo_type == "Square":
+            goal_poses = goal_poses * repeat
         return goal_poses
 
-    def get_goal_states(self):
+    def get_goal_states(self, repeat=1):
         """ Get goal states based on the demo type and action list.
 
         For Zero goal states with use_abs, goal states are just
@@ -545,7 +585,10 @@ class OpSpaceDemo(Demo):
 
         else:
             raise ValueError("Get actions list before goal states")
-
+        
+        # special case to handle repeat for square paths.
+        if self.demo_type == "Square":
+            goal_states = goal_states * repeat
         return goal_states
 
     def get_state(self):
@@ -758,8 +801,8 @@ class Path():
 class SequentialJoint(Path):
     """Series of joint positions sequentially incremented/decremented by delta.
     """
-    def __init__(self, start_pose, delta_val=0.01, num_steps=30, joint_num=6):
-        logging.debug("Sequential Joint path")
+    def __init__(self, start_pose, delta_val=0.01, num_steps=30, joint_num=0):
+        logger.info("Sequential Joint path")
 
         self.start_pose = start_pose
         self.delta_val = delta_val
@@ -792,6 +835,9 @@ class SequentialJoint(Path):
             delta[self.joint_num] = -self.delta_val
             deltas.append(delta)
 
+        for _ in range(self.num_steps):
+            delta = np.zeros(7)
+            deltas.append(delta)
         return deltas
 
     def make_path(self):
@@ -826,7 +872,7 @@ class Rotation(Path):
     """
     def __init__(self, start_pose, num_pts,
                  rotation_rad=np.pi/4, delta_val=None, dim=2, end_ori=None):
-        logging.debug("Making Rotation Path")
+        logger.debug("Making Rotation Path")
         self.start_pose = start_pose
         self.end_ori = end_ori
         self.num_pts = num_pts

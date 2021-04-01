@@ -1,0 +1,192 @@
+############################################################
+# Default config for Franka Panda driver
+#
+# Copyright 2018. All Rights Reserved.
+# Stanford IPRL
+#
+# Created: December 20, 2018
+# Authors: Toki Migimatsu
+############################################################
+
+####################
+# Robot parameters #
+####################
+
+robot:
+  ip: "172.16.0.2"
+
+####################
+# Redis parameters #
+####################
+
+redis:
+  ip: "127.0.0.1"
+  port: 6379
+
+  # Redis keys
+  keys:
+
+    # Prefix for all Redis keys
+    prefix: "franka_panda::"
+
+    # Keys read by driver
+    tau_des:           "control::tau"
+    pose_des:          "control::pose"
+    dx_des:            "control::dx"
+    q_des:             "control::q"
+    dq_des:            "control::dq"
+    control_mode:      "control::mode"
+
+    gripper_width_des: "gripper::control::width"
+    gripper_speed_des: "gripper::control::speed"
+    gripper_force_des: "gripper::control::force"
+    gripper_grasp_tol: "gripper::control::grasp_tol"
+    gripper_mode:      "gripper::control::mode"
+
+    inertia_load:      "control::inertia_load"
+
+    # Keys written by driver
+    q:                 "sensor::q"
+    dq:                "sensor::dq"
+    tau:               "sensor::tau"
+    dtau:              "sensor::dtau"
+    pose:              "sensor::pose"
+    inertia_ee:        "model::inertia_ee"
+    driver_status:     "driver::status"
+    control_status:    "control::status"
+    timer:             "timestamp::robot"
+
+    gripper_width:     "gripper::sensor::width"
+    gripper_max_width: "gripper::model::max_width"
+    gripper_status:    "gripper::status"
+
+  # Use JSON or Matlab formatting for matrices in Redis
+  use_json: false
+
+  # Use Franka gripper
+  use_gripper: true
+
+##############################
+# perls2 parameters for redis#
+##############################
+perls2_redis:
+  mass_matrix:          "model::mass_matrix"
+  jacobian:             "model::jacobian"
+  gravity:              "model::gravity"
+  coriolis:             "model::coriolis"
+  password:             "/home/robot/.redis/redis_passfile.txt" # Directory containing password for Redis AUTH
+  reset_q_key:          "control::reset_q"
+
+
+###################
+# Load parameters #
+###################
+
+load:
+
+  # Load mass [kg]
+  mass: 0.1
+
+  # Load center of mass in the flange frame [m]
+  com: [0., 0., 0.]
+
+  # Load inertia [kg m^2]
+  inertia: {xx: 0., yy: 0., zz: 0., xy: 0., xz: 0., yz: 0.}
+
+
+######################
+# Control parameters #
+######################
+
+control:
+
+  # Use rate limiting for commanded torques
+  limit_rate: true
+
+  # Cutoff frequency for low-pass filter on commanded torques [Hz]
+  # Default: 100.
+  # Disabled (max): 1000.
+  lowpass_freq_cutoff: 100.
+
+  # Torque controller parameters
+  torque_controller:
+
+    # Compensate for gravity
+    compensate_gravity: true
+
+    # Timeout for torque command updates [ms]
+    tau_command_timeout: 20
+
+
+  # Joint space controller parameters
+  joint_space_controller:
+
+    # Joint impedance gains
+    K_joint: [3000., 3000., 3000., 2500., 2500., 2000., 2000.]
+
+  # Cartesian space controller parameters
+  cartesian_space_controller:
+
+    # Cartesian impedance gains
+    K_cart: [3000., 3000., 3000., 300., 300., 300.]
+
+    # Transformation from ee frame to flange frame: {}^{flange} T_{ee}
+    T_ee_to_flange:
+
+      # Position offset [m]
+      pos: [0., 0., 0.]
+
+      # Orientation as quaternion or [3 x 3] matrix
+      ori: {w: 1., x: 0., y: 0., z: 0.}
+      # ori: [[1., 0., 0.],
+      #       [0., 1., 0.],
+      #       [0., 0., 1.]]
+
+    # Operational point for Cartesian impedance control
+    # Transformation from op point frame to flange frame: {}^{ee} T_{oppoint}
+    T_op_point_to_ee:
+
+      # Position offset [m]
+      pos: [0., 0., 0.]
+
+      # Orientation as quaternion or [3 x 3] matrix
+      ori: {w: 1., x: 0., y: 0., z: 0.}
+      # ori: [[1., 0., 0.],
+      #       [0., 1., 0.],
+      #       [0., 0., 1.]]
+
+  # Contact/collision thresholds
+  collision_thresholds:
+
+    # Contact torque thresholds during acceleration [Nm]
+    # Either a single double or an array of size 7
+    tau_contact_acc: 20.
+
+    # Collision torque thresholds during acceleration [Nm]
+    # Either a single double or an array of size 7
+    tau_collision_acc: 100.
+
+    # Contact torque thresholds [Nm]
+    # Either a single double or an array of size 7
+    tau_contact: 10.
+
+    # Collision torque thresholds [Nm]
+    # Either a single double or an array of size 7
+    tau_collision: 50.
+
+    # Contact force thresholds during acceleration [N, Nm]
+    # Either a single double or an array of size 6
+    f_contact_acc: 20.
+
+    # Collision force thresholds during acceleration [N, Nm]
+    # Either a single double or an array of size 6
+    f_collision_acc: 100.
+
+    # Contact force thresholds [N, Nm]
+    # Either a single double or an array of size 6
+    f_contact: 10.
+
+    # Collision force thresholds [N, Nm]
+    # Either a single double or an array of size 6
+    f_collision: 100.
+

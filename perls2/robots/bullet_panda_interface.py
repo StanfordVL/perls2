@@ -23,15 +23,15 @@ class BulletPandaInterface(BulletRobotInterface):
     def __init__(self,
                  physics_id,
                  arm_id,
-                 config=None,
+                 config,
                  controlType='EEImp'):
 
         self.data_dir = config['data_dir']
 
         super().__init__(physics_id, arm_id, config, controlType)
 
-        self._ee_index = self.get_link_id_from_name('panda_grasptarget')
-
+        #self._ee_index = self.get_link_id_from_name('panda_grasptarget')
+        self._ee_index = self.get_link_id_from_name('panda_hand')
         # Neutral positions
         self.limb_neutral_positions = self.robot_cfg['neutral_joint_angles']
 

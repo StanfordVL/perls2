@@ -1,7 +1,8 @@
-# Cfg for Example: switching between sim and real reach task
+# Cfg for Loading Objects example.
 world:
   type: 'Bullet'
   robot: 'sawyer'
+  controlType: 'EEImpedance'
 data_dir: 'data'
 # Simulation parameters
 sim_params:
@@ -16,6 +17,11 @@ control_freq: 500 # Hz
 !include ../../cfg/sawyer.yaml
 !include ../../cfg/panda.yaml
 !include ../../cfg/table_and_bin.yaml
+
+# Default controllers for each robot.
+!include ../../cfg/default_panda_controller.yaml
+!include ../../cfg/default_sawyer_controller.yaml
+
 goal_position:
   lower:
     [0.3, -0.2, 0.0]  # CHANGED
@@ -67,29 +73,6 @@ sensor:
         far_plane:
           lower: 10
           upper: 150
-
-controller:
-  selected_type: 'EEImpedance' # Choose between 'EEImpedance', 'JointVelocity'
-  Bullet:
-    EEImpedance:
-      kp: 200 # P Gain for Impedance Control
-      damping: .8 # Damping factor [0,1]
-      input_max: [1, 1, 1, 1, 1, 1]
-      input_min: [-1, -1, -1, -1, -1, -1]
-      output_max: [0.05, 0.05, 0.05, 1.57, 1.57, 1.57]
-      output_min: [-0.05, -0.05, -0.05, -1.57, -1.57, -1.57]
-    JointVelocity:
-      kp: 0.5
-    JointImpedance:
-      kp: 50
-      damping: 1
-  interpolator_pos:
-      type: 'linear'
-      order: 1
-      max_dx: 0.2
-      ramp_ratio: 0.2
-  interpolator_ori:
-      type: 'None'
 
 object:
   # null

@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.DEBUG)
 import redis
 import time
 import struct
-from perls2.ros_interfaces.redis_keys import *
+from perls2.redis_interfaces.redis_keys import *
 
 
 def convert_frame_to_encoded_bytes(frame):

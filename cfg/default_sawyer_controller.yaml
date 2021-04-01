@@ -1,0 +1,83 @@
+# Default controller gains for Rethink Sawyer
+
+sawyer_controller:
+  Bullet:
+    EEImpedance:
+      kp: [65.0, 65.0, 65.0, 10., 10., 10.] #70 #50 #200 #75 #200 # P Gain for Impedance Control
+      damping: 1.0 #1 #0.5 #1 #0.5 # Damping factor [0,1]
+      input_max: 1.0
+      input_min: -1.0
+      output_max: 1.0
+      output_min: -1.0
+    JointVelocity:
+      kv: 2.0 #0.5
+      input_max: 1.0
+      input_min: -1.0
+      output_max: 1.0 #1.0
+      output_min: -1.0 #-1.0
+    JointImpedance:
+      kp: 250 #100
+      damping: 1.0
+      input_max: 1.0
+      input_min: -1.0
+      output_max: 1.0
+      output_min: -1.0
+    JointTorque:
+      input_max: 1.0
+      input_min: -1.0
+      output_max: 5.0
+      output_min: -5.0
+    EEPosture:
+      kp: [65.0, 65.0, 65.0, 10., 10., 10.] #70 #50 #200 #75 #200 # P Gain for Impedance Control
+      damping: 1.0 #1 #0.5 #1 #0.5 # Damping factor [0,1]
+      posture_gain: [5.0, 5.0, 5.0, 4.0, 3.0, 3.0, 3.0]
+      posture: [0,-1.18,0.00,2.18,0.00,0.57,3.3161]
+      input_max: 1.0
+      input_min: -1.0
+      output_max: 1.0
+      output_min: -1.0
+  Real:
+    EEImpedance:
+      kp:  [40, 40, 40, 5.0, 5.0, 3.0] #70 #50 #200 #75 #200 # P Gain for Impedance Control
+      kv: [10.0, 10.0, 10.0, 1.0, 1.0, 1.7]
+      damping: 1.0 #1 #0.5 #1 #0.5 # Damping factor [0,1]
+      input_max: 1.0
+      input_min: -1.0
+      output_max: 1.0
+      output_min: -1.0
+    JointVelocity:
+      kv: 10.0 #0.5
+      input_max: 1.0
+      input_min: -1.0
+      output_max: 1.0 #1.0
+      output_min: -1.0 #-1.0
+    JointImpedance:
+      kp: [20.0, 40.0, 20.0, 40.0, 10.0, 12.0, 4.0] #[70.0, 70.0, 60.0, 60.0, 50.0, 50.0, 20.0] #[100.0, 100.0, 80.0, 80.0, 70.0, 70.0, 50.0]
+      kv: [2.0, 3.0, 2.0, 2.0, 2.0, 2.0, 0.2]
+      damping: 1.0
+      input_max: 1.0
+      input_min: -1.0
+      output_max: 1.0
+      output_min: -1.0
+    JointTorque:
+      input_max: 1.0
+      input_min: -1.0
+      output_max: 5.0
+      output_min: -5.0
+    EEPosture:
+      kp:  [40, 40, 40, 5.0, 5.0, 3.0] #70 #50 #200 #75 #200 # P Gain for Impedance Control
+      kv: [10.0, 10.0, 10.0, 1.0, 1.0, 1.7]
+      damping: 1.0 #1 #0.5 #1 #0.5 # Damping factor [0,1]
+      posture_gain: [5.0, 5.0, 5.0, 4.0, 3.0, 3.0, 3.0]  #[7.0, 7.0, 7.0, 6.0, 5.0, 5.0, 5.0] #0.7
+      input_max: 1.0
+      input_min: -1.0
+      output_max: 1.0
+      output_min: -1.0
+  interpolator_pos:
+      type: 'linear'
+      order: 1
+      max_dx: 0.2
+      ramp_ratio: 0.2
+  interpolator_ori:
+      type: 'linear'
+      fraction: 0.2

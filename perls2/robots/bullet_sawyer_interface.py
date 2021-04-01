@@ -19,7 +19,7 @@ class BulletSawyerInterface(BulletRobotInterface):
     def __init__(self,
                  physics_id,
                  arm_id,
-                 config=None,
+                 config,
                  controlType='JointVelocity'):
         """
         Initialize variables

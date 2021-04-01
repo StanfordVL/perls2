@@ -8,9 +8,9 @@ import numpy as np
 import logging
 import time
 from perls2.robots.real_robot_interface import RealRobotInterface
-from perls2.ros_interfaces.redis_interface import RobotRedisInterface
-from perls2.ros_interfaces.redis_keys import *
-from perls2.ros_interfaces.redis_values import *
+from perls2.redis_interfaces.redis_interface import RobotRedisInterface
+from perls2.redis_interfaces.redis_keys import *
+from perls2.redis_interfaces.redis_values import *
 # For dumping config dict to redis
 import json
 
@@ -37,8 +37,8 @@ class RealSawyerInterface(RealRobotInterface):
         """
         super().__init__(controlType=controlType, config=config)
         self.redisClient = RobotRedisInterface(**self.config['redis'])
-        logging.info("warming up redis connection - sleep for 10s")
-        time.sleep(10.0)
+        #logging.info("warming up redis connection - sleep for 10s")
+        #time.sleep(10.0)
         self.update_model()
 
         logging.debug("Real Sawyer Interface created")
@@ -257,21 +257,26 @@ class RealSawyerInterface(RealRobotInterface):
     def N_q(self):
         return bstr_to_ndarray(self.redisClient.get('robot::N_q'))
 
-    def set_controller_params_from_config(self):
-        """Set controller parameters from config file to redis.
-        """
-        selected_type = self.config['controller']['selected_type']
-        self.control_config = self.config['controller']['Real'][selected_type]
+    @property
+    def gravity_vector(self):
+        return np.zeros(7)
 
-        self.redisClient.mset({CONTROLLER_CONTROL_PARAMS_KEY: json.dumps(self.control_config),
-                               CONTROLLER_CONTROL_TYPE_KEY: selected_type})
 
-        cmd_type = CHANGE_CONTROLLER
-        control_cmd = {ROBOT_CMD_TSTAMP_KEY: time.time(), ROBOT_CMD_TYPE_KEY: cmd_type}
+    # def set_controller_params_from_config(self):
+    #     """Set controller parameters from config file to redis.
+    #     """
+    #     selected_type = self.config['sawyer_controller']['selected_type']
+    #     self.control_config = self.config['controller']['Real'][selected_type]
 
-        self.redisClient.mset(control_cmd)
+    #     self.redisClient.mset({CONTROLLER_CONTROL_PARAMS_KEY: json.dumps(self.control_config),
+    #                            CONTROLLER_CONTROL_TYPE_KEY: selected_type})
 
-        logging.debug("{} Control parameters set to redis: {}".format(selected_type, self.control_config))
+    #     cmd_type = CHANGE_CONTROLLER
+    #     control_cmd = {ROBOT_CMD_TSTAMP_KEY: time.time(), ROBOT_CMD_TYPE_KEY: cmd_type}
+
+    #     self.redisClient.mset(control_cmd)
+
+    #     logging.debug("{} Control parameters set to redis: {}".format(selected_type, self.control_config))
 
     def set_goal_state(self, goal):
         self.redisClient.set("robot::desired_state", str(goal))

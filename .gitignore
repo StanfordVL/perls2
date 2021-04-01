@@ -40,6 +40,8 @@ var/
 dev/logs/
 *.bullet
 *.txt
+!local/perls2_local_control_pc/redis_passfile.txt
+!p27_requirements.txt
 
 #Media
 *.mp4

@@ -1,0 +1,15 @@
+# Config for ROS Cameras
+
+# Redis server hosted locally on workstation
+workstation_redis: 
+  host: "127.0.0.1"
+  port: 6379
+
+# Config for Cameras that use ROS 
+rgb_topics:
+  ['/sr300/color/image_raw',
+   '/ds435/color/image_raw']
+
+depth_topics:
+  ['/ds435/depth/image_rect_raw',
+   '/sr300/depth/image_rect_raw']

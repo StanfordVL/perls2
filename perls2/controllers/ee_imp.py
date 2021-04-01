@@ -90,7 +90,7 @@ class EEImpController(Controller):
             output_max (float or list of float): Maximum which defines upper end of scaling range when scaling an input
                 action.
 
-            kp (float or list of float): positional gain for determining desired torques based upon the pos / ori errors.
+            kp (list): positional gain for determining desired torques based upon the pos / ori errors.
                         Can be either be a scalar (same value for all action dims), or a list (specific values for each dim)
             kv (float or list of float): velocity gain for determining desired torques based on vel / ang vel errors.
                 Can be either a scalar (same value for all action dims) or list (specific values for each dim).
@@ -123,15 +123,19 @@ class EEImpController(Controller):
         self.output_min = np.array(output_min)
 
         # limits
-        self.position_limits = position_limits
+        if position_limits is not None:
+            self.position_limits = np.array(position_limits)
+        else:
+            self.position_limits = position_limits
         self.orientation_limits = orientation_limits
 
         # kp kv
-        if kp is list:
-            self.kp = kp
-        else:
-            self.kp = np.ones(6) * kp
-
+        # if kp is list:
+        #     self.kp = kp
+        # else:
+        #     self.kp = np.ones(6) * kp
+        self.kp = np.array(kp)
+        
         # Set kv using damping if kv not explicitly set.
         if kv is not None:
             self.kv = kv

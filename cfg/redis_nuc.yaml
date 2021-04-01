@@ -1,0 +1,6 @@
+# Redis config for NUC, specific to this machine. 
+
+redis:
+  host: 172.16.0.1
+  port: 6379
+  password: null

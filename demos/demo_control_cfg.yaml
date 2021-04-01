@@ -1,0 +1,39 @@
+# Cfg file for  Demo control environment
+world:
+  type: 'Bullet' #'Bullet'
+  robot: 'sawyer'
+  controlType: 'EEImpedance'
+data_dir: 'data'
+
+# Simulation parameters
+sim_params:
+  time_step: 0.004166  # in seconds #0.004166 #0.002 #0.004166  # 1./240.
+  MAX_STEPS: 500
+
+# Redis config specific to this machine.
+!include ../cfg/redis.yaml
+
+policy_freq: 20
+control_freq: 500 # Hz
+!include ../cfg/sawyer.yaml
+!include ../cfg/panda.yaml
+!include ../cfg/table_and_bin.yaml
+scene_objects:
+  'None'
+
+# Controller config for each robot
+!include demo_panda_controller.yaml
+!include ../cfg/default_sawyer_controller.yaml
+
+# Perception and Learning
+# Not used.
+env:
+  observation_space:
+    low:
+      [-2.0, -2.0, -2.0]
+    high:
+      [2.0, 2.0, 2.0]
+  action_space:
+    low: [-0.2, -0.2, -0.2]
+    high: [0.2, 0.2, 0.2]
+
