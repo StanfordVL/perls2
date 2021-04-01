@@ -124,16 +124,17 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Rethink Sawyer Setup</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#perls2-rethink-sawyer-infrastructure">perls2 + Rethink Sawyer Infrastructure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#set-static-ip-for-a-computer-robot">Set Static IP for a computer / robot</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#set-static-ip-for-sawyer">Set Static IP for Sawyer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#find-mac-addr-for-sawyer">Find MAC addr for Sawyer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#set-up-infrastructure">Set up infrastructure:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-a-rethink-sawyer-arm">Setting up a Rethink Sawyer Arm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#set-static-ip-for-a-computer-robot">Set Static IP for a computer / robot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-static-ip-for-sawyer">Set Static IP for Sawyer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#find-mac-addr-for-sawyer">Find MAC addr for Sawyer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#calibrate-the-sawyer">Calibrate the Sawyer</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="sawyer_nuc_setup.html">Sawyer NUC Setup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sawyer_nuc_setup.html#description">Description</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sawyer_nuc_setup.html#ros-ws-directory">ROS WS directory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sawyer_nuc_setup.html#command-to-source-ros">Command to source ROS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sawyer_nuc_setup.html#source-python-2-7-environment">Source python 2.7 environment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sawyer_ws_setup.html">Setup workstation for Rethink Sawyer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sawyer_instructions.html">Using the Rethink Sawyer Arm</a></li>
 <li class="toctree-l1"><a class="reference internal" href="redis.html">Redis Help</a></li>
@@ -263,8 +264,18 @@
 </li>
 </ol>
 </div>
+<div class="section" id="set-up-infrastructure">
+<h2>Set up infrastructure:<a class="headerlink" href="#set-up-infrastructure" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p><a class="reference internal" href="sawyer_nuc_setup.html"><span class="doc">Set up the NUC</span></a></p></li>
+<li><p><a class="reference internal" href="sawyer_ws_setup.html"><span class="doc">Set up the workstation</span></a></p></li>
+<li><p><a class="reference external" href="#setting-up-a-rethink-sawyer-arm">Set up the Sawyer Arm</a></p></li>
+</ol>
+</div>
+<div class="section" id="setting-up-a-rethink-sawyer-arm">
+<h2>Setting up a Rethink Sawyer Arm<a class="headerlink" href="#setting-up-a-rethink-sawyer-arm" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="set-static-ip-for-a-computer-robot">
-<h2>Set Static IP for a computer / robot<a class="headerlink" href="#set-static-ip-for-a-computer-robot" title="Permalink to this headline">¶</a></h2>
+<h3>Set Static IP for a computer / robot<a class="headerlink" href="#set-static-ip-for-a-computer-robot" title="Permalink to this headline">¶</a></h3>
 <p>To set static IP for robots / computer:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">IP</span> <span class="n">address</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">static</span><span class="o">-</span><span class="n">IP</span><span class="o">&gt;</span>
 <span class="n">Gateway</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">routing</span><span class="o">-</span><span class="n">gateway</span><span class="o">&gt;</span>
@@ -272,10 +283,10 @@
 <span class="n">DNS</span> <span class="n">nameservers</span><span class="p">:</span> <span class="mf">171.64</span><span class="o">.</span><span class="mf">1.234</span><span class="p">,</span> <span class="mf">171.67</span><span class="o">.</span><span class="mf">1.234</span>
 </pre></div>
 </div>
-<p>Find gateway address with <code class="docutils literal notranslate"><span class="pre">netstat</span> <span class="pre">-r</span> <span class="pre">-n</span></code>. As of March 20, 2018, all computers in Gates 119 have network gateway address <code class="docutils literal notranslate"><span class="pre">172.24.68.1</span></code>.</p>
+<p>Find gateway address with <code class="docutils literal notranslate"><span class="pre">netstat</span> <span class="pre">-r</span> <span class="pre">-n</span></code>. As of March 2021, all of the sawyers should be accessible by a hostname. You can see a sawyer’s host name by <a class="reference external" href="#set-static-ip-for-sawyer">opening the FSM</a></p>
 </div>
 <div class="section" id="set-static-ip-for-sawyer">
-<h2>Set Static IP for Sawyer<a class="headerlink" href="#set-static-ip-for-sawyer" title="Permalink to this headline">¶</a></h2>
+<h3>Set Static IP for Sawyer<a class="headerlink" href="#set-static-ip-for-sawyer" title="Permalink to this headline">¶</a></h3>
 <ol class="simple">
 <li><p>Connect a keyboard to Sawyer.</p></li>
 <li><p>While booting up the Sawyer, repeatedly press <code class="docutils literal notranslate"><span class="pre">Ctrl+F</span></code> until you see the field service menu (FSM).</p></li>
@@ -285,7 +296,7 @@
 </ol>
 </div>
 <div class="section" id="find-mac-addr-for-sawyer">
-<h2>Find MAC addr for Sawyer<a class="headerlink" href="#find-mac-addr-for-sawyer" title="Permalink to this headline">¶</a></h2>
+<h3>Find MAC addr for Sawyer<a class="headerlink" href="#find-mac-addr-for-sawyer" title="Permalink to this headline">¶</a></h3>
 <ol class="simple">
 <li><p>Go to FSM</p></li>
 <li><p>Plug in a USB driver</p></li>
@@ -294,6 +305,18 @@
 <li><p>Navigate to <code class="docutils literal notranslate"><span class="pre">system/upstart/network-interface-net0.log</span></code></p></li>
 <li><p>MAC addr is the string after <code class="docutils literal notranslate"><span class="pre">Listening</span> <span class="pre">on</span> <span class="pre">...</span></code></p></li>
 </ol>
+</div>
+</div>
+<div class="section" id="calibrate-the-sawyer">
+<h2>Calibrate the Sawyer<a class="headerlink" href="#calibrate-the-sawyer" title="Permalink to this headline">¶</a></h2>
+<p>From time to time the sawyer’s torque sensors will need to be calibrated. This is particularly important if the robot has been moved.
+To calibrate the Sawyer follow <a class="reference external" href="https://sdk.rethinkrobotics.com/intera/Arm_Calibration">these instructions</a></p>
+<p>Make sure the arm is not next to a wall as it will move around in all directions. You may have to move it (carefully!) to the middle of the
+room. Have your hand on the e-stop!</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./intera.sh
+rosrun intera_interface calibrate_arm.py
+</pre></div>
+</div>
 </div>
 </div>
 

@@ -32,8 +32,13 @@ perls2 uses three machines to communicate with the Franka Panda. These machines 
 
     4. **JointStatePublisherRate node** Node that commands Sawyer to publish its joint state at maximum 800 Hz instead of default 500 Hz.
 
+## Set up infrastructure:
+1. [Set up the NUC](sawyer_nuc_setup.md)
+2. [Set up the workstation](sawyer_ws_setup.md)
+3. [Set up the Sawyer Arm](#setting-up-a-rethink-sawyer-arm)
 
-## Set Static IP for a computer / robot
+## Setting up a Rethink Sawyer Arm
+### Set Static IP for a computer / robot
 
 To set static IP for robots / computer:
 ```
@@ -42,19 +47,31 @@ Gateway: <your-routing-gateway>
 Netmask: 255.255.254.0
 DNS nameservers: 171.64.1.234, 171.67.1.234
 ```
-Find gateway address with `netstat -r -n`. As of March 20, 2018, all computers in Gates 119 have network gateway address `172.24.68.1`.
+Find gateway address with `netstat -r -n`. As of March 2021, all of the sawyers should be accessible by a hostname. You can see a sawyer's host name by [opening the FSM](#set-static-ip-for-sawyer)
 
-## Set Static IP for Sawyer
+### Set Static IP for Sawyer
 1. Connect a keyboard to Sawyer.
 2. While booting up the Sawyer, repeatedly press `Ctrl+F` until you see the field service menu (FSM).
 3. Configure the network address with the information above.
 4. Use ROS_IP naming convention.
 5. Reboot into InteraSDK
 
-## Find MAC addr for Sawyer
+### Find MAC addr for Sawyer
 1. Go to FSM
 2. Plug in a USB driver
 3. Export log
 4. Open up the log in a computer
 5. Navigate to `system/upstart/network-interface-net0.log`
 6. MAC addr is the string after `Listening on ...`
+
+## Calibrate the Sawyer
+From time to time the sawyer's torque sensors will need to be calibrated. This is particularly important if the robot has been moved.
+To calibrate the Sawyer follow [these instructions](https://sdk.rethinkrobotics.com/intera/Arm_Calibration)
+
+Make sure the arm is not next to a wall as it will move around in all directions. You may have to move it (carefully!) to the middle of the
+room. Have your hand on the e-stop!
+
+```bash
+./intera.sh
+rosrun intera_interface calibrate_arm.py
+```

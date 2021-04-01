@@ -1,6 +1,6 @@
 # Sawyer NUC Setup
 
-# Description
+## Description
 The NUC or control PC runs the following processes to control the Rethink Sawyer Arm
 
 1. **redis-server**: An in-memory database used by perls2 for interprocess communication. Hosted on the NUC and communicated with via tcp. Allows the `perls2.SawyerCtrlInterface` to bridge the `perls2.Env` on the WS with `intera`. See the [Redis Help](redis.md) for more on Redis and perls2.
@@ -28,23 +28,23 @@ Some of these instructions use the Franka website, but they still apply for REth
 3. Install dependencies
 `sudo apt-get install `
 
-4. Install ROS Kinetic
-http://wiki.ros.org/kinetic/Installation/Ubuntu
+4. [Install ROS Kinetic](http://wiki.ros.org/kinetic/Installation/Ubuntu)
 
-5. Install Rethink Robotics Intera SDK
-http://sdk.rethinkrobotics.com/intera/Workstation_Setup
+5. [Install Rethink Robotics Intera SDK](http://sdk.rethinkrobotics.com/intera/Workstation_Setup)
 
-6. Clone perls2 and checkout the `panda_dev` branch
+6. Clone [perls2](https://github.com/StanfordVL/perls2/)
     ```bash
     git clone https://github.com/StanfordVL/perls2.git
-    cd ~/perls2
-    git checkout panda_dev
     ```
 7. [Install perls2](introduction.md#installing)
 
 8. Install redis.
 
     `sudo apt-get install redis-server`
+
+9. [Bind your redis-server](#bind-your-redis-server) to secure it.
+
+10. [Set up for bash scripting](#set-up-for-bash-scripting).
 
 #### Bind your redis server
 Binding the redis-server ensures that it only allows connections from certain ip addresses. This allows us to secure the redis-server for a local network.
@@ -74,20 +74,19 @@ Configuring the `local_dirs.sh` file makes it convenient to start the robot by u
     ```
 
 2. Edit following variables in the script with directories and file locations specific to your pc. If you set up everything in your home directory, you shouldn't have to modify anything.
-    ```bash
-############## Rethink Sawyer ##########################
-# ROS WS directory
-export ROS_DIR="$HOME/ros_ws"
+```bash
 
-# Command to source ROS
-export SOURCE_ROS_CMD="source /opt/ros/kinetic/setup.bash"
-export SOURCE_INTERA_CMD="cd ${ROS_DIR}; ./intera.sh"
+    # ROS WS directory
+    export ROS_DIR="$HOME/ros_ws"
 
-# Source python 2.7 environment
-export SOURCE_P27ENV_CMD="source ~/p27env/bin/activate"
+    # Command to source ROS
+    export SOURCE_ROS_CMD="source /opt/ros/kinetic/setup.bash"
+    export SOURCE_INTERA_CMD="cd ${ROS_DIR}; ./intera.sh"
 
-########################################################
-    ```
+    # Source python 2.7 environment
+    export SOURCE_P27ENV_CMD="source ~/p27env/bin/activate"
+
+```
 
 3. Make the file executable with:
     ```bash

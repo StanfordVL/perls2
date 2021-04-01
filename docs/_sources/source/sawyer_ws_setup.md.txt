@@ -64,7 +64,7 @@ For example:
   ```
 
 ## Test out a demo
-1. Follow the steps [here](panda_instructions.md) for using the Franka Panda, and run the Gravity Compensation demo.
+1. Follow the steps [here](sawyer_instructions.md) for using the ReThink Sawyer, and run the Gravity Compensation demo.
     ```
     python perls2/demos/run_gc_demo.py --world=Real
     ```

@@ -122,20 +122,15 @@
 <li class="toctree-l1"><a class="reference internal" href="panda_ws_setup.html">Set up workstation for Franka Panda</a></li>
 <li class="toctree-l1"><a class="reference internal" href="panda_instructions.html">Using the Franka Panda</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sawyer_setup.html">Rethink Sawyer Setup</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Sawyer NUC Setup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#description">Description</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Sawyer NUC Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#description">Description</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#important-notes">Important notes:</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#setting-up-the-nuc">Setting up the NUC</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#bind-your-redis-server">Bind your redis server</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#set-up-for-bash-scripting">Set up for bash scripting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verify-perls2-nuc-setup-using-bash-scripts">Verify perls2 NUC setup using bash scripts:</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#ros-ws-directory">ROS WS directory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#command-to-source-ros">Command to source ROS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#source-python-2-7-environment">Source python 2.7 environment</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#verify-perls2-nuc-setup-using-bash-scripts">Verify perls2 NUC setup using bash scripts:</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="sawyer_ws_setup.html">Setup workstation for Rethink Sawyer</a></li>
@@ -237,9 +232,8 @@
 </style>
 <div class="section" id="sawyer-nuc-setup">
 <h1>Sawyer NUC Setup<a class="headerlink" href="#sawyer-nuc-setup" title="Permalink to this headline">¶</a></h1>
-</div>
 <div class="section" id="description">
-<h1>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h1>
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <p>The NUC or control PC runs the following processes to control the Rethink Sawyer Arm</p>
 <ol class="simple">
 <li><p><strong>redis-server</strong>: An in-memory database used by perls2 for interprocess communication. Hosted on the NUC and communicated with via tcp. Allows the <code class="docutils literal notranslate"><span class="pre">perls2.SawyerCtrlInterface</span></code> to bridge the <code class="docutils literal notranslate"><span class="pre">perls2.Env</span></code> on the WS with <code class="docutils literal notranslate"><span class="pre">intera</span></code>. See the <a class="reference internal" href="redis.html"><span class="doc">Redis Help</span></a> for more on Redis and perls2.</p></li>
@@ -253,6 +247,7 @@
 </li>
 <li><p><strong>JointStatePublisherRate node</strong> Node that commands Sawyer to publish its joint state at maximum 800 Hz instead of default 500 Hz.</p></li>
 </ol>
+</div>
 <div class="section" id="important-notes">
 <h2>Important notes:<a class="headerlink" href="#important-notes" title="Permalink to this headline">¶</a></h2>
 <p>To ensure consistent control loop timing, it is important that no other processes be running on the NUC. This includes internet browsers or text editors. After initial set up, the NUC should be accessed only by ssh from the workstation.</p>
@@ -265,14 +260,10 @@
 <li><p><a class="reference external" href="https://frankaemika.github.io/docs/troubleshooting.html#disabling-cpu-frequency-scaling">Disable cpu power scaling</a> using cpufrequtils by following the [instructions here] The default setting slow down the CPU frequency for power conservation. We want our control loop to run as fast as possible to maintain a high frequency for torque control.</p></li>
 <li><p>Install dependencies
 <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> </code></p></li>
-<li><p>Install ROS Kinetic
-http://wiki.ros.org/kinetic/Installation/Ubuntu</p></li>
-<li><p>Install Rethink Robotics Intera SDK
-http://sdk.rethinkrobotics.com/intera/Workstation_Setup</p></li>
-<li><p>Clone perls2 and checkout the <code class="docutils literal notranslate"><span class="pre">panda_dev</span></code> branch</p>
+<li><p><a class="reference external" href="http://wiki.ros.org/kinetic/Installation/Ubuntu">Install ROS Kinetic</a></p></li>
+<li><p><a class="reference external" href="http://sdk.rethinkrobotics.com/intera/Workstation_Setup">Install Rethink Robotics Intera SDK</a></p></li>
+<li><p>Clone <a class="reference external" href="https://github.com/StanfordVL/perls2/">perls2</a></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/StanfordVL/perls2.git
-<span class="nb">cd</span> ~/perls2
-git checkout panda_dev
 </pre></div>
 </div>
 </li>
@@ -280,6 +271,8 @@ git checkout panda_dev
 <li><p>Install redis.</p>
 <p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">redis-server</span></code></p>
 </li>
+<li><p><a class="reference external" href="#bind-your-redis-server">Bind your redis-server</a> to secure it.</p></li>
+<li><p><a class="reference external" href="#set-up-for-bash-scripting">Set up for bash scripting</a>.</p></li>
 </ol>
 <div class="section" id="bind-your-redis-server">
 <h3>Bind your redis server<a class="headerlink" href="#bind-your-redis-server" title="Permalink to this headline">¶</a></h3>
@@ -312,30 +305,19 @@ nano local_dirs.sh
 </pre></div>
 </div>
 </li>
-<li><p>Edit following variables in the script with directories and file locations specific to your pc. If you set up everything in your home directory, you shouldn’t have to modify anything.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
+<li><p>Edit following variables in the script with directories and file locations specific to your pc. If you set up everything in your home directory, you shouldn’t have to modify anything.</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>    <span class="c1"># ROS WS directory</span>
+    <span class="nb">export</span> <span class="nv">ROS_DIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/ros_ws&quot;</span>
+
+    <span class="c1"># Command to source ROS</span>
+    <span class="nb">export</span> <span class="nv">SOURCE_ROS_CMD</span><span class="o">=</span><span class="s2">&quot;source /opt/ros/kinetic/setup.bash&quot;</span>
+    <span class="nb">export</span> <span class="nv">SOURCE_INTERA_CMD</span><span class="o">=</span><span class="s2">&quot;cd </span><span class="si">${</span><span class="nv">ROS_DIR</span><span class="si">}</span><span class="s2">; ./intera.sh&quot;</span>
+
+    <span class="c1"># Source python 2.7 environment</span>
+    <span class="nb">export</span> <span class="nv">SOURCE_P27ENV_CMD</span><span class="o">=</span><span class="s2">&quot;source ~/p27env/bin/activate&quot;</span>
 </pre></div>
 </div>
-</li>
-</ol>
-<p>############## Rethink Sawyer ##########################</p>
-</div>
-</div>
-</div>
-<div class="section" id="ros-ws-directory">
-<h1>ROS WS directory<a class="headerlink" href="#ros-ws-directory" title="Permalink to this headline">¶</a></h1>
-<p>export ROS_DIR=”$HOME/ros_ws”</p>
-</div>
-<div class="section" id="command-to-source-ros">
-<h1>Command to source ROS<a class="headerlink" href="#command-to-source-ros" title="Permalink to this headline">¶</a></h1>
-<p>export SOURCE_ROS_CMD=”source /opt/ros/kinetic/setup.bash”
-export SOURCE_INTERA_CMD=”cd ${ROS_DIR}; ./intera.sh”</p>
-</div>
-<div class="section" id="source-python-2-7-environment">
-<h1>Source python 2.7 environment<a class="headerlink" href="#source-python-2-7-environment" title="Permalink to this headline">¶</a></h1>
-<p>export SOURCE_P27ENV_CMD=”source ~/p27env/bin/activate”</p>
-<p>########################################################
-```</p>
 <ol>
 <li><p>Make the file executable with:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod a+x local_dirs.sh
@@ -343,8 +325,9 @@ export SOURCE_INTERA_CMD=”cd ${ROS_DIR}; ./intera.sh”</p>
 </div>
 </li>
 </ol>
+</div>
 <div class="section" id="verify-perls2-nuc-setup-using-bash-scripts">
-<h2>Verify perls2 NUC setup using bash scripts:<a class="headerlink" href="#verify-perls2-nuc-setup-using-bash-scripts" title="Permalink to this headline">¶</a></h2>
+<h3>Verify perls2 NUC setup using bash scripts:<a class="headerlink" href="#verify-perls2-nuc-setup-using-bash-scripts" title="Permalink to this headline">¶</a></h3>
 <ol>
 <li><p>Turn on the Sawyer by pressing the power button on the computer attached to the Sawyer. After some time the eyes should appear and then disappear and the robot arm should move slightly.</p></li>
 <li><p>Move to the perls2 directory.</p>
@@ -361,6 +344,7 @@ export SOURCE_INTERA_CMD=”cd ${ROS_DIR}; ./intera.sh”</p>
 <code class="docutils literal notranslate"><span class="pre">Waiting</span> <span class="pre">for</span> <span class="pre">perls2.RobotInterface</span> <span class="pre">to</span> <span class="pre">connect</span></code></p></li>
 <li><p>Exit the Ctrl Interface with <code class="docutils literal notranslate"><span class="pre">[Ctrl</span> <span class="pre">+</span> <span class="pre">B</span> <span class="pre">:]</span> <span class="pre">kill-session</span></code></p></li>
 </ol>
+</div>
 </div>
 </div>
 
