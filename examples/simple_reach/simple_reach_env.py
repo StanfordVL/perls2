@@ -163,7 +163,7 @@ class SimpleReachEnv(Env):
             Returns: bool if episode has terminated or not.
         """
         # radius for convergence
-        convergence_radius = 0.1
+        convergence_radius = 0.05
 
         abs_dist = self._get_dist_to_goal()
         if (abs_dist < convergence_radius):

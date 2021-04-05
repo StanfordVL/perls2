@@ -37,7 +37,10 @@ class Env(gym.Env):
     def __init__(self,
                  config,
                  use_visualizer=False,
-                 name=None):
+                 name=None,
+                 world=None,
+                 robot=None,
+                 controller=None):
         """Initialize.
 
         Args:
@@ -57,6 +60,7 @@ class Env(gym.Env):
             self.config = config
         else:
             self.config = YamlConfig(config)
+
         self.world = God.make_world(self.config,
                                     use_visualizer,
                                     name)

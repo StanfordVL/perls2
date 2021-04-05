@@ -30,8 +30,6 @@ class BulletSawyerInterface(BulletRobotInterface):
             Pose of robot base in world frame
             x y z qx qy qz qw
         """
-        self.data_dir = config['data_dir']
-
         super().__init__(physics_id, arm_id, config, controlType)
         self._ee_index = self.get_link_id_from_name('right_hand')
 

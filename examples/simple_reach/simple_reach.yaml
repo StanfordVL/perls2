@@ -1,8 +1,8 @@
 # Cfg for Example: switching between sim and real reach task
 world:
   type: 'Bullet'
-  robot: 'sawyer'
-  controlType: "EEImpedance"
+  robot: 'panda'
+  controlType: "EEPosture"
 data_dir: 'data'
 # Simulation parameters
 sim_params:
@@ -19,9 +19,8 @@ control_freq: 500 # Hz
 !include ../../cfg/table_and_bin.yaml
 
 # Default controllers for each robot.
-!include reach_panda_controller.yaml
 !include ../../cfg/default_sawyer_controller.yaml
-
+!include ../../cfg/default_panda_controller.yaml
 scene_objects:
   ['table', 'bin']
 
