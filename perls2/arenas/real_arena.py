@@ -1,7 +1,8 @@
 """The parent class for Arenas encapsulating robots, sensors and objects.
 """
 from perls2.arenas.arena import Arena
-
+import perls2
+import os
 
 class RealArena(Arena):
     """The class definition for real world arenas.
@@ -31,7 +32,12 @@ class RealArena(Arena):
             If it is debugging.
         """
         self.config = config
-        self.data_dir = self.config['data_dir']
+        perls2_path = os.path.dirname(perls2.__path__[0])
+        self.perls2_data_dir = os.path.join(perls2_path, 'data')
+        if 'data_dir' not in self.config:
+            data_dir = self.perls2_data_dir
+        else:
+            data_dir = self.config['data_dir']
 
         # Get the robot config dict by using the name of the robot
         # as a key. The robot config yaml should be included at

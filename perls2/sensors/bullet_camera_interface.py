@@ -190,7 +190,7 @@ class BulletCameraInterface(SimCameraInterface):
         rgba = rgba.reshape((self._image_height, self._image_width, 4))
         # invert
         image = rgba[:, :, :3]
-        image = np.invert(image)
+        #image = np.invert(image)
         depth = np.array(depth).astype('float32')
         depth = depth.reshape((self._image_height, self._image_width))
 

@@ -43,12 +43,13 @@ class RealWorld(World):
             config=self.config,
             controlType=self.config['world']['controlType'])
 
+        
+        self.has_camera = False
         if 'sensor' in self.config:
-            if 'camera' in self.config['sensor']:
+            if 'real_camera' in self.config['sensor']:
                 self.has_camera = True
-                self.camera_interface = KinectCameraInterface(self.config)
-        else:
-            self.has_camera = False
+                # self.camera_interface = KinectCameraInterface(self.config)
+
 
         self.is_sim = False
 

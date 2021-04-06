@@ -115,6 +115,7 @@ class SwitchSimRealEnv(Env):
         Takes a step forward similar to openAI.gym's implementation.
         """
         action = np.clip(action, self.action_space.low, self.action_space.high)
+        print(action)
         self._exec_action(action)
         self.world.step(start)
         self.num_steps = self.num_steps + 1
