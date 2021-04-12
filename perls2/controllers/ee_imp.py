@@ -135,7 +135,7 @@ class EEImpController(Controller):
         # else:
         #     self.kp = np.ones(6) * kp
         self.kp = np.array(kp)
-        
+
         # Set kv using damping if kv not explicitly set.
         if kv is not None:
             self.kv = kv
@@ -224,7 +224,6 @@ class EEImpController(Controller):
                 raise ValueError("incorrect delta dimension")
 
             scaled_delta = self.scale_action(delta)
-            print(scaled_delta)
             self.goal_ori = C.set_goal_orientation(
                 scaled_delta[3:],
                 self.model.ee_ori_mat,
