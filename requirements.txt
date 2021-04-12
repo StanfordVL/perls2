@@ -1,7 +1,7 @@
 matplotlib
 numpy==1.18.4
 pybullet==2.8.1
-PyYAML==5.1.2
+PyYAML==5.4
 gym==0.10.8
 hiredis==1.1.0
 redis==3.3.8
