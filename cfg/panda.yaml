@@ -2,8 +2,12 @@
 panda:
   arm:
     path:
+<<<<<<< HEAD
       #'robot/franka_description/robots/panda_arm_hand.urdf'
       'robot/franka_panda/panda.urdf'
+=======
+      'robot/franka_panda/panda_arm_controller.urdf'
+>>>>>>> a299e5ad4a3bf6389237a3156f6629d818aebe22
     pose:
       [0, 0, 0]
     orn:
@@ -11,6 +15,7 @@ panda:
     is_static:
       True
   base: 'None'
+<<<<<<< HEAD
   # neutral_joint_angles:
   #  [0., -0.3135, 0., -2.515, 0., 2.226, 0.87]
   neutral_joint_angles: [0.0, -0.524, 0.0, -2.617, 0.0, 2.094, 0.0]
@@ -25,15 +30,36 @@ panda:
   'panda_link6',
   ]
 
+=======
+  neutral_joint_angles:
+    # TODO Change these to actual values
+    [0,-1.18,0.00,2.18,0.00,0.57,3.3161]
+
+  limb_joint_names: [
+  'link0',
+  'link1',
+  'link2',
+  'link3',
+  'link4',
+  'link5',
+  'link6',
+  ]
+>>>>>>> a299e5ad4a3bf6389237a3156f6629d818aebe22
   # TODO: Change these to actual values. with gripper.
   # Height of the limb (installed on the base) from the ground, for computing IK.
   limb_height: 0.9
   # Link name of the end effector, for computing IK.
   end_effector_name: 'right_hand'
   # Joint name of the left finger of the gripper.
+<<<<<<< HEAD
   l_finger_name: 'panda_leftfinger'
   # Joint name of the right finger of the gripper.
   r_finger_name: 'panda_rightfinger'
+=======
+  l_finger_name: 'r_gripper_l_finger'
+  # Joint name of the right finger of the gripper.
+  r_finger_name: 'r_gripper_r_finger'
+>>>>>>> a299e5ad4a3bf6389237a3156f6629d818aebe22
   # Link name of the left finger tip of the gripper.
   l_finger_tip_name: 'r_gripper_l_finger_tip'
   # Link name of the right finger tip of the gripper.
