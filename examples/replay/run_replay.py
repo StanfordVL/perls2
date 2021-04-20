@@ -188,7 +188,7 @@ class ReplayEnv(SimpleReachEnv):
 
 
 env = ReplayEnv('examples/replay/replay.yaml', True, None)
-bullet_save_dir = 'examples/replay/bullet_states/'
+bullet_save_dir = 'examples/replay/'
 # Lists for saving demonstrations
 num_episodes = 5
 action_list = []
