@@ -57,7 +57,7 @@ class Env(gym.Env):
             self.config = config
         else:
             self.config = YamlConfig(config)
-
+        self.name = name
         self.world = God.make_world(self.config,
                                     use_visualizer,
                                     name)
@@ -127,6 +127,7 @@ class Env(gym.Env):
         self.MAX_STEPS = self.config['sim_params']['MAX_STEPS']
         self.episode_num = 0
         self.num_steps = 0
+
 
     def reset(self):
         """Reset the environment.

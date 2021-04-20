@@ -334,7 +334,7 @@ class BulletWorld(World):
                 self._draw_boundary_line(corners['011'], corners['111'])
                 self._draw_boundary_line(corners['111'], corners['101'])
                 self._draw_boundary_line(corners['101'], corners['001'])
-                
+
                 self._draw_boundary_line(corners['111'], corners['110'])
                 self._draw_boundary_line(corners['101'], corners['100'])
 
@@ -410,3 +410,11 @@ class BulletWorld(World):
         """
         pybullet.restoreState(fileName=filepath, physicsClientId=self.physics_id)
 
+
+    def save_state(self, filepath):
+        """Save simulation state to .bullet file.
+
+        Args:
+            filepath (str): filepath to store .bullet file
+        """
+        pybullet.saveBullet(filepath)
