@@ -1,6 +1,6 @@
 # Cfg file for  Demo control environment
 world:
-  type: 'Bullet' #'Bullet'
+  type: 'Bullet' #'Bullet' or 'Real'
   robot: 'sawyer'
   controlType: 'EEImpedance'
 data_dir: 'data'

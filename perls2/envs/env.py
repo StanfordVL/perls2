@@ -37,10 +37,7 @@ class Env(gym.Env):
     def __init__(self,
                  config,
                  use_visualizer=False,
-                 name=None,
-                 world=None,
-                 robot=None,
-                 controller=None):
+                 name=None):
         """Initialize.
 
         Args:
