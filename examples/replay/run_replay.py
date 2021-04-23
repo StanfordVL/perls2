@@ -1,14 +1,14 @@
 """BulletSawyerExample
 
-Example showing how to save and restore states and execute recorded actions. 
-This is useful for behavior cloning, and specific to pyBullet. 
+Example showing how to save and restore states and execute recorded actions.
+This is useful for behavior cloning, and specific to pyBullet.
 
 This example builds off of the SimpleReachExample. To verify the replay, we compare
-the ee pose, robot joint positions and object pose at each step. 
+the ee pose, robot joint positions and object pose at each step.
 
-In this example, you can play around with the different ways of reseting a simulation, 
+In this example, you can play around with the different ways of reseting a simulation,
 and it possible effects. The **Recommended** way is to use world.reboot() and env.initialize
-to redo every part of simulation set up. 
+to redo every part of simulation set up.
 
 
 """
@@ -127,10 +127,10 @@ class ReplayEnv(SimpleReachEnv):
                 self.object_interface.place(
                     self.config['object']['object_dict']['object_0']['default_position'])
 
-            self.sensor_interface.set_view_matrix(self.arena.view_matrix)
-            self.sensor_interface.set_projection_matrix(
+            self.camera_interface.set_view_matrix(self.arena.view_matrix)
+            self.camera_interface.set_projection_matrix(
                 self.arena.projection_matrix)
-            self.world._wait_until_stable()
+            self.world.wait_until_stable()
         else:
             self.goal_position = self.arena.goal_position
 
@@ -157,24 +157,24 @@ class ReplayEnv(SimpleReachEnv):
         pb.saveBullet(bulletFileName=fileName, physicsClientId=self.world.physics_id)
         return fileName
 
-    def restore_state(self, state_id): 
-        """ Restore state from in-memory state-id. 
+    def restore_state(self, state_id):
+        """ Restore state from in-memory state-id.
 
-         Args: state_id (int): in-memory identifier of state in pybullet. 
+         Args: state_id (int): in-memory identifier of state in pybullet.
         """
         pb.restoreState(stateId=state_id, physicsClientId=self.world.physics_id)
 
     def restore_state_bullet(self, bullet_state):
-        """ Restore bullet state from filepath. 
-            
-            Args: relative filepath where bullet state is stored. 
+        """ Restore bullet state from filepath.
+
+            Args: relative filepath where bullet state is stored.
 
         """
         pb.restoreState(fileName=bullet_state, physicsClientId=self.world.physics_id)
 
-    def get_observation(self): 
+    def get_observation(self):
         """
-        Return observation for the current state. 
+        Return observation for the current state.
         """
 
         if(self.world.is_sim):
@@ -183,12 +183,12 @@ class ReplayEnv(SimpleReachEnv):
         q = np.array(self.robot_interface.q).flatten()
         obj_pose = np.array(self.object_interface.pose).flatten()
 
-        delta = np.subtract(self.goal_position,ee_pose[0:3]).flatten()        
+        delta = np.subtract(self.goal_position,ee_pose[0:3]).flatten()
         return np.hstack((delta, ee_pose, q, obj_pose))
 
 
 env = ReplayEnv('examples/replay/replay.yaml', True, None)
-bullet_save_dir = 'examples/replay/bullet_states/'
+bullet_save_dir = 'examples/replay/'
 # Lists for saving demonstrations
 num_episodes = 5
 action_list = []
@@ -213,14 +213,14 @@ for ep in range(num_episodes):
     demo_obs = []
     demo_actions = []
     # Reset the environment
-    observation = env.reset()    
+    observation = env.reset()
 
     done = False
     while not done:
 
         # save the initial state.
         demo_obs.append(observation)
-        
+
         bullet_file = os.path.join(bullet_save_dir, "ep{}_state_{}.bullet".format(ep, step))
         demo_states.append(env.save_state_bullet(bullet_file))
 
@@ -229,21 +229,21 @@ for ep in range(num_episodes):
         action = get_action(observation[0:3])
         start = time.time()
         observation, reward, termination, info = env.step(action)
-        
+
         demo_actions.append(action)
 
         # enforce policy frequency by waiting
         while ((time.time() - start) < 0.05):
             pass
-        
+
         step += 1
         done = termination
 
-    
-    ep_data = {'states': demo_states, 
+
+    ep_data = {'states': demo_states,
                  'obs': demo_obs,
                  'actions': demo_actions}
-    
+
     demos_data.append(ep_data)
     print("Collected demo {}".format(ep))
 
@@ -256,7 +256,7 @@ for ep_num, ep_data in enumerate(demos_data):
     replay_obs = []
 
     print("Replaying demo {}".format(ep_num))
-    # Test out different reset options here: 
+    # Test out different reset options here:
     replay_env.reset()
     replay_env.restore_state_bullet(ep_data['states'][0])
     replay_obs.append(replay_env.get_observation())
@@ -268,9 +268,9 @@ for ep_num, ep_data in enumerate(demos_data):
         if not np.all(np.equal(ep_data['obs'][j], replay_obs[j])):
             print("Step {} not equal".format(j))
             print("Delta : {}".format(np.subtract(ep_data['obs'][j], replay_obs[j])))
-        else: 
+        else:
             print("Step {} exactly equal.".format(j))
-        
+
         start = time.time()
         observation, reward, termination, info = replay_env.step(action)
         replay_obs.append(observation)
