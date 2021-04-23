@@ -197,12 +197,33 @@ class BulletRobotInterface(RobotInterface):
         jointPoses = list(jointPoses)
         return jointPoses
 
-    def set_joints_to_neutral_positions(self):
+    @property
+    def limb_neutral_positions(self):
+        """Neutral joint positions for reset.
+
+        Returns:
+            list 7f joint positions in radians.
+        """
+        return self._limb_neutral_positions
+
+    @limb_neutral_positions.setter
+    def limb_neutral_positions(self, q):
+        assert(len(q) == 7)
+        # TODO: Check for exceeding joint limits.
+        self._limb_neutral_positions = q
+
+
+    def set_joints_to_neutral_positions(self, q=None):
         """Set joints on robot to neutral positions as specified by the config file.
 
         Note: Breaks physics by forcibly setting the joint state. To be used only at
               reset of episode.
+
+        Args:
+            q (list): (optional) 7f joint positions to set neutral pose.
         """
+        if q is not None:
+            self.limb_neutral_positions = q
         if self._arm_id is None:
             raise ValueError("no arm id")
         else:
