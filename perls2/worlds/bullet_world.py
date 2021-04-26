@@ -101,6 +101,7 @@ class BulletWorld(World):
                 self.has_camera = True
 
         self.has_object = False
+        self.object_interfaces = {}
         # check if config has objects.
         if 'object' in self.config:
             self.has_object = True
@@ -176,8 +177,6 @@ class BulletWorld(World):
 
         Uses arena to create object interfaces for each object.
         """
-        self.object_interfaces = {}
-
         # Create object interfaces for each of the objects found in the arena
         # dictionary
         for obj_idx, obj_name in enumerate(self.arena.object_dict):
@@ -208,7 +207,7 @@ class BulletWorld(World):
                                               name=name,
                                               pose=pose,
                                               scale=scale,
-                                              is_static=False)
+                                              is_static=is_static)
         self.arena.object_dict[name] = obj_id
 
         # Create the BulletObject Interface
