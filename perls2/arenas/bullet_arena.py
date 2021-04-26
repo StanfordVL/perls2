@@ -44,7 +44,8 @@ class BulletArena(Arena):
         self.data_dir = os.path.abspath(data_dir)
         self.physics_id = physics_id
         self._bodies_pbid_dict = {}
-        self._objects_dict = {}
+        self.object_dict = {}
+        self.object_interfaces = []
         self.robot_type = self.config['world']['robot']
         self.has_camera = has_camera
         if self.has_camera:
@@ -127,7 +128,6 @@ class BulletArena(Arena):
     def load_objects_from_config(self):
         """ Load objects from config file
         """
-        self.object_dict = {}
         if (isinstance(self.config['object'], dict)):
             # Load the objects from the config file and
             # save their names and pybullet body id
