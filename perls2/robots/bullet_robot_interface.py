@@ -222,19 +222,19 @@ class BulletRobotInterface(RobotInterface):
         Args:
             q (list): (optional) 7f joint positions to set neutral pose.
         """
-        if q is not None:
-            self.limb_neutral_positions = q
+        if q is None:
+            q = self.limb_neutral_positions
         if self._arm_id is None:
             raise ValueError("no arm id")
         else:
-            self._num_joints = len(self.limb_neutral_positions)
+            self._num_joints = len(q)
 
             for i in range(self._num_joints):
                 # Force reset (breaks physics)
                 pybullet.resetJointState(
                     bodyUniqueId=self._arm_id,
                     jointIndex=i,
-                    targetValue=self.limb_neutral_positions[i],
+                    targetValue=q[i],
                     physicsClientId=self.physics_id)
 
                 # Set position control to maintain position
@@ -242,7 +242,7 @@ class BulletRobotInterface(RobotInterface):
                     bodyIndex=self._arm_id,
                     jointIndex=i,
                     controlMode=pybullet.POSITION_CONTROL,
-                    targetPosition=self.limb_neutral_positions[i],
+                    targetPosition=q[i],
                     targetVelocity=0,
                     force=100,
                     positionGain=0.1,
