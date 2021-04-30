@@ -173,29 +173,48 @@ class BulletCameraInterface(SimCameraInterface):
         """
         self._physics_id = physics_id
 
-    def frames(self):
+    def frames(self, height=None, width=None):
         """Render the world at the current time step.
-        Args: None
+        Args:
+            height (int): (optional) height of image in pixels
+            width (int): (optional) width of rendered image in pixels
         Returns:
             dict with rgb, depth and segmask image.
         """
+        if height is None:
+            height = self._image_height
+        if width is None:
+            width = self._image_width
+
+        if width != self._image_width or height != self._image_height:
+            # Recalculate projection matrix
+            projection_matrix = pybullet.computeProjectionMatrixFOV(
+            fov=self._fov,
+            aspect=float(width) / float(height),
+            nearVal=self._near,
+            farVal=self._far,
+            )
+        else:
+            projection_matrix = self._projection_matrix
+
         _, _, rgba, depth, segmask = pybullet.getCameraImage(
-            height=self._image_height,
-            width=self._image_width,
+            height=height,
+            width=width,
             viewMatrix=self._view_matrix,
-            projectionMatrix=self._projection_matrix,
+            projectionMatrix=projection_matrix,
             physicsClientId=self._physics_id)
 
         rgba = np.array(rgba).astype('uint8')
-        rgba = rgba.reshape((self._image_height, self._image_width, 4))
+        rgba = rgba.reshape((height, width, 4))
         # invert
         image = rgba[:, :, :3]
-        image = np.invert(image)
+
+        # image = np.invert(image)
         depth = np.array(depth).astype('float32')
-        depth = depth.reshape((self._image_height, self._image_width))
+        depth = depth.reshape((height, width))
 
         segmask = np.array(segmask).astype('uint8')
-        segmask = segmask.reshape((self._image_height, self._image_width))
+        segmask = segmask.reshape((height, width))
 
         # This is a fix for the depth image rendering in
         # pybullet, by following:
@@ -211,21 +230,37 @@ class BulletCameraInterface(SimCameraInterface):
                 'segmask': segmask,
                 'rgba': rgba}
 
-    def frames_rgb(self):
+    def frames_rgb(self, height=None, width=None):
         """Render the world at the current time step.
             Args: None
             Returns:
                 dict with rgb, depth and segmask image.
         """
-        _, _, rgba, depth, segmask = pybullet.getCameraImage(
-            height=self._image_height,
-            width=self._image_width,
+        if height is None:
+            height = self._image_height
+        if width is None:
+            width = self._image_width
+
+        if width != self._image_width or height != self._image_height:
+            # Recalculate projection matrix
+            projection_matrix = pybullet.computeProjectionMatrixFOV(
+            fov=self._fov,
+            aspect=float(width) / float(height),
+            nearVal=self._near,
+            farVal=self._far,
+            )
+        else:
+            projection_matrix = self._projection_matrix
+
+        _, _, rgba, _, _  = pybullet.getCameraImage(
+            height=height,
+            width=width,
             viewMatrix=self._view_matrix,
-            projectionMatrix=self._projection_matrix,
+            projectionMatrix=projection_matrix,
             physicsClientId=self._physics_id)
 
         rgba = np.array(rgba).astype('uint8')
-        rgba = rgba.reshape((self._image_height, self._image_width, 4))
+        rgba = rgba.reshape((height, width, 4))
         # invert
         image = rgba[:, :, :3]
         #image = np.invert(image)
