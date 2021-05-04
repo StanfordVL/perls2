@@ -28,6 +28,7 @@ class RosRedisPublisher(object):
         # Override default invert flag with config setting.
         if 'invert' in self.config:
             self.invert = self.config['invert']
+            print("Invert is {}".format(self.invert))
         else: 
             self.invert = invert
         redis_kwargs = self.config['workstation_redis']
@@ -60,7 +61,7 @@ class RosRedisPublisher(object):
         rgb_timestamp_ms = np.asarray((data.header.stamp.secs * 1000) +
                                             (data.header.stamp.nsecs / 1000000))
         if self.invert:
-            rgb = cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)
+            rgb = cv2.cvtColor(rgb, cv2.COLOR_BGR2RGB)
         
         encoded_rgb = RU.convert_frame_to_encoded_bytes(rgb)
         RGB_KEY = name + R.ROS_RGB_SUFF
