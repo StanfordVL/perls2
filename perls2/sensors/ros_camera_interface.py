@@ -47,12 +47,16 @@ class RosCameraInterface(object):
         """
         return self.redisClient.get(self.RGB_TSTAMP_KEY)
     
-    def frames_rgb(self):
+    def frames_rgb(self, height=None, width=None):
         """Get rgb frames from redis database. 
         """
         image_dict = {}
-        image_dict['rgb'] = self._get_rgb_tstamp()
-        image_dict['rgb_tstamp'] = self._get_rgb_timestamp
+        if (height is not None) and (width is not None):
+            pass
+            # TODO add resizing capability.
+
+        image_dict['rgb'] = self._get_rgb_frame()
+        image_dict['rgb_tstamp'] = self._get_rgb_tstamp()
         return image_dict
 
     def _get_depth_frame(self):
