@@ -20,8 +20,8 @@ logging.basicConfig(level=logging.DEBUG)
 
 ENV_CHECK_COUNT = 100   # how often we check if workstation is connected.
 LOOP_TIME_REPORT_COUNT = 1000
-MAX_TORQUE = 1.5        # Clip torque commands before sending to driver.
-MIN_TORQUE = -1.5
+MAX_TORQUE = 2.5        # Clip torque commands before sending to driver.
+MIN_TORQUE = -2.5
 
 def keyboardInterruptHandler(signal, frame):
     print("KeyboardInterrupt: Exiting Panda Ctrl Interface".format(signal))
@@ -178,7 +178,7 @@ class PandaCtrlInterface(CtrlInterface):
 
         self.redisClient.set(P.GRIPPER_WIDTH_CMD_KEY, value)
 
-        self.redisClient.set(P.GRIPPER_MODE_KEY, "move")
+        self.redisClient.set(P.GRIPPER_MODE_KEY, "grasp")
 
     def step(self, start):
         """Update the robot state and model, set torques from controller
