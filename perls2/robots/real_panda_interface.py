@@ -43,7 +43,7 @@ class RealPandaInterface(RealRobotInterface):
         self.redisClient = PandaRedisInterface(**self.config['redis'])
         self.last_redis_update = None
         self._get_state_from_redis()
-        self.RESET_TIMEOUT = 10
+        self.RESET_TIMEOUT = 5
         self.GRIPPER_MAX_VALUE = 0.0857
         self.MAX_REDIS_STALE_TIME = 0.005 # time in s (20Hz) after which to update redis states.
         self.neutral_joint_angles = np.array(self.config['panda']['neutral_joint_angles'])
@@ -94,6 +94,7 @@ class RealPandaInterface(RealRobotInterface):
             self._angular_jacobian = self._jacobian[3:, :]
             self._mass_matrix = driver_states[P.ROBOT_MODEL_MASS_MATRIX_KEY]
             self._gravity = driver_states[P.ROBOT_MODEL_GRAVITY_KEY]
+
         else:
             pass
 
@@ -211,12 +212,13 @@ class RealPandaInterface(RealRobotInterface):
     def open_gripper(self):
         """ Open robot gripper.
         """
-        raise NotImplementedError
+        self.set_gripper_to_value(0.99)
 
     def close_gripper(self):
         """ Close robot gripper
         """
-        raise NotImplementedError
+        self.set_gripper_to_value(0.1)
+
     def set_gripper_to_value(self, value):
         """Set gripper to desired value
         """
@@ -225,3 +227,7 @@ class RealPandaInterface(RealRobotInterface):
 
         self.redisClient.set(ROBOT_SET_GRIPPER_CMD_KEY, value*self.GRIPPER_MAX_VALUE)
         self.redisClient.set(ROBOT_SET_GRIPPER_CMD_TSTAMP_KEY, time.time())
+
+    @property
+    def gripper_position(self):
+        return self.redisClient.get(P.GRIPPER_WIDTH_KEY)
