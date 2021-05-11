@@ -9,7 +9,7 @@ import threading
 
 class SafenetBoundaryEnv(SafenetEnv):
     def __init__(self,
-             config='safenet_example.yaml',
+             config='examples/safenet/safenet_example.yaml',
              use_visualizer=True,
              name="SafenetBoundaryEnv", 
              world_type=None, 
