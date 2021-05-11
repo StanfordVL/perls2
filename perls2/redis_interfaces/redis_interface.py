@@ -271,7 +271,7 @@ class PandaRedisInterface(RedisInterface):
             If queried value is a robot state or model, converts to ndarray, if
             it is a control parameter or goal, converts to dict.
         """
-        if key in P.ROBOT_STATE_KEYS:
+        if key in [P.ROBOT_STATE_KEYS, P.GRIPPER_WIDTH_KEY]:
             return self._get_key_ndarray(key)
         elif CONTROLLER_CONTROL_PARAMS_KEY in key or CONTROLLER_GOAL_KEY in key:
             return self._get_key_json(key)
