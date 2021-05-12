@@ -53,11 +53,11 @@ class Env(gym.Env):
         """
 
         # Get config dictionary.
-        if isinstance(config, YamlConfig):
+        if isinstance(config, YamlConfig) or isinstance(config, dict):
             self.config = config
         else:
             self.config = YamlConfig(config)
-        self.name = name
+        self._name = name
         self.world = God.make_world(self.config,
                                     use_visualizer,
                                     name)
@@ -128,6 +128,13 @@ class Env(gym.Env):
         self.episode_num = 0
         self.num_steps = 0
 
+    @property
+    def name(self):
+        return self._name
+    
+    @name.setter
+    def name(self, new_name):
+        self._name = new_name
 
     def reset(self):
         """Reset the environment.

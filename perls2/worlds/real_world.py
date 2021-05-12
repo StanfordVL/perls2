@@ -55,6 +55,7 @@ class RealWorld(World):
 
         self.dim_num = 0
         self.has_object = False
+        self.last_step_call = None
 
     def reset(self):
         """Reset the environment.
@@ -77,10 +78,11 @@ class RealWorld(World):
         Takes a step forward, since this happens naturally in reality, we don't
         do anything.
         """
-        if start is None:
-            start = time.time()
+        # if start is None:
+        #     start = time.time()
         self.robot_interface.step()
 
-        while (time.time() - start) < (1./float(self.config['policy_freq'])):
-            pass
+        if start is not None:
+            while (time.time() - start) < (1./float(self.config['policy_freq'])):
+                pass
         self.action_set = False
