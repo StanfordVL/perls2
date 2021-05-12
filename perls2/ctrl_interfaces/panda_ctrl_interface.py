@@ -169,7 +169,7 @@ class PandaCtrlInterface(CtrlInterface):
         """
         raise NotImplementedError
 
-    def set_gripper_to_value(self, value):
+    def set_gripper_to_value(self, value, cmd_type):
         """
         Set the gripper grasping opening state
         :param openning: a float between 0 (closed) and 1 (open).
@@ -178,7 +178,7 @@ class PandaCtrlInterface(CtrlInterface):
 
         self.redisClient.set(P.GRIPPER_WIDTH_CMD_KEY, value)
 
-        self.redisClient.set(P.GRIPPER_MODE_KEY, "grasp")
+        self.redisClient.set(P.GRIPPER_MODE_KEY, cmd_type)
 
     def step(self, start):
         """Update the robot state and model, set torques from controller
@@ -210,14 +210,14 @@ class PandaCtrlInterface(CtrlInterface):
         else:
             return False
 
-    def process_gripper_cmd(self, cmd_data):
+    def process_gripper_cmd(self, cmd_data, cmd_type):
         """Process the new gripper command by setting gripper state.
 
         Only send gripper command if current gripper open fraction is not
         equal to desired gripper open fraction.
         """
         if self.prev_gripper_state != cmd_data:
-            self.set_gripper_to_value(cmd_data)
+            self.set_gripper_to_value(cmd_data, cmd_type)
             self.prev_gripper_state = cmd_data
         else:
             pass
@@ -283,6 +283,7 @@ class PandaCtrlInterface(CtrlInterface):
         cmd_data = self.redisClient.mget_dict([R.ROBOT_CMD_TSTAMP_KEY,
                                                R.ROBOT_CMD_TYPE_KEY,
                                                R.ROBOT_SET_GRIPPER_CMD_TSTAMP_KEY,
+                                               R.ROBOT_GRIPPER_CMD_TYPE_KEY,
                                                R.ROBOT_SET_GRIPPER_CMD_KEY])
 
         return cmd_data
@@ -298,7 +299,7 @@ class PandaCtrlInterface(CtrlInterface):
         # Process new gripper command.
         if self.last_gripper_cmd_tstamp is None or (self.last_gripper_cmd_tstamp != cmd_data[R.ROBOT_SET_GRIPPER_CMD_TSTAMP_KEY]):
             self.last_gripper_cmd_tstamp = cmd_data[R.ROBOT_SET_GRIPPER_CMD_TSTAMP_KEY]
-            self.process_gripper_cmd(cmd_data[R.ROBOT_SET_GRIPPER_CMD_KEY])
+            self.process_gripper_cmd(cmd_data[R.ROBOT_SET_GRIPPER_CMD_KEY], cmd_data[R.ROBOT_GRIPPER_CMD_TYPE_KEY])
 
     def check_env_connection(self, loop_count):
         """ Check if workstation is connected every few loops. (Control loops should run on order of ms)
