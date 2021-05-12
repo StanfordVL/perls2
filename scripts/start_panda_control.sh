@@ -7,10 +7,11 @@ where:
     ./start_panda_control.sh
     ./start_panda_control.sh ~/perls2_local_control_pc
     "
-if [ "$#" -eq 2 ] 
+if [ "$#" -eq 1 ] 
 then
     perls2_local_dir=$1
 else
+    echo "$#"
     echo "No local directory specified ... using ${PWD}/perls2_local_control_pc"
     p2_dir=$PWD
     perls2_local_dir="${p2_dir}/local/perls2_local_control_pc"  
