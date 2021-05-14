@@ -2,6 +2,8 @@
 world:
   type: 'Bullet' #'Bullet'
   robot: 'sawyer' #'panda'
+  controlType: 'EEImpedance'
+  
 data_dir: 'data'
 # Simulation parameters
 sim_params:
@@ -20,6 +22,7 @@ control_freq: 500 # Hz
 !include ../../cfg/sawyer.yaml
 !include ../../cfg/panda.yaml
 !include ../../cfg/table_and_bin.yaml
+!include ../../cfg/default_sawyer_controller.yaml
 scene_objects:
   ['table']
 
