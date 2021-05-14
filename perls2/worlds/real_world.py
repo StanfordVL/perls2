@@ -72,14 +72,12 @@ class RealWorld(World):
 
         Args:
             start (float): time.time() timestamp taken from before policy computes action.
-                This is to enforce policy frequency.
+                This is to enforce policy frequency. If start is None, policy frequency is 
+                not enforced.
+
         Returns: None
 
-        Takes a step forward, since this happens naturally in reality, we don't
-        do anything.
         """
-        # if start is None:
-        #     start = time.time()
         self.robot_interface.step()
 
         if start is not None:
