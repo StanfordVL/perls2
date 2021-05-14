@@ -23,6 +23,8 @@ control_freq: 500 # Hz
 !include ../../cfg/panda.yaml
 !include ../../cfg/table_and_bin.yaml
 !include ../../cfg/default_sawyer_controller.yaml
+!include ../../cfg/default_panda_controller.yaml
+
 scene_objects:
   ['table']
 
