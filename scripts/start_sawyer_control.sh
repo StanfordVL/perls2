@@ -13,7 +13,7 @@ where:
     ./start_sawyer_control.sh
     ./start_sawyer_control.sh ~/perls2_local_control_pc
     "
-if [ "$#" -eq 2 ]
+if [ "$#" -eq 1 ]
 then
     perls2_local_dir=$1
 else
