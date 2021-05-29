@@ -224,6 +224,7 @@ class EEImpController(Controller):
                 raise ValueError("incorrect delta dimension")
 
             scaled_delta = self.scale_action(delta)
+            # print("scaled_delta {}".format(delta))
             self.goal_ori = C.set_goal_orientation(
                 scaled_delta[3:],
                 self.model.ee_ori_mat,
@@ -301,6 +302,7 @@ class EEImpController(Controller):
 
         # Calculate desired force, torque at ee using control law and error.
         position_error = desired_pos - self.model.ee_pos
+        # print("pos_error {}".format(position_error))
         vel_pos_error = desired_vel_pos - self.model.ee_pos_vel
         desired_force = (
             np.multiply(np.array(position_error),

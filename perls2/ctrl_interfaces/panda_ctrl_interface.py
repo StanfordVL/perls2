@@ -20,8 +20,8 @@ logging.basicConfig(level=logging.DEBUG)
 
 ENV_CHECK_COUNT = 100   # how often we check if workstation is connected.
 LOOP_TIME_REPORT_COUNT = 1000
-MAX_TORQUE = 2.5        # Clip torque commands before sending to driver.
-MIN_TORQUE = -2.5
+MAX_TORQUE = [10, 10, 10, 10, 5, 5, 5]        # Clip torque commands before sending to driver.
+MIN_TORQUE = [-10, -10, -10, -10, -5, -5, -5]
 
 def keyboardInterruptHandler(signal, frame):
     print("KeyboardInterrupt: Exiting Panda Ctrl Interface".format(signal))
@@ -136,7 +136,7 @@ class PandaCtrlInterface(CtrlInterface):
 
         # Wait for reset to complete.
         while (self.redisClient.get(P.CONTROL_MODE_KEY).decode() != P.IDLE_CTRL_MODE):
-            time.sleep(1)
+            time.sleep(0.1)
         self.redisClient.set(R.ROBOT_RESET_COMPL_KEY, 'True')
         self.action_set = False
 
@@ -169,15 +169,17 @@ class PandaCtrlInterface(CtrlInterface):
         """
         raise NotImplementedError
 
-    def set_gripper_to_value(self, value, cmd_type):
+    def set_gripper_to_value(self, value, cmd_type, force=10.0):
         """
         Set the gripper grasping opening state
-        :param openning: a float between 0 (closed) and 1 (open).
+        :param value: a gripper width (m) to set grasp
+        :param force: (optional) float force (N/m) with which to close gripper.
         :return: None
         """
 
         self.redisClient.set(P.GRIPPER_WIDTH_CMD_KEY, value)
-
+        self.redisClient.set(P.GRIPPER_GRASP_TOL_KEY, "1.0 1.0")
+        self.redisClient.set(P.GRIPPER_FORCE_CMD_KEY, force)
         self.redisClient.set(P.GRIPPER_MODE_KEY, cmd_type)
 
     def step(self, start):

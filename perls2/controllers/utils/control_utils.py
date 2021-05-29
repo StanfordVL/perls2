@@ -105,6 +105,7 @@ def set_goal_position(delta,
     n = len(current_position)
     if set_pos is not None:
         goal_position = set_pos
+        # print("goal_position {}".format(goal_position))
     else:
         goal_position = current_position + delta
 
