@@ -63,7 +63,7 @@ class RealPandaInterface(RealRobotInterface):
 
         self.redisClient.mset(reset_cmd)
         # Wait for reset to be read by contrl interface.
-        time.sleep(self.RESET_TIMEOUT)
+        # time.sleep(self.RESET_TIMEOUT)
         start = time.time()
 
         while (self.redisClient.get(ROBOT_RESET_COMPL_KEY) != b'True' and (time.time() - start < self.RESET_TIMEOUT)):

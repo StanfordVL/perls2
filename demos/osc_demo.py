@@ -157,7 +157,7 @@ class OpSpaceDemo(Demo):
                 as quaternion.
         """
         if self.test_fn =="move_ee_delta":
-            action = get_delta(goal_pose, current_pose)
+            action = self.get_delta(goal_pose, current_pose)
         elif self.test_fn =="set_ee_pose":
             action = goal_pose
         else:

@@ -77,9 +77,6 @@ class Demo(object):
     def get_action_list(self):
         raise NotImplementedError
 
-    def run(self):
-        raise NotImplementedError
-
     def save_data(self):
         fpath = "demos/results/{}.npz".format(self.demo_name)
         np.savez(fpath, states=self.states,
@@ -134,7 +131,7 @@ class Demo(object):
 
     def step_through_demo(self):
         for i, goal_pose in enumerate(self.goal_poses):
-
+            print(self.env.robot_interface.ee_position)
             # Get action corresponding to test_fn and goal pose
             action= self.get_action(goal_pose, self.get_state())
             action_kwargs = self.get_action_kwargs(action)
