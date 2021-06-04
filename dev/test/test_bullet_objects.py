@@ -42,7 +42,7 @@ assert isinstance(env._physics_id, int)
 assert pb.getConnectionInfo(env._physics_id) == {'connectionMethod': 1, 'isConnected': 1}
 
 # Check object loading
-assert env.has_objects
+assert env.world.has_object
 assert isinstance(env.object_interfaces, dict)
 assert '013_apple' in env.object_interfaces
 
