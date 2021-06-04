@@ -20,8 +20,8 @@ logging.basicConfig(level=logging.DEBUG)
 
 ENV_CHECK_COUNT = 100   # how often we check if workstation is connected.
 LOOP_TIME_REPORT_COUNT = 1000
-MAX_TORQUE = 2.5        # Clip torque commands before sending to driver.
-MIN_TORQUE = -2.5
+MAX_TORQUE = [10, 10, 10, 10, 5, 5, 5]        # Clip torque commands before sending to driver.
+MIN_TORQUE = [-10, -10, -10, -10, -5, -5, -5]
 
 def keyboardInterruptHandler(signal, frame):
     print("KeyboardInterrupt: Exiting Panda Ctrl Interface".format(signal))
@@ -136,7 +136,7 @@ class PandaCtrlInterface(CtrlInterface):
 
         # Wait for reset to complete.
         while (self.redisClient.get(P.CONTROL_MODE_KEY).decode() != P.IDLE_CTRL_MODE):
-            time.sleep(1)
+            time.sleep(0.1)
         self.redisClient.set(R.ROBOT_RESET_COMPL_KEY, 'True')
         self.action_set = False
 
@@ -169,15 +169,16 @@ class PandaCtrlInterface(CtrlInterface):
         """
         raise NotImplementedError
 
-    def set_gripper_to_value(self, value, cmd_type):
+    def set_gripper_to_value(self, value, cmd_type, force=10.0):
         """
         Set the gripper grasping opening state
-        :param openning: a float between 0 (closed) and 1 (open).
+        :param value: a gripper width (m) to set grasp
+        :param force: (optional) float force (N/m) with which to close gripper.
         :return: None
         """
-
         self.redisClient.set(P.GRIPPER_WIDTH_CMD_KEY, value)
-
+        self.redisClient.set(P.GRIPPER_GRASP_TOL_KEY, "1.0 1.0")
+        self.redisClient.set(P.GRIPPER_FORCE_CMD_KEY, force)
         self.redisClient.set(P.GRIPPER_MODE_KEY, cmd_type)
 
     def step(self, start):
@@ -202,6 +203,8 @@ class PandaCtrlInterface(CtrlInterface):
     def des_gripper_state(self):
         return float(self.redisClient.get(R.ROBOT_SET_GRIPPER_CMD_KEY))
 
+
+  
     def check_for_new_gripper_cmd(self):
         gripper_cmd_tstamp = self.get_gripper_cmd_tstamp()
         if self.last_gripper_cmd_tstamp is None or (self.last_gripper_cmd_tstamp != gripper_cmd_tstamp):
@@ -216,11 +219,12 @@ class PandaCtrlInterface(CtrlInterface):
         Only send gripper command if current gripper open fraction is not
         equal to desired gripper open fraction.
         """
-        if self.prev_gripper_state != cmd_data:
-            self.set_gripper_to_value(cmd_data, cmd_type)
-            self.prev_gripper_state = cmd_data
-        else:
-            pass
+        if cmd_type is not None:
+            if cmd_type.decode() == "stop":
+                self.stop_gripper()
+        self.set_gripper_to_value(cmd_data, cmd_type)
+        self.prev_gripper_state = cmd_data
+
 
     def wait_for_env_connect(self):
         """Blocking code that waits for perls2.RobotInterface to connect to redis.
@@ -389,6 +393,10 @@ class PandaCtrlInterface(CtrlInterface):
         except KeyboardInterrupt:
             pass
 
+    def stop_gripper(self):
+        """Send command to terminate current grasp (libfranka)
+        """
+        self.redisClient.set(P.GRIPPER_MODE_KEY, "stop")
 
 
 if __name__ == '__main__':

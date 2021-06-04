@@ -18,6 +18,7 @@ GRIPPER_MODE_KEY = DRIVER_PREFIX + "gripper::control::mode"
 GRIPPER_WIDTH_CMD_KEY = DRIVER_PREFIX + "gripper::control::width"
 GRIPPER_SPEED_CMD_KEY = DRIVER_PREFIX + "gripper::control::speed"
 GRIPPER_FORCE_CMD_KEY = DRIVER_PREFIX + "gripper::control::force"
+GRIPPER_GRASP_TOL_KEY = DRIVER_PREFIX + "gripper::control::grasp_tol"
 
 # Torque cmd key: 
 TORQUE_CMD_KEY = DRIVER_PREFIX + "control::tau"
