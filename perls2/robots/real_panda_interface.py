@@ -63,7 +63,7 @@ class RealPandaInterface(RealRobotInterface):
 
         self.redisClient.mset(reset_cmd)
         # Wait for reset to be read by contrl interface.
-        # time.sleep(self.RESET_TIMEOUT)
+        time.sleep(3)
         start = time.time()
 
         while (self.redisClient.get(ROBOT_RESET_COMPL_KEY) != b'True' and (time.time() - start < self.RESET_TIMEOUT)):
@@ -214,21 +214,43 @@ class RealPandaInterface(RealRobotInterface):
         """
         self.set_gripper_to_value(0.99, mode='move')
 
+
     def close_gripper(self):
         """ Close robot gripper
         """
         self.set_gripper_to_value(0.1)
-
+        
     def set_gripper_to_value(self, value, mode='grasp'):
         """Set gripper to desired value
         """
         if (value > 1.0 or value < 0):
             raise ValueError("Invalid gripper value must be fraction between 0 and 1")
 
-        self.redisClient.set(ROBOT_SET_GRIPPER_CMD_KEY, value*self.GRIPPER_MAX_VALUE)
+        self.redisClient.set(ROBOT_SET_GRIPPER_CMD_KEY, value*self.GRIPPER_MAX_VALUE*0.95)
         self.redisClient.set(ROBOT_GRIPPER_CMD_TYPE_KEY, mode)
         self.redisClient.set(ROBOT_SET_GRIPPER_CMD_TSTAMP_KEY, time.time())
 
     @property
     def gripper_position(self):
         return self.redisClient.get(P.GRIPPER_WIDTH_KEY)
+
+    @property
+    def gripper_status(self):
+        return self.redisClient.get(P.GRIPPER_STATUS_KEY).decode()
+    
+    def stop_gripper(self):
+        """Stop current grasp
+        """
+        self.redisClient.set(ROBOT_SET_GRIPPER_CMD_TSTAMP_KEY, time.time())
+        self.redisClient.set(ROBOT_GRIPPER_CMD_TYPE_KEY, "stop")
+        # start = time.time()
+        # while (self.gripper_status != 'not_grasped') and (time.time() - start < 3):
+        #     time.sleep(0.1)
+        # if self.gripper_status != 'not_grasped':
+        #     raise ValueError("Gripper not stopped.")
+
+        # self.open_gripper()
+        # start = time.time()
+        # while (self.redisClient.get("franka_panda::gripper::control::mode").decode() != 'idle') and (time.time() - start < 15):
+        #     time.sleep(0.1)
+        # print(self.redisClient.get("franka_panda::gripper::control::mode").decode())

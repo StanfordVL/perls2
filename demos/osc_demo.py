@@ -19,7 +19,7 @@ import perls2.controllers.utils.transform_utils as T
 
 AXIS_DIM_NUM = {'x': 0, 'y': 1, 'z': 2}
 
-DEFAULT_ROTATION_DELTA_VAL = np.pi / 600.0
+DEFAULT_ROTATION_DELTA_VAL = np.pi / 100.0
 
 
 def compute_error(goal_state, new_state):
