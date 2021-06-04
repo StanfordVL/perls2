@@ -176,7 +176,6 @@ class PandaCtrlInterface(CtrlInterface):
         :param force: (optional) float force (N/m) with which to close gripper.
         :return: None
         """
-
         self.redisClient.set(P.GRIPPER_WIDTH_CMD_KEY, value)
         self.redisClient.set(P.GRIPPER_GRASP_TOL_KEY, "1.0 1.0")
         self.redisClient.set(P.GRIPPER_FORCE_CMD_KEY, force)
@@ -204,6 +203,8 @@ class PandaCtrlInterface(CtrlInterface):
     def des_gripper_state(self):
         return float(self.redisClient.get(R.ROBOT_SET_GRIPPER_CMD_KEY))
 
+
+  
     def check_for_new_gripper_cmd(self):
         gripper_cmd_tstamp = self.get_gripper_cmd_tstamp()
         if self.last_gripper_cmd_tstamp is None or (self.last_gripper_cmd_tstamp != gripper_cmd_tstamp):
@@ -218,11 +219,12 @@ class PandaCtrlInterface(CtrlInterface):
         Only send gripper command if current gripper open fraction is not
         equal to desired gripper open fraction.
         """
-        if self.prev_gripper_state != cmd_data:
-            self.set_gripper_to_value(cmd_data, cmd_type)
-            self.prev_gripper_state = cmd_data
-        else:
-            pass
+        if cmd_type is not None:
+            if cmd_type.decode() == "stop":
+                self.stop_gripper()
+        self.set_gripper_to_value(cmd_data, cmd_type)
+        self.prev_gripper_state = cmd_data
+
 
     def wait_for_env_connect(self):
         """Blocking code that waits for perls2.RobotInterface to connect to redis.
@@ -391,6 +393,10 @@ class PandaCtrlInterface(CtrlInterface):
         except KeyboardInterrupt:
             pass
 
+    def stop_gripper(self):
+        """Send command to terminate current grasp (libfranka)
+        """
+        self.redisClient.set(P.GRIPPER_MODE_KEY, "stop")
 
 
 if __name__ == '__main__':
