@@ -2,7 +2,7 @@
 """
 # Controller types
 JOINT_IMPEDANCE = "JointImpedance"
-JOINT_VELOCITY = "JointVelocty"
+JOINT_VELOCITY = "JointVelocity"
 JOINT_TORQUE = "JointTorque"
 EE_IMPEDANCE = "EEImpedance"
 EE_POSTURE = "EEPosture"
