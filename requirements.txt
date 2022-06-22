@@ -1,5 +1,5 @@
 matplotlib
-numpy==1.18.4
+numpy==1.22.0
 pybullet==2.8.1
 PyYAML==5.4
 gym==0.10.8
