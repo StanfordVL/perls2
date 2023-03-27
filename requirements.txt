@@ -4,7 +4,7 @@ pybullet==2.8.1
 PyYAML==5.4
 gym==0.10.8
 hiredis==1.1.0
-redis==3.3.8
+redis==4.5.3
 opencv-python==4.2.0.32
 # For torque control in python2.7
 llvmlite==0.32.1
